@@ -1,0 +1,26 @@
+---
+permalink: maintain/recovering-from-storage-volume-failure-where-system-drive-is-intact.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, storage volume failure, volume failure, system drive intact 
+summary: Debes completar una serie de tareas para recuperar un nodo de almacenamiento basado en software en el que hayan fallado uno o más volúmenes de almacenamiento, pero la unidad del sistema esté intacta. Si solo han fallado los volúmenes de almacenamiento, el nodo de almacenamiento sigue estando disponible para el sistema StorageGRID. 
+---
+= Recupera de un fallo de volumen de almacenamiento StorageGRID donde la unidad del sistema está intacta
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes completar una serie de tareas para recuperar un nodo de almacenamiento basado en software en el que hayan fallado uno o más volúmenes de almacenamiento, pero la unidad del sistema esté intacta. Si solo han fallado los volúmenes de almacenamiento, el nodo de almacenamiento sigue estando disponible para el sistema StorageGRID.
+
+
+NOTE: Este procedimiento de recuperación se aplica únicamente a los nodos de almacenamiento basados en software. Si se han producido fallos en los volúmenes de almacenamiento de un nodo de almacenamiento de un dispositivo, usa en su lugar el procedimiento correspondiente al dispositivo: link:recovering-storagegrid-appliance-storage-node.html["Recuperar el nodo de almacenamiento del appliance"].
+
+Este procedimiento de recuperación incluye las siguientes tareas:
+
+* link:reviewing-warnings-about-storage-volume-recovery.html["Revisa las advertencias relativas a la recuperación del volumen de almacenamiento"]
+* link:identifying-and-unmounting-failed-storage-volumes.html["Identifica y desmonta los volúmenes de almacenamiento que presentan fallos"]
+* link:recovering-failed-storage-volumes-and-rebuilding-cassandra-database.html["Recupera los volúmenes y reconstruye la base de datos de Cassandra"]
+* link:restoring-object-data-to-storage-volume-where-system-drive-is-intact.html["Restaurar los datos de los objetos"]
+* link:checking-storage-state-after-recovering-storage-volumes.html["Comprueba el estado de almacenamiento"]
+

@@ -1,0 +1,66 @@
+---
+permalink: maintain/configuring-dns-servers.html 
+sidebar: sidebar 
+keywords: storagegrid, dns, configuring dns, configure dns, domain name system 
+summary: 'Puedes añadir, eliminar y actualizar servidores DNS, de modo que puedas utilizar nombres de host con dominio completo (FQDN) en lugar de direcciones IP.' 
+---
+= Configura servidores DNS en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes añadir, actualizar y eliminar servidores DNS, de modo que puedas utilizar nombres de host con dominio completo (FQDN) en lugar de direcciones IP.
+
+Para utilizar nombres de dominio completos (FQDN) en lugar de direcciones IP al especificar nombres de host para destinos externos, indica la dirección IP de cada servidor DNS que vayas a utilizar. Estas entradas se utilizan para AutoSupport, correos electrónicos de alerta, notificaciones SNMP, puntos finales de servicios de plataforma, Cloud Storage Pools y mucho más.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+* Tienes las direcciones IP de los servidores DNS para configurar.
+
+
+.Acerca de esta tarea
+Para garantizar un funcionamiento correcto, especifica dos o tres servidores DNS. Si especificas más de tres, es posible que solo se usen tres debido a limitaciones conocidas del sistema operativo en algunas plataformas. Si tienes restricciones de enrutamiento en tu entorno, puedes link:../maintain/modifying-dns-configuration-for-single-grid-node.html["personalizar la lista de servidores DNS"] para que los nodos individuales (normalmente todos los nodos de un sitio) usen un conjunto diferente de hasta tres servidores DNS.
+
+${post_edited_translations.segment}
+
+
+
+[[add-a-dns-server]]
+== Agrega un servidor DNS
+
+Sigue estos pasos para añadir un servidor DNS.
+
+.Pasos
+. Selecciona *Mantenimiento* > *Red* > *servidores DNS*.
+. Selecciona *Add another server* para añadir un servidor DNS.
+. Selecciona *Guardar*.
+
+
+
+
+[[modify-a-dns-server]]
+== Modificar un servidor DNS
+
+Sigue estos pasos para modificar un servidor DNS.
+
+.Pasos
+. Selecciona *Mantenimiento* > *Red* > *servidores DNS*.
+. Selecciona la dirección IP del nombre de servidor que quieras editar y realiza los cambios necesarios.
+. Selecciona *Guardar*.
+
+
+
+
+[[delete-a-dns-server]]
+== Eliminar un servidor DNS
+
+Sigue estos pasos para eliminar la dirección IP de un servidor DNS.
+
+.Pasos
+. Selecciona *Mantenimiento* > *Red* > *servidores DNS*.
+. Selecciona el icono de eliminación image:icon-x-to-remove.png["icono de eliminar"] junto a la dirección IP.
+. Selecciona *Guardar*.
+

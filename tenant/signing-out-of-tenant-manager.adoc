@@ -1,0 +1,41 @@
+---
+permalink: tenant/signing-out-of-tenant-manager.html 
+sidebar: sidebar 
+keywords: how to sign out of tenant manager 
+summary: Cuando termines de trabajar con Tenant Manager, debes cerrar la sesión para garantizar que ningún usuario no autorizado pueda acceder al sistema StorageGRID. Es posible que al cerrar tu navegador no se cierre la sesión en el sistema, dependiendo de la configuración de las cookies del navegador. 
+---
+= Sign out de StorageGRID Tenant Manager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando hayas terminado de trabajar con Tenant Manager, debes cerrar la sesión para garantizar que los usuarios no autorizados no puedan acceder al sistema StorageGRID. Cerrar el navegador podría no cerrar tu sesión en el sistema, según la configuración de las cookies del navegador.
+
+.Pasos
+. ${post_edited_translations.segment}
++
+image:tenant_user_sign_out.png["Enlace para cerrar sesión"]
+
+. ${post_edited_translations.segment}
++
+** Si no se utiliza el SSO:
++
+Has cerrado sesión en el nodo de administración. Se muestra la página de inicio de sesión de Tenant Manager.
+
++
+
+NOTE: Si has iniciado sesión en más de un nodo de administración, debes cerrar la sesión en cada uno de ellos.
+
+** Si el SSO está activado:
++
+Se ha cerrado la sesión en todos los nodos de administración a los que estabas accediendo. Se muestra la página de inicio de sesión de StorageGRID. El nombre de la cuenta de tenant a la que acabas de acceder aparece como predeterminado en el menú desplegable *Recent Accounts*, y se muestra el *Account ID* del tenant.
+
++
+
+NOTE: Si el SSO está activado y además has iniciado sesión en Grid Manager, también debes cerrar la sesión en Grid Manager para cerrar la sesión en el SSO.
+
+
+
+

@@ -1,0 +1,17 @@
+---
+section: harden
+title: Refuerzo del sistema para StorageGRID
+entries:
+- title: Conoce el refuerzo del sistema
+  pdf-filename: Refuerzo del sistema para StorageGRID
+  url: "/harden/index.html"
+- title: Directrices de refuerzo de seguridad para actualizaciones
+  url: "/harden/hardening-guidelines-for-software-upgrades.html"
+- title: Directrices para el refuerzo de la seguridad de las redes
+  url: "/harden/hardening-guidelines-for-storagegrid-networks.html"
+- title: Directrices de refuerzo para los nodos
+  url: "/harden/hardening-guidelines-for-storagegrid-nodes.html"
+- title: Directrices de refuerzo de la seguridad para TLS y SSH
+  url: "/harden/hardening-guideline-for-server-certificates.html"
+- title: Directrices de refuerzo para logs y contraseñas
+  url: "/harden/other-hardening-guidelines.html"

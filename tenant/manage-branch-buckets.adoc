@@ -1,0 +1,198 @@
+---
+permalink: tenant/manage-branch-buckets.html 
+sidebar: sidebar 
+keywords: how to create branch bucket 
+summary: Utiliza el Tenant Manager para crear y ver detalles de los buckets de sucursal. 
+---
+= Administra los buckets de la rama StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utiliza el Tenant Manager para crear y ver detalles de los buckets de sucursal.
+
+.Antes de empezar
+* Has iniciado sesión en Tenant Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene el acceso Root o link:tenant-management-permissions.html["Gestiona el permiso de todos los buckets"]. Estos permisos anulan la configuración de permisos en las políticas de grupo o de bucket.
+* El bucket base desde el que quieres crear una rama tiene link:../tenant/changing-bucket-versioning.html["${post_edited_translations.segment}"].
+* ${post_edited_translations.segment}
+
+
+.Acerca de esta tarea
+Ten en cuenta la siguiente información sobre los «buckets» de ramas:
+
+* Los permisos para configurar las propiedades de S3 Object Lock de los buckets u objetos pueden ser concedidos por link:../s3/use-access-policies.html["política de bucket o política de grupo"].
+* Si suspendes el control de versiones en el depósito base, el contenido del depósito base ya no será visible en sus depósitos derivados.
+
+
+
+CAUTION: Después de que configures y crees un branch bucket, no puedes cambiar la configuración.
+
+
+
+[[create-branch-bucket]]
+== Crear bucket de rama
+
+.Pasos
+. Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
+. Selecciona el bucket desde el que deseas crear una rama (el "bucket base").
+. En la página de detalles del bucket, selecciona *Branches* > *Create branch bucket*.
++
+El botón *Crear bucket de rama* está desactivado si el bucket base no tiene activado el control de versiones.
+
+
+
+
+
+[[enter-details]]
+== Introduce los datos
+
+.Pasos
+. Introduce los datos del «branch bucket».
++
+[cols="1a,3a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre del bucket de la rama
+ a| 
+Un nombre para el bucket de la rama que cumpla estas reglas:
+
+** Debe ser único en cada sistema StorageGRID (no solo dentro de la cuenta del inquilino).
+** Debe ser compatible con DNS.
+** Debe contener al menos 3 y no más de 63 caracteres.
+** ${post_edited_translations.segment}
+** No debe contener puntos en las solicitudes de tipo virtual hosted style. Los puntos provocarán problemas con la verificación del certificado comodín del servidor.
+
+
+Para más información, consulta el https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["${post_edited_translations.segment}"^].
+
+*Nota*: No puedes cambiar el nombre después de crear el bucket de la rama.
+
+
+
+ a| 
+Región (no se puede modificar para los buckets de sucursales)
+ a| 
+La región del bucket de la rama.
+
+La región del «bucket» de rama debe coincidir con la región del «bucket» base, por lo que este campo está desactivado para los «buckets» de rama.
+
+
+
+ a| 
+Antes de tiempo
+ a| 
+La hora límite para que las versiones de los objetos creadas en el depósito base sean accesibles desde el depósito de la rama. El depósito de la rama permite acceder a las versiones de los objetos creadas antes de la hora límite.
+
+«Before time» debe ser una fecha y una hora que ya hayan pasado. No puede ser una fecha futura.
+
+
+
+ a| 
+Tipo de bucket de rama
+ a| 
+** *Lectura/escritura*: Puedes añadir o eliminar objetos o versiones de objetos en el bucket de la rama.
+** *Solo lectura*: No puedes modificar los objetos del bucket de la rama.
+
+
+*Nota*: Solo puedes configurar el tipo de bucket de rama como «solo lectura» si el bucket de rama está vacío. Si el tipo de un bucket de rama ya existente está configurado como «lectura/escritura» y aún no has escrito en él, puedes cambiar el tipo a «solo lectura».
+
+|===
+. Selecciona *Continuar*.
+
+
+
+
+[[manage-object-settings-optional]]
+== Gestiona la configuración de los objetos (opcional)
+
+La configuración de los objetos de un depósito de rama no afecta las versiones de los objetos en el depósito base.
+
+.Pasos
+. Si la configuración global de S3 Object Lock está activada, puedes activar S3 Object Lock para el bucket de la sucursal. Para activar S3 Object Lock, el bucket de la sucursal debe ser un bucket de lectura/escritura.
++
+Activa S3 Object Lock para un bucket de sucursal solo si necesitas conservar los objetos durante un periodo de tiempo determinado, por ejemplo, para cumplir con ciertos requisitos normativos. S3 Object Lock es una configuración permanente que te ayuda a evitar que los objetos se eliminen o se sobrescriban durante un periodo de tiempo determinado o de forma indefinida.
+
++
+
+CAUTION: Una vez habilitada la configuración de S3 Object Lock para un bucket, no se puede deshabilitar. Cualquier persona con los permisos adecuados puede añadir objetos al bucket de la rama que no se pueden cambiar. Puede que no puedas eliminar estos objetos ni el bucket de la rama.
+
+. Si seleccionaste *Habilitar S3 Object Lock*, opcionalmente habilita la *retención predeterminada* para el bucket de la sucursal.
++
+
+NOTE: Tu administrador de grid debe darte permiso para link:../tenant/using-s3-object-lock.html["utilizar las funciones específicas de S3 Object Lock"].
+
++
+Cuando la *retención predeterminada* está activada, los nuevos objetos añadidos al bucket de la rama quedarán protegidos automáticamente contra su eliminación o sobrescritura. La configuración de *retención predeterminada* no se aplica a los objetos que tienen sus propios períodos de retención.
+
++
+.. Si la opción *Retención predeterminada* está activada, especifica un *modo de retención predeterminado* para el bucket de la rama.
++
+[cols="1a,2a"]
+|===
+| Modo de retención predeterminado | Descripción 
+
+
+ a| 
+Gobernanza
+ a| 
+*** Los usuarios con el permiso  `s3:BypassGovernanceRetention` pueden usar el encabezado de solicitud  `x-amz-bypass-governance-retention: true` para omitir la configuración de retención.
+*** ${post_edited_translations.segment}
+*** ${post_edited_translations.segment}
+
+
+
+
+ a| 
+Cumplimiento normativo
+ a| 
+*** El objeto no se puede eliminar hasta que se alcance su fecha de retención.
+*** ${post_edited_translations.segment}
+*** La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
+
+
+*Nota*: El administrador de tu grid debe autorizarte a utilizar el modo de cumplimiento.
+
+|===
+.. Si la opción *Retención predeterminada* está activada, especifica el *Período de retención predeterminado* para el bucket de la rama.
++
+El *período de retención predeterminado* indica durante cuánto tiempo deben conservarse los nuevos objetos añadidos al bucket de la rama, a partir del momento en que se incorporan. Especifica un valor que sea menor o igual al período máximo de retención para el tenant, según lo haya establecido el grid administrator.
+
++
+El administrador de la grid establece un periodo de retención _máximo_, que puede ser un valor de 1 día hasta 100 años, al crear el tenant. Cuando estableces un periodo de retención _por defecto_, no puede superar el valor establecido para el periodo de retención máximo. Si lo necesitas, pídele a tu administrador de la grid que aumente o disminuya el periodo de retención máximo.
+
+
+
+. Si lo deseas, selecciona *Activar límite de capacidad*.
++
+El límite de capacidad es la capacidad máxima disponible para el bucket de la rama. Este valor representa una cantidad lógica (tamaño del objeto), no una cantidad física (tamaño en el disco).
+
++
+Si no se establece ningún límite, la capacidad del «branch bucket» es ilimitada. Consulta link:../tenant/understanding-tenant-manager-dashboard.html#bucket-capacity-usage["${post_edited_translations.segment}"] para más información.
+
++
+
+NOTE: Esta configuración solo se aplica a los objetos incorporados directamente en el bucket de la rama, y no a los objetos que son visibles desde el bucket base a través del bucket de la rama.
+
+. Si lo deseas, selecciona *Activar límite de recuento de objetos*.
++
+El límite de objetos es el número máximo de objetos que puede contener el bucket de la rama. Este valor representa una cantidad lógica (número de objetos). Si no se establece ningún límite, el número de objetos es ilimitado.
+
++
+
+NOTE: Esta configuración solo se aplica a los objetos incorporados directamente en el bucket de la rama, y no a los objetos que son visibles desde el bucket base a través del bucket de la rama.
+
+. Selecciona *Create bucket*.
++
+El bucket de la sucursal se crea y se añade a la tabla en la página Buckets.
+
+. Si lo deseas, selecciona *Ir a la página de detalles del bucket* para link:viewing-s3-bucket-details.html["Ver detalles del bucket de la rama"] y realizar una configuración adicional.
++
+En la página de detalles del bucket, algunas opciones de configuración relacionadas con la modificación de objetos están desactivadas para los buckets de solo lectura.
+
+

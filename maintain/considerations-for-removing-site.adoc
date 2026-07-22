@@ -1,0 +1,179 @@
+---
+permalink: maintain/considerations-for-removing-site.html 
+sidebar: sidebar 
+keywords: how to remove site 
+summary: Antes de utilizar el procedimiento para decomisionar un sitio, debes revisar las consideraciones. 
+---
+= Consideraciones para decomisionar un sitio en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de utilizar el procedimiento para decomisionar un sitio, debes revisar las consideraciones.
+
+
+
+[[what-happens-when-you-decommission-a-site]]
+== ¿Qué ocurre cuando decomisionas un sitio?
+
+Al decomisionar un sitio, StorageGRID elimina de forma permanente todos los nodos de dicho sitio y el propio sitio del sistema StorageGRID.
+
+Cuando se complete el procedimiento para decomisionar el sitio:
+
+* Ya no puedes utilizar StorageGRID para ver o acceder al sitio ni a ninguno de los nodos de dicho sitio.
+* Ya no podrás utilizar ningún grupo de almacenamiento ni perfil de código de borrado que hiciera referencia a ese sitio. Cuando StorageGRID decomisiona un sitio, elimina automáticamente estos grupos de almacenamiento y desactiva estos perfiles de código de borrado.
+
+
+
+
+[[differences-between-connected-site-and-disconnected-site-decommission-procedures]]
+== Diferencias entre los procedimientos de decomisionar sitios conectados y sitios desconectados
+
+Puedes usar el procedimiento de decomisionar un sitio para eliminar un sitio en el que todos los nodos están conectados a StorageGRID (lo que se llama decomisionar un sitio conectado) o para eliminar un sitio en el que todos los nodos están desconectados de StorageGRID (lo que se llama decomisionar un sitio desconectado). Antes de empezar, debes entender las diferencias entre estos procedimientos.
+
+
+NOTE: Si un sitio contiene una combinación de nodos conectados (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]) y nodos desconectados (image:icon_alarm_gray_administratively_down.png["Icono alarma gris administrativamente inactivo"] o image:icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"]), debes volver a poner en línea todos los nodos que estén fuera de línea.
+
+* Decomisionar un sitio conectado permite eliminar un sitio operativo del sistema StorageGRID. Por ejemplo, puedes llevar a cabo el decomisionamiento de un sitio conectado para eliminar un sitio que está operativo pero que ya no es necesario.
+* Cuando StorageGRID elimina un sitio conectado, utiliza ILM para gestionar los datos de objetos de dicho sitio. Antes de poder iniciar el proceso de decomisionar un sitio conectado, debes eliminar el sitio de todas las reglas de ILM y activar una nueva política de ILM. Los procesos de ILM para migrar los datos de objetos y los procesos internos para eliminar un sitio pueden realizarse al mismo tiempo, pero la mejor práctica es permitir que los pasos de ILM se completen antes de iniciar el procedimiento de decomisionamiento propiamente dicho.
+* Decomisionar un sitio desconectado te permite eliminar un sitio averiado del sistema StorageGRID. Por ejemplo, puedes llevar a cabo el decomisionamiento de un sitio desconectado para eliminar un sitio que haya quedado destruido por un incendio o una inundación.
++
+Cuando StorageGRID elimina un sitio desconectado, considera que todos los nodos son irrecuperables y no intenta conservar los datos. Sin embargo, antes de poder iniciar el proceso de decomisionar un sitio desconectado, debes eliminar el sitio de todas las reglas de ILM y activar una nueva política de ILM.
+
++
+
+CAUTION: Antes de realizar un procedimiento de descomisionamiento de un sitio desconectado, debes ponerte en contacto con tu representante de cuenta de NetApp. NetApp revisará tus requisitos antes de habilitar todos los pasos en el asistente Decommission Site. No deberías intentar descomisionar un sitio desconectado si crees que podría ser posible recuperar el sitio o recuperar los datos de objetos del sitio.
+
+
+
+
+
+[[general-requirements-for-removing-a-connected-or-a-disconnected-site]]
+== Requisitos generales para eliminar un sitio conectado o desconectado
+
+Antes de eliminar un sitio conectado o desconectado, debes tener en cuenta los siguientes requisitos:
+
+* No puedes decomisionar un sitio que incluya el nodo de administración principal.
+* No puedes decomisionar un sitio si alguno de los nodos tiene una interfaz que pertenece a un grupo de alta disponibilidad (HA). Debes editar el grupo de alta disponibilidad para quitar la interfaz del nodo o eliminar todo el grupo de alta disponibilidad.
+* No puedes decomisionar un sitio si contiene una mezcla de nodos conectados (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]) y desconectados (image:icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] o image:icon_alarm_gray_administratively_down.png["Icono alarma gris administrativamente inactivo"]).
+* No puedes decomisionar un sitio si algún nodo de cualquier otro sitio está desconectado (image:icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] o image:icon_alarm_gray_administratively_down.png["Icono alarma gris administrativamente inactivo"]).
+* No puedes iniciar el procedimiento de descomisionamiento del sitio si hay una operación de reparación de ec-node en curso. Consulta link:checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"] para hacer un seguimiento de las reparaciones de los datos con código de borrado.
+* Mientras se está llevando a cabo el procedimiento de decomisionar el sitio:
++
+** No puedes crear reglas de ILM que hagan referencia al sitio que se va a descomisionar. Tampoco puedes editar una regla de ILM existente para que haga referencia al sitio.
+** No puedes realizar otros procedimientos de mantenimiento, como la expansión o la actualización.
++
+
+NOTE: Si necesitas realizar otro procedimiento de mantenimiento durante el proceso de descomisionamiento de un sitio conectado, puedes link:pausing-and-resuming-decommission-process-for-storage-nodes.html["pausa el procedimiento mientras se eliminan los Storage Nodes"]. El botón *Pausar* solo está habilitado cuando se alcanzan las fases de evaluación de ILM o de descomisionamiento de datos con código de borrado; sin embargo, la evaluación de ILM (migración de datos) seguirá ejecutándose en segundo plano. Una vez completado el segundo procedimiento de mantenimiento, puedes reanudar el descomisionamiento.
+
+** Si necesitas recuperar algún nodo tras iniciar el procedimiento de decomisionar el sitio, debes ponerte en contacto con soporte técnico.
+
+
+* No puedes decomisionar más de un sitio a la vez.
+* Si el sitio incluye uno o más nodos de administración y el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID, debes eliminar todas las relaciones de confianza de las partes dependientes del sitio de los Servicios de federación de Active Directory (AD FS).
+
+
+
+
+[[requirements-for-information-lifecycle-management-ilm]]
+== Requisitos para la gestión del ciclo de vida de la información (ILM)
+
+Como parte del proceso de decomisionar un sitio, debes actualizar tu configuración de ILM. El asistente Decommission Site te guía a través de una serie de pasos previos necesarios para garantizar lo siguiente:
+
+* Ninguna política de ILM hace referencia a este sitio. Si es así, debes modificar las políticas o crear y activar políticas con nuevas reglas de ILM.
+* Ninguna regla de ILM hace referencia al sitio, aunque dichas reglas no se utilicen en ninguna política. Debes eliminar o editar todas las reglas que hagan referencia al sitio.
+
+
+Cuando StorageGRID decomisione el sitio, desactivará automáticamente cualquier perfil de código de borrado no utilizado que haga referencia al sitio y eliminará automáticamente cualquier grupo de almacenamiento no utilizado que haga referencia al sitio. Si existe el grupo de almacenamiento All Storage Nodes (StorageGRID 11.6 y versiones anteriores), se elimina porque utiliza todos los sitios.
+
+
+CAUTION: Antes de poder eliminar un sitio, es posible que tengas que crear nuevas reglas de ILM y activar una nueva política de ILM. Estas instrucciones dan por hecho que comprendes bien cómo funciona ILM y que estás familiarizado con la creación de storage pools, perfiles de erasure-coding, reglas de ILM, y con la simulación y activación de una política de ILM. Consulta link:../ilm/index.html["Gestiona objetos con ILM"].
+
+
+
+[[considerations-for-the-object-data-at-a-connected-site]]
+== Aspectos a tener en cuenta respecto a los datos de los objetos en un sitio conectado
+
+Si vas a descomisionar un sitio conectado, debes decidir qué hacer con los datos de los objetos existentes en el sitio al crear nuevas reglas de ILM y una nueva política de ILM. Puedes hacer una o ambas de las siguientes cosas:
+
+* Mueve los datos de los objetos del sitio seleccionado a uno o varios sitios de tu grid.
++
+*Ejemplo de traslado de datos*: Supón que quieres decomisionar un sitio en Raleigh porque añadiste un sitio nuevo en Sunnyvale. En este ejemplo, quieres mover todos los datos de objetos del sitio antiguo al nuevo. Antes de actualizar tus reglas y políticas de ILM, debes revisar la capacidad en ambos sitios. Debes asegurarte de que el sitio de Sunnyvale tenga suficiente capacidad para alojar los datos de objetos del sitio de Raleigh y que quede capacidad adecuada en Sunnyvale para el crecimiento futuro.
+
++
+
+NOTE: Para garantizar que se dispone de la capacidad adecuada, es posible que tengas que link:../expand/index.html["expandir una grid"] añadiendo volúmenes de almacenamiento o Storage Nodes a un sitio existente o añadiendo un nuevo sitio antes de realizar este procedimiento.
+
+* Eliminar copias de objetos del sitio seleccionado.
++
+*Ejemplo de eliminación de datos*: Supongamos que actualmente utilizas una regla ILM de 3 copias para replicar datos de objetos en tres sitios. Antes de decomisionar un sitio, puedes crear una regla ILM equivalente de 2 copias para almacenar los datos solo en dos sitios. Cuando activas una nueva política de ILM que usa la regla de 2 copias, StorageGRID elimina las copias del tercer sitio porque ya no cumplen los requisitos de ILM. Sin embargo, los datos de los objetos seguirán protegidos y la capacidad de los dos sitios restantes se mantendrá igual.
+
++
+
+CAUTION: Nunca crees una regla ILM de copia única para permitir la eliminación de un sitio. Una regla ILM que crea solo una copia replicada durante cualquier periodo de tiempo pone los datos en riesgo de pérdida permanente. Si solo existe una copia replicada de un objeto, ese objeto se pierde si un Storage Node falla o tiene un error grave. También pierdes temporalmente el acceso al objeto durante procedimientos de mantenimiento como las actualizaciones.
+
+
+
+
+
+[[additional-requirements-for-a-connected-site-decommission]]
+== Requisitos adicionales para decomisionar un sitio conectado
+
+Antes de que StorageGRID pueda eliminar un sitio conectado, debes asegurarte de lo siguiente:
+
+* Todos los nodos de tu sistema StorageGRID deben tener un estado de conexión *Conectado* (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]); sin embargo, los nodos pueden tener alertas activas.
++
+
+NOTE: Puedes completar los pasos 1 a 4 del asistente para descomisionar el sitio aunque uno o varios nodos estén desconectados. Sin embargo, no puedes completar el paso 5 del asistente, que inicia el proceso de decomisionar, a menos que todos los nodos estén conectados.
+
+* Si el sitio que planeas eliminar contiene un nodo Gateway o un nodo Admin que se usa para el balanceo de carga, puede que necesites link:../expand/index.html["expandir una grid"] añadir un nuevo nodo equivalente en otro sitio. Asegúrate de que los clientes puedan conectarse al nodo de reemplazo antes de empezar el procedimiento para decomisionar el sitio.
+* Si el sitio que planeas eliminar contiene algún Gateway Node o Admin Nodes que estén en un grupo de alta disponibilidad (HA), puedes completar los pasos 1-4 del asistente Decommission Site. Sin embargo, no puedes completar el paso 5 del asistente, que inicia el proceso de decomisionar, hasta que elimines estos nodos de todos los grupos de HA. Si los clientes existentes se conectan a un grupo de HA que incluye nodos del sitio, debes asegurarte de que puedan seguir conectándose a StorageGRID después de que se elimine el sitio.
+* Si los clientes se conectan directamente a los nodos de almacenamiento del sitio que tienes previsto eliminar, debes asegurarte de que puedan conectarse a los nodos de almacenamiento de otros sitios antes de iniciar el procedimiento para decomisionar el sitio.
+* Debes disponer de espacio suficiente en los sitios restantes para alojar cualquier dato de objeto que se vaya a trasladar debido a cambios en cualquier política de ILM activa. En algunos casos, es posible que tengas que link:../expand/index.html["expandir una grid"] añadiendo Storage Nodes, volúmenes de almacenamiento o nuevos sitios antes de poder completar el decomisionado de un sitio conectado.
+* Debes prever el tiempo suficiente para que se complete el procedimiento de decomisionar. Los procesos de StorageGRID ILM pueden tardar días, semanas o incluso meses en trasladar o eliminar los datos de objetos del sitio antes de que este pueda ser decomisionado.
++
+
+NOTE: Trasladar o eliminar datos de objetos de un sitio puede llevar días, semanas o incluso meses, dependiendo de la cantidad de datos que haya en el sitio, la carga del sistema, la latencia de red y la naturaleza de los cambios de ILM necesarios.
+
+* Siempre que sea posible, debes completar los pasos 1 a 4 del asistente para decomisionar el sitio lo antes que puedas. El procedimiento de decomisionado se completará más rápido y con menos interrupciones e impactos en el rendimiento si permites que los datos se trasladen del sitio antes de iniciar el procedimiento de decomisionado propiamente dicho (seleccionando *Start Decommission* en el paso 5 del asistente).
+
+
+
+
+[[additional-requirements-for-a-disconnected-site-decommission]]
+== Requisitos adicionales para decomisionar un sitio desconectado
+
+Antes de que StorageGRID pueda eliminar un sitio desconectado, debes asegurarte de lo siguiente:
+
+* Te has puesto en contacto con tu representante de cuenta de NetApp. NetApp revisará tus requisitos antes de habilitar todos los pasos del asistente para decomisionar el sitio.
++
+
+CAUTION: No deberías intentar decomisionar un sitio desconectado si crees que podría ser posible recuperar el sitio o recuperar cualquier dato de objeto del sitio. Consulta link:how-site-recovery-is-performed-by-technical-support.html["Cómo el soporte técnico recupera un sitio"].
+
+* Todos los nodos del sitio deben tener un Estado de conexión que sea uno de los siguientes:
++
+** *Desconocido* (image:icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"]): Por una razón desconocida, un nodo se ha desconectado o los servicios del nodo han dejado de funcionar de forma inesperada. Por ejemplo, es posible que se haya detenido un servicio del nodo o que el nodo haya perdido la conexión de red debido a un corte de energía o a una interrupción inesperada.
+** *Fuera de servicio por motivos administrativos* (image:icon_alarm_gray_administratively_down.png["Icono alarma gris administrativamente inactivo"]): El nodo no está conectado a la grid por una razón prevista. Por ejemplo, el nodo o los servicios en el nodo se han apagado de forma controlada.
+
+
+* Todos los nodos de los demás sitios deben tener un estado de conexión *Conectado* (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]); sin embargo, estos otros nodos pueden tener alertas activas.
+* Debes tener en cuenta que ya no podrás utilizar StorageGRID para ver ni recuperar ningún dato de objeto que se almacenaba en ese sitio. Cuando StorageGRID realiza este procedimiento, no intenta conservar ningún dato del sitio desconectado.
++
+
+NOTE: Si tus reglas y políticas de ILM se diseñaron para protegerte frente a la pérdida de un único sitio, seguirán existiendo copias de tus objetos en los sitios restantes.
+
+* Debes tener en cuenta que si el sitio contenía la única copia de un objeto, el objeto se pierde y no se puede recuperar.
+
+
+
+
+[[considerations-for-consistency-when-you-remove-a-site]]
+== Aspectos a tener en cuenta para la coherencia al eliminar un sitio
+
+La consistencia de un bucket S3 determina si StorageGRID replica íntegramente los metadatos de los objetos en todos los nodos y sitios antes de decirle a un cliente que la incorporación del objeto fue exitosa. La consistencia ofrece un equilibrio entre la disponibilidad de los objetos y la consistencia de esos objetos en los diferentes Storage Nodes y sitios.
+
+Cuando StorageGRID elimina un sitio, debe asegurarse de que no se escriban datos en el sitio que se va a eliminar. Por ello, anula temporalmente la consistencia de cada bucket o contenedor. Una vez que inicias el proceso de decomisionar el sitio, StorageGRID utiliza temporalmente una consistencia de sitio estricta para evitar que se escriban metadatos de objetos en el sitio que se va a eliminar.
+
+Como consecuencia de esta anulación temporal, ten en cuenta que cualquier operación de escritura, actualización o eliminación realizada por un cliente durante el proceso de decomisionar un sitio puede fallar si varios nodos dejan de estar disponibles en los sitios restantes.

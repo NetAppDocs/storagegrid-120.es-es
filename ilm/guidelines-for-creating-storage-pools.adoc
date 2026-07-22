@@ -1,0 +1,63 @@
+---
+permalink: ilm/guidelines-for-creating-storage-pools.html 
+sidebar: sidebar 
+keywords: storage pool guidelines 
+summary: Configura y utiliza grupos de almacenamiento para protegerte contra la pérdida de datos distribuyéndolos entre varias ubicaciones. Las copias replicadas y las copias con código de borrado requieren diferentes configuraciones de grupos de almacenamiento. 
+---
+= Directrices para la configuración de storage pool en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Configura y utiliza grupos de almacenamiento para protegerte contra la pérdida de datos distribuyéndolos entre varias ubicaciones. Las copias replicadas y las copias con código de borrado requieren diferentes configuraciones de grupos de almacenamiento.
+
+Consulta link:using-multiple-storage-pools-for-cross-site-replication.html["Ejemplos de cómo habilitar la protección contra la pérdida de sitios mediante la replicación y el código de borrado"].
+
+
+
+[[guidelines-for-all-storage-pools]]
+== Directrices para todos los grupos de almacenamiento
+
+* Mantén las configuraciones de los grupos de almacenamiento lo más sencillas posible. No crees más grupos de almacenamiento de los necesarios.
+* Crea grupos de almacenamiento con el mayor número posible de nodos. Cada grupo de almacenamiento debe contener dos o más nodos. Un grupo de almacenamiento con un número insuficiente de nodos puede provocar atascos en el ILM si un nodo deja de estar disponible.
+* Evita crear o utilizar grupos de almacenamiento que se solapen (que contengan uno o más de los mismos nodos). Si los grupos de almacenamiento se solapan, es posible que se guarde más de una copia de los datos de los objetos en el mismo nodo.
+* En general, no utilices el grupo de almacenamiento All Storage Nodes (StorageGRID 11.6 y versiones anteriores) ni el sitio All Sites. Estos elementos se actualizan automáticamente para incluir cualquier sitio nuevo que añadas en una ampliación, lo que quizá no sea el comportamiento que deseas.
+
+
+
+
+[[guidelines-for-storage-pools-used-for-replicated-copies]]
+== Directrices para los grupos de almacenamiento utilizados para copias replicadas
+
+* Para la protección contra la pérdida de un sitio mediante link:what-replication-is.html["replicación"], especifica uno o varios grupos de almacenamiento específicos del sitio en link:create-ilm-rule-define-placements.html["instrucciones de colocación para cada regla del ILM"].
++
+Durante la instalación de StorageGRID, se crea automáticamente un grupo de almacenamiento para cada sitio.
+
++
+El uso de un grupo de almacenamiento para cada sitio garantiza que las copias replicadas de los objetos se almacenen exactamente donde esperas (por ejemplo, una copia de cada objeto en cada sitio para protegerte ante la pérdida de un sitio).
+
+* Si añades un sitio en una ampliación, crea un nuevo grupo de almacenamiento que contenga únicamente el nuevo sitio. Luego, link:working-with-ilm-rules-and-ilm-policies.html#edit-an-ilm-rule["Actualizar las reglas de ILM"] para controlar qué objetos se almacenan en el nuevo sitio.
+* Si el número de copias es inferior al número de grupos de almacenamiento, el sistema distribuye las copias para equilibrar el uso del disco entre los grupos.
+* Si los grupos de almacenamiento se solapan (contienen los mismos nodos de almacenamiento), es posible que todas las copias del objeto se guarden únicamente en un solo sitio. Debes asegurarte de que los grupos de almacenamiento seleccionados no contengan los mismos nodos de almacenamiento.
+
+
+
+
+[[guidelines-for-storage-pools-used-for-erasure-coded-copies]]
+== Directrices para los grupos de almacenamiento usados para copias con código de borrado
+
+* Para la protección contra la pérdida de sitios mediante link:what-erasure-coding-is.html["codificación de borrado"], crea grupos de almacenamiento que consten de al menos tres sitios. Si un grupo de almacenamiento incluye solo dos sitios, no puedes usar ese grupo de almacenamiento para el código de borrado. No hay esquemas de código de borrado disponibles para un grupo de almacenamiento que tenga dos sitios.
+* El número de nodos de almacenamiento y de emplazamientos que componen el grupo de almacenamiento determina qué link:what-erasure-coding-schemes-are.html["esquemas de codificación de borrado"] están disponibles.
+* Si es posible, un grupo de almacenamiento debería incluir más que el número mínimo de nodos de almacenamiento requerido para el esquema de código de borrado que elijas. Por ejemplo, si utilizas un esquema de código de borrado 6+3, debes tener al menos nueve nodos de almacenamiento. Sin embargo, se recomienda tener al menos un nodo de almacenamiento adicional por sitio.
+* Distribuye los nodos de almacenamiento entre los distintos emplazamientos de la forma más uniforme posible. Por ejemplo, para admitir un esquema de código de borrado 6+3, configura un grupo de almacenamiento que incluya al menos tres nodos de almacenamiento en tres emplazamientos.
+* Si tienes requisitos de rendimiento elevados, no se recomienda utilizar un grupo de almacenamiento que incluya varios sitios si la latencia de red entre sitios es superior a 100 ms. A medida que aumenta la latencia, la velocidad a la que StorageGRID puede crear, colocar y recuperar fragmentos de objetos disminuye drásticamente debido a la reducción del rendimiento de la red TCP.
++
+La disminución del rendimiento afecta las velocidades máximas alcanzables de ingesta y recuperación de objetos (cuando se seleccionan los comportamientos de ingesta Balanced o Strict) o podría provocar atascos en las colas de ILM (cuando se selecciona el comportamiento de ingesta Dual commit). Consulta link:what-ilm-rule-is.html#ilm-rule-ingest-behavior["Comportamiento de ingesta según la regla ILM"].
+
++
+
+NOTE: Si tu grid incluye solo un sitio, no podrás utilizar el grupo de almacenamiento All Storage Nodes (StorageGRID 11.6 y versiones anteriores) ni el sitio All Sites en un perfil de código de borrado. Este comportamiento evita que el perfil deje de ser válido si se añade un segundo sitio.
+
+

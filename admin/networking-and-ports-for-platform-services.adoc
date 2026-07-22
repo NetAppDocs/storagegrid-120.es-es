@@ -1,0 +1,48 @@
+---
+permalink: admin/networking-and-ports-for-platform-services.html 
+sidebar: sidebar 
+keywords: platform services, ports for platform services, 443, 80 
+summary: ${post_edited_translations.segment} 
+---
+= Red y puertos para los servicios de plataforma StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+Puedes habilitar los servicios de plataforma para una cuenta de inquilino de S3 cuando crees o actualices la cuenta de inquilino. Si los servicios de plataforma están habilitados, el inquilino puede crear puntos de conexión que sirvan como destino para la replicación de CloudMirror, las notificaciones de eventos o los mensajes de integración de búsqueda de sus buckets de S3. Estos mensajes de servicios de plataforma se envían desde los nodos de almacenamiento que ejecutan el servicio ADC a los puntos de conexión de destino.
+
+Por ejemplo, los inquilinos podrían configurar los siguientes tipos de puntos finales de destino:
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Un clúster de Kafka alojado localmente
+* Un endpoint de webhook externo o alojado localmente que admite solicitudes de notificación HTTP POST.
++
+Este endpoint puede alojarse en diversos servidores web, frameworks o herramientas de procesamiento de datos, como Fluentd.
+
+* Un bucket de S3 alojado localmente en la misma o en otra instancia de StorageGRID
+* Un punto final externo, como un punto final en Amazon Web Services.
+
+
+Para garantizar que se puedan entregar los mensajes de los servicios de la plataforma, debes configurar la red o redes que contienen los nodos de almacenamiento del ADC. Debes asegurarte de que se puedan usar los siguientes puertos para enviar mensajes de los servicios de la plataforma a los endpoints de destino.
+
+De forma predeterminada, los mensajes de los servicios de la plataforma se envían a través de los siguientes puertos:
+
+* *80*: Para los URI de puntos finales que comienzan por http (la mayoría de los puntos finales)
+* *443*: Para los URI de puntos finales que comienzan con https (la mayoría de los puntos finales)
+* ${post_edited_translations.segment}
+
+
+${post_edited_translations.segment}
+
+
+NOTE: Si se utiliza una implementación de StorageGRID como destino para la replicación de CloudMirror, es posible que los mensajes de replicación se reciban en un puerto que no sea el 80 o el 443. Asegúrate de que el puerto que utiliza la implementación de StorageGRID de destino para S3 esté especificado en el endpoint.
+
+Si utilizas un proxy no transparente, también debes link:configuring-storage-proxy-settings.html["configura los ajustes del proxy de almacenamiento"] para permitir el envío de mensajes a puntos finales externos, como un punto final en internet.
+
+.Información relacionada
+link:../tenant/index.html["Utiliza una cuenta de inquilino"]

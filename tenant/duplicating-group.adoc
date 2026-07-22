@@ -1,0 +1,40 @@
+---
+permalink: tenant/duplicating-group.html 
+sidebar: sidebar 
+keywords: how to duplicate tenant group 
+summary: Puedes crear nuevos grupos más rápidamente duplicando un grupo ya existente. 
+---
+= Duplicar un grupo de tenant de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes crear nuevos grupos más rápidamente duplicando un grupo ya existente.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene permiso de acceso a raíz. Consulta link:tenant-management-permissions.html["Permisos de gestión de inquilinos"].
+
+
+.Pasos
+. ${post_edited_translations.segment}
+. Marca la casilla de verificación del grupo que quieras duplicar.
+. Selecciona *Duplicar grupo*. Para obtener más información sobre cómo crear un grupo, consulta las instrucciones para crear grupos para link:creating-groups-for-s3-tenant.html["un inquilino de S3"].
+. ${post_edited_translations.segment}
++
+Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID, los usuarios que pertenezcan a grupos locales no podrán iniciar sesión en el Tenant Manager, aunque pueden usar aplicaciones cliente para gestionar los recursos del inquilino, según link:tenant-management-permissions.html["permisos de grupo"].
+
+. ${post_edited_translations.segment}
++
+** *Grupo local*: introduce tanto un nombre para mostrar como un nombre único. Puedes editar el nombre para mostrar más adelante.
+** *Grupo federado*: introduce el nombre único. Para Active Directory, el nombre único es el nombre asociado al atributo `sAMAccountName`. Para OpenLDAP, el nombre único es el nombre asociado al atributo `uid`.
+
+
+. Selecciona *Continuar*.
+. Modifica los permisos de este grupo según sea necesario.
+. Selecciona *Continuar*.
+. Si es necesario, si estás duplicando un grupo para un inquilino de S3, puedes seleccionar opcionalmente una política diferente entre los botones de opción de *Add S3 policy*. Si has seleccionado una política personalizada, actualiza la cadena JSON según sea necesario.
+. Selecciona *Crear grupo*.
+

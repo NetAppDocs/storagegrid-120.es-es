@@ -1,0 +1,63 @@
+---
+permalink: ilm/when-to-use-cloud-storage-pools.html 
+sidebar: sidebar 
+keywords: use cloud storage pool, benefits of cloud storage pools 
+summary: Con los Cloud Storage Pools, puedes hacer backup o clasificar datos por niveles en una ubicación externa. Además, puedes hacer backup o clasificar datos por niveles en más de una nube. 
+---
+= Casos de uso de Cloud Storage Pool en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Con los Cloud Storage Pools, puedes hacer backup o clasificar datos por niveles en una ubicación externa. Además, puedes hacer backup o clasificar datos por niveles en más de una nube.
+
+
+
+[[back-up-storagegrid-data-to-external-location]]
+== Haz una copia de seguridad de los datos de StorageGRID en una ubicación externa
+
+Puedes utilizar un Cloud Storage Pool para hacer backup de los objetos de StorageGRID en una ubicación externa.
+
+Si no se puede acceder a las copias de StorageGRID, se pueden utilizar los datos de los objetos del Cloud Storage Pool para atender las solicitudes de los clientes. No obstante, es posible que tengas que enviar una solicitud S3 RestoreObject para acceder a la copia de backup del objeto en el Cloud Storage Pool.
+
+Los datos de los objetos de un Cloud Storage Pool también pueden utilizarse para recuperar datos perdidos de StorageGRID debido a un fallo en un volumen de almacenamiento o en un Storage Node. Si la única copia restante de un objeto está en un Cloud Storage Pool, StorageGRID restaura temporalmente el objeto y crea una nueva copia en el Storage Node recuperado.
+
+Para implementar una solución de backup:
+
+. Crea un único Cloud Storage Pool.
+. Configura una regla de ILM que almacene simultáneamente copias de objetos en Storage Nodes (como copias replicadas o con código de borrado) y una única copia de objeto en el Cloud Storage Pool.
+. Añade la regla a tu política de ILM. Luego, simula y activa la política.
+
+
+
+
+[[tier-data-from-storagegrid-to-external-location]]
+== Transfiere datos de niveles de StorageGRID a una ubicación externa
+
+Puedes utilizar un grupo de almacenamiento en la nube para almacenar objetos fuera del sistema StorageGRID. Por ejemplo, supón que tienes un gran número de objetos que necesitas conservar, pero esperas acceder a esos objetos rara vez, si es que alguna vez lo haces. Puedes utilizar un grupo de almacenamiento en la nube para trasladar los objetos a un almacenamiento de menor coste y liberar espacio en StorageGRID.
+
+Para implementar una solución de tiering:
+
+. Crea un único Cloud Storage Pool.
+. Configura una regla de ILM que traslade los objetos que se utilizan con poca frecuencia de los Storage Nodes al Cloud Storage Pool.
+. Añade la regla a tu política de ILM. Luego, simula y activa la política.
+
+
+
+
+[[maintain-multiple-cloud-endpoints]]
+== Gestiona múltiples puntos de conexión en la nube
+
+Puedes configurar varios endpoints de Cloud Storage Pool si quieres clasificar por niveles o hacer backup de los datos de objetos en más de una nube. Los filtros en tus reglas de ILM te permiten especificar qué objetos se almacenan en cada Cloud Storage Pool. Por ejemplo, podrías querer almacenar objetos de algunos tenants o buckets en Amazon S3 Glacier y objetos de otros tenants o buckets en Azure Blob storage. O podrías querer mover datos entre Amazon S3 Glacier y Azure Blob storage.
+
+
+NOTE: Cuando utilices varios puntos de conexión de Cloud Storage Pool, ten en cuenta que un objeto solo puede almacenarse en un Cloud Storage Pool a la vez.
+
+Para implementar varios puntos de conexión en la nube:
+
+. Crea hasta 10 Cloud Storage Pools.
+. Configura las reglas de ILM para almacenar los datos de objetos adecuados en el momento adecuado en cada Cloud Storage Pool. Por ejemplo, almacena objetos del bucket A en Cloud Storage Pool A y objetos del bucket B en Cloud Storage Pool B. O bien, almacena objetos en Cloud Storage Pool A durante un tiempo y luego muévelos a Cloud Storage Pool B.
+. Añade las reglas a tu política de ILM. Luego, simula y activa la política.
+

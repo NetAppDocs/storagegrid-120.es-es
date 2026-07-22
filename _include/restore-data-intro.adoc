@@ -1,0 +1,89 @@
+= ¿Qué procedimiento debo seguir?
+:allow-uri-read: 
+
+
+
+
+[[which-procedure-should-i-use]]
+== ¿Qué procedimiento debo seguir?
+
+${post_edited_translations.segment}
+
+* Si los volúmenes aparecen en *Mantenimiento* > *Restauración de volúmenes* > *Nodos para restaurar*, restaura los datos de objetos mediante link:../maintain/restoring-volume.html["Página de restauración de volumen en el Grid Manager"].
+* Si los volúmenes no aparecen en *Mantenimiento* > *Restauración de volúmenes* > *Nodos para restaurar*, sigue los pasos que se indican a continuación para usar el script `repair-data` para restaurar datos de objetos.
++
+Si el nodo de almacenamiento recuperado contiene menos volúmenes que el nodo al que sustituye, debes usar el script  `repair-data`.
+
+
+
+
+NOTE: El script repair-data está obsoleto y se eliminará en una futura versión. Cuando sea posible, utiliza el link:../maintain/restoring-volume.html["${post_edited_translations.segment}"].
+
+
+
+[[use-the-repair-data-script-to-restore-object-data]]
+== Utiliza el script  `repair-data` para restaurar los datos de los objetos
+
+.Antes de empezar
+* Has comprobado que el nodo de almacenamiento recuperado presenta un estado de conexión *Conectado* image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"] en la pestaña *Nodos* > *Resumen* del Grid Manager.
+
+
+.Acerca de esta tarea
+Los datos de los objetos se pueden restaurar desde otros Storage Nodes o desde un Cloud Storage Pool, siempre que las reglas de ILM de la grid se hayan configurado de tal forma que haya copias de los objetos disponibles.
+
+Ten en cuenta lo siguiente:
+
+* ${post_edited_translations.segment}
+* Si la única copia restante de un objeto se encuentra en un Cloud Storage Pool, StorageGRID debe enviar varias solicitudes al endpoint del Cloud Storage Pool para restaurar los datos del objeto. Antes de realizar este procedimiento, ponte en contacto con soporte técnico para que te ayuden a estimar el plazo de recuperación y los costes asociados.
+
+
+
+
+[[about-the-repair-data-script]]
+== Acerca del `repair-data` script
+
+Para restaurar los datos de objetos, ejecutas el script `repair-data`. Este script inicia el proceso de restauración de datos de objetos y funciona con el escaneo de ILM para garantizar que se cumplan las reglas de ILM.
+
+Selecciona *Datos replicados* o *Datos con código de borrado (EC)* a continuación para conocer las diferentes opciones del  `repair-data` script, en función de si vas a restaurar datos replicados o datos con código de borrado. Si necesitas restaurar ambos tipos de datos, debes ejecutar ambos conjuntos de comandos.
+
+
+NOTE: Para obtener más información sobre el script  `repair-data`, introduce  `repair-data --help` desde la línea de comandos del nodo de administración primario.
+
+
+NOTE: El script repair-data está obsoleto y se eliminará en una futura versión. Cuando sea posible, utiliza el link:../maintain/restoring-volume.html["${post_edited_translations.segment}"].
+
+[role="tabbed-block"]
+====
+.Datos replicados
+--
+${post_edited_translations.segment}
+
+`repair-data start-replicated-node-repair`
+
+`repair-data start-replicated-volume-repair`
+
+${post_edited_translations.segment}
+
+`repair-data show-replicated-repair-status`
+
+--
+.${post_edited_translations.segment}
+--
+${post_edited_translations.segment}
+
+`repair-data start-ec-node-repair`
+
+`repair-data start-ec-volume-repair`
+
+${post_edited_translations.segment}
+
+`repair-data show-ec-repair-status`
+
+
+NOTE: Las reparaciones de datos con codificación de borrado pueden comenzar mientras algunos nodos de almacenamiento están sin conexión. Sin embargo, si no se pueden localizar todos los datos con codificación de borrado, la reparación no se podrá completar. La reparación se completará una vez que todos los nodos estén disponibles.
+
+
+NOTE: La tarea de reparación de EC reserva temporalmente una gran cantidad de almacenamiento. Es posible que se activen alertas de almacenamiento, pero se resolverán cuando finalice la reparación. Si no hay suficiente almacenamiento para la reserva, la tarea de reparación de EC fallará. Las reservas de almacenamiento se liberan cuando finaliza la tarea de reparación de EC, ya sea que la tarea haya fallado o tenido éxito.
+
+--
+====

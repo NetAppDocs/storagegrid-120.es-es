@@ -1,0 +1,57 @@
+---
+permalink: tenant/configuring-platform-services-endpoints.html 
+sidebar: sidebar 
+keywords: how to configure platform services endpoint 
+summary: Antes de poder configurar un servicio de plataforma para un bucket, debes configurar al menos un endpoint como destino para el servicio de plataforma. 
+---
+= Configura los endpoints de servicios de plataforma en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de poder configurar un servicio de plataforma para un bucket, debes configurar al menos un endpoint como destino para el servicio de plataforma.
+
+El acceso a los servicios de la plataforma lo habilita un administrador de StorageGRID para cada inquilino. Para crear o usar un endpoint de servicios de la plataforma, debes ser un usuario inquilino con permiso de Manage endpoints o acceso Root, en una grid cuya red haya sido configurada para permitir que los Storage Nodes accedan a recursos de endpoint externos. Para un solo inquilino, puedes configurar un máximo de 500 endpoints de servicios de la plataforma. Contacta a tu administrador de StorageGRID para más información.
+
+
+
+[[what-is-a-platform-services-endpoint]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+Cada tipo de servicio de plataforma requiere su propio endpoint, por lo que debes configurar al menos un endpoint para cada servicio de plataforma que tengas pensado utilizar. Después de definir un endpoint de servicios de plataforma, utilizas el URN del endpoint como destino en el XML de configuración que se usa para habilitar el servicio.
+
+Puedes usar el mismo endpoint como destino para más de un bucket de origen. Por ejemplo, podrías configurar varios buckets de origen para enviar metadatos de objetos al mismo endpoint de integración de búsqueda para poder realizar búsquedas en varios buckets. También puedes configurar un bucket de origen para que use más de un endpoint como destino, lo que te permite hacer cosas como enviar notificaciones sobre la creación de objetos a un tema de Amazon Simple Notification Service (Amazon SNS) y notificaciones sobre la eliminación de objetos a un segundo tema de Amazon SNS.
+
+
+
+[[endpoints-for-cloudmirror-replication]]
+== Endpoints para la replicación de CloudMirror
+
+StorageGRID admite endpoints de replicación que representan buckets de S3. Estos buckets pueden estar alojados en Amazon Web Services, en el mismo despliegue de StorageGRID o en uno remoto, o en otro servicio.
+
+
+
+[[endpoints-for-notifications]]
+== ${post_edited_translations.segment}
+
+StorageGRID es compatible con Amazon SNS, Kafka y endpoints de webhook. Simple Queue Service (SQS) y los endpoints de AWS Lambda no son compatibles.
+
+Para los endpoints de Kafka, no se admite el TLS mutuo. Como resultado, si tienes `ssl.client.auth` configurado como `required` en la configuración de tu broker de Kafka, podría causar problemas en la configuración del endpoint de Kafka.
+
+
+
+[[endpoints-for-the-search-integration-service]]
+== ${post_edited_translations.segment}
+
+StorageGRID admite puntos finales de integración de búsqueda que representan clústeres de Elasticsearch. Estos clústeres de Elasticsearch pueden estar ubicados en un centro de datos local o alojados en una nube de AWS o en cualquier otro lugar.
+
+El punto final de integración de búsqueda hace referencia a un índice y un tipo específicos de Elasticsearch. Debes crear el índice en Elasticsearch antes de crear el punto final en StorageGRID o la creación del punto final fallará. No necesitas crear el tipo antes de crear el punto final. StorageGRID creará el tipo si es necesario cuando envíe los metadatos del objeto al punto final.
+
+.Información relacionada
+link:../admin/index.html["Administrar StorageGRID"]

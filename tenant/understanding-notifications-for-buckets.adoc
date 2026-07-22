@@ -1,0 +1,71 @@
+---
+permalink: tenant/understanding-notifications-for-buckets.html 
+sidebar: sidebar 
+keywords: s3 bucket event notification, sequencer key 
+summary: ${post_edited_translations.segment} 
+---
+= Conoce las notificaciones de eventos de StorageGRID para buckets S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+Por ejemplo, podrías configurar alertas para que se envíen a los administradores sobre cada objeto añadido a un bucket, donde los objetos representan archivos de registro asociados con un evento crítico del sistema.
+
+Las notificaciones de eventos se crean en el bucket de origen tal como se especifica en la configuración de notificaciones y se entregan en el destino. Si un evento asociado a un objeto se realiza correctamente, se crea una notificación sobre ese evento y se pone en cola para su entrega.
+
+No se garantiza la unicidad ni el orden de las notificaciones. Puede que se entregue más de una notificación de un evento al destino como resultado de las operaciones realizadas para garantizar el éxito de la entrega. Y como la entrega es asíncrona, no se garantiza que el orden de las notificaciones en el destino coincida con el orden de los eventos en el bucket de origen, especialmente para operaciones que se originan en diferentes sitios de StorageGRID. Puedes usar la clave  `sequencer` en el mensaje del evento para determinar el orden de los eventos de un objeto en particular, como se describe en la documentación de Amazon S3.
+
+${post_edited_translations.segment}
+
+* Se admiten los siguientes tipos de eventos:
++
+** s3:ObjectCreated:
+** s3:ObjectCreated:Put
+** s3:ObjectCreated:Post
+** s3:ObjectCreated:Copy
+** s3:ObjectCreated:CompleteMultipartUpload
+** s3:ObjectRemoved:
+** s3:ObjectRemoved:Delete
+** s3:ObjectRemoved:DeleteMarkerCreated
+** s3:ObjectRestore:post
+
+
+* ${post_edited_translations.segment}
+
+
+[cols="1a,2a"]
+|===
+| ${post_edited_translations.segment} | Valor de StorageGRID 
+
+
+ a| 
+eventSource
+ a| 
+`sgws:s3`
+
+
+
+ a| 
+awsRegion
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+x-amz-id-2
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+arn
+ a| 
+`urn:sgws:s3:::bucket_name`
+
+|===

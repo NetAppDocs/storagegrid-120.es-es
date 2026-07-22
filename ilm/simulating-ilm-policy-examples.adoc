@@ -1,0 +1,116 @@
+---
+permalink: ilm/simulating-ilm-policy-examples.html 
+sidebar: sidebar 
+keywords: simulate ilm policy 
+summary: Los ejemplos de simulaciones de políticas de ILM ofrecen pautas para estructurar y modificar simulaciones para tu entorno. 
+---
+= Ejemplos de simulaciones de políticas ILM en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los ejemplos de simulaciones de políticas de ILM ofrecen pautas para estructurar y modificar simulaciones para tu entorno.
+
+
+
+[[example-1-verify-rules-when-simulating-an-ilm-policy]]
+== Ejemplo 1: verifica las reglas al simular una política de ILM
+
+Este ejemplo describe cómo verificar las reglas al simular una política.
+
+En este ejemplo, la *política ILM de ejemplo* se está simulando con los objetos importados en dos buckets. La política incluye tres reglas, como sigue:
+
+* La primera regla, *Dos copias, dos años para bucket-a*, solo se aplica a los objetos en bucket-a.
+* La segunda regla, *Objetos EC > 1 MB*, se aplica a todos los buckets pero filtra los objetos que superan 1 MB.
+* La tercera regla, *Dos copias, dos centros de datos*, es la regla predeterminada. No incluye ningún filtro y no utiliza el tiempo de referencia Noncurrent.
+
+
+Después de simular la política, confirma que cada objeto fue asignado a la regla correcta.
+
+image:simulate_policy_screen.png["Simular los resultados de las políticas"]
+
+En este ejemplo:
+
+* `bucket-a/bucket-a object.pdf` coincidió correctamente con la primera regla, que filtra los objetos en `bucket-a`.
+* `bucket-b/test object greater than 1 MB.pdf` se encuentra en `bucket-b`, por lo que no coincidía con la primera regla. En cambio, coincidía correctamente con la segunda regla, que filtra los objetos de más de 1 MB.
+* `bucket-b/test object less than 1 MB.pdf` no coincidía con los filtros de las dos primeras reglas, así que se colocará según la regla predeterminada, que no incluye ningún filtro.
+
+
+
+
+[[example-2-reorder-rules-when-simulating-an-ilm-policy]]
+== Ejemplo 2: reordena las reglas al simular una política de ILM
+
+Este ejemplo muestra cómo puedes reordenar las reglas para cambiar los resultados al simular una política.
+
+En este ejemplo, se simula la política *Demo*. Esta política, cuyo objetivo es localizar objetos que tengan metadatos de usuario series=x-men, incluye tres reglas, como sigue:
+
+* La primera regla, *PNGs*, filtra los nombres de claves que terminan en `.png`.
+* La segunda regla, *X-men*, se aplica únicamente a los objetos del inquilino A y filtra los metadatos de usuario para `series=x-men`.
+* La última regla, *Dos copias en dos centros de datos*, es la regla predeterminada, que coincide con cualquier objeto que no coincida con las dos primeras reglas.
+
+
+.Pasos
+. Una vez añadidas las reglas y guardada la política, selecciona *Simular*.
+. En el campo *Objeto*, introduce el bucket/object-key de S3 para un objeto de prueba y selecciona *Simular*.
++
+Aparecen los resultados de la simulación, mostrando que el objeto  `Havok.png` fue coincidido por la regla *PNGs*.
+
++
+image:simulate_reorder_rules_pngs_result.png["Ejemplo 2: reglas de reordenación al simular una política de ILM"]
+
++
+Sin embargo,  `Havok.png` estaba destinado a probar la regla de *X-men*.
+
+. Para resolver el problema, cambia el orden de las reglas.
++
+.. Selecciona *Finalizar* para cerrar la ventana Simular política de ILM.
+.. Selecciona *Editar* para editar la política.
+.. Arrastra la regla *X-men* hasta la parte superior de la lista.
+.. Selecciona *Guardar*.
+
+
+. Selecciona *Simular*.
++
+Los objetos que se habían comprobado anteriormente se vuelven a evaluar según la política actualizada y se muestran los nuevos resultados de la simulación. En el ejemplo, la columna «Regla coincidente» muestra que el objeto `Havok.png` ahora cumple la regla de metadatos «X-men», como se esperaba. La columna «Coincidencia anterior» muestra que la regla «PNGs» coincidía con el objeto en la simulación anterior.
+
++
+image:simulate_reorder_rules_correct_result.png["Ejemplo 2: reglas de reordenación al simular una política de ILM"]
+
+
+
+
+
+[[example-3-correct-a-rule-when-simulating-an-ilm-policy]]
+== Ejemplo 3: corregir una regla al simular una política de ILM
+
+Este ejemplo muestra cómo simular una política, corregir una regla en la política y continuar la simulación.
+
+En este ejemplo, se está simulando la política *Demo*. Esta política está pensada para encontrar objetos que tengan `series=x-men` metadatos de usuario. Sin embargo, se produjeron resultados inesperados al simular esta política con el objeto `Beast.jpg`. En lugar de coincidir con la regla de metadatos X-men, el objeto coincidió con la regla predeterminada, Two copies two data centers.
+
+image:simulate_results_for_object_wrong_metadata.png["Ejemplo 3: corregir una regla al simular una política de ILM"]
+
+Cuando un objeto de prueba no se ajusta a la regla prevista en la política, debes revisar cada regla en la política y corregir cualquier error.
+
+.Pasos
+. Selecciona *Finalizar* para cerrar el cuadro de diálogo Simulate policy. En la página de detalles de la política, selecciona *Retention diagram*. Luego selecciona *Expandir todo* o *Ver detalles* para cada regla según lo necesites.
+. Revisa la cuenta de inquilino de la regla, el periodo de referencia y los criterios de filtrado.
++
+Por ejemplo, supón que los metadatos para la regla X-men se ingresaron como "x-men01" en vez de "x-men".
+
+. Para solucionar el error, corrige la regla de la siguiente manera:
++
+** Si la regla forma parte de la política, puedes clonarla o eliminar la regla de la política y luego editarla.
+** Si la regla forma parte de la política activa, debes clonarla. No puedes editar ni eliminar una regla de la política activa.
+
+
+. Vuelve a realizar la simulación.
++
+En este ejemplo, la regla «X-men» corregida ahora coincide con el `Beast.jpg` objeto según los `series=x-men` metadatos de usuario, como se esperaba.
+
++
+image:simulate_results_for_object_corrected_metadata.png["Ejemplo 3: corregir una regla al simular una política de ILM"]
+
+

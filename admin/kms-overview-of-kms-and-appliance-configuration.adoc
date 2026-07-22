@@ -1,0 +1,97 @@
+---
+permalink: admin/kms-overview-of-kms-and-appliance-configuration.html 
+sidebar: sidebar 
+keywords: kms, appliance configuration, node encryption 
+summary: 'Antes de que puedas usar un servidor de gestión de claves (KMS) para proteger los datos de StorageGRID en los nodos del dispositivo, debes configurar uno o más servidores KMS y habilitar el cifrado de nodos para los nodos del dispositivo. Cuando estas dos tareas de configuración estén completas, el proceso de gestión de claves ocurre automáticamente.' 
+---
+= Configuración del servidor de gestión de claves StorageGRID y de los dispositivos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de que puedas usar un servidor de gestión de claves (KMS) para proteger los datos de StorageGRID en los nodos del dispositivo, debes completar dos tareas de configuración: configurar uno o más servidores KMS y habilitar el cifrado de los nodos del dispositivo. Cuando estas dos tareas de configuración estén completas, el proceso de gestión de claves ocurre automáticamente.
+
+El diagrama de flujo muestra los pasos a grandes rasgos para usar un KMS y proteger los datos de StorageGRID en los nodos de los dispositivos.
+
+image:kms_configuration_overview.png["Flujo de trabajo de configuración de KMS, que se describe en el texto siguiente"]
+
+${post_edited_translations.segment}
+
+
+
+[[set-up-the-key-management-server-kms]]
+== Configura el servidor de gestión de claves (KMS)
+
+La configuración de un servidor de gestión de claves incluye los siguientes pasos a grandes rasgos.
+
+[cols="1a,1a"]
+|===
+| Paso | Consulta 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:kms-configuring-storagegrid-as-client.html["Configura StorageGRID como cliente en el KMS"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:kms-configuring-storagegrid-as-client.html["Configura StorageGRID como cliente en el KMS"]
+
+
+
+ a| 
+Agrega el KMS al Grid Manager, asígnalo a un solo sitio o a un grupo predeterminado de sitios, sube los certificados requeridos y guarda la configuración del KMS.
+ a| 
+link:kms-adding.html["Agrega un servidor de gestión de claves (KMS)"]
+
+|===
+
+
+[[set-up-the-appliance]]
+== Configura el appliance
+
+${post_edited_translations.segment}
+
+. ${post_edited_translations.segment}
++
+
+NOTE: No puedes activar la opción *Cifrado de nodos* después de añadir un appliance a la grid, y no puedes usar la gestión externa de claves para appliances que no tengan activado el cifrado de nodos.
+
+. Ejecuta el StorageGRID Appliance Installer. Durante la instalación, se asigna una clave de cifrado de datos (DEK) aleatoria a cada volumen del dispositivo, de la siguiente manera:
++
+** Las DEK se usan para cifrar los datos de cada volumen. Estas claves se generan mediante el cifrado de disco Linux Unified Key Setup (LUKS) en el SO del appliance y no se pueden cambiar.
+** Cada DEK individual se cifra mediante una clave maestra de cifrado (KEK). La KEK inicial es una clave temporal que cifra las DEK hasta que el dispositivo pueda conectarse al KMS.
+
+
+. Agrega el nodo del dispositivo a StorageGRID.
+
+
+Consulta https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/optional-enabling-node-encryption.html["Habilitar el cifrado de nodos"^] para más detalles.
+
+
+
+[[key-management-encryption-process-occurs-automatically]]
+== ${post_edited_translations.segment}
+
+El cifrado con gestión de claves incluye los siguientes pasos a grandes rasgos que se llevan a cabo de forma automática.
+
+. Al instalar en la red un dispositivo que tiene activado el cifrado de nodos, StorageGRID comprueba si existe una configuración de KMS para el sitio que contiene el nuevo nodo.
++
+** Si ya se ha configurado un KMS para el sitio, el dispositivo recibe la configuración del KMS.
+** ${post_edited_translations.segment}
+
+
+. El dispositivo utiliza la configuración de KMS para conectarse al KMS y solicitar una clave de cifrado.
+. El KMS envía una clave de cifrado al dispositivo. La nueva clave del KMS sustituye a la KEK temporal y ahora se utiliza para cifrar y descifrar las DEK de los volúmenes del dispositivo.
++
+
+CAUTION: Cualquier dato que exista antes de que el nodo del dispositivo cifrado se conecte al KMS configurado se cifra con una clave temporal. Sin embargo, no debes considerar que los volúmenes del dispositivo estén protegidos frente a su retirada del centro de datos hasta que la clave de cifrado de KMS sustituya a la clave temporal.
+
+. Si el dispositivo se enciende o se reinicia, se vuelve a conectar al KMS para solicitar la clave. La clave, que se guarda en la memoria volátil, no sobrevive a una pérdida de alimentación o a un reinicio.
+

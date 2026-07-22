@@ -1,0 +1,28 @@
+---
+permalink: harden/index.html 
+sidebar: sidebar 
+keywords: StorageGRID, hardening guidelines, system, security 
+summary: El refuerzo de la seguridad del sistema es el proceso de eliminar la mayor cantidad posible de riesgos de seguridad de un sistema StorageGRID. 
+---
+= Conoce el endurecimiento del sistema para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El refuerzo de la seguridad del sistema es el proceso de eliminar la mayor cantidad posible de riesgos de seguridad de un sistema StorageGRID.
+
+Al instalar y configurar StorageGRID, sigue estas directrices para cumplir con los objetivos de seguridad establecidos en materia de confidencialidad, integridad y disponibilidad.
+
+Ya deberías estar aplicando las mejores prácticas estándar del sector para el refuerzo de la seguridad del sistema. Por ejemplo, debes utilizar contraseñas seguras para StorageGRID, emplear HTTPS en lugar de HTTP y habilitar la autenticación basada en certificados siempre que sea posible. Estas mejores prácticas deben incluir medidas de seguridad física y ambiental que limiten el acceso físico, además de proteger el centro de datos físico y la infraestructura de apoyo. También debes consultar las normas y recomendaciones reglamentarias aplicables a tu negocio y zona geográfica.
+
+StorageGRID sigue el https://security.netapp.com/policy/["NetApp Política de gestión de vulnerabilidades"^]. Las vulnerabilidades notificadas se verifican y se abordan según el proceso de respuesta a incidentes de seguridad del producto.
+
+A la hora de reforzar la seguridad de un sistema StorageGRID, ten en cuenta lo siguiente:
+
+* *¿Cuál de las tres redes de StorageGRID* has implementado? Todos los sistemas StorageGRID deben usar la red Grid, pero también podrías estar usando la red Admin, la red Client o ambas. Cada red tiene diferentes consideraciones de seguridad.
+* *El tipo de plataformas* que utilices para los nodos individuales de tu sistema StorageGRID. Los nodos de StorageGRID pueden implementarse en máquinas virtuales de VMware, dentro de un motor de contenedores en hosts Linux o como dispositivos de hardware dedicados. Cada tipo de plataforma tiene su propio conjunto de prácticas recomendadas de refuerzo.
+* *El nivel de confianza de las cuentas de inquilino*. Si eres un proveedor de servicios con cuentas de inquilino no fiables, tendrás otras preocupaciones en materia de seguridad que si solo usas cuentas de inquilino internas y fiables.
+* *Qué requisitos y normas de seguridad* sigue tu organización. Es posible que tengas que cumplir con requisitos normativos o corporativos específicos.
+

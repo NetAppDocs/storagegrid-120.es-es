@@ -1,0 +1,127 @@
+---
+permalink: monitor/silencing-alert-notifications.html 
+sidebar: sidebar 
+keywords: how to disable alert rules, how to remove a custom alert rule 
+summary: Opcionalmente, puedes configurar silencios para suprimir temporalmente las notificaciones de alertas. 
+---
+= Silencia las notificaciones de alerta en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Opcionalmente, puedes configurar silencios para suprimir temporalmente las notificaciones de alertas.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Gestiona alertas o permisos de acceso root"].
+
+
+.Acerca de esta tarea
+Puedes silenciar las reglas de alerta en toda la grid, en un único sitio o en un único nodo, y para una o varias gravedades. Cada silencio suprime todas las notificaciones de una única regla de alerta o de todas las reglas de alerta.
+
+Si has activado el agente SNMP, los silenciamientos también suprimen las trampas e informes SNMP.
+
+
+CAUTION: Ten cuidado a la hora de decidir silenciar una regla de alerta. Si silencias una alerta, es posible que no detectes un problema subyacente hasta que este impida que se complete una operación crítica.
+
+.Pasos
+. Selecciona *Alertas* > *Silencios*.
++
+Aparece la página Silences.
+
++
+image:alerts_silences_page.png["Página Alertas > Silencios"]
+
+. Selecciona *Crear*.
++
+Aparece el cuadro de diálogo «Crear silencio».
+
++
+image:alerts_create_silence.png["Alertas > Crear silencio"]
+
+. Selecciona o introduce la siguiente información:
++
+[cols="1a,3a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Regla de alerta
+ a| 
+El nombre de la regla de alerta que deseas silenciar. Puedes seleccionar cualquier regla de alerta predeterminada o personalizada, incluso si la regla de alerta está desactivada.
+
+*Nota:* Selecciona *All rules* si deseas desactivar todas las reglas de alerta que cumplan los criterios especificados en este cuadro de diálogo.
+
+
+
+ a| 
+Descripción
+ a| 
+Si lo deseas, puedes incluir una descripción del silencio. Por ejemplo, describe el propósito de este silencio.
+
+
+
+ a| 
+Duración
+ a| 
+Cuánto tiempo quieres que este silencio permanezca activo, en minutos, horas o días. Un silencio puede estar en efecto desde 5 minutos hasta 1,825 días (5 años).
+
+*Nota:* No deberías silenciar una regla de alerta durante un periodo prolongado. Si una regla de alerta está silenciada, podrías no detectar un problema subyacente hasta que impida que se complete una operación crítica. Sin embargo, podrías necesitar usar un silencio prolongado si una alerta se activa por una configuración específica e intencionada, como podría ser el caso de las alertas *Services appliance link down* y *Storage appliance link down*.
+
+
+
+ a| 
+Gravedad
+ a| 
+¿Qué gravedad o gravedades de las alertas deben silenciarse? Si la alerta se activa en una de las gravedades seleccionadas, no se envían notificaciones.
+
+
+
+ a| 
+Nodos
+ a| 
+A qué nodo o nodos quieres que se aplique esta supresión. Puedes suprimir una regla de alerta o todas las reglas en toda la grid, en un único sitio o en un único nodo. Si seleccionas toda la grid, la supresión se aplica a todos los sitios y a todos los nodos. Si seleccionas un sitio, la supresión se aplica solo a los nodos de ese sitio.
+
+*Nota:* No puedes seleccionar más de un nodo ni más de un sitio para cada silencio. Debes crear silencios adicionales si quieres suprimir la misma regla de alerta en más de un nodo o en más de un sitio al mismo tiempo.
+
+|===
+. Selecciona *Guardar*.
+. Si quieres modificar o dar por finalizado un silencio antes de que caduque, puedes editarlo o eliminarlo.
++
+[cols="1a,3a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Editar un silencio
+ a| 
+.. Selecciona *Alertas* > *Silencios*.
+.. En la tabla, selecciona el botón de opción correspondiente al silencio que quieras editar.
+.. Selecciona *Editar*.
+.. Modifica la descripción, el tiempo restante, las gravedades seleccionadas o el nodo afectado.
+.. Selecciona *Guardar*.
+
+
+
+
+ a| 
+Eliminar un silencio
+ a| 
+.. Selecciona *Alertas* > *Silencios*.
+.. En la tabla, selecciona el botón de opción correspondiente al silencio que quieras eliminar.
+.. Selecciona *Eliminar*.
+.. Selecciona *Aceptar* para confirmar que deseas eliminar este silencio.
++
+*Nota*: A partir de ahora se enviarán notificaciones cuando se active esta alerta (a menos que se suprima mediante otra configuración de silencio). Si esta alerta está activa en este momento, es posible que las notificaciones por correo electrónico o SNMP tarden unos minutos en enviarse y que la página de alertas tarde en actualizarse.
+
+
+
+|===
+
+
+.Información relacionada
+link:configuring-snmp-agent.html["Configura el agente SNMP"]

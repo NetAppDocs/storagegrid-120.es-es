@@ -1,0 +1,70 @@
+---
+permalink: ilm/advantages-disadvantages-and-requirements-for-ec.html 
+sidebar: sidebar 
+keywords: erasure coding advantages, disadvantages, EC requirements 
+summary: Antes de decidir si utilizar la replicación o el código de borrado para proteger los datos de objetos contra pérdidas, debes entender las ventajas, desventajas y los requisitos del código de borrado. 
+---
+= Ventajas, desventajas y requisitos para la codificación de borrado en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de decidir si utilizar la replicación o el código de borrado para proteger los datos de objetos contra pérdidas, debes entender las ventajas, desventajas y los requisitos del código de borrado.
+
+
+
+[[advantages-of-erasure-coding]]
+== Ventajas del código de borrado
+
+En comparación con la replicación, el código de borrado ofrece una mayor fiabilidad, disponibilidad y eficiencia de almacenamiento.
+
+* *Fiabilidad*: Se mide por el número de fallos simultáneos que se pueden soportar sin pérdida de datos.
++
+** Replicación: se almacenan varias copias idénticas de un objeto en distintos nodos y en diferentes emplazamientos.
+** Codificación de borrado: un objeto se codifica en fragmentos de datos y de paridad y se distribuye entre muchos nodos y sitios. Esta dispersión proporciona protección tanto frente a fallos de sitio como de nodo.
+
+
+* *Disponibilidad*: La capacidad de obtener objetos si los nodos de almacenamiento fallan o se vuelven inaccesibles. En comparación con la replicación, el código de borrado ofrece una mayor disponibilidad con costes de almacenamiento similares.
+* *Eficiencia de almacenamiento*: Para un nivel similar de disponibilidad y fiabilidad, los objetos con código de borrado ocupan menos espacio en disco que los objetos replicados. Por ejemplo, un objeto de 10 MB replicado en dos sitios ocupa 20 MB de espacio en disco (dos copias), mientras que un objeto codificado con código de borrado en tres sitios mediante un esquema 6+3 solo ocupa 15 MB de espacio en disco.
++
+
+NOTE: El espacio en disco para los objetos con código de borrado se calcula como el tamaño del objeto más la sobrecarga de almacenamiento. El porcentaje de sobrecarga de almacenamiento es el número de fragmentos de paridad dividido por el número de fragmentos de datos.
+
+
+
+
+
+[[disadvantages-of-erasure-coding]]
+== Desventajas del código de borrado
+
+En comparación con la replicación, el código de borrado presenta las siguientes desventajas:
+
+* Se recomienda aumentar el número de nodos de almacenamiento y de sitios, dependiendo del esquema de código de borrado. En cambio, si replicas datos de objetos, solo necesitas un nodo de almacenamiento por cada copia. Consulta link:what-erasure-coding-schemes-are.html#erasure-coding-schemes-for-storage-pools-containing-three-or-more-sites["Esquemas de código de borrado para grupos de almacenamiento que contienen tres o más emplazamientos"] y link:what-erasure-coding-schemes-are.html#erasure-coding-schemes-for-one-site-storage-pools["Esquemas de código de borrado para grupos de almacenamiento de un solo sitio"].
+* Aumento del coste y la complejidad de las ampliaciones de almacenamiento. Para ampliar una implementación que utiliza replicación, tienes que añadir capacidad de almacenamiento en cada ubicación donde se crean copias de los objetos. Para ampliar una implementación que utiliza código de borrado, debes tener en cuenta tanto el esquema de código de borrado utilizado como el nivel de ocupación de los nodos de almacenamiento existentes. Por ejemplo, si esperas hasta que los nodos existentes estén al 100% de su capacidad, tienes que añadir al menos `k+m` nodos de almacenamiento, pero si amplías cuando los nodos existentes están al 70% de su capacidad, puedes añadir dos nodos por sitio y seguir maximizando la capacidad de almacenamiento utilizable. Para más información, consulta link:../expand/adding-storage-capacity-for-erasure-coded-objects.html["Agrega capacidad de almacenamiento para objetos con código de borrado"].
+* El uso del código de borrado en sitios distribuidos geográficamente conlleva un aumento de la latencia en la recuperación. Los fragmentos de un objeto codificado mediante código de borrado y distribuido entre sitios remotos tardan más en recuperarse a través de conexiones WAN que un objeto replicado y disponible localmente (en el mismo sitio al que se conecta el cliente).
+* Cuando usas el código de borrado en sitios distribuidos geográficamente, hay un mayor uso de tráfico de red WAN para las recuperaciones y reparaciones, especialmente para los objetos que se recuperan con frecuencia o para las reparaciones de objetos a través de conexiones de red WAN.
+* Cuando se utiliza el código de borrado entre sitios, el rendimiento máximo de los objetos disminuye drásticamente a medida que aumenta la latencia de red entre los sitios. Esta disminución se debe a una reducción del rendimiento de la red TCP, lo que afecta a la rapidez con la que el sistema StorageGRID puede almacenar y recuperar fragmentos de objetos.
+* Mayor uso de los recursos de computación.
+
+
+
+
+[[when-to-use-erasure-coding]]
+== Cuándo utilizar el código de borrado
+
+Utiliza el código de borrado para los siguientes requisitos:
+
+* Objetos de más de 1 MB de tamaño.
++
+
+NOTE: El código de borrado es más adecuado para objetos de más de 1 MB. No uses el código de borrado para objetos de menos de 200 KB para evitar la sobrecarga de gestionar fragmentos muy pequeños codificados por borrado.
+
+* Almacenamiento a largo plazo o en frío para contenido al que se accede con poca frecuencia.
+* Alta disponibilidad y fiabilidad de los datos.
+* Protección frente a fallos totales del sitio y de los nodos.
+* Eficiencia de almacenamiento.
+* Implementaciones en un único sitio que requieren una protección de datos eficaz con una sola copia codificada con código de borrado en lugar de múltiples copias replicadas.
+* Implementaciones en varios sitios donde la latencia entre sitios es inferior a 100 ms.
+

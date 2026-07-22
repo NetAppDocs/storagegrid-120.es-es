@@ -1,0 +1,62 @@
+---
+permalink: troubleshoot/troubleshooting-metadata-issues.html 
+sidebar: sidebar 
+keywords: how to troubleshoot metadata issues 
+summary: Si se producen problemas con los metadatos, las alertas te informarán sobre el origen de los problemas y las acciones recomendadas que debes realizar. En particular, debes añadir nuevos nodos de almacenamiento si se activa la alerta Low metadata storage. 
+---
+= Soluciona problemas de metadatos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si se producen problemas con los metadatos, las alertas te informarán sobre el origen de los problemas y las acciones recomendadas que debes realizar. En particular, debes añadir nuevos nodos de almacenamiento si se activa la alerta Low metadata storage.
+
+.Antes de empezar
+Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+
+.Acerca de esta tarea
+Sigue las acciones recomendadas para cada alerta relacionada con los metadatos que se active. Si se activa la alerta *Low metadata storage*, debes añadir nuevos Storage Nodes.
+
+StorageGRID reserva una cierta cantidad de espacio en el volumen 0 de cada nodo de almacenamiento para los metadatos de objetos. Este espacio, conocido como el _espacio reservado real_, se subdivide en el espacio permitido para los metadatos de objetos (el espacio de metadatos permitido) y el espacio necesario para las operaciones esenciales de la base de datos, como la compactación y la reparación. El espacio de metadatos permitido rige la capacidad general de objetos.
+
+image:metadata_allowed_space_volume_0.png["Espacio permitido para metadatos volumen 0"]
+
+${post_edited_translations.segment}
+
+Puedes link:../monitor/monitoring-storage-capacity.html#monitor-object-metadata-capacity-for-each-storage-node["supervisar la capacidad de metadatos de los objetos para cada Storage Node"] para ayudarte a anticipar errores y corregirlos antes de que ocurran.
+
+${post_edited_translations.segment}
+
+[listing]
+----
+storagegrid_storage_utilization_metadata_bytes/storagegrid_storage_utilization_metadata_allowed_bytes
+----
+${post_edited_translations.segment}
+
+* *Menor*: los metadatos de objetos están utilizando el 70 % o más del espacio de metadatos permitido. Deberías añadir nuevos Storage Nodes lo antes posible.
+* *Grave*: Los metadatos de los objetos ocupan el 90 % o más del espacio permitido para metadatos. Debes añadir nuevos Storage Nodes inmediatamente.
++
+
+CAUTION: Cuando los metadatos de los objetos ocupan el 90 % o más del espacio permitido para metadatos, aparece una advertencia en el panel de control. Si aparece esta advertencia, debes añadir nuevos Storage Nodes inmediatamente. Nunca debes permitir que los metadatos de los objetos ocupen más del 100 % del espacio permitido.
+
+* *Crítico*: los metadatos de objetos están utilizando el 100 % o más del espacio de metadatos permitido y están empezando a consumir el espacio necesario para las operaciones esenciales de la base de datos. Debes detener la ingesta de nuevos objetos y debes añadir nuevos Storage Nodes de inmediato.
+
+
+
+CAUTION: ${post_edited_translations.segment}
+
+.Pasos
+. Selecciona *Alertas* > *Actuales*.
+. En la tabla de alertas, despliega el grupo de alertas *Bajo almacenamiento de metadatos*, si es necesario, y selecciona la alerta concreta que quieras ver.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+
+NOTE: Dado que StorageGRID conserva copias completas de todos los metadatos de los objetos en cada sitio, la capacidad de metadatos de toda la red viene limitada por la capacidad de metadatos del sitio más pequeño. Si necesitas aumentar la capacidad de metadatos de un sitio, también debes link:../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html["ampliar cualquier otro sitio"] en el mismo número de nodos de almacenamiento.
+
++
+Después de que realices la expansión, StorageGRID redistribuye los metadatos de objetos existentes a los nuevos nodos, lo que aumenta la capacidad general de metadatos del grid. No es necesario que realices ninguna acción. La alerta *Low metadata storage* se desactiva.
+
+

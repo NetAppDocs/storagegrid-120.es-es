@@ -1,0 +1,143 @@
+---
+permalink: admin/grid-federation-compare-cgr-to-cloudmirror.html 
+sidebar: sidebar 
+keywords: cross-grid replication, cloudmirror replication 
+summary: Cuando empieces a utilizar la federación de redes, revisa las similitudes y diferencias entre la replicación entre redes y el servicio de replicación CloudMirror de StorageGRID. 
+---
+= Compara la replicación entre grids y la replicación CloudMirror en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A medida que empieces a usar la federación de grid, revisa las similitudes y diferencias entre link:grid-federation-what-is-cross-grid-replication.html["replicación entre grids"] y link:../tenant/understanding-cloudmirror-replication-service.html["Servicio de replicación CloudMirror de StorageGRID"].
+
+
+NOTE: No puedes usar CloudMirror en un bucket replicado por replicación entre grids, y viceversa.
+
+[cols="1a,3a,3a"]
+|===
+|  | Replicación entre grids | Servicio de replicación de CloudMirror 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Un sistema StorageGRID actúa como sistema de recuperación ante desastres. Los objetos de un bucket pueden replicarse entre las grids en una o en ambas direcciones.
+ a| 
+${post_edited_translations.segment}
+
+La replicación CloudMirror crea una copia independiente de un objeto en una infraestructura S3 independiente. Esta copia independiente no se utiliza como copia de backup, sino que a menudo se procesa posteriormente en la nube.
+
+
+
+ a| 
+¿Cómo se configura?
+ a| 
+. Configura una conexión de federación de grid entre dos grids.
+. Agrega nuevas cuentas de inquilinos, que se clonan automáticamente en la otra grid.
+. Agrega nuevos grupos de inquilinos y usuarios, que también se clonan.
+. Crea los buckets correspondientes en cada grid y activa la replicación entre grids en una o ambas direcciones.
+
+ a| 
+. Un usuario inquilino configura la replicación de CloudMirror definiendo un endpoint de CloudMirror (dirección IP, credenciales, etc.) usando el Tenant Manager o la API de S3.
+. Cualquier bucket que pertenezca a esa cuenta de inquilino se puede configurar para que apunte al punto de conexión de CloudMirror.
+
+
+
+
+ a| 
+¿Quién se encarga de configurarlo?
+ a| 
+* Un administrador de grid configura la conexión y los tenants.
+* ${post_edited_translations.segment}
+
+ a| 
+Normalmente, un usuario arrendatario.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Un bucket S3 correspondiente e idéntico en el otro sistema StorageGRID en la conexión de la federación de la grid.
+ a| 
+* Cualquier infraestructura S3 compatible (incluido Amazon S3).
+* ${post_edited_translations.segment}
+
+
+
+
+ a| 
+¿Es necesario el control de versiones de los objetos?
+ a| 
+${post_edited_translations.segment}
+ a| 
+No, la replicación de CloudMirror admite cualquier combinación de depósitos sin versionar y versionados, tanto en el origen como en el destino.
+
+
+
+ a| 
+¿Qué hace que los objetos se trasladen al destino?
+ a| 
+Los objetos se replican automáticamente cuando se añaden a un bucket que tiene habilitada la replicación entre grids.
+ a| 
+Los objetos se replican automáticamente cuando se añaden a un bucket que se ha configurado con un endpoint CloudMirror. Los objetos que existían en el bucket de origen antes de que el bucket se configurara con el endpoint CloudMirror no se replican, a menos que se modifiquen.
+
+
+
+ a| 
+¿Cómo se replican los objetos?
+ a| 
+La replicación entre grids crea objetos versionados y replica el ID de versión del bucket de origen al bucket de destino. Esto permite mantener el orden de las versiones en ambas grids.
+ a| 
+CloudMirror replication no requiere buckets con control de versiones habilitado, así que CloudMirror solo puede mantener el orden de una clave dentro de un sitio. No hay garantías de que se mantenga el orden en las solicitudes a un objeto en un sitio diferente.
+
+
+
+ a| 
+¿Y si un objeto no se puede replicar?
+ a| 
+${post_edited_translations.segment}
+ a| 
+El objeto se ha puesto en cola para su replicación, dentro de los límites de los servicios de la plataforma (véase link:manage-platform-services-for-tenants.html["Recomendaciones para usar los servicios de la plataforma"]).
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Sí, cuando un objeto se replica en el otro grid, sus metadatos del sistema también se replican. Los metadatos serán idénticos en ambos grids.
+ a| 
+No, cuando un objeto se replica en el depósito externo, se actualizan sus metadatos del sistema. Los metadatos variarán entre las distintas ubicaciones, dependiendo del momento de la ingesta y del comportamiento de la infraestructura independiente de S3.
+
+
+
+ a| 
+¿Cómo se recuperan los objetos?
+ a| 
+${post_edited_translations.segment}
+ a| 
+Las aplicaciones pueden recuperar o leer objetos enviando una solicitud a StorageGRID o al destino S3. Por ejemplo, supón que usas la replicación de CloudMirror para duplicar objetos en una organización asociada. La organización asociada puede usar sus propias aplicaciones para leer o actualizar objetos directamente desde el destino S3. No es necesario usar StorageGRID.
+
+
+
+ a| 
+¿Qué ocurre si se elimina un objeto?
+ a| 
+* Las solicitudes de eliminación que incluyen un identificador de versión nunca se replican en el grid de destino.
+* Las solicitudes de eliminación que no incluyan un identificador de versión añaden un marcador de eliminación al bucket de origen, que opcionalmente puede replicarse en el grid de destino.
+* ${post_edited_translations.segment}
+
+ a| 
+Los resultados variarán en función del estado de las versiones de los buckets de origen y destino (que no tienen por qué ser iguales):
+
+* Si ambos buckets tienen control de versiones, una solicitud de eliminación añadirá un marcador de eliminación en ambas ubicaciones.
+* Si solo el bucket de origen tiene control de versiones, una solicitud de eliminación añadirá un marcador de eliminación al origen pero no al destino.
+* Si ninguno de los dos buckets tiene control de versiones, una solicitud de eliminación borrará el objeto del origen pero no del destino.
+
+
+Del mismo modo, los objetos en el bucket de destino se pueden eliminar sin afectar al de origen.
+
+|===

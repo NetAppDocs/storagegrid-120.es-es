@@ -1,0 +1,21 @@
+---
+permalink: maintain/decommissioning-multiple-storage-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission nodes, storage node, multiple storage nodes 
+summary: Si necesitas eliminar más de un nodo de almacenamiento, puedes decomisionarlos de forma secuencial o en paralelo. 
+---
+= Decomisionar varios nodos de almacenamiento StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si necesitas eliminar más de un nodo de almacenamiento, puedes decomisionarlos de forma secuencial o en paralelo.
+
+
+CAUTION: Actúa con precaución al decomisionar nodos de almacenamiento en una grid que contenga nodos basados en software destinados exclusivamente a metadatos. Si decomisionas todos los nodos configurados para almacenar _tanto_ objetos como metadatos, la capacidad de almacenar objetos se elimina de la grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento destinados exclusivamente a metadatos.
+
+* Si descomisionas los nodos de almacenamiento de forma secuencial, debes esperar a que el primer nodo de almacenamiento haya finalizado el proceso de decomisionar antes de empezar a decomisionar el siguiente nodo de almacenamiento.
+* Si decomisionas los nodos de almacenamiento en paralelo, los nodos de almacenamiento procesan simultáneamente las tareas de decomisionar para todos los nodos de almacenamiento que se están decomisionando. Esto puede resultar en una situación donde todas las copias permanentes de un archivo se marquen como "solo lectura", deshabilitando temporalmente la eliminación en los grids donde esta funcionalidad está habilitada.
+

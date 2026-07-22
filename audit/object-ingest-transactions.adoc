@@ -1,0 +1,102 @@
+---
+permalink: audit/object-ingest-transactions.html 
+sidebar: sidebar 
+keywords: object ingest transaction, S3 ingest, SPUT, ORLM, WPUT 
+summary: ${post_edited_translations.segment} 
+---
+= Mensajes de auditoría para transacciones de ingesta de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+No todos los mensajes de auditoría generados durante una transacción de ingestión aparecen en la siguiente tabla. Solo se incluyen los mensajes necesarios para realizar el seguimiento de la transacción de ingestión.
+
+
+
+[[s3-ingest-audit-messages]]
+== Mensajes de auditoría de ingestión S3
+
+[cols="1a,1a,2a,1a,2a"]
+|===
+| Código | Nombre | Descripción | ${post_edited_translations.segment} | Ver 
+
+
+ a| 
+SPUT
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:sput-s3-put.html["SPUT: S3 PUT"]
+
+
+
+ a| 
+ORLM
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+CBID
+ a| 
+link:orlm-object-rules-met.html["${post_edited_translations.segment}"]
+
+|===
+
+
+[[example-s3-object-ingest]]
+== Ejemplo: carga de objetos en S3
+
+La siguiente serie de mensajes de auditoría es un ejemplo de los mensajes de auditoría que se generan y se guardan en el registro de auditoría cuando un cliente S3 introduce un objeto en un nodo de almacenamiento (servicio LDR).
+
+${post_edited_translations.segment}
+
+
+NOTE: No todos los mensajes de auditoría generados durante una transacción se muestran en el ejemplo de abajo. Solo se muestran los relacionados con la transacción de ingesta de S3 (SPUT).
+
+Este ejemplo asume que ya se ha creado un bucket de S3.
+
+
+
+[[sput-s3-put]]
+=== SPUT: S3 PUT
+
+${post_edited_translations.segment}
+
+[listing, subs="specialcharacters,quotes"]
+----
+2017-07-17T21:17:58.959669[AUDT:[RSLT(FC32):SUCS][TIME(UI64):25771][SAIP(IPAD):"10.96.112.29"][S3AI(CSTR):"70899244468554783528"][SACC(CSTR):"test"][S3AK(CSTR):"SGKHyalRU_5cLflqajtaFmxJn946lAWRJfBF33gAOg=="][SUSR(CSTR):"urn:sgws:identity::70899244468554783528:root"][SBAI(CSTR):"70899244468554783528"][SBAC(CSTR):"test"][S3BK(CSTR):"example"][S3KY(CSTR):"testobject-0-3"][CBID\(UI64\):0x8EF52DF8025E63A8][CSIZ(UI64):30720][AVER(UI32):10][ATIM(UI64):150032627859669][ATYP\(FC32\):SPUT][ANID(UI32):12086324][AMID(FC32):S3RQ][ATID(UI64):14399932238768197038]]
+----
+
+
+[[orlm-object-rules-met]]
+=== ${post_edited_translations.segment}
+
+El mensaje de ORLM indica que se ha cumplido la política de ILM para este objeto. El mensaje incluye el CBID del objeto y el nombre de la regla de ILM que se aplicó.
+
+En el caso de los objetos replicados, el campo LOCS incluye el identificador del nodo LDR y el identificador de volumen de las ubicaciones del objeto.
+
+[listing, subs="specialcharacters,quotes"]
+----
+2019-07-17T21:18:31.230669[AUDT:[CBID\(UI64\):0x50C4F7AC2BC8EDF7][RULE(CSTR):"Make 2 Copies"][STAT(FC32):DONE][CSIZ(UI64):0][UUID(CSTR):"0B344E18-98ED-4F22-A6C8-A93ED68F8D3F"][LOCS(CSTR):"CLDI 12828634 2148730112, CLDI 12745543 2147552014"][RSLT(FC32):SUCS][AVER(UI32):10][ATYP\(FC32\):ORLM][ATIM(UI64):1563398230669][ATID(UI64):15494889725796157557][ANID(UI32):13100453][AMID(FC32):BCMS]]
+----
+${post_edited_translations.segment}
+
+[listing, subs="specialcharacters,quotes"]
+----
+2019-02-23T01:52:54.647537 [AUDT:[CBID(UI64):0xFA8ABE5B5001F7E2][RULE(CSTR):"EC_2_plus_1"][STAT(FC32):DONE][CSIZ(UI64):10000][UUID(CSTR):"E291E456-D11A-4701-8F51-D2F7CC9AFECA"][LOCS(CSTR):"CLEC 1 A471E45D-A400-47C7-86AC-12E77F229831"][RSLT(FC32):SUCS][AVER(UI32):10][ATIM(UI64):1550929974537]\[ATYP\(FC32\):ORLM\][ANID(UI32):12355278][AMID(FC32):ILMX][ATID(UI64):4168559046473725560]]
+----
+El campo PATH incluye información del bucket S3 y la clave.
+
+[listing]
+----
+2019-09-15.txt:2018-01-24T13:52:54.131559 [AUDT:[CBID(UI64):0x82704DFA4C9674F4][RULE(CSTR):"Make 2 Copies"][STAT(FC32):DONE][CSIZ(UI64):3145729][UUID(CSTR):"8C1C9CAC-22BB-4880-9115-CE604F8CE687"][PATH(CSTR):"frisbee_Bucket1/GridDataTests151683676324774_1_1vf9d"][LOCS(CSTR):"CLDI 12525468, CLDI 12222978"][RSLT(FC32):SUCS][AVER(UI32):10][ATIM(UI64):1568555574559][ATYP(FC32):ORLM][ANID(UI32):12525468][AMID(FC32):OBDI][ATID(UI64):344833886538369336]]
+----

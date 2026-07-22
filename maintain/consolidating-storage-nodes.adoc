@@ -1,0 +1,23 @@
+---
+permalink: maintain/consolidating-storage-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, storage node, consolidate storage node, consolidating storage node 
+summary: Puedes consolidar nodos de almacenamiento para reducir el número de nodos de almacenamiento de un sitio o una implementación mientras aumentas la capacidad de almacenamiento. 
+---
+= Consolida los nodos de almacenamiento StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes consolidar nodos de almacenamiento para reducir el número de nodos de almacenamiento de un sitio o una implementación mientras aumentas la capacidad de almacenamiento.
+
+Cuando consolidas nodos de almacenamiento, link:../expand/index.html["ampliar el sistema StorageGRID"] añades nuevos nodos de almacenamiento de mayor capacidad y luego decomisionas los antiguos nodos de almacenamiento de menor capacidad. Durante el procedimiento de decomisionar, los objetos se migran de los antiguos nodos de almacenamiento a los nuevos.
+
+
+NOTE: Si estás consolidando appliances antiguos y más pequeños con modelos nuevos o appliances de mayor capacidad, considera https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html["clonación del nodo del appliance"^] (o usa la clonación de nodos de appliances y el procedimiento de decomisionar si no estás haciendo un reemplazo uno a uno).
+
+Por ejemplo, podrías añadir dos nuevos nodos de almacenamiento de mayor capacidad para sustituir tres nodos de almacenamiento antiguos. Primero usarías el procedimiento de ampliación para añadir los dos nuevos nodos de almacenamiento de mayor capacidad y luego usarías el procedimiento de decomisionar para eliminar los tres nodos de almacenamiento antiguos de menor capacidad.
+
+Al añadir nueva capacidad antes de eliminar los nodos de almacenamiento existentes, aseguras una distribución más equilibrada de los datos en todo el sistema StorageGRID. También reduces la posibilidad de que un nodo de almacenamiento existente supere el nivel de marca de agua de almacenamiento.

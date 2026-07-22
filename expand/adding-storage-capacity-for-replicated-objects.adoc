@@ -1,0 +1,24 @@
+---
+permalink: expand/adding-storage-capacity-for-replicated-objects.html 
+sidebar: sidebar 
+keywords: replication, replicated, copies, capacity, storage nodes, expand, expansion, StorageGRID 
+summary: 'Si la política de gestión del ciclo de vida de la información (ILM) de tu implementación incluye una regla que crea copias replicadas de los objetos, debes tener en cuenta cuánto almacenamiento añadir y dónde añadir los nuevos volúmenes de almacenamiento o Storage Nodes.' 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si la política de gestión del ciclo de vida de la información (ILM) de tu implementación incluye una regla que crea copias replicadas de los objetos, debes tener en cuenta cuánto almacenamiento añadir y dónde añadir los nuevos volúmenes de almacenamiento o Storage Nodes.
+
+Para obtener orientación sobre dónde añadir almacenamiento adicional, examina las reglas de ILM que crean copias replicadas. Si las reglas de ILM crean dos o más copias de objetos, planifica añadir almacenamiento en cada ubicación donde se realicen copias de objetos. Como ejemplo sencillo, si tienes un grid de dos sitios y una regla de ILM que crea una copia de objeto en cada sitio, debes link:../expand/adding-storage-volumes-to-storage-nodes.html["agregar almacenamiento"] a cada sitio para aumentar la capacidad de objetos global del grid. Para obtener información sobre la replicación de objetos, consulta link:../ilm/what-replication-is.html["${post_edited_translations.segment}"].
+
+Por motivos de rendimiento, conviene intentar mantener un equilibrio entre la capacidad de almacenamiento y la potencia de cálculo en todos los sitios. Así que, en este ejemplo, deberías añadir el mismo número de Storage Nodes a cada sitio o volúmenes de almacenamiento adicionales en cada sitio.
+
+Si tienes una política de ILM más compleja que incluye reglas que colocan los objetos en diferentes ubicaciones según criterios como el nombre del bucket, o reglas que cambian la ubicación de los objetos con el tiempo, tu análisis de dónde se requiere almacenamiento para la ampliación será similar, pero más complejo.
+
+Graficar la rapidez con la que se consume la capacidad de almacenamiento general puede ayudarte a entender cuánto almacenamiento añadir en la ampliación y cuándo se necesitará el espacio de almacenamiento adicional. Puedes usar el Grid Manager para link:../monitor/monitoring-storage-capacity.html["supervisar y graficar la capacidad de almacenamiento"].
+
+A la hora de planificar el momento adecuado para una ampliación, recuerda tener en cuenta el tiempo que podría llevar adquirir e instalar capacidad de almacenamiento adicional. Para simplificar la planificación de la ampliación, plantéate añadir Storage Nodes cuando los Storage Nodes existentes alcancen el 70% de capacidad.

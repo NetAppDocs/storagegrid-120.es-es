@@ -1,0 +1,127 @@
+---
+permalink: ilm/example-3-ilm-rules-and-policy-for-better-protection-for-image-files.html 
+sidebar: sidebar 
+keywords: example ILM rule, information lifecycle rule examples 
+summary: Puedes utilizar las siguientes reglas y la política de ejemplo para garantizar que las imágenes de más de 1 MB se codifiquen con código de borrado y que se creen dos copias de las imágenes más pequeñas. 
+---
+= Reglas ILM y política para proteger archivos de imagen en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar las siguientes reglas y la política de ejemplo para garantizar que las imágenes de más de 1 MB se codifiquen con código de borrado y que se creen dos copias de las imágenes más pequeñas.
+
+
+CAUTION: Las siguientes reglas y políticas de ILM son solo ejemplos. Existen muchas formas de configurar reglas de ILM. Antes de activar una nueva política, simúlala para confirmar que funcionará como esperas y protegerá el contenido contra la pérdida.
+
+
+
+[[ilm-rule-1-for-example-3-use-ec-for-image-files-greater-than-1-mb]]
+== Regla 1 de ILM para el ejemplo 3: usa EC para los archivos de imagen mayores de 1 MB
+
+Este ejemplo de regla de ILM utiliza un filtrado avanzado para aplicar el código de borrado a todos los archivos de imagen de más de 1 MB.
+
+
+NOTE: El código de borrado es más adecuado para objetos de más de 1 MB. No uses el código de borrado para objetos de menos de 200 KB para evitar la sobrecarga de gestionar fragmentos muy pequeños codificados por borrado.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Nombre de la regla
+ a| 
+Archivos de imagen EC > 1 MB
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Filtro avanzado por tamaño del objeto
+ a| 
+Tamaño del objeto superior a 1 MB
+
+
+
+ a| 
+Filtros avanzados para Key
+ a| 
+* Termina en .jpg
+* Termina en .png
+
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Crea una copia con código de borrado 2+1 usando tres sitios
+
+|===
+image:policy_3_rule_1_ec_images_adv_filtering.png["Regla 1 de ILM para el ejemplo 3: usa EC para los archivos de imagen mayores de 1 MB"]
+
+Dado que esta regla está configurada como la primera de la política, la instrucción de ubicación del código de borrado solo se aplica a los archivos .jpg y .png que superan 1 MB.
+
+
+
+[[ilm-rule-2-for-example-3-create-2-replicated-copies-for-all-remaining-image-files]]
+== Regla 2 de ILM para el ejemplo 3: crea 2 copias replicadas de todos los archivos de imagen restantes
+
+Esta regla de ILM de ejemplo utiliza un filtrado avanzado para especificar que se repliquen los archivos de imagen más pequeños. Porque la primera regla de la política ya ha seleccionado los archivos de imagen de más de 1 MB, esta regla se aplica a los archivos de imagen de 1 MB o menos.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Nombre de la regla
+ a| 
+2 copias para los archivos de imagen
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Filtros avanzados para Key
+ a| 
+* Termina en .jpg
+* Termina en .png
+
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Crear 2 copias replicadas en dos grupos de almacenamiento
+
+|===
+
+
+[[ilm-policy-for-example-3-better-protection-for-image-files]]
+== Política de ILM para el ejemplo 3: mejor protección para los archivos de imagen
+
+Esta política de ILM de ejemplo incluye tres reglas:
+
+* La primera regla codifica mediante códigos de borrado todos los archivos de imagen de más de 1 MB.
+* La segunda regla crea dos copias de los archivos de imagen restantes (es decir, las imágenes de 1 MB o menos).
+* La regla por defecto se aplica a todos los demás objetos (es decir, a cualquier archivo que no sea una imagen).
+
+
+image:policy_3_configured_policy.png["Política de ILM para el ejemplo 3: mejor protección para los archivos de imagen"]

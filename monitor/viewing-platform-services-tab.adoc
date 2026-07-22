@@ -1,0 +1,20 @@
+---
+permalink: monitor/viewing-platform-services-tab.html 
+sidebar: sidebar 
+keywords: platform services tab 
+summary: La pestaña Servicios de la plataforma ofrece información sobre cualquier operación de servicios de plataforma S3 en un sitio. 
+---
+= Ver la pestaña de servicios de la plataforma StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña Servicios de la plataforma ofrece información sobre cualquier operación de servicios de plataforma S3 en un sitio.
+
+La pestaña «Servicios de la plataforma» aparece en cada sitio. Esta pestaña ofrece información sobre los servicios de la plataforma S3, como la replicación de CloudMirror y el servicio de integración de búsqueda. Los gráficos de esta pestaña muestran métricas como el número de solicitudes pendientes, la tasa de finalización de solicitudes y la tasa de fallos de solicitudes.
+
+image:nodes_page_site_level_platform_services.gif["Página de nodos servicios de plataforma a nivel de sitio"]
+
+Para obtener más información sobre los servicios de la plataforma S3, incluidos los detalles sobre la resolución de problemas, consulta la link:../admin/index.html["Instrucciones para la administración de StorageGRID"].

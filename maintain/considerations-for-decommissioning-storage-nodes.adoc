@@ -1,0 +1,82 @@
+---
+permalink: maintain/considerations-for-decommissioning-storage-nodes.html 
+sidebar: sidebar 
+keywords: storage node decommission, considerations, appliance node clone 
+summary: Antes de decomisionar un nodo de almacenamiento, plantéate si puedes clonarlo en su lugar. Luego, si decides decomisionar el nodo, revisa cómo StorageGRID gestiona los objetos y los metadatos durante el procedimiento de decomisionamiento. 
+---
+= Consideraciones para decomisionar un Storage Node en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de decomisionar un nodo de almacenamiento, plantéate si puedes clonarlo en su lugar. Luego, si decides decomisionar el nodo, revisa cómo StorageGRID gestiona los objetos y los metadatos durante el procedimiento de decomisionamiento.
+
+
+
+[[when-to-clone-a-node-instead-of-decommissioning-it]]
+== Cuándo clonar un nodo en lugar de descomisionarlo
+
+Si deseas sustituir un nodo de almacenamiento de appliance antiguo por uno de appliance más nuevo o de mayor capacidad, considera clonar el nodo de appliance en lugar de añadir un nuevo appliance en una ampliación y luego decomisionar el appliance antiguo.
+
+La clonación de nodos de appliance te permite sustituir fácilmente un nodo de appliance existente por un appliance compatible en el mismo sitio de StorageGRID. El proceso de clonación transfiere todos los datos al nuevo appliance, pone en servicio el nuevo appliance y deja el antiguo en un estado previo a la instalación.
+
+Puedes clonar un nodo de dispositivo si necesitas:
+
+* Sustituye un appliance que está llegando al final de su vida útil.
+* Actualiza un nodo existente para aprovechar la tecnología mejorada del dispositivo.
+* Aumenta la capacidad de almacenamiento en grid sin cambiar el número de Storage Nodes en tu sistema StorageGRID.
+* Mejora la eficiencia del almacenamiento, como cambiando el modo RAID.
+
+
+Consulta https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html["Clonación de nodos de appliance"^] para más detalles.
+
+
+
+[[considerations-for-connected-storage-nodes]]
+== Aspectos a tener en cuenta en los nodos de almacenamiento conectados
+
+Revisa las consideraciones para decomisionar un nodo de almacenamiento conectado.
+
+* No debes decomisionar más de 10 Storage Nodes en un solo procedimiento de Decommission Node.
+* El sistema debe contar, en todo momento, con suficientes nodos de almacenamiento para satisfacer los requisitos operativos, incluidos el link:understanding-adc-service-quorum.html["${post_edited_translations.segment}"] y el link:reviewing-ilm-policy-and-storage-configuration.html["Política de ILM"] activo. Para cumplir esta restricción, es posible que tengas que añadir un nuevo nodo de almacenamiento en una operación de ampliación antes de poder decomisionar un nodo de almacenamiento existente.
++
+Actúa con precaución al decomisionar nodos de almacenamiento en una grid que contenga nodos basados en software destinados exclusivamente a metadatos. Si decomisionas todos los nodos configurados para almacenar _tanto_ objetos como metadatos, la capacidad de almacenar objetos se elimina de la grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento destinados exclusivamente a metadatos.
+
+* Al eliminar un nodo de almacenamiento, se transfieren grandes volúmenes de datos de objetos a través de la red. Aunque estas transferencias no deberían afectar el funcionamiento normal del sistema, pueden influir en la cantidad total de ancho de banda de red que consume el sistema StorageGRID.
+* Las tareas relacionadas con el proceso de decomisionar un nodo de almacenamiento tienen una prioridad menor que las tareas relacionadas con el funcionamiento normal del sistema. Esto significa que decomisionar no interfiere con el funcionamiento normal del sistema StorageGRID y no es necesario programarlo para un periodo de inactividad del sistema. Dado que decomisionar se realiza en segundo plano, es difícil estimar cuánto tiempo tomará completar el proceso. En general, decomisionar termina más rápido cuando el sistema está tranquilo o si solo se retira un nodo de almacenamiento a la vez.
+* Podría tardar días o semanas en decomisionar un nodo de almacenamiento. Planifica este procedimiento en consecuencia. Aunque el proceso de decomisionar está diseñado para no afectar las operaciones del sistema, puede limitar otros procedimientos. En general, deberías realizar cualquier actualización o expansión planificada del sistema antes de eliminar nodos del grid.
+* Si necesitas realizar otro procedimiento de mantenimiento mientras se están eliminando los nodos de almacenamiento, puedes link:pausing-and-resuming-decommission-process-for-storage-nodes.html["pausar el procedimiento de decomisionar"] y reanudarlo una vez que el otro procedimiento haya finalizado.
++
+
+NOTE: El botón *Pausa* solo está disponible cuando se llega a las fases de evaluación de ILM o de decomisionamiento de datos con código de borrado; sin embargo, la evaluación de ILM (migración de datos) seguirá ejecutándose en segundo plano.
+
+* No puedes ejecutar operaciones de reparación de datos en ningún nodo de la grid mientras se está ejecutando una tarea de decomisionar.
+* No debes realizar ningún cambio en una política de ILM mientras se está descomisionando un nodo de almacenamiento.
+* Para eliminar los datos de forma permanente y segura, debes borrar las unidades del Storage Node después de que se complete el procedimiento de decomisionar.
+
+
+
+
+[[considerations-for-disconnected-storage-nodes]]
+[[considerations-disconnected-storage-nodes]]
+== Consideraciones para los nodos de almacenamiento desconectados
+
+Revisa las consideraciones para decomisionar un nodo de almacenamiento desconectado.
+
+* Nunca descomisiones un nodo desconectado a menos que estés seguro de que no se puede volver a poner en línea ni recuperar.
++
+
+CAUTION: No realices este procedimiento si crees que podría ser posible recuperar los datos de objetos del nodo. En su lugar, ponte en contacto con soporte técnico para determinar si la recuperación del nodo es posible.
+
+* Cuando decomisionas un nodo de almacenamiento desconectado, StorageGRID utiliza datos de otros nodos de almacenamiento para reconstruir los datos de objetos y metadatos que estaban en el nodo desconectado.
+* Podría producirse una pérdida de datos si decomisionas más de un nodo de almacenamiento desconectado. Es posible que el sistema no pueda reconstruir los datos si no quedan disponibles suficientes copias de objetos, fragmentos con código de borrado o metadatos de los objetos. Cuando decomisionas nodos de almacenamiento en un grid con nodos basados en software solo para metadatos, decomisionar todos los nodos configurados para almacenar tanto objetos como metadatos elimina todo el almacenamiento de objetos del grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para más información sobre los nodos de almacenamiento solo para metadatos.
++
+
+CAUTION: Si tienes más de un nodo de almacenamiento desconectado que no puedes recuperar, ponte en contacto con soporte técnico para determinar cuál es la mejor forma de proceder.
+
+* Cuando decomisionas un nodo de almacenamiento desconectado, StorageGRID inicia tareas de reparación de datos al final del proceso de decomisionamiento. Estas tareas intentan reconstruir los datos de los objetos y los metadatos que estaban almacenados en el nodo desconectado.
+* Cuando decomisionas un nodo de almacenamiento desconectado, el procedimiento de decomisionado se completa con relativa rapidez. Sin embargo, los trabajos de reparación de datos pueden tardar días o semanas en ejecutarse y no son supervisados por el procedimiento de decomisionado. Debes supervisar manualmente estos trabajos y reiniciarlos cuando sea necesario. Consulta link:checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"].
+* Si decomisionas un nodo de almacenamiento desconectado que contiene la única copia de un objeto, el objeto se perderá. Las tareas de reparación de datos solo pueden reconstruir y recuperar objetos si existe al menos una copia replicada o suficientes fragmentos con código de borrado en nodos de almacenamiento que estén conectados en ese momento.
+

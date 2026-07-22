@@ -1,0 +1,65 @@
+---
+permalink: maintain/reviewing-ilm-policy-and-storage-configuration.html 
+sidebar: sidebar 
+keywords: storagegrid, restore, ilm policy, storage configuration 
+summary: Si planeas decomisionar un nodo de almacenamiento, deberías revisar la política de ILM de tu sistema StorageGRID antes de empezar el proceso de decomisionamiento. 
+---
+= Revisa la política ILM de StorageGRID y la configuración de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si tienes previsto decomisionar un nodo de almacenamiento, deberías revisar la política de ILM de tu sistema StorageGRID antes de empezar el proceso de decomisionamiento.
+
+Durante el proceso de descomisionamiento, todos los datos de los objetos se migran desde el nodo de almacenamiento descomisionado a otros nodos de almacenamiento.
+
+
+NOTE: La política de ILM que tengas _durante_ el decomisionado será la que se utilice _después_ del decomisionado. Debes asegurarte de que esta política cumpla con tus requisitos de datos tanto antes de iniciar el decomisionado como una vez finalizado este.
+
+Debes revisar las reglas en cada link:../ilm/creating-ilm-policy.html["política de ILM activa"] para asegurarte de que el sistema StorageGRID seguirá teniendo suficiente capacidad del tipo correcto y en las ubicaciones correctas para acomodar el decomisionado de un Storage Node.
+
+Ten en cuenta lo siguiente:
+
+* ¿Será posible que los servicios de evaluación de ILM copien los datos de los objetos de tal forma que se cumplan las reglas de ILM?
+* ¿Qué ocurre si un emplazamiento queda temporalmente fuera de servicio mientras se lleva a cabo el proceso de decomisionar? ¿Se pueden realizar copias adicionales en una ubicación alternativa?
+* ¿Cómo afectará el proceso de decomisionar a la distribución final del contenido? Como se describe en link:consolidating-storage-nodes.html["Consolidar nodos de almacenamiento"], debes link:../expand/index.html["agrega nuevos nodos de almacenamiento"] antes de decomisionar los antiguos. Si agregas un nodo de almacenamiento de reemplazo más grande después de decomisionar un nodo de almacenamiento más pequeño, los nodos de almacenamiento antiguos podrían estar casi al límite de su capacidad de almacenamiento y el nuevo nodo de almacenamiento podría no tener casi ningún contenido. La mayoría de las operaciones de escritura para nuevos datos de objetos se dirigirían entonces al nuevo nodo de almacenamiento, reduciendo la eficiencia general de las operaciones del sistema.
+* ¿Contará el sistema, en todo momento, con suficientes nodos de almacenamiento para cumplir con las políticas de ILM activas?
++
+
+NOTE: Una política de ILM que no se pueda cumplir provocará atascos y alertas, y podría interrumpir el funcionamiento del sistema StorageGRID.
+
+
+
+Comprueba que la topología propuesta que resultará del proceso de decomisionar cumpla con la política de ILM evaluando las áreas que figuran en la tabla.
+
+[cols="1a,2a"]
+|===
+| Área a evaluar | Aspectos a tener en cuenta 
+
+
+ a| 
+Capacidad disponible
+ a| 
+¿Habrá suficiente capacidad de almacenamiento para albergar todos los datos de objetos almacenados en el sistema StorageGRID, incluidas las copias permanentes de los datos de objetos que actualmente se encuentran almacenados en el nodo de almacenamiento que se va a decomisionar?
+
+¿Habrá capacidad suficiente para gestionar el crecimiento previsto de los datos de objetos almacenados durante un periodo de tiempo razonable después de que se haya completado el proceso de decomisionar?
+
+
+
+ a| 
+Ubicación del almacenamiento
+ a| 
+Si queda suficiente capacidad en el sistema StorageGRID en su conjunto, ¿se encuentra esa capacidad en las ubicaciones adecuadas para cumplir las reglas de negocio del sistema StorageGRID?
+
+
+
+ a| 
+Tipo de almacenamiento
+ a| 
+¿Habrá suficiente capacidad de almacenamiento del tipo adecuado una vez que se haya completado el proceso de decomisionar?
+
+Por ejemplo, las reglas de ILM pueden trasladar contenido de un tipo de almacenamiento a otro a medida que este va envejeciendo. En este caso, debes asegurarte de que haya suficiente almacenamiento del tipo adecuado disponible en la configuración final del sistema StorageGRID.
+
+|===

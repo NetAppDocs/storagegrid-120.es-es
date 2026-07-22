@@ -1,0 +1,20 @@
+---
+permalink: maintain/all-node-types-replacing-linux-node.html 
+sidebar: sidebar 
+keywords: replace linux node 
+summary: Si un fallo requiere que implementes uno o varios hosts físicos o virtuales nuevos, o que reinstales Linux en un host existente, primero debes implementar y configurar el host de reemplazo antes de poder recuperar el nodo de grid. Este procedimiento es un paso del proceso de recuperación de nodos de grid para todos los tipos de nodos de grid. 
+---
+= Reemplazar un nodo Linux en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si un fallo requiere que implementes uno o varios hosts físicos o virtuales nuevos, o que reinstales Linux en un host existente, primero debes implementar y configurar el host de reemplazo antes de poder recuperar el nodo de grid. Este procedimiento es un paso del proceso de recuperación de nodos de grid para todos los tipos de nodos de grid.
+
+«Linux» hace referencia a una instalación de Red Hat® Enterprise Linux® (RHEL), Ubuntu® o Debian®. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+Este procedimiento solo se lleva a cabo como un paso en el proceso de recuperación de nodos de almacenamiento basados en software, nodos de administración primarios o no primarios, o nodos de pasarela. Los pasos son idénticos independientemente del tipo de nodo de grid que estés recuperando.
+
+Si hay más de un nodo de red alojado en un servidor Linux físico o virtual, puedes recuperar los nodos de red en cualquier orden. Sin embargo, si recuperas primero el nodo de administración principal, en caso de que exista, evitas que la recuperación de los demás nodos de red se bloquee al intentar ponerse en contacto con el nodo de administración principal para registrarse en la recuperación.

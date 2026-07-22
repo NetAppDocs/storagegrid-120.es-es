@@ -1,0 +1,46 @@
+---
+permalink: monitor/index.html 
+sidebar: sidebar 
+keywords: monitor StorageGRID 
+summary: Supervisa tu sistema StorageGRID con regularidad para asegurarte de que funciona según lo previsto. 
+---
+= Supervisa un sistema StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Supervisa tu sistema StorageGRID con regularidad para asegurarte de que funciona según lo previsto.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+
+
+
+NOTE: Para cambiar las unidades de los valores de almacenamiento que se muestran en el Grid Manager, selecciona el menú desplegable de usuario en la esquina superior derecha del Grid Manager y luego selecciona *User preferences*.
+
+.Acerca de esta tarea
+Estas instrucciones describen cómo:
+
+* link:viewing-dashboard.html["Ver y gestionar el panel de control"]
+* link:viewing-nodes-page.html["Ver la página Nodes"]
+* link:information-you-should-monitor-regularly.html["Supervisa estos aspectos del sistema con regularidad:"]
++
+** link:monitoring-system-health.html["Estado del sistema"]
+** link:monitoring-storage-capacity.html["Capacidad de almacenamiento"]
+** link:monitoring-information-lifecycle-management.html["Gestión del ciclo de vida de la información"]
+** link:monitoring-network-connections-and-performance.html["Redes y recursos del sistema"]
+** link:monitoring-tenant-activity.html["Actividad del inquilino"]
+** link:monitoring-load-balancing-operations.html["Operaciones de equilibrio de carga"]
+** link:grid-federation-monitor-connections.html["Conexiones de grid federation"]
+
+
+* link:managing-alerts.html["Gestiona alertas"]
+* link:logs-files-reference.html["Ver archivos de registro"]
+* link:configure-log-management.html["Configura la gestión de registros y el servidor syslog externo"]
+* link:considerations-for-external-syslog-server.html["Utiliza un servidor syslog externo"] para recopilar información de auditoría
+* link:using-snmp-monitoring.html["Utiliza SNMP para la supervisión"]
+* link:manage-io-prioritization.html["Modificar la priorización de E/S"] para modificar las prioridades relativas de las operaciones de E/S
+

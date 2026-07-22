@@ -1,0 +1,169 @@
+---
+permalink: ilm/example-5-ilm-rules-and-policy-for-strict-ingest-behavior.html 
+sidebar: sidebar 
+keywords: strict ingest example, example ILM rule, information lifecycle rule examples 
+summary: Puedes utilizar un filtro de ubicación y el comportamiento de ingesta Strict en una regla para evitar que se guarden objetos en una ubicación concreta del centro de datos. 
+---
+= Reglas y política de ILM para el comportamiento de ingesta estricto en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar un filtro de ubicación y el comportamiento de ingesta Strict en una regla para evitar que se guarden objetos en una ubicación concreta del centro de datos.
+
+En este ejemplo, un cliente con sede en París no desea almacenar algunos objetos fuera de la UE por motivos normativos. El resto de objetos, incluidos todos los de otras cuentas de cliente, pueden almacenarse tanto en el centro de datos de París como en el de EE. UU.
+
+
+CAUTION: Las siguientes reglas y políticas de ILM son solo ejemplos. Existen muchas formas de configurar reglas de ILM. Antes de activar una nueva política, simúlala para confirmar que funcionará como esperas y protegerá el contenido contra la pérdida.
+
+.Información relacionada
+* link:data-protection-options-for-ingest.html["Opciones de ingesta"]
+* link:create-ilm-rule-select-ingest-behavior.html["Crear regla de ILM: seleccionar comportamiento de ingesta"]
+
+
+
+
+[[ilm-rule-1-for-example-5-strict-ingest-to-guarantee-paris-data-center]]
+== Regla 1 de ILM para el ejemplo 5: ingesta estricta para garantizar el centro de datos de París
+
+Esta regla de ILM de ejemplo utiliza el comportamiento de ingesta estricto para garantizar que los objetos guardados por un cliente con sede en París en buckets de S3 con la región configurada como eu-west-3 (París) nunca se almacenen en el centro de datos de EE. UU.
+
+Esta regla se aplica a los objetos que pertenecen al inquilino Paris y que tienen la región del bucket S3 configurada como eu-west-3 (Paris).
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Cuenta de inquilino
+ a| 
+Arrendatario de Paris
+
+
+
+ a| 
+Filtro avanzado
+ a| 
+La restricción de ubicación es eu-west-3
+
+
+
+ a| 
+Grupos de almacenamiento
+ a| 
+Sede 1 (Paris)
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+Ingesta estricta para garantizar el centro de datos de París
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+El día 0, mantén dos copias replicadas para siempre en Site 1 (Paris)
+
+
+
+ a| 
+Comportamiento de ingesta
+ a| 
+Estricta. Utiliza siempre las ubicaciones de esta regla durante la ingesta. La ingesta falla si no es posible almacenar dos copias del objeto en el centro de datos de París.
+
+|===
+image:ilm_rule_1_example_5_strict_ingest.png["Ejemplo 5 de la regla 1 de ILM: incorporación estricta"]
+
+
+
+[[ilm-rule-2-for-example-5-balanced-ingest-for-other-objects]]
+== Regla 2 de ILM para el ejemplo 5: captura equilibrada para otros objetos
+
+Esta regla de ILM de ejemplo utiliza el comportamiento de ingesta equilibrado para ofrecer una eficiencia óptima de ILM para cualquier objeto que no se ajuste a la primera regla. Se almacenarán dos copias de todos los objetos que se ajusten a esta regla: una en el centro de datos de EE. UU. y otra en el centro de datos de París. Si la regla no se puede cumplir de inmediato, se almacenan copias provisionales en cualquier ubicación disponible.
+
+Esta regla se aplica a los objetos que pertenecen a cualquier inquilino y a cualquier región.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Cuenta de inquilino
+ a| 
+Ignorar
+
+
+
+ a| 
+Filtro avanzado
+ a| 
+_No especificado_
+
+
+
+ a| 
+Grupos de almacenamiento
+ a| 
+Sede 1 (París) y Sede 2 (US)
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+2 copias 2 centros de datos
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+El día 0, mantén dos copias replicadas para siempre en dos centros de datos
+
+
+
+ a| 
+Comportamiento de ingesta
+ a| 
+Equilibrado. Los objetos que cumplen esta regla se colocan según las instrucciones de colocación de la misma, si es posible. De lo contrario, se crean copias provisionales en cualquier ubicación disponible.
+
+|===
+
+
+[[ilm-policy-for-example-5-combining-ingest-behaviors]]
+== Política de ILM para el ejemplo 5: combinación de comportamientos de ingesta
+
+La política de ILM de ejemplo incluye dos reglas que presentan comportamientos de ingesta diferentes.
+
+Una política de ILM que utilice dos comportamientos de ingesta distintos podría incluir reglas de ILM como las siguientes:
+
+* Almacena los objetos que pertenezcan al tenant de Paris y cuya región del bucket de S3 esté configurada como eu-west-3 (Paris) únicamente en el centro de datos de Paris. Falla la ingesta si el centro de datos de Paris no está disponible.
+* Almacena todos los demás objetos (incluidos aquellos que pertenecen al inquilino de París pero que tienen una región de bucket diferente) tanto en el centro de datos de EE. UU. como en el centro de datos de París. Realiza copias provisionales en cualquier ubicación disponible si no se puede cumplir la instrucción de ubicación.
+
+
+Cuando simulas la política de ejemplo, esperas que los objetos de prueba se evalúen de la siguiente manera:
+
+* Cualquier objeto que pertenezca al inquilino de París y cuya región del bucket S3 esté configurada como eu-west-3 se ajusta a la primera regla y se almacena en el centro de datos de París. Porque la primera regla usa Strict ingest, estos objetos nunca se almacenan en el centro de datos de EE. UU. Si los Storage Nodes del centro de datos de París no están disponibles, la ingesta falla.
+* El resto de objetos se ajustan a la segunda regla, incluidos aquellos que pertenecen al inquilino de Paris y que no tienen la región del bucket de S3 configurada como eu-west-3. Se guarda una copia de cada objeto en cada centro de datos. Sin embargo, porque la segunda regla usa Balanced ingest, si un centro de datos no está disponible, se guardan dos copias provisionales en cualquier ubicación disponible.
+

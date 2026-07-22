@@ -1,0 +1,132 @@
+---
+permalink: admin/signing-in-to-grid-manager.html 
+sidebar: sidebar 
+keywords: grid manager, sign in, log in 
+summary: 'Accedes a la página de inicio de sesión de Grid Manager introduciendo el nombre de dominio completo (FQDN) o la dirección IP de un nodo de administración en la barra de direcciones de un navegador web compatible.' 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Accedes a la página de inicio de sesión de Grid Manager introduciendo el nombre de dominio completo (FQDN) o la dirección IP de un nodo de administración en la barra de direcciones de un navegador web compatible.
+
+Cada sistema StorageGRID incluye un nodo de administración principal y cualquier número de nodos de administración no principales. Puedes iniciar sesión en el Grid Manager en cualquier nodo de administración para gestionar el sistema StorageGRID. Sin embargo, algunos procedimientos de mantenimiento solo se pueden realizar desde el nodo de administración principal.
+
+
+
+[[connect-to-ha-group]]
+=== Conéctate al grupo de alta disponibilidad
+
+Si los nodos de administración están incluidos en un grupo de alta disponibilidad (HA), te conectas usando la dirección IP virtual del grupo HA o un nombre de dominio completo que apunte a la dirección IP virtual. El nodo de administración principal debe seleccionarse como la interfaz principal del grupo, así que cuando accedas a Grid Manager, lo harás en el nodo de administración principal a menos que este no esté disponible. Consulta link:managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"].
+
+
+
+[[use-sso]]
+=== ${post_edited_translations.segment}
+
+Los pasos para iniciar sesión son un poco diferentes si link:how-sso-works.html["El inicio de sesión único (SSO) ha sido configurado"].
+
+
+
+[[sign-in-to-grid-manager-on-first-admin-node]]
+== Inicia sesión en Grid Manager en el primer nodo de administración
+
+.Antes de empezar
+* Ya tienes tus datos de acceso.
+* Estás usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Las cookies están activadas en tu navegador web.
+* Perteneces a un grupo de usuarios que tiene al menos un permiso.
+* Ya tienes la URL del Grid Manager:
++
+`https://_FQDN_or_Admin_Node_IP_/`
+
++
+Puedes utilizar el nombre de dominio completo, la dirección IP de un nodo de administración o la dirección IP virtual de un grupo de HA de nodos de administración.
+
++
+Para acceder al Grid Manager en un puerto distinto al puerto predeterminado para HTTPS (443), incluye el número de puerto en la URL:
+
++
+`https://_FQDN_or_Admin_Node_IP:port_/`
+
++
+
+NOTE: El SSO no está disponible en el puerto restringido de Grid Manager. Debes utilizar el puerto 443.
+
+
+
+.Pasos
+. Abre un navegador web compatible.
+. En la barra de direcciones del navegador, introduce la URL del Grid Manager.
+. Si te aparece una alerta de seguridad, instala el certificado utilizando el asistente de instalación del navegador. Consulta link:using-storagegrid-security-certificates.html["Gestiona certificados de seguridad"].
+. Inicia sesión en Grid Manager.
++
+La pantalla de inicio de sesión que aparece depende de si se ha configurado el inicio de sesión único (SSO) para StorageGRID.
+
++
+[role="tabbed-block"]
+====
+.No usas SSO
+--
+.. Introduce tu nombre de usuario y contraseña para el Grid Manager.
+.. ${post_edited_translations.segment}
+
+
+--
+.${post_edited_translations.segment}
+--
+** ${post_edited_translations.segment}
++
+... Selecciona *Iniciar sesión*. Puedes dejar el 0 en el campo Cuenta.
+... Introduce tus credenciales habituales de SSO en la página de inicio de sesión único de tu organización.
++
+Por ejemplo, si StorageGRID utiliza el inicio de sesión único (SSO) y ya has accedido anteriormente al Grid Manager o a una cuenta de inquilino:
+
++
+.... ${post_edited_translations.segment}
+.... Selecciona *Sign in*.
+.... Inicia sesión con tus credenciales estándar de SSO en la página de inicio de sesión único de tu organización.
+
+
+
+
+
+
+--
+====
+
+
+Cuando hayas iniciado sesión, aparecerá la página de inicio de Grid Manager, que incluye el panel de control. Para saber qué información se ofrece, consulta link:../monitor/viewing-dashboard.html["Ver y gestionar el panel de control"].
+
+
+
+[[sign-into-another-admin-node]]
+== ${post_edited_translations.segment}
+
+Sigue estos pasos para iniciar sesión en otro nodo de administración.
+
+[role="tabbed-block"]
+====
+.No usas SSO
+--
+.Pasos
+. En la barra de direcciones del navegador, introduce el nombre de dominio completo o la dirección IP del otro Admin Node. Incluye el número de puerto si es necesario.
+. Introduce tu nombre de usuario y contraseña para el Grid Manager.
+. ${post_edited_translations.segment}
+
+
+--
+.${post_edited_translations.segment}
+--
+${post_edited_translations.segment}
+
+.Pasos
+. Introduce el nombre de dominio completo o la dirección IP del otro nodo de administración en la barra de direcciones del navegador.
+. Si tu sesión de SSO ha caducado, vuelve a introducir tus credenciales.
+
+
+--
+====

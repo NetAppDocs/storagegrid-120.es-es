@@ -1,0 +1,35 @@
+---
+permalink: fabricpool/configure-dns-server.html 
+sidebar: sidebar 
+keywords: fabricPool, StorageGRID, dns, vip, virtual ip, fqdn, server name 
+summary: ${post_edited_translations.segment} 
+---
+= Configura las entradas del servidor DNS para StorageGRID con FabricPool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de configurar los grupos de alta disponibilidad, los puntos de conexión del equilibrador de carga y los nombres de dominio de los puntos de conexión de S3, debes asegurarte de que el DNS incluya las entradas necesarias para StorageGRID. Debes incluir una entrada de DNS para cada nombre en el certificado de seguridad y para cada dirección IP que puedas usar.
+
+Consulta link:../admin/managing-load-balancing.html["Aspectos a tener en cuenta para el equilibrio de carga"].
+
+
+
+[[dns-entries-for-storagegrid-server-name]]
+== Entradas DNS para el nombre del servidor StorageGRID
+
+Añade entradas DNS para asociar el nombre del servidor StorageGRID (nombre de dominio completo) a cada dirección IP de StorageGRID que vayas a utilizar. Las direcciones IP que introduzcas en el DNS dependen de si estás utilizando un grupo HA de nodos con equilibrio de carga:
+
+* Si has configurado un grupo de alta disponibilidad (HA), ONTAP se conectará a las direcciones IP virtuales de ese grupo de alta disponibilidad.
+* Si no estás usando un grupo de alta disponibilidad (HA), ONTAP puede conectarse al servicio StorageGRID Load Balancer usando la dirección IP de cualquier Gateway Node o Admin Node.
+* Si el nombre del servidor se resuelve en más de una dirección IP, ONTAP establece conexiones de cliente con todas las direcciones IP (hasta un máximo de 16 direcciones IP). Las direcciones IP se seleccionan mediante un método de rotación cuando se establecen las conexiones.
+
+
+
+
+[[dns-entries-for-virtual-hosted-style-requests]]
+== Entradas DNS para solicitudes de tipo alojamiento virtual
+
+Si has definido link:../admin/configuring-s3-api-endpoint-domain-names.html["Nombres de dominio de los endpoints S3"] y vas a utilizar solicitudes de tipo virtual hosted-style, añade entradas DNS para todos los nombres de dominio de los endpoints S3 necesarios, incluidos los nombres con comodines.

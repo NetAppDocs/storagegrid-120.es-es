@@ -1,0 +1,99 @@
+---
+permalink: audit/llst-location-lost.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, LLST, Location Lost 
+summary: 'Este mensaje se genera cada vez que no se encuentra una ubicación para una copia de un objeto (replicada o con código de borrado).' 
+---
+= Mensaje de auditoría LLST para ubicaciones de copias de objetos perdidas en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cada vez que no se encuentra una ubicación para una copia de un objeto (replicada o con código de borrado).
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBIL
+ a| 
+CBID
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+Para datos de objetos con codificación de borrado. El ID del perfil de codificación de borrado utilizado.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+ID del nodo de origen
+ a| 
+El ID del nodo en el que se perdieron las ubicaciones.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+La ruta completa a la ubicación en el disco de los datos del objeto perdido. Solo se devuelve cuando LTYP tiene el valor CLDI (es decir, para objetos replicados).
+
+Adopta la forma `/var/local/rangedb/2/p/13/13/00oJs6X%{h{U)SeUFxE@`
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+Siempre es NONE. RSLT es un campo de mensaje obligatorio, pero no es relevante para este mensaje. Se utiliza NONE en lugar de SUCS para que este mensaje no se filtre.
+
+
+
+ a| 
+TSRC
+ a| 
+Fuente desencadenante
+ a| 
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+UUID
+ a| 
+${post_edited_translations.segment}
+ a| 
+El identificador del objeto afectado en el sistema StorageGRID.
+
+|===

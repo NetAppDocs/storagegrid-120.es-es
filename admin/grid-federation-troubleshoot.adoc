@@ -1,0 +1,233 @@
+---
+permalink: admin/grid-federation-troubleshoot.html 
+sidebar: sidebar 
+keywords: troubleshoot, grid federation connection, account clone, cross-grid replication, alerts, errors 
+summary: Es posible que tengas que solucionar problemas relacionados con alertas y errores sobre las conexiones de federación de grid, la clonación de cuentas y la replicación entre grids. 
+---
+= Soluciona errores de federación de grid en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que tengas que solucionar problemas relacionados con alertas y errores sobre las conexiones de federación de grid, la clonación de cuentas y la replicación entre grids.
+
+
+
+[[grid-federation-errorsgrid-federation-connection-alerts-and-errors]]
+== [[grid-federation-errors]]Alertas y errores de conexión de la federación de grid
+
+Es posible que recibas alertas o experimentes errores con tus conexiones de federación de grid.
+
+Después de realizar cualquier cambio para resolver un problema de conexión, prueba la conexión para asegurarte de que el estado de la conexión vuelva a ser *Conectado*. Para obtener instrucciones, consulta link:grid-federation-manage-connection.html["Gestiona las conexiones de la federación de grid"].
+
+
+
+[[grid-federation-connection-failure-alert]]
+=== Alerta de fallo en la conexión de la federación de grid
+
+.Problema
+Se activó la alerta *Error de conexión a la federación Grid*.
+
+.Detalles
+Esta alerta indica que la conexión de la federación de grid entre los grids no está funcionando.
+
+.Medidas recomendadas
+. Revisa la configuración de la página Grid Federation para ambas grids. Confirma que todos los valores sean correctos. Consulta link:grid-federation-manage-connection.html["Gestiona las conexiones de la federación de grid"].
+. Revisa los certificados utilizados para la conexión. Asegúrate de que no haya alertas de certificados de federación de grid caducados y de que los detalles de cada certificado sean válidos. Consulta las instrucciones para rotar los certificados de conexión en link:grid-federation-manage-connection.html["Gestiona las conexiones de la federación de grid"].
+. Confirma que todos los nodos de administración y de pasarela en ambas grids estén en línea y disponibles. Resuelve cualquier alerta que pueda estar afectando a estos nodos e inténtalo de nuevo.
+. Si proporcionaste un nombre de dominio completo (FQDN) para la grid local o remota, confirma que el servidor DNS esté en línea y disponible. Consulta link:grid-federation-overview.html["${post_edited_translations.segment}"] para ver los requisitos de red, dirección IP y DNS.
+
+
+
+
+[[expiration-of-grid-federation-certificate-alert]]
+=== ${post_edited_translations.segment}
+
+.Problema
+Se activó la alerta *Caducidad del certificado de la federación de grid*.
+
+.Detalles
+${post_edited_translations.segment}
+
+.Medidas recomendadas
+Consulta las instrucciones para la rotación de los certificados de conexión en link:grid-federation-manage-connection.html["Gestiona las conexiones de la federación de grid"].
+
+
+
+[[error-editing-a-grid-federation-connection]]
+=== ${post_edited_translations.segment}
+
+.Problema
+Al editar una conexión de federación de grid, ves el siguiente mensaje de advertencia cuando seleccionas *Guardar y probar*: «No se pudo crear un archivo de configuración candidato en uno o más nodos».
+
+.Detalles
+Al editar una conexión de federación de grid, StorageGRID intenta guardar un archivo de "configuración candidata" en todos los nodos de administración del primer grid. Aparece un mensaje de advertencia si este archivo no puede guardarse en todos los nodos de administración, por ejemplo, porque un nodo de administración está fuera de línea.
+
+.Medidas recomendadas
+. En la cuadrícula que estás utilizando para editar la conexión, selecciona *Nodos*.
+. Confirma que todos los nodos de administración de esa grid estén en línea.
+. Si hay algún nodo desconectado, vuelve a conectarlo e intenta editar la conexión de nuevo.
+
+
+
+
+[[account-clone-errors]]
+== Errores al clonar cuentas
+
+
+
+[[cant-sign-in-to-a-cloned-tenant-account]]
+=== ${post_edited_translations.segment}
+
+.Problema
+No puedes iniciar sesión en una cuenta de inquilino clonada. El mensaje de error en la página de inicio de sesión de Tenant Manager es "Tus credenciales para esta cuenta no eran válidas. Por favor, inténtalo de nuevo."
+
+.Detalles
+Por motivos de seguridad, cuando se clona una cuenta de inquilino desde la grid de origen del inquilino a la grid de destino del mismo, la contraseña que hayas establecido para el usuario raíz local del inquilino no se clona. Del mismo modo, cuando un inquilino crea usuarios locales en su grid de origen, las contraseñas de dichos usuarios locales no se clonan en la grid de destino.
+
+.Medidas recomendadas
+Antes de que el usuario raíz pueda iniciar sesión en la grid de destino del tenant, un administrador de la grid debe primero link:changing-password-for-tenant-local-root-user.html["cambiar la contraseña del usuario raíz local"] en la grid de destino.
+
+Antes de que un usuario local clonado pueda iniciar sesión en la grid de destino del tenant, el usuario raíz del tenant clonado debe añadir una contraseña para el usuario en la grid de destino. Para obtener instrucciones, consulta link:../tenant/manage-users.html["Gestiona usuarios"] en las instrucciones para usar el Tenant Manager.
+
+
+
+[[tenant-created-without-a-clone]]
+=== Inquilino creado sin un clon
+
+.Problema
+${post_edited_translations.segment}
+
+.Detalles
+${post_edited_translations.segment}
+
+.Medidas recomendadas
+. Revisa el motivo indicado en el mensaje de error y resuelve cualquier problema de red o de otro tipo que pueda estar impidiendo que la conexión funcione. Consulta <<grid-federation-errors,Alertas y errores de conexión de la federación de grid>>.
+. Sigue las instrucciones para probar una conexión a la federación de grid en link:grid-federation-manage-connection.html["Gestiona las conexiones de la federación de grid"] y confirma que el problema se ha solucionado.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Selecciona *Retry account clone*.
++
+image:grid-federation-retry-account-clone.png["${post_edited_translations.segment}"] Si el error se ha solucionado, la cuenta del tenant ahora se clonará en la otra grid.
+
+
+
+
+
+[[cross-grid-replication-alerts-and-errors]]
+== Alertas y errores de replicación entre grids
+
+
+
+[[last-error-shown-for-connection-or-tenant]]
+=== ${post_edited_translations.segment}
+
+.Problema
+Cuando link:../monitor/grid-federation-monitor-connections.html["ver una conexión de federación de grid"] (o cuando link:grid-federation-manage-tenants.html["${post_edited_translations.segment}"] para una conexión), notas un error en la columna *Último error* de la página de detalles de la conexión. Por ejemplo:
+
+image:grid-federation-last-error.png["Captura de pantalla que muestra un mensaje en la columna Last error de una conexión de federación de grid"]
+
+.Detalles
+Para cada conexión de federación de redes, la columna *Último error* muestra el error más reciente que se haya producido, si lo hay, cuando se estaban replicando los datos de un inquilino a la otra red. Esta columna muestra solo el último error de replicación entre redes que se haya producido; los errores anteriores que pudieran haber ocurrido no se muestran. Un error en esta columna puede ocurrir por alguna de estas razones:
+
+* No se encontró la versión del objeto de origen.
+* ${post_edited_translations.segment}
+* Se eliminó el bucket de destino.
+* ${post_edited_translations.segment}
+* El bucket de destino tiene el control de versiones suspendido.
+* El bucket de destino fue recreado por la misma cuenta, pero ahora no tiene versiones.
+* ${post_edited_translations.segment}
+* El objeto de origen tiene configuraciones de S3 Object Lock y S3 Object Lock está desactivado en el depósito de destino.
+
+
+.Medidas recomendadas
+Si aparece un mensaje de error en la columna *Último error*, sigue estos pasos:
+
+. Revisa el texto del mensaje.
+. Realiza las acciones recomendadas. Por ejemplo, si se suspendió el control de versiones en el bucket de destino para la replicación entre grids, vuelve a habilitar el control de versiones para ese bucket.
+. Selecciona la conexión o la cuenta de inquilino de la tabla.
+. Selecciona *Borrar error*.
+. ${post_edited_translations.segment}
+. Espera 5-6 minutos y luego ingiere un nuevo objeto en el bucket. Confirma que el mensaje de error no vuelva a aparecer.
++
+
+NOTE: Para asegurarte de que el mensaje de error se borre, espera al menos 5 minutos después de la marca de tiempo en el mensaje antes de ingresar un nuevo objeto.
+
++
+
+TIP: Después de que soluciones el error, podría aparecer un nuevo *Último error* si se ingieren objetos en un bucket diferente que también tenga un error.
+
+. Para determinar si algún objeto no se pudo replicar debido al error del bucket, consulta link:../admin/grid-federation-retry-failed-replication.html["Identifica y vuelve a intentar las operaciones de replicación que hayan fallado"].
+
+
+
+
+[[cross-grid-replication-permanent-failure-alert]]
+=== Alerta de fallo permanente en la replicación entre grids
+
+.Problema
+Se activó la alerta *Cross-grid replication permanent failure*.
+
+.Detalles
+Esta alerta indica que los objetos de los inquilinos no se pueden replicar entre los buckets de dos grids debido a un motivo que requiere la intervención del usuario para resolverse. Esta alerta suele deberse a un cambio en el bucket de origen o en el de destino.
+
+.Medidas recomendadas
+. Inicia sesión en la grid donde se activó la alerta.
+. Ve a *Configuración* > *Sistema* > *Grid federation* y busca el nombre de la conexión que aparece en la alerta.
+. En la pestaña *Permitted tenants*, consulta la columna *Last error* para determinar qué cuentas de tenant presentan errores.
+. Para obtener más información sobre el fallo, consulta las instrucciones de link:../monitor/grid-federation-monitor-connections.html["Supervisa las conexiones de la federación de grid"] para revisar las métricas de replicación entre grids.
+. Para cada cuenta de inquilino afectada:
++
+.. Consulta las instrucciones en link:../monitor/monitoring-tenant-activity.html["Supervisa la actividad de los inquilinos"] para comprobar que el inquilino no ha superado su cuota en la grid de destino para la replicación entre grids.
+.. Según sea necesario, aumenta la cuota del inquilino en la red de destino para permitir que se guarden nuevos objetos.
+
+
+. Para cada inquilino afectado, inicia sesión en Tenant Manager en ambas grids, para que puedas comparar la lista de buckets.
+. ${post_edited_translations.segment}
++
+** Existe un bucket correspondiente para el mismo tenant en la otra grid (hay que utilizar el nombre exacto).
+** En ambos buckets está activado el control de versiones de objetos (el control de versiones no se puede suspender en ninguna de las dos grids).
+** Ninguno de los dos buckets se encuentra en el estado *Eliminación de objetos: solo lectura*.
+
+
+. Para confirmar que el problema se ha resuelto, consulta las instrucciones en link:../monitor/grid-federation-monitor-connections.html["Supervisa las conexiones de la federación de grid"] para revisar las métricas de replicación entre grids, o sigue estos pasos:
++
+.. Vuelve a la página de la federación Grid.
+.. Selecciona el inquilino afectado y selecciona *Borrar error* en la columna *Último error*.
+.. ${post_edited_translations.segment}
+.. Espera 5-6 minutos y luego ingiere un nuevo objeto en el bucket. Confirma que el mensaje de error no vuelva a aparecer.
++
+
+NOTE: Para asegurarte de que el mensaje de error se borre, espera al menos 5 minutos después de la marca de tiempo en el mensaje antes de ingresar un nuevo objeto.
+
++
+
+NOTE: ${post_edited_translations.segment}
+
+.. Accede a link:grid-federation-retry-failed-replication.html["Identifica y vuelve a intentar las operaciones de replicación que hayan fallado"] para identificar cualquier objeto o marcador de eliminación que no se haya replicado en la otra grid y volver a intentar la replicación si es necesario.
+
+
+
+
+
+
+[[cross-grid-replication-resource-unavailable-alert]]
+=== Alerta de recurso de replicación entre grids no disponible
+
+.Problema
+Se activó la alerta *Cross-grid replication resource unavailable*.
+
+.Detalles
+Esta alerta indica que las solicitudes de replicación entre grids están pendientes porque un recurso no está disponible. Por ejemplo, podría haber un error de red.
+
+.Medidas recomendadas
+. Supervisa la alerta para comprobar si el problema se resuelve por sí solo.
+. Si el problema persiste, determina si alguna de las grids tiene una alerta de *Grid federation connection failure* para la misma conexión o una alerta de *Unable to communicate with node* para un nodo. Esta alerta podría resolverse cuando soluciones esas alertas.
+. Para obtener más información sobre el fallo, consulta las instrucciones de link:../monitor/grid-federation-monitor-connections.html["Supervisa las conexiones de la federación de grid"] para revisar las métricas de replicación entre grids.
+. Si no puedes resolver la alerta, ponte en contacto con soporte técnico.
+
+
+La replicación entre grids continuará con normalidad una vez que se resuelva el problema.

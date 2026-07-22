@@ -1,0 +1,129 @@
+---
+permalink: admin/how-sso-works.html 
+sidebar: sidebar 
+keywords: single sign on, sso, SAML 
+summary: 'Cuando el inicio de sesión único (SSO) está habilitado, los usuarios solo pueden acceder a Grid Manager, Tenant Manager, Grid Management API o Tenant Management API si sus credenciales están autorizadas mediante el proceso de inicio de sesión SSO implementado por tu organización. Los usuarios locales no pueden iniciar sesión en StorageGRID.' 
+---
+= Conoce StorageGRID SSO
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando el inicio de sesión único (SSO) está habilitado, los usuarios solo pueden acceder a Grid Manager, Tenant Manager, Grid Management API o Tenant Management API si sus credenciales están autorizadas mediante el proceso de inicio de sesión SSO implementado por tu organización. Los usuarios locales no pueden iniciar sesión en StorageGRID.
+
+El sistema StorageGRID admite el inicio de sesión único (SSO) mediante el estándar Security Assertion Markup Language 2.0 (SAML 2.0).
+
+Antes de habilitar el inicio de sesión único (SSO), revisa cómo se ven afectados los procesos de inicio y cierre de sesión de StorageGRID cuando se habilita el SSO.
+
+
+
+[[sign-in-when-sso-is-enabled]]
+== Inicia sesión cuando el inicio de sesión único está habilitado
+
+Cuando el SSO está activado y te conectas a StorageGRID, se te redirige a la página de SSO de tu organización para validar tus credenciales.
+
+.Pasos
+. Introduce el nombre de dominio completo o la dirección IP de cualquier nodo de administración de StorageGRID en un navegador web.
++
+Aparece la página de Sign in de StorageGRID.
+
++
+** Si es la primera vez que accedes a la URL desde este navegador, se te pedirá que introduzcas un ID de cuenta.
+** Si ya has accedido anteriormente al Grid Manager o al Tenant Manager, se te pedirá que selecciones una cuenta reciente o que introduzcas un ID de cuenta.
++
+
+NOTE: La página de inicio de sesión de StorageGRID no aparece cuando introduces la URL completa de una cuenta de inquilino (es decir, un dominio completo o una dirección IP seguida de `/?accountId=_20-digit-account-id_`). En su lugar, te redirigen inmediatamente a la página de inicio de sesión único (SSO) de tu organización, donde puedes <<signin_sso,inicia sesión con tus credenciales de SSO>>.
+
+
+
+. Indica si deseas acceder al Grid Manager o al Tenant Manager:
++
+** Para acceder al Grid Manager, deja en blanco el campo *ID de cuenta*, introduce *0* como ID de cuenta o selecciona *Grid Manager* si aparece en la lista de cuentas recientes.
+** Para acceder al Gestor de inquilinos, introduce el ID de cuenta del inquilino de 20 dígitos o selecciona un inquilino por su nombre si aparece en la lista de cuentas recientes.
+
+
+. Selecciona *Sign in*
++
+StorageGRID te redirige a la página de inicio de sesión único (SSO) de tu organización. Por ejemplo:
+
+. [[signin_sso]]Inicia sesión con tus credenciales de SSO.
++
+Si tus credenciales de SSO son correctas:
+
++
+.. El proveedor de identidad (IdP) proporciona una respuesta de autenticación a StorageGRID.
+.. StorageGRID valida la respuesta de autenticación.
+.. Si la respuesta es válida y perteneces a un grupo federado con permisos de acceso a StorageGRID, has iniciado sesión en Grid Manager o en Tenant Manager, dependiendo de la cuenta que hayas seleccionado.
++
+
+NOTE: Si no se puede acceder a la cuenta de servicio, aún puedes iniciar sesión, siempre y cuando seas un usuario existente que pertenezca a un grupo federado con permisos de acceso a StorageGRID.
+
+
+
+. Si lo deseas, accede a otros nodos de administración o accede al Grid Manager o al Tenant Manager, si tienes los permisos adecuados.
++
+No es necesario que vuelvas a introducir tus credenciales de SSO.
+
+
+
+
+
+[[sign-out-when-sso-is-enabled]]
+== Cerrar sesión cuando el SSO está activado
+
+Cuando el SSO está habilitado para StorageGRID, lo que ocurre al cerrar sesión depende de en qué hayas iniciado sesión y desde dónde la cierres.
+
+.Pasos
+. Busca el enlace *Cerrar sesión* en la esquina superior derecha de la interfaz de usuario.
+. Selecciona *Cerrar sesión*.
++
+Aparece la página de Sign in de StorageGRID. El menú desplegable *Cuentas recientes* se actualiza para incluir *Grid Manager* o el nombre del inquilino, así puedes acceder a estas interfaces de usuario más rápido en el futuro.
+
++
+
+TIP: La tabla resume lo que ocurre al cerrar sesión si estás usando una sola sesión del navegador. Si has iniciado sesión en StorageGRID en varias sesiones del navegador, debes cerrar sesión en todas ellas por separado.
+
++
+[cols="1a,1a,1a"]
+|===
+| Si has iniciado sesión en... | Y cierras sesión en... | Se te ha desconectado de... 
+
+
+ a| 
+Grid Manager en uno o varios nodos de administración
+ a| 
+Grid Manager en cualquier nodo de administración
+ a| 
+Grid Manager en todos los nodos de administración
+
+*Nota:* Si utilizas Entra ID para el inicio de sesión único, es posible que tardes unos minutos en cerrar sesión en todos los nodos de administración.
+
+
+
+ a| 
+Tenant Manager en uno o varios nodos de administración
+ a| 
+Tenant Manager en cualquier nodo de administración
+ a| 
+Tenant Manager en todos los nodos de administración
+
+
+
+ a| 
+Tanto Grid Manager como Tenant Manager
+ a| 
+Grid Manager
+ a| 
+Solo el Grid Manager. También debes cerrar la sesión en el Tenant Manager para cerrar la sesión de inicio de sesión único.
+
+
+
+ a| 
+Administrador de inquilinos
+ a| 
+Solo el Tenant Manager. También debes cerrar la sesión de Grid Manager para cerrar la sesión de inicio de sesión único.
+
+|===
+

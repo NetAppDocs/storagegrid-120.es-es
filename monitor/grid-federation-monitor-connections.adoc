@@ -1,0 +1,123 @@
+---
+permalink: monitor/grid-federation-monitor-connections.html 
+sidebar: sidebar 
+keywords: grid federation, monitor connection, cross grid replication metrics 
+summary: Puedes supervisar la información básica de todas las conexiones de la federación de redes, la información detallada de una conexión concreta o las métricas de Prometheus sobre las operaciones de replicación entre redes. Puedes supervisar una conexión desde cualquiera de las dos redes. 
+---
+= Supervisa las conexiones de federación de grid de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes supervisar información básica sobre todas link:../admin/grid-federation-overview.html["${post_edited_translations.segment}"], información detallada sobre una conexión concreta o métricas de Prometheus sobre las operaciones de replicación entre grids. Puedes supervisar una conexión desde cualquiera de los dos grids.
+
+.Antes de empezar
+* Has iniciado sesión en el Grid Manager de cualquiera de las dos grids usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de acceso raíz"] de la grid en la que has iniciado sesión.
+
+
+
+
+[[view-all-connections]]
+== Ver todas las conexiones
+
+La página de la federación de Grid muestra información básica sobre todas las conexiones de la federación de Grid y sobre todas las cuentas de inquilinos a las que se les permite utilizar conexiones de federación de Grid.
+
+.Pasos
+. Selecciona *Configuración* > *Sistema* > *Grid federation*.
++
+Aparece la página de la federación de Grid.
+
+. Para ver la información básica de todas las conexiones en esta grid, selecciona la pestaña *Conexiones*.
++
+Desde esta pestaña, puedes:
+
++
+** link:../admin/grid-federation-create-connection.html["Crear una nueva conexión"].
+** Selecciona una conexión existente a link:../admin/grid-federation-manage-connection.html["editar o probar"].
+
+
++
+image:grid-federation-connections-tab.png["Pestaña Conexiones de la federación de grid"]
+
+. Para ver la información básica de todas las cuentas de inquilinos de esta grid que tengan el permiso *Usar conexión de federación de grid*, selecciona la pestaña *Inquilinos autorizados*.
++
+Desde esta pestaña, puedes:
+
++
+** link:../monitor/monitoring-tenant-activity.html["Consulta la página de detalles de cada inquilino permitido"].
+** Consulta la página de detalles de cada conexión. Consulta <<view-specific-connection,Ver una conexión concreta>>.
+** Selecciona un inquilino autorizado y link:../admin/grid-federation-manage-tenants.html["eliminar el permiso"].
+** Comprueba si hay errores de replicación entre redes y elimina el último error, si lo hay. Consulta link:../admin/grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
++
+image:grid-federation-permitted-tenants-tab.png["Pestaña de inquilinos permitidos de grid federation"]
+
+
+
+
+
+
+
+[[view-specific-connectionview-a-specific-connection]]
+== [[ver-conexión-específica]]Ver una conexión específica
+
+Puedes consultar los detalles de una conexión específica de la federación de grids.
+
+.Pasos
+. Selecciona cualquiera de las pestañas de la página Grid federation y luego selecciona el nombre de la conexión en la tabla.
++
+Desde la página de detalles de la conexión, puedes:
+
++
+** Consulta la información básica sobre el estado de la conexión, incluidos los nombres de host local y remoto, el puerto y el estado de la conexión.
+** Selecciona una conexión a link:../admin/grid-federation-manage-connection.html["editar, probar o eliminar"].
+
+
+. Al consultar una conexión concreta, selecciona la pestaña *Inquilinos autorizados* para ver los detalles sobre los inquilinos autorizados para esa conexión.
++
+Desde esta pestaña, puedes:
+
++
+** link:../monitor/monitoring-tenant-activity.html["Consulta la página de detalles de cada inquilino permitido"].
+** link:../admin/grid-federation-manage-tenants.html["Quitar el permiso a un inquilino"] para usar la conexión.
+** Comprueba si hay errores de replicación entre grids y elimina el último error. Consulta link:../admin/grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
++
+image:grid-federation-permitted-tenants-tab-for-connection.png["pestaña de arrendatarios permitidos por la federación de grid para la conexión"]
+
+
+
+. Al visualizar una conexión concreta, selecciona la pestaña *Certificados* para ver los certificados de servidor y de cliente generados por el sistema para dicha conexión.
++
+Desde esta pestaña, puedes:
+
++
+** link:../admin/grid-federation-manage-connection.html["Rotar los certificados de conexión"].
+** Selecciona *Server* o *Client* para ver o descargar el certificado correspondiente o copiar el certificado PEM.
++
+image:grid-federation-certificates-tab.png["pestaña certificados de federación de grid"]
+
+
+
+
+
+
+
+[[review-cross-grid-replication-metrics]]
+== Revisa las métricas de replicación entre grids
+
+Puedes usar el panel de Cross-Grid Replication en Grafana para ver las métricas de Prometheus sobre las operaciones de replicación entre grids en tu grid.
+
+.Pasos
+. En el Grid Manager, selecciona *Soporte* > *Herramientas* > *Métricas*.
++
+
+NOTE: Las herramientas disponibles en la página de Métricas están destinadas al soporte técnico. Algunas funciones y elementos de menú dentro de estas herramientas no funcionan intencionadamente y están sujetos a cambios. Consulta la lista de link:../monitor/commonly-used-prometheus-metrics.html["Métricas de Prometheus más utilizadas"].
+
+. En la sección de Grafana de la página, selecciona *Cross Grid Replication*.
++
+Para instrucciones detalladas, consulta link:../monitor/reviewing-support-metrics.html["Revisar las métricas de soporte"].
+
+. Para volver a intentar la replicación de los objetos cuya replicación ha fallado, consulta link:../admin/grid-federation-retry-failed-replication.html["Identifica y vuelve a intentar las operaciones de replicación que hayan fallado"].
+

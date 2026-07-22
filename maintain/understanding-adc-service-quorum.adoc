@@ -1,0 +1,29 @@
+---
+permalink: maintain/understanding-adc-service-quorum.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, adc, adc quorum 
+summary: 'Es posible que no puedas decomisionar ciertos nodos de almacenamiento en un sitio si, después de la descomisión, quedarían muy pocos servicios de Administrative Domain Controller (ADC).' 
+---
+= ¿Qué es el quórum de StorageGRID ADC?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que no puedas decomisionar ciertos nodos de almacenamiento en un sitio si, después de la descomisión, quedarían muy pocos servicios de Administrative Domain Controller (ADC).
+
+El servicio ADC, presente en algunos nodos de almacenamiento, gestiona la información sobre la topología de la grid y proporciona servicios de configuración a la grid. El sistema StorageGRID requiere que haya un quórum de servicios ADC disponibles en cada sitio y en todo momento.
+
+No se puede descomisionar un nodo de almacenamiento si, al eliminarlo, se dejara de cumplir el quórum del ADC. Para cumplir el quórum del ADC durante el proceso de descomisionamiento, debe haber un mínimo de tres nodos de almacenamiento en cada sitio que cuenten con el servicio ADC. Si un sitio cuenta con más de tres nodos de almacenamiento con el servicio ADC, una mayoría simple de dichos nodos debe permanecer disponible tras el proceso de descomisionamiento: `((0.5 * _Storage Nodes with ADC_) + 1)`
+
+
+CAUTION: Actúa con precaución al decomisionar nodos de almacenamiento en una grid que contenga nodos basados en software destinados exclusivamente a metadatos. Si decomisionas todos los nodos configurados para almacenar _tanto_ objetos como metadatos, la capacidad de almacenar objetos se elimina de la grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento destinados exclusivamente a metadatos.
+
+Por ejemplo, supongamos que un sitio cuenta actualmente con seis nodos de almacenamiento con servicios ADC y que quieres decomisionar tres nodos de almacenamiento. Debido al requisito de quórum de ADC, debes completar dos procedimientos de decomisionamiento, como sigue:
+
+* En el primer procedimiento de decomisionar, debes asegurarte de que sigan estando disponibles cuatro nodos de almacenamiento con servicios ADC: `((0.5 * 6) + 1)`. Esto significa que solo puedes decomisionar dos nodos de almacenamiento inicialmente.
+* En el segundo procedimiento de decomisionar, puedes eliminar el tercer Storage Node porque el quórum del ADC ahora solo requiere que permanezcan disponibles tres servicios de ADC: `((0.5 * 4) + 1)`.
+
+
+Si necesitas decomisionar un Nodo de Almacenamiento, puedes continuar cumpliendo con el requisito de quórum del ADC link:../release-notes/changes-to-grid-management-api.html#new-private-endpoints-for-move-adc["Mover el servicio ADC a otro nodo de almacenamiento en el mismo sitio"] o agregando un nuevo Nodo de Almacenamiento en un link:../expand/index.html["expansión"] y especificando que debe tener un servicio de ADC. Luego, puedes decomisionar el Nodo de Almacenamiento existente sin afectar el quórum.

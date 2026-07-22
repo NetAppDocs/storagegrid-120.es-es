@@ -1,0 +1,36 @@
+---
+permalink: ilm/resolving-consistency-errors-when-updating-bucket-s3-object-lock-configuration.html 
+sidebar: sidebar 
+keywords: consistency error, s3 object lock and consistency 
+summary: Si un centro de datos o varios nodos de almacenamiento de una misma ubicación dejan de estar disponibles, es posible que tengas que ayudar a los usuarios de S3 a aplicar cambios en la configuración de S3 Object Lock o en la configuración de cumplimiento heredada. 
+---
+= Resuelve errores de consistencia al actualizar la configuración de S3 Object Lock o legacy Compliance en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si un centro de datos o varios nodos de almacenamiento de una misma ubicación dejan de estar disponibles, es posible que tengas que ayudar a los usuarios de S3 a aplicar cambios en la configuración de S3 Object Lock o en la configuración de cumplimiento heredada.
+
+Los usuarios de un inquilino que tengan buckets con S3 Object Lock (o Compliance heredado) activado pueden cambiar ciertos ajustes. Por ejemplo, un usuario de un inquilino que use S3 Object Lock podría necesitar poner una versión de un objeto bajo retención legal.
+
+Cuando un usuario de un inquilino actualiza la configuración de un bucket de S3 o la versión de un objeto, StorageGRID intenta actualizar inmediatamente los metadatos del bucket o del objeto en toda la grid. Si el sistema no puede actualizar los metadatos porque un data center o varios Storage Nodes no están disponibles, devuelve un error:
+
+[listing]
+----
+503: Service Unavailable
+Unable to update compliance settings because the settings can't be consistently applied on enough storage services. Contact your grid administrator for assistance.
+----
+Para solucionar este error, sigue estos pasos:
+
+. Intenta que todos los nodos de almacenamiento o sitios vuelvan a estar disponibles lo antes posible.
+. Si no puedes poner a disposición un número suficiente de nodos de almacenamiento en cada sitio, ponte en contacto con el soporte técnico, que te ayudará a recuperar los nodos y a garantizar que los cambios se apliquen de forma coherente en toda la grid.
+. Una vez resuelto el problema subyacente, recuerda al usuario del tenant que vuelva a intentar aplicar los cambios de configuración.
+
+
+.Información relacionada
+* link:../tenant/index.html["Utiliza una cuenta de inquilino"]
+* link:../s3/index.html["Usa la API de REST de S3"]
+* link:../maintain/index.html["Recuperar y mantener"]
+

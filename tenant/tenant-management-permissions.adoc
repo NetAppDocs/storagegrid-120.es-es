@@ -1,0 +1,88 @@
+---
+permalink: tenant/tenant-management-permissions.html 
+sidebar: sidebar 
+keywords: tenant management permissions 
+summary: Antes de crear un grupo de inquilinos, piensa qué permisos quieres asignar a ese grupo. Los permisos de gestión de inquilinos determinan qué tareas pueden realizar los usuarios mediante el Tenant Manager o la Tenant Management API. Un usuario puede pertenecer a uno o varios grupos. Los permisos se acumulan si un usuario pertenece a varios grupos. 
+---
+= Permisos de gestión de tenants de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de crear un grupo de inquilinos, piensa qué permisos quieres asignar a ese grupo. Los permisos de gestión de inquilinos determinan qué tareas pueden realizar los usuarios mediante el Tenant Manager o la Tenant Management API. Un usuario puede pertenecer a uno o varios grupos. Los permisos se acumulan si un usuario pertenece a varios grupos.
+
+Para iniciar sesión en Tenant Manager o usar la API de gestión de inquilinos, los usuarios deben pertenecer a un grupo que tenga al menos un permiso. Todos los usuarios que pueden iniciar sesión pueden realizar las siguientes tareas:
+
+* Ver el panel de control
+* ${post_edited_translations.segment}
+
+
+${post_edited_translations.segment}
+
+
+NOTE: ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+[cols="1a,3a,3a"]
+|===
+| Permiso | Descripción | Detalles 
+
+
+ a| 
+Acceso a raíz
+ a| 
+${post_edited_translations.segment}
+ a| 
+
+
+
+ a| 
+Gestiona tus propias credenciales de S3
+ a| 
+${post_edited_translations.segment}
+ a| 
+Los usuarios que no tengan este permiso no ven la opción de menú *ALMACENAMIENTO (S3)* > *Mis claves de acceso a S3*.
+
+
+
+ a| 
+Ver todos los buckets
+ a| 
+Permite a los usuarios ver todos los buckets y las configuraciones de los buckets.
+ a| 
+Los usuarios que no tengan ni el permiso «View all buckets» ni el permiso «Manage all buckets» no ven la opción de menú *Buckets*.
+
+Este permiso queda reemplazado por el permiso Manage all buckets. No afecta a las políticas de grupo o de buckets de S3 que usan los clientes de S3 o la S3 Console.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+Los usuarios que no tengan ni el permiso «View all buckets» ni el permiso «Manage all buckets» no ven la opción de menú *Buckets*.
+
+Este permiso sustituye al permiso View all buckets. No afecta a las políticas de grupo o de buckets de S3 que usan los clientes de S3 o la S3 Console.
+
+
+
+ a| 
+Gestionar endpoints
+ a| 
+${post_edited_translations.segment}
+ a| 
+Los usuarios que no tengan este permiso no ven la opción de menú *Platform services endpoints*.
+
+
+
+ a| 
+Utiliza la pestaña S3 Console
+ a| 
+${post_edited_translations.segment}
+ a| 
+
+|===

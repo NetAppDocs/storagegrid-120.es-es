@@ -1,0 +1,78 @@
+---
+permalink: audit/client-write-audit-messages.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, messages, client write, OVWR, SDEL, SPOS, SPUT, SUPD, WDEL, WPUT, S3 
+summary: ${post_edited_translations.segment} 
+---
+= Mensajes de auditoría para operaciones de escritura de clientes en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,3a,1a,1a"]
+|===
+| Código | Descripción | Utilizado por | Ver 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Sobrescritura de objeto: registra una transacción para sobrescribir un objeto con otro objeto.
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:ovwr-object-overwrite.html["${post_edited_translations.segment}"]
+
+
+
+ a| 
+SDEL
+ a| 
+${post_edited_translations.segment}
+
+*Nota:* Si la transacción se realiza sobre un subrecurso, el mensaje de auditoría incluirá el campo S3SR.
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:sdel-s3-delete.html["${post_edited_translations.segment}"]
+
+
+
+ a| 
+SPOS
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:spos-s3-post.html["${post_edited_translations.segment}"]
+
+
+
+ a| 
+SPUT
+ a| 
+${post_edited_translations.segment}
+
+*Nota:* Si la transacción se realiza sobre un subrecurso, el mensaje de auditoría incluirá el campo S3SR.
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:sput-s3-put.html["SPUT: S3 PUT"]
+
+
+
+ a| 
+SUPD
+ a| 
+Metadatos de S3 actualizados: registra una transacción exitosa para actualizar los metadatos de un objeto o bucket existente.
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:supd-s3-metadata-updated.html["SUPD: Metadatos de S3 actualizados"]
+
+|===

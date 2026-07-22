@@ -1,0 +1,237 @@
+---
+permalink: maintain/rename-grid-site-node.html 
+sidebar: sidebar 
+keywords: rename grid, rename sites, rename node, change display name, bulk rename tool 
+summary: Puedes usar este procedimiento para añadir o actualizar los nombres de visualización que se usan para tu grid, sitios y nodos. Puedes cambiar el nombre de un solo elemento, de varios nombres o incluso de todos los elementos al mismo tiempo. Definir o actualizar un nombre de visualización no afecta en nada las operaciones de StorageGRID. 
+---
+= Agrega o actualiza los nombres de visualización de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes usar este procedimiento para añadir o actualizar los nombres de visualización que se usan para tu grid, tus sitios y tus nodos. Puedes cambiar el nombre de un solo elemento, de varios elementos o incluso de todos los elementos al mismo tiempo. Definir o actualizar un nombre de visualización no afecta en nada el funcionamiento de StorageGRID.
+
+.Antes de empezar
+* Desde cualquier nodo de administración, inicias sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+* Tienes la frase de contraseña de aprovisionamiento.
+* Conoces los requisitos y las prácticas recomendadas para los nombres de visualización. Consulta link:../maintain/rename-grid-site-node-overview.html["Cambiar el nombre de la grid, los sitios y los nodos"].
+
+
+
+
+[[how-to-rename-grid-sites-or-nodes]]
+== Cómo cambiar el nombre de una grid, sitios o nodos
+
+Puedes cambiar el nombre de tu sistema StorageGRID, de uno o varios sitios o de uno o varios nodos.
+
+Puedes utilizar un nombre de visualización que haya sido utilizado anteriormente por otro nodo, siempre y cuando el cambio de nombre no dé lugar a un nombre de visualización o un nombre de sistema duplicado.
+
+
+
+[[select-items-to-rename]]
+=== Selecciona los elementos que deseas renombrar
+
+Para empezar, selecciona los elementos que quieres renombrar.
+
+.Pasos
+. Selecciona *Mantenimiento* > *Tareas* > *Cambiar nombre de la cuadrícula, los sitios y los nodos*.
+. En el paso *Seleccionar nombres*, selecciona los elementos a los que quieras cambiar el nombre.
++
+[cols="1a,2a"]
+|===
+| Elemento que hay que modificar | Instrucción 
+
+
+ a| 
+Los nombres de todo (o casi todo) en tu sistema
+ a| 
+.. Selecciona *Seleccionar todo*.
+.. Opcionalmente, desmarca cualquier elemento que no quieras renombrar.
+
+
+
+
+ a| 
+Nombre de la grid
+ a| 
+Selecciona la casilla para la cuadrícula.
+
+
+
+ a| 
+Nombre de un sitio y de algunos o todos sus nodos
+ a| 
+.. Marca la casilla de selección en el encabezado de la tabla para el sitio.
+.. Si lo deseas, desmarca los nodos que no quieras renombrar.
+
+
+
+
+ a| 
+Nombre de un sitio
+ a| 
+Marca la casilla correspondiente al sitio.
+
+
+
+ a| 
+Nombre de un nodo
+ a| 
+Marca la casilla de verificación del nodo.
+
+|===
+. Selecciona *Continuar*.
+. Revisa la tabla, que incluye los elementos que seleccionaste.
++
+** La columna *Nombre de visualización* muestra el nombre actual de cada elemento. Si nunca se ha cambiado el nombre del elemento, su nombre de visualización es el mismo que su nombre de sistema.
+** La columna *Nombre del sistema* muestra el nombre que introdujiste para cada elemento durante la instalación. Los nombres de los sistemas se utilizan para operaciones internas de StorageGRID y no se pueden cambiar. Por ejemplo, el nombre del sistema de un nodo podría ser su hostname.
+** La columna *Tipo* indica el tipo del elemento: Grid, Site o el tipo específico de nodo.
+
+
+
+
+
+
+[[propose-new-names]]
+=== Proponer nuevos nombres
+
+En el paso *Proponer nuevos nombres*, puedes introducir un nombre de visualización para cada elemento de forma individual o puedes cambiar los nombres de los elementos de forma masiva.
+
+[role="tabbed-block"]
+====
+.Renombrar elementos uno por uno
+--
+Sigue estos pasos para introducir un nombre de visualización para cada elemento al que quieras cambiar el nombre.
+
+.Pasos
+. En el campo *Nombre para mostrar*, introduce un nombre propuesto para cada elemento de la lista.
++
+Consulta link:../maintain/rename-grid-site-node-overview.html["Cambiar el nombre de la grid, los sitios y los nodos"] para conocer los requisitos de nomenclatura.
+
+. Para eliminar los elementos que no quieras renombrar, selecciona image:icon-x-to-remove.png["Icono X"] en la columna *Eliminar de la lista*.
++
+Si no vas a proponer un nuevo nombre para un elemento, debes eliminarlo de la tabla.
+
+. Cuando hayas propuesto nuevos nombres para todos los elementos de la tabla, selecciona *Renombrar*.
++
+Aparece un mensaje de éxito. Los nuevos nombres de visualización ya se utilizan en todo Grid Manager.
+
+
+
+--
+.Renombrar elementos de forma masiva
+--
+Utiliza la herramienta de renombrado masivo si los nombres de los elementos contienen una cadena común que quieras sustituir por otra diferente.
+
+.Pasos
+. En el paso *Proponer nuevos nombres*, selecciona *Usar la herramienta de renombrado masivo*.
++
+La *Vista previa de cambio de nombre* incluye todos los elementos que se mostraron en el paso *Proponer nuevos nombres*. Puedes utilizar la vista previa para ver cómo quedarán los nombres de visualización después de que reemplaces una cadena compartida.
+
+. En el campo *Cadena actual*, introduce la cadena compartida que deseas sustituir. Por ejemplo, si la cadena que deseas sustituir es `Data-Center-1`, introduce *Data-Center-1*.
++
+A medida que escribes, tu texto se resalta dondequiera que se encuentre en los nombres de la izquierda.
+
+. Selecciona image:icon-x-to-remove.png["Icono X"] para eliminar los elementos que no quieras renombrar con esta herramienta.
++
+Por ejemplo, supón que quieres cambiar el nombre de todos los nodos que contienen la cadena `Data-Center-1`, pero no quieres cambiar el nombre del sitio `Data-Center-1` en sí. Selecciona image:icon-x-to-remove.png["Icono X"] para quitar el sitio de la vista previa del cambio de nombre.
+
++
+image:rename-bulk-rename-tool.png["Herramienta para renombrar archivos en masa antes"]
+
+. En el campo *Nueva cadena*, introduce la cadena de sustitución que quieras utilizar en su lugar. Por ejemplo, introduce *DC1*.
++
+Consulta link:../maintain/rename-grid-site-node-overview.html["Cambiar el nombre de la grid, los sitios y los nodos"] para conocer los requisitos de nomenclatura.
+
++
+A medida que introduces la cadena de sustitución, los nombres de la izquierda se van actualizando, así que puedes comprobar que los nuevos nombres serán correctos.
+
++
+image:rename-bulk-rename-tool-after.png["Herramienta para renombrar en masa después de"]
+
+. Cuando estés satisfecho con los nombres que aparecen en la vista previa, selecciona *Add names* para añadir los nombres a la tabla para el paso *Proponer nuevos nombres*.
+. Realiza los cambios adicionales que sean necesarios o selecciona image:icon-x-to-remove.png["Icono X"] para eliminar los elementos que no quieras renombrar.
+. Cuando estés listo para cambiar el nombre de todos los elementos de la tabla, selecciona *Renombrar*.
++
+Aparece un mensaje de éxito. Los nuevos nombres de visualización ya se usan en todo Grid Manager.
+
+
+
+--
+====
+
+
+[[download-recovery-packagedownload-the-recovery-package]]
+=== [[descargar-paquete-de-recuperación]]Descarga el paquete de recuperación
+
+Cuando hayas terminado de cambiar los nombres de los elementos, descarga y guarda un nuevo paquete de recuperación. Los nuevos nombres de visualización de los elementos cuyos nombres has cambiado se incluyen en el  `Passwords.txt` archivo.
+
+.Pasos
+. Introduce la contraseña de aprovisionamiento.
+. Selecciona *Descargar paquete de recuperación*.
++
+La descarga comienza de inmediato.
+
+. Cuando finalice la descarga, abre el  `Passwords.txt` archivo para ver el nombre del servidor de todos los nodos y los nombres de visualización de los nodos a los que se les haya cambiado el nombre.
+. Copia el archivo  `sgws-recovery-package-_id-revision_.zip` en dos ubicaciones seguras y distintas.
++
+
+CAUTION: El archivo del paquete de recuperación debe protegerse porque contiene claves de cifrado y contraseñas que pueden usarse para obtener datos del sistema StorageGRID.
+
+. Selecciona *Finalizar* para volver al primer paso.
+
+
+
+
+[[revert-display-names-back-to-system-names]]
+== Restablecer los nombres que aparecen en pantalla a los nombres del sistema
+
+Puedes restablecer el nombre de sistema original de una grid, un sitio o un nodo al que se le haya cambiado el nombre. Cuando restableces el nombre de sistema de un elemento, las páginas de Grid Manager y otras ubicaciones de StorageGRID ya no muestran un *Nombre para mostrar* para ese elemento. Solo se muestra el nombre de sistema del elemento.
+
+.Pasos
+. Selecciona *Mantenimiento* > *Tareas* > *Cambiar nombre de la cuadrícula, los sitios y los nodos*.
+. En el paso *Seleccionar nombres*, selecciona cualquier elemento que quieras revertir a los nombres del sistema.
+. Selecciona *Continuar*.
+. En el paso *Proponer nuevos nombres*, restablece los nombres de visualización a los nombres del sistema de forma individual o en bloque.
++
+[role="tabbed-block"]
+====
+.Restablecer la nomenclatura del sistema de forma individual
+--
+.. Copia el nombre original del sistema de cada elemento y pégalo en el campo *Nombre para mostrar*, o selecciona image:icon-x-to-remove.png["Icono X"] para eliminar los elementos que no quieras restaurar.
++
+Para restablecer un nombre de visualización, el nombre del sistema debe aparecer en el campo *Nombre de visualización*, pero el nombre no distingue entre mayúsculas y minúsculas.
+
+.. Selecciona *Renombrar*.
++
+Aparece un mensaje de éxito. Los nombres de visualización de estos elementos ya no se usan.
+
+
+
+--
+.Restablecer la nomenclatura del sistema en lote
+--
+.. En el paso *Proponer nuevos nombres*, selecciona *Usar la herramienta de renombrado masivo*.
+.. En el campo *Cadena actual*, introduce la cadena del nombre para mostrar que deseas reemplazar.
+.. En el campo *Nueva cadena*, introduce la cadena de nombre del sistema que quieras utilizar en su lugar.
+.. Selecciona *Add names* para añadir los nombres a la tabla en el paso *Propose new names*.
+.. Comprueba que cada entrada del campo *Nombre para mostrar* coincida con el nombre del campo *Nombre del sistema*. Realiza los cambios que desees o selecciona image:icon-x-to-remove.png["Icono X"] para eliminar los elementos que no quieras revertir.
++
+Para restablecer un nombre de visualización, el nombre del sistema debe aparecer en el campo *Nombre de visualización*, pero el nombre no distingue entre mayúsculas y minúsculas.
+
+.. Selecciona *Renombrar*.
++
+Aparece un mensaje de éxito. Los nombres que se muestran para estos elementos ya no se usan.
+
+
+
+--
+====
+. <<download-recovery-package,Descargar y guardar un nuevo paquete de recuperación>>.
++
+Los nombres que se muestran para los elementos que has revertido ya no se incluyen en el archivo  `Passwords.txt`.
+
+

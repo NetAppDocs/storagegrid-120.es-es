@@ -1,0 +1,131 @@
+---
+permalink: admin/summary-ip-addresses-and-ports-for-client-connections.html 
+sidebar: sidebar 
+keywords: ip addresses for client, how to connect to storagegrid, ports, vip 
+summary: 'Para almacenar o recuperar objetos, las aplicaciones cliente de S3 se conectan al servicio Load Balancer, que está incluido en todos los Admin Nodes y Gateway Nodes, o al servicio Local Distribution Router (LDR), que está incluido en todos los Storage Nodes.' 
+---
+= Direcciones IP y puertos para conexiones de cliente de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para almacenar o recuperar objetos, las aplicaciones cliente de S3 se conectan al servicio Load Balancer, que está incluido en todos los Admin Nodes y Gateway Nodes, o al servicio Local Distribution Router (LDR), que está incluido en todos los Storage Nodes.
+
+Las aplicaciones cliente pueden conectarse a StorageGRID utilizando la dirección IP de un nodo de la red y el número de puerto del servicio en ese nodo. Opcionalmente, puedes crear grupos de alta disponibilidad (HA) de nodos de balanceo de carga para ofrecer conexiones altamente disponibles que usen direcciones IP virtuales (VIP). Si quieres conectarte a StorageGRID usando un dominio completo (FQDN) en vez de una dirección IP o VIP, puedes configurar entradas DNS.
+
+Esta tabla resume las diferentes formas en que los clientes pueden conectarse a StorageGRID y las direcciones IP y los puertos que se utilizan para cada tipo de conexión. Si ya creaste puntos finales del equilibrador de carga y grupos de alta disponibilidad (HA), consulta <<Dónde encontrar direcciones IP>> para encontrar estos valores en Grid Manager.
+
+[cols="1a,1a,1a,1a"]
+|===
+| Dónde se realiza la conexión | Servicio al que se conecta el cliente | Dirección IP | Puerto 
+
+
+ a| 
+Grupo HA
+ a| 
+Equilibrador de carga
+ a| 
+Dirección IP virtual de un grupo de alta disponibilidad
+ a| 
+Puerto asignado al punto final del equilibrador de carga
+
+
+
+ a| 
+Nodo de administración
+ a| 
+Equilibrador de carga
+ a| 
+${post_edited_translations.segment}
+ a| 
+Puerto asignado al punto final del equilibrador de carga
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Equilibrador de carga
+ a| 
+${post_edited_translations.segment}
+ a| 
+Puerto asignado al punto final del equilibrador de carga
+
+
+
+ a| 
+Nodo de almacenamiento
+ a| 
+LDR
+ a| 
+Dirección IP del nodo de almacenamiento
+ a| 
+Puertos predeterminados de S3:
+
+* HTTPS: 18082
+* ${post_edited_translations.segment}
+
+
+|===
+
+
+[[example-urls]]
+== ${post_edited_translations.segment}
+
+Para conectar una aplicación cliente al punto final del equilibrador de carga de un grupo de alta disponibilidad (HA) de Gateway Nodes, utiliza una URL con la estructura que se muestra a continuación:
+
+`https://_VIP-of-HA-group:LB-endpoint-port_`
+
+Por ejemplo, si la dirección IP virtual del grupo de alta disponibilidad es 192.0.2.5 y el número de puerto del punto final del equilibrador de carga es 10443, una aplicación podría utilizar la siguiente URL para conectarse a StorageGRID:
+
+`\https://192.0.2.5:10443`
+
+
+
+[[where-to-find-ip-addresses]]
+== Dónde encontrar direcciones IP
+
+. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
+. Para averiguar la dirección IP de un nodo de la red:
++
+.. Selecciona *Nodos*.
+.. Selecciona el nodo de administración, el nodo de puerta de enlace o el nodo de almacenamiento al que quieras conectarte.
+.. Selecciona la pestaña *Vista general*.
+.. En la sección Información del nodo, anota las direcciones IP del nodo.
+.. ${post_edited_translations.segment}
++
+Puedes establecer conexiones desde aplicaciones cliente a cualquiera de las direcciones IP de la lista:
+
++
+*** ${post_edited_translations.segment}
+*** *eth1:* Red de administración (opcional)
+*** ${post_edited_translations.segment}
++
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+
+
+. Para averiguar la dirección IP virtual de un grupo de alta disponibilidad:
++
+.. ${post_edited_translations.segment}
+.. En la tabla, toma nota de la dirección IP virtual del grupo de HA.
+
+
+. ${post_edited_translations.segment}
++
+.. Selecciona *Configuración* > *Red* > *Puntos finales del equilibrador de carga*.
+.. ${post_edited_translations.segment}
++
+
+NOTE: Si el número de puerto es 80 o 443, el endpoint solo se configura en los Gateway Nodes, ya que esos puertos están reservados en los Admin Nodes. Todos los demás puertos se configuran tanto en los Gateway Nodes como en los Admin Nodes.
+
+.. ${post_edited_translations.segment}
+.. Comprueba que el *tipo de cliente* (S3) coincida con la aplicación cliente que va a utilizar el endpoint.
+
+
+

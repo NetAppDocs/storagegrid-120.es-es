@@ -1,0 +1,98 @@
+---
+permalink: audit/using-audit-explain-tool.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, tool, audit-explain, audit explain, translate audit messages, translate messages, translate audit message, translate message 
+summary: Puedes utilizar la herramienta audit-explain para convertir los mensajes de auditoría del registro de auditoría a un formato fácil de leer. 
+---
+= Usa la herramienta audit-explain para traducir los mensajes de auditoría de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes usar la herramienta  `audit-explain` para traducir los mensajes de auditoría en el registro de auditoría a un formato fácil de leer.
+
+.Antes de empezar
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+* Debes tener el archivo  `Passwords.txt`.
+* ${post_edited_translations.segment}
+
+
+.Acerca de esta tarea
+La herramienta  `audit-explain`, disponible en el Admin Node principal, proporciona resúmenes simplificados de los mensajes de auditoría en un registro de auditoría.
+
+
+NOTE: La herramienta  `audit-explain` está pensada principalmente para que el soporte técnico la utilice durante las operaciones de resolución de problemas. Procesar consultas de  `audit-explain` puede consumir una gran cantidad de potencia de CPU, lo que podría afectar las operaciones de StorageGRID.
+
+Este ejemplo muestra el resultado típico de la  `audit-explain` herramienta. Estos cuatro link:sput-s3-put.html["SPUT"] mensajes de auditoría se generaron cuando el inquilino de S3 con el ID de cuenta 92484777680322627870 utilizó solicitudes PUT de S3 para crear un bucket llamado "bucket1" y añadir tres objetos a ese bucket.
+
+[listing]
+----
+SPUT S3 PUT bucket bucket1 account:92484777680322627870 usec:124673
+SPUT S3 PUT object bucket1/part1.txt tenant:92484777680322627870  cbid:9DCB157394F99FE5 usec:101485
+SPUT S3 PUT object bucket1/part2.txt tenant:92484777680322627870  cbid:3CFBB07AB3D32CA9 usec:102804
+SPUT S3 PUT object bucket1/part3.txt tenant:92484777680322627870  cbid:5373D73831ECC743 usec:93874
+----
+La herramienta `audit-explain` puede hacer lo siguiente:
+
+* Procesa logs de auditoría sin formato o comprimidos. Por ejemplo:
++
+`audit-explain audit.log`
+
++
+`audit-explain 2019-08-12.txt.gz`
+
+* Procesar varios archivos a la vez. Por ejemplo:
++
+`audit-explain audit.log 2019-08-12.txt.gz 2019-08-13.txt.gz`
+
++
+`audit-explain /var/local/audit/export/*`
+
+* Acepta datos procedentes de una tubería, lo que te permite filtrar y preprocesar los datos mediante el comando  `grep` u otros métodos. Por ejemplo:
++
+`grep SPUT audit.log | audit-explain`
+
++
+`grep bucket-name audit.log | audit-explain`
+
+
+
+Como los registros de auditoría pueden ser muy grandes y lentos de analizar, puedes ahorrar tiempo filtrando las partes que quieres examinar y ejecutando `audit-explain` en esas partes, en lugar de en todo el archivo.
+
+[NOTE]
+====
+La herramienta `audit-explain` no acepta archivos comprimidos como entrada por tubería. Para procesar archivos comprimidos, proporciona sus nombres de archivo como argumentos en la línea de comandos o usa la herramienta `zcat` para descomprimir los archivos primero. Por ejemplo:
+
+`zcat audit.log.gz | audit-explain`
+
+====
+Usa la opción `help (-h)` para ver las opciones disponibles. Por ejemplo:
+
+`$ audit-explain -h`
+
+.Pasos
+. Inicia sesión en el nodo de administración principal:
++
+.. Introduce el siguiente comando: `ssh admin@_primary_Admin_Node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. Introduce el siguiente comando, donde  `/var/local/audit/export/audit.log` representa el nombre y la ubicación del archivo o archivos que deseas analizar:
++
+`$ audit-explain /var/local/audit/export/audit.log`
+
++
+La herramienta `audit-explain` muestra interpretaciones legibles de todos los mensajes en el archivo o archivos especificados.
+
++
+
+NOTE: Para reducir la longitud de las líneas y facilitar la legibilidad, las marcas de tiempo no se muestran de forma predeterminada. Si quieres ver las marcas de tiempo, usa la opción de marca de tiempo (`-t`).
+
+

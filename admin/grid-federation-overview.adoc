@@ -1,0 +1,106 @@
+---
+permalink: admin/grid-federation-overview.html 
+sidebar: sidebar 
+keywords: grid federation, cross-grid replication, account clone, cgr, disaster recovery 
+summary: Puedes utilizar la federación de grid para clonar inquilinos y replicar sus objetos entre dos sistemas StorageGRID para recuperación ante desastres. 
+---
+= Conoce la federación de grid de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar la federación de grid para clonar inquilinos y replicar sus objetos entre dos sistemas StorageGRID para recuperación ante desastres.
+
+
+
+[[what-is-a-grid-federation-connection]]
+== ¿Qué es una conexión de federación de grid?
+
+Una conexión de federación de grid es una conexión bidireccional, confiable y segura entre los nodos Admin y Gateway en dos sistemas StorageGRID.
+
+
+
+[[workflow-for-grid-federation]]
+== Flujo de trabajo para la federación de grid
+
+El diagrama de flujo resume los pasos para configurar una conexión de federación de grid entre dos grids.
+
+image:grid-federation-workflow.png["Flujo de trabajo de conexión de federación de grid"]
+
+
+
+[[considerations-and-requirements-for-grid-federation-connections]]
+== ${post_edited_translations.segment}
+
+* Las redes utilizadas para la federación de redes deben ejecutar versiones de StorageGRID que sean idénticas o que no tengan más de una diferencia de versión principal entre ellas.
++
+Para obtener más información sobre los requisitos de versión, consulta la  https://library.netapp.com/ecm/ecm_download_file/ECMLP3351267["Notas de publicación"^]. Debes iniciar sesión con tu cuenta de NetApp o crear una cuenta para acceder a las notas de la versión.
+
+* Un grid puede tener una o más conexiones de federación de grid con otros grids. Cada conexión de federación de grid es independiente de cualquier otra conexión. Por ejemplo, si Grid 1 tiene una conexión con Grid 2 y una segunda conexión con Grid 3, no existe ninguna conexión implícita entre Grid 2 y Grid 3.
+* Las conexiones de la federación de redes son bidireccionales. Después de que se establece la conexión, puedes supervisar y gestionar la conexión desde cualquiera de las dos redes.
+* Debe existir al menos una conexión a la federación de grid para que puedas usar link:grid-federation-what-is-account-clone.html["clon de cuenta"] o link:grid-federation-what-is-cross-grid-replication.html["replicación entre grids"].
+
+
+
+
+[[networking-and-ip-address-requirements]]
+=== Requisitos de red y dirección IP
+
+* Las conexiones de la federación de grid pueden ocurrir en la Grid Network, Admin Network o Client Network.
+* Una conexión de federación de grid conecta un grid con otro grid. La configuración de cada grid especifica un endpoint de federación de grid en el otro grid, que consiste en Admin Nodes, Gateway Nodes o ambos.
+* La mejor práctica es conectar link:managing-high-availability-groups.html["grupos de alta disponibilidad (HA)"] de nodos de Gateway y de administración en cada grid. El uso de grupos de HA ayuda a garantizar que las conexiones de federación de grid permanezcan en línea si los nodos dejan de estar disponibles. Si la interfaz activa de cualquiera de los grupos de HA falla, la conexión puede usar una interfaz de respaldo.
+* No se recomienda crear una conexión de federación de grid que use la dirección IP de un solo Admin Node o Gateway Node. Si el nodo deja de estar disponible, la conexión de federación de grid también dejará de estar disponible.
+* link:grid-federation-what-is-cross-grid-replication.html["Replicación entre grids"] El almacenamiento de objetos requiere que los nodos de almacenamiento de cada grid puedan acceder a los nodos de administración y Gateway configurados en el otro grid. Para cada grid, comprueba que todos los nodos de almacenamiento tengan una ruta con alto ancho de banda hacia los nodos de administración o Gateway utilizados para la conexión.
+
+
+
+
+[[use-fqdns-to-load-balance-the-connection]]
+=== Utiliza nombres de dominio completos (FQDN) para equilibrar la carga de la conexión
+
+En un entorno de producción, utiliza nombres de dominio completos (FQDN) para identificar cada grid en la conexión. Luego, crea las entradas DNS correspondientes, así:
+
+* El FQDN de Grid 1 está asociado a una o varias direcciones IP virtuales (VIP) de los grupos de alta disponibilidad (HA) en Grid 1 o a la dirección IP de uno o varios nodos Admin o Gateway en Grid 1.
+* El FQDN de Grid 2 asignado a una o varias direcciones VIP de Grid 2 o a la dirección IP de uno o varios nodos Admin o Gateway en Grid 2.
+
+
+Cuando usas varias entradas DNS, las solicitudes para usar la conexión se distribuyen de la siguiente manera:
+
+* Las entradas DNS que se asignan a las direcciones VIP de varios grupos de alta disponibilidad se distribuyen de forma equilibrada entre los nodos activos de los grupos de alta disponibilidad.
+* Las entradas DNS que se asignan a las direcciones IP de varios nodos de administración o nodos de puerta de enlace se equilibran la carga entre los nodos asignados.
+
+
+
+
+[[port-requirements]]
+=== Requisitos de puertos
+
+Al crear una conexión de federación de grid, puedes especificar cualquier número de puerto no utilizado entre 23000 y 23999. Ambos grids en esta conexión usarán el mismo puerto.
+
+Debes asegurarte de que ningún nodo de ninguna de las dos grids utilice este puerto para otras conexiones.
+
+
+
+[[certificate-requirements]]
+=== Requisitos del certificado
+
+${post_edited_translations.segment}
+
+* Certificados de servidor y de cliente para autenticar y cifrar la información enviada desde la grid 1 a la grid 2
+* ${post_edited_translations.segment}
+
+
+image:grid-federation-certificates.png["Certificados de federación de grid"]
+
+De forma predeterminada, los certificados tienen una validez de 730 días (2 años). Cuando estos certificados se acercan a su fecha de caducidad, la alerta *Expiration of grid federation certificate* te recuerda que debes renovarlos, lo cual puedes hacer usando el Grid Manager.
+
+
+CAUTION: Si los certificados de cualquiera de los extremos de la conexión caducan, la conexión dejará de funcionar. La replicación de datos quedará pendiente hasta que se actualicen los certificados.
+
+.Más información
+* link:grid-federation-create-connection.html["Crear conexiones de federación de grid"]
+* link:grid-federation-manage-connection.html["Gestiona las conexiones de la federación de grid"]
+* link:grid-federation-troubleshoot.html["${post_edited_translations.segment}"]
+

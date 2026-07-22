@@ -1,0 +1,71 @@
+---
+permalink: audit/etaf-security-authentication-failed.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ETAF, Security Authentication Failed 
+summary: 'Este mensaje se genera cuando falla un intento de conexión usando Transport Layer Security (TLS).' 
+---
+= Mensaje de auditoría ETAF para fallos de autenticación de seguridad en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cuando falla un intento de conexión usando Transport Layer Security (TLS).
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+El identificador único del sistema para la conexión TCP/IP en la que falló la autenticación.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Identidad del usuario
+ a| 
+Un identificador dependiente del servicio que representa la identidad del usuario remoto.
+
+
+
+ a| 
+RSLT
+ a| 
+Código de motivo
+ a| 
+${post_edited_translations.segment}
+
+SCNI: No se ha podido establecer una conexión segura.
+
+CERM: faltaba el certificado.
+
+CERT: El certificado no era válido.
+
+CERE: el certificado había caducado.
+
+CERR: Se revocó el certificado.
+
+CSGN: la firma del certificado no era válida.
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+UCRI: las credenciales de usuario no eran válidas.
+
+UCRU: No se permitieron las credenciales de usuario.
+
+TOUT: Se agotó el tiempo de espera de la autenticación.
+
+|===
+Cuando se establece una conexión con un servicio seguro que utiliza TLS, las credenciales de la entidad remota se verifican mediante el perfil TLS y la lógica adicional integrada en el servicio. Si esta autenticación falla debido a certificados o credenciales no válidos, inesperados o no permitidos, se registra un mensaje de auditoría. Esto permite realizar consultas sobre intentos de acceso no autorizados y otros problemas de conexión relacionados con la seguridad.
+
+El mensaje podría deberse a que una entidad remota tiene una configuración incorrecta o a intentos de presentar credenciales no válidas o no permitidas al sistema. Debes supervisar este mensaje de auditoría para detectar intentos de obtener acceso no autorizado al sistema.

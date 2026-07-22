@@ -1,0 +1,42 @@
+---
+permalink: admin/enable-cross-origin-resource-sharing-for-management-interface.html 
+sidebar: sidebar 
+keywords: how to configure cross-origin resource sharing, cors, management, api, domain 
+summary: ${post_edited_translations.segment} 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como administrador de la grid, puedes habilitar el intercambio de recursos entre orígenes (CORS) para las solicitudes de la API de gestión a StorageGRID, si quieres que los datos en StorageGRID sean accesibles usando las API de gestión desde otro dominio.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* El link:../tenant/tenant-management-permissions.html["Permiso de acceso raíz"] proporciona acceso a todas las solicitudes de configuración de CORS.
+
+
+.Acerca de esta tarea
+CORS es un mecanismo de seguridad que permite a las aplicaciones web cliente de un dominio acceder a recursos de un dominio diferente. Por ejemplo, supón que quieres crear un panel de control de monitorización para StorageGRID en el dominio `\http://www.example.com`. Al habilitar CORS en StorageGRID para `\http://www.example.com` y "Grid Manager", el dominio de StorageGRID responde a las solicitudes de la API de gestión de Grid desde `\http://www.example.com`.
+
+Las solicitudes de la API de gestión (mgmt-api) con `application/json` o `multipart/formdata` solicitudes para `Content-Type` son compatibles con CORS.
+
+.Pasos
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+** ${post_edited_translations.segment}
+** *Tenant Manager*: habilita CORS para las solicitudes de la API de gestión de inquilinos entre dominios.
+
+
+. ${post_edited_translations.segment}
++
+Selecciona *Add another domain* si deseas habilitar CORS en StorageGRID para más de un dominio.
+
+. Selecciona *Guardar*.
+
+
+.Información relacionada
+link:../tenant/configuring-cross-origin-resource-sharing-for-buckets-and-objects.html["${post_edited_translations.segment}"]

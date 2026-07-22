@@ -1,0 +1,706 @@
+---
+permalink: monitor/configure-log-management.html 
+sidebar: sidebar 
+keywords: log management, audit level, external syslog server, log destinations 
+summary: Según sea necesario, configura los niveles de auditoría, los encabezados de protocolo y la ubicación de los mensajes y registros de auditoría. 
+---
+= Configura la gestión de registros en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Según sea necesario, configura los niveles de auditoría, los encabezados de protocolo y la ubicación de los mensajes y registros de auditoría.
+
+Todos los nodos de StorageGRID generan mensajes de auditoría y registros para realizar un seguimiento de la actividad y los eventos del sistema. Los mensajes de auditoría y los registros son herramientas esenciales para la supervisión y la resolución de problemas.
+
+Si lo deseas, puedes link:../monitor/considerations-for-external-syslog-server.html["configurar un servidor syslog externo"] para guardar la información de auditoría de forma remota. Usar un servidor externo minimiza el impacto en el rendimiento del registro de mensajes de auditoría sin reducir la exhaustividad de los datos de auditoría. Un servidor syslog externo es especialmente útil si tienes una grid grande, usas varios tipos de aplicaciones S3 o quieres conservar todos los datos de auditoría.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+* Si planeas configurar un servidor syslog externo, ya revisaste y seguiste las link:../monitor/considerations-for-external-syslog-server.html["consideraciones para usar un servidor syslog externo"].
+* Si tienes previsto configurar un servidor syslog externo usando el protocolo TLS o RELP/TLS, cuentas con los certificados de CA del servidor y de cliente necesarios, y la clave privada del cliente.
+
+
+
+
+[[change-audit-message-levels]]
+== Cambiar los niveles de los mensajes de auditoría
+
+Puedes establecer un nivel de auditoría diferente para cada una de las siguientes categorías de mensajes en el registro de auditoría:
+
+[cols="1a,1a,1a"]
+|===
+| Categoría de auditoría | Configuración predeterminada | Más información 
+
+
+ a| 
+Sistema
+ a| 
+Normal
+ a| 
+link:../audit/system-audit-messages.html["Mensajes de auditoría del sistema"]
+
+
+
+ a| 
+Almacenamiento
+ a| 
+Error
+ a| 
+link:../audit/object-storage-audit-messages.html["Mensajes de auditoría del almacenamiento de objetos"]
+
+
+
+ a| 
+Gestión
+ a| 
+Normal
+ a| 
+link:../audit/management-audit-message.html["Mensaje de auditoría de gestión"]
+
+
+
+ a| 
+Lecturas del cliente
+ a| 
+Normal
+ a| 
+link:../audit/client-read-audit-messages.html["Mensajes de auditoría de lectura del cliente"]
+
+
+
+ a| 
+El cliente escribe
+ a| 
+Normal
+ a| 
+link:../audit/client-write-audit-messages.html["Mensajes de auditoría de escritura del cliente"]
+
+
+
+ a| 
+ILM
+ a| 
+Normal
+ a| 
+link:../audit/ilm-audit-messages.html["Mensajes de auditoría de ILM"]
+
+
+
+ a| 
+Replicación entre grids
+ a| 
+Error
+ a| 
+link:../audit/cgrr-cross-grid-replication-request.html["CGRR: Solicitud de replicación entre grids"]
+
+|===
+
+NOTE: Durante las actualizaciones, las configuraciones del nivel de auditoría no surtirán efecto de forma inmediata.
+
+.Pasos
+. Selecciona *Configuración* > *Supervisión* > *Gestión de registros*.
+. Para cada categoría de mensaje de auditoría, selecciona un nivel de auditoría de la lista desplegable:
++
+[cols="1a,3a"]
+|===
+| Nivel de auditoría | Descripción 
+
+
+ a| 
+Apagado
+ a| 
+No se registran mensajes de auditoría de la categoría.
+
+
+
+ a| 
+Error
+ a| 
+Solo se registran los mensajes de error: mensajes de auditoría cuyo código de resultado no sea "successful" (SUCS).
+
+
+
+ a| 
+Normal
+ a| 
+Se registran los mensajes transaccionales estándar: los mensajes que se indican en estas instrucciones para la categoría.
+
+
+
+ a| 
+Depuración
+ a| 
+Obsoleto. Este nivel se comporta igual que el nivel de auditoría Normal.
+
+|===
++
+Los mensajes incluidos en cada nivel concreto comprenden aquellos que se registrarían en los niveles superiores. Por ejemplo, el nivel Normal incluye todos los mensajes de error.
+
++
+
+NOTE: Si no necesitas un registro detallado de las operaciones de lectura de los clientes para tus aplicaciones S3, puedes cambiar la configuración de *Lecturas de clientes* a *Error* para reducir el número de mensajes de auditoría registrados en el registro de auditoría.
+
+. Selecciona *Guardar*.
+
+
+
+
+[[define-http-request-headers]]
+== Define los encabezados de las solicitudes HTTP
+
+Si lo deseas, puedes definir cualquier encabezado de solicitud HTTP que quieras incluir en los mensajes de auditoría de lectura y escritura del cliente.
+
+.Pasos
+. En la sección *Encabezados del protocolo de auditoría*, define los encabezados de solicitud HTTP que quieres incluir en los mensajes de auditoría de lectura y escritura del cliente.
++
+Utiliza un asterisco (\*) como comodín para buscar cero o más caracteres. Utiliza la secuencia de escape (\*) para buscar un asterisco literal.
+
+. Selecciona *Add another header* para crear encabezados adicionales, si es necesario.
++
+Cuando se detectan encabezados HTTP en una solicitud, se incluyen en el mensaje de auditoría en el campo HTRH.
+
++
+
+NOTE: Los encabezados de las solicitudes del protocolo de auditoría solo se registran si el nivel de auditoría para *Lecturas del cliente* o *Escrituras del cliente* no está en *Desactivado*.
+
+. Selecciona *Guardar*
+
+
+
+
+[[configure-log-location]]
+== Configura la ubicación del registro
+
+De forma predeterminada, los mensajes de auditoría y los registros se guardan en los nodos donde se generan. Se rotan periódicamente y, finalmente, se eliminan para evitar que ocupen un espacio excesivo en disco. Si deseas guardar los mensajes de auditoría y un subconjunto de registros de forma externa, <<use-external-syslog-server,utilizar un servidor syslog externo>>.
+
+Si quieres guardar los archivos de registro internamente, selecciona un tenant y un bucket para el almacenamiento de registros y activa el archivado de registros.
+
+
+
+[[use-external-syslog-serveruse-an-external-syslog-server]]
+=== [[use-external-syslog-server]]Usa un servidor syslog externo
+
+Si lo deseas, puedes configurar un servidor syslog externo para guardar los registros de auditoría, los registros de aplicaciones y los registros de eventos de seguridad en una ubicación fuera de tu grid.
+
+
+NOTE: Si no quieres utilizar un servidor syslog externo, omite este paso y ve a <<select-log-location,${post_edited_translations.segment}>>.
+
+
+TIP: Si las opciones de configuración disponibles en este procedimiento no son lo suficientemente flexibles como para satisfacer tus necesidades, se pueden aplicar opciones de configuración adicionales usando los  `audit-destinations` endpoints, que están en la sección privada de la API de link:../admin/using-grid-management-api.html["API de gestión de grid"]. Por ejemplo, puedes usar la API si quieres usar diferentes servidores syslog para distintos grupos de nodos.
+
+
+
+==== Ingresa la información de syslog
+
+Accede al asistente para configurar el servidor syslog externo e introduce la información que StorageGRID necesita para acceder al servidor syslog externo.
+
+.Pasos
+. En la pestaña «Nodo local y servidor externo», selecciona *Configurar servidor syslog externo*. O bien, si ya has configurado un servidor syslog externo, selecciona *Editar servidor syslog externo*.
++
+Aparece el asistente para configurar un servidor syslog externo.
+
+. En el paso *Introducir información de syslog* del asistente, introduce un nombre de dominio completo válido o una dirección IPv4 o IPv6 del servidor syslog externo en el campo *Host*.
+. Introduce el puerto de destino en el servidor syslog externo (debe ser un número entero entre 1 y 65535). El puerto predeterminado es 514.
+. Selecciona el protocolo que se utiliza para enviar la información de auditoría al servidor syslog externo.
++
+Se recomienda utilizar *TLS* o *RELP/TLS*. Debes cargar un certificado de servidor para usar cualquiera de estas opciones. El uso de certificados ayuda a proteger las conexiones entre tu grid y el servidor syslog externo. Para obtener más información, consulta link:../admin/using-storagegrid-security-certificates.html["Gestiona certificados de seguridad"].
+
++
+Todas las opciones de protocolo requieren compatibilidad y configuración por parte del servidor syslog externo. Debes elegir una opción que sea compatible con el servidor syslog externo.
+
++
+
+NOTE: El Protocolo de registro de eventos fiable (RELP) amplía la funcionalidad del protocolo syslog para garantizar la entrega fiable de los mensajes de eventos. El uso de RELP puede ayudar a evitar la pérdida de información de auditoría si tu servidor syslog externo tiene que reiniciarse.
+
+. Selecciona *Continuar*.
+. [[adjuntar-certificado]]Si seleccionaste *TLS* o *RELP/TLS*, sube los certificados de la autoridad de certificación (CA) del servidor, el certificado del cliente y la clave privada del cliente.
++
+.. Selecciona *Examinar* para el certificado o la clave que quieras usar.
+.. Selecciona el certificado o el archivo de clave.
+.. Selecciona *Abrir* para subir el archivo.
++
+Aparece una marca de verificación verde junto al nombre del certificado o del archivo de clave, notificándote que se ha subido correctamente.
+
+
+
+. Selecciona *Continuar*.
+
+
+
+
+==== Gestiona el contenido de syslog
+
+Puedes seleccionar qué información enviar al servidor syslog externo.
+
+.Pasos
+. En el paso *Gestionar el contenido de syslog* del asistente, selecciona cada tipo de información de auditoría que quieras enviar al servidor syslog externo.
++
+** *Enviar registros de auditoría*: envía eventos de StorageGRID y actividades del sistema
+** *Enviar eventos de seguridad*: envía eventos de seguridad, como cuando un usuario no autorizado intenta iniciar sesión o cuando un usuario inicia sesión como root
+** *Enviar registros de la aplicación*: Envía link:../monitor/storagegrid-software-logs.html["Archivos de registro del software StorageGRID"] útil para la resolución de problemas, incluyendo:
++
+*** `bycast-err.log`
+*** `bycast.log`
+*** `jaeger.log`
+*** `nms.log` (Solo nodos de administración)
+*** `prometheus.log`
+*** `raft.log`
+*** `hagroups.log`
+
+
+** *Enviar registros de acceso*: Envía los registros de acceso HTTP correspondientes a las solicitudes externas dirigidas a Grid Manager, Tenant Manager, los puntos finales del equilibrador de carga configurados y las solicitudes de federación de grid procedentes de sistemas remotos.
+
+
+. Utiliza los menús desplegables para seleccionar la gravedad y la facilidad (tipo de mensaje) para cada categoría de información de auditoría que quieras enviar.
++
+Establecer los valores de gravedad y de facility puede ayudarte a agrupar los registros de forma personalizada para facilitar su análisis.
+
++
+.. Para *Gravedad*, selecciona *Passthrough* o elige un valor de gravedad entre 0 y 7.
++
+Si seleccionas un valor, este se aplicará a todos los mensajes de este tipo. Se perderá la información sobre las diferentes gravedades si sustituyes gravedad por un valor fijo.
+
++
+[cols="1a,3a"]
+|===
+| Gravedad | Descripción 
+
+
+ a| 
+Passthrough
+ a| 
+Cada mensaje enviado al syslog externo debe tener el mismo valor de gravedad que cuando se registró localmente en el nodo:
+
+*** Para los registros de auditoría, la gravedad es "info".
+*** Para los eventos de seguridad, los valores de gravedad los genera la distribución de Linux en los nodos.
+*** En el caso de los registros de la aplicación, la gravedad varía entre "info" y "notice", dependiendo del tipo de incidencia. Por ejemplo, añadir un servidor NTP y configurar un grupo HA da un valor de "info", mientras que detener intencionadamente el servicio SSM o RSM da un valor de "notice".
+*** Para los registros de acceso, la gravedad es "info".
+
+
+
+
+ a| 
+0
+ a| 
+Emergencia: el sistema no funciona
+
+
+
+ a| 
+1
+ a| 
+Aviso: es necesario tomar medidas de inmediato
+
+
+
+ a| 
+2
+ a| 
+Crítico: condiciones críticas
+
+
+
+ a| 
+3
+ a| 
+Error: condiciones de error
+
+
+
+ a| 
+4
+ a| 
+Advertencia: condiciones de advertencia
+
+
+
+ a| 
+5
+ a| 
+Aviso: estado normal pero significativo
+
+
+
+ a| 
+6
+ a| 
+Informativo: mensajes informativos
+
+
+
+ a| 
+7
+ a| 
+Depuración: mensajes de nivel de depuración
+
+|===
+.. Para *Facilty*, selecciona *Passthrough* o selecciona un valor de instalación entre 0 y 23.
++
+Si seleccionas un valor, se aplicará a todos los mensajes de este tipo. La información sobre las diferentes facilities se perderá si sustituyes facility por un valor fijo.
+
++
+[cols="1a,3a"]
+|===
+| Instalación | Descripción 
+
+
+ a| 
+Passthrough
+ a| 
+Cada mensaje enviado al syslog externo debe tener el mismo valor de facility que cuando se registró localmente en el nodo:
+
+*** Para los registros de auditoría, la instalación enviada al servidor syslog externo es "local7".
+*** Para los eventos de seguridad, los valores de la facility los genera la distribución de Linux en los nodos.
+*** Para los registros de la aplicación, los registros de la aplicación que se envían al servidor syslog externo tienen los siguientes valores de facility:
++
+**** `bycast.log`: usuario o demonio
+**** `bycast-err.log`: usuario, demonio, local3 o local4
+**** `jaeger.log`: local2
+**** `nms.log`: local3
+**** `prometheus.log`: local4
+**** `raft.log`: local5
+**** `hagroups.log`: local6
+
+
+*** Para los registros de acceso, la entidad enviada al servidor syslog externo es "local0".
+
+
+
+
+ a| 
+0
+ a| 
+kern (mensajes del núcleo)
+
+
+
+ a| 
+1
+ a| 
+usuario (mensajes a nivel de usuario)
+
+
+
+ a| 
+2
+ a| 
+correo
+
+
+
+ a| 
+3
+ a| 
+demonio (demonios del sistema)
+
+
+
+ a| 
+4
+ a| 
+auth (mensajes de seguridad/autorización)
+
+
+
+ a| 
+5
+ a| 
+syslog (mensajes generados internamente por syslogd)
+
+
+
+ a| 
+6
+ a| 
+lpr (subsistema de impresora de línea)
+
+
+
+ a| 
+7
+ a| 
+noticias (subsistema de noticias de red)
+
+
+
+ a| 
+8
+ a| 
+UUCP
+
+
+
+ a| 
+9
+ a| 
+cron (demonio del reloj)
+
+
+
+ a| 
+10
+ a| 
+seguridad (mensajes de seguridad/autorización)
+
+
+
+ a| 
+11
+ a| 
+FTP
+
+
+
+ a| 
+12
+ a| 
+NTP
+
+
+
+ a| 
+13
+ a| 
+logaudit (auditoría de registros)
+
+
+
+ a| 
+14
+ a| 
+logalert (alerta de registro)
+
+
+
+ a| 
+15
+ a| 
+reloj (demonio del reloj)
+
+
+
+ a| 
+16
+ a| 
+local0
+
+
+
+ a| 
+17
+ a| 
+local1
+
+
+
+ a| 
+18
+ a| 
+local2
+
+
+
+ a| 
+19
+ a| 
+local3
+
+
+
+ a| 
+20
+ a| 
+local4
+
+
+
+ a| 
+21
+ a| 
+local5
+
+
+
+ a| 
+22
+ a| 
+local6
+
+
+
+ a| 
+23
+ a| 
+local7
+
+|===
+
+
+. Selecciona *Continuar*.
+
+
+
+
+==== Enviar mensajes de prueba
+
+Antes de empezar a utilizar un servidor syslog externo, debes solicitar que todos los nodos de tu grid envíen mensajes de prueba al servidor syslog externo. Debes utilizar estos mensajes de prueba para validar toda tu infraestructura de recopilación de registros antes de comprometerte a enviar datos al servidor syslog externo.
+
+
+CAUTION: No utilices la configuración del servidor syslog externo hasta que hayas comprobado que el servidor syslog externo recibió un mensaje de prueba de cada nodo de tu grid y que el mensaje se procesó como esperabas.
+
+.Pasos
+. Si no deseas enviar mensajes de prueba porque estás seguro de que tu servidor syslog externo está configurado correctamente y puede recibir información de auditoría de todos los nodos de tu grid, selecciona *Omitir y finalizar*.
++
+Una barra verde indica que la configuración se ha guardado.
+
+. De lo contrario, selecciona *Enviar mensajes de prueba* (recomendado).
++
+Los resultados de la prueba se van mostrando continuamente en la página hasta que detienes la prueba. Mientras la prueba está en curso, tus mensajes de auditoría siguen enviándose a los destinos que configuraste previamente.
+
+. Si aparece algún error durante la configuración del servidor syslog o en tiempo de ejecución, corrígelos y vuelve a seleccionar *Enviar mensajes de prueba*.
++
+Consulta link:../troubleshoot/troubleshooting-syslog-server.html["Solucionar problemas en un servidor syslog externo"] para ayudarte a resolver cualquier error.
+
+. Espera hasta que veas un banner verde que indique que todos los nodos han superado las pruebas.
+. Comprueba tu servidor syslog para verificar si los mensajes de prueba se reciben y se procesan como esperas.
++
+
+NOTE: Si utilizas UDP, comprueba toda tu infraestructura de recopilación de registros. El protocolo UDP no permite una detección de errores tan rigurosa como la de otros protocolos.
+
+. Selecciona *Detener y finalizar*.
++
+Volverás a la página *Audit and syslog server*. Un banner verde indica que se ha guardado la configuración del servidor syslog.
+
++
+
+NOTE: La información de auditoría de StorageGRID no se envía al servidor syslog externo hasta que selecciones un destino que incluya el servidor syslog externo.
+
+
+
+
+
+[[select-log-location]]
+=== ${post_edited_translations.segment}
+
+Puedes especificar dónde se envían los registros de auditoría, los registros de eventos de seguridad, link:../monitor/storagegrid-software-logs.html["Registros de aplicaciones de StorageGRID"] y los registros de acceso.
+
+[NOTE]
+====
+StorageGRID utiliza de forma predeterminada los destinos de auditoría de los nodos locales y almacena la información de auditoría en `/var/local/log/localaudit.log`.
+
+Al utilizar `/var/local/log/localaudit.log`, es posible que las entradas del registro de auditoría de Grid Manager y Tenant Manager se envíen a un nodo de almacenamiento. Puedes averiguar qué nodo tiene las entradas más recientes usando el comando `run-each-node --parallel "zgrep MGAU /var/local/log/localaudit.log | tail"`.
+
+Algunos destinos solo están disponibles si has configurado un servidor syslog externo.
+
+====
+.Pasos
+. Selecciona *Ubicación del registro* > *Nodo local y servidor externo*.
+. Para cambiar la ubicación de los registros para los tipos de registro, selecciona otra opción.
++
+
+TIP: *Solo los nodos locales* y *el servidor syslog externo* suelen ofrecer un mejor rendimiento.
+
++
+[cols="1a,2a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Solo nodos locales (por defecto)
+ a| 
+Los mensajes de auditoría, los registros de eventos de seguridad y los registros de aplicaciones no se envían a los nodos de administración. En su lugar, se guardan únicamente en los nodos que los generaron ("el nodo local"). La información de auditoría generada en cada nodo local se almacena en `/var/local/log/localaudit.log`.
+
+*Nota*: StorageGRID elimina periódicamente los registros locales mediante un sistema de rotación para liberar espacio. Cuando el archivo de registro de un nodo alcanza 1 GB, se guarda el archivo existente y se inicia un nuevo archivo de registro. El límite de rotación del registro es de 21 archivos. Cuando se crea la versión número 22 del archivo de registro, se elimina el archivo de registro más antiguo. De media, se almacenan unos 20 GB de datos de registro en cada nodo. Para almacenar los registros durante un periodo de tiempo prolongado, <<use-bucket,utiliza un tenant y un bucket para el almacenamiento de registros>>.
+
+
+
+ a| 
+Nodos de administración/nodos locales
+ a| 
+Los mensajes de auditoría se envían al registro de auditoría en los nodos de administración, y los registros de eventos de seguridad y los registros de aplicaciones se almacenan en los nodos que los generaron. La información de auditoría se almacena en los siguientes archivos:
+
+** Nodos de administración (primarios y no primarios): `/var/local/audit/export/audit.log`
+** Todos los nodos: El archivo  `/var/local/log/localaudit.log` suele estar vacío o no existir. Podría contener información secundaria, como una copia adicional de algunos mensajes.
+
+
+
+
+ a| 
+Servidor syslog externo
+ a| 
+La información de auditoría se envía a un servidor syslog externo y se guarda en los nodos locales (`/var/local/log/localaudit.log`). El tipo de información enviada depende de cómo hayas configurado el servidor syslog externo. Esta opción solo se activa después de haber <<use-external-syslog-server,configuraste un servidor syslog externo>>.
+
+
+
+ a| 
+Nodos de administración y servidor syslog externo
+ a| 
+Los mensajes de auditoría se envían al registro de auditoría (`/var/local/audit/export/audit.log`) en los nodos de administración, y la información de auditoría se envía al servidor syslog externo y se guarda en el nodo local (`/var/local/log/localaudit.log`). El tipo de información enviada depende de cómo hayas configurado el servidor syslog externo. Esta opción solo se activa después de haber <<use-external-syslog-server,configuraste un servidor syslog externo>>.
+
+|===
+. Selecciona *Guardar*.
++
+Aparece un mensaje de advertencia.
+
+. Selecciona *Aceptar* para confirmar que deseas cambiar la ubicación de destino de la información de auditoría.
++
+Los nuevos registros se envían a los destinos que hayas seleccionado. Los registros existentes permanecen en su ubicación actual.
+
+
+
+
+
+[[use-bucketuse-a-bucket]]
+=== [[use-bucket]]Usa un bucket
+
+Los registros se renuevan periódicamente. Utiliza un bucket de S3 en la misma grid para almacenar los registros durante un periodo de tiempo prolongado.
+
+. Selecciona *Ubicación de los registros* > *Usar un bucket*.
+. Marca la casilla *Habilitar registros de archivo*.
+. Si el tenant y el bucket que aparecen en la lista no son los que deseas usar, selecciona *Cambiar tenant y bucket* y luego selecciona *Crear tenant y bucket* o *Seleccionar tenant y bucket*.
++
+[role="tabbed-block"]
+====
+.Crear inquilino y bucket
+--
+.. Introduce un nuevo nombre de inquilino.
+.. Introduce y confirma una contraseña para el nuevo tenant.
+.. Introduce un nuevo nombre de bucket.
+.. Selecciona *Crear y activar*.
+
+
+--
+.Selecciona el tenant y el bucket
+--
+.. Selecciona un nombre de inquilino en el menú desplegable.
+.. Selecciona un bucket en el menú desplegable.
+.. Selecciona *Seleccionar y activar*.
+
+
+--
+====
+
+
+. Selecciona *Guardar*.
++
+Los registros se almacenarán en el tenant y el bucket que hayas especificado. El nombre de la clave del objeto para los registros tiene este formato:
+
++
+[listing]
+----
+system-logs/{node_hostname}/{absolute_path_to_log_file_on_node}--{last_modified_time}.gz
+----
++
+Por ejemplo:
+
++
+[listing]
+----
+system-logs/DC1-SN1/var/local/log/localaudit.log--2025-05-12_13:41:44.gz
+----
+

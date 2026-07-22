@@ -1,0 +1,145 @@
+---
+permalink: maintain/accessing-decommission-nodes-page.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission nodes, decommissioning nodes, maintenance task 
+summary: Al acceder a la página Decommission Nodes en el Grid Manager, puedes ver de un vistazo qué nodos se pueden decomisionar. 
+---
+= Accede a la página Decommission Nodes en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al acceder a la página Decommission Nodes en el Grid Manager, puedes ver de un vistazo qué nodos se pueden decomisionar.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+
+
+
+CAUTION: Actúa con precaución al decomisionar nodos de almacenamiento en una grid que contenga nodos basados en software destinados exclusivamente a metadatos. Si decomisionas todos los nodos configurados para almacenar _tanto_ objetos como metadatos, la capacidad de almacenar objetos se elimina de la grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento destinados exclusivamente a metadatos.
+
+.Pasos
+. Selecciona *Mantenimiento* > *Tareas* > *Decomisionar*.
+. Selecciona *Decomisionar nodos*.
++
+Aparece la página «Nodos decomisionados». Desde esta página, puedes:
+
++
+** Determina qué nodos de la red pueden decomisionarse en este momento.
+** Ver el estado de todos los nodos de la red
+** Ordena la lista en orden ascendente o descendente por *Nombre*, *Sitio*, *Tipo* o *Tiene ADC*.
+** Introduce los términos de búsqueda para encontrar rápidamente nodos concretos.
++
+En este ejemplo, la columna Decommission Possible indica que puedes decomisionar el Gateway Node y uno de los cuatro Storage Nodes.
+
++
+image:decommission_nodes_page_all_connected.png["Página Decommission Nodes"]
+
+
+
+. Revisa la columna *Decommission Possible* de cada nodo que quieras decomisionar.
++
+Si un nodo de la red puede ser descomisionado, esta columna incluye una marca de verificación verde y la columna de la izquierda incluye una casilla de selección. Si un nodo no puede ser descomisionado, esta columna describe el problema. Si hay más de un motivo por el que un nodo no puede ser descomisionado, se muestra el motivo más grave.
+
++
+[cols="1a,1a,1a"]
+|===
+| Decomisionar posible motivo | Descripción | Pasos para resolverlo 
+
+
+ a| 
+No, no se admite decomisionar el _node type_.
+ a| 
+No puedes decomisionar el nodo de administración principal.
+ a| 
+Ninguno.
+
+
+
+ a| 
+No, al menos un nodo de la grid está desconectado.
+
+*Nota*: Este mensaje solo se muestra en los nodos conectados a la red.
+ a| 
+No puedes decomisionar un nodo de la red conectado si hay algún nodo de la red desconectado.
+
+La columna *Estado* incluye uno de estos iconos para los nodos de la cuadrícula que están desconectados:
+
+** image:icon_alarm_gray_administratively_down.png["icono de signo de interrogación gris"] (gris): administrativamente inactivo
+** image:icon_alarm_blue_unknown.png["icono de signo de interrogación azul"] (azul): desconocido
+
+ a| 
+Debes volver a poner en línea todos los nodos desconectados o link:decommissioning-disconnected-grid-nodes.html["decomisionar todos los nodos desconectados"] antes de poder eliminar un nodo conectado.
+
+*Nota*: Si tu red contiene varios nodos desconectados, el software te obliga a descomisionarlos todos a la vez, lo que aumenta la posibilidad de que se produzcan resultados inesperados.
+
+
+
+ a| 
+No, uno o más nodos obligatorios están desconectados en este momento y deben recuperarse.
+
+*Nota*: Este mensaje solo se muestra en los nodos de la red que están desconectados.
+ a| 
+No puedes decomisionar un nodo de la red que esté desconectado si uno o más nodos necesarios también están desconectados (por ejemplo, un nodo de almacenamiento que se requiere para el quórum del ADC).
+ a| 
+.. Revisa los mensajes «Posible decomisionamiento» de todos los nodos desconectados.
+.. Determina qué nodos no se pueden decomisionar porque son imprescindibles.
++
+*** Si el estado de un nodo obligatorio es Administrativamente inactivo, vuelve a poner el nodo en línea.
+*** Si el estado de un nodo obligatorio es Unknown, realiza un procedimiento de recuperación del nodo para recuperarlo.
+
+
+
+
+
+
+ a| 
+No, miembro del grupo de alta disponibilidad: _nombre del grupo_. Antes de poder descomisionar este nodo, debes eliminarlo de todos los grupos de alta disponibilidad.
+ a| 
+No puedes decomisionar un nodo de administración ni un nodo de puerta de enlace si una interfaz del nodo pertenece a un grupo de alta disponibilidad (HA).
+ a| 
+Edita el grupo de HA para eliminar la interfaz del nodo o elimina todo el grupo de HA. Consulta link:../admin/configure-high-availability-group.html["Configurar grupos de alta disponibilidad"].
+
+
+
+ a| 
+No, el sitio _x_ requiere un mínimo de _n_ nodos de almacenamiento con servicios ADC.
+ a| 
+*Solo nodos de almacenamiento* (nodos de almacenamiento combinados o de solo metadatos). No puedes decomisionar un nodo de almacenamiento si quedarían nodos insuficientes en el sitio para cumplir los requisitos de quórum del ADC. Sin embargo, puedes mover el servicio ADC a otro nodo de almacenamiento.
+ a| 
+link:../maintain/move-adc-service.html["Mueve el servicio ADC a otro nodo de almacenamiento en el mismo sitio"], o bien realiza una ampliación añadiendo un nuevo nodo de almacenamiento al sitio y especificando que debe tener un servicio ADC. Consulta link:understanding-adc-service-quorum.html["${post_edited_translations.segment}"].
+
+
+
+ a| 
+No, uno o varios perfiles de código de borrado necesitan al menos _n_ nodos de almacenamiento. Si el perfil no se utiliza en una regla de ILM, puedes desactivarlo.
+ a| 
+*Solo nodos de almacenamiento*. No puedes decomisionar un nodo de almacenamiento a menos que queden suficientes nodos para los perfiles de código de borrado existentes.
+
+Por ejemplo, si existe un perfil de código de borrado para 4+2 erasure coding, deben quedar al menos 6 Storage Nodes.
+ a| 
+Para cada perfil de código de borrado afectado, realiza uno de los siguientes pasos, según cómo se esté usando el perfil:
+
+** *Utilizado en políticas ILM activas*: Realiza una ampliación. Agrega suficientes nodos de almacenamiento nuevos para que el código de borrado pueda continuar. Consulta las instrucciones para link:../expand/index.html["Ampliando tu grid"].
+** *Utilizada en una regla de ILM, pero no en políticas de ILM activas*: edita o elimina la regla y luego desactiva el perfil de código de borrado.
+** *No se utiliza en ninguna regla de ILM*: desactiva el perfil de código de borrado.
+
+
+*Nota:* Aparece un mensaje de error si intentas desactivar un perfil de código de borrado y aún hay datos de objetos asociados a dicho perfil. Es posible que tengas que esperar varias semanas antes de volver a intentar el proceso de desactivación.
+
+Conoce más sobre link:../ilm/manage-erasure-coding-profiles.html["Desactivar un perfil de código de borrado"].
+
+
+
+ a| 
+No, no puedes decomisionar un nodo de archivo a menos que esté desconectado.
+ a| 
+Si un nodo de archivo sigue conectado, no podrás eliminarlo.
+ a| 
+*Nota*: Se ha eliminado la compatibilidad con los nodos de archivo. Si necesitas decomisionar un nodo de archivo, consulta https://docs.netapp.com/us-en/storagegrid-118/maintain/grid-node-decommissioning.html["Decomisionar un nodo de grid (sitio de documentación de StorageGRID 11.8)"^]
+
+|===
+

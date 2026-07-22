@@ -1,0 +1,6 @@
+= 
+:allow-uri-read: 
+
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].

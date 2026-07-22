@@ -1,0 +1,221 @@
+---
+permalink: expand/performing-expansion.html 
+sidebar: sidebar 
+keywords: expand, expansion procedure, StorageGRID 
+summary: Al llevar a cabo la ampliación, los nuevos nodos de la red se añaden a tu implementación actual de StorageGRID. 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al llevar a cabo la ampliación, los nuevos nodos de la red se añaden a tu implementación actual de StorageGRID.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes la frase de contraseña de aprovisionamiento.
+* Ya has implementado todos los nodos de la red que se añaden en esta ampliación.
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+* Si vas a añadir nodos de almacenamiento, asegúrate de que todas las operaciones de reparación de datos realizadas como parte de una recuperación estén completas. Consulta link:../maintain/checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"].
+* Si estás añadiendo nodos de almacenamiento y quieres asignarles un grado de almacenamiento personalizado, ya has link:../ilm/creating-and-assigning-storage-grades.html["${post_edited_translations.segment}"]. También tienes el permiso de acceso Root o bien los permisos de Maintenance e ILM.
+* Si vas a añadir un nuevo sitio, ya habrás revisado y actualizado las reglas de ILM. Debes asegurarte de que las copias de los objetos no se almacenen en el nuevo sitio hasta que se haya completado la expansión. Por ejemplo, si una regla utiliza el grupo de almacenamiento predeterminado (*Todos los nodos de almacenamiento*), debes link:../ilm/creating-storage-pool.html["crear un nuevo grupo de almacenamiento"] que contenga únicamente los nodos de almacenamiento existentes y link:../ilm/working-with-ilm-rules-and-ilm-policies.html["Actualizar las reglas de ILM"] y la política de ILM para usar ese nuevo grupo de almacenamiento. De lo contrario, los objetos se copiarán al nuevo sitio tan pronto como el primer nodo de dicho sitio se active.
+
+
+.Acerca de esta tarea
+Realizar la ampliación incluye estas tareas principales para el usuario:
+
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Descarga un nuevo archivo del paquete de recuperación.
+. Supervisa los pasos y las fases de la expansión hasta que todos los nuevos nodos estén instalados y configurados y todos los servicios se hayan iniciado.
++
+
+CAUTION: Algunos pasos y fases de la expansión pueden tardar bastante tiempo en completarse en una grid de gran tamaño. Por ejemplo, hacer streaming de Cassandra a un nuevo Storage Node puede tardar solo unos minutos si la base de datos de Cassandra está vacía. Sin embargo, si la base de datos de Cassandra contiene una gran cantidad de metadatos de objetos, esta fase puede tardar varias horas o incluso más. No reinicies ningún Storage Node durante las etapas "Expanding the Cassandra cluster" o "Starting Cassandra and streaming data".
+
+
+
+.Pasos
+. ${post_edited_translations.segment}
++
+Aparece la página «Ampliación de la red». En la sección «Nodos pendientes» se muestran los nodos que están listos para ser añadidos.
+
++
+image:grid_expansion_page.png["${post_edited_translations.segment}"]
+
+. ${post_edited_translations.segment}
++
+Aparece el cuadro de diálogo «Selección de ubicación».
+
+. Selecciona el tipo de ampliación que vas a iniciar:
++
+** Si vas a añadir un nuevo sitio, selecciona *Nuevo* e introduce el nombre del nuevo sitio.
+** Si vas a añadir uno o más nodos a un sitio ya existente, selecciona *Existente*.
+
+
+. Selecciona *Guardar*.
+. Revisa la lista *Nodos pendientes* y comprueba que aparecen todos los nodos de grid que has implementado.
++
+Si lo deseas, puedes situar el cursor sobre la *Grid Network MAC Address* de un nodo para ver los detalles de dicho nodo.
+
++
+image:grid_node_details.png["Captura de pantalla de los detalles del nodo de Grid"]
+
++
+
+NOTE: ${post_edited_translations.segment}
+
+. En la lista de nodos pendientes, aprueba los nodos que quieras añadir en esta ampliación.
++
+.. Selecciona el botón de opción situado junto al primer nodo de grid pendiente que quieras aprobar.
+.. Selecciona *Approve*.
++
+Aparece el formulario de configuración del nodo de la red.
+
+.. Modifica la configuración general según sea necesario:
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+El nombre del sitio con el que se asociará el nodo de grid. Si vas a añadir varios nodos, asegúrate de seleccionar el sitio correcto para cada nodo. Si vas a añadir un nuevo sitio, todos los nodos se añadirán al nuevo sitio.
+
+
+
+ a| 
+Nombre
+ a| 
+El nombre del sistema del nodo. Los nombres de los sistemas son necesarios para las operaciones internas de StorageGRID y no se pueden cambiar.
+
+
+
+ a| 
+Tipo de almacenamiento (solo nodos de almacenamiento)
+ a| 
+*** ${post_edited_translations.segment}
+*** ${post_edited_translations.segment}
+*** ${post_edited_translations.segment}
+
+
+
+
+ a| 
+Función de NTP
+ a| 
+${post_edited_translations.segment}
+
+*** Selecciona *Automático* (predeterminado) para asignar automáticamente el rol NTP al nodo. El rol primario se asignará a los nodos de administración, los nodos de almacenamiento con servicios ADC, los nodos de puerta de enlace y cualquier nodo de grid que tenga direcciones IP no estáticas. El rol de cliente se asignará a todos los demás nodos de grid.
+*** Selecciona *Primary* para asignar manualmente el rol de NTP primario al nodo. Al menos dos nodos en cada sitio deben tener el rol primario para proporcionar acceso redundante del sistema a fuentes de sincronización externas.
+*** Selecciona *Client* para asignar manualmente la función NTP de Client al nodo.
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Si este nodo de almacenamiento ejecutará el servicio de controlador de dominio administrativo (ADC). El servicio ADC realiza un seguimiento de la ubicación y la disponibilidad de los servicios de la grid. Al menos tres nodos de almacenamiento de cada sitio deben incluir el servicio ADC.
+
+*** Selecciona *Sí* si el nodo de almacenamiento que vas a sustituir incluye el servicio ADC. Como no puedes decomisionar un nodo de almacenamiento si quedaran muy pocos servicios ADC, este ajuste garantiza que haya un nuevo servicio ADC disponible antes de que se elimine el servicio antiguo.
+*** Puedes link:../maintain/move-adc-service.html["trasladar el servicio ADC a otro Storage Node en el mismo sitio"] para garantizar que se cumpla el cuórum del servicio ADC.
+*** Selecciona *Automático* para que el sistema determine si este nodo necesita el servicio ADC.
+
+
+Aprende sobre link:../maintain/understanding-adc-service-quorum.html["${post_edited_translations.segment}"].
+
+
+
+ a| 
+Nivel de almacenamiento (nodos de almacenamiento combinados o solo de datos)
+ a| 
+${post_edited_translations.segment}
+
+Los niveles de almacenamiento son utilizados por los grupos de almacenamiento de ILM, así que tu elección puede influir en qué objetos se colocarán en el Storage Node.
+
+|===
+.. Según sea necesario, modifica la configuración de la Grid Network, Admin Network y Client Network.
++
+*** *Dirección IPv4 (CIDR)*: La dirección de red CIDR de la interfaz de red. Por ejemplo: 172.16.10.100/24
++
+
+NOTE: ${post_edited_translations.segment}
+
+*** *Puerta de enlace*: La puerta de enlace predeterminada del nodo de la red. Por ejemplo: 172.16.10.1
+*** *Subredes (CIDR)*: Una o varias subredes para la red de administración.
+
+
+.. Selecciona *Guardar*.
++
+El nodo de la red aprobado pasa a la lista de nodos aprobados.
+
++
+*** Para modificar las propiedades de un nodo de grid aprobado, selecciona su botón de opción y selecciona *Editar*.
+*** Para mover un nodo de la red aprobado de nuevo a la lista de Nodos pendientes, selecciona su botón de opción y selecciona *Restablecer*.
+*** Para eliminar definitivamente un nodo de red aprobado, apaga el nodo. Luego, selecciona su botón de opción y selecciona *Remove*.
+
+
+.. Repite estos pasos para cada nodo de grid pendiente que quieras aprobar.
++
+
+NOTE: Si es posible, deberías aprobar todos los nodos de la cuadrícula pendientes y realizar una única expansión. Llevará más tiempo si realizas varias expansiones pequeñas.
+
+
+
+. Cuando hayas aprobado todos los nodos de la grid, introduce la *Provisioning Passphrase* y selecciona *Expand*.
++
+Al cabo de unos minutos, esta página se actualiza para mostrar el estado del procedimiento de expansión. Cuando hay tareas en curso que afectan a nodos individuales del grid, la sección Estado de los nodos del grid muestra el estado actual de cada nodo del grid.
+
++
+
+NOTE: Durante el paso «Instalación de nodos de la red» de un nuevo appliance, el StorageGRID Appliance Installer muestra que la instalación pasa de la etapa 3 a la etapa 4, Finalizar instalación. Cuando finaliza la etapa 4, el controller se reinicia.
+
++
+
+NOTE: La ampliación de un sitio incluye una tarea adicional para configurar Cassandra para el nuevo sitio.
+
+. En cuanto aparezca el enlace *Descargar paquete de recuperación*, descarga el archivo del paquete de recuperación.
++
+Debes descargar una copia actualizada del archivo del paquete de recuperación lo antes posible después de realizar cambios en la topología de la cuadrícula en el sistema StorageGRID. El archivo del paquete de recuperación te permite restaurar el sistema si se produce un fallo.
+
++
+.. ${post_edited_translations.segment}
+.. Introduce la contraseña de aprovisionamiento y selecciona *Iniciar descarga*.
+.. Cuando finalice la descarga, abre el  `.zip` archivo y comprueba que puedes acceder a su contenido, incluido el  `Passwords.txt` archivo.
+.. Copia el archivo del paquete de recuperación descargado (`.zip` en dos ubicaciones seguras y distintas.
++
+
+CAUTION: El archivo del paquete de recuperación debe protegerse porque contiene claves de cifrado y contraseñas que pueden usarse para obtener datos del sistema StorageGRID.
+
+
+
+. Si vas a añadir nodos de almacenamiento a un sitio ya existente o vas a añadir un sitio, supervisa las fases de Cassandra, que ocurren cuando se inician los servicios en los nuevos nodos de la grid.
++
+
+CAUTION: No reinicies ningún nodo de almacenamiento durante las fases «Expanding the Cassandra cluster» o «Starting Cassandra and streaming data». Estas fases pueden tardar muchas horas en completarse para cada nuevo nodo de almacenamiento, especialmente si los nodos de almacenamiento existentes contienen una gran cantidad de metadatos de objetos.
+
++
+[role="tabbed-block"]
+====
+.Agregar nodos de almacenamiento
+--
+Si vas a añadir nodos de almacenamiento a un sitio ya existente, revisa el porcentaje que aparece en el mensaje de estado "Starting Cassandra and streaming data".
+
+${post_edited_translations.segment}
+
+--
+.Agregar sitio
+--
+Si vas a añadir un nuevo sitio, utiliza `nodetool status` para supervisar el progreso de la transmisión de Cassandra y ver cuántos metadatos se han copiado al nuevo sitio durante la etapa "Expanding the Cassandra cluster". La carga total de datos en el nuevo sitio debe estar dentro de aproximadamente un 20% del total de un sitio actual.
+
+--
+====
+. ${post_edited_translations.segment}
+
+
+.Después de que termines
+Dependiendo de los tipos de nodos de red que hayas añadido, realiza los pasos adicionales de integración y configuración. Consulta link:configuring-expanded-storagegrid-system.html["Pasos de configuración tras la ampliación"].

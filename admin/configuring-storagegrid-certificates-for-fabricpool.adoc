@@ -1,0 +1,40 @@
+---
+permalink: admin/configuring-storagegrid-certificates-for-fabricpool.html 
+sidebar: sidebar 
+keywords: fabricpool, ONTAP certificates 
+summary: En el caso de los clientes S3 que realizan una validación estricta del nombre de host y no permiten desactivar dicha validación, como los clientes ONTAP que utilizan FabricPool, puedes generar o cargar un certificado de servidor al configurar el punto final del equilibrador de carga. 
+---
+= Configura los certificados de StorageGRID para FabricPool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para los clientes S3 que realizan una validación estricta de nombres de host y no admiten desactivarla, como los clientes ONTAP que usan FabricPool, puedes generar o cargar un certificado de servidor al configurar el endpoint del equilibrador de carga.
+
+.Antes de empezar
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+
+
+.Acerca de esta tarea
+Cuando creas un endpoint de equilibrador de carga, puedes generar un certificado de servidor autofirmado o subir un certificado firmado por una autoridad de certificación (CA) conocida. En entornos de producción, deberías usar un certificado firmado por una CA conocida. Los certificados firmados por una CA se pueden rotar sin interrupciones. También son más seguros porque ofrecen una mejor protección contra ataques de tipo man-in-the-middle.
+
+Los siguientes pasos ofrecen directrices generales para los clientes de S3 que utilizan FabricPool. Para obtener información y procedimientos más detallados, consulta link:../fabricpool/index.html["Configura StorageGRID para FabricPool"].
+
+.Pasos
+. Si lo deseas, configura un grupo de alta disponibilidad (HA) para que lo use FabricPool.
+. Crea un punto de conexión del equilibrador de carga de S3 para que lo use FabricPool.
++
+Al crear un punto final de equilibrador de carga HTTPS, se te pedirá que subas tu certificado de servidor, la clave privada del certificado y, opcionalmente, el paquete de la autoridad de certificación (CA bundle).
+
+. ${post_edited_translations.segment}
++
+Especifica el puerto del extremo del balanceador de carga y el nombre de dominio completo utilizado en el certificado de CA que cargaste. A continuación, proporciona el certificado de CA.
+
++
+
+NOTE: Si una CA intermedia emitió el certificado de StorageGRID, debes proporcionar el certificado de la CA intermedia. Si la CA raíz emitió directamente el certificado de StorageGRID, debes proporcionar el certificado de la CA raíz.
+
+

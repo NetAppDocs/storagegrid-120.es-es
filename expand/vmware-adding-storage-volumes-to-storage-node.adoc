@@ -1,0 +1,102 @@
+---
+permalink: expand/vmware-adding-storage-volumes-to-storage-node.html 
+sidebar: sidebar 
+keywords: expand, expansion, storage node, add storage volumes, VMware, StorageGRID 
+summary: Si un nodo de almacenamiento incluye menos de 16 volúmenes de almacenamiento, puedes aumentar su capacidad utilizando VMware vSphere para añadir volúmenes. 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si un nodo de almacenamiento incluye menos de 16 volúmenes de almacenamiento, puedes aumentar su capacidad utilizando VMware vSphere para añadir volúmenes.
+
+.Antes de empezar
+* Tienes acceso a link:../swnodes/index.html["Instrucciones para instalar StorageGRID en entornos de VMware"].
+* Tienes el archivo  `Passwords.txt`.
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+
+
+
+CAUTION: No intentes añadir volúmenes de almacenamiento a un nodo de almacenamiento mientras una actualización de software, un procedimiento de recuperación u otro procedimiento de expansión esté activo.
+
+.Acerca de esta tarea
+El nodo de almacenamiento queda indisponible durante un breve periodo de tiempo al añadir volúmenes de almacenamiento. Deberías realizar este procedimiento en un solo nodo de almacenamiento a la vez para evitar afectar los servicios de grid orientados al cliente.
+
+.Pasos
+. Si es necesario, instala nuevo hardware de almacenamiento y crea nuevos datastores de VMware.
+. Añade uno o varios discos duros a la máquina virtual para utilizarlos como almacenamiento (object stores).
++
+.. Abre VMware vSphere Client.
+.. Modifica la configuración de la máquina virtual para añadir uno o varios discos duros adicionales.
+
+
++
+Los discos duros suelen configurarse como discos de máquina virtual (VMDK). Los VMDK son los más habituales y más fáciles de gestionar, mientras que los RDM pueden ofrecer un mejor rendimiento para cargas de trabajo que utilizan objetos de mayor tamaño (por ejemplo, superiores a 100 MB). Para obtener más información sobre cómo añadir discos duros a máquinas virtuales, consulta la documentación de VMware vSphere.
+
+. Reinicia la máquina virtual utilizando la opción *Reiniciar el sistema operativo invitado* en el cliente VMware vSphere, o introduciendo el siguiente comando en una sesión ssh a la máquina virtual:``sudo reboot``
++
+
+NOTE: No utilices *Apagar* o *Restablecer* para reiniciar la máquina virtual.
+
+. Configura el nuevo almacenamiento para que lo utilice el nodo de almacenamiento:
++
+.. Inicia sesión en el nodo de la grid:
++
+... Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+... Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+... Introduce el siguiente comando para pasar a ser usuario root: `su -`
+... Introduce la contraseña que figura en el archivo  `Passwords.txt`. Cuando hayas iniciado sesión como root, el indicador de comandos cambia de  `$` a  `#`.
+
+
+.. ${post_edited_translations.segment}
++
+`sudo add_rangedbs.rb`
+
++
+${post_edited_translations.segment}
+
+.. Escribe *y* para aceptar el formato.
+.. Si alguno de los volúmenes se ha formateado anteriormente, decide si quieres volver a formatearlos.
++
+*** ${post_edited_translations.segment}
+*** Introduce *n* para omitir el reformateo.
+
+
+
+
++
+El `setup_rangedbs.sh` script se ejecuta automáticamente.
+
+. ${post_edited_translations.segment}
++
+.. ${post_edited_translations.segment}
++
+`sudo storagegrid-status`
+
++
+El estado se actualiza automáticamente.
+
+.. Espera hasta que todos los servicios estén en ejecución o verificados.
+.. Salir de la pantalla de estado:
++
+`Ctrl+C`
+
+
+
+. ${post_edited_translations.segment}
++
+.. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
+.. Selecciona *Nodos* > *_Storage Node_* > *Tareas*.
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar*.
+
+
+. Para ver los nuevos almacenes de objetos, selecciona *Storage*.
+. ${post_edited_translations.segment}
+
+
+.Resultado
+${post_edited_translations.segment}

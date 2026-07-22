@@ -1,0 +1,34 @@
+---
+permalink: tenant/viewing-your-s3-access-keys.html 
+sidebar: sidebar 
+keywords: how to view your s3 access key 
+summary: Si utilizas un inquilino de S3 y tienes los permisos adecuados, puedes ver una lista de tus claves de acceso a S3. Puedes ordenar la lista por tiempo de expiración, así puedes saber qué claves expirarán pronto. Cuando lo necesites, puedes crear nuevas claves o eliminar las que ya no uses. 
+---
+= Consulta tus claves de acceso a S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si estás usando un inquilino de S3 y tienes el link:tenant-management-permissions.html["permiso correspondiente"], puedes ver una lista de tus claves de acceso de S3. Puedes ordenar la lista por fecha de caducidad para determinar qué claves caducarán pronto. Según sea necesario, puedes link:creating-your-own-s3-access-keys.html["crear nuevas claves"] o link:deleting-your-own-s3-access-keys.html["eliminar claves"] que ya no estés usando.
+
+
+CAUTION: Se puede acceder a los buckets y objetos de S3 de tu cuenta utilizando el access key ID y la secret access key que se muestran para tu cuenta en el Tenant Manager. Por este motivo, protege las claves de acceso como lo harías con una contraseña. Renueva las claves de acceso periódicamente, elimina de tu cuenta cualquier clave que no utilices y nunca las compartas con otros usuarios.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene el permiso «Gestionar tus propias credenciales de S3» link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+
+
+.Pasos
+. Selecciona *STORAGE (S3)* > *Mis claves de acceso*.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+Si creas nuevas claves antes de que caduquen las existentes, puedes empezar a usar las nuevas claves sin perder temporalmente el acceso a los objetos de la cuenta.
+
++
+${post_edited_translations.segment}
+
+

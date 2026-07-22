@@ -1,0 +1,288 @@
+---
+permalink: admin/configuring-custom-server-certificate-for-grid-manager-tenant-manager.html 
+sidebar: sidebar 
+keywords: custom certificates, grid manager, tenant manager, management interface certificate 
+summary: Puedes reemplazar el certificado de servidor predeterminado de StorageGRID por un único certificado de servidor personalizado que permita a los usuarios acceder al Grid Manager y al Tenant Manager sin que aparezcan advertencias de seguridad. También puedes volver al certificado de la interfaz de gestión predeterminado o generar uno nuevo. 
+---
+= Configura certificados de la interfaz de gestión en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes sustituir el certificado predeterminado de la interfaz de gestión por un único certificado personalizado que permita a los usuarios acceder a Grid Manager y a Tenant Manager sin que aparezcan advertencias de seguridad. También puedes volver al certificado predeterminado de la interfaz de gestión o generar uno nuevo.
+
+.Acerca de esta tarea
+De forma predeterminada, cada nodo de administración recibe un certificado firmado por la CA del grid. Puedes sustituir estos certificados firmados por la CA por un único certificado de interfaz de gestión personalizado común y su clave privada correspondiente.
+
+Como se usa un único certificado de interfaz de gestión personalizado para todos los nodos de administración, debes especificar el certificado como un certificado comodín o multidominio si los clientes necesitan verificar el nombre de host al conectarse a Grid Manager y Tenant Manager. Define el certificado personalizado de manera que coincida con todos los nodos de administración del grid.
+
+Debes completar la configuración en el servidor y, dependiendo de la autoridad de certificación (CA) raíz que utilices, es posible que los usuarios también tengan que instalar el certificado de la CA de Grid en el navegador web que vayan a utilizar para acceder al Grid Manager y al Tenant Manager.
+
+
+NOTE: Para garantizar que las operaciones no se vean interrumpidas por un certificado de servidor caducado, se activa la alerta *Caducidad del certificado de servidor para la interfaz de gestión* cuando dicho certificado está a punto de caducar. Cuando lo necesites, puedes ver cuándo caduca el certificado actual seleccionando *Configuración* > *Seguridad* > *Certificados* y revisando la fecha de caducidad del certificado de la interfaz de gestión en la pestaña Global.
+
+[NOTE]
+====
+${post_edited_translations.segment}
+
+* El certificado de tu interfaz de gestión personalizada caduca.
+* Tú <<Restaurar el certificado predeterminado de la interfaz de gestión,Volver de un certificado personalizado de la interfaz de gestión al certificado predeterminado del servidor>>.
+
+
+====
+
+
+[[add-a-custom-management-interface-certificate]]
+== Agrega un certificado personalizado para la interfaz de gestión
+
+Para añadir un certificado personalizado para la interfaz de gestión, puedes proporcionar tu propio certificado o generar uno usando Grid Manager.
+
+.Pasos
+. Selecciona *Configuración* > *Seguridad* > *Certificados*.
+. En la pestaña *Global*, selecciona *Certificado de la interfaz de gestión*.
+. Selecciona *Usar certificado personalizado*.
+. Sube o genera el certificado.
++
+[role="tabbed-block"]
+====
+.Subir certificado
+--
+Sube los archivos de certificados del servidor necesarios.
+
+.. Selecciona *Cargar certificado*.
+.. ${post_edited_translations.segment}
++
+*** ${post_edited_translations.segment}
+*** *Clave privada del certificado*: El archivo de la clave privada del certificado del servidor personalizado (`.key`).
++
+
+NOTE: Las claves privadas EC deben ser de 224 bits o más. Las claves privadas RSA deben ser de 2048 bits o más.
+
+*** *Paquete de CA*: Un único archivo opcional que contiene los certificados de cada autoridad de certificación (CA) emisora intermedia. El archivo debe contener cada uno de los archivos de certificados de CA codificados en formato PEM, concatenados en el orden de la cadena de certificados.
+
+
+.. Despliega *Detalles del certificado* para ver los metadatos de cada certificado que subiste. Si subiste un paquete de CA opcional, cada certificado se muestra en su propia pestaña.
++
+*** ${post_edited_translations.segment}
++
+Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
+
++
+Por ejemplo: `storagegrid_certificate.pem`
+
+*** Selecciona *Copiar certificado PEM* o *Copiar paquete de CA PEM* para copiar el contenido del certificado y pegarlo en otro lugar.
+
+
+.. Selecciona *Guardar*. + El certificado de la interfaz de gestión personalizada se utiliza para todas las nuevas conexiones posteriores a Grid Manager, Tenant Manager, Grid Manager API o Tenant Manager API.
+
+
+--
+.Generar certificado
+--
+${post_edited_translations.segment}
+
+
+NOTE: ${post_edited_translations.segment}
+
+.. Selecciona *Generar certificado*.
+.. ${post_edited_translations.segment}
++
+[cols="1a,3a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre de dominio
+ a| 
+Uno o más dominios completos para incluir en el certificado. Usa un * como comodín para representar varios nombres de dominio.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Una o varias direcciones IP para incluir en el certificado.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+Si no se introduce ningún valor en este campo, el certificado generado utiliza el primer nombre de dominio o la primera dirección IP como nombre común (CN) del sujeto.
+
+
+
+ a| 
+Días de validez
+ a| 
+Número de días después de la creación en los que caduca el certificado.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+*Nota*: Deja esta casilla marcada a menos que tengas problemas de conexión con clientes antiguos cuando los certificados incluyan estas extensiones.
+
+|===
+.. Selecciona *Generar*.
+.. Selecciona *Detalles del certificado* para ver los metadatos del certificado generado.
++
+*** ${post_edited_translations.segment}
++
+Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
+
++
+Por ejemplo: `storagegrid_certificate.pem`
+
+*** Selecciona *Copiar certificado PEM* para copiar el contenido del certificado y pegarlo en otro lugar.
+
+
+.. Selecciona *Guardar*. + El certificado de la interfaz de gestión personalizada se utiliza para todas las nuevas conexiones posteriores a Grid Manager, Tenant Manager, Grid Manager API o Tenant Manager API.
+
+
+--
+====
+. Actualiza la página para asegurarte de que el navegador web esté actualizado.
++
+
+NOTE: Después de subir o generar un nuevo certificado, espera hasta un día para que se borren las alertas relacionadas con la caducidad del certificado.
+
+. Después de que añades un certificado personalizado de la interfaz de gestión, la página de certificado de la interfaz de gestión muestra información detallada sobre los certificados que están en uso. + Puedes descargar o copiar el certificado PEM según lo necesites.
+
+
+
+
+[[restore-the-default-management-interface-certificate]]
+== Restaurar el certificado predeterminado de la interfaz de gestión
+
+Puedes volver a utilizar el certificado predeterminado de la interfaz de administración para las conexiones a Grid Manager y Tenant Manager.
+
+.Pasos
+. Selecciona *Configuración* > *Seguridad* > *Certificados*.
+. En la pestaña *Global*, selecciona *Certificado de la interfaz de gestión*.
+. Selecciona *Usar certificado predeterminado*.
++
+Cuando restauras el certificado predeterminado de la interfaz de gestión, los archivos de certificado de servidor personalizados que configuraste se eliminan y no se pueden recuperar del sistema. El certificado predeterminado de la interfaz de gestión se utiliza para todas las nuevas conexiones de cliente posteriores.
+
+. Actualiza la página para asegurarte de que el navegador web esté actualizado.
+
+
+
+
+[[use-a-script-to-generate-a-new-self-signed-management-interface-certificate]]
+== Utiliza un script para generar un nuevo certificado autofirmado de la interfaz de gestión
+
+Si se requiere una validación estricta del nombre de host, puedes utilizar un script para generar el certificado de la interfaz de gestión.
+
+.Antes de empezar
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+* Tienes el archivo  `Passwords.txt`.
+
+
+.Acerca de esta tarea
+La mejor práctica para un entorno de producción es utilizar un certificado firmado por una autoridad de certificación externa.
+
+.Pasos
+. Obtén el nombre de dominio completo (FQDN) de cada Admin Node.
+. Inicia sesión en el nodo de administración principal:
++
+.. Introduce el siguiente comando: `ssh admin@primary_Admin_Node_IP`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. Configura StorageGRID con un nuevo certificado autofirmado.
++
+`$ sudo make-certificate --domains _wildcard-admin-node-fqdn_ --type management`
+
++
+** En el caso de `--domains`, utiliza caracteres comodín para representar los nombres de dominio completos de todos los nodos de administración. Por ejemplo, `*.ui.storagegrid.example.com` utiliza el carácter comodín * para representar `admin1.ui.storagegrid.example.com` y `admin2.ui.storagegrid.example.com`.
+** Establece  `--type` en  `management` para configurar el certificado de la interfaz de gestión, que usan Grid Manager y Tenant Manager.
+** Por defecto, los certificados generados tienen una validez de un año (365 días) y deben volver a generarse antes de que caduquen. Puedes usar el argumento  `--days` para cambiar el periodo de validez predeterminado.
++
+
+NOTE: El periodo de validez de un certificado comienza cuando se ejecuta  `make-certificate`. Debes asegurarte de que el cliente de gestión esté sincronizado con la misma fuente de tiempo que StorageGRID; de lo contrario, el cliente podría rechazar el certificado.
+
++
+ $ sudo make-certificate --domains *.ui.storagegrid.example.com --type management --days 720
++
+${post_edited_translations.segment}
+
+
+
+. Selecciona y copia el certificado.
++
+${post_edited_translations.segment}
+
+. Cierra sesión en la línea de comandos. `$ exit`
+. Confirma que el certificado se configuró:
++
+.. ${post_edited_translations.segment}
+.. Selecciona *Configuración* > *Seguridad* > *Certificados*
+.. En la pestaña *Global*, selecciona *Certificado de la interfaz de gestión*.
+
+
+. Configura tu cliente de gestión para que use el certificado público que copiaste. Incluye las etiquetas BEGIN y END.
+
+
+
+
+[[download-or-copy-the-management-interface-certificate]]
+== Descarga o copia el certificado de la interfaz de administración
+
+Puedes guardar o copiar el contenido del certificado de la interfaz de administración para utilizarlo en otro lugar.
+
+.Pasos
+. Selecciona *Configuración* > *Seguridad* > *Certificados*.
+. En la pestaña *Global*, selecciona *Certificado de la interfaz de gestión*.
+. Selecciona la pestaña *Servidor* o *Paquete de CA* y luego descarga o copia el certificado.
++
+[role="tabbed-block"]
+====
+.${post_edited_translations.segment}
+--
+Descarga el certificado o el paquete de CA `.pem`. Si utilizas un paquete de CA opcional, cada certificado del paquete se muestra en su propia subpestaña.
+
+.. Selecciona *Descargar certificado* o *Descargar paquete de CA*.
++
+Si estás descargando un paquete de CA, todos los certificados de las pestañas secundarias del paquete de CA se descargan en un único archivo.
+
+.. Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
++
+Por ejemplo: `storagegrid_certificate.pem`
+
+
+
+--
+.Copiar certificado o paquete PEM de CA
+--
+Copia el texto del certificado para pegarlo en otro lugar. Si utilizas un paquete de CA opcional, cada certificado del paquete se muestra en su propia subpestaña.
+
+.. ${post_edited_translations.segment}
++
+Si estás copiando un paquete de CA, todos los certificados de las pestañas secundarias del paquete de CA se copian juntos.
+
+.. ${post_edited_translations.segment}
+.. Guarda el archivo de texto con la extensión `.pem`.
++
+Por ejemplo: `storagegrid_certificate.pem`
+
+
+
+--
+====
+

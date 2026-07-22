@@ -1,0 +1,70 @@
+---
+permalink: admin/changing-browser-session-timeout-interface.html 
+sidebar: sidebar 
+keywords: security, browser inactivity timeout, management API stack track 
+summary: ${post_edited_translations.segment} 
+---
+= Cambiar la configuración de seguridad de la interfaz StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:admin-group-permissions.html["Permiso de acceso raíz"].
+
+
+.Acerca de esta tarea
+La página *Configuración de seguridad* incluye los parámetros *Tiempo de espera por inactividad del navegador* y *Rastreo de pila de la Management API*.
+
+Tiempo de espera por inactividad del navegador:: Indica cuánto tiempo puede estar inactivo el navegador de un usuario antes de que se cierre su sesión. El valor predeterminado es de 15 minutos.
++
+--
+El tiempo de espera por inactividad del navegador también se controla mediante lo siguiente:
+
+* Un temporizador independiente de StorageGRID, no configurable, que se incluye por motivos de seguridad del sistema. El token de autenticación de cada usuario caduca 16 horas después de que el usuario inicia sesión. Cuando caduca la autenticación de un usuario, ese usuario se desconecta automáticamente, incluso si el tiempo de espera por inactividad del navegador está desactivado o no se ha alcanzado el valor para el tiempo de espera del navegador. Para renovar el token, el usuario debe volver a iniciar sesión.
+* Configuración del tiempo de espera para el proveedor de identidad, suponiendo que el inicio de sesión único (SSO) esté habilitado para StorageGRID.
++
+Si el SSO está habilitado y se agota el tiempo de espera del navegador de un usuario, el usuario debe volver a introducir sus credenciales de SSO para acceder de nuevo a StorageGRID. Consulta link:how-sso-works.html["Cómo funciona el SSO"].
+
+
+
+--
+Traza de la pila de la Management API:: Controla si se devuelve un seguimiento de la pila en las respuestas de error de la API de Grid Manager y Tenant Manager.
++
+--
+Esta opción está desactivada por defecto, pero es posible que quieras activar esta funcionalidad en un entorno de prueba. En general, deberías dejar desactivado el seguimiento de la pila en los entornos de producción para evitar revelar detalles internos del software cuando ocurren errores en la API.
+
+--
+
+
+.Pasos
+. Selecciona *Configuración* > *Seguridad* > *Ajustes de seguridad*.
+. Selecciona la pestaña *Interfaz*.
+. Para cambiar la configuración del tiempo de espera de inactividad del navegador:
++
+.. Despliega el acordeón.
+.. Para cambiar el tiempo de espera, especifica un valor comprendido entre 60 segundos y 7 días. El tiempo de espera predeterminado es de 15 minutos.
+.. Para desactivar esta función, desmarca la casilla.
+.. Selecciona *Guardar*.
++
+La nueva configuración no afecta a los usuarios que ya hayan iniciado sesión. Los usuarios deben volver a iniciar sesión o actualizar su navegador para que la nueva configuración del tiempo de espera surta efecto.
+
+
+
+. Para cambiar la configuración del seguimiento de la pila de la Management API:
++
+.. Despliega el acordeón.
+.. Marca la casilla de verificación para devolver un seguimiento de la pila en las respuestas de error de la API de Grid Manager y Tenant Manager.
++
+
+CAUTION: Mantén desactivada la traza de pila en los entornos de producción para evitar revelar detalles internos del software cuando ocurran errores en la API.
+
+.. Selecciona *Guardar*.
+
+
+

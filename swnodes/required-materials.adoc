@@ -1,0 +1,70 @@
+---
+permalink: swnodes/required-materials.html 
+sidebar: sidebar 
+keywords: installation materials 
+summary: Antes de instalar StorageGRID, recopila y prepara la información y los materiales necesarios. 
+---
+= Información y materiales necesarios para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de instalar StorageGRID, recopila y prepara la información y los materiales necesarios.
+
+
+
+[[required-information]]
+== Información obligatoria
+
+Plan de red:: A qué redes piensas conectar cada nodo de StorageGRID. StorageGRID admite varias redes para la separación del tráfico, la seguridad y la comodidad administrativa.
++
+--
+Consulta la guía de referencia de StorageGRID link:../network/index.html["${post_edited_translations.segment}"].
+
+--
+Información de red:: Direcciones IP que se deben asignar a cada nodo de grid y las direcciones IP de los servidores DNS y NTP.
+Servidores para nodos de grid:: Identifica un conjunto de servidores (físicos, virtuales o ambos) que, en conjunto, proporcionen recursos suficientes para dar soporte al número y tipo de nodos de StorageGRID que tienes previsto implementar.
++
+--
+
+NOTE: Si tu instalación de StorageGRID no va a utilizar nodos de almacenamiento StorageGRID appliance (hardware), debes usar almacenamiento RAID de hardware con caché de escritura respaldada por batería (BBWC). StorageGRID no admite el uso de redes de área de almacenamiento virtual (vSAN), RAID de software ni la ausencia de protección RAID.
+
+--
+Migración de nodos (solo Ubuntu y Debian, si es necesario):: Entiende la link:node-container-migration-requirements.html["Requisitos para la migración de nodos"], si quieres realizar un mantenimiento programado en hosts físicos sin ninguna interrupción del servicio.
+Información relacionada:: https://imt.netapp.com/matrix/#welcome["Herramienta NetApp Interoperability Matrix Tool"^]
+
+
+
+
+[[required-materials]]
+== Materiales necesarios
+
+NetApp licencia de StorageGRID:: Debes tener una licencia válida y firmada digitalmente de NetApp.
+
+
+
+NOTE: Se incluye una licencia no destinada a producción, que puedes usar para grids de pruebas y de prueba de concepto, en el archivo de instalación de StorageGRID.
+
+Archivo de instalación de StorageGRID:: link:downloading-and-extracting-storagegrid-installation-files.html["Descarga el archivo de instalación de StorageGRID y extrae los archivos"].
+${post_edited_translations.segment}:: El sistema StorageGRID se instala mediante un ordenador portátil de servicio.
++
+--
+El portátil de servicio debe tener:
+
+* Puerto de red
+* ${post_edited_translations.segment}
+* link:../admin/web-browser-requirements.html["${post_edited_translations.segment}"]
+
+
+--
+Documentación de StorageGRID::
++
+--
+* https://library.netapp.com/ecm/ecm_download_file/ECMLP3351267["Notas de publicación"^]. Debes iniciar sesión con tu cuenta de NetApp o crear una cuenta para acceder a las notas de la versión.
+* link:../admin/index.html["Instrucciones para la administración de StorageGRID"]
+
+
+--
+

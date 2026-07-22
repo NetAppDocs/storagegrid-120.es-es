@@ -1,0 +1,494 @@
+---
+permalink: network/internal-grid-node-communications.html 
+sidebar: sidebar 
+keywords: storagegrid, network port, internal communications, ports, TCP, UDP, grid communications, port 
+summary: 'El cortafuegos interno de StorageGRID solo permite conexiones entrantes a puertos específicos de la red Grid, con la excepción de los puertos 22, 80, 123 y 443 (véase la información sobre comunicaciones externas). También se aceptan conexiones en puertos definidos por los puntos finales del equilibrador de carga.' 
+---
+= Comunicaciones internas de los nodos de grid para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El cortafuegos interno de StorageGRID permite las conexiones entrantes a puertos específicos de la red Grid. También se aceptan conexiones en los puertos definidos por los endpoints del balanceador de carga.
+
+
+NOTE: NetApp recomienda que habilites el tráfico del Protocolo de mensajes de control de Internet (ICMP) entre los nodos de la red. Permitir el tráfico ICMP puede mejorar el rendimiento de la conmutación por error cuando no se puede acceder a un nodo de la red.
+
+Además del ICMP y de los puertos que figuran en la tabla, StorageGRID utiliza el Protocolo de Redundancia de Enrutadores Virtuales (VRRP). El VRRP es un protocolo de Internet que utiliza el número de protocolo IP 112. StorageGRID utiliza el VRRP únicamente en modo unidifusión. El VRRP solo es necesario si link:../admin/managing-high-availability-groups.html["grupos de alta disponibilidad"] están configurados.
+
+
+
+[[guidelines-for-linux-based-nodes]]
+== Directrices para nodos basados en Linux
+
+Si las políticas de red empresarial restringen el acceso a alguno de estos puertos, puedes reasignar los puertos en el tiempo de puesta en marcha mediante un parámetro de configuración de puesta en marcha. Para obtener más información sobre la reasignación de puertos y los parámetros de configuración de puesta en marcha, consulta link:../swnodes/index.html["Instalar StorageGRID en nodos basados en software"].
+
+
+NOTE: La compatibilidad con la reasignación de puertos está en desuso y se eliminará en una futura versión. Para eliminar los puertos reasignados, consulta link:../maintain/removing-port-remaps-on-bare-metal-hosts.html["Eliminar las reasignaciones de puertos en los hosts bare metal"].
+
+
+
+[[guidelines-for-vmware-based-nodes]]
+== Directrices para nodos basados en VMware
+
+Configura los siguientes puertos solo si necesitas definir restricciones de firewall que sean externas a la red de VMware.
+
+Si las políticas de red empresarial restringen el acceso a alguno de estos puertos, puedes reasignar los puertos al implementar nodos usando el cliente web de VMware vSphere o mediante un ajuste en el archivo de configuración al automatizar la puesta en marcha de nodos de la red. Para más información sobre la reasignación de puertos y los parámetros de configuración de la puesta en marcha, consulta las instrucciones para link:../swnodes/index.html["Instalar StorageGRID en VMware"].
+
+
+NOTE: La compatibilidad con la reasignación de puertos está en desuso y se eliminará en una futura versión. Para eliminar los puertos reasignados, consulta link:../maintain/removing-port-remaps-on-bare-metal-hosts.html["Eliminar las reasignaciones de puertos en los hosts bare metal"].
+
+
+
+[[guidelines-for-appliance-nodes]]
+== Directrices para los nodos de appliance
+
+Si las políticas de red empresarial restringen el acceso a alguno de estos puertos, puedes reasignar los puertos mediante el instalador de StorageGRID Appliance. Consulta https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/optional-remapping-network-ports-for-appliance.html["Opcional: reasigna los puertos de red del dispositivo"^].
+
+
+NOTE: La compatibilidad con la reasignación de puertos está en desuso y se eliminará en una futura versión. Para eliminar los puertos reasignados, consulta link:../maintain/removing-port-remaps.html["Eliminar las reasignaciones de puertos en los dispositivos StorageGRID"].
+
+
+
+[[storagegrid-internal-ports]]
+== Puertos internos de StorageGRID
+
+[cols="1a,1a,1a,1a,4a"]
+|===
+| Puerto | TCP o UDP | De | A | Detalles 
+
+
+ a| 
+22
+ a| 
+TCP
+ a| 
+Nodo de administración principal
+ a| 
+Todos los nodos
+ a| 
+Para los procedimientos de mantenimiento, el nodo de administración principal debe poder comunicarse con todos los demás nodos mediante SSH en el puerto 22. Permitir el tráfico SSH desde otros nodos es opcional.
+
+
+
+ a| 
+80
+ a| 
+TCP
+ a| 
+${post_edited_translations.segment}
+ a| 
+Nodo de administración principal
+ a| 
+Los dispositivos StorageGRID lo utilizan para comunicarse con el nodo de administración principal para iniciar la instalación.
+
+
+
+ a| 
+123
+ a| 
+UDP
+ a| 
+Todos los nodos
+ a| 
+Todos los nodos
+ a| 
+Servicio de protocolo de tiempo de red. Cada nodo sincroniza su hora con la de todos los demás nodos mediante NTP.
+
+
+
+ a| 
+443
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodo de administración principal
+ a| 
+Se utiliza para comunicar el estado al nodo de administración principal durante la instalación y otros procedimientos de mantenimiento.
+
+
+
+ a| 
+1055
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodo de administración principal
+ a| 
+Tráfico interno para la instalación, expansión, recuperación y otros procedimientos de mantenimiento.
+
+
+
+ a| 
+1139
+ a| 
+TCP
+ a| 
+Nodos de almacenamiento
+ a| 
+Nodos de almacenamiento
+ a| 
+Tráfico interno entre nodos de almacenamiento.
+
+
+
+ a| 
+1501
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodos de almacenamiento con ADC
+ a| 
+Informes, auditoría y configuración del tráfico interno.
+
+
+
+ a| 
+1502
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodos de almacenamiento
+ a| 
+Tráfico interno relacionado con S3.
+
+
+
+ a| 
+1504
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodos de administración
+ a| 
+Informes y configuración del servicio NMS del tráfico interno.
+
+
+
+ a| 
+1505
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodos de administración
+ a| 
+Tráfico interno del servicio AMS.
+
+
+
+ a| 
+1506
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Todos los nodos
+ a| 
+Estado del servidor tráfico interno.
+
+
+
+ a| 
+1507
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodos de puerta de enlace
+ a| 
+Tráfico interno del equilibrador de carga.
+
+
+
+ a| 
+1508
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodo de administración principal
+ a| 
+Gestión de la configuración del tráfico interno.
+
+
+
+ a| 
+1511
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodos de almacenamiento
+ a| 
+Tráfico interno de metadatos.
+
+
+
+ a| 
+5353
+ a| 
+UDP
+ a| 
+Todos los nodos
+ a| 
+Todos los nodos
+ a| 
+Proporciona el servicio DNS multicast (mDNS) que se usa para los cambios de IP en toda la grid y para la detección del nodo de administración principal durante la instalación, expansión y recuperación.
+
+*Nota*: Configurar este puerto es opcional.
+
+
+
+ a| 
+7001
+ a| 
+TCP
+ a| 
+Nodos de almacenamiento
+ a| 
+Nodos de almacenamiento
+ a| 
+Comunicación entre nodos del clúster de Cassandra mediante TLS.
+
+
+
+ a| 
+7443
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodo de administración principal
+ a| 
+Tráfico interno para la instalación, la ampliación, la recuperación, otros procedimientos de mantenimiento y la notificación de errores.
+
+
+
+ a| 
+8011
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodo de administración principal
+ a| 
+Tráfico interno para la instalación, expansión, recuperación y otros procedimientos de mantenimiento.
+
+
+
+ a| 
+8443
+ a| 
+TCP
+ a| 
+Nodo de administración principal
+ a| 
+Nodos de appliance
+ a| 
+Tráfico interno relacionado con el procedimiento del modo de mantenimiento.
+
+
+
+ a| 
+9042
+ a| 
+TCP
+ a| 
+Nodos de almacenamiento
+ a| 
+Nodos de almacenamiento
+ a| 
+Puerto del cliente de Cassandra.
+
+
+
+ a| 
+9999
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Todos los nodos
+ a| 
+Tráfico interno para múltiples servicios. Incluye procedimientos de mantenimiento, métricas y actualizaciones de red.
+
+
+
+ a| 
+10226
+ a| 
+TCP
+ a| 
+Nodos de almacenamiento
+ a| 
+Nodo de administración principal
+ a| 
+Lo utilizan los dispositivos StorageGRID para reenviar paquetes AutoSupport desde SANtricity System Manager de E-Series al nodo de administración principal.
+
+
+
+ a| 
+10342
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodo de administración principal
+ a| 
+Tráfico interno para la instalación, expansión, recuperación y otros procedimientos de mantenimiento.
+
+
+
+ a| 
+18000
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento con ADC
+ a| 
+Tráfico interno del servicio de cuentas.
+
+
+
+ a| 
+18001
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento con ADC
+ a| 
+Tráfico interno de la federación de identidades.
+
+
+
+ a| 
+18002
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento
+ a| 
+Tráfico interno de la API relacionado con los protocolos de objetos.
+
+
+
+ a| 
+18003
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento con ADC
+ a| 
+Tráfico interno de los servicios de plataforma.
+
+
+
+ a| 
+18017
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento
+ a| 
+Tráfico interno del servicio Data Mover para Cloud Storage Pools.
+
+
+
+ a| 
+18019
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Todos los nodos
+ a| 
+Tráfico interno del servicio de fragmentos para codificación de borrado y replicación
+
+
+
+ a| 
+18082
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento
+ a| 
+Tráfico interno relacionado con S3.
+
+
+
+ a| 
+18086
+ a| 
+TCP
+ a| 
+Todos los nodos
+ a| 
+Nodos de almacenamiento
+ a| 
+Tráfico interno relacionado con el servicio LDR.
+
+
+
+ a| 
+18200
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento
+ a| 
+Estadísticas adicionales sobre las solicitudes de los clientes.
+
+
+
+ a| 
+19000
+ a| 
+TCP
+ a| 
+Nodos de administración/almacenamiento
+ a| 
+Nodos de almacenamiento con ADC
+ a| 
+Tráfico interno del servicio Keystone.
+
+|===
+.Información relacionada
+link:external-communications.html["Comunicaciones externas"]

@@ -1,0 +1,140 @@
+---
+permalink: tenant/grid-federation-account-clone.html 
+sidebar: sidebar 
+keywords: account clone, cloning tenant, grid federation, cross-grid replication 
+summary: 'Si se ha creado o modificado un inquilino para que utilice una conexión de federación de grid, ese inquilino se replica desde un sistema StorageGRID (el inquilino de origen) a otro sistema StorageGRID (el inquilino réplica). Después de que el inquilino se haya replicado, cualquier grupo y usuario añadido al inquilino de origen se clona en el inquilino réplica.' 
+---
+= Clona grupos de inquilinos y usuarios en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si se ha creado o modificado un inquilino para que utilice una conexión de federación de grid, ese inquilino se replica desde un sistema StorageGRID (el inquilino de origen) a otro sistema StorageGRID (el inquilino réplica). Después de que el inquilino se haya replicado, cualquier grupo y usuario añadido al inquilino de origen se clona en el inquilino réplica.
+
+El sistema StorageGRID en el que se crea originalmente el inquilino es la _red de origen_ de dicho inquilino. El sistema StorageGRID en el que se replica el inquilino es la _red de destino_ de dicho inquilino. Ambas cuentas de inquilino tienen el mismo ID de cuenta, nombre, descripción, cuota de almacenamiento y permisos asignados, pero el inquilino de destino no dispone inicialmente de una contraseña de usuario raíz. Para obtener más información, consulta link:../admin/grid-federation-what-is-account-clone.html["¿Qué es un clon de cuenta?"] y link:../admin/grid-federation-manage-tenants.html["${post_edited_translations.segment}"].
+
+Es necesario clonar la información de la cuenta del inquilino para link:../admin/grid-federation-what-is-cross-grid-replication.html["replicación entre grids"] de los objetos de los buckets. Tener los mismos grupos de inquilinos y usuarios en ambas grids garantiza que puedas acceder a los buckets y objetos correspondientes en cualquiera de las grids.
+
+
+
+[[tenant-workflow-for-account-clone]]
+== Flujo de trabajo del inquilino para la clonación de una cuenta
+
+Si tu cuenta de inquilino tiene el permiso *Use grid federation connection*, revisa el diagrama del flujo de trabajo para ver los pasos que deberás seguir para clonar grupos, usuarios y claves de acceso a S3.
+
+image:grid-federation-account-clone-workflow-tm.png["El flujo de trabajo del arrendatario para clonar una cuenta. Los pasos se describen en el texto siguiente."]
+
+Estos son los pasos principales del flujo de trabajo:
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1"] Inicia sesión en el tenant
+[role="quick-margin-para"]
+Inicia sesión en la cuenta de inquilino en la grid de origen (la grid donde se creó inicialmente el inquilino).
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Dos"] Si lo deseas, configura la federación de identidades
+[role="quick-margin-para"]
+Si tu cuenta de inquilino tiene el permiso *Usar fuente de identidad propia* para utilizar grupos y usuarios federados, configura la misma fuente de identidad (con los mismos ajustes) tanto para la cuenta de inquilino de origen como para la de destino. Los grupos y usuarios federados no se pueden clonar a menos que ambas grids utilicen la misma fuente de identidad. Para obtener instrucciones, consulta link:using-identity-federation.html["Usa la federación de identidades"].
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Tres"] Crear grupos y usuarios
+[role="quick-margin-para"]
+Al crear grupos y usuarios, empieza siempre por la grid de origen del inquilino. Cuando añades un nuevo grupo, StorageGRID lo clona automáticamente en la grid de destino.
+
+[role="quick-margin-list"]
+* Si la federación de identidades está configurada para todo el sistema StorageGRID o para tu cuenta de inquilino, link:creating-groups-for-s3-tenant.html["crear nuevos grupos de inquilinos"] importando los grupos federados desde la fuente de identidades.
+
+
+[role="quick-margin-list"]
+* Si no utilizas la federación de identidades, link:creating-groups-for-s3-tenant.html["crear nuevos grupos locales"] y luego link:manage-users.html["crear usuarios locales"].
+
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Cuatro"] Crear claves de acceso a S3
+[role="quick-margin-para"]
+Puedes link:creating-your-own-s3-access-keys.html["Crea tus propias claves de acceso"] o link:creating-another-users-s3-access-keys.html["crear las claves de acceso de otro usuario"] tanto en la grid de origen como en la grid de destino para acceder a los buckets en esa grid.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png["Cinco"] Opcionalmente, clona las claves de acceso a S3
+[role="quick-margin-para"]
+Si necesitas acceder a buckets con las mismas claves de acceso en ambas grids, crea las claves de acceso en la grid de origen y luego usa la API de Tenant Manager para clonarlas manualmente en la grid de destino. Para obtener instrucciones, consulta link:../tenant/grid-federation-clone-keys-with-api.html["Clonar claves de acceso a S3 mediante la API"].
+
+
+
+[[how-are-groups-users-and-s3-access-keys-cloned]]
+== ¿Cómo se clonan los grupos, los usuarios y las claves de acceso de S3?
+
+Consulta esta sección para comprender cómo se clonan los grupos, los usuarios y las claves de acceso a S3 entre la grid de origen del tenant y la grid de destino del tenant.
+
+
+
+[[local-groups-created-on-source-grid-are-cloned]]
+=== Los grupos locales creados en la grid de origen se clonan
+
+Después de que se crea una cuenta de inquilino y se replica en la grid de destino, StorageGRID clona automáticamente cualquier grupo local que añadas a la grid de origen del inquilino en la grid de destino del mismo.
+
+Tanto el grupo original como su clon tienen el mismo modo de acceso, los mismos permisos de grupo y la misma política de grupo de S3. Para obtener instrucciones, consulta link:creating-groups-for-s3-tenant.html["Crear grupos para el inquilino de S3"].
+
+image:grid-federation-account-clone.png["Imagen que muestra que los grupos locales se clonan de la grid de origen a la grid de destino"]
+
+
+NOTE: Los usuarios que selecciones al crear un grupo local en la grid de origen no se incluyen cuando el grupo se clona en la grid de destino. Por esta razón, no selecciones usuarios cuando crees el grupo. En su lugar, selecciona el grupo cuando crees los usuarios.
+
+
+
+[[local-users-created-on-source-grid-are-cloned]]
+=== Los usuarios locales creados en el grid de origen se clonan
+
+Al crear un nuevo usuario local en la red de origen, StorageGRID clona automáticamente ese usuario en la red de destino. Tanto el usuario original como su clon tienen el mismo nombre completo, nombre de usuario y configuración de *Denegar acceso*. Ambos usuarios también pertenecen a los mismos grupos. Para obtener instrucciones, consulta link:manage-users.html["Gestiona usuarios"].
+
+Por motivos de seguridad, las contraseñas de los usuarios locales no se clonan en la grid de destino. Si un usuario local necesita acceder a Tenant Manager en la grid de destino, el usuario raíz de la cuenta del tenant debe añadir una contraseña para ese usuario en la grid de destino. Para obtener instrucciones, consulta link:manage-users.html["Gestiona usuarios"].
+
+image:grid-federation-local-user-clone.png["Imagen que muestra que los usuarios locales se clonan de la grid de origen a la grid de destino"]
+
+
+
+[[federated-groups-created-on-source-grid-are-cloned]]
+=== Los grupos federados creados en la grid de origen se clonan
+
+Siempre que se cumplan los requisitos para utilizar la clonación de cuentas con link:../admin/grid-federation-what-is-account-clone.html#account-clone-sso["inicio de sesión único"] y link:../admin/grid-federation-what-is-account-clone.html#account-clone-identity-federation["federación de identidades"], los grupos federados que crees (importes) para el tenant en la grid de origen se clonan automáticamente al tenant en la grid de destino.
+
+Ambos grupos tienen el mismo modo de acceso, permisos de grupo y política de grupo de S3.
+
+Después de que se crean los grupos federados para el inquilino de origen y se clonan en el inquilino de destino, los usuarios federados pueden iniciar sesión en el inquilino en cualquiera de las dos grids.
+
+image:grid-federation-federated-group-clone.png["Imagen que muestra que los grupos federados se clonan de la grid de origen a la grid de destino"]
+
+
+
+[[s3-access-keys-can-be-manually-cloned]]
+=== Las claves de acceso de S3 se pueden clonar manualmente
+
+StorageGRID no clona automáticamente las claves de acceso de S3 porque la seguridad mejora al tener claves diferentes en cada grid.
+
+Para gestionar las claves de acceso en las dos grids, puedes hacer cualquiera de las siguientes cosas:
+
+* Si no necesitas usar las mismas claves para cada grid, puedes link:creating-your-own-s3-access-keys.html["Crea tus propias claves de acceso"] o link:creating-another-users-s3-access-keys.html["crear las claves de acceso de otro usuario"] en cada grid.
+* Si necesitas utilizar las mismas claves en ambas grids, puedes crear las claves en la grid de origen y luego usar la API de Tenant Manager para link:../tenant/grid-federation-clone-keys-with-api.html["clonar las llaves"] manualmente en la grid de destino.
+
+
+image:grid-federation-s3-access-key.png["Imagen que muestra que las claves de acceso S3 se pueden clonar opcionalmente de la grid de origen a la grid de destino"]
+
+
+NOTE: Al clonar las claves de acceso a S3 de un usuario federado, tanto el usuario como las claves de acceso a S3 se clonan en el inquilino de destino.
+
+
+
+[[groups-and-users-added-to-destination-grid-arent-cloned]]
+=== Los grupos y usuarios añadidos a la cuadrícula de destino no se clonan
+
+La clonación solo se produce desde la grid de origen del inquilino hacia la grid de destino del inquilino. Si creas o importas grupos y usuarios en la grid de destino del inquilino, StorageGRID no clonará estos elementos de vuelta a la grid de origen del inquilino.
+
+image:grid-federation-account-not-cloned.png["Imagen que muestra que los detalles en la cuadrícula de destino no se clonan en la cuadrícula de origen"]
+
+
+
+[[edited-or-deleted-groups-users-and-access-keys-arent-cloned]]
+=== Los grupos, usuarios y claves de acceso editados o eliminados no se clonan
+
+La clonación solo ocurre cuando creas nuevos grupos y usuarios.
+
+Si editas o eliminas grupos, usuarios o claves de acceso en cualquiera de las dos cuadrículas, tus cambios no se clonarán en la otra cuadrícula.
+
+image:grid-federation-account-clone-edit-delete.png["Imagen que muestra que los detalles editados o eliminados no se clonan"]

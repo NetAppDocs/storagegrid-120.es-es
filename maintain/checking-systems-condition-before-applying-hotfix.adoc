@@ -1,0 +1,33 @@
+---
+permalink: maintain/checking-systems-condition-before-applying-hotfix.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix 
+summary: Debes comprobar que el sistema está listo para instalar la corrección urgente. 
+---
+= Comprueba el estado del sistema antes de aplicar una corrección urgente de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes comprobar que el sistema está listo para instalar la corrección urgente.
+
+. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
+. Si es posible, asegúrate de que el sistema funcione con normalidad y de que todos los nodos de la red estén conectados a la red.
++
+Los nodos conectados tienen marcas de verificación verdes image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"] en la página de Nodos.
+
+. Comprueba si hay alguna alerta activa y, si es posible, resuélvela.
+. Asegúrate de que no haya ningún otro procedimiento de mantenimiento en curso, como una actualización, recuperación, ampliación o procedimiento de decomisionar.
++
+Debes esperar a que finalicen los procedimientos de mantenimiento en curso antes de aplicar una corrección urgente.
+
++
+No puedes aplicar una corrección urgente de StorageGRID mientras se está ejecutando otro procedimiento de mantenimiento. Por ejemplo, no puedes aplicar una corrección urgente mientras se está ejecutando un procedimiento de decomisionar, expansión o recuperación.
+
++
+
+NOTE: Si un nodo o un sitio link:pausing-and-resuming-decommission-process-for-storage-nodes.html["El procedimiento de decomisionar está en pausa"], puedes aplicar una corrección urgente de forma segura. Además, podrías aplicar una corrección urgente durante las etapas finales de un procedimiento de actualización de StorageGRID. Consulta las instrucciones para link:../upgrade/index.html["Actualización del software StorageGRID"].
+
+

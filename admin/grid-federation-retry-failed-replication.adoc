@@ -1,0 +1,207 @@
+---
+permalink: admin/grid-federation-retry-failed-replication.html 
+sidebar: sidebar 
+keywords: grid federation, troubleshoot 
+summary: Tras resolver la alerta de fallo permanente de replicación entre grids, debes determinar si algún objeto o marcador de borrado no se ha replicado en el otro grid. A continuación, puedes volver a ingestar estos objetos o usar la Grid Management API para reintentar la replicación. 
+---
+= Identifica y vuelve a intentar las operaciones de replicación fallidas de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de resolver la alerta *Cross-grid replication permanent failure*, debes comprobar si hay algún objeto o marcador de eliminación que no se haya replicado en la otra grid. Luego puedes volver a ingresar estos objetos o usar la Grid Management API para volver a intentar la replicación.
+
+La alerta *«Fallo permanente en la replicación entre redes»* indica que los objetos del inquilino no se pueden replicar entre los buckets de dos redes por un motivo que requiere la intervención del usuario para resolverse. Esta alerta suele deberse a un cambio en el bucket de origen o en el de destino. Para obtener más información, consulta link:grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+
+
+
+[[determine-if-any-objects-failed-to-be-replicated]]
+== Determina si algún objeto no se replicó
+
+Para determinar si hay algún objeto o marcador de eliminación que no se haya replicado en la otra grid, puedes buscar en el registro de auditoría los mensajes link:../audit/cgrr-cross-grid-replication-request.html["${post_edited_translations.segment}"]. Este mensaje se añade al registro cuando StorageGRID no consigue replicar un objeto, un objeto multiparte o un marcador de eliminación al bucket de destino.
+
+Puedes usar la link:../audit/using-audit-explain-tool.html["${post_edited_translations.segment}"] para traducir los resultados a un formato más fácil de leer.
+
+.Antes de empezar
+* Tienes permiso de acceso root.
+* Tienes el archivo  `Passwords.txt`.
+* ${post_edited_translations.segment}
+
+
+.Pasos
+. Inicia sesión en el nodo de administración principal:
++
+.. Introduce el siguiente comando: `ssh admin@_primary_Admin_Node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. ${post_edited_translations.segment}
++
+Por ejemplo, este comando busca con «grep» todos los mensajes CGRR de los últimos 30 minutos y utiliza la herramienta «audit-explain».
+
++
+`# awk -vdate=$(date -d "30 minutes ago" '+%Y-%m-%dT%H:%M:%S') '$1$2 >= date { print }' audit.log | grep CGRR | audit-explain`
+
++
+Los resultados del comando tendrán un aspecto similar al de este ejemplo, que contiene entradas correspondientes a seis mensajes CGRR. En el ejemplo, todas las solicitudes de replicación entre grids devolvieron un error general porque no se pudo replicar el objeto. Los tres primeros errores son de operaciones de "replicate object", y los tres últimos errores son de operaciones de "replicate delete marker".
+
++
+[listing]
+----
+CGRR Cross-Grid Replication Request tenant:50736445269627437748 connection:447896B6-6F9C-4FB2-95EA-AEBF93A774E9 operation:"replicate object" bucket:bucket123 object:"audit-0" version:QjRBNDIzODAtNjQ3My0xMUVELTg2QjEtODJBMjAwQkI3NEM4 error:general error
+CGRR Cross-Grid Replication Request tenant:50736445269627437748 connection:447896B6-6F9C-4FB2-95EA-AEBF93A774E9 operation:"replicate object" bucket:bucket123 object:"audit-3" version:QjRDOTRCOUMtNjQ3My0xMUVELTkzM0YtOTg1MTAwQkI3NEM4 error:general error
+CGRR Cross-Grid Replication Request tenant:50736445269627437748 connection:447896B6-6F9C-4FB2-95EA-AEBF93A774E9 operation:"replicate delete marker" bucket:bucket123 object:"audit-1" version:NUQ0OEYxMDAtNjQ3NC0xMUVELTg2NjMtOTY5NzAwQkI3NEM4 error:general error
+CGRR Cross-Grid Replication Request tenant:50736445269627437748 connection:447896B6-6F9C-4FB2-95EA-AEBF93A774E9 operation:"replicate delete marker" bucket:bucket123 object:"audit-5" version:NUQ1ODUwQkUtNjQ3NC0xMUVELTg1NTItRDkwNzAwQkI3NEM4 error:general error
+----
++
+Cada entrada contiene la siguiente información:
+
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+| Solicitud de replicación entre grids CGRR  a| 
+El nombre de la solicitud
+
+
+
+| inquilino  a| 
+El ID de cuenta del inquilino
+
+
+
+| ${post_edited_translations.segment}  a| 
+El identificador de la conexión de la federación de grid
+
+
+
+| operación  a| 
+El tipo de operación de replicación que se estaba intentando realizar:
+
+** replicar objeto
+** replicar marcador de eliminación
+** replicar objeto multiparte
+
+
+
+
+| bucket  a| 
+El nombre del bucket
+
+
+
+| objeto  a| 
+El nombre del objeto
+
+
+
+| versión  a| 
+El identificador de versión del objeto
+
+
+
+| error  a| 
+El tipo de error. Si la replicación entre grids falló, el error es «Error general».
+
+|===
+
+
+
+
+[[retry-failed-replications]]
+== Reintentar las replicaciones fallidas
+
+${post_edited_translations.segment}
+
+* Vuelve a introducir cada objeto en el bucket de origen.
+* ${post_edited_translations.segment}
+
+
+.Pasos
+. En la parte superior del Grid Manager, selecciona el icono de ayuda y selecciona *API documentation*.
+. Selecciona *Ir a la documentación privada de la API*.
++
+
+NOTE: Los puntos finales de la API de StorageGRID marcados como «Privados» están sujetos a cambios sin previo aviso. Los puntos finales privados de StorageGRID también ignoran la versión de la API de la solicitud.
+
+. ${post_edited_translations.segment}
++
+`POST /private/cross-grid-replication-retry-failed`
+
+. ${post_edited_translations.segment}
+. En el cuadro de texto *body*, reemplaza la entrada de ejemplo de *versionID* por un identificador de versión del audit.log que corresponda a una solicitud de replicación entre grids que haya fallado.
++
+${post_edited_translations.segment}
+
+. Selecciona *Ejecutar*.
+. ${post_edited_translations.segment}
++
+
+NOTE: «Pendiente» significa que la solicitud de replicación entre grids se ha añadido a la cola interna para su procesamiento.
+
+
+
+
+
+[[monitor-replication-retries]]
+== Supervisar los reintentos de replicación
+
+Debes supervisar las operaciones de reintento de replicación para asegurarte de que se completan.
+
+
+TIP: Puede que la replicación de un objeto o de un marcador de eliminación en la otra grid tarde varias horas o incluso más.
+
+Puedes supervisar las operaciones de reintento de dos formas:
+
+* Utiliza una solicitud S3 link:../s3/head-object.html["HeadObject"] o link:../s3/get-object.html["GetObject"]. La respuesta incluye el encabezado de respuesta específico de StorageGRID  `x-ntap-sg-cgr-replication-status`, que tendrá uno de los siguientes valores:
++
+[cols="1a,2a"]
+|===
+| ${post_edited_translations.segment} | Estado de la replicación 
+
+
+ a| 
+Fuente
+ a| 
+** ${post_edited_translations.segment}
+** *PENDIENTE*: El objeto aún no se ha replicado.
+** *ERROR*: La replicación falló debido a un error permanente. Un usuario debe solucionar el error.
+
+
+
+
+ a| 
+Destino
+ a| 
+*RÉPLICA*: El objeto fue replicado desde la cuadrícula de origen.
+
+|===
+* ${post_edited_translations.segment}
+
+
+.Pasos
+. ${post_edited_translations.segment}
++
+`GET /private/cross-grid-replication-object-status/{id}`
+
+. ${post_edited_translations.segment}
+. En la sección de Parámetros, introduce el ID de versión que usaste en la solicitud  `cross-grid-replication-retry-failed`.
+. Selecciona *Ejecutar*.
+. Comprueba que el código de respuesta del servidor sea *200*.
+. Comprueba el estado de la replicación, que será uno de los siguientes:
++
+** *PENDIENTE*: El objeto aún no se ha replicado.
+** ${post_edited_translations.segment}
+** *FALLO*: La replicación falló debido a un error permanente. Un usuario debe solucionar el error.
+
+
+

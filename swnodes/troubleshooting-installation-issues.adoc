@@ -1,0 +1,104 @@
+---
+permalink: swnodes/troubleshooting-installation-issues.html 
+sidebar: sidebar 
+keywords: how to troubleshoot ubuntu or debian installation 
+summary: Si surge algún problema durante la instalación de tu sistema StorageGRID, puedes acceder a los archivos de registro de la instalación. El soporte técnico también podría necesitar usar los archivos de registro de la instalación para resolver problemas. 
+---
+= Soluciona problemas de instalación de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si surge algún problema durante la instalación de tu sistema StorageGRID, puedes acceder a los archivos de registro de la instalación. El soporte técnico también podría necesitar usar los archivos de registro de la instalación para resolver problemas.
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+[role="tabbed-block"]
+====
+.Linux
+--
+${post_edited_translations.segment}
+
+* `/var/local/log/install.log` (se encuentra en todos los nodos del grid)
+* `/var/local/log/gdu-server.log` (se encuentra en el Admin Node primario)
+
+
+Los siguientes archivos de registro de instalación están disponibles desde el host:
+
+* `/var/log/storagegrid/daemon.log`
+* `/var/log/storagegrid/nodes/node-name.log`
+
+
+Para saber cómo acceder a los archivos de registro, consulta link:../monitor/collecting-log-files-and-system-data.html["Recopilar archivos de registro y datos del sistema"].
+
+--
+.VMware
+--
+A continuación se indican los principales archivos de registro de la instalación, que el soporte técnico podría necesitar para resolver problemas.
+
+* `/var/local/log/install.log` (se encuentra en todos los nodos del grid)
+* `/var/local/log/gdu-server.log` (se encuentra en el Admin Node primario)
+
+
+${post_edited_translations.segment}
+
+Los archivos OVF incluyen una reserva de recursos diseñada para garantizar que cada nodo de grid tenga suficiente RAM y CPU para funcionar de manera eficiente. Si creas máquinas virtuales al implementar estos archivos OVF en VMware y no está disponible la cantidad predefinida de recursos, las máquinas virtuales no se iniciarán.
+
+.Acerca de esta tarea
+${post_edited_translations.segment}
+
+.Pasos
+. En el árbol de clientes del hipervisor de VMware vSphere, selecciona la máquina virtual que no está iniciada.
+. Haz clic con el botón derecho del ratón en la máquina virtual y selecciona *Editar configuración*.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+.. Selecciona *CPU* y luego usa el control deslizante de Reserva para ajustar los MHz reservados para esta máquina virtual.
+.. ${post_edited_translations.segment}
+
+
+. Haz clic en *OK*.
+. ${post_edited_translations.segment}
+
+
+${post_edited_translations.segment}
+
+Al implementar un nodo de VMware, puedes especificar, si lo deseas, una contraseña de instalación temporal. Necesitas esta contraseña para acceder a la consola de la VM o usar SSH antes de que el nuevo nodo se una al grid.
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* Vuelve a implementar la máquina virtual, pero especifica una contraseña de instalación temporal para que puedas acceder a la consola o usar SSH para depurar problemas de instalación.
+* Usa vCenter para establecer la contraseña:
++
+.. Apaga la máquina virtual.
+.. Ve a *VM*, selecciona la pestaña *Configurar* y selecciona *vApp Options*.
+.. Especifica el tipo de contraseña de instalación temporal que deseas configurar:
++
+*** Selecciona *CUSTOM_TEMPORARY_PASSWORD* para establecer una contraseña temporal personalizada.
+*** Selecciona *TEMPORARY_PASSWORD_TYPE* para usar el nombre de nodo como contraseña temporal.
+
+
+.. Selecciona *Establecer valor*.
+.. Establece la contraseña temporal:
++
+*** Cambia *CUSTOM_TEMPORARY_PASSWORD* por un valor de contraseña personalizado.
+*** ${post_edited_translations.segment}
+
+
+.. ${post_edited_translations.segment}
+
+
+
+
+--
+====
+.Información relacionada
+* Para saber cómo acceder a los archivos de registro, consulta link:../monitor/logs-files-reference.html["Referencia de los archivos de registro"].
+* link:../troubleshoot/index.html["${post_edited_translations.segment}"]
+* Si necesitas más ayuda, ponte en contacto con https://mysupport.netapp.com/site/global/dashboard["Soporte de NetApp"^].
+

@@ -1,0 +1,79 @@
+---
+permalink: monitor/view-alert-rules.html 
+sidebar: sidebar 
+keywords: how to manage alert rules 
+summary: Las reglas de alerta definen las condiciones que activan alertas específicas. StorageGRID incluye un conjunto de reglas de alerta predeterminadas, que puedes utilizar tal cual o modificar, o bien puedes crear reglas de alerta personalizadas. 
+---
+= Ver las reglas de alerta de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las reglas de alerta definen las condiciones que activan link:alerts-reference.html["alertas específicas"]. StorageGRID incluye un conjunto de reglas de alerta predeterminadas, que puedes utilizar tal cual o modificar, o bien puedes crear reglas de alerta personalizadas.
+
+Puedes consultar la lista de todas las reglas de alerta predeterminadas y personalizadas para saber qué condiciones activarán cada alerta y ver si hay alguna alerta desactivada.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Gestiona alertas o permisos de acceso root"].
+* Opcionalmente, has visto el vídeo:
++
+.Resumen de alertas
+video::2eea81c5-8323-417f-b0a0-b1ff008506c1[panopto]
+
+
+.Pasos
+. Selecciona *Alertas* > *Reglas*.
++
+Aparece la página Alert Rules.
+
++
+image:alert_rules_page.png["Página de reglas de alertas"]
+
+. Revisa la información en la tabla de reglas de alertas:
++
+[cols="1a,3a"]
+|===
+| Encabezado de columna | Descripción 
+
+
+ a| 
+Nombre
+ a| 
+El nombre y la descripción únicos de la regla de alerta. Las reglas de alerta personalizadas aparecen en primer lugar, seguidas de las reglas de alerta predeterminadas. El nombre de la regla de alerta es el asunto de las notificaciones por correo electrónico.
+
+
+
+ a| 
+Condiciones
+ a| 
+Las expresiones de Prometheus que determinan cuándo se activa esta alerta. Una alerta puede activarse en uno o varios de los siguientes niveles de gravedad, pero no es necesario que se cumpla una condición para cada gravedad.
+
+** *Crítico* image:icon_alert_red_critical.png["Icono de alerta rojo crítico"]: Existe una situación anómala que ha detenido las operaciones normales de un nodo o servicio de StorageGRID. Debes solucionar el problema subyacente de inmediato. Si no resuelves el problema, podría haber interrupciones en el servicio y pérdida de datos.
+** *Grave* image:icon_alert_orange_major.png["Icono de alerta naranja grave"]: existe una situación anómala que está afectando el funcionamiento actual o que se está acercando al umbral de una alerta crítica. Deberías investigar las alertas graves y resolver cualquier problema subyacente para asegurarte de que la situación anómala no detenga el funcionamiento normal de un nodo o servicio de StorageGRID.
+** *Menor* image:icon_alert_yellow_minor.png["Icono de alerta amarillo menor"]: El sistema está funcionando con normalidad, pero existe una condición anómala que podría afectar la capacidad del sistema para operar si continúa. Deberías supervisar y resolver las alertas menores que no se resuelvan por sí solas para asegurarte de que no resulten en un problema más grave.
+
+
+
+
+ a| 
+Tipo
+ a| 
+El tipo de regla de alerta:
+
+** *Predeterminada*: Una regla de alerta incluida en el sistema. Puedes desactivar una regla de alerta predeterminada o editar las condiciones y la duración de una regla de alerta predeterminada. No puedes eliminar una regla de alerta predeterminada.
+** *Predeterminada**: Una regla de alerta predeterminada que incluye una condición o una duración modificadas. Si es necesario, puedes restablecer fácilmente una condición modificada a su valor predeterminado original.
+** *Personalizada*: Una regla de alerta que creaste tú. Puedes desactivar, editar y eliminar reglas de alerta personalizadas.
+
+
+
+
+ a| 
+Estado
+ a| 
+Si esta regla de alerta está activada o desactivada actualmente. Las condiciones de las reglas de alerta desactivadas no se evalúan, así que no se activan alertas.
+
+|===
+

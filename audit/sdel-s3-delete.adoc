@@ -1,0 +1,261 @@
+---
+permalink: audit/sdel-s3-delete.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, SDEL, S3 DELETE 
+summary: Cuando un cliente de S3 emite una transacción DELETE, se envía una solicitud para eliminar el objeto o bucket especificado. Este mensaje lo emite el servidor si la transacción se realiza correctamente. 
+---
+= Mensaje de auditoría SDEL para transacciones S3 DELETE en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando un cliente S3 emite una transacción DELETE, se realiza una solicitud para eliminar el objeto o bucket especificado, o para eliminar un subrecurso de bucket/objeto. El servidor emite este mensaje si la transacción se realiza correctamente.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBID
+ a| 
+Identificador del bloque de contenido
+ a| 
+El identificador único del bloque de contenido solicitado. Si se desconoce el CBID, este campo se establece en 0. Las operaciones sobre los buckets no incluyen este campo.
+
+
+
+ a| 
+CNCH
+ a| 
+Encabezado de control de coherencia
+ a| 
+El valor del encabezado de solicitud HTTP Consistency-Control, si está presente en la solicitud.
+
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto eliminado en bytes. Las operaciones en buckets no incluyen este campo.
+
+
+
+ a| 
+DMRK
+ a| 
+${post_edited_translations.segment}
+ a| 
+El identificador de versión del marcador de eliminación creado al eliminar un objeto de un bucket con control de versiones. Las operaciones en los buckets no incluyen este campo.
+
+
+
+ a| 
+GFID
+ a| 
+${post_edited_translations.segment}
+ a| 
+El ID de conexión de la conexión de la federación de grid asociada a una solicitud de eliminación de replicación entre grids. Solo se incluye en los registros de auditoría en el grid de destino.
+
+
+
+ a| 
+GFSA
+ a| 
+ID de cuenta de origen de la federación de grid
+ a| 
+El ID de cuenta del inquilino en la red de origen para una solicitud de eliminación mediante replicación entre grids. Solo se incluye en los registros de auditoría en la grid de destino.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+Lista de los nombres y valores de los encabezados de las solicitudes HTTP registrados, según se seleccionaron durante la configuración.
+
+ `X-Forwarded-For` se incluye automáticamente si está presente en la solicitud y si el valor de  `X-Forwarded-For` es diferente de la dirección IP del remitente de la solicitud (campo de auditoría SAIP).
+
+`x-amz-bypass-governance-retention` se incluye automáticamente si está presente en la solicitud.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Hora de la última modificación
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+Resultado de la transacción DELETE. El resultado es siempre:
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+S3AI
+ a| 
+ID de la cuenta de inquilino de S3 (remitente de la solicitud)
+ a| 
+El ID de cuenta de inquilino del usuario que envió la solicitud. Un valor vacío indica acceso anónimo.
+
+
+
+ a| 
+S3AK
+ a| 
+${post_edited_translations.segment}
+ a| 
+El ID de la clave de acceso a S3 con hash del usuario que envió la solicitud. Un valor vacío indica acceso anónimo.
+
+
+
+ a| 
+S3BK
+ a| 
+${post_edited_translations.segment}
+ a| 
+El nombre del depósito de S3.
+
+
+
+ a| 
+S3KY
+ a| 
+Clave de S3
+ a| 
+El nombre de la clave S3, sin incluir el nombre del bucket. Las operaciones en buckets no incluyen este campo.
+
+
+
+ a| 
+S3SR
+ a| 
+Subrecurso S3
+ a| 
+El subrecurso bucket u objeto sobre el que se está realizando la operación, si aplica.
+
+
+
+ a| 
+SACC
+ a| 
+${post_edited_translations.segment}
+ a| 
+El nombre de la cuenta de inquilino del usuario que envió la solicitud. Vacío para solicitudes anónimas.
+
+
+
+ a| 
+SAIP
+ a| 
+Dirección IP (remitente de la solicitud)
+ a| 
+La dirección IP de la aplicación cliente que hizo la solicitud.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Nombre de la cuenta de tenant de S3 (propietario del bucket)
+ a| 
+El nombre de la cuenta de inquilino del propietario del bucket. Se usa para identificar el acceso entre cuentas o el acceso anónimo.
+
+
+
+ a| 
+SBAI
+ a| 
+ID de la cuenta de tenant de S3 (propietario del bucket)
+ a| 
+El ID de la cuenta de inquilino del propietario del bucket de destino. Se utiliza para identificar el acceso entre cuentas o el acceso anónimo.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Sitio (Grupo)
+ a| 
+Si existía, el objeto se eliminó en el sitio especificado, que no es el sitio donde se ingirió el objeto.
+
+
+
+ a| 
+SUSR
+ a| 
+URN de usuario de S3 (remitente de la solicitud)
+ a| 
+El ID de la cuenta del tenant y el nombre de usuario de la persona que realiza la solicitud. El usuario puede ser tanto un usuario local como un usuario LDAP. Por ejemplo: `urn:sgws:identity::03393893651506583485:root`
+
+Dejar en blanco para solicitudes anónimas.
+
+
+
+ a| 
+HORA
+ a| 
+Tiempo
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+TLIP
+ a| 
+Dirección IP de equilibrador de carga de confianza
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+UUDM
+ a| 
+Identificador único universal para un marcador de eliminación
+ a| 
+El identificador de un marcador de eliminación. Los mensajes de registro de auditoría especifican UUDM o UUID, donde UUDM indica un marcador de eliminación creado como resultado de una solicitud de eliminación de objeto, y UUID indica un objeto.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto dentro del sistema StorageGRID.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+ID de versión
+ a| 
+El ID de versión de la versión específica de un objeto que se eliminó. Las operaciones en buckets y objetos en buckets sin versiones no incluyen este campo.
+
+|===

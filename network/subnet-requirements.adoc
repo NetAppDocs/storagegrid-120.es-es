@@ -1,0 +1,50 @@
+---
+permalink: network/subnet-requirements.html 
+sidebar: sidebar 
+keywords: network subnets 
+summary: Sigue estos requisitos y directrices para las subredes de red. 
+---
+= Requisitos de subred para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sigue estos requisitos y directrices para las subredes de red.
+
+
+NOTE: Cada red debe estar conectada a su propia subred que no se solape con ninguna otra red del nodo.
+
+El Grid Manager aplica las siguientes restricciones durante la implementación. Se incluyen aquí para ayudarte en la planificación de la red previa a la implementación.
+
+* La máscara de subred de cualquier dirección IP de red no puede ser 255.255.255.254 ni 255.255.255.255 (/31 o /32 en notación CIDR).
+* La subred definida por la dirección IP y la máscara de subred (CIDR) de una interfaz de red no puede solaparse con la subred de ninguna otra interfaz configurada en el mismo nodo.
+* No utilices subredes que contengan las siguientes direcciones IPv4 para la Grid Network, Admin Network o Client Network de ningún nodo:
++
+** 192.168.130.101
+** 192.168.130.121
+** 192.168.131.101
+** 192.168.131.121
+** 192.168.130.102
+** 192.168.130.122
+** 192.168.131.102
+** 192.168.131.122
+** 198.51.100.2
+** 198.51.100.4
+
+
++
+${post_edited_translations.segment}
+
++
+** 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+** 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+** 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+* La subred de Grid Network correspondiente a cada nodo debe figurar en el GNSL.
+* La subred Admin Network no puede solaparse con la subred Grid Network, la subred Client Network ni con ninguna subred del GNSL.
+* Las subredes de la AESL no pueden solaparse con ninguna subred de la GNSL.
+* La subred de la Client Network no puede solaparse con la subred de la Grid Network, la subred de la Admin Network, ninguna subred en el GNSL ni ninguna subred en el AESL.
+

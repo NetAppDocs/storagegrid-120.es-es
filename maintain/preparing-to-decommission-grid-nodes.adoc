@@ -1,0 +1,14 @@
+---
+permalink: maintain/preparing-to-decommission-grid-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission 
+summary: Debes revisar las consideraciones para eliminar nodos de la grid y confirmar que no haya trabajos de reparación activos para los datos con código de borrado. 
+---
+= Prepárate para decomisionar los nodos StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes revisar las consideraciones para eliminar nodos de la grid y confirmar que no haya trabajos de reparación activos para los datos con código de borrado.

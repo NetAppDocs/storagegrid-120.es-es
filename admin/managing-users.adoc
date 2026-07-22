@@ -1,0 +1,236 @@
+---
+permalink: admin/managing-users.html 
+sidebar: sidebar 
+keywords: how to manage local users 
+summary: Puedes ver los usuarios locales y federados. También puedes crear usuarios locales y asignarlos a grupos de administradores locales para determinar a qué funciones de Grid Manager pueden acceder dichos usuarios. 
+---
+= Administra usuarios en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes ver los usuarios locales y federados. También puedes crear usuarios locales y asignarlos a grupos de administradores locales para determinar a qué funciones de Grid Manager pueden acceder dichos usuarios.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+
+
+
+
+[[create-a-local-user]]
+== ${post_edited_translations.segment}
+
+Puedes crear uno o varios usuarios locales y asignar cada usuario a uno o varios grupos locales. Los permisos del grupo controlan a qué funciones de Grid Manager y de Grid Management API puede acceder el usuario.
+
+Solo puedes crear usuarios locales. Utiliza la fuente de identidades externa para gestionar usuarios y grupos federados.
+
+El Grid Manager incluye un usuario local predefinido, llamado "root". No puedes eliminar el usuario raíz.
+
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+[[access-the-wizard]]
+=== Accede al asistente
+
+.Pasos
+. Selecciona *Configuración* > *Control de acceso* > *Usuarios administradores*.
+. Selecciona *Crear usuario*.
+
+
+
+
+[[enter-user-credentials]]
+=== ${post_edited_translations.segment}
+
+.Pasos
+. ${post_edited_translations.segment}
+. Si lo deseas, selecciona *Sí* si este usuario no debe tener acceso a Grid Manager ni a Grid Management API.
+. Selecciona *Continuar*.
+
+
+
+
+[[assign-to-groups]]
+=== ${post_edited_translations.segment}
+
+.Pasos
+. Si lo deseas, asigna al usuario a uno o varios grupos para determinar sus permisos.
++
+Si aún no has creado ningún grupo, puedes guardar el usuario sin seleccionar grupos. Puedes añadir este usuario a un grupo en la página Grupos.
+
++
+Si un usuario pertenece a varios grupos, los permisos son acumulativos. Consulta link:managing-admin-groups.html["${post_edited_translations.segment}"] para ver los detalles.
+
+. Selecciona *Crear usuario* y selecciona *Finalizar*.
+
+
+
+
+[[view-and-edit-local-users]]
+== ${post_edited_translations.segment}
+
+Puedes consultar los detalles de los usuarios locales y federados existentes. Puedes modificar un usuario local para cambiar su nombre completo, contraseña o pertenencia a grupos. También puedes impedir temporalmente que un usuario acceda a Grid Manager y a la Grid Management API.
+
+Solo puedes editar usuarios locales. Utiliza la fuente de identidades externa para gestionar usuarios federados.
+
+* Para consultar la información básica de todos los usuarios locales y federados, revisa la tabla de la página Usuarios.
+* Para ver todos los detalles de un usuario concreto, editar un usuario local o cambiar la contraseña de un usuario local, utiliza el menú *Acciones* o la página de detalles.
++
+Cualquier cambio se aplica la próxima vez que el usuario cierre sesión y vuelva a iniciar sesión en Grid Manager.
+
++
+
+NOTE: Los usuarios locales pueden cambiar sus propias contraseñas mediante la opción *Cambiar contraseña* del banner de Grid Manager.
+
++
+[cols="1a,2a,2a"]
+|===
+| Tarea | Menú de acciones | ${post_edited_translations.segment} 
+
+
+ a| 
+Ver los datos del usuario
+ a| 
+.. ${post_edited_translations.segment}
+.. ${post_edited_translations.segment}
+
+ a| 
+Selecciona el nombre del usuario en la tabla.
+
+
+
+ a| 
+Editar nombre completo (solo usuarios locales)
+ a| 
+.. ${post_edited_translations.segment}
+.. Selecciona *Acciones* > *Editar nombre completo*.
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar cambios*.
+
+ a| 
+.. Selecciona el nombre del usuario para ver los detalles.
+.. Selecciona el icono de edición image:icon_edit_tm.png["Icono de edición"].
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar cambios*.
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+.. ${post_edited_translations.segment}
+.. ${post_edited_translations.segment}
+.. Selecciona la pestaña Acceso.
+.. Selecciona *Sí* para impedir que el usuario inicie sesión en Grid Manager o en la Grid Management API, o selecciona *No* para permitirle iniciar sesión.
+.. Selecciona *Guardar cambios*.
+
+ a| 
+.. Selecciona el nombre del usuario para ver los detalles.
+.. Selecciona la pestaña Acceso.
+.. Selecciona *Sí* para impedir que el usuario inicie sesión en Grid Manager o en la Grid Management API, o selecciona *No* para permitirle iniciar sesión.
+.. Selecciona *Guardar cambios*.
+
+
+
+
+ a| 
+Cambiar contraseña (solo usuarios locales)
+ a| 
+.. ${post_edited_translations.segment}
+.. ${post_edited_translations.segment}
+.. Selecciona la pestaña «Contraseña».
+.. ${post_edited_translations.segment}
+.. Selecciona *Cambiar contraseña*.
+
+ a| 
+.. Selecciona el nombre del usuario para ver los detalles.
+.. Selecciona la pestaña «Contraseña».
+.. ${post_edited_translations.segment}
+.. Selecciona *Cambiar contraseña*.
+
+
+
+
+ a| 
+Cambiar grupos (solo usuarios locales)
+ a| 
+.. ${post_edited_translations.segment}
+.. ${post_edited_translations.segment}
+.. Selecciona la pestaña Grupos.
+.. Si lo deseas, selecciona el enlace que aparece junto al nombre de un grupo para ver los detalles del grupo en una nueva pestaña del navegador.
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar cambios*.
+
+ a| 
+.. Selecciona el nombre del usuario para ver los detalles.
+.. Selecciona la pestaña Grupos.
+.. Si lo deseas, selecciona el enlace que aparece junto al nombre de un grupo para ver los detalles del grupo en una nueva pestaña del navegador.
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar cambios*.
+
+
+|===
+
+
+
+
+[[import-federated-users]]
+== Importar usuarios federados
+
+Puedes importar uno o varios usuarios federados, hasta un máximo de 100 usuarios, directamente en la página de Usuarios.
+
+.Pasos
+. Selecciona *Configuración* > *Control de acceso* > *Usuarios administradores*.
+. Selecciona *Importar usuarios federados*.
+. Introduce el UUID o el nombre de usuario de uno o varios usuarios federados.
++
+${post_edited_translations.segment}
+
+. ${post_edited_translations.segment}
++
+Si la importación al campo «Usuarios» falla para uno o varios usuarios, realiza los siguientes pasos:
+
++
+.. ${post_edited_translations.segment}
+.. ${post_edited_translations.segment}
+
+
++
+Después de que cierres el cuadro de diálogo *Importar usuarios federados*, la información de los usuarios federados importados correctamente se muestra en la página Usuarios.
+
+
+
+
+
+[[duplicate-a-user]]
+== Duplicar un usuario
+
+${post_edited_translations.segment}
+
+.Pasos
+. ${post_edited_translations.segment}
+. Selecciona *Acciones* > *Duplicar usuario*.
+. ${post_edited_translations.segment}
+
+
+
+
+[[delete-a-user]]
+== Eliminar un usuario
+
+Puedes eliminar un usuario local para borrarlo definitivamente del sistema.
+
+
+NOTE: No puedes eliminar el usuario raíz.
+
+.Pasos
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Selecciona *Eliminar usuario*.
+

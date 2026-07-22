@@ -1,0 +1,33 @@
+---
+permalink: swnodes/specifying-grid-network-subnets.html 
+sidebar: sidebar 
+keywords: how to specify Grid Network subnets 
+summary: Debes especificar las subredes que se utilizan en la red Grid. 
+---
+= Especifica las subredes de la red Grid para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes especificar las subredes que se utilizan en la red Grid.
+
+.Acerca de esta tarea
+Las entradas de subred incluyen las subredes de la red Grid para cada sitio de tu sistema StorageGRID, junto con cualquier subred a la que se deba poder acceder a través de la red Grid.
+
+Si tienes varias subredes de la red Grid, se requiere la puerta de enlace de la red Grid. Todas las subredes de la red Grid especificadas deben ser accesibles a través de esta puerta de enlace.
+
+.Pasos
+. Especifica la dirección de red CIDR de al menos una Grid Network en la casilla de texto *Subred 1*.
+. Haz clic en el signo más situado junto a la última entrada para añadir una entrada de red adicional. Debes especificar todas las subredes de todos los sitios en la Grid Network.
++
+** Si ya has implementado al menos un nodo, haz clic en *Detectar subredes de la red Grid* para que la lista de subredes de la red Grid se rellene automáticamente con las subredes comunicadas por los nodos de la red Grid que se han registrado en el Grid Manager.
+** Debes añadir manualmente cualquier subred para NTP, DNS, LDAP u otros servidores externos a los que se acceda a través de la pasarela de Grid Network.
++
+image:4_gmi_installer_grid_network_page.gif["Especifica subredes"]
+
+
+
+. Haz clic en *Next*.
+

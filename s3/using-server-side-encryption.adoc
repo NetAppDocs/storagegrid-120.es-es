@@ -1,0 +1,116 @@
+---
+permalink: s3/using-server-side-encryption.html 
+sidebar: sidebar 
+keywords: server side encryption, encryption, operations on objects, objects 
+summary: El cifrado en el servidor te permite proteger tus datos de objetos en reposo. StorageGRID cifra los datos a medida que escribe el objeto y los descifra cuando accedes al objeto. 
+---
+= Cómo StorageGRID utiliza el cifrado del lado del servidor
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El cifrado en el servidor te permite proteger tus datos de objetos en reposo. StorageGRID cifra los datos a medida que escribe el objeto y los descifra cuando accedes al objeto.
+
+Si deseas utilizar el cifrado del lado del servidor, puedes elegir una de las dos opciones siguientes, que son mutuamente excluyentes, en función de cómo se gestionan las claves de cifrado:
+
+* *SSE (cifrado del lado del servidor con claves gestionadas por StorageGRID)*: Cuando envías una solicitud S3 para almacenar un objeto, StorageGRID cifra el objeto con una clave única. Cuando envías una solicitud S3 para recuperar el objeto, StorageGRID usa la clave almacenada para descifrar el objeto.
+* *SSE-C (cifrado del lado del servidor con claves proporcionadas por el cliente)*: al realizar una solicitud de S3 para almacenar un objeto, proporcionas tu propia clave de cifrado. Al recuperar un objeto, proporcionas la misma clave de cifrado como parte de tu solicitud. Si las dos claves de cifrado coinciden, el objeto se descifra y se devuelven los datos de tu objeto.
++
+${post_edited_translations.segment}
+
++
+
+CAUTION: Las claves de cifrado que facilites nunca se almacenan. Si pierdes una clave de cifrado, pierdes el objeto correspondiente.
+
++
+
+NOTE: Si un objeto está cifrado con SSE o SSE-C, se ignoran todas las configuraciones de cifrado a nivel de depósito o de grid.
+
+
+
+
+
+[[use-sse]]
+== Utiliza SSE
+
+${post_edited_translations.segment}
+
+`x-amz-server-side-encryption`
+
+${post_edited_translations.segment}
+
+* link:put-object.html["PutObject"]
+* link:put-object-copy.html["CopyObject"]
+* link:initiate-multipart-upload.html["CreateMultipartUpload"]
+
+
+
+
+[[use-sse-c]]
+== ${post_edited_translations.segment}
+
+Para cifrar un objeto con una clave única que gestionas tú mismo, debes utilizar tres encabezados de solicitud:
+
+[cols="1a,2a"]
+|===
+| Encabezado de la solicitud | Descripción 
+
+
+ a| 
+`x-amz-server-side​-encryption​-customer-algorithm`
+ a| 
+Especifica el algoritmo de cifrado. El valor de la cabecera debe ser `AES256`.
+
+
+
+ a| 
+`x-amz-server-side​-encryption​-customer-key`
+ a| 
+Especifica la clave de cifrado que se utilizará para cifrar o descifrar el objeto. El valor de la clave debe ser de 256 bits, codificado en base64.
+
+
+
+ a| 
+`x-amz-server-side​-encryption​-customer-key-MD5`
+ a| 
+Especifica el resumen MD5 de la clave de cifrado según RFC 1321, que se utiliza para garantizar que la clave de cifrado se transmitió sin errores. El valor del resumen MD5 debe ser de 128 bits codificado en base64.
+
+|===
+${post_edited_translations.segment}
+
+* link:get-object.html["GetObject"]
+* link:head-object.html["HeadObject"]
+* link:put-object.html["PutObject"]
+* link:put-object-copy.html["CopyObject"]
+* link:initiate-multipart-upload.html["CreateMultipartUpload"]
+* link:upload-part.html["UploadPart"]
+* link:upload-part-copy.html["UploadPartCopy"]
+
+
+
+
+[[considerations-for-using-server-side-encryption-with-customer-provided-keys-sse-c]]
+== Consideraciones para usar el cifrado del lado del servidor con claves proporcionadas por el cliente (SSE-C)
+
+Antes de utilizar SSE-C, ten en cuenta las siguientes consideraciones:
+
+* ${post_edited_translations.segment}
++
+
+CAUTION: StorageGRID rechaza cualquier solicitud realizada a través de http cuando se utiliza SSE-C. Por motivos de seguridad, debes considerar que cualquier clave que envíes accidentalmente mediante http está comprometida. Descarta la clave y rótala según corresponda.
+
+* El ETag de la respuesta no es el MD5 de los datos del objeto.
+* Debes gestionar la asociación de las claves de cifrado con los objetos. StorageGRID no almacena las claves de cifrado. Eres responsable de realizar el seguimiento de la clave de cifrado que proporciones para cada objeto.
+* Si tu bucket tiene habilitado el control de versiones, cada versión de objeto debería tener su propia clave de cifrado. Eres responsable de realizar el seguimiento de la clave de cifrado utilizada para cada versión de objeto.
+* ${post_edited_translations.segment}
++
+
+CAUTION: Las claves de cifrado que facilites nunca se almacenan. Si pierdes una clave de cifrado, pierdes el objeto correspondiente.
+
+* Si se ha configurado la replicación entre grids o la replicación de CloudMirror para el bucket, no puedes ingestar objetos SSE-C. La operación de ingesta fallará.
+
+
+.Información relacionada
+https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html["Guía del usuario de Amazon S3: uso del cifrado del lado del servidor con claves proporcionadas por el cliente (SSE-C)"^]

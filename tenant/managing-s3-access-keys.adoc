@@ -1,0 +1,22 @@
+---
+permalink: tenant/managing-s3-access-keys.html 
+sidebar: sidebar 
+keywords: how to manage s3 access key 
+summary: Cada usuario de una cuenta de inquilino de S3 debe disponer de una clave de acceso para almacenar y recuperar objetos en el sistema StorageGRID. Una clave de acceso consta de un ID de clave de acceso y una clave de acceso secreta. 
+---
+= Gestiona claves de acceso S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cada usuario de una cuenta de inquilino de S3 debe disponer de una clave de acceso para almacenar y recuperar objetos en el sistema StorageGRID. Una clave de acceso consta de un ID de clave de acceso y una clave de acceso secreta.
+
+${post_edited_translations.segment}
+
+* Los usuarios que tengan el permiso *Gestionar tus propias credenciales de S3* pueden crear o eliminar sus propias claves de acceso a S3.
+* Los usuarios que tienen el permiso *Root access* pueden gestionar las claves de acceso para la cuenta raíz de S3 y para todos los demás usuarios. Las claves de acceso de Root access proporcionan acceso completo a todos los buckets y objetos del inquilino, a menos que una política de bucket lo deshabilite explícitamente.
+
+
+StorageGRID admite la autenticación mediante Signature Version 2 y Signature Version 4. No se permite el acceso entre cuentas a menos que una política de bucket lo habilite explícitamente.

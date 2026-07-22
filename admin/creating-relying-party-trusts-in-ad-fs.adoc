@@ -1,0 +1,240 @@
+---
+permalink: admin/creating-relying-party-trusts-in-ad-fs.html 
+sidebar: sidebar 
+keywords: relying party trust, active directory, ad fs, single sign on, sso 
+summary: 'Debes utilizar los Servicios de federación de Active Directory (AD FS) para crear una relación de confianza de parte confiable para cada nodo de administración de tu sistema. Puedes crear relaciones de confianza de parte confiable usando comandos de PowerShell, importando metadatos SAML desde StorageGRID o introduciendo los datos manualmente.' 
+---
+= Crea confianzas de terceros en AD FS para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes utilizar los Servicios de federación de Active Directory (AD FS) para crear una relación de confianza de parte confiable para cada nodo de administración de tu sistema. Puedes crear relaciones de confianza de parte confiable usando comandos de PowerShell, importando metadatos SAML desde StorageGRID o introduciendo los datos manualmente.
+
+.Antes de empezar
+* ${post_edited_translations.segment}
+* Tienes link:../admin/configure-sso.html["ha entrado en modo sandbox"] en Grid Manager.
+* Conoces el nombre de dominio completo (o la dirección IP) y el identificador de la parte de confianza de cada nodo de administración en tu sistema. Puedes encontrar estos valores en la tabla de detalles de los nodos de administración en la página StorageGRID Configure SSO.
++
+
+NOTE: Debes crear una relación de confianza de parte confiable para cada Admin Node en tu sistema StorageGRID. Contar con una relación de confianza de parte confiable para cada Admin Node garantiza que los usuarios puedan iniciar sesión y cerrar sesión de forma segura en cualquier Admin Node.
+
+* ${post_edited_translations.segment}
+* Estás utilizando el complemento de administración de AD FS y perteneces al grupo Administrators.
+* ${post_edited_translations.segment}
+
+
+.Acerca de esta tarea
+Estas instrucciones se aplican a Windows Server 2016 AD FS. Si utilizas una versión diferente de AD FS, notarás ligeras diferencias en el procedimiento. Consulta la documentación de Microsoft AD FS si tienes preguntas.
+
+
+
+[[create-a-relying-party-trust-using-windows-powershell]]
+== Crea una relación de confianza de parte confiable usando Windows PowerShell
+
+Puedes usar Windows PowerShell para crear rápidamente una o más relaciones de confianza con la parte de confianza.
+
+.Pasos
+. En el menú de inicio de Windows, haz clic con el botón derecho en el icono de PowerShell y selecciona *Ejecutar como administrador*.
+. En el símbolo del sistema de PowerShell, introduce el siguiente comando:
++
+`Add-AdfsRelyingPartyTrust -Name "_Admin_Node_Identifer_" -MetadataURL "https://_Admin_Node_FQDN_/api/saml-metadata"`
+
++
+** Para `_Admin_Node_Identifier_`, introduce el identificador de la parte de confianza para el Admin Node, exactamente como aparece en la página de inicio de sesión único. Por ejemplo, `SG-DC1-ADM1`.
+** Para  `_Admin_Node_FQDN_`, introduce el nombre de dominio completo para ese mismo nodo de administración. (Si es necesario, puedes usar la dirección IP del nodo en su lugar. Sin embargo, si introduces aquí una dirección IP, ten en cuenta que deberás actualizar o volver a crear esta relación de confianza entre partes si esa dirección IP llega a cambiar.)
+
+
+. En el Administrador de servidores de Windows Server, selecciona *Herramientas* > *Administración de AD FS*.
++
+${post_edited_translations.segment}
+
+. Selecciona *AD FS* > *Relying Party Trusts*.
++
+${post_edited_translations.segment}
+
+. Añade una política de control de acceso a la relación de confianza de parte confiable recién creada:
++
+.. Busca la confianza de la parte confiable que acabas de crear.
+.. Haz clic con el botón derecho del ratón sobre la confianza y selecciona *Editar política de control de acceso*.
+.. Selecciona una política de control de acceso.
+.. ${post_edited_translations.segment}
+
+
+. Agrega una directiva de emisión de declaraciones a la nueva relación de confianza de la parte confiable:
++
+.. Busca la confianza de la parte confiable que acabas de crear.
+.. Haz clic con el botón derecho del ratón sobre la confianza y selecciona *Editar política de emisión de reclamaciones*.
+.. Selecciona *Add rule*.
+.. En la página «Seleccionar plantilla de regla», selecciona *Enviar atributos LDAP como reclamaciones* en la lista y selecciona *Siguiente*.
+.. En la página Configurar regla, introduce un nombre para mostrar para esta regla.
++
+Por ejemplo, *ObjectGUID a ID de nombre* o *UPN a ID de nombre*.
+
+.. Para el almacén de atributos, selecciona *Active Directory*.
+.. En la columna Atributo LDAP de la tabla de asignación, escribe *objectGUID* o selecciona *User-Principal-Name*.
+.. En la columna Outgoing Claim Type de la tabla de correspondencias, selecciona *Name ID* en la lista desplegable.
+.. Selecciona *Finalizar* y, a continuación, *OK*.
+
+
+. Comprueba que los metadatos se hayan importado correctamente.
++
+.. Haz clic con el botón derecho del ratón sobre la confianza de la parte dependiente para abrir sus propiedades.
+.. Comprueba que los campos de las pestañas *Puntos finales*, *Identificadores* y *Firma* estén rellenados.
++
+${post_edited_translations.segment}
+
+
+
+. Repite estos pasos para configurar una relación de confianza de parte confiable para todos los nodos de administración en tu sistema StorageGRID.
+. Cuando hayas terminado, vuelve a StorageGRID y link:../admin/configure-sso.html#test-sso["${post_edited_translations.segment}"] para confirmar que están configurados correctamente.
+
+
+
+
+[[create-a-relying-party-trust-by-importing-federation-metadata]]
+== Crea una relación de confianza con una parte confiable importando metadatos de federación
+
+Puedes importar los valores de cada relación de confianza de la parte que confía accediendo a los metadatos SAML de cada Admin Node.
+
+.Pasos
+. En el Administrador de servidores de Windows Server, selecciona *Herramientas* y, a continuación, selecciona *Administración de AD FS*.
+. En Acciones, selecciona *Add Relying Party Trust*.
+. En la página de bienvenida, elige *Claims aware* y selecciona *Start*.
+. ${post_edited_translations.segment}
+. En *Dirección de metadatos de la federación (nombre de host o URL)*, escribe la ubicación de los metadatos SAML de este nodo de administración:
++
+`https://_Admin_Node_FQDN_/api/saml-metadata`
+
++
+Para  `_Admin_Node_FQDN_`, introduce el nombre de dominio completo para ese mismo nodo de administración. (Si es necesario, puedes usar la dirección IP del nodo en su lugar. Sin embargo, si introduces aquí una dirección IP, ten en cuenta que deberás actualizar o volver a crear esta relación de confianza entre partes si esa dirección IP llega a cambiar.)
+
+. ${post_edited_translations.segment}
++
+
+NOTE: Al introducir el nombre para mostrar, utiliza el identificador de la parte de confianza del nodo de administración, exactamente como aparece en la página de inicio de sesión único de Grid Manager. Por ejemplo, `SG-DC1-ADM1`.
+
+. Agrega una regla de reclamación:
++
+.. Haz clic con el botón derecho del ratón sobre la confianza y selecciona *Editar política de emisión de reclamaciones*.
+.. Selecciona *Add rule*:
+.. En la página «Seleccionar plantilla de regla», selecciona *Enviar atributos LDAP como reclamaciones* en la lista y selecciona *Siguiente*.
+.. En la página Configurar regla, introduce un nombre para mostrar para esta regla.
++
+Por ejemplo, *ObjectGUID a ID de nombre* o *UPN a ID de nombre*.
+
+.. Para el almacén de atributos, selecciona *Active Directory*.
+.. En la columna Atributo LDAP de la tabla de asignación, escribe *objectGUID* o selecciona *User-Principal-Name*.
+.. En la columna Outgoing Claim Type de la tabla de correspondencias, selecciona *Name ID* en la lista desplegable.
+.. Selecciona *Finalizar* y, a continuación, *OK*.
+
+
+. Comprueba que los metadatos se hayan importado correctamente.
++
+.. Haz clic con el botón derecho del ratón sobre la confianza de la parte dependiente para abrir sus propiedades.
+.. Comprueba que los campos de las pestañas *Puntos finales*, *Identificadores* y *Firma* estén rellenados.
++
+${post_edited_translations.segment}
+
+
+
+. Repite estos pasos para configurar una relación de confianza de parte confiable para todos los nodos de administración en tu sistema StorageGRID.
+. Cuando hayas terminado, vuelve a StorageGRID y link:../admin/configure-sso.html#test-sso["${post_edited_translations.segment}"] para comprobar que están configurados correctamente.
+
+
+
+
+[[create-a-relying-party-trust-manually]]
+== Crear una relación de confianza de parte confiable manualmente
+
+${post_edited_translations.segment}
+
+.Pasos
+. En el Administrador de servidores de Windows Server, selecciona *Herramientas* y, a continuación, selecciona *Administración de AD FS*.
+. En Acciones, selecciona *Add Relying Party Trust*.
+. En la página de bienvenida, elige *Claims aware* y selecciona *Start*.
+. Selecciona *Introducir manualmente los datos de la parte confiable* y selecciona *Siguiente*.
+. Completa el asistente de confianza de la parte que confía:
++
+.. ${post_edited_translations.segment}
++
+Para garantizar la coherencia, utiliza el identificador de la parte de confianza del nodo de administración exactamente como aparece en la página de inicio de sesión único de Grid Manager. Por ejemplo, `SG-DC1-ADM1`.
+
+.. ${post_edited_translations.segment}
+.. En la página «Configurar URL», selecciona la casilla *Habilitar compatibilidad con el protocolo WebSSO de SAML 2.0*.
+.. Escribe la URL del punto final del servicio SAML para el nodo de administración:
++
+`https://_Admin_Node_FQDN_/api/saml-response`
+
++
+Para  `_Admin_Node_FQDN_`, introduce el nombre de dominio completo para el Admin Node. (Si es necesario, puedes usar la dirección IP del nodo en su lugar. Sin embargo, si introduces una dirección IP aquí, ten en cuenta que deberás actualizar o volver a crear esta relying party trust si esa dirección IP cambia en algún momento.)
+
+.. En la página Configurar identificadores, especifica el Relying Party Identifier para el mismo Admin Node:
++
+`_Admin_Node_Identifier_`
+
++
+Para `_Admin_Node_Identifier_`, introduce el identificador de la parte de confianza para el Admin Node, exactamente como aparece en la página de inicio de sesión único. Por ejemplo, `SG-DC1-ADM1`.
+
+.. ${post_edited_translations.segment}
++
+Aparece el cuadro de diálogo «Edit Claim Issuance Policy».
+
++
+
+NOTE: Si no aparece el cuadro de diálogo, haz clic con el botón derecho sobre la relación de confianza y selecciona *Editar política de emisión de reclamaciones*.
+
+
+
+. ${post_edited_translations.segment}
++
+.. En la página «Seleccionar plantilla de regla», selecciona *Enviar atributos LDAP como reclamaciones* en la lista y selecciona *Siguiente*.
+.. En la página Configurar regla, introduce un nombre para mostrar para esta regla.
++
+Por ejemplo, *ObjectGUID a ID de nombre* o *UPN a ID de nombre*.
+
+.. Para el almacén de atributos, selecciona *Active Directory*.
+.. En la columna Atributo LDAP de la tabla de asignación, escribe *objectGUID* o selecciona *User-Principal-Name*.
+.. En la columna Outgoing Claim Type de la tabla de correspondencias, selecciona *Name ID* en la lista desplegable.
+.. Selecciona *Finalizar* y, a continuación, *OK*.
+
+
+. Haz clic con el botón derecho del ratón sobre la confianza de la parte dependiente para abrir sus propiedades.
+. En la pestaña *Puntos finales*, configura el punto final para el cierre de sesión único (SLO):
++
+.. Selecciona *Add SAML*.
+.. ${post_edited_translations.segment}
+.. Selecciona *Binding* > *Redirect*.
+.. En el campo *URL de confianza*, introduce la URL utilizada para el cierre de sesión único (SLO) desde este Admin Node:
++
+`https://_Admin_Node_FQDN_/api/saml-logout`
+
++
+Para  `_Admin_Node_FQDN_`, introduce el nombre de dominio completo del nodo de administración. (si es necesario, puedes usar la dirección IP del nodo en su lugar. Sin embargo, si introduces una dirección IP aquí, ten en cuenta que deberás actualizar o volver a crear esta relación de confianza entre partes si esa dirección IP cambia en algún momento).
+
+.. Selecciona *Aceptar*.
+
+
+. En la pestaña *Firma*, especifica el certificado de firma para esta relación de confianza de parte confiable:
++
+.. Agrega el certificado personalizado:
++
+*** Si dispones del certificado de gestión personalizado que has subido a StorageGRID, selecciona ese certificado.
+*** Si no tienes el certificado personalizado, inicia sesión en el Admin Node, ve al directorio  `/var/local/mgmt-api` del Admin Node y añade el archivo de certificado  `custom-server.crt`.
++
+
+NOTE: No se recomienda utilizar el certificado predeterminado del nodo de administración (`server.crt`). Si el nodo de administración falla, el certificado predeterminado se volverá a generar al recuperar el nodo, y será necesario actualizar la confianza de la parte que confía.
+
+
+
+.. Selecciona *Aplicar* y selecciona *Aceptar*.
++
+Se guardan y se cierran las propiedades de la parte que confía.
+
+
+
+. Repite estos pasos para configurar una relación de confianza de parte confiable para todos los nodos de administración en tu sistema StorageGRID.
+. Cuando hayas terminado, vuelve a StorageGRID y link:../admin/configure-sso.html#test-sso["${post_edited_translations.segment}"] para comprobar que están configurados correctamente.
+

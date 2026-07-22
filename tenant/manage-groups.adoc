@@ -1,0 +1,204 @@
+---
+permalink: tenant/manage-groups.html 
+sidebar: sidebar 
+keywords: how to view and edit tenant groups, manage groups, duplicate group, remove group, edit group 
+summary: Gestiona tus grupos de inquilinos según sea necesario para ver, editar o duplicar un grupo y más. 
+---
+= Gestiona grupos de inquilinos StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Gestiona tus grupos de inquilinos según sea necesario para ver, editar o duplicar un grupo y más.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["Permiso de acceso raíz"].
+
+
+
+
+[[view-or-edit-group]]
+== Ver o editar grupo
+
+Puedes consultar y editar la información básica y los detalles de cada grupo.
+
+.Pasos
+. ${post_edited_translations.segment}
+. Revisa la información que aparece en la página Grupos, donde se muestra la información básica de todos los grupos locales y federados de esta cuenta de tenant.
++
+Si la cuenta del inquilino tiene el permiso *Utilizar conexión de federación de cuadrículas* y estás visualizando grupos en la cuadrícula de origen del inquilino:
+
++
+** Un mensaje en un banner indica que, si editas o eliminas un grupo, tus cambios no se sincronizarán con la otra cuadrícula.
+** Si es necesario, un mensaje en la barra superior indica si los grupos no se clonaron en el inquilino de la grid de destino. Puedes <<clone-groups,volver a intentar clonar un grupo>> los que fallaron.
+
+
+. Si quieres cambiar el nombre del grupo:
++
+.. Selecciona la casilla para el grupo.
+.. Selecciona *Acciones* > *Editar nombre del grupo*.
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar cambios.*
+
+
+. Si quieres ver más detalles o hacer modificaciones adicionales, haz una de las siguientes cosas:
++
+** ${post_edited_translations.segment}
+** Marca la casilla de selección del grupo y selecciona *Acciones* > *Ver detalles del grupo*.
+
+
+. ${post_edited_translations.segment}
++
+** Nombre para mostrar
+** ${post_edited_translations.segment}
+** Tipo
+** Modo de acceso
+** Permisos
+** Política de S3
+** ${post_edited_translations.segment}
+** Campos adicionales si la cuenta del inquilino tiene el permiso *Usar conexión de federación de cuadrículas* y estás viendo el grupo en la cuadrícula de origen del inquilino:
++
+*** ${post_edited_translations.segment}
+*** ${post_edited_translations.segment}
+
+
+
+
+. Modifica la configuración del grupo según sea necesario. Consulta link:creating-groups-for-s3-tenant.html["Crear grupos para un inquilino de S3"] para ver detalles sobre qué debes ingresar.
++
+.. En la sección «Descripción general», cambia el nombre que se muestra seleccionando el nombre o el icono de edición image:icon_edit_tm.png["Icono de edición"].
+.. En la pestaña *Permisos de grupo*, actualiza los permisos y selecciona *Guardar cambios*.
+.. En la pestaña *política de grupo*, haz cualquier cambio y selecciona *Guardar cambios*.
++
+${post_edited_translations.segment}
+
+
+
+. Para añadir uno o más usuarios locales existentes al grupo:
++
+.. Selecciona la pestaña Usuarios.
++
+image:manage_users.png["Gestiona usuarios"]
+
+.. Selecciona *Add users*.
+.. Selecciona los usuarios existentes que quieras añadir y selecciona *Add users*.
++
+Aparece un mensaje de éxito en la esquina superior derecha.
+
+
+
+. ${post_edited_translations.segment}
++
+.. Selecciona la pestaña Usuarios.
+.. ${post_edited_translations.segment}
+.. Selecciona los usuarios que quieras eliminar y selecciona *Eliminar usuarios*.
++
+Aparece un mensaje de éxito en la esquina superior derecha.
+
+
+
+. ${post_edited_translations.segment}
+
+
+
+
+[[duplicate-group]]
+== Duplicar grupo
+
+Puedes duplicar un grupo ya existente para crear nuevos grupos más rápido.
+
+
+NOTE: ${post_edited_translations.segment}
+
+.Pasos
+. ${post_edited_translations.segment}
+. Marca la casilla de verificación del grupo que quieras duplicar.
+. Selecciona *Acciones* > *Duplicar grupo*.
+. Consulta link:creating-groups-for-s3-tenant.html["Crear grupos para un inquilino de S3"] para obtener más información sobre qué datos debes introducir.
+. Selecciona *Crear grupo*.
+
+
+
+
+[[clone-groupsretry-group-clone]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+. Selecciona cada grupo en el que aparezca _(Cloning failed)_ debajo del nombre del grupo.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+
+
+Para obtener más información, consulta link:grid-federation-account-clone.html["Clonar grupos de inquilinos y usuarios"].
+
+
+
+[[delete-one-or-more-groups]]
+== Eliminar uno o varios grupos
+
+Puedes eliminar uno o más grupos. Los usuarios que pertenezcan únicamente a un grupo que se elimine ya no podrán iniciar sesión en el Tenant Manager ni usar la cuenta de inquilino.
+
+
+NOTE: Si tu cuenta de inquilino tiene el permiso *Use grid federation connection* y eliminas un grupo, StorageGRID no eliminará el grupo correspondiente en el otro grid. Si necesitas mantener esta información sincronizada, debes eliminar el mismo grupo de ambos grids.
+
+.Pasos
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Selecciona *Acciones* > *Eliminar grupo* o *Acciones* > *Eliminar grupos*.
++
+Aparece un cuadro de diálogo de confirmación.
+
+. ${post_edited_translations.segment}
+
+
+
+
+[[set-up-assumerole]]
+== Configura AssumeRole
+
+.Antes de empezar
+Debes ser administrador para configurar AssumeRole.
+
+.Acerca de esta tarea
+Para configurar AssumeRole, crea el grupo de destino que se va a asumir, si el grupo no existe ya. Edita la política de S3 del grupo para especificar las acciones permitidas al asumir este grupo. Edita la política de confianza de S3 del grupo para especificar los usuarios de confianza a los que se les permite asumir el grupo con la API AssumeRole.
+
+Las credenciales de seguridad temporales creadas al asumir este grupo son válidas durante un periodo de tiempo limitado. La sesión dura entre 15 minutos y 12 horas, y la sesión predeterminada es de 1 hora. Cuando eliminas al usuario de la política de confianza de S3 del grupo, el usuario ya no puede asumir este grupo.
+
+.Pasos
+. ${post_edited_translations.segment}
+. Haz clic en el nombre del grupo.
+. ${post_edited_translations.segment}
+. Agrega tu política de confianza de S3, incluyendo una lista de usuarios que pueden realizar AssumeRole.
+. Selecciona *Guardar cambios*.
+. Selecciona la pestaña *política de grupo de S3*.
+. Modifica la política de S3 para especificar únicamente las acciones de S3 necesarias para los usuarios de confianza añadidos en la política de confianza de S3 de este grupo.
+. Selecciona *Guardar cambios*.
+
+
+
+
+[[example-of-an-assumerole-s3-trust-policy]]
+=== Ejemplo de una política de confianza de S3 de AssumeRole
+
+[listing]
+----
+{
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": {
+                "AWS": [
+                    "urn:sgws:identity::1234567890:user/user1",
+                    "arn:aws:iam::1234567890:user/user2"
+                ]
+            }
+        }
+    ]
+}
+----
+Una vez completada la configuración, los usuarios incluidos en la política de confianza de S3 pueden realizar AssumeRole y recibir credenciales. Los permisos finales se determinan mediante la política de grupo, la política de bucket y la política de sesión. Para obtener más información, consulta link:../s3/use-access-policies.html["${post_edited_translations.segment}"].

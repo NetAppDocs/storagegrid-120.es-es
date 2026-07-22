@@ -1,0 +1,31 @@
+---
+permalink: audit/sysd-node-stop.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, SYSD, Node Stop 
+summary: Cuando un servicio se detiene de forma ordenada, se genera este mensaje para indicar que se solicitó el apagado. Normalmente, este mensaje solo se envía después de un reinicio posterior, porque la cola de mensajes de auditoría no se borra antes del apagado. Busca el mensaje SYST, enviado al principio de la secuencia de apagado, si el servicio no se ha reiniciado. 
+---
+= Mensaje de auditoría SYSD para paradas de nodo graceful en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando un servicio se detiene de forma ordenada, se genera este mensaje para indicar que se solicitó el apagado. Normalmente, este mensaje solo se envía después de un reinicio posterior, porque la cola de mensajes de auditoría no se borra antes del apagado. Busca el mensaje SYST, enviado al principio de la secuencia de apagado, si el servicio no se ha reiniciado.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+RSLT
+ a| 
+Apagado correcto
+ a| 
+La naturaleza del cierre:
+
+${post_edited_translations.segment}
+
+|===
+El mensaje no indica si se está deteniendo el servidor anfitrión, solo el servicio de generación de informes. El RSLT de un SYSD no puede indicar un apagado "sucio", porque el mensaje solo se genera en apagados "limpios".

@@ -1,0 +1,37 @@
+---
+permalink: maintain/reviewing-warnings-about-storage-volume-recovery.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, volume warning 
+summary: Antes de recuperar volúmenes de almacenamiento que hayan fallado en un Storage Node, debes revisar las siguientes advertencias. 
+---
+= Advertencias para la recuperación de volúmenes de almacenamiento StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de recuperar volúmenes de almacenamiento que han fallado en un Storage Node, revisa las siguientes advertencias.
+
+Los volúmenes de almacenamiento (o rangedbs) en un Storage Node se identifican por un número hexadecimal, que se conoce como el ID de volumen. Por ejemplo, 0000 es el primer volumen y 000F es el volumen dieciséis. El primer almacén de objetos (volumen 0) en cada Storage Node usa hasta 4 TB de espacio para metadatos de objetos y operaciones de la base de datos Cassandra; cualquier espacio restante en ese volumen se usa para datos de objetos. Todos los demás volúmenes de almacenamiento se usan exclusivamente para datos de objetos.
+
+La base de datos Cassandra podría reconstruirse como parte del procedimiento de recuperación del volumen si:
+
+* El volumen 0 falla y se recupera.
+* La unidad del sistema y uno o varios volúmenes de almacenamiento fallan y se recuperan.
+
+
+Cuando se reconstruye Cassandra, el sistema utiliza información de otros nodos de almacenamiento. Si Cassandra se ha reconstruido recientemente, es posible que los datos de Cassandra aún no sean consistentes en todo el grid. Si hay demasiados nodos de almacenamiento fuera de línea:
+
+* Es posible que algunos datos de Cassandra no estén disponibles.
+* Podría producirse una pérdida de datos.
+
+
+
+CAUTION: Si se ha producido un fallo en más de un nodo de almacenamiento (o está desconectado), ponte en contacto con soporte técnico. No realices el siguiente procedimiento de recuperación. Podría producirse una pérdida de datos. Para obtener más información, consulta link:how-site-recovery-is-performed-by-technical-support.html["Cómo el soporte técnico recupera un sitio"].
+
+
+CAUTION: Si las reglas de ILM están configuradas para almacenar únicamente una copia replicada y dicha copia se encuentra en un volumen de almacenamiento que ha fallado, no podrás recuperar el objeto.
+
+.Información relacionada
+link:warnings-and-considerations-for-grid-node-recovery.html["Advertencias y consideraciones para la recuperación de nodos de la red"]

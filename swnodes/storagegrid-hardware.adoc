@@ -1,0 +1,17 @@
+---
+sidebar: sidebar 
+permalink: swnodes/storagegrid-hardware.html 
+keywords: storagegrid, software, grid 
+summary: Aprende a instalar, configurar y usar el hardware de la appliance StorageGRID. 
+---
+= Conoce el hardware de los dispositivos StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ve a https://docs.netapp.com/us-en/storagegrid-appliances/index.html["Documentación de StorageGRID Appliance"^] para aprender a instalar, configurar y mantener los dispositivos de almacenamiento y servicios de StorageGRID.

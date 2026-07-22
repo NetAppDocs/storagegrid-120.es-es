@@ -1,0 +1,89 @@
+---
+permalink: admin/manage-link-costs.html 
+sidebar: sidebar 
+keywords: link cost, site latency, manage link costs, prioritize sites 
+summary: Los costes de enlace te permiten priorizar qué centro de datos proporciona un servicio solicitado cuando existen dos o más centros de datos. Puedes ajustar los costes de enlace para reflejar la latencia entre los sitios. 
+---
+= Administra los costes de enlace en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los costes de enlace te permiten priorizar qué centro de datos proporciona un servicio solicitado cuando existen dos o más centros de datos. Puedes ajustar los costes de enlace para reflejar la latencia entre los sitios.
+
+
+
+[[what-are-link-costs]]
+== ¿Qué son los costes de enlace?
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* El servicio Load Balancer en los nodos de administración y los nodos de puerta de enlace utiliza los costes de enlace para dirigir las conexiones de clientes. Consulta link:../admin/managing-load-balancing.html["Aspectos a tener en cuenta para el equilibrio de carga"].
+
+
+El diagrama muestra una red de tres sitios en la que se han configurado los costes de enlace entre los sitios:
+
+image:link_costs.gif["Diagrama conceptual de los costes de enlace entre centros de datos"]
+
+* El servicio de equilibrio de carga en los nodos de administración y los nodos de puerta de enlace distribuye por igual las conexiones de los clientes a todos los nodos de almacenamiento en el mismo sitio del centro de datos y a cualquier sitio de centro de datos con un coste de enlace de 0.
++
+En el ejemplo, un nodo de puerta de enlace en el centro de datos 1 (DC1) distribuye de forma equitativa las conexiones de los clientes a los nodos de almacenamiento en DC1 y a los nodos de almacenamiento en DC2. Un nodo de puerta de enlace en DC3 envía las conexiones de los clientes solo a los nodos de almacenamiento en DC3.
+
+* Al recuperar un objeto del que existen varias copias replicadas, StorageGRID recupera la copia del centro de datos que tiene el menor coste de enlace.
++
+En el ejemplo, si una aplicación cliente en DC2 recupera un objeto que está almacenado tanto en DC1 como en DC3, el objeto se recupera de DC1, porque el coste de enlace de DC1 a DC2 es 0, que es menor que el coste de enlace de DC3 a DC2 (25).
+
+
+
+Los costes de enlace son valores numéricos relativos arbitrarios que carecen de una unidad de medida específica. Por ejemplo, un coste de enlace de 50 se utiliza con menos preferencia que un coste de 25. La tabla muestra los costes de enlace más habituales.
+
+[cols="1a,1a,2a"]
+|===
+| ${post_edited_translations.segment} | ${post_edited_translations.segment} | Notas 
+
+
+ a| 
+Entre los sitios físicos del centro de datos
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+Entre centros de datos lógicos en la misma ubicación física
+ a| 
+0
+ a| 
+Centros de datos lógicos en el mismo edificio físico o campus conectados por una LAN.
+
+|===
+
+
+[[update-link-costs]]
+== Actualizar los costes de los enlaces
+
+${post_edited_translations.segment}
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:admin-group-permissions.html["${post_edited_translations.segment}"].
+
+
+.Pasos
+. ${post_edited_translations.segment}
++
+image:configuring_link_costs.png["Coste del enlace"]
+
+. Selecciona un sitio en *Origen del enlace* e introduce un valor de coste comprendido entre 0 y 100 en *Destino del enlace*.
++
+No puedes cambiar el coste del enlace si el origen es el mismo que el destino.
+
++
+Para cancelar los cambios, selecciona image:nms_revert.gif["icono de deshacer"]*Revert*.
+
+. Selecciona *Aplicar cambios*.
+

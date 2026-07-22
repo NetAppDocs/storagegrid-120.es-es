@@ -1,0 +1,107 @@
+---
+permalink: maintain/step-1-select-site.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, select site 
+summary: Para determinar si se puede descomisionar un sitio, empieza por acceder al asistente de descomisionamiento de sitios. 
+---
+= Selecciona un sitio para decomisionar en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para determinar si se puede descomisionar un sitio, empieza por acceder al asistente de descomisionamiento de sitios.
+
+.Antes de empezar
+* Ya has conseguido todo el material necesario.
+* Ya has revisado las consideraciones para eliminar un sitio.
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de acceso root o los permisos de mantenimiento e ILM"].
+
+
+.Pasos
+. Selecciona *Mantenimiento* > *Tareas* > *Decomisionar*.
+. Selecciona *Decomisionar Site*.
++
+Aparece el paso 1 (Seleccionar sitio) del asistente para descomisionar sitios. Este paso incluye una lista alfabética de los sitios de tu sistema StorageGRID.
+
++
+image:decommission_site_step_select_site.png["Decomisionar sitio Paso 1 seleccionar sitio"]
+
+. Consulta los valores de la columna *Capacidad de almacenamiento utilizada* para determinar cuánto almacenamiento se está utilizando actualmente para los datos de objetos en cada sitio.
++
+La Capacidad de almacenamiento utilizada es una estimación. Si los nodos están desconectados, la Capacidad de almacenamiento utilizada es el último valor conocido para el sitio.
+
++
+** Para decomisionar un sitio conectado, este valor representa cuántos datos de objetos tendrán que moverse a otros sitios o ser eliminados por ILM antes de que puedas decomisionar este sitio de forma segura.
+** En el caso de la descomisionación de un sitio desconectado, este valor indica qué parte del almacenamiento de datos de tu sistema quedará inaccesible cuando decomisiones este sitio.
++
+
+NOTE: Si tu política de ILM se diseñó para proteger contra la pérdida de un solo sitio, las copias de tus datos de objetos deberían seguir existiendo en los sitios restantes.
+
+
+
+. Revisa los motivos en la columna *Decommission Possible* para determinar qué sitios pueden decomisionarse actualmente.
++
+
+NOTE: Si hay más de un motivo por el que no se puede decomisionar un sitio, se muestra el motivo más crítico.
+
++
+[cols="1a,1a,1a"]
+|===
+| Decomisionar posible motivo | Descripción | Siguiente paso 
+
+
+ a| 
+Marca de verificación verde (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"])
+ a| 
+Puedes decomisionar este sitio.
+ a| 
+Vaya a <<decommission_possible,el siguiente paso>>.
+
+
+
+ a| 
+No. Este sitio contiene el nodo de administración principal.
+ a| 
+No puedes decomisionar un sitio que contenga el nodo de administración principal.
+ a| 
+Ninguno. No puedes realizar este procedimiento.
+
+
+
+ a| 
+No. Este sitio contiene uno o varios Archive Nodes.
+ a| 
+No puedes decomisionar un sitio que contenga un Archive Node.
+ a| 
+Ninguno. No puedes realizar este procedimiento.
+
+
+
+ a| 
+No. Todos los nodos de este sitio están desconectados. Ponte en contacto con tu representante de cuenta de NetApp.
+ a| 
+No puedes decomisionar un sitio conectado a menos que todos los nodos del sitio estén conectados (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]).
+ a| 
+Si quieres realizar la descomisión de un sitio desconectado, debes ponerte en contacto con tu representante de cuenta de NetApp, quien revisará tus requisitos y habilitará el resto del asistente para descomisionar sitios.
+
+*IMPORTANTE*: Nunca desconectes los nodos en línea para eliminar un sitio. Perderás datos.
+
+|===
++
+El ejemplo muestra un sistema StorageGRID con tres sitios. La marca de verificación verde (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]) junto a los sitios Raleigh y Sunnyvale indica que puedes decomisionar esos sitios. Sin embargo, no puedes decomisionar el sitio Vancouver porque contiene el nodo de administración principal.
+
+
+
+[[decommission_possible]]
+. Si es posible decomisionar el sitio, selecciona el botón de opción para el sitio.
++
+El botón *Siguiente* está activo.
+
+. Selecciona *Siguiente*.
++
+Aparece el paso 2 (Ver detalles).
+
+

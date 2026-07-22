@@ -1,0 +1,81 @@
+---
+permalink: ilm/using-multiple-storage-pools-for-cross-site-replication.html 
+sidebar: sidebar 
+keywords: site-loss protection, cross-site replication, storage pools 
+summary: Si tu implementación de StorageGRID incluye más de un sitio, puedes utilizar la replicación y el código de borrado con grupos de almacenamiento configurados adecuadamente para habilitar la protección frente a la pérdida de un sitio. 
+---
+= Protección contra pérdida de sitios con pools de almacenamiento en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si tu implementación de StorageGRID incluye más de un sitio, puedes utilizar la replicación y el código de borrado con grupos de almacenamiento configurados adecuadamente para habilitar la protección frente a la pérdida de un sitio.
+
+La replicación y el código de borrado requieren diferentes configuraciones del grupo de almacenamiento:
+
+* Para utilizar la replicación como protección frente a la pérdida de un sitio, utiliza los grupos de almacenamiento específicos de cada sitio que se crean automáticamente durante la instalación de StorageGRID. Luego crea reglas de ILM con link:create-ilm-rule-define-placements.html["instrucciones de colocación"] que especifiquen varios grupos de almacenamiento para que se coloque una copia de cada objeto en cada sitio.
+* Para utilizar el código de borrado como protección frente a la pérdida de un sitio, link:guidelines-for-creating-storage-pools.html#guidelines-for-storage-pools-used-for-erasure-coded-copies["crear grupos de almacenamiento que consten de varios sitios"]. Luego crea reglas de ILM que usen un grupo de almacenamiento compuesto por varios sitios y cualquier esquema de código de borrado disponible.
+
+
+
+CAUTION: Al configurar tu implementación de StorageGRID para la protección frente a la pérdida de un sitio, también debes tener en cuenta los efectos de link:data-protection-options-for-ingest.html["opciones de ingesta"] y link:../s3/consistency.html["coherencia"].
+
+
+
+[[replication-example]]
+== Ejemplo de replicación
+
+De forma predeterminada, durante la instalación de StorageGRID se crea un grupo de almacenamiento para cada sitio. Disponer de grupos de almacenamiento formados por un único sitio permite configurar reglas de ILM que utilicen la replicación como protección ante la pérdida de un sitio. En este ejemplo:
+
+* El pool de almacenamiento 1 contiene Site 1
+* El grupo de almacenamiento 2 contiene Site 2
+* La regla ILM contiene dos ubicaciones:
++
+** Almacena objetos replicando 1 copia en el sitio 1
+** Almacena objetos replicando 1 copia en el sitio 2
+
+
+
+
+Ubicaciones de las reglas de ILM:
+
+image:ilm_replication_at_2_sites.png["Replicando 1 copia en cada uno de los 2 sitios"]
+
+image:ilm_replication_make_2_copies_2_pools_2_sites.png["Haz 1 copia en cada uno de los 2 sitios - grupo de almacenamiento específico por sitio"]
+
+Si se pierde una de las sedes, se dispone de copias de los objetos en la otra sede.
+
+
+
+[[erasure-coding-example]]
+== Ejemplo de erasure coding
+
+Disponer de grupos de almacenamiento que consten de más de un sitio por grupo permite configurar reglas de ILM que utilicen el código de borrado para la protección frente a la pérdida de un sitio. En este ejemplo:
+
+* El grupo de almacenamiento 1 contiene los sitios 1 al 3
+* La regla ILM contiene una ubicación: almacenar objetos mediante el código de borrado utilizando un esquema EC 4+2 en Storage pool 1, que contiene tres sitios
+
+
+Ubicaciones de las reglas de ILM:
+
+image:ilm_erasure_coding_site_loss_protection_4+2.png["Pool de almacenamiento EC 1 9 nodos de almacenamiento 3 sitios"]
+
+En este ejemplo:
+
+* La regla ILM utiliza un esquema de código de borrado 4+2.
+* Cada objeto se divide en cuatro fragmentos de datos iguales, y a partir de los datos del objeto se calculan dos fragmentos de paridad.
+* Cada uno de los seis fragmentos se almacena en un nodo diferente repartido entre tres centros de datos para proporcionar protección de datos ante fallos de nodo o pérdida de sitio.
+
+
+
+NOTE: El código de borrado está permitido en los grupos de almacenamiento que contienen cualquier número de sitios _excepto_ dos sitios.
+
+Regla ILM que utiliza el esquema de código de borrado 4+2:
+
+image:ec_three_sites_4_plus_2_site_loss_example_template.png["Almacena objetos mediante código de borrado usando un esquema EC 4+2 repartido en 3 sitios"]
+
+Si se pierde un sitio, los datos aún se pueden recuperar:
+
+image:ec_three_sites_4_plus_2_site_loss_example.png["Código de borrado 4+2 esquema EC un sitio perdido"]

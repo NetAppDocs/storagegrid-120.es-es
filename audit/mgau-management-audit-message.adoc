@@ -1,0 +1,134 @@
+---
+permalink: audit/mgau-management-audit-message.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, MGAU, Management audit message 
+summary: La categoría Management registra las solicitudes de los usuarios a la Management API. Cada solicitud que no sea de tipo GET o HEAD dirigida a la API registra una respuesta con el nombre de usuario, la dirección IP y el tipo de solicitud a la API. 
+---
+= Mensaje de auditoría MGAU para solicitudes de la API de gestión en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La categoría Management registra las solicitudes de usuario a la API de Management. Cada solicitud HTTP que no sea una solicitud GET o HEAD a una URI de API válida registra una respuesta que contiene el nombre de usuario, la IP y el tipo de solicitud a la API. Las URI de API no válidas (como /api/v3-authorize) y las solicitudes no válidas a URI de API válidas no se registran.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+MDIP
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Nombre de dominio
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+MRBD
+ a| 
+Cuerpo de la solicitud
+ a| 
+El contenido del cuerpo de la solicitud. Aunque el cuerpo de la respuesta se registra de forma predeterminada, el cuerpo de la solicitud se registra en determinados casos cuando el cuerpo de la respuesta está vacío. Dado que la siguiente información no está disponible en el cuerpo de la respuesta, se obtiene del cuerpo de la solicitud para los siguientes métodos POST:
+
+* Nombre de usuario e ID de cuenta en *POST authorize*
+* Nueva configuración de subredes en *POST /grid/grid-networks/update*
+* ${post_edited_translations.segment}
+* Identificadores de servidores decomisionados en *POST /grid/servers/decommission*
+
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+MRMD
+ a| 
+Método de solicitud
+ a| 
+El método de solicitud HTTP:
+
+* POST
+* ${post_edited_translations.segment}
+* ELIMINAR
+* PATCH
+
+
+
+
+ a| 
+MRSC
+ a| 
+${post_edited_translations.segment}
+ a| 
+El código de respuesta.
+
+
+
+ a| 
+MRSP
+ a| 
+Cuerpo de respuesta
+ a| 
+El contenido de la respuesta (el cuerpo de la respuesta) se registra de forma predeterminada.
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+MSIP
+ a| 
+Dirección IP de origen
+ a| 
+La dirección IP del cliente (origen).
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+URN del usuario
+ a| 
+El URN (nombre uniforme de recurso) del usuario que envió la solicitud.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+Devuelve «Éxito» (SUCS) o el error informado por el backend.
+
+|===

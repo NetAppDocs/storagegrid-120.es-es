@@ -1,0 +1,227 @@
+---
+permalink: s3/index.html 
+sidebar: sidebar 
+keywords: about s3, s3 rest api, s3 overview 
+summary: 'StorageGRID es compatible con la API de Simple Storage Service (S3), que se implementa como un conjunto de servicios web de Representational State Transfer (REST).' 
+---
+= Versiones compatibles y actualizaciones de la API de REST de StorageGRID S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID es compatible con la API de Simple Storage Service (S3), que se implementa como un conjunto de servicios web de Representational State Transfer (REST).
+
+La compatibilidad con la API de REST de S3 te permite conectar aplicaciones orientadas a servicios desarrolladas para los servicios web de S3 con el almacenamiento de objetos local que utiliza el sistema StorageGRID. Solo es necesario realizar cambios mínimos en el uso actual que hace la aplicación cliente de las llamadas a la API de REST de S3.
+
+
+
+[[supported-versions]]
+== Versiones compatibles
+
+StorageGRID es compatible con las siguientes versiones específicas de STS, S3 y HTTP:
+
+[cols="1a,1a"]
+|===
+| Artículo | Versión 
+
+
+ a| 
+Especificación de la API STS AssumeRole
+ a| 
+https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html["Documentación de Amazon Web Services (AWS): referencia de la API de Amazon Assumerole"^]
+
+Para obtener más información sobre AssumeRole, consulta link:../tenant/manage-groups.html#set-up-assumerole["Configura AssumeRole"].
+
+
+
+ a| 
+Especificación de la API de S3
+ a| 
+http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html["Documentación de AWS: referencia de la API de Amazon Simple Storage Service"^]
+
+
+
+ a| 
+HTTP
+ a| 
+1,1
+
+Para obtener más información sobre HTTP, consulta HTTP/1.1 (RFCs 7230-35).
+
+https://datatracker.ietf.org/doc/html/rfc2616["IETF RFC 2616: Protocolo de transferencia de hipertexto (HTTP/1.1)"^]
+
+*Nota*: StorageGRID no admite el pipelining de HTTP/1.1.
+
+|===
+
+
+[[updates-to-s3-rest-api-support]]
+[[updates-to-rest-api-support]]
+== Actualizaciones en la compatibilidad con la API de REST de S3
+
+[cols="1a,4a"]
+|===
+| Versión | Comentarios 
+
+
+ a| 
+12,0
+ a| 
+* Se ha añadido compatibilidad con el intercambio de recursos entre orígenes (CORS) para una interfaz de gestión, lo que permite que otro dominio acceda a los datos de StorageGRID mediante las API de gestión. link:../admin/enable-cross-origin-resource-sharing-for-management-interface.html["Más información"].
+* Se ha añadido compatibilidad con STS AssumeRole y la política de sesión. Consulta link:example-session-policies.html["un ejemplo de política de sesión"]. Puedes configurar AssumeRole en grupos de inquilinos.
+
+
+
+
+ a| 
+11,9
+ a| 
+* Se ha añadido compatibilidad con valores de suma de comprobación SHA-256 precalculados para las siguientes solicitudes y encabezados compatibles. Puedes utilizar esta función para verificar la integridad de los objetos subidos:
++
+** CompleteMultipartUpload: `x-amz-checksum-sha256`
+** CreateMultipartUpload: `x-amz-checksum-algorithm`
+** GetObject: `x-amz-checksum-mode`
+** HeadObject: `x-amz-checksum-mode`
+** ListParts
+** PutObject: `x-amz-checksum-sha256`
+** UploadPart: `x-amz-checksum-sha256`
+
+
+* Se añadió la posibilidad de que el administrador del grid controle la configuración de retención y Compliance a nivel de tenant. Estas configuraciones afectan los ajustes de S3 Object Lock.
++
+** Modo de retención predeterminado del bucket y modo de retención de objetos: Governance o Compliance, si el administrador de la grid lo permite.
+** Período de retención predeterminado del bucket y fecha de retención del objeto: debe ser menor o igual a lo que permite el período de retención máximo establecido por el administrador de grid.
+
+
+* Mejor compatibilidad con la codificación de contenido  `aws-chunked` y los valores de streaming  `x-amz-content-sha256`. Limitaciones:
++
+** Si está presente,  `chunk-signature` es opcional y no se valida
+** Si está presente, `x-amz-trailer` el contenido se ignora
+
+
+
+
+
+
+ a| 
+11,8
+ a| 
+Actualicé los nombres de las operaciones de S3 para que coincidan con los nombres usados en http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html["Documentación de Amazon Web Services (AWS): Referencia de la API de Amazon Simple Storage Service"^].
+
+
+
+ a| 
+11,7
+ a| 
+* Añadido link:quick-reference-support-for-aws-apis.html["Referencia rápida: Solicitudes compatibles de la API de S3"].
+* Se añadió compatibilidad para usar el modo GOVERNANCE con S3 Object Lock.
+* Se ha añadido compatibilidad con el encabezado de respuesta específico de StorageGRID  `x-ntap-sg-cgr-replication-status` para las solicitudes GET Object y HEAD Object. Este encabezado proporciona el estado de replicación de un objeto para la replicación entre grids.
+* Las solicitudes de SelectObjectContent ahora admiten objetos Parquet.
+
+
+
+
+ a| 
+11,6
+ a| 
+* Se añadió compatibilidad para usar el parámetro de solicitud  `partNumber` en las solicitudes GET Object y HEAD Object.
+* Se añadió compatibilidad con un modo de retención predeterminado y un periodo de retención predeterminado a nivel de bucket para S3 Object Lock.
+* Se ha añadido compatibilidad con la clave de condición de política  `s3:object-lock-remaining-retention-days` para establecer el intervalo de períodos de retención permitidos para tus objetos.
+* Se ha modificado el tamaño máximo _recomendado_ para una única operación PUT Object a 5 GiB (5,368,709,120 bytes). Si tienes objetos que superan los 5 GiB, usa la carga multiparte en su lugar.
+
+
+
+
+ a| 
+11,5
+ a| 
+* Se añadió compatibilidad para gestionar el cifrado de los buckets.
+* Se añadió compatibilidad con S3 Object Lock y se dejaron de usar las solicitudes de Compliance heredadas.
+* Se añadió compatibilidad para usar DELETE Multiple Objects en buckets con control de versiones.
+* Ahora se admite correctamente el encabezado de solicitud  `Content-MD5`.
+
+
+
+
+ a| 
+11,4
+ a| 
+* Se añadió compatibilidad para DELETE Bucket tagging, GET Bucket tagging y PUT Bucket tagging. No se admiten las etiquetas de asignación de costes.
+* Para los buckets creados en StorageGRID 11.4, ya no es necesario restringir los nombres de las claves de los objetos para cumplir con las prácticas recomendadas de rendimiento.
+* Se añadió compatibilidad con las notificaciones de bucket en el tipo de evento  `s3:ObjectRestore:Post`.
+* Ya se aplican los límites de tamaño de AWS para las partes de cargas multipartes. Cada parte en una carga multiparte debe estar entre 5 MiB y 5 GiB. La última parte puede ser menor de 5 MiB.
+* Se añadió compatibilidad con TLS 1.3
+
+
+
+
+ a| 
+11,3
+ a| 
+* Se ha añadido compatibilidad con el cifrado del lado del servidor de los datos de objetos mediante claves proporcionadas por el cliente (SSE-C).
+* Se añadió compatibilidad para las operaciones de ciclo de vida de bucket DELETE, GET y PUT (solo acción de expiración) y para el encabezado de respuesta  `x-amz-expiration`.
+* Se actualizaron PUT Object, PUT Object - Copy y Multipart Upload para describir el impacto de las reglas de ILM que usan la colocación sincrónica al momento de la ingesta.
+* Los algoritmos de cifrado TLS 1.1 ya no son compatibles.
+
+
+
+
+ a| 
+11,2
+ a| 
+Se añadió compatibilidad con POST Object restore para usar con Cloud Storage Pools. Se añadió compatibilidad con el uso de la sintaxis de AWS para ARN, claves de condición de políticas y variables de políticas en las políticas de grupo y de bucket. Las políticas de grupo y de bucket existentes que usan la sintaxis de StorageGRID seguirán siendo compatibles.
+
+*Nota:* El uso de ARN/URN en otros archivos JSON/XML de configuración, incluidos los utilizados en funciones personalizadas de StorageGRID, no ha cambiado.
+
+
+
+ a| 
+11,1
+ a| 
+Se ha añadido compatibilidad con el intercambio de recursos entre orígenes (CORS), HTTP para las conexiones de clientes S3 a los nodos de la grid y la configuración de cumplimiento en los buckets.
+
+
+
+ a| 
+11,0
+ a| 
+Se ha añadido compatibilidad con la configuración de los servicios de la plataforma (CloudMirror replication, notificaciones e integración de búsqueda con Elasticsearch) para los buckets. También se ha añadido compatibilidad con las restricciones de ubicación de las etiquetas de objetos para los buckets, así como con la consistencia Available.
+
+
+
+ a| 
+10,4
+ a| 
+Se añadió compatibilidad con los cambios en el escaneo de ILM relacionados con el versionado, las actualizaciones de la página de nombres de dominio de los endpoints, las condiciones y variables en las políticas, los ejemplos de políticas y el permiso PutOverwriteObject.
+
+
+
+ a| 
+10,3
+ a| 
+Se añadió compatibilidad con el versionado.
+
+
+
+ a| 
+10,2
+ a| 
+Se añadió compatibilidad con las políticas de acceso a grupos y buckets, y con la copia multiparte (Upload Part - Copy).
+
+
+
+ a| 
+10,1
+ a| 
+Se añadió compatibilidad con la carga de archivos en varias partes, las solicitudes de tipo virtual hosted-style y la autenticación v4.
+
+
+
+ a| 
+10,0
+ a| 
+Compatibilidad inicial con la API de REST de S3 por parte del sistema StorageGRID. La versión de la _Simple Storage Service API Reference_ compatible actualmente es 2006-03-01.
+
+|===

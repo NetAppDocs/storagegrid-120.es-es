@@ -1,0 +1,209 @@
+---
+permalink: admin/admin-group-permissions.html 
+sidebar: sidebar 
+keywords: admin group permissions 
+summary: Al crear grupos de usuarios administradores, seleccionas uno o varios permisos para controlar el acceso a funciones específicas de Grid Manager. Luego, puedes asignar a cada usuario a uno o varios de estos grupos de administradores para determinar qué tareas puede realizar ese usuario. 
+---
+= Permisos del grupo Admin en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al crear grupos de usuarios administradores, seleccionas uno o varios permisos para controlar el acceso a funciones específicas de Grid Manager. Luego, puedes asignar a cada usuario a uno o varios de estos grupos de administradores para determinar qué tareas puede realizar ese usuario.
+
+${post_edited_translations.segment}
+
+De forma predeterminada, cualquier usuario que pertenezca a un grupo que tenga al menos un permiso puede realizar las siguientes tareas:
+
+* Inicia sesión en Grid Manager
+* Ver el panel de control
+* Ver las páginas de Nodes
+* Ver alertas actuales y resueltas
+* Cambiar su propia contraseña (solo usuarios locales)
+* Ver determinada información que aparece en las páginas de Configuración y Mantenimiento
+
+
+
+
+[[interaction-between-permissions-and-access-mode]]
+== ${post_edited_translations.segment}
+
+Para todos los permisos, la configuración del *modo de acceso* del grupo determina si los usuarios pueden cambiar los ajustes y realizar operaciones o si solo pueden ver los ajustes y funciones relacionados. Si un usuario pertenece a varios grupos y cualquier grupo está configurado como *solo lectura*, el usuario tendrá acceso de solo lectura a todos los ajustes y funciones seleccionados.
+
+En los apartados siguientes se describen los permisos que puedes asignar al crear o editar un grupo de administradores. Cualquier funcionalidad que no se mencione explícitamente requiere el permiso *Root access*.
+
+
+
+[[root-access]]
+== Acceso a raíz
+
+${post_edited_translations.segment}
+
+
+
+[[change-tenant-root-password]]
+== ${post_edited_translations.segment}
+
+Este permiso proporciona acceso a la opción *Cambiar contraseña de root* en la página Tenants, lo que te permite controlar quién puede cambiar la contraseña del usuario raíz local del tenant. Este permiso también se utiliza para migrar claves S3 cuando la función de importación de claves S3 está habilitada. Los usuarios que no tengan este permiso no pueden ver la opción *Cambiar contraseña de root*.
+
+
+NOTE: Para conceder acceso a la página Tenants, que contiene la opción *Change root password*, asigna también el permiso *Tenant accounts*.
+
+
+
+[[ilm]]
+== ILM
+
+Este permiso permite acceder a las siguientes opciones del menú *ILM*:
+
+* ${post_edited_translations.segment}
+* Políticas
+* Etiquetas de políticas
+* Grupos de almacenamiento
+* Grados de almacenamiento
+* Regiones
+* Búsqueda de metadatos de objetos
+
+
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+[[maintenance]]
+== ${post_edited_translations.segment}
+
+Los usuarios deben tener el permiso de Mantenimiento para usar estas opciones:
+
+* ${post_edited_translations.segment}
++
+** ${post_edited_translations.segment}
+
+
+* ${post_edited_translations.segment}
++
+** Nombres de dominio de los endpoints S3
+
+
+* ${post_edited_translations.segment}
++
+** Decomisionar
+** Expansión
+** Comprobación de la existencia de un objeto
+** Recuperación
+
+
+* *Mantenimiento* > *Sistema*:
++
+** Paquete de recuperación
+** Actualización de software
+
+
+* *Soporte* > *Herramientas*:
++
+** Registros
+
+
+
+
+Los usuarios que no tengan el permiso de Maintenance pueden ver, pero no editar, estas páginas:
+
+* ${post_edited_translations.segment}
++
+** Servidores DNS
+** Red de grid
+** Servidores NTP
+
+
+* *Mantenimiento* > *Sistema*:
++
+** Licencia
+
+
+* ${post_edited_translations.segment}
++
+** Nombres de dominio de los endpoints S3
+
+
+* ${post_edited_translations.segment}
++
+** Certificados
+
+
+* *Configuración* > *Supervisión*:
++
+** ${post_edited_translations.segment}
+
+
+
+
+
+
+[[manage-alerts]]
+== Gestiona alertas
+
+Este permiso proporciona acceso a las opciones para gestionar alertas. Los usuarios deben tener este permiso para gestionar silencios, notificaciones de alerta y reglas de alerta.
+
+
+
+[[metrics-query]]
+== Consulta de métricas
+
+Este permiso permite acceder a:
+
+* *Soporte* > *Herramientas* > *Métricas* página
+* ${post_edited_translations.segment}
+* Tarjetas del panel de control de Grid Manager que contienen métricas
+
+
+
+
+[[object-metadata-lookup]]
+== Búsqueda de metadatos de objetos
+
+Este permiso permite acceder a la página *ILM* > *Búsqueda de metadatos de objetos*.
+
+
+
+[[other-grid-configuration]]
+== Otra configuración de grid
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
++
+** Grados de almacenamiento
+
+
+* *Configuración* > *Sistema*:
+* ${post_edited_translations.segment}
++
+** ${post_edited_translations.segment}
+
+
+
+
+
+
+[[storage-appliance-administrator]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* Acceso al E-Series SANtricity System Manager en los dispositivos de almacenamiento a través de Grid Manager.
+* La posibilidad de realizar tareas de resolución de problemas y mantenimiento en la pestaña Manage drives para los dispositivos que admiten estas operaciones.
+
+
+
+
+[[tenant-accounts]]
+== ${post_edited_translations.segment}
+
+Este permiso permite:
+
+* ${post_edited_translations.segment}
+* Ver las políticas de clasificación de tráfico existentes
+* Ver las tarjetas del panel de Grid Manager que contienen los detalles de los inquilinos
+

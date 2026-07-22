@@ -1,0 +1,297 @@
+---
+permalink: audit/using-audit-sum-tool.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, tool, audit-sum, audit sum, write, read, head, delete, minimum time, maximum time, average time, minimum size, maximum size, average size 
+summary: 'Puedes utilizar la herramienta audit-sum para contar los mensajes de auditoría de escritura, lectura, head y eliminación, y para consultar el tiempo (o tamaño) mínimo, máximo y promedio de cada tipo de operación.' 
+---
+= Usa la herramienta audit-sum para resumir los mensajes de auditoría de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes usar la herramienta `audit-sum` para contar los mensajes de auditoría de escritura, lectura, head y eliminación, y para ver el tiempo (o tamaño) mínimo, máximo y promedio de cada tipo de operación.
+
+.Antes de empezar
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+* Tienes el archivo  `Passwords.txt`.
+* ${post_edited_translations.segment}
+
+
+.Acerca de esta tarea
+La herramienta  `audit-sum`, disponible en el nodo de administración primario, resume cuántas operaciones de escritura, lectura y eliminación se registraron y cuánto tiempo tardaron estas operaciones.
+
+
+NOTE: La  `audit-sum` herramienta está pensada principalmente para que el soporte técnico la utilice durante las operaciones de resolución de problemas. Procesar consultas de  `audit-sum` puede consumir una gran cantidad de potencia de CPU, lo que podría afectar las operaciones de StorageGRID.
+
+Este ejemplo muestra la salida típica de la herramienta  `audit-sum`. Este ejemplo muestra cuánto tiempo tardaron las operaciones de protocolo.
+
+[listing]
+----
+  message group           count     min(sec)        max(sec)    average(sec)
+  =============           =====     ========        ========    ============
+  IDEL                      274
+  SDEL                   213371        0.004          20.934           0.352
+  SGET                   201906        0.010        1740.290           1.132
+  SHEA                    22716        0.005           2.349           0.272
+  SPUT                  1771398        0.011        1770.563           0.487
+----
+La herramienta  `audit-sum` proporciona recuentos y tiempos para los siguientes mensajes de auditoría de S3 e ILM en un registro de auditoría.
+
+
+NOTE: Los códigos de auditoría se eliminan del producto y de la documentación a medida que las funciones quedan obsoletas. Si encuentras un código de auditoría que no aparece en esta lista, consulta las versiones anteriores de este tema para versiones anteriores de StorageGRID. Por ejemplo, https://docs.netapp.com/us-en/storagegrid-118/audit/using-audit-sum-tool.html["${post_edited_translations.segment}"^].
+
+[cols="14,43,43"]
+|===
+| Código | Descripción | Consulta 
+
+
+| IDEL | ${post_edited_translations.segment} | link:idel-ilm-initiated-delete.html["IDEL: eliminación iniciada por ILM"] 
+
+
+| SDEL | ${post_edited_translations.segment} | link:sdel-s3-delete.html["${post_edited_translations.segment}"] 
+
+
+| SGET | ${post_edited_translations.segment} | link:sget-s3-get.html["SGET: S3 GET"] 
+
+
+| SHEA | S3 HEAD: Registra una transacción exitosa para comprobar la existencia de un objeto o bucket. | link:shea-s3-head.html["${post_edited_translations.segment}"] 
+
+
+| SPUT | ${post_edited_translations.segment} | link:sput-s3-put.html["SPUT: S3 PUT"] 
+|===
+La herramienta  `audit-sum` puede hacer lo siguiente:
+
+* Procesa logs de auditoría sin formato o comprimidos. Por ejemplo:
++
+`audit-sum audit.log`
+
++
+`audit-sum 2019-08-12.txt.gz`
+
+* Procesar varios archivos a la vez. Por ejemplo:
++
+`audit-sum audit.log 2019-08-12.txt.gz 2019-08-13.txt.gz`
+
++
+`audit-sum /var/local/audit/export/*`
+
+* Acepta datos procedentes de una tubería, lo que te permite filtrar y preprocesar los datos mediante el comando  `grep` u otros métodos. Por ejemplo:
++
+`grep WGET audit.log | audit-sum`
+
++
+`grep bucket1 audit.log | audit-sum`
+
++
+`grep SPUT audit.log | grep bucket1 | audit-sum`
+
+
+
+[NOTE]
+====
+Esta herramienta no acepta archivos comprimidos como entrada por tubería. Para procesar archivos comprimidos, proporciona sus nombres de archivo como argumentos en la línea de comandos o usa la herramienta  `zcat` para descomprimir los archivos primero. Por ejemplo:
+
+`audit-sum audit.log.gz`
+
+`zcat audit.log.gz | audit-sum`
+
+====
+Puedes usar las opciones de la línea de comandos para resumir las operaciones en los buckets por separado de las operaciones en los objetos, o para agrupar los resúmenes de mensajes por nombre de bucket, por período de tiempo o por tipo de destino. De forma predeterminada, los resúmenes muestran el tiempo de operación mínimo, máximo y promedio, pero puedes usar la opción `size (-s)` para ver el tamaño del objeto en su lugar.
+
+Usa la opción `help (-h)` para ver las opciones disponibles. Por ejemplo:
+
+`$ audit-sum -h`
+
+.Pasos
+. Inicia sesión en el nodo de administración principal:
++
+.. Introduce el siguiente comando: `ssh admin@_primary_Admin_Node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. Si quieres analizar todos los mensajes relacionados con las operaciones de escritura, lectura, head y eliminación, sigue estos pasos:
++
+.. Introduce el siguiente comando, donde  `/var/local/audit/export/audit.log` representa el nombre y la ubicación del archivo o archivos que deseas analizar:
++
+`$ audit-sum /var/local/audit/export/audit.log`
+
++
+Este ejemplo muestra la salida típica de la herramienta  `audit-sum`. Este ejemplo muestra cuánto tiempo tardaron las operaciones de protocolo.
+
++
+[listing]
+----
+  message group           count     min(sec)        max(sec)    average(sec)
+  =============           =====     ========        ========    ============
+  IDEL                      274
+  SDEL                   213371        0.004          20.934           0.352
+  SGET                   201906        0.010        1740.290           1.132
+  SHEA                    22716        0.005           2.349           0.272
+  SPUT                  1771398        0.011        1770.563           0.487
+----
++
+En este ejemplo, las operaciones SGET (S3 GET) son las más lentas en promedio, con 1,13 segundos, pero tanto SGET como SPUT (S3 PUT) muestran tiempos máximos de alrededor de 1.770 segundos.
+
+.. Para mostrar las 10 operaciones de recuperación más lentas, utiliza el comando grep para seleccionar únicamente los mensajes SGET y añade la opción de salida extendida (`-l`) para incluir las rutas de los objetos:
++
+`grep SGET audit.log | audit-sum -l`
+
++
+Los resultados incluyen el tipo (objeto o bucket) y la ruta, lo que te permite buscar en el registro de auditoría otros mensajes relacionados con estos objetos concretos.
+
++
+[listing]
+----
+Total:          201906 operations
+    Slowest:      1740.290 sec
+    Average:         1.132 sec
+    Fastest:         0.010 sec
+    Slowest operations:
+        time(usec)       source ip         type      size(B) path
+        ========== =============== ============ ============ ====
+        1740289662   10.96.101.125       object   5663711385 backup/r9O1OaQ8JB-1566861764-4519.iso
+        1624414429   10.96.101.125       object   5375001556 backup/r9O1OaQ8JB-1566861764-6618.iso
+        1533143793   10.96.101.125       object   5183661466 backup/r9O1OaQ8JB-1566861764-4518.iso
+             70839   10.96.101.125       object        28338 bucket3/dat.1566861764-6619
+             68487   10.96.101.125       object        27890 bucket3/dat.1566861764-6615
+             67798   10.96.101.125       object        27671 bucket5/dat.1566861764-6617
+             67027   10.96.101.125       object        27230 bucket5/dat.1566861764-4517
+             60922   10.96.101.125       object        26118 bucket3/dat.1566861764-4520
+             35588   10.96.101.125       object        11311 bucket3/dat.1566861764-6616
+             23897   10.96.101.125       object        10692 bucket3/dat.1566861764-4516
+----
++
+En este ejemplo de resultados, puedes ver que las tres solicitudes GET de S3 más lentas fueron para objetos de unos 5 GB de tamaño, que es mucho mayor que el de los demás objetos. El gran tamaño explica los tiempos de recuperación más lentos en el peor de los casos.
+
+
+
+. Si quieres determinar qué tamaños de objetos se están ingestando en tu grid y recuperando de él, usa la opción de tamaño (`-s`):
++
+`audit-sum -s audit.log`
+
++
+[listing]
+----
+  message group           count       min(MB)          max(MB)      average(MB)
+  =============           =====     ========        ========    ============
+  IDEL                      274        0.004        5000.000        1654.502
+  SDEL                   213371        0.000          10.504           1.695
+  SGET                   201906        0.000        5000.000          14.920
+  SHEA                    22716        0.001          10.504           2.967
+  SPUT                  1771398        0.000        5000.000           2.495
+----
++
+En este ejemplo, el tamaño medio de objeto para SPUT es inferior a 2,5 MB, pero el tamaño medio para SGET es mucho mayor. El número de mensajes SPUT es mucho mayor que el número de mensajes SGET, lo que indica que la mayoría de los objetos nunca se recuperan.
+
+. ${post_edited_translations.segment}
++
+.. Ejecuta el comando en el registro de auditoría correspondiente y utiliza la opción group-by-time (`-gt`), seguida del intervalo de tiempo (por ejemplo, 15M, 1H, 10S):
++
+`grep SGET audit.log | audit-sum -gt 1H`
+
++
+[listing]
+----
+  message group           count    min(sec)       max(sec)   average(sec)
+  =============           =====     ========        ========    ============
+  2019-09-05T00            7591        0.010        1481.867           1.254
+  2019-09-05T01            4173        0.011        1740.290           1.115
+  2019-09-05T02           20142        0.011        1274.961           1.562
+  2019-09-05T03           57591        0.010        1383.867           1.254
+  2019-09-05T04          124171        0.013        1740.290           1.405
+  2019-09-05T05          420182        0.021        1274.511           1.562
+  2019-09-05T06         1220371        0.015        6274.961           5.562
+  2019-09-05T07          527142        0.011        1974.228           2.002
+  2019-09-05T08          384173        0.012        1740.290           1.105
+  2019-09-05T09           27591        0.010        1481.867           1.354
+----
++
+Estos resultados muestran que el tráfico GET de S3 alcanzó un pico entre las 06:00 y las 07:00. Tanto el valor máximo como el promedio son considerablemente más altos durante este intervalo de tiempo, y no aumentaron de forma gradual a medida que crecía el recuento. Estas métricas sugieren que se superó la capacidad, posiblemente en la red o en la capacidad del grid para procesar las solicitudes.
+
+.. Para determinar qué tamaño de objetos se recuperaron cada hora ayer, añade la opción de tamaño (`-s`) al comando:
++
+`grep SGET audit.log | audit-sum -gt 1H -s`
+
++
+[listing]
+----
+  message group           count       min(B)          max(B)      average(B)
+  =============           =====     ========        ========    ============
+  2019-09-05T00            7591        0.040        1481.867           1.976
+  2019-09-05T01            4173        0.043        1740.290           2.062
+  2019-09-05T02           20142        0.083        1274.961           2.303
+  2019-09-05T03           57591        0.912        1383.867           1.182
+  2019-09-05T04          124171        0.730        1740.290           1.528
+  2019-09-05T05          420182        0.875        4274.511           2.398
+  2019-09-05T06         1220371        0.691  5663711385.961          51.328
+  2019-09-05T07          527142        0.130        1974.228           2.147
+  2019-09-05T08          384173        0.625        1740.290           1.878
+  2019-09-05T09           27591        0.689        1481.867           1.354
+----
++
+${post_edited_translations.segment}
+
+.. Para ver más detalles, usa el link:using-audit-explain-tool.html["${post_edited_translations.segment}"] para revisar todas las operaciones SGET durante esa hora:
++
+`grep 2019-09-05T06 audit.log | grep SGET | audit-explain | less`
+
++
+Si se prevé que el resultado del comando grep sea de muchas líneas, añade el comando  `less` para mostrar el contenido del archivo de auditoría una página (una pantalla) a la vez.
+
+
+
+. Si quieres determinar si las operaciones SPUT en buckets son más lentas que las operaciones SPUT en objetos:
++
+.. Empieza utilizando la opción  `-go`, que agrupa los mensajes de las operaciones con objetos y buckets por separado:
++
+`grep SPUT sample.log | audit-sum -go`
+
++
+[listing]
+----
+  message group           count     min(sec)        max(sec)    average(sec)
+  =============           =====     ========        ========    ============
+  SPUT.bucket                 1        0.125           0.125           0.125
+  SPUT.object                12        0.025           1.019           0.236
+----
++
+Los resultados muestran que las operaciones SPUT para buckets presentan características de rendimiento diferentes a las de las operaciones SPUT para objetos.
+
+.. Para determinar qué buckets tienen las operaciones SPUT más lentas, utiliza la opción  `-gb`, que agrupa los mensajes por bucket:
++
+`grep SPUT audit.log | audit-sum -gb`
+
++
+[listing]
+----
+  message group                  count     min(sec)        max(sec)    average(sec)
+  =============                  =====     ========        ========    ============
+  SPUT.cho-non-versioning        71943        0.046        1770.563           1.571
+  SPUT.cho-versioning            54277        0.047        1736.633           1.415
+  SPUT.cho-west-region           80615        0.040          55.557           1.329
+  SPUT.ldt002                  1564563        0.011          51.569           0.361
+----
+.. Para determinar qué buckets tienen el mayor tamaño de objeto SPUT, usa tanto la opción  `-gb` como la  `-s`:
++
+`grep SPUT audit.log | audit-sum -gb -s`
+
++
+[listing]
+----
+  message group                  count       min(B)          max(B)      average(B)
+  =============                  =====     ========        ========    ============
+  SPUT.cho-non-versioning        71943        2.097        5000.000          21.672
+  SPUT.cho-versioning            54277        2.097        5000.000          21.120
+  SPUT.cho-west-region           80615        2.097         800.000          14.433
+  SPUT.ldt002                  1564563        0.000         999.972           0.352
+----
+
+
+

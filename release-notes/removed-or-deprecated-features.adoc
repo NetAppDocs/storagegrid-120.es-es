@@ -1,0 +1,238 @@
+---
+permalink: release-notes/removed-or-deprecated-features.html 
+sidebar: sidebar 
+keywords:  
+summary: Conoce las características y capacidades que han sido eliminadas o desaprobadas en StorageGRID 12.0. Antes de actualizar, revisa si alguna característica eliminada o desaprobada afecta a tus aplicaciones cliente o a la configuración de tu grid. 
+---
+= Funciones y capacidades eliminadas o en desuso en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Conoce las características y capacidades que han sido eliminadas o desaprobadas en StorageGRID 12.0. Antes de actualizar, revisa si alguna característica eliminada o desaprobada afecta a tus aplicaciones cliente o a la configuración de tu grid.
+
+
+
+[[definitions]]
+== Definiciones
+
+En desuso:: Esta función *no debe* utilizarse en nuevos entornos de producción. Los entornos de producción existentes pueden seguir utilizando esta función.
+Fin de la vida útil:: Última versión lanzada que admite esta función. En algunos casos, la documentación de la función podría eliminarse en esta etapa.
+Eliminado:: Primera versión que *no* admite esta función.
+
+
+
+
+[[storagegrid-end-of-feature-support]]
+== Fin del soporte de funciones de StorageGRID
+
+Las funciones obsoletas se eliminarán en las versiones principales N+2. Por ejemplo, si una función queda obsoleta en la versión N (por ejemplo, 6.3), la última versión en la que la función existirá es la N+1 (por ejemplo, 6.4). La versión N+2 (por ejemplo, 6.5) es la primera versión en la que la función ya no existe en el producto.
+
+Consulta la  https://mysupport.netapp.com/site/info/version-support["Página de soporte de versiones de software"^] para obtener información adicional.
+
+
+NOTE: En determinadas situaciones, NetApp podría dejar de ofrecer soporte para determinadas funciones antes de lo indicado.
+
+[cols="2a,1a,1a,1a,3a"]
+|===
+| Característica | En desuso | Fin de la vida útil | Eliminado | Enlaces a documentación anterior 
+
+
+ a| 
+Alarmas, heredadas (_no Alertas_)
+ a| 
+11,7
+ a| 
+11,8
+ a| 
+11,9
+ a| 
+https://docs.netapp.com/us-en/storagegrid-118/monitor/alarms-reference.html["Referencia de alarmas (StorageGRID 11.8)"^]
+
+
+
+ a| 
+Compatibilidad con nodos de archivo
+ a| 
+11,7
+ a| 
+11,8
+ a| 
+11,9
+ a| 
+https://docs.netapp.com/us-en/storagegrid-118/maintain/considerations-for-decommissioning-admin-or-gateway-nodes.html["Aspectos a tener en cuenta para la descomisionación de los nodos de archivo (StorageGRID 11.8)"^]
+
+*Nota*: Antes de iniciar tu actualización, debes:
+
+. Decomisiona todos los nodos de archivo. Consulta https://docs.netapp.com/us-en/storagegrid-118/maintain/grid-node-decommissioning.html["Decomisionar un nodo de grid (sitio de documentación de StorageGRID 11.8)"^].
+. Elimina todas las referencias a los nodos de archivo de los grupos de almacenamiento y las políticas de ILM. Consulta https://kb.netapp.com/hybrid/StorageGRID/Maintenance/StorageGRID_11.9_software_upgrade_resolution_guide["NetApp base de conocimientos: guía de resolución para la actualización del software StorageGRID 11.9"^].
+
+
+
+
+ a| 
+Exportación de auditoría a través de CIFS/Samba
+ a| 
+11,1
+ a| 
+11,6
+ a| 
+11,7
+ a| 
+
+
+
+ a| 
+Servicio CLB
+ a| 
+11,4
+ a| 
+11,6
+ a| 
+11,7
+ a| 
+
+
+
+ a| 
+Motor de contenedores Docker
+ a| 
+11,8
+ a| 
+11,9
+ a| 
+Por determinar
+ a| 
+El soporte para Docker como motor de contenedores para implementaciones exclusivamente de software ha quedado obsoleto. Docker será sustituido por otro motor de contenedores en una futura versión. Consulta la link:../swnodes/software-requirements.html["Requisitos de software para los nodos basados en software"] para ver una lista de las versiones de Docker compatibles actualmente.
+
+
+
+ a| 
+Configuración del correo electrónico (legacy)
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+12,1
+ a| 
+https://docs.netapp.com/us-en/storagegrid-118/monitor/managing-alarms.html#configure-notifications-for-alarms-legacy-system["Configura notificaciones para alarmas (sistema heredado) (StorageGRID 11.8)"^]
+
+
+
+ a| 
+Exportación de auditoría de NFS
+ a| 
+11,8
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+https://docs.netapp.com/us-en/storagegrid-118/admin/configuring-audit-client-access.html["Configura el acceso de clientes de auditoría para NFS (StorageGRID 11.8)"^]
+
+
+
+ a| 
+Reasignación de puertos
+ a| 
+12,0
+ a| 
+12,1
+ a| 
+12,2
+ a| 
+
+
+
+ a| 
+Compatibilidad con la API de Swift
+ a| 
+11,7
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+https://docs.netapp.com/us-en/storagegrid-118/swift/index.html["Usa la API de REST de Swift (StorageGRID 11.8)"^]
+
+
+
+ a| 
+RHEL 8.8
+ a| 
+11,9
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+
+
+
+ a| 
+RHEL 9.0
+ a| 
+11,9
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+
+
+
+ a| 
+RHEL 9.2
+ a| 
+11,9
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+
+
+
+ a| 
+Ubuntu 18.04
+ a| 
+11,9
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+
+
+
+ a| 
+Ubuntu 20.04
+ a| 
+11,9
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+
+
+
+ a| 
+Debian 11
+ a| 
+11,9
+ a| 
+11,9
+ a| 
+12,0
+ a| 
+
+|===
+Consulta también:
+
+* link:changes-to-grid-management-api.html["Cambios en la API de gestión de grid"]
+* link:changes-to-tenant-management-api.html["Cambios en la API de gestión de inquilinos"]
+

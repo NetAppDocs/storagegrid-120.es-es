@@ -1,0 +1,7 @@
+= 
+:allow-uri-read: 
+
+
+Utilizar un nodo de almacenamiento exclusivamente para datos puede tener sentido si tus nodos de almacenamiento presentan características de rendimiento diferentes. Por ejemplo, para aumentar potencialmente el rendimiento, podrías tener nodos de almacenamiento destinados solo a datos, de gran capacidad y con discos giratorios, acompañados de nodos de almacenamiento destinados solo a metadatos y de alto rendimiento.
+
+Además, puedes aumentar la capacidad de metadatos eliminando de Cassandra los nodos con poca memoria RAM, lo que incrementa el límite de capacidad de metadatos por nodo. Consulta link:../admin/managing-object-metadata-storage.html["Gestiona el almacenamiento de metadatos de objetos"].

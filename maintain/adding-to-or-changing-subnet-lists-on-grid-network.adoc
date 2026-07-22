@@ -1,0 +1,181 @@
+---
+permalink: maintain/adding-to-or-changing-subnet-lists-on-grid-network.html 
+sidebar: sidebar 
+keywords: storagegrid, subnet list, grid network 
+summary: Puedes utilizar la herramienta Change IP para añadir o modificar subredes en la Grid Network. 
+---
+= Agrega o cambia las listas de subredes en Grid Network en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar la herramienta Change IP para añadir o modificar subredes en la Grid Network.
+
+.Antes de empezar
+* Tienes el archivo  `Passwords.txt`.
+
+
+Puedes añadir, eliminar o modificar subredes en la lista de subredes de la red de la grid. Los cambios afectarán al enrutamiento en todos los nodos de la grid.
+
+
+NOTE: Si solo vas a realizar cambios en la lista de subredes de la Grid Network, utiliza el Grid Manager para añadir o modificar la configuración de red. De lo contrario, utiliza la herramienta Change IP si no puedes acceder al Grid Manager debido a un problema de configuración de red, o si estás realizando al mismo tiempo tanto un cambio en el enrutamiento de la Grid Network como otros cambios de red.
+
+[NOTE]
+====
+No utilices subredes que contengan las siguientes direcciones IPv4 para la Grid Network, Admin Network o Client Network de ningún nodo:
+
+* 192.168.130.101
+* 192.168.130.121
+* 192.168.131.101
+* 192.168.131.121
+* 192.168.130.102
+* 192.168.130.122
+* 192.168.131.102
+* 192.168.131.122
+* 198.51.100.2
+* 198.51.100.4
+
+
+${post_edited_translations.segment}
+
+* 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+* 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+* 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+====
+.Pasos
+. El acceso externo por SSH está bloqueado de forma predeterminada. Si es necesario, link:../admin/manage-external-ssh-access.html["permitir el acceso de forma temporal"].
+. Inicia sesión en el nodo de administración principal:
++
+.. Introduce el siguiente comando: `ssh admin@_primary_Admin_Node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Inicia la herramienta «Change IP» introduciendo el siguiente comando: `change-ip`
+. Introduce la contraseña de aprovisionamiento cuando se te solicite.
++
+Aparece el menú principal.
+
++
+image:change_ip_tool_main_menu.png["Captura de pantalla que muestra la pantalla de bienvenida de la herramienta para cambiar la IP"]
+
+. En el menú principal, selecciona la opción para editar las subredes para la Grid Network (opción *4*).
++
+
+NOTE: Los cambios en la lista de subredes de la red Grid son a nivel de grid.
+
+. Elige uno de los siguientes:
++
+--
+** Agrega una subred introduciendo este comando: `add CIDR`
+** Elimina una subred introduciendo este comando: `del CIDR`
+** Configura la lista de subredes introduciendo este comando: `set CIDR`
+
+
+--
++
+--
+
+NOTE: En todos los comandos, puedes introducir varias direcciones utilizando este formato: `add CIDR, CIDR`
+
+Ejemplo: `add 172.14.0.0/16, 172.15.0.0/16, 172.16.0.0/16`
+
+
+TIP: Puedes reducir la cantidad de texto que tienes que escribir utilizando la «flecha hacia arriba» para recuperar los valores introducidos anteriormente en el indicador de entrada actual y luego editarlos si es necesario.
+
+El ejemplo de entrada que se muestra a continuación ilustra cómo configurar las subredes para la lista de subredes de la Grid Network:
+
+image:change_ip_tool_gnsl_sample_input.gif["captura de pantalla descrita por el texto que la rodea"]
+
+--
+. Cuando estés listo, escribe *q* para volver a la pantalla del menú principal. Tus cambios se mantienen hasta que los borres o los apliques.
+. Elige uno de los siguientes:
++
+** Selecciona la opción *5* para mostrar los cambios en una salida aislada en la que solo se muestre el elemento modificado. Los cambios aparecen resaltados en verde (añadidos) o en rojo (eliminaciones), como se muestra en el ejemplo de salida siguiente:
++
+image:change_ip_tool_gnsl_sample_output.gif["captura de pantalla descrita por el texto que la rodea"]
+
+** Selecciona la opción *6* para mostrar los cambios en la salida que muestra la configuración completa. Los cambios aparecen resaltados en verde (añadidos) o en rojo (eliminaciones).
++
+
+NOTE: Es posible que algunas interfaces de línea de comandos muestren las adiciones y eliminaciones con el formato de tachado.
+
+
+
+. Selecciona la opción *7* para validar todos los cambios en espera.
++
+Esta validación garantiza que se sigan las reglas para las redes Grid, Admin y Client, como usar subredes superpuestas.
+
+. Si lo prefieres, selecciona la opción *8* para guardar todos los cambios provisionales y volver más tarde para seguir haciendo cambios.
++
+Esta opción te permite salir de la herramienta Change IP y volver a iniciarla más tarde, sin perder los cambios que aún no se hayan aplicado.
+
+. Debe realizar una de las siguientes acciones:
++
+** Selecciona la opción *9* si quieres borrar todos los cambios sin guardar ni aplicar la nueva configuración de red.
+** Selecciona la opción *10* si estás listo para aplicar los cambios y poner en marcha la nueva configuración de red. Durante la puesta en marcha, la pantalla muestra el estado a medida que se aplican las actualizaciones, como se muestra en el siguiente ejemplo de salida:
++
+[listing]
+----
+Generating new grid networking description file...
+
+Running provisioning...
+
+Updating grid network configuration on Name
+----
+
+
+. Si seleccionaste la opción *10* al hacer cambios en la red de cuadrícula, elige una de las siguientes opciones:
++
+** *aplicar*: Aplica los cambios de forma inmediata y reinicia automáticamente cada nodo si es necesario.
++
+Si la nueva configuración de red va a funcionar simultáneamente con la antigua configuración de red sin ningún cambio externo, puedes usar la opción *apply* para un cambio de configuración totalmente automatizado.
+
+** *stage*: Aplica los cambios la próxima vez que se reinicien los nodos.
++
+Si necesitas realizar cambios en la configuración de red física o virtual para que la nueva configuración de red funcione, debes utilizar la opción *stage*, apagar los nodos afectados, realizar los cambios físicos necesarios en la red y reiniciar los nodos afectados.
+
++
+
+NOTE: Si utilizas la opción *stage*, reinicia el nodo lo antes posible tras la preparación para minimizar las interrupciones.
+
+** *cancelar*: No realices ningún cambio en la red por el momento.
++
+Si no sabías que los cambios propuestos requieren reiniciar los nodos, puedes posponer los cambios para minimizar el impacto en los usuarios. Al seleccionar *cancel*, vuelves al menú principal y se conservan tus cambios para que puedas aplicarlos más tarde.
+
+
+
++
+Después de que aplicas o preparas cambios, se genera un nuevo paquete de recuperación como resultado del cambio en la configuración de la grid.
+
+. Si la configuración se detiene debido a errores, tienes las siguientes opciones disponibles:
++
+** Para finalizar el procedimiento de cambio de IP y volver al menú principal, introduce *a*.
+** Para volver a intentar la operación que falló, introduce *r*.
+** Para continuar con la siguiente operación, introduce *c*.
++
+La operación fallida se puede volver a intentar más tarde seleccionando la opción *10* (Aplicar cambios) en el menú principal. El procedimiento de cambio de IP no se completará hasta que todas las operaciones se hayan completado con éxito.
+
+** Si has tenido que intervenir manualmente (por ejemplo, para reiniciar un nodo) y estás seguro de que la acción que la herramienta considera fallida se ha completado correctamente, introduce *f* para marcarla como correcta y pasar a la siguiente operación.
+
+
+. Descarga un nuevo paquete de recuperación desde el Grid Manager.
++
+.. Selecciona *Mantenimiento* > *Sistema* > *Paquete de recuperación*.
+.. Introduce la contraseña de aprovisionamiento.
+
+
++
+
+CAUTION: El archivo del paquete de recuperación debe protegerse porque contiene claves de cifrado y contraseñas que pueden usarse para obtener datos del sistema StorageGRID.
+
+. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado de añadir o modificar las listas de subredes.
+

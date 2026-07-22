@@ -1,0 +1,158 @@
+---
+permalink: audit/orlm-object-rules-met.html 
+sidebar: sidebar 
+keywords: audit message, ORLM, Object Rules Met, ilm rule 
+summary: ${post_edited_translations.segment} 
+---
+= Mensaje de auditoría ORLM para reglas ILM cumplidas en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+
+NOTE: El mensaje ORLM no se genera cuando un objeto se almacena correctamente mediante la regla predeterminada «Make 2 Copies» si otra regla de la política utiliza el filtro avanzado «Object Size».
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+BUID
+ a| 
+${post_edited_translations.segment}
+ a| 
+Campo «Bucket ID». Se usa para operaciones internas. Solo aparece si STAT es PRGD.
+
+
+
+ a| 
+CBID
+ a| 
+Identificador del bloque de contenido
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto en bytes.
+
+
+
+ a| 
+LOCS
+ a| 
+Ubicaciones
+ a| 
+La ubicación de almacenamiento de los datos del objeto dentro del sistema StorageGRID. El valor de LOCS es "" si el objeto no tiene ubicaciones (por ejemplo, si se ha eliminado).
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+CLNL: ID del nodo ARC de la ubicación del objeto si los datos del objeto están archivados.
+
+
+
+ a| 
+RUTA
+ a| 
+Depósito/clave de S3
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+NORMA
+ a| 
+${post_edited_translations.segment}
+ a| 
+La etiqueta legible por el usuario asignada a la regla ILM aplicada a este objeto.
+
+
+
+ a| 
+SEGC
+ a| 
+UUID del contenedor
+ a| 
+UUID del contenedor para el objeto segmentado. Este valor solo está disponible si el objeto está segmentado.
+
+
+
+ a| 
+SGCB
+ a| 
+${post_edited_translations.segment}
+ a| 
+CBID del contenedor para el objeto segmentado. Este valor solo está disponible para objetos segmentados y multiparte.
+
+
+
+ a| 
+ESTADÍSTICAS
+ a| 
+Estado
+ a| 
+El estado de la operación de ILM.
+
+HECHO: Las operaciones de ILM sobre el objeto han finalizado.
+
+DFER: El objeto se ha marcado para una futura reevaluación de ILM.
+
+PRGD: El objeto se ha eliminado del sistema StorageGRID.
+
+NLOC: Ya no se pueden encontrar los datos de los objetos en el sistema StorageGRID. Este estado podría indicar que todas las copias de los datos de los objetos faltan o están dañadas.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto dentro del sistema StorageGRID.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+ID de versión
+ a| 
+El ID de versión de un nuevo objeto creado en un bucket con control de versiones. Las operaciones en buckets y objetos en buckets sin control de versiones no incluyen este campo.
+
+|===
+El mensaje de auditoría ORLM se puede emitir más de una vez para un solo objeto. Por ejemplo, se emite cada vez que ocurre uno de los siguientes eventos:
+
+* Las reglas de ILM para el objeto se cumplen para siempre.
+* Se cumplen las reglas de ILM para el objeto en esta época.
+* Las reglas de ILM han eliminado el objeto.
+* El proceso de verificación en segundo plano detecta que una copia de los datos de un objeto replicado está dañada. El sistema StorageGRID realiza una evaluación ILM para reemplazar el objeto dañado.
+
+
+.Información relacionada
+* link:object-ingest-transactions.html["Transacciones de incorporación de objetos"]
+* link:object-delete-transactions.html["${post_edited_translations.segment}"]
+

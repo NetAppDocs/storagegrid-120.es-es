@@ -1,0 +1,35 @@
+---
+permalink: maintain/reviewing-warnings-for-system-drive-recovery.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, system drive warning, storage node 
+summary: Antes de recuperar una unidad del sistema con error en un nodo de almacenamiento, revisa las advertencias y consideraciones generales para la recuperación de nodos de la red y las siguientes advertencias específicas. 
+---
+= Advertencias para la recuperación de la unidad del sistema de StorageGRID Storage Node
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de recuperar una unidad con error en un nodo de almacenamiento, revisa la guía general link:warnings-and-considerations-for-grid-node-recovery.html["Advertencias y consideraciones para la recuperación de nodos de grid"] y las siguientes advertencias específicas.
+
+Los nodos de almacenamiento cuentan con una base de datos Cassandra que incluye metadatos de objetos. La base de datos Cassandra podría reconstruirse si:
+
+* Un volumen de almacenamiento falla y se recupera.
+* La unidad del sistema y uno o varios volúmenes de almacenamiento fallan y se recuperan.
+
+
+Cuando se reconstruye Cassandra, el sistema utiliza información de otros nodos de almacenamiento. Si Cassandra se ha reconstruido recientemente, es posible que los datos de Cassandra aún no sean consistentes en todo el grid. Si hay demasiados nodos de almacenamiento fuera de línea:
+
+* Es posible que algunos datos de Cassandra no estén disponibles.
+* Podría producirse una pérdida de datos.
+
+
+
+CAUTION: Si se ha producido un fallo en más de un nodo de almacenamiento (o está desconectado), ponte en contacto con soporte técnico. No realices el siguiente procedimiento de recuperación. Podría producirse una pérdida de datos. Para obtener más información, consulta link:how-site-recovery-is-performed-by-technical-support.html["Cómo el soporte técnico recupera un sitio"].
+
+
+CAUTION: Si este nodo de almacenamiento está en modo de mantenimiento de solo lectura para permitir la recuperación de objetos por parte de otro nodo de almacenamiento con volúmenes de almacenamiento defectuosos, recupera los volúmenes en el nodo de almacenamiento con volúmenes defectuosos antes de recuperar este nodo de almacenamiento defectuoso. Consulta las instrucciones para link:recovering-from-storage-volume-failure-where-system-drive-is-intact.html["Recuperar de un fallo en el volumen de almacenamiento cuando la unidad del sistema está intacta"].
+
+
+CAUTION: Si las reglas de ILM están configuradas para almacenar únicamente una copia replicada y dicha copia se encuentra en un volumen de almacenamiento que ha fallado, no podrás recuperar el objeto.

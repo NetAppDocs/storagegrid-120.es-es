@@ -1,0 +1,78 @@
+---
+permalink: s3/get-storage-usage-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, GET storage usage request 
+summary: La solicitud GET Storage Usage te indica la cantidad total de almacenamiento que utiliza una cuenta y la de cada bucket asociado a la cuenta. 
+---
+= Recupera el uso de almacenamiento de cuentas y buckets en StorageGRID con la solicitud GET Storage Usage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La solicitud GET Storage Usage te indica la cantidad total de almacenamiento que utiliza una cuenta y la de cada bucket asociado a la cuenta.
+
+La cantidad de almacenamiento utilizada por una cuenta y sus buckets se puede obtener mediante una solicitud modificada de ListBuckets con el parámetro de consulta `x-ntap-sg-usage`. El uso de almacenamiento de los buckets se registra por separado de las solicitudes PUT y DELETE procesadas por el sistema. Puede producirse cierto retraso antes de que los valores de uso coincidan con los valores esperados en función del procesamiento de las solicitudes, especialmente si el sistema está sometido a una carga elevada.
+
+De forma predeterminada, StorageGRID intenta recuperar la información de uso mediante consistencia global fuerte. Si no es posible lograr la consistencia global fuerte, StorageGRID intenta recuperar la información de uso con consistencia fuerte a nivel de sitio.
+
+Debes tener el permiso s3:ListAllMyBuckets o ser root de la cuenta para completar esta operación.
+
+
+
+[[request-example]]
+== Ejemplo de solicitud
+
+[listing, subs="specialcharacters,quotes"]
+----
+GET /?x-ntap-sg-usage HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+
+
+[[response-example]]
+== Ejemplo de respuesta
+
+Este ejemplo muestra una cuenta que tiene cuatro objetos y 12 bytes de datos en dos buckets. Cada bucket contiene dos objetos y seis bytes de datos.
+
+[listing]
+----
+HTTP/1.1 200 OK
+Date: Sat, 29 Nov 2015 00:49:05 GMT
+Connection: KEEP-ALIVE
+Server: StorageGRID/10.2.0
+x-amz-request-id: 727237123
+Content-Length: 427
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<UsageResult xmlns="http://s3.storagegrid.com/doc/2015-02-01">
+<CalculationTime>2014-11-19T05:30:11.000000Z</CalculationTime>
+<ObjectCount>4</ObjectCount>
+<DataBytes>12</DataBytes>
+<Buckets>
+<Bucket>
+<Name>bucket1</Name>
+<ObjectCount>2</ObjectCount>
+<DataBytes>6</DataBytes>
+</Bucket>
+<Bucket>
+<Name>bucket2</Name>
+<ObjectCount>2</ObjectCount>
+<DataBytes>6</DataBytes>
+</Bucket>
+</Buckets>
+</UsageResult>
+----
+
+
+[[versioning]]
+== Control de versiones
+
+Cada versión de objeto almacenada contribuirá a los valores de  `ObjectCount` y  `DataBytes` en la respuesta. Los marcadores de eliminación no se añaden al total de  `ObjectCount`.
+
+.Información relacionada
+link:consistency.html["Coherencia"]

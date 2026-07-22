@@ -1,0 +1,56 @@
+---
+permalink: maintain/selecting-start-recovery-to-configure-non-primary-admin-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, non-primary admin node 
+summary: Tras sustituir un nodo de administración no principal, debes seleccionar Iniciar recuperación en el Grid Manager para configurar el nuevo nodo como sustituto del nodo que ha fallado. 
+---
+= Selecciona Iniciar recuperación para configurar el nodo de administración StorageGRID no primario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tras sustituir un nodo de administración no principal, debes seleccionar Iniciar recuperación en el Grid Manager para configurar el nuevo nodo como sustituto del nodo que ha fallado.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+* Tienes la frase de contraseña de aprovisionamiento.
+* Ya has implementado y configurado el nodo de sustitución.
+
+
+.Pasos
+. Desde el Grid Manager, selecciona *Maintenance* > *Tasks* > *Recovery*.
+. Selecciona el nodo de la grid que deseas recuperar en la lista Nodos pendientes.
++
+Los nodos aparecen en la lista tras sufrir un fallo, pero no puedes seleccionar un nodo hasta que se haya reinstalado y esté listo para la recuperación.
+
+. Introduce la *frase de contraseña de aprovisionamiento*.
+. Haz clic en *Iniciar recuperación*.
++
+image:4b_select_recovery_node.png["Captura de pantalla que muestra la página Mantenimiento > Recuperación"]
+
+. Supervisa el progreso de la recuperación en la tabla Recuperando nodo de grid.
++
+
+NOTE: Mientras se está ejecutando el procedimiento de recuperación, puedes hacer clic en *Restablecer* para iniciar una nueva recuperación. Aparecerá un cuadro de diálogo en el que se indica que el nodo quedará en un estado indeterminado si restableces el procedimiento.
+
++
+image:recovery_reset_warning.gif["Captura de pantalla que muestra el cuadro de diálogo de advertencia de restablecimiento de recuperación"]
+
++
+Si quieres volver a intentar la recuperación después de reiniciar el procedimiento, debes restaurar el nodo a un estado preinstalado, así:
+
++
+** *VMware*: Elimina el nodo de grid virtual desplegado. Luego, cuando estés listo para reiniciar la recuperación, vuelve a desplegar el nodo.
+** *Linux*: Reinicia el nodo ejecutando este comando en el host Linux: `storagegrid node force-recovery _node-name_`
+** *Dispositivo*: Si quieres volver a intentar la recuperación después de reiniciar el procedimiento, debes restaurar el nodo del dispositivo a un estado preinstalado ejecutando  `sgareinstall` en el nodo. Consulta link:preparing-appliance-for-reinstallation-platform-replacement-only.html["Prepara el appliance para la reinstalación (solo reemplazo de la plataforma)"].
+
+
+. Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID y la confianza de parte dependiente del nodo de administración que recuperaste se configuró para usar el certificado predeterminado de la interfaz de gestión, actualiza (o elimina y vuelve a crear) la confianza de parte dependiente del nodo en Active Directory Federation Services (AD FS). Usa el nuevo certificado de servidor predeterminado que se generó durante el proceso de recuperación del nodo de administración.
++
+
+NOTE: Para configurar una relación de confianza con una parte confiable, consulta link:../admin/configure-sso.html["${post_edited_translations.segment}"]. Para acceder al certificado predeterminado del servidor, inicia sesión en el intérprete de comandos del Admin Node. Ve al directorio `/var/local/mgmt-api` y selecciona el archivo `server.crt`.
+
+

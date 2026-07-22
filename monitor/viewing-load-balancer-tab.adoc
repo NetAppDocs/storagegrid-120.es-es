@@ -1,0 +1,56 @@
+---
+permalink: monitor/viewing-load-balancer-tab.html 
+sidebar: sidebar 
+keywords: load balancer tab 
+summary: La pestaña «Load Balancer» incluye gráficos de rendimiento y diagnóstico relacionados con el funcionamiento del servicio de Load Balancer. 
+---
+= Ver la pestaña Load balancer de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña «Load Balancer» incluye gráficos de rendimiento y diagnóstico relacionados con el funcionamiento del servicio de Load Balancer.
+
+La pestaña Load Balancer se muestra para los nodos de administración y los nodos de puerta de enlace, para cada sitio y para toda la grid. Para cada sitio, la pestaña Load Balancer ofrece un resumen agregado de las estadísticas de todos los nodos de ese sitio. Para toda la grid, la pestaña Load Balancer ofrece un resumen agregado de las estadísticas de todos los sitios.
+
+Si no hay ninguna operación de E/S pasando por el servicio de equilibrador de carga, o si no hay ningún equilibrador de carga configurado, los gráficos muestran "Sin datos".
+
+image:nodes_page_load_balancer_tab.png["Pestaña «Equilibrador de carga» de la página Nodes"]
+
+
+
+[[request-traffic]]
+== Tráfico de solicitudes
+
+Este gráfico muestra una media móvil de 3 minutos del caudal de datos transmitidos entre los puntos finales del equilibrador de carga y los clientes que realizan las solicitudes, en bits por segundo.
+
+
+NOTE: Este valor se actualiza al finalizar cada solicitud. Por ello, este valor puede diferir del rendimiento en tiempo real cuando la frecuencia de solicitudes es baja o en el caso de solicitudes de larga duración. Puedes consultar la pestaña Red para obtener una visión más realista del comportamiento actual de la red.
+
+
+
+[[incoming-request-rate]]
+== Tasa de solicitudes entrantes
+
+Este gráfico muestra una media móvil de 3 minutos del número de nuevas solicitudes por segundo, desglosado por tipo de solicitud (GET, PUT, HEAD y DELETE). Este valor se actualiza cuando se validan los encabezados de una nueva solicitud.
+
+
+
+[[average-request-duration-non-error]]
+== Duración media de las solicitudes (sin errores)
+
+Este gráfico muestra una media móvil de 3 minutos de la duración de las solicitudes, desglosada por tipo de solicitud (GET, PUT, HEAD y DELETE). La duración de cada solicitud comienza cuando el servicio de Load Balancer analiza el encabezado de la solicitud y finaliza cuando se devuelve al cliente el cuerpo completo de la respuesta.
+
+
+
+[[error-response-rate]]
+== Índice de respuestas con error
+
+Este gráfico muestra una media móvil de 3 minutos del número de respuestas de error devueltas a los clientes por segundo, desglosado por el código de respuesta de error.
+
+.Información relacionada
+* link:monitoring-load-balancing-operations.html["Supervisa las operaciones de equilibrio de carga"]
+* link:../admin/index.html["Administrar StorageGRID"]
+

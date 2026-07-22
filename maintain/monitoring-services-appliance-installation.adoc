@@ -1,0 +1,73 @@
+---
+permalink: maintain/monitoring-services-appliance-installation.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, appliance 
+summary: El instalador de StorageGRID Appliance muestra el estado hasta que la instalación se completa. Cuando la instalación del software se completa, el appliance se reinicia. 
+---
+= Supervisa la instalación del dispositivo de servicios StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El instalador de StorageGRID Appliance muestra el estado hasta que la instalación se completa. Cuando la instalación del software se completa, el appliance se reinicia.
+
+.Pasos
+. Para supervisar el progreso de la instalación, haz clic en *Monitor Installation* en la barra de menús.
++
+${post_edited_translations.segment}
+
++
+La barra de estado azul indica qué tarea está actualmente en progreso. Las barras de estado verdes indican las tareas que se han completado correctamente.
+
++
+
+NOTE: El instalador se asegura de que las tareas completadas en una instalación anterior no se vuelvan a ejecutar. Si vuelves a ejecutar una instalación, las tareas que no necesiten volver a ejecutarse se muestran con una barra de estado verde y el estado "Skipped".
+
+. ${post_edited_translations.segment}
++
+** *1. Configura el almacenamiento*
++
+Durante esta fase, el instalador borra cualquier configuración existente de las unidades y configura la configuración del host.
+
+** *2. Instala el sistema operativo*
++
+Durante esta fase, el instalador copia la imagen del sistema operativo base de StorageGRID desde el nodo de administración principal al dispositivo, o bien instala el sistema operativo base a partir del paquete de instalación del nodo de administración principal.
+
+
+
+. Sigue supervisando el progreso de la instalación hasta que ocurra una de las siguientes situaciones:
++
+** Para los nodos Gateway de appliance o los nodos Admin de appliance que no son primarios, la etapa *Install StorageGRID* se pausa y aparece un mensaje en la consola integrada, indicándote que apruebes este nodo en el Admin Node usando Grid Manager.
+** Para los nodos de administración principales del appliance, aparece una quinta fase (Cargar StorageGRID Installer). Si la quinta fase está en curso durante más de 10 minutos, actualiza la página manualmente.
+
+
+. Pasa al siguiente paso del proceso de recuperación para el tipo de nodo de grid del appliance que estás recuperando.
++
+[cols="1a,2a"]
+|===
+| Tipo de recuperación | Referencia 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:selecting-start-recovery-to-configure-gateway-node.html["Selecciona Iniciar recuperación para configurar el nodo de puerta de enlace"]
+
+
+
+ a| 
+Nodo de administración no principal
+ a| 
+link:selecting-start-recovery-to-configure-non-primary-admin-node.html["Selecciona Iniciar recuperación para configurar un nodo de administración no principal"]
+
+
+
+ a| 
+Nodo de administración principal
+ a| 
+link:configuring-replacement-primary-admin-node.html["Configura el nodo de administración principal de sustitución"]
+
+|===
+

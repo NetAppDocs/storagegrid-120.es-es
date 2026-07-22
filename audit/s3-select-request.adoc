@@ -1,0 +1,156 @@
+---
+permalink: audit/s3-select-request.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, S3SL, S3 Select request 
+summary: Este mensaje indica que un usuario inició un trabajo de S3 Select. 
+---
+= Mensaje de auditoría S3SL para solicitudes S3 Select en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje registra la finalización después de que se haya devuelto una solicitud de S3 Select al cliente. El mensaje S3SL puede incluir detalles del mensaje de error y del código de error. Es posible que la solicitud no se haya realizado correctamente.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+BYSC
+ a| 
+Bytes escaneados
+ a| 
+Número de bytes analizados (recibidos) de los Storage Nodes.
+
+Es probable que BYSC y BYPR sean diferentes si el objeto está comprimido. Si el objeto está comprimido, BYSC tendría el recuento de bytes comprimidos y BYPR serían los bytes después de la descompresión.
+
+
+
+ a| 
+BYPR
+ a| 
+${post_edited_translations.segment}
+ a| 
+Número de bytes procesados. Indica cuántos bytes de "Bytes Scanned" se procesaron realmente o sobre los que actuó un trabajo de S3 Select.
+
+
+
+ a| 
+BYRT
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Registros procesados
+ a| 
+Número de registros o filas que un trabajo de S3 Select ha recibido de los Storage Nodes.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Registros devueltos
+ a| 
+Número de registros o filas que un trabajo de S3 Select devolvió al cliente.
+
+
+
+ a| 
+JOFI
+ a| 
+${post_edited_translations.segment}
+ a| 
+Indica si el trabajo de S3 Select terminó de procesarse o no. Si esto es falso, significa que el trabajo no pudo finalizar y es probable que los campos de error tengan datos. Es posible que el cliente haya recibido resultados parciales o que no haya recibido ningún resultado.
+
+
+
+ a| 
+REID
+ a| 
+ID de solicitud
+ a| 
+Identificador de la solicitud S3 Select.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Tiempo de ejecución
+ a| 
+El tiempo, en segundos, que tardó en completarse el trabajo S3 Select.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Mensaje de error
+ a| 
+Mensaje de error que generó el trabajo S3 Select.
+
+
+
+ a| 
+ERTY
+ a| 
+${post_edited_translations.segment}
+ a| 
+Tipo de error que generó el trabajo S3 Select.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Traza de error
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+S3BK
+ a| 
+Bucket de S3
+ a| 
+El nombre del depósito de S3.
+
+
+
+ a| 
+S3AK
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+S3AI
+ a| 
+ID de la cuenta de inquilino de S3 (remitente de la solicitud)
+ a| 
+El ID de cuenta de inquilino del usuario que envió la solicitud.
+
+
+
+ a| 
+S3KY
+ a| 
+Clave de S3
+ a| 
+${post_edited_translations.segment}
+
+|===

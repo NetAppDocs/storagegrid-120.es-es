@@ -1,0 +1,40 @@
+---
+permalink: audit/scmt-object-store-commit.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, SCMT, Object Store Commit 
+summary: 'El contenido de la grid no está disponible ni se reconoce como almacenado hasta que se haya confirmado (lo que significa que se ha almacenado de forma persistente). El contenido almacenado de forma persistente se ha escrito por completo en el disco y ha superado las comprobaciones de integridad correspondientes. Este mensaje se emite cuando un bloque de contenido se confirma en el almacenamiento.' 
+---
+= Mensaje de auditoría SCMT para commits de almacén de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El contenido de la grid no está disponible ni se reconoce como almacenado hasta que se haya confirmado (lo que significa que se ha almacenado de forma persistente). El contenido almacenado de forma persistente se ha escrito por completo en el disco y ha superado las comprobaciones de integridad correspondientes. Este mensaje se emite cuando un bloque de contenido se confirma en el almacenamiento.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBID
+ a| 
+Identificador del bloque de contenido
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+${post_edited_translations.segment}
+
+SUCS: Objeto guardado correctamente.
+
+|===
+Este mensaje indica que un bloque de contenido determinado se ha almacenado y verificado por completo, y que ya puede solicitarse. Se puede utilizar para realizar un seguimiento del flujo de datos dentro del sistema.

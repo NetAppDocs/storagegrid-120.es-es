@@ -1,0 +1,308 @@
+---
+permalink: ilm/example-7-compliant-ilm-policy-for-s3-object-lock.html 
+sidebar: sidebar 
+keywords: ILM policy,S3 Object Lock 
+summary: Puedes utilizar el depósito de S3, las reglas de ILM y la política de ILM de este ejemplo como punto de partida a la hora de definir una política de ILM que cumpla los requisitos de protección y retención de los objetos en depósitos con S3 Object Lock habilitado. 
+---
+= Política ILM compatible para S3 Object Lock en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar el depósito de S3, las reglas de ILM y la política de ILM de este ejemplo como punto de partida a la hora de definir una política de ILM que cumpla los requisitos de protección y retención de los objetos en depósitos con S3 Object Lock habilitado.
+
+
+NOTE: Si has utilizado la función de Compliance heredada en versiones anteriores de StorageGRID, también puedes usar este ejemplo para gestionar cualquier bucket existente que tenga activada la función de Compliance heredada.
+
+
+CAUTION: Las siguientes reglas y políticas de ILM son solo ejemplos. Existen muchas formas de configurar reglas de ILM. Antes de activar una nueva política, simúlala para confirmar que funcionará como esperas y protegerá el contenido contra la pérdida.
+
+.Información relacionada
+* link:managing-objects-with-s3-object-lock.html["Gestiona objetos con S3 Object Lock"]
+* link:creating-ilm-policy.html["Crear una política de ILM"]
+
+
+
+
+[[bucket-and-objects-for-s3-object-lock-example]]
+== Bucket y objetos para el ejemplo de S3 Object Lock
+
+En este ejemplo, una cuenta de inquilino de S3 llamada Bank of ABC ha usado el Tenant Manager para crear un bucket con S3 Object Lock activado para guardar registros bancarios críticos.
+
+[cols="2a,2a"]
+|===
+| Definición de bucket | Valor de ejemplo 
+
+
+ a| 
+Nombre de la cuenta del inquilino
+ a| 
+Banco ABC
+
+
+
+ a| 
+Nombre del bucket
+ a| 
+registros bancarios
+
+
+
+ a| 
+Región de bucket
+ a| 
+us-east-1 (predeterminado)
+
+|===
+Cada objeto y cada versión de objeto que se añada al bucket bank-records usará los siguientes valores para  `retain-until-date` y  `legal hold`.
+
+[cols="1a,2a"]
+|===
+| Configuración de cada objeto | Valor de ejemplo 
+
+
+ a| 
+`retain-until-date`
+ a| 
+«2030-12-30T23:59:59Z» (30 de diciembre de 2030)
+
+Cada versión de objeto tiene su propio `retain-until-date` valor. Este valor se puede aumentar, pero no disminuir.
+
+
+
+ a| 
+`legal hold`
+ a| 
+"OFF" (No está en vigor)
+
+Se puede aplicar o levantar una retención legal sobre cualquier versión de un objeto en cualquier momento durante el periodo de retención. Si un objeto está sujeto a una retención legal, no se puede eliminar aunque se haya alcanzado el `retain-until-date`.
+
+|===
+
+
+[[ilm-rule-1-for-s3-object-lock-example-erasure-coding-profile-with-bucket-matching]]
+== Regla 1 de ILM para S3 Object Lock: perfil de código de borrado con coincidencia de buckets
+
+Esta regla de ILM de ejemplo se aplica únicamente a la cuenta de cliente de S3 denominada Bank of ABC. Coincide con cualquier objeto en el bucket  `bank-records` y luego utiliza el código de borrado para almacenar el objeto en los Storage Nodes de tres sitios de centros de datos usando un perfil de código de borrado 6+3. Esta regla cumple los requisitos de los buckets con S3 Object Lock habilitado: se mantiene una copia en los Storage Nodes desde el día 0 para siempre, usando la hora de ingesta como referencia.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Nombre de la regla
+ a| 
+Regla de cumplimiento: Objetos EC en el bucket bank-records - Bank of ABC
+
+
+
+ a| 
+Cuenta de inquilino
+ a| 
+Banco ABC
+
+
+
+ a| 
+Nombre del bucket
+ a| 
+`bank-records`
+
+
+
+ a| 
+Filtro avanzado
+ a| 
+Tamaño del objeto (MB) superior a 1
+
+*Nota:* Este filtro garantiza que no se utilice el código de borrado para los objetos de 1 MB o menos.
+
+|===
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Desde el día 0 almacena para siempre
+
+
+
+ a| 
+Perfil de código de borrado
+ a| 
+* Crea una copia con código de borrado en los nodos de almacenamiento en tres centros de datos
+* Utiliza un esquema de código de borrado 6+3
+
+
+|===
+
+
+[[ilm-rule-2-for-s3-object-lock-example-non-compliant-rule]]
+== Regla n.º 2 de ILM para el ejemplo de S3 Object Lock: regla no conforme
+
+Esta regla ILM de ejemplo almacena inicialmente dos copias replicadas del objeto en Storage Nodes. Después de un año, almacena una copia en un Cloud Storage Pool para siempre. Como esta regla usa un Cloud Storage Pool, no cumple y no se aplicará a los objetos en los buckets con S3 Object Lock habilitado.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Nombre de la regla
+ a| 
+Regla incumplida: usar Cloud Storage Pool
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+No especificado
+
+
+
+ a| 
+Nombre del bucket
+ a| 
+No se especifica, pero solo se aplicará a los buckets que no tengan activado S3 Object Lock (o la función heredada de Compliance).
+
+
+
+ a| 
+Filtro avanzado
+ a| 
+No especificado
+
+|===
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+* El día 0, mantén dos copias replicadas en los nodos de almacenamiento en Data Center 1 y Data Center 2 durante 365 días
+* Después de 1 año, conserva una copia replicada en un Cloud Storage Pool para siempre
+
+
+|===
+
+
+[[ilm-rule-3-for-s3-object-lock-example-default-rule]]
+== Regla 3 de ILM para S3 Object Lock: regla predeterminada
+
+Esta regla de ILM de ejemplo copia los datos de los objetos a grupos de almacenamiento en dos centros de datos. Esta regla conforme está diseñada para ser la regla predeterminada en la política de ILM. No incluye ningún filtro, no utiliza el tiempo de referencia Noncurrent y cumple los requisitos de los buckets con S3 Object Lock habilitado: se conservan dos copias de los objetos en los Storage Nodes desde el día 0 hasta siempre, utilizando Ingest como tiempo de referencia.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Nombre de la regla
+ a| 
+Regla de cumplimiento predeterminada: dos copias en dos centros de datos
+
+
+
+ a| 
+Cuenta de inquilino
+ a| 
+No especificado
+
+
+
+ a| 
+Nombre del bucket
+ a| 
+No especificado
+
+
+
+ a| 
+Filtro avanzado
+ a| 
+No especificado
+
+|===
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Desde el día 0 y de forma permanente, mantén dos copias replicadas: una en los nodos de almacenamiento en Data Center 1 y otra en los nodos de almacenamiento en Data Center 2.
+
+|===
+
+
+[[compliant-ilm-policy-for-s3-object-lock-example]]
+== Ejemplo de política de ILM conforme a los requisitos para S3 Object Lock
+
+Para crear una política de ILM que proteja de forma eficaz todos los objetos de tu sistema, incluidos los que se encuentran en buckets con S3 Object Lock activado, debes seleccionar reglas de ILM que cumplan los requisitos de almacenamiento de todos los objetos. Luego, tienes que simular y activar la política.
+
+
+
+[[add-rules-to-the-policy]]
+=== Agrega reglas a la política
+
+En este ejemplo, la política de ILM incluye tres reglas de ILM, en el siguiente orden:
+
+. Una regla conforme que utiliza código de borrado para proteger objetos de más de 1 MB en un bucket específico con S3 Object Lock activado. Los objetos se almacenan en Storage Nodes desde el día 0 hasta siempre.
+. Una regla no conforme que crea dos copias replicadas de un objeto en Storage Nodes durante un año y luego mueve una copia del objeto a un Cloud Storage Pool para siempre. Esta regla no se aplica a los buckets con S3 Object Lock habilitado porque utiliza un Cloud Storage Pool.
+. La regla de cumplimiento predeterminada que crea dos copias replicadas de objetos en los Storage Nodes desde el día 0 y para siempre.
+
+
+
+
+[[simulate-the-policy]]
+=== Simular la política
+
+Una vez que hayas añadido reglas a tu política, hayas elegido una regla de cumplimiento predeterminada y hayas organizado el resto de reglas, debes simular la política probando objetos del bucket en el que se ha habilitado S3 Object Lock y de otros buckets. Por ejemplo, al simular la política de ejemplo, esperarías que los objetos de prueba se evaluaran de la siguiente manera:
+
+* La primera regla solo coincidirá con los objetos de prueba que sean mayores de 1 MB en el bucket bank-records para el inquilino Bank of ABC.
+* La segunda regla coincidirá con todos los objetos en todos los buckets no conformes de todas las demás cuentas de inquilino.
+* La regla predeterminada coincidirá con estos objetos:
++
+** Objetos de 1 MB o menos en el bucket bank-records para el tenant Bank of ABC.
+** Objetos en cualquier otro depósito que tenga S3 Object Lock activado para todas las demás cuentas de inquilino.
+
+
+
+
+
+
+[[activate-the-policy]]
+=== Activa la política
+
+Cuando estés completamente seguro de que la nueva política protege los datos de los objetos como esperabas, puedes activarla.

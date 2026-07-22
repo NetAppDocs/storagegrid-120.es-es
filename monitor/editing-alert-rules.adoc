@@ -1,0 +1,121 @@
+---
+permalink: monitor/editing-alert-rules.html 
+sidebar: sidebar 
+keywords: how to edit alert rules 
+summary: Puedes editar una regla de alerta para modificar las condiciones de activación. En el caso de una regla de alerta personalizada, también puedes actualizar el nombre de la regla, la descripción y las acciones recomendadas. 
+---
+= Edita las reglas de alerta en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes editar una regla de alerta para modificar las condiciones de activación. En el caso de una regla de alerta personalizada, también puedes actualizar el nombre de la regla, la descripción y las acciones recomendadas.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Gestiona alertas o permisos de acceso root"].
+
+
+.Acerca de esta tarea
+Al editar una regla de alerta predeterminada, puedes cambiar las condiciones para las alertas de gravedad menor, mayor y crítica, y la duración. Al editar una regla de alerta personalizada, también puedes editar el nombre, la descripción y las acciones recomendadas de la regla.
+
+
+CAUTION: Ten cuidado a la hora de editar una regla de alerta. Si modificas los valores de activación, es posible que no detectes un problema subyacente hasta que este impida que se complete una operación crítica.
+
+.Pasos
+. Selecciona *Alertas* > *Reglas*.
++
+Aparece la página Alert Rules.
+
+. Selecciona el botón de opción correspondiente a la regla de alerta que quieras editar.
+. Selecciona *Editar regla*.
++
+Aparece el cuadro de diálogo «Editar regla». Este ejemplo muestra una regla de alerta predeterminada: los campos «Nombre único», «Descripción» y «Acciones recomendadas» están desactivados y no se pueden editar.
+
++
+image:alert_rules_edit_rule.png["Alertas > Editar regla"]
+
+. Marca o desmarca la casilla *Habilitado* para determinar si esta regla de alerta está habilitada actualmente.
++
+Si una regla de alerta está desactivada, sus expresiones no se evalúan y no se activan alertas.
+
++
+
+NOTE: Si desactivas la regla de alerta de una alerta actual, debes esperar unos minutos para que la alerta deje de aparecer como alerta activa.
+
++
+
+CAUTION: En general, no se recomienda desactivar una regla de alerta predeterminada. Si desactivas una regla de alerta, podrías no detectar un problema subyacente hasta que impida que se complete una operación crítica.
+
+. Para las reglas de alerta personalizadas, actualiza la siguiente información según sea necesario.
++
+
+NOTE: No puedes editar esta información para las reglas de alerta predeterminadas.
+
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre único
+ a| 
+Un nombre único para esta regla. El nombre de la regla de alerta aparece en la página Alertas y también es el asunto de las notificaciones por correo electrónico. Los nombres de las reglas de alerta pueden tener entre 1 y 64 caracteres.
+
+
+
+ a| 
+Descripción
+ a| 
+Una descripción del problema que se está produciendo. La descripción es el mensaje de alerta que aparece en la página Alertas y en las notificaciones por correo electrónico. Las descripciones de las reglas de alerta pueden tener entre 1 y 128 caracteres.
+
+
+
+ a| 
+Medidas recomendadas
+ a| 
+Opcionalmente, las acciones recomendadas que debes llevar a cabo cuando se active esta alerta. Introduce las acciones recomendadas como texto sin formato (sin códigos de formato). Las acciones recomendadas para las reglas de alerta pueden tener entre 0 y 1,024 caracteres.
+
+|===
+. En la sección Condiciones, introduce o actualiza la expresión de Prometheus para uno o más de los niveles de gravedad de las alertas.
++
+
+NOTE: Si quieres restablecer el valor original de una condición de una regla de alerta predeterminada que hayas modificado, selecciona los tres puntos situados a la derecha de la condición modificada.
+
++
+image:alert_rules_edit_revert_to_default.png["Reglas de alerta: revertir una condición editada a su valor predeterminado"]
+
++
+
+NOTE: Si actualizas las condiciones de una alerta activa, es posible que los cambios no se apliquen hasta que se resuelva la condición anterior. La próxima vez que se cumpla una de las condiciones de la regla, la alerta reflejará los valores actualizados.
+
++
+Una expresión básica suele tener la forma:
+
++
+`[metric] [operator] [value]`
+
++
+Las expresiones pueden tener cualquier longitud, pero se muestran en una sola línea en la interfaz de usuario. Se requiere al menos una expresión.
+
++
+Esta expresión hace que se active una alerta si la cantidad de RAM instalada en un nodo es inferior a 24,000,000,000 bytes (24 GB).
+
++
+`node_memory_MemTotal_bytes < 24000000000`
+
+. En el campo *Duración*, introduce el tiempo durante el que una condición debe permanecer vigente de forma ininterrumpida antes de que se active la alerta y selecciona la unidad de tiempo.
++
+Para activar una alerta de forma inmediata cuando se cumpla una condición, introduce *0*. Aumenta este valor para evitar que las condiciones temporales activen alertas.
+
++
+El valor predeterminado es 5 minutos.
+
+. Selecciona *Guardar*.
++
+Si editaste una regla de alerta predeterminada, *Default* aparece en la columna Tipo. Si desactivaste una regla de alerta predeterminada o personalizada, *Disabled* aparece en la columna *Status*.
+
+

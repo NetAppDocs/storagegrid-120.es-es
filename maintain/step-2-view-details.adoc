@@ -1,0 +1,85 @@
+---
+permalink: maintain/step-2-view-details.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, view details 
+summary: 'Desde el paso 2 (Ver detalles) del asistente para decomisionar un sitio, puedes revisar qué nodos están incluidos en el sitio, ver cuánto espacio se ha utilizado en cada Storage Node y evaluar cuánto espacio libre hay disponible en los demás sitios de tu grid.' 
+---
+= Revisa los detalles del sitio antes de decomisionar en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Desde el paso 2 (Ver detalles) del asistente para decomisionar un sitio, puedes revisar qué nodos están incluidos en el sitio, ver cuánto espacio se ha utilizado en cada Storage Node y evaluar cuánto espacio libre hay disponible en los demás sitios de tu grid.
+
+.Antes de empezar
+Antes de decomisionar un sitio, debes revisar cuántos datos de objetos existen en el sitio.
+
+* Si vas a descomisionar un sitio conectado, debes conocer la cantidad de datos de objetos que hay actualmente en el sitio antes de actualizar ILM. En función de las capacidades del sitio y de tus necesidades de protección de datos, puedes crear nuevas reglas de ILM para mover datos a otros sitios o para eliminar datos de objetos del sitio.
+* Si es posible, realiza las ampliaciones necesarias del nodo de almacenamiento antes de iniciar el procedimiento de decomisionar.
+* Si vas a descomisionar un sitio desconectado, debes tener en cuenta qué cantidad de datos de objetos quedará inaccesible de forma permanente al eliminar el sitio.
+
+
+
+CAUTION: Si estás llevando a cabo la descomisionación de un sitio desconectado, ILM no puede mover ni eliminar los datos de los objetos. Cualquier dato que permanezca en el sitio se perderá. Sin embargo, si tu política de ILM se diseñó para proteger contra la pérdida de un solo sitio, seguirán existiendo copias de los datos de tus objetos en los sitios restantes. Consulta link:../ilm/using-multiple-storage-pools-for-cross-site-replication.html["Activar la protección contra la pérdida del sitio"].
+
+.Pasos
+. En el paso 2 (Ver detalles), revisa las advertencias relacionadas con el sitio que seleccionaste para eliminar.
++
+image:decommission_site_step_2_site_warnings.png["Decomisionar sitio Paso 2 advertencias sobre el sitio"]
+
++
+En estos casos aparece un aviso:
+
++
+** El sitio incluye un nodo Gateway. Si actualmente hay clientes de S3 conectados a este nodo, debes configurar un nodo equivalente en otro sitio. Asegúrate de que los clientes puedan conectarse al nodo de reemplazo antes de continuar con el procedimiento de decomisionar.
+** El sitio contiene una combinación de nodos conectados (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]) y nodos desconectados (image:icon_alarm_gray_administratively_down.png["Icono alarma gris administrativamente inactivo"] o image:icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"]). Antes de poder eliminar este sitio, debes volver a poner en línea todos los nodos que están fuera de línea.
+
+
+. Revisa los detalles sobre el sitio que has seleccionado para eliminar.
++
+image:decommission_site_step_2_view_details.png["Decomisionar sitio Paso 2: ver detalles"]
+
++
+Se incluye la siguiente información para el sitio seleccionado:
+
++
+** Número de nodos
+** El espacio total utilizado, el espacio libre y la capacidad de todos los nodos de almacenamiento en el sitio.
++
+*** Para decomisionar un sitio conectado, el valor de *Espacio utilizado* representa cuántos datos de objetos deben moverse a otros sitios o eliminarse con ILM.
+*** Para decomisionar un sitio desconectado, el valor de *Espacio utilizado* indica cuántos datos de objetos se volverán inaccesibles cuando elimines el sitio.
+
+
+** Nombres de nodo, tipos y estados de conexión:
++
+*** image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"] (Conectado)
+*** image:icon_alarm_gray_administratively_down.png["Icono alarma gris administrativamente inactivo"] (Fuera de servicio por motivos administrativos)
+*** image:icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] (Desconocido)
+
+
+** Detalles sobre cada nodo:
++
+*** Para cada nodo de almacenamiento, la cantidad de espacio que se ha utilizado para los datos de objetos.
+*** Para los nodos de administración y los nodos de puerta de enlace, si el nodo se está usando actualmente en un grupo de alta disponibilidad (HA). No puedes decomisionar un nodo de administración ni un nodo de puerta de enlace que se use en un grupo de alta disponibilidad. Antes de empezar el decomisionamiento, edita los grupos de alta disponibilidad para quitar todos los nodos del sitio o elimina el grupo de alta disponibilidad si solo incluye nodos de este sitio. Para ver las instrucciones, consulta link:../admin/managing-high-availability-groups.html["${post_edited_translations.segment}"].
+
+
+
+
+. En la sección Detalles de otros emplazamientos de la página, comprueba cuánto espacio hay disponible en los demás emplazamientos de tu grid.
++
+image:decommission_site_step_2_view_details_for_other_sites.png["Decomisionar sitio Paso 2 ver detalles de otros sitios"]
+
++
+Si estás descomisionando un sitio conectado y planeas usar ILM para mover los datos de objetos del sitio seleccionado (en vez de simplemente eliminarlos), debes asegurarte de que los otros sitios tengan suficiente capacidad para alojar los datos movidos y que quede capacidad adecuada para el crecimiento futuro.
+
++
+
+NOTE: Aparecerá una advertencia si el *Espacio utilizado* del sitio que deseas eliminar es mayor que el *Espacio libre total para otros sitios*. Para asegurarte de que dispones de suficiente capacidad de almacenamiento tras la eliminación del sitio, es posible que tengas que realizar una expansión antes de llevar a cabo este procedimiento.
+
+. Selecciona *Siguiente*.
++
+Aparece el paso 3 (Revisar la política de ILM).
+
+

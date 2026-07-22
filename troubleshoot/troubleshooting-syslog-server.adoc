@@ -1,0 +1,152 @@
+---
+permalink: troubleshoot/troubleshooting-syslog-server.html 
+sidebar: sidebar 
+keywords: how to troubleshoot the external syslog server 
+summary: ${post_edited_translations.segment} 
+---
+= Soluciona los mensajes de error del servidor syslog externo para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+Los problemas que surjan durante la ejecución pueden notificarse mediante la alerta link:../monitor/alerts-reference.html#audit-and-syslog-alerts["Error de reenvío del servidor syslog externo"]. Si recibes esta alerta, sigue las instrucciones en la alerta para reenviar los mensajes de prueba y así poder obtener mensajes de error detallados.
+
+Para obtener más información sobre cómo enviar información de auditoría a un servidor syslog externo, consulta:
+
+* link:../monitor/considerations-for-external-syslog-server.html["Aspectos a tener en cuenta al utilizar un servidor syslog externo"]
+* link:../monitor/configure-log-management.html["Configura la gestión de registros y el servidor syslog externo"]
+
+
+[cols="1a,3a"]
+|===
+| Mensaje de error | Descripción y acciones recomendadas 
+
+
+ a| 
+No se puede resolver el nombre de host
+ a| 
+El FQDN que introdujiste para el servidor syslog no se pudo resolver en una dirección IP.
+
+. Comprueba el nombre de host que has introducido. Si has introducido una dirección IP, asegúrate de que sea una dirección IP válida en notación W.X.Y.Z ("decimal con puntos").
+. ${post_edited_translations.segment}
+. Confirma que cada nodo pueda acceder a las direcciones IP del servidor DNS.
+
+
+
+
+ a| 
+Conexión rechazada
+ a| 
+Se ha rechazado una conexión TCP o TLS con el servidor syslog. Es posible que no haya ningún servicio escuchando en el puerto TCP o TLS del host, o que un firewall esté bloqueando el acceso.
+
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Comprueba que ningún cortafuegos esté bloqueando el acceso a las conexiones TCP/TLS desde los nodos hacia la dirección IP y el puerto del servidor syslog.
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+El servidor syslog no se encuentra en una subred conectada directamente. Un router devolvió un mensaje de error ICMP para indicar que no pudo reenviar los mensajes de prueba desde los nodos indicados al servidor syslog.
+
+. Comprueba que hayas introducido el FQDN o la dirección IP correctos para el servidor syslog.
+. Para cada nodo de la lista, comprueba la lista de subredes de la red Grid, las listas de subredes de las redes de administración y las puertas de enlace de la red de clientes. Confirma que estén configuradas para enrutar el tráfico hacia el servidor syslog a través de la interfaz de red y la puerta de enlace previstas (Grid, Admin o Client).
+
+
+
+
+ a| 
+Host inalcanzable
+ a| 
+El servidor syslog está en una subred conectada directamente (la subred que usan los nodos indicados para sus direcciones IP de Grid, Admin o de cliente). Los nodos intentaron enviar mensajes de prueba, pero no recibieron respuesta a las solicitudes ARP para la dirección MAC del servidor syslog.
+
+. Comprueba que hayas introducido el FQDN o la dirección IP correctos para el servidor syslog.
+. Comprueba que el servidor que ejecuta el servicio syslog esté en funcionamiento.
+
+
+
+
+ a| 
+Se agotó el tiempo de espera de la conexión
+ a| 
+Se intentó establecer una conexión TCP/TLS, pero no se recibió respuesta del servidor syslog durante mucho tiempo. Es posible que haya una configuración incorrecta de enrutamiento o que un firewall esté descartando el tráfico sin enviar ninguna respuesta (una configuración común).
+
+. Comprueba que hayas introducido el FQDN o la dirección IP correctos para el servidor syslog.
+. Para cada nodo de la lista, comprueba la lista de subredes de la red de Grid, las listas de subredes de las redes de administración y las puertas de enlace de la red de cliente. Confirma que estén configuradas para enrutar el tráfico al servidor syslog mediante la interfaz de red y la puerta de enlace (Grid, administración o cliente) a través de las cuales esperas que se acceda al servidor syslog.
+. Comprueba que ningún cortafuegos esté bloqueando el acceso a las conexiones TCP/TLS desde los nodos indicados a la dirección IP y al puerto del servidor syslog.
+
+
+
+
+ a| 
+Conexión cerrada por el socio
+ a| 
+Se estableció correctamente una conexión TCP con el servidor syslog, pero se cerró más tarde. Entre los motivos de esto se pueden incluir:
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Es posible que un cortafuegos intermedio esté cerrando las conexiones TCP inactivas.
+* Es posible que un servidor que no sea de syslog y que esté a la escucha en el puerto del servidor de syslog haya cerrado la conexión.
+
+
+Para resolver este problema:
+
+. ${post_edited_translations.segment}
+. Si utilizas TLS, comprueba que el servidor syslog también utilice TLS. Si utilizas TCP, comprueba que el servidor syslog también utilice TCP.
+. Comprueba que no haya ningún firewall intermedio configurado para cerrar las conexiones TCP inactivas.
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+. Comprueba que el paquete de certificados de la CA y el certificado de cliente (si lo hay) sean compatibles con el certificado del servidor syslog.
+. ${post_edited_translations.segment}
+
+
+
+
+ a| 
+Reenvío suspendido
+ a| 
+Los registros de syslog ya no se reenvían al servidor de syslog y StorageGRID no puede detectar el motivo.
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+Sesión TLS finalizada
+ a| 
+El servidor syslog terminó la sesión TLS y StorageGRID no puede detectar el motivo.
+
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Si utilizas TLS, comprueba que el servidor syslog también utilice TLS. Si utilizas TCP, comprueba que el servidor syslog también utilice TCP.
+. Comprueba que el paquete de certificados de la CA y el certificado de cliente (si lo hay) sean compatibles con el certificado del servidor syslog.
+. ${post_edited_translations.segment}
+
+
+
+
+ a| 
+Error al consultar los resultados
+ a| 
+El nodo de administración utilizado para la configuración y las pruebas del servidor syslog no puede solicitar los resultados de las pruebas a los nodos indicados. Es posible que uno o varios nodos estén inactivos.
+
+. Sigue los pasos habituales de resolución de problemas para asegurarte de que los nodos estén en línea y que todos los servicios esperados estén en funcionamiento.
+. Reinicia el servicio «miscd» en los nodos indicados.
+
+
+|===

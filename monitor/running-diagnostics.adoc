@@ -1,0 +1,85 @@
+---
+permalink: monitor/running-diagnostics.html 
+sidebar: sidebar 
+keywords: how to run diagnostics 
+summary: Al solucionar un problema, puedes trabajar con el soporte técnico para ejecutar diagnósticos en tu sistema StorageGRID y revisar los resultados. 
+---
+= Ejecuta diagnósticos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al solucionar un problema, puedes trabajar con el soporte técnico para ejecutar diagnósticos en tu sistema StorageGRID y revisar los resultados.
+
+* link:reviewing-support-metrics.html["Revisar las métricas de soporte"]
+* link:commonly-used-prometheus-metrics.html["Métricas de Prometheus más utilizadas"]
+
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+
+
+.Acerca de esta tarea
+La página «Diagnósticos» realiza una serie de comprobaciones de diagnóstico sobre el estado actual de la grid. Cada comprobación de diagnóstico puede tener uno de tres estados:
+
+* image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"] *Normal*: Todos los valores están dentro del rango normal.
+* image:icon_alert_yellow_minor.png["Icono de alerta amarillo menor"] *Atención*: uno o varios de los valores se encuentran fuera del rango normal.
+* image:icon_alert_red_critical.png["Icono de alerta rojo crítico"] *Precaución*: Uno o varios de los valores están significativamente fuera del rango normal.
+
+
+Los estados de diagnóstico son independientes de las alertas actuales y pueden no indicar problemas operativos con el grid. Por ejemplo, una comprobación de diagnóstico puede mostrar el estado Precaución aunque no se haya activado ninguna alerta.
+
+.Pasos
+. Selecciona *Soporte* > *Herramientas* > *Diagnóstico*.
++
+Aparece la página de Diagnósticos y se muestran los resultados de cada comprobación de diagnóstico. Los resultados se ordenan por gravedad (Precaución, Atención y luego Normal). Dentro de cada gravedad, los resultados se ordenan alfabéticamente.
+
++
+En este ejemplo, un diagnóstico tiene el estado Atención y tres diagnósticos tienen el estado Normal.
+
++
+image:support_diagnostics_page.png["Página de diagnósticos de soporte"]
+
+. Para obtener más información sobre un diagnóstico concreto, haz clic en cualquier parte de la fila.
++
+Aparecen los detalles sobre el diagnóstico y sus resultados actuales. Se muestran los siguientes detalles:
+
++
+** *Estado*: El estado actual de este diagnóstico: Normal, Atención o Precaución.
+** *Consulta de Prometheus*: si se ha utilizado para el diagnóstico, la expresión de Prometheus que se empleó para generar los valores de estado. (No se utiliza una expresión de Prometheus en todos los diagnósticos.)
+** *Umbrales*: si están disponibles para el diagnóstico, los umbrales definidos por el sistema para cada estado de diagnóstico anómalo. (Los valores de umbral no se utilizan en todos los diagnósticos.)
++
+
+NOTE: No puedes cambiar estos umbrales.
+
+** *Valores de estado*: Un gráfico y una tabla (la tabla no aparece en la captura de pantalla) que muestran el estado y el valor del diagnóstico en todo el sistema StorageGRID. En este ejemplo, la utilización de CPU actual para cada nodo de un sistema StorageGRID se muestra. Todos los valores de los nodos están por debajo de los umbrales de Atención y Precaución, así que el estado general del diagnóstico es Normal.
++
+image:support_diagnostics_cpu_utilization.png["Ejemplo de valores de estado de diagnóstico"]
+
+
+
+. *Opcional*: Para ver los gráficos de Grafana relacionados con este diagnóstico, selecciona *Grafana dashboard*.
++
+Este enlace no aparece en todos los diagnósticos.
+
++
+Aparece el panel de Grafana correspondiente. En este ejemplo, aparece el panel del nodo mostrando la utilización de CPU a lo largo del tiempo para este nodo, así como otros gráficos de Grafana para el nodo.
+
++
+
+NOTE: También puedes acceder a los paneles de Grafana ya creados desde la sección *Grafana* de la página *Soporte* > *Herramientas* > *Métricas*.
+
++
+image:grafana_dashboard_nodes.png["Nodos del panel de Grafana"]
+
+. *Opcional*: Para ver un gráfico de la expresión de Prometheus a lo largo del tiempo, haz clic en *Ver en Prometheus*.
++
+Aparece un gráfico de Prometheus con la expresión utilizada en el diagnóstico.
+
++
+image:support_diagnostics_prometheus_png.png["Página de diagnóstico de Prometheus de soporte técnico"]
+
+

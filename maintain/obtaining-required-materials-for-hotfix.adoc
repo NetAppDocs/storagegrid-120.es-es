@@ -1,0 +1,61 @@
+---
+permalink: maintain/obtaining-required-materials-for-hotfix.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix 
+summary: Antes de aplicar una corrección urgente, debes conseguir todo el material necesario. 
+---
+= Obtén los materiales necesarios para una corrección urgente de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de aplicar una corrección urgente, debes conseguir todo el material necesario.
+
+[cols="1a,2a"]
+|===
+| Artículo | Notas 
+
+
+ a| 
+Archivo de corrección urgente de StorageGRID
+ a| 
+Debes descargar el archivo de corrección urgente de StorageGRID.
+
+
+
+ a| 
+* Puerto de red
+* link:../admin/web-browser-requirements.html["${post_edited_translations.segment}"]
+* ${post_edited_translations.segment}
+
+ a| 
+
+
+
+ a| 
+paquete de recuperación (`.zip`) archivo
+ a| 
+Antes de aplicar una corrección urgente, link:downloading-recovery-package.html["Descarga el archivo del paquete de recuperación más reciente"] por si ocurre algún problema durante la corrección urgente. Luego, después de aplicar la corrección urgente, descarga una nueva copia del archivo del paquete de recuperación y guárdala en un lugar seguro. El archivo actualizado del paquete de recuperación te permite restaurar el sistema si ocurre un fallo.
+
+
+
+| Archivo Passwords.txt  a| 
+Opcional y solo se utiliza si aplicas una corrección urgente de forma manual usando el cliente SSH. El archivo  `Passwords.txt` es parte del paquete de recuperación `.zip`.
+
+
+
+ a| 
+Contraseña de aprovisionamiento
+ a| 
+La frase de contraseña se crea y se documenta durante la primera instalación del sistema StorageGRID. La frase de contraseña de aprovisionamiento no aparece en el  `Passwords.txt` archivo.
+
+
+
+ a| 
+Documentación relacionada
+ a| 
+`readme.txt` archivo de la corrección urgente. Este archivo se incluye en la página de descarga de la corrección urgente. Asegúrate de revisar el  `readme` archivo cuidadosamente antes de aplicar la corrección urgente.
+
+|===

@@ -1,0 +1,72 @@
+---
+permalink: maintain/restoring-admin-node-database-non-primary-admin-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, restore admin node database, restore database, non-primary admin node 
+summary: Si deseas conservar la información histórica sobre los atributos y las alertas de un nodo de administración no principal que haya fallado, puedes restaurar la base de datos del nodo de administración a partir del nodo de administración principal. 
+---
+= Restaurar la base de datos del nodo de administración StorageGRID al recuperar un nodo de administración no primario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si deseas conservar la información histórica sobre los atributos y las alertas de un nodo de administración no principal que haya fallado, puedes restaurar la base de datos del nodo de administración a partir del nodo de administración principal.
+
+.Antes de empezar
+* El nodo de administración recuperado está instalado y en funcionamiento.
+* El sistema StorageGRID incluye al menos dos nodos de administración.
+* Tienes el archivo  `Passwords.txt`.
+* Tienes la frase de contraseña de aprovisionamiento.
+
+
+.Acerca de esta tarea
+Si un nodo de administración falla, se pierde la información histórica almacenada en su base de datos de nodo de administración. Esta base de datos incluye la siguiente información:
+
+* Historial de alertas
+* Datos históricos de atributos, que se usan en los gráficos de estilo clásico en la página de Nodos
+
+
+Al recuperar un nodo de administración, el proceso de instalación del software crea una base de datos vacía del nodo de administración en el nodo recuperado. Sin embargo, la nueva base de datos solo incluye información sobre los servidores y servicios que forman parte del sistema en ese momento o que se añadan posteriormente.
+
+Si has restaurado un nodo de administración que no es el principal, puedes recuperar la información histórica copiando la base de datos del nodo de administración principal (el _nodo de administración de origen_) al nodo recuperado.
+
+
+NOTE: La copia de la base de datos del nodo de administración puede tardar varias horas. Algunas funciones de Grid Manager no estarán disponibles mientras los servicios estén detenidos en el nodo de origen.
+
+.Pasos
+. ${post_edited_translations.segment}
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
+. Ejecuta el siguiente comando desde el nodo de administración de origen. Luego, introduce la frase de contraseña de aprovisionamiento si se te solicita. `recover-access-points`
+. Desde el nodo de administración de origen, detén el servicio MI: `service mi stop`
+. Desde el nodo de administración de origen, detén el servicio de la Management Application Program Interface (mgmt-api): `service mgmt-api stop`
+. Sigue estos pasos en el nodo de administración recuperado:
++
+.. Inicia sesión en el nodo de administración recuperado:
++
+... Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+... Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+... Introduce el siguiente comando para pasar a ser usuario root: `su -`
+... Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
+.. Detén el servicio MI: `service mi stop`
+.. Detén el servicio API mgmt-api: `service mgmt-api stop`
+.. Añade la clave privada SSH al agente SSH. Introduce:``ssh-add``
+.. Introduce la contraseña de acceso SSH que figura en el archivo  `Passwords.txt`.
+.. Copia la base de datos del nodo de administración de origen al nodo de administración recuperado: `/usr/local/mi/bin/mi-clone-db.sh Source_Admin_Node_IP`
+.. Cuando se te solicite, confirma que quieres sobrescribir la base de datos MI en el nodo de administración recuperado.
++
+La base de datos y sus datos históricos se copian en el nodo de administración recuperado. Una vez finalizada la operación de copia, el script inicia el nodo de administración recuperado.
+
+.. Cuando ya no necesites acceso sin contraseña a otros servidores, elimina la clave privada del agente SSH. Introduce:``ssh-add -D``
+
+
+. Reinicia los servicios en el nodo de administración de origen: `service servermanager start`
+

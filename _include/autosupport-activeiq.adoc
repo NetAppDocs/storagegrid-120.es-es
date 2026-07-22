@@ -1,0 +1,9 @@
+= 
+:allow-uri-read: 
+
+
+Active IQ es un asesor digital basado en cloud que aprovecha el análisis predictivo y la sabiduría colectiva de la base instalada de NetApp. Sus evaluaciones continuas de riesgos, alertas predictivas, orientación prescriptiva y acciones automatizadas te ayudan a prevenir problemas antes de que ocurran, lo que lleva a una mejor salud del sistema y una mayor disponibilidad del sistema.
+
+Si deseas utilizar los paneles de control y las funciones de Active IQ en el sitio de soporte de NetApp, debes activar AutoSupport.
+
+https://docs.netapp.com/us-en/active-iq/index.html["${post_edited_translations.segment}"^]

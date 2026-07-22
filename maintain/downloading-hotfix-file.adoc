@@ -1,0 +1,48 @@
+---
+permalink: maintain/downloading-hotfix-file.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix, download 
+summary: Debes descargar el archivo de la corrección urgente antes de poder aplicarla. 
+---
+= Descarga un archivo de corrección urgente de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes descargar el archivo de la corrección urgente antes de poder aplicarla.
+
+.Pasos
+. Ve a https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["Descargas de NetApp: StorageGRID"^].
+. Selecciona la flecha hacia abajo que aparece debajo de *Software disponible* para ver una lista de las correcciones urgentes disponibles para descargar.
++
+
+NOTE: Las versiones de los archivos de corrección urgente tienen el siguiente formato: 11.4__.x.y__.
+
+. Consulta los cambios que incluye la actualización.
++
+
+NOTE: Si acabas de link:configuring-replacement-primary-admin-node.html["se recuperó el nodo de administración principal"] y necesitas aplicar una corrección urgente, selecciona la misma versión de corrección urgente que está instalada en los otros nodos del grid.
+
++
+.. Selecciona la versión de la corrección urgente que quieras descargar y haz clic en *Ir*.
+.. Inicia sesión usando el nombre de usuario y la contraseña de tu cuenta de NetApp.
+.. Lee y acepta el Acuerdo de licencia de usuario final.
++
+Aparece la página de descarga de la versión que seleccionaste.
+
+.. Descarga el archivo de la corrección urgente  `readme.txt` para ver un resumen de los cambios incluidos en la corrección urgente.
+
+
+. Selecciona el botón de descarga de la corrección urgente y guarda el archivo.
++
+
+NOTE: No cambies el nombre de este archivo.
+
++
+
+NOTE: Si utilizas un dispositivo macOS, es posible que el archivo de corrección urgente se guarde automáticamente como un archivo  `.txt`. Si es así, debes cambiar el nombre del archivo y quitar la extensión  `.txt`.
+
+. Elige una ubicación para la descarga y selecciona *Guardar*.
+

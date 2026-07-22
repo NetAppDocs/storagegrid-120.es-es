@@ -1,0 +1,160 @@
+---
+permalink: maintain/linux-migrating-grid-node-to-new-host.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, linux, migrate node, migrating node, new host for node 
+summary: Puedes migrar uno o varios nodos de StorageGRID de un host Linux a otro host Linux para realizar tareas de mantenimiento del host sin afectar la funcionalidad ni la disponibilidad de tu grid. 
+---
+= Migra un nodo StorageGRID a un nuevo host Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes migrar uno o varios nodos de StorageGRID desde un host Linux (el _host de origen_) a otro host Linux (el _host de destino_) para realizar tareas de mantenimiento del host sin afectar la funcionalidad ni la disponibilidad de tu grid.
+
+Por ejemplo, es posible que quieras migrar un nodo para aplicar parches al sistema operativo y reiniciarlo.
+
+.Antes de empezar
+* Planeaste tu implementación de StorageGRID para incluir compatibilidad con la migración. Consulta link:../swnodes/node-container-migration-requirements.html["Requisitos para la migración de contenedores de nodo"].
+* El servidor de destino ya está preparado para usarlo con StorageGRID.
+* El almacenamiento compartido se utiliza para todos los volúmenes de almacenamiento por nodo
+* Las interfaces de red tienen nombres uniformes en todos los hosts.
+
+
+[NOTE]
+====
+En una implementación de producción, no ejecutes más de un nodo de almacenamiento en un solo host. Usar un host dedicado para cada nodo de almacenamiento proporciona un dominio de fallo aislado.
+
+Se pueden implementar otros tipos de nodos, como Admin Nodes o Gateway Nodes, en el mismo host. Sin embargo, si tienes varios nodos del mismo tipo (dos Gateway Nodes, por ejemplo), no instales todas las instancias en el mismo host.
+
+====
+
+
+[[export-node-from-source-host]]
+== Exportar nodo desde el host de origen
+
+Como primer paso, apaga el nodo de grid y expórtalo desde el host Linux de origen.
+
+Ejecuta los siguientes comandos en el _host de origen_.
+
+.Pasos
+. Obtén el estado de todos los nodos que se están ejecutando actualmente en el host de origen.
++
+`sudo storagegrid node status all`
+
++
+Ejemplo de salida:
+
++
+[listing]
+----
+Name Config-State Run-State
+DC1-ADM1 Configured Running
+DC1-ARC1 Configured Running
+DC1-GW1 Configured Running
+DC1-S1 Configured Running
+DC1-S2 Configured Running
+DC1-S3 Configured Running
+----
+. Identifica el nombre del nodo que deseas migrar y deténlo si su estado de ejecución es "Running".
++
+`sudo storagegrid node stop DC1-S3`
+
++
+Ejemplo de salida:
+
++
+[listing]
+----
+Stopping node DC1-S3
+Waiting up to 630 seconds for node shutdown
+----
+. Exporta el nodo desde el host de origen.
++
+`sudo storagegrid node export DC1-S3`
+
++
+Ejemplo de salida:
+
++
+[listing]
+----
+Finished exporting node DC1-S3 to /dev/mapper/sgws-dc1-s3-var-local.
+Use 'storagegrid node import /dev/mapper/sgws-dc1-s3-var-local' if you
+want to import it again.
+----
+. Toma nota del comando  `import` sugerido en la salida.
++
+Ejecutarás este comando en el servidor de destino en el siguiente paso.
+
+
+
+
+
+[[import-node-on-target-host]]
+== Importar nodo en el host de destino
+
+Después de exportar el nodo desde el host de origen, importas y validas el nodo en el host de destino. La validación confirma que el nodo tiene acceso a los mismos dispositivos de almacenamiento en bloque y de interfaz de red que tenía en el host de origen.
+
+Ejecuta los siguientes comandos en el _host de destino_.
+
+.Pasos
+. Importa el nodo en el host de destino.
++
+`sudo storagegrid node import /dev/mapper/sgws-dc1-s3-var-local`
+
++
+Ejemplo de salida:
+
++
+[listing]
+----
+Finished importing node DC1-S3 from /dev/mapper/sgws-dc1-s3-var-local.
+You should run 'storagegrid node validate DC1-S3'
+----
+. Comprueba la configuración del nodo en el nuevo host.
++
+`sudo storagegrid node validate DC1-S3`
+
++
+Ejemplo de salida:
+
++
+[listing]
+----
+Confirming existence of node DC1-S3... PASSED
+Checking configuration file /etc/storagegrid/nodes/DC1-S3.conf for node DC1-S3... PASSED
+Checking for duplication of unique values... PASSED
+----
+. Si se produce algún error de validación, corrígelo antes de iniciar el nodo migrado.
++
+Para obtener información sobre la resolución de problemas, consulta la StorageGRID link:../swnodes/index.html["instrucciones de instalación"] para tu sistema operativo Linux.
+
+
+
+
+
+[[start-migrated-node]]
+== Iniciar el nodo migrado
+
+Después de validar el nodo migrado, inicias el nodo ejecutando un comando en el _host de destino_.
+
+.Pasos
+. Inicia el nodo en el nuevo host.
++
+`sudo storagegrid node start DC1-S3`
+
+. Inicia sesión en Grid Manager y comprueba que el estado del nodo sea verde y que no haya ninguna alerta.
++
+
+CAUTION: Comprobar que el estado del nodo sea verde garantiza que el nodo migrado se haya reiniciado por completo y se haya reincorporado a la grid. Si el estado no es verde, no migres ningún nodo adicional para que no haya más de un nodo fuera de servicio.
+
+. Si no puedes acceder al Grid Manager, espera 10 minutos y luego ejecuta el siguiente comando:
++
+`sudo storagegrid node status _node-name`
+
++
+Confirma que el nodo migrado tenga un Run-State de Running.
+
+

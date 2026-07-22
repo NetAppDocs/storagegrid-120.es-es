@@ -1,0 +1,78 @@
+---
+permalink: expand/index.html 
+sidebar: sidebar 
+keywords: expand grid, StorageGRID 
+summary: Puedes ampliar la capacidad o las capacidades de tu sistema StorageGRID sin interrumpir las operaciones del sistema. 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Descubre cómo ampliar tu sistema StorageGRID para aumentar la capacidad o las funcionalidades sin interrumpir las operaciones. Puedes añadir volúmenes de almacenamiento a los nodos de almacenamiento existentes, añadir nuevos nodos de grid a un sitio existente o añadir un nuevo sitio.
+
+Antes de ampliar un nodo de la red, debes confirmar que no haya ningún trabajo de reparación de datos activo. Si alguna reparación ha fallado, debes reiniciarla y dejar que termine antes de realizar el procedimiento de decomisionar o ampliar. Consulta link:../maintain/checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"].
+
+Una ampliación de StorageGRID te permite añadir:
+
+* ${post_edited_translations.segment}
+* Nuevos nodos de grid en un sitio existente
+* Un sitio completamente nuevo
+
+
+El motivo por el que realizas la expansión determina cuántos nodos nuevos de cada tipo debes añadir y la ubicación de esos nuevos nodos. Por ejemplo, existen diferentes requisitos de nodos si realizas una expansión para aumentar la capacidad de almacenamiento, añadir capacidad de metadatos o añadir redundancia o nuevas funciones.
+
+${post_edited_translations.segment}
+
+[role="tabbed-block"]
+====
+.Agregar nodos de grid
+--
+. Sigue los pasos para link:adding-grid-nodes-to-existing-site-or-adding-new-site.html["Agregar nodos de grid a un sitio existente"].
+. link:updating-subnets-for-grid-network.html["Actualizar las subredes"].
+. ${post_edited_translations.segment}
++
+** link:deploying-new-grid-nodes.html#appliances-deploying-storage-gateway-or-non-primary-admin-nodes["${post_edited_translations.segment}"]
+** link:deploying-new-grid-nodes.html#vmware-deploy-grid-nodes["VMware"]
+** link:deploying-new-grid-nodes.html#linux-deploy-grid-nodes["Linux"]
+
+
+
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+. link:performing-expansion.html["${post_edited_translations.segment}"].
+. link:configuring-expanded-storagegrid-system.html["${post_edited_translations.segment}"].
+
+
+--
+.Agregar volúmenes de almacenamiento
+--
+Sigue los pasos para link:adding-storage-volumes-to-storage-nodes.html["Agregar volúmenes de almacenamiento a los nodos de almacenamiento"].
+
+--
+.${post_edited_translations.segment}
+--
+. Sigue los pasos para link:adding-grid-nodes-to-existing-site-or-adding-new-site.html["Añadir un nuevo sitio"].
+. link:updating-subnets-for-grid-network.html["Actualizar las subredes"].
+. ${post_edited_translations.segment}
++
+** link:deploying-new-grid-nodes.html#appliances-deploying-storage-gateway-or-non-primary-admin-nodes["${post_edited_translations.segment}"]
+** link:deploying-new-grid-nodes.html#vmware-deploy-grid-nodes["VMware"]
+** link:deploying-new-grid-nodes.html#linux-deploy-grid-nodes["Linux"]
+
+
+
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+. link:performing-expansion.html["${post_edited_translations.segment}"].
+. link:configuring-expanded-storagegrid-system.html["${post_edited_translations.segment}"].
+
+
+--
+====

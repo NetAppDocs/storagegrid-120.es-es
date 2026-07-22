@@ -1,0 +1,183 @@
+---
+permalink: tenant/grid-federation-manage-cross-grid-replication.html 
+sidebar: sidebar 
+keywords: grid federation, cross-grid replication, use grid federation connection, replicate client delete markers, s3 bucket 
+summary: Si a tu cuenta de inquilino se le asignó el permiso Use grid federation connection cuando se creó, puedes usar la replicación entre grids para replicar automáticamente objetos entre los buckets en la grid de origen del inquilino y los buckets en la grid de destino del inquilino. La replicación entre grids puede ocurrir en una o en ambas direcciones. 
+---
+= Administra la replicación entre grids en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si a tu cuenta de inquilino se le asignó el permiso *Utilizar conexión de federación entre redes* al crearse, puedes utilizar la replicación entre redes para replicar automáticamente objetos entre los buckets de la red de origen del inquilino y los buckets de la red de destino del inquilino. La replicación entre redes puede realizarse en una o en ambas direcciones.
+
+
+
+[[workflow-for-cross-grid-replication]]
+== ${post_edited_translations.segment}
+
+El diagrama de flujo resume los pasos que tienes que seguir para configurar la replicación entre redes entre buckets en dos redes. Estos pasos se describen con más detalle debajo del diagrama.
+
+image:grid-federation-cgr-workflow.png["${post_edited_translations.segment}"]
+
+
+
+[[configure-cross-grid-replication]]
+== Configura la replicación entre grids
+
+Antes de que puedas usar la replicación entre grids, debes iniciar sesión en las cuentas de inquilino correspondientes en cada grid y crear dos buckets. Luego, puedes habilitar la replicación entre grids en cualquiera de los buckets o en ambos.
+
+.Antes de empezar
+* Ya has revisado los requisitos para la replicación entre grids. Consulta link:../admin/grid-federation-what-is-cross-grid-replication.html["¿Qué es la replicación entre grids?"].
+* Estás utilizando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* La cuenta de inquilino tiene el permiso *Utilizar conexión de federación entre redes* y existen cuentas de inquilino idénticas en ambas redes. Consulta link:../admin/grid-federation-manage-tenants.html["Gestiona los inquilinos permitidos para la conexión de federación de grid"].
+* El usuario inquilino con el que estás iniciando sesión ya existe en ambos grids y pertenece a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Permiso de acceso raíz"].
+* Si te estás autenticando en la grid de destino del tenant como usuario local, el usuario raíz de la cuenta del tenant ha establecido una contraseña para tu cuenta de usuario en esa grid.
+
+
+
+
+[[create-two-buckets]]
+=== Crea dos buckets
+
+${post_edited_translations.segment}
+
+.Pasos
+. ${post_edited_translations.segment}
++
+.. ${post_edited_translations.segment}
++
+${post_edited_translations.segment}
+
+.. Sigue las instrucciones para link:creating-s3-bucket.html["${post_edited_translations.segment}"].
++
+
+TIP: Los nombres de los buckets y las regiones pueden ser diferentes en cada grid.
+
+.. En la pestaña *Administrar configuración de objetos*, selecciona *Habilitar control de versiones de objetos*.
+.. Si S3 Object Lock está habilitado para tu sistema StorageGRID, consulta link:../admin/grid-federation-what-is-cross-grid-replication.html#cgr-with-ol["Replicación entre grids con S3 Object Lock"].
+.. Selecciona *Create bucket*.
+.. Selecciona *Finalizar*.
+
+
+. Repite estos pasos para crear un bucket para la misma cuenta de inquilino en la otra grid de la conexión de federación de grids.
++
+
+TIP: Según sea necesario, cada bucket puede usar una región diferente.
+
+
+
+
+
+[[enable-cross-grid-replication]]
+=== Habilita la replicación entre grids
+
+Debes seguir estos pasos antes de añadir cualquier objeto a cualquiera de los dos buckets.
+
+.Pasos
+. A partir de un grid cuyos objetos quieras replicar, activa link:../admin/grid-federation-what-is-cross-grid-replication.html["${post_edited_translations.segment}"]:
++
+.. Inicia sesión en la cuenta de inquilino para el bucket.
+.. Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
+.. Selecciona el nombre del depósito en la tabla para acceder a la página de detalles del depósito.
+.. ${post_edited_translations.segment}
+.. Selecciona *Habilitar* y revisa la lista de requisitos.
+.. Si se han cumplido todos los requisitos, selecciona la conexión de federación de grid que quieres usar.
+.. ${post_edited_translations.segment}
++
+*** ${post_edited_translations.segment}
+*** ${post_edited_translations.segment}
++
+image:grid-federation-cross-grid-replication-client-deletes.png["Imagen que muestra la eliminación de un cliente replicado en ambas cuadrículas"]
+
++
+
+NOTE: Si la solicitud de eliminación incluye un ID de versión, esa versión del objeto se elimina de forma permanente del bucket de origen. StorageGRID no replica las solicitudes de eliminación que incluyen un ID de versión, por lo que esa misma versión del objeto no se elimina del destino.
+
++
+Consulta link:../admin/grid-federation-what-is-cross-grid-replication.html["¿Qué es la replicación entre grids?"] para obtener más detalles.
+
+
+
+.. Opcionalmente, cambia la configuración de la categoría de auditoría *Cross-grid replication* para gestionar el volumen de mensajes de auditoría:
++
+*** *Error* (por defecto): Solo se incluyen en la salida de auditoría las solicitudes de replicación entre grids que han fallado.
+*** ${post_edited_translations.segment}
+
+
+.. Revisa tus selecciones. No puedes cambiar esta configuración a menos que ambos depósitos estén vacíos.
+.. ${post_edited_translations.segment}
++
+Al cabo de unos instantes, aparece un mensaje de éxito. Los objetos añadidos a este bucket se replican ahora automáticamente en la otra grid. *Cross-grid replication* aparece como una función habilitada en la página de detalles del bucket.
+
+
+
+. Si lo prefieres, ve al bucket correspondiente en la otra grid y link:../admin/grid-federation-what-is-cross-grid-replication.html["activar la replicación entre redes en ambas direcciones"].
+
+
+
+
+[[test-replication-between-grids]]
+== Prueba de replicación entre grids
+
+Si la replicación entre redes está habilitada para un bucket, es posible que tengas que comprobar que la conexión y la replicación entre redes funcionan correctamente y que los buckets de origen y destino siguen cumpliendo todos los requisitos (por ejemplo, que el versionado siga habilitado).
+
+.Antes de empezar
+* Estás utilizando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["Permiso de acceso raíz"].
+
+
+.Pasos
+. Inicia sesión en la cuenta de inquilino para el bucket.
+. Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
+. Selecciona el nombre del depósito en la tabla para acceder a la página de detalles del depósito.
+. ${post_edited_translations.segment}
+. Selecciona *Probar conexión*.
++
+Si la conexión es correcta, aparece un mensaje de éxito. En caso contrario, aparece un mensaje de error que tanto tú como el administrador de grid podéis utilizar para resolver el problema. Para obtener más información, consulta link:../admin/grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+
+. Si la replicación entre grids está configurada para realizarse en ambas direcciones, ve al bucket correspondiente en el otro grid y selecciona *Probar conexión* para comprobar que la replicación entre grids funciona en la otra dirección.
+
+
+
+
+[[disable-cross-grid-replication]]
+== Desactivar la replicación entre grids
+
+Puedes detener de forma permanente la replicación entre grids si ya no deseas copiar objetos a la otra grid.
+
+Antes de desactivar la replicación entre grids, ten en cuenta lo siguiente:
+
+* Desactivar la replicación entre grids no elimina ningún objeto que ya se haya copiado entre grids. Por ejemplo, los objetos de `my-bucket` en el Grid 1 que se hayan copiado en `my-bucket` en el Grid 2 no se eliminan si desactivas la replicación entre grids para ese bucket. Si quieres eliminar estos objetos, debes quitarlos manualmente.
+* Si la replicación entre grids estaba habilitada para cada uno de los buckets (es decir, si la replicación se realiza en ambas direcciones), puedes deshabilitar la replicación entre grids para uno de los buckets o para ambos. Por ejemplo, es posible que quieras deshabilitar la replicación de objetos desde `my-bucket` en el Grid 1 a `my-bucket` en el Grid 2, mientras continúas replicando objetos desde `my-bucket` en el Grid 2 a `my-bucket` en el Grid 1.
+* Debes desactivar la replicación entre redes antes de poder eliminar el permiso de un inquilino para utilizar la conexión de federación de redes. Consulta link:../admin/grid-federation-manage-tenants.html["${post_edited_translations.segment}"].
+* ${post_edited_translations.segment}
++
+
+CAUTION: No puedes volver a activar la replicación a menos que ambos buckets estén vacíos.
+
+
+
+.Antes de empezar
+* Estás utilizando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["Permiso de acceso raíz"].
+
+
+.Pasos
+. Empezando por la grid cuyos objetos ya no quieras replicar, detén la replicación entre grids para el bucket:
++
+.. Inicia sesión en la cuenta de inquilino para el bucket.
+.. Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
+.. Selecciona el nombre del depósito en la tabla para acceder a la página de detalles del depósito.
+.. ${post_edited_translations.segment}
+.. Selecciona *Desactivar la replicación*.
+.. ${post_edited_translations.segment}
++
+Después de unos instantes, aparece un mensaje de éxito. Los nuevos objetos que añadas a este bucket ya no se podrán replicar automáticamente en el otro grid. La *replicación entre grids* ya no se muestra como una función habilitada en la página Buckets.
+
+
+
+. Si la replicación entre grids se configuró para que ocurra en ambas direcciones, ve al bucket correspondiente en el otro grid y detén la replicación entre grids en la otra dirección.
+

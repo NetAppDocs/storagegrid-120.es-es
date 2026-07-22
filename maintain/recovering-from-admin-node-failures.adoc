@@ -1,0 +1,23 @@
+---
+permalink: maintain/recovering-from-admin-node-failures.html 
+sidebar: sidebar 
+keywords: recover, admin node failure, workflow 
+summary: El proceso de recuperación de un nodo de administración depende de si es el nodo de administración principal o un nodo de administración no principal. 
+---
+= Recuperación del nodo de administración primario o no primario en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El proceso de recuperación de un nodo de administración depende de si es el nodo de administración principal o un nodo de administración no principal.
+
+A grandes rasgos, los pasos para recuperar un nodo de administración principal o no principal son los mismos, aunque los detalles de los pasos difieren.
+
+Sigue siempre el procedimiento de recuperación adecuado para el nodo de administración que estés recuperando. Los procedimientos son similares a grandes rasgos, pero difieren en los detalles.
+
+.Opciones
+* link:recovering-from-primary-admin-node-failures.html["Recupérate de fallos del nodo de administración principal"]
+* link:recovering-from-non-primary-admin-node-failures.html["Recupérate de fallos del nodo de administración no principal"]
+

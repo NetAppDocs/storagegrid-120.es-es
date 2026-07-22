@@ -1,0 +1,77 @@
+= ¿Qué es S3 Object Lock?
+:allow-uri-read: 
+
+
+
+
+[[what-is-s3-object-lock]]
+== ¿Qué es S3 Object Lock?
+
+La función S3 Object Lock de StorageGRID es una solución de protección de objetos equivalente a S3 Object Lock en Amazon Simple Storage Service (Amazon S3).
+
+Cuando la configuración global de S3 Object Lock está habilitada para un sistema StorageGRID, una cuenta de inquilino de S3 puede crear buckets con o sin S3 Object Lock habilitado. Si un bucket tiene S3 Object Lock habilitado, el control de versiones de buckets es obligatorio y se habilita automáticamente.
+
+*Un bucket sin S3 Object Lock* solo puede tener objetos sin una configuración de retención especificada. Ningún objeto ingerido tendrá configuración de retención.
+
+*Un bucket con S3 Object Lock* puede tener objetos con y sin ajustes de retención especificados por las aplicaciones cliente de S3. Algunos objetos incorporados tendrán ajustes de retención.
+
+*Un bucket con S3 Object Lock y la retención predeterminada configurada* puede contener objetos cargados con ajustes de retención especificados y nuevos objetos sin ajustes de retención. Los nuevos objetos usan la configuración predeterminada, porque la configuración de retención no se ha configurado a nivel de objeto.
+
+Efectivamente, todos los objetos recién ingeridos tienen ajustes de retención cuando se configura la retención predeterminada. Los objetos existentes sin ajustes de retención de objetos no se ven afectados.
+
+
+
+[[retention-modes]]
+=== Modos de retención
+
+La función Object Lock de StorageGRID S3 admite dos modos de retención para aplicar distintos niveles de protección a los objetos. Estos modos son equivalentes a los modos de retención de Amazon S3.
+
+* En modo de cumplimiento:
++
+** El objeto no se puede eliminar hasta que se alcance su fecha de retención.
+** ${post_edited_translations.segment}
+** La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
+
+
+* En modo de gobernanza:
++
+** Los usuarios con permisos especiales pueden utilizar un encabezado de omisión en las solicitudes para modificar determinados ajustes de retención.
+** ${post_edited_translations.segment}
+** ${post_edited_translations.segment}
+
+
+
+
+
+
+[[retention-settings-for-object-versions]]
+=== Configuración de retención para las versiones de los objetos
+
+Si se crea un depósito con S3 Object Lock activado, los usuarios pueden usar la aplicación cliente de S3 para especificar de forma opcional los siguientes parámetros de retención para cada objeto que se añada al depósito:
+
+* *Modo de retención*: cumplimiento normativo o gobernanza.
+* *Fecha límite de conservación*: Si la fecha límite de conservación de una versión de un objeto es posterior a la fecha actual, el objeto se puede recuperar, pero no se puede eliminar.
+* *Retención legal*: Al aplicar una retención legal a la versión de un objeto, dicho objeto queda bloqueado de inmediato. Por ejemplo, podrías necesitar aplicar una retención legal a un objeto relacionado con una investigación o una disputa legal. Una retención legal no tiene fecha de caducidad, sino que permanece vigente hasta que se elimine de forma explícita. Las retenciones legales son independientes de la retain-until-date.
++
+
+NOTE: ${post_edited_translations.segment}
+
++
+Para obtener detalles sobre la configuración de los objetos, consulta link:../s3/use-s3-api-for-s3-object-lock.html["Utiliza la API de REST de S3 para configurar S3 Object Lock"].
+
+
+
+
+
+[[default-retention-setting-for-buckets]]
+=== ${post_edited_translations.segment}
+
+Si se crea un bucket con S3 Object Lock activado, los usuarios pueden, si lo desean, especificar los siguientes ajustes predeterminados para el bucket:
+
+* *Modo de retención predeterminado*: cumplimiento o gobernanza.
+* ${post_edited_translations.segment}
+
+
+La configuración predeterminada del depósito solo se aplica a los objetos nuevos que no tienen su propia configuración de retención. Los objetos existentes en el depósito no se ven afectados cuando añades o cambias esta configuración predeterminada.
+
+Consulta link:../tenant/creating-s3-bucket.html["Crear un depósito de S3"] y link:../tenant/update-default-retention-settings.html["Actualizar la retención predeterminada de S3 Object Lock"].

@@ -1,0 +1,48 @@
+---
+permalink: maintain/removing-port-remaps.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, remove port remap, removing port remap, port remap 
+summary: Si deseas configurar un punto final para el servicio Load Balancer y quieres utilizar un puerto que ya se ha configurado como Puerto de destino en una reasignación de puertos, primero debes eliminar la reasignación de puertos existente o el punto final no será efectivo. Debes ejecutar un script en cada Admin Node y Gateway Node que tenga puertos reasignados en conflicto para eliminar todas las reasignaciones de puertos de ese nodo. 
+---
+= Eliminar las reasignaciones de puertos en los dispositivos StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si deseas configurar un endpoint para el servicio Load Balancer y quieres usar un puerto que ya se haya configurado como el Mapped-To Port de una reasignación de puertos, primero debes eliminar la reasignación de puertos existente o el endpoint no será efectivo. Debes ejecutar un script en cada Admin Node y Gateway Node que tenga puertos reasignados en conflicto para eliminar todas las reasignaciones de puertos del nodo.
+
+.Acerca de esta tarea
+Este procedimiento elimina todas las reasignaciones de puertos. Si necesitas conservar algunas de las reasignaciones, ponte en contacto con el soporte técnico.
+
+Para obtener información sobre cómo configurar los puntos de conexión del equilibrador de carga, consulta link:../admin/configuring-load-balancer-endpoints.html["Configurar los puntos de conexión del equilibrador de carga"].
+
+
+NOTE: Si la reasignación de puertos permite el acceso de los clientes, reconfigura el cliente para que use un puerto diferente como punto final del equilibrador de carga para evitar la pérdida de servicio. De lo contrario, eliminar la asignación de puertos resultará en la pérdida de acceso de los clientes y debe programarse adecuadamente.
+
+
+NOTE: Este procedimiento no funciona en un sistema StorageGRID implementado como contenedor en hosts «bare metal». Consulta las instrucciones para link:removing-port-remaps-on-bare-metal-hosts.html["Eliminando las reasignaciones de puertos en hosts bare metal"].
+
+.Pasos
+. El acceso externo por SSH está bloqueado de forma predeterminada. Si es necesario, link:../admin/manage-external-ssh-access.html["permitir el acceso de forma temporal"].
+. Inicia sesión en el nodo.
++
+.. Introduce el siguiente comando: `ssh -p 8022 admin@node_IP`
++
+${post_edited_translations.segment}
+
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. Ejecuta el siguiente script: `remove-port-remap.sh`
+. Reinicia el nodo: `reboot`
+. Cierra la sesión del intérprete de comandos: `exit`
+. Repite estos pasos en cada Admin Node y Gateway Node que tenga puertos reasignados en conflicto.
+. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado de eliminar las reasignaciones de puertos.
+

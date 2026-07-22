@@ -1,0 +1,28 @@
+---
+permalink: maintain/recovering-from-primary-admin-node-failures.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, primary admin node failure 
+summary: 'Debes realizar una serie de tareas específicas para recuperarte de un fallo del nodo de administración principal. El nodo de administración principal aloja el servicio Configuration Management Node (CMN) para el grid.' 
+---
+= Recupera de fallos del nodo primario de administración de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes realizar una serie de tareas específicas para recuperarte de un fallo del nodo de administración principal. El nodo de administración principal aloja el servicio Configuration Management Node (CMN) para el grid.
+
+
+CAUTION: Debes reparar o sustituir sin demora un nodo de administración principal que haya fallado o podrías no poder realizar ciertos procedimientos de mantenimiento.
+
+Sigue estos pasos a grandes rasgos para recuperar un nodo de administración principal:
+
+. link:copying-audit-logs-from-failed-primary-admin-node.html["Copiar los registros de auditoría del nodo de administración principal que ha fallado"]
+. link:replacing-primary-admin-node.html["Sustituir el nodo de administración principal"]
+. link:configuring-replacement-primary-admin-node.html["Configura el nodo de administración principal de sustitución"]
+. link:assess-hotfix-requirement-during-primary-admin-node-recovery.html["Determina si hay un requisito de corrección urgente para el nodo de administración principal recuperado"]
+. link:restoring-audit-log-on-recovered-primary-admin-node.html["Restaura el registro de auditoría en el nodo de administración principal recuperado"]
+. link:restoring-admin-node-database-primary-admin-node.html["Restaura la base de datos del nodo de administración cuando recuperas un nodo de administración principal"]
+. link:restoring-prometheus-metrics-primary-admin-node.html["Restaurar las métricas de Prometheus al recuperar un nodo de administración principal"]
+

@@ -1,0 +1,32 @@
+---
+permalink: swnodes/how-grid-nodes-discover-primary-admin-node.html 
+sidebar: sidebar 
+keywords: how grid nodes discover the primary Admin Node 
+summary: Los nodos de grid se comunican con el nodo de administración principal para la configuración y la gestión. Cada nodo de grid debe conocer la dirección IP del nodo de administración principal en la red de grid. 
+---
+= Cómo los nodos grid descubren el nodo Admin primario en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los nodos de grid se comunican con el nodo de administración principal para la configuración y la gestión. Cada nodo de grid debe conocer la dirección IP del nodo de administración principal en la red de grid.
+
+${post_edited_translations.segment}
+
+* Puedes utilizar el parámetro ADMIN_IP para introducir manualmente la dirección IP del nodo de administración principal.
+* Puedes omitir el parámetro ADMIN_IP para que el nodo de grid detecte el valor automáticamente. La detección automática es especialmente útil cuando la Red de grid utiliza DHCP para asignar la dirección IP al nodo de administración principal.
+
+
+El descubrimiento automático del nodo de administración principal se realiza mediante un sistema de nombres de dominio de multidifusión (mDNS). Cuando el nodo de administración principal se inicia por primera vez, publica su dirección IP mediante mDNS. Otros nodos de la misma subred pueden consultar la dirección IP y obtenerla automáticamente. Sin embargo, como el tráfico IP de multidifusión no suele ser enrutable entre subredes, los nodos de otras subredes no pueden obtener directamente la dirección IP del nodo de administración principal.
+
+[NOTE]
+====
+Si utilizas la detección automática:
+
+* Debes incluir la configuración ADMIN_IP para al menos un nodo de la red en cualquier subred a la que el nodo de administración principal no esté conectado directamente. De este modo, dicho nodo de la red publicará la dirección IP del nodo de administración principal para que los demás nodos de la subred puedan detectarlo mediante mDNS.
+* ${post_edited_translations.segment}
+
+
+====

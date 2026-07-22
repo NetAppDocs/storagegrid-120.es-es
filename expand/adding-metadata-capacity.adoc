@@ -1,0 +1,75 @@
+---
+permalink: expand/adding-metadata-capacity.html 
+sidebar: sidebar 
+keywords: metadata capacity, add, adding, expand, expansion, guidelines, Storage Nodes, metadata storage, StorageGRID 
+summary: Para garantizar que haya espacio suficiente para los metadatos de los objetos, puede que tengas que realizar un procedimiento de ampliación para añadir nuevos Storage Nodes en cada sitio. 
+---
+= Directrices para ampliar la capacidad de metadatos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para garantizar que haya espacio suficiente para los metadatos de los objetos, puede que tengas que realizar un procedimiento de ampliación para añadir nuevos Storage Nodes en cada sitio.
+
+StorageGRID reserva espacio para los metadatos de objetos en el volumen 0 de cada nodo de almacenamiento. Se mantienen tres copias de todos los metadatos de objetos en cada sitio, distribuidas de manera uniforme entre todos los nodos de almacenamiento.
+
+Puedes utilizar el Grid Manager para supervisar la capacidad de metadatos de los nodos de almacenamiento y calcular a qué ritmo se está consumiendo dicha capacidad. Además, se activa la alerta *Low metadata storage* para un nodo de almacenamiento cuando el espacio de metadatos utilizado alcanza determinados umbrales.
+
+Ten en cuenta que la capacidad de metadatos de objetos de una grid puede agotarse más rápido que su capacidad de almacenamiento de objetos, dependiendo de cómo utilices la grid. Por ejemplo, si normalmente incorporas grandes cantidades de objetos pequeños o añades grandes cantidades de metadatos de usuario o etiquetas a los objetos, puede que necesites añadir Storage Nodes para aumentar la capacidad de metadatos, aunque aún quede suficiente capacidad de almacenamiento de objetos.
+
+${post_edited_translations.segment}
+
+* link:../admin/managing-object-metadata-storage.html["Gestiona el almacenamiento de metadatos de objetos"]
+* link:../monitor/monitoring-storage-capacity.html#monitor-object-metadata-capacity-for-each-storage-node["Supervisa la capacidad de metadatos de objetos para cada Storage Node"]
+
+
+
+
+[[guidelines-for-increasing-metadata-capacity]]
+== Directrices para aumentar la capacidad de metadatos
+
+Antes de añadir nodos de almacenamiento para aumentar la capacidad de metadatos, revisa las siguientes directrices y limitaciones:
+
+* Siempre que se disponga de suficiente capacidad de almacenamiento de objetos, contar con más espacio disponible para los metadatos de los objetos aumenta el número de objetos que puedes almacenar en tu sistema StorageGRID.
+* Puedes aumentar la capacidad de metadatos de una grid añadiendo uno o varios Storage Nodes a cada sitio.
+* El espacio real reservado para los metadatos de los objetos en un Storage Node concreto depende de la opción de almacenamiento Metadata Reserved Space (configuración a nivel de sistema), de la cantidad de RAM asignada al nodo y del tamaño del volumen 0 del nodo.
+* No puedes aumentar la capacidad de metadatos añadiendo volúmenes de almacenamiento a los Storage Nodes existentes, porque los metadatos solo se almacenan en el volumen 0.
+* No puedes aumentar la capacidad de metadatos añadiendo un nuevo sitio.
+* StorageGRID mantiene tres copias de todos los metadatos de objetos en cada sitio. Por este motivo, la capacidad de metadatos de tu sistema se ve limitada por la capacidad de metadatos de tu sitio más pequeño.
+* Al ampliar la capacidad de metadatos, debes añadir el mismo número de nodos de almacenamiento a cada sitio.
+
+
+Los nodos de almacenamiento exclusivos para metadatos tienen requisitos de hardware específicos:
+
+* ${post_edited_translations.segment}
+* Cuando se utilizan nodos basados en software, los recursos de nodos solo metadatos deben coincidir con los recursos de Storage Nodes existentes. Por ejemplo:
++
+** Si el sitio de StorageGRID existente utiliza dispositivos SG6000 o SG6100, los nodos basados en software y dedicados exclusivamente a los metadatos deben cumplir los siguientes requisitos mínimos:
++
+*** 128 GB de RAM
+*** CPU de 8 núcleos
+*** SSD de 8 TB o almacenamiento equivalente para la base de datos Cassandra (rangedb/0)
+
+
+** Si el sitio StorageGRID existente utiliza nodos de almacenamiento virtuales con 24 GB de RAM, 8 núcleos de CPU y 3 TB o 4 TB de almacenamiento de metadatos, los nodos basados en software dedicados exclusivamente a metadatos deberían utilizar recursos similares (24 GB de RAM, 8 núcleos de CPU y 4 TB de almacenamiento de metadatos (rangedb/0)).
+
+
+* Al añadir un nuevo sitio de StorageGRID, la capacidad total de metadatos del nuevo sitio debe, como mínimo, igualar la de los sitios de StorageGRID existentes y los recursos del nuevo sitio deben igualar los nodos de almacenamiento en los sitios de StorageGRID existentes.
+
+
+Consulta el link:../admin/managing-object-metadata-storage.html["Descripción de qué es el espacio reservado para metadatos"].
+
+
+
+[[how-metadata-is-redistributed-when-you-add-storage-nodes]]
+== ${post_edited_translations.segment}
+
+Al añadir nodos de almacenamiento en una ampliación, StorageGRID redistribuye los metadatos de los objetos existentes a los nuevos nodos de cada sitio, lo que aumenta la capacidad total de metadatos del grid. No se requiere ninguna acción por parte del usuario.
+
+La siguiente figura muestra cómo StorageGRID redistribuye los metadatos de objetos cuando añades Storage Nodes en una ampliación. El lado izquierdo de la figura representa el volumen 0 de tres Storage Nodes antes de una ampliación. Los metadatos están consumiendo una parte relativamente grande del espacio de metadatos disponible de cada nodo, y se ha activado la alerta *Low metadata storage*.
+
+La parte derecha de la figura muestra cómo se redistribuyen los metadatos existentes tras añadir dos nodos de almacenamiento al sitio. La cantidad de metadatos en cada nodo ha disminuido, la alerta *Low metadata storage* ya no se activa y el espacio disponible para metadatos ha aumentado.
+
+image:metadata_space_after_expansion.png["Diagrama de la redistribución de los metadatos tras añadir dos Storage Nodes"]

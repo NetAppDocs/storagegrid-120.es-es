@@ -1,0 +1,69 @@
+---
+permalink: primer/storagegrid-architecture-and-network-topology.html 
+sidebar: sidebar 
+keywords: StorageGRID, architecture, deployment, topology, site, node redundancy, services, nodes 
+summary: Un sistema StorageGRID consiste en varios tipos de nodos de grid en uno o más sitios de centros de datos. 
+---
+= Arquitectura de StorageGRID y topología de red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un sistema StorageGRID consiste en varios tipos de nodos de grid en uno o más sitios de centros de datos.
+
+Conoce más sobre la link:nodes-and-services.html["tipos de nodos de grid"].
+
+Para obtener más información sobre la topología de red de StorageGRID, los requisitos y las comunicaciones de la red, consulta la link:../network/index.html["${post_edited_translations.segment}"].
+
+
+
+[[deployment-topologies]]
+== Topologías de implementación
+
+El sistema StorageGRID puede implementarse en un único centro de datos o en varios centros de datos. El número máximo de sitios por implementación es 16.
+
+
+
+[[single-site]]
+=== Un único sitio
+
+En una implementación con un único emplazamiento, la infraestructura y las operaciones del sistema StorageGRID están centralizadas.
+
+image:data_center_site_single.png["Sitio de un único centro de datos"]
+
+
+
+[[multiple-sites]]
+=== Varias sedes
+
+En una implementación con varios sitios, se pueden instalar diferentes tipos y cantidades de recursos de StorageGRID en cada sitio. Por ejemplo, podría requerirse más almacenamiento en un centro de datos que en otro.
+
+Los centros suelen estar situados en ubicaciones geográficamente distintas, repartidos por diferentes dominios de fallo, como una falla sísmica o una llanura aluvial. El intercambio de datos y la recuperación ante desastres se logran mediante la distribución automatizada de datos a otros centros.
+
+image:data_center_sites_multiple.png["Varios centros de datos"]
+
+También pueden existir varios sitios lógicos dentro de un mismo centro de datos para permitir el uso de replicación distribuida y codificación de borrado, aumentando así la disponibilidad y la resiliencia.
+
+
+
+[[grid-node-redundancy]]
+=== Redundancia de nodos de la red
+
+En una implementación de un solo sitio o de varios sitios, puedes incluir opcionalmente más de un nodo de administración o nodo de puerta de enlace para redundancia. Por ejemplo, puedes instalar más de un nodo de administración en un solo sitio o en varios sitios. Sin embargo, cada sistema StorageGRID solo puede tener un nodo de administración principal.
+
+
+
+[[system-architecture]]
+== Arquitectura del sistema
+
+Este diagrama muestra cómo se organizan los nodos de la grid en un sistema StorageGRID.
+
+image:grid_nodes_and_components.png["diagrama descrito por el texto que lo rodea"]
+
+Los clientes S3 almacenan y recuperan objetos en StorageGRID. Otros clientes se usan para enviar notificaciones por correo electrónico, acceder a la interfaz de gestión de StorageGRID y, opcionalmente, acceder al recurso compartido de auditoría.
+
+Los clientes S3 pueden conectarse a un nodo de puerta de enlace o a un nodo de administración para utilizar la interfaz de equilibrio de carga hacia los nodos de almacenamiento. Alternativamente, los clientes S3 pueden conectarse directamente a los nodos de almacenamiento mediante HTTPS.
+
+Los objetos se pueden almacenar en StorageGRID en nodos de almacenamiento basados en software o en hardware, o en Cloud Storage Pools, que consisten en buckets S3 externos o contenedores de almacenamiento de Azure Blob.

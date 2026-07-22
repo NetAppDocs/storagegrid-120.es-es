@@ -1,0 +1,26 @@
+---
+permalink: maintain/decommission-procedure.html 
+sidebar: sidebar 
+keywords: how to decommission 
+summary: Puedes llevar a cabo un procedimiento de decomisionar para eliminar de forma permanente nodos de la red o una sede completa del sistema StorageGRID. 
+---
+= Decomisionar un nodo o sitio de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes llevar a cabo un procedimiento de decomisionar para eliminar de forma permanente nodos de la red o una sede completa del sistema StorageGRID.
+
+Para eliminar un nodo de la red o una instalación, realiza uno de los siguientes procedimientos de decomisionar:
+
+* Realiza una link:grid-node-decommissioning.html["decomisionar nodo de la red"] para eliminar uno o varios nodos, que pueden estar en uno o varios sitios. Los nodos que elimines pueden estar en línea y conectados al sistema StorageGRID, o pueden estar fuera de línea y desconectados.
+* Realiza un link:considerations-for-removing-site.html["decomisionar el sitio"] para eliminar un sitio. Realiza una *decomisión de sitio conectado* si todos los nodos están conectados a StorageGRID. Realiza una *decomisión de sitio desconectado* si todos los nodos están desconectados de StorageGRID. Si el sitio contiene una combinación de nodos conectados y desconectados, debes volver a poner en línea todos los nodos que estén fuera de línea.
++
+
+CAUTION: Antes de descomisionar un sitio desconectado, ponte en contacto con tu representante de cuenta de NetApp. NetApp revisará tus requisitos antes de habilitar todos los pasos del asistente de descomisionamiento de sitios. No debes intentar descomisionar un sitio desconectado si crees que podría ser posible recuperar el sitio o recuperar los datos de objetos del sitio.
+
+
+
+Antes de decomisionar un nodo de grid, debes confirmar que no hay trabajos de reparación de datos activos. Si alguna reparación ha fallado, debes reiniciarla y dejar que termine antes de realizar el procedimiento de decomisionamiento. Consulta link:../maintain/checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"].

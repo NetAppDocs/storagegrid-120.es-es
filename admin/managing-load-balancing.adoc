@@ -1,0 +1,256 @@
+---
+permalink: admin/managing-load-balancing.html 
+sidebar: sidebar 
+keywords: manage load balancing, balance workload, client ingest, client retrieval, distribute connection 
+summary: Puedes utilizar el equilibrio de carga para gestionar las cargas de trabajo de ingesta y recuperación de los clientes S3. 
+---
+= Conoce el equilibrio de carga de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar el equilibrio de carga para gestionar las cargas de trabajo de ingesta y recuperación de los clientes S3.
+
+
+
+[[what-is-load-balancing]]
+== ¿Qué es el equilibrio de carga?
+
+Cuando una aplicación cliente guarda o recupera datos de un sistema StorageGRID, StorageGRID utiliza un equilibrador de carga para gestionar la carga de trabajo de ingesta y recuperación. El equilibrio de carga maximiza la velocidad y la capacidad de conexión al distribuir la carga de trabajo entre varios Storage Nodes.
+
+El servicio StorageGRID Load Balancer está instalado en todos los nodos de administración y en todos los nodos de puerta de enlace y proporciona equilibrio de carga de capa 7. Realiza la terminación de Transport Layer Security (TLS) de las solicitudes de los clientes, inspecciona las solicitudes y establece nuevas conexiones seguras con los nodos de almacenamiento.
+
+El servicio de equilibrio de carga de cada nodo funciona de forma independiente a la hora de reenviar el tráfico de los clientes a los nodos de almacenamiento. Mediante un proceso de ponderación, el servicio de equilibrio de carga dirige más solicitudes hacia los nodos de almacenamiento con mayor disponibilidad de CPU.
+
+
+NOTE: Aunque el servicio StorageGRID Load Balancer es el mecanismo de equilibrio de carga recomendado, es posible que quieras integrar un equilibrador de carga de terceros en su lugar. Para obtener más información, contacta a tu representante de cuenta de NetApp o consulta https://docs.netapp.com/us-en/storagegrid-enable/technical-reports/load-balancer-index.html["Usa balanceadores de carga de terceros con StorageGRID"^].
+
+
+
+[[how-many-load-balancing-nodes-do-i-need]]
+== ¿Cuántos nodos de equilibrio de carga necesito?
+
+Como práctica recomendada general, cada sitio de tu sistema StorageGRID debería incluir dos o más nodos con el servicio Load Balancer. Por ejemplo, un sitio puede incluir dos Gateway Nodes o tanto un Admin Node como un Gateway Node. Asegúrate de que haya una infraestructura de red, hardware o virtualización adecuada para cada nodo de equilibrio de carga, ya sea que uses servicios appliances, nodos bare metal o nodos basados en máquinas virtuales (VM).
+
+
+
+[[what-is-a-load-balancer-endpoint]]
+== ¿Qué es un endpoint de un equilibrador de carga?
+
+Un punto final del equilibrador de carga define el puerto y el protocolo de red (HTTPS o HTTP) que utilizarán las solicitudes entrantes y salientes de las aplicaciones cliente para acceder a los nodos que contienen el servicio Load Balancer. El punto final también define el tipo de cliente (S3), el modo de enlace y, opcionalmente, una lista de inquilinos permitidos o bloqueados.
+
+Para crear un endpoint de equilibrador de carga, usa el Grid Manager o completa los asistentes de configuración de S3 y FabricPool:
+
+* link:configuring-load-balancer-endpoints.html["Configura los puntos de conexión del equilibrador de carga"]
+* link:use-s3-setup-wizard-steps.html["Utiliza el asistente de configuración de S3"]
+* link:../fabricpool/use-fabricpool-setup-wizard-steps.html["Usa el asistente de configuración de FabricPool"]
+
+
+
+
+[[considerations-for-load-balancer-caching]]
+=== Aspectos a tener en cuenta para el almacenamiento en caché del equilibrador de carga
+
+El almacenamiento en caché mejora considerablemente el rendimiento cuando una carga de trabajo opera sobre un subconjunto de datos y accede a los objetos varias veces. Además, el almacenamiento en caché permite el acceso remoto al almacenamiento de objetos sin una implementación completa del grid. El almacenamiento en caché del balanceador de carga solo está disponible para Gateway Nodes.
+
+Al crear puntos de conexión del equilibrador de carga:
+
+* Activa el almacenamiento en caché únicamente para las cargas de trabajo almacenables en caché. Las cargas de trabajo que acceden a datos no almacenados en caché con más frecuencia que a los datos almacenados en caché tendrán un rendimiento inferior al que tendrían si no se hubieran gestionado mediante la caché. En algunos casos, las cargas de trabajo con altas tasas de sobrescritura y expulsión también podrían superar la resistencia garantizada de la unidad a la escritura.
+* Considera añadir puntos finales o nodos adicionales para almacenar en caché cargas de trabajo individuales que sean buenas candidatas para el almacenamiento en caché.
+* Utiliza puntos finales distintos para las cargas de trabajo almacenables en caché y las que no lo son. Esta separación garantiza que los mecanismos de almacenamiento en caché se apliquen correctamente y no interfieran en el procesamiento de datos que no son almacenables en caché.
+* Evalúa una carga de trabajo almacenable en caché dirigiéndola al endpoint habilitado para caché. Supervisa y verifica la tasa de aciertos en caché para determinar la idoneidad de la carga de trabajo para el almacenamiento en caché. Esta evaluación ayuda a optimizar el rendimiento y a asegurar un uso eficiente de los recursos de caché.
+* link:../audit/index.html["Revisar los registros de auditoría"] para determinar si una carga de trabajo existente sería una buena candidata para el almacenamiento en caché. Para un periodo de tiempo determinado, determina qué porcentaje de solicitudes GET corresponden a objetos únicos. Para que sea adecuado para el almacenamiento en caché, este valor debería ser inferior al 50%.
+
+
+
+
+==== Ejemplos de cargas de trabajo que podrían ser buenas candidatas para el almacenamiento en caché
+
+* Lagos de datos
+* ${post_edited_translations.segment}
+* Entrenamiento de IA/ML
+* Redes de distribución de contenidos (CDN)
+* ${post_edited_translations.segment}
+* Producción de vídeos
+
+
+[NOTE]
+====
+* Se pueden almacenar en caché varias versiones de un objeto.
+* Se admiten operaciones de lectura de rango.
+
+
+====
+
+
+==== Ejemplos de cargas de trabajo que no son buenas candidatas para el almacenamiento en caché
+
+* FabricPool
+* Aplicaciones de backup
+* Niveles de almacenamiento
+
+
+
+CAUTION: Si algún contenido que vaya a servirse desde la caché requiere cifrado en reposo, https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/optional-enabling-node-encryption.html["activar el cifrado de nodos o unidades"^] en el nodo de la caché.
+
+
+
+==== Tipos de objetos y solicitudes que no se almacenarán en la caché
+
+* El  `response-content-encoding` parámetro de consulta
+* El parámetro de consulta  `partNumber`
+* Encabezados condicionales
++
+** `If-Match`
+** `If-Modified-Since`
+** `If-None-Match`
+** `If-Unmodified-Since`
+
+
+* Solicitudes que se cifraron en reposo con cualquiera de los siguientes:
++
+** SSE (cifrado del lado del servidor con claves gestionadas por StorageGRID)
+** SSE-C (cifrado del lado del servidor con claves proporcionadas por el cliente)
+** Cifrado de objetos almacenados
+
+
+
+
+Las solicitudes que no estén almacenadas en la caché se reenvían a un LDR de nivel superior como si la caché no estuviera activada.
+
+.Información relacionada
+* link:../troubleshoot/troubleshooting-load-balancer-caching.html["Soluciona problemas relacionados con el almacenamiento en caché del equilibrador de carga"]
+* Para obtener más información sobre el almacenamiento en caché del equilibrador de carga, ponte en contacto con soporte técnico.
+
+
+
+
+[[considerations-for-the-port]]
+=== Consideraciones para el puerto
+
+El puerto para un punto final del equilibrador de carga es 10433 de forma predeterminada para el primer punto final que crees, pero puedes especificar cualquier puerto externo no utilizado entre 1 y 65535. Si usas el puerto 80 o 443, el punto final usará el servicio de Load Balancer solo en los Gateway Nodes. Estos puertos están reservados en los Admin Nodes. Si usas el mismo puerto para más de un punto final, debes especificar un modo de enlace diferente para cada punto final.
+
+No se permiten los puertos utilizados por otros servicios de grid. Consulta link:../network/internal-grid-node-communications.html#storagegrid-internal-ports["Puertos internos de StorageGRID"].
+
+
+
+[[considerations-for-the-network-protocol]]
+=== Consideraciones para el protocolo de red
+
+En la mayoría de los casos, las conexiones entre las aplicaciones cliente y StorageGRID deben utilizar el cifrado TLS (Transport Layer Security). Conectarse a StorageGRID sin cifrado TLS es compatible pero no se recomienda, especialmente en entornos de producción. Cuando selecciones el protocolo de red para el punto final del equilibrador de carga de StorageGRID, debes seleccionar *HTTPS*.
+
+
+
+[[considerations-for-load-balancer-endpoint-certificates]]
+=== Consideraciones sobre los certificados de los puntos finales del equilibrador de carga
+
+Si seleccionas *HTTPS* como protocolo de red para el punto final del equilibrador de carga, debes proporcionar un certificado de seguridad. Puedes utilizar cualquiera de estas tres opciones al crear el punto final del equilibrador de carga:
+
+* *Sube un certificado firmado (recomendado)*. Este certificado puede estar firmado por una autoridad de certificación (CA) de confianza pública o privada. La mejor práctica es usar un certificado de servidor de una CA de confianza pública para asegurar la conexión. A diferencia de los certificados generados, los certificados firmados por una CA pueden rotarse sin interrupciones, lo que puede ayudar a evitar problemas de caducidad.
++
+Debes obtener los siguientes archivos antes de crear el punto de conexión del equilibrador de carga:
+
++
+** El archivo del certificado del servidor personalizado.
+** El archivo de la clave privada del certificado de servidor personalizado.
+** Opcionalmente, un paquete CA de los certificados de cada autoridad de certificación emisora intermedia.
+
+
+* *Generar un certificado autofirmado*.
+* *Utiliza el certificado global de StorageGRID S3*. Debes cargar o generar una versión personalizada de este certificado antes de poder seleccionarlo para el punto final del equilibrador de carga. Consulta link:../admin/configuring-custom-server-certificate-for-storage-node.html["Configura los certificados de la API de S3"].
+
+
+
+
+==== ¿Qué valores necesito?
+
+Para crear el certificado, debes conocer todos los nombres de dominio y direcciones IP que utilizarán las aplicaciones cliente de S3 para acceder al endpoint.
+
+La entrada *DN del sujeto* (nombre distintivo) del certificado debe incluir el nombre de dominio completo que utilizará la aplicación cliente para StorageGRID. Por ejemplo:
+
+[listing]
+----
+Subject DN: /C=Country/ST=State/O=Company,Inc./CN=s3.storagegrid.example.com
+----
+Según sea necesario, el certificado puede utilizar comodines para representar los nombres de dominio completos de todos los nodos de administración y nodos de puerta de enlace que ejecutan el servicio de Load Balancer. Por ejemplo, `*.storagegrid._example_.com` utiliza el comodín * para representar `adm1.storagegrid._example_.com` y `gn1.storagegrid._example_.com`.
+
+Si tienes pensado utilizar solicitudes de estilo virtual hosted de S3, el certificado también debe incluir una entrada de *nombre alternativo* para cada link:../admin/configuring-s3-api-endpoint-domain-names.html["${post_edited_translations.segment}"] que hayas configurado, incluidos los nombres de comodín. Por ejemplo:
+
+[listing]
+----
+Alternative Name: DNS:*.s3.storagegrid.example.com
+----
+
+NOTE: Si usas comodines para nombres de dominio, revisa link:../harden/hardening-guideline-for-server-certificates.html["Directrices de refuerzo de la seguridad para certificados de servidor"].
+
+También debes definir una entrada DNS para cada nombre que figure en el certificado de seguridad.
+
+
+
+==== ${post_edited_translations.segment}
+
+
+CAUTION: Si caduca el certificado utilizado para proteger la conexión entre la aplicación S3 y StorageGRID, es posible que la aplicación pierda temporalmente el acceso a StorageGRID.
+
+Para evitar problemas relacionados con la caducidad de los certificados, sigue estas recomendaciones:
+
+* Presta especial atención a cualquier alerta que avise de la proximidad de la fecha de caducidad de un certificado, como las alertas *Caducidad del certificado del punto final del equilibrador de carga* y *Caducidad del certificado global del servidor para la API de S3*.
+* Mantén siempre sincronizadas las versiones del certificado de StorageGRID y de la aplicación S3. Si sustituyes o renuevas el certificado utilizado para un punto final del equilibrador de carga, debes sustituir o renovar el certificado equivalente utilizado por la aplicación S3.
+* Utiliza un certificado de CA firmado públicamente. Si utilizas un certificado firmado por una CA, puedes reemplazar los certificados que estén a punto de caducar sin interrumpir el servicio.
+* Si has generado un certificado autofirmado de StorageGRID y dicho certificado está a punto de caducar, debes sustituirlo manualmente tanto en StorageGRID como en la aplicación S3 antes de que caduque el certificado actual.
+
+
+
+
+[[considerations-for-the-binding-mode]]
+=== ${post_edited_translations.segment}
+
+El modo de vinculación te permite controlar qué direcciones IP se pueden usar para acceder a un endpoint del equilibrador de carga. Si un endpoint utiliza un modo de vinculación, las aplicaciones cliente solo pueden acceder al endpoint si usan una dirección IP permitida o su dominio completo (FQDN) correspondiente. Las aplicaciones cliente que usen cualquier otra dirección IP o FQDN no pueden acceder al endpoint.
+
+${post_edited_translations.segment}
+
+* *Global* (predeterminado): Las aplicaciones cliente pueden acceder al endpoint utilizando la dirección IP de cualquier Gateway Node o Admin Node, la dirección IP virtual (VIP) de cualquier HA group en cualquier red, o el FQDN correspondiente. Usa esta configuración a menos que necesites restringir la accesibilidad de un endpoint.
+* *Direcciones IP virtuales de los grupos de alta disponibilidad*. Las aplicaciones cliente deben utilizar una dirección IP virtual (o el nombre de dominio completo correspondiente) de un grupo de alta disponibilidad.
+* *Interfaces de nodo*. Los clientes deben utilizar las direcciones IP (o los dominios completos correspondientes) de las interfaces de nodo seleccionadas.
+* *Tipo de nodo*. En función del tipo de nodo que selecciones, los clientes deben usar la dirección IP (o el FQDN correspondiente) de cualquier Admin Node o la dirección IP (o el FQDN correspondiente) de cualquier Gateway Node.
+
+
+
+
+[[considerations-for-tenant-access]]
+=== Consideraciones para el acceso de los inquilinos
+
+El acceso de los inquilinos es una función de seguridad opcional que te permite controlar qué cuentas de inquilinos de StorageGRID pueden utilizar un punto de conexión del equilibrador de carga para acceder a sus buckets. Puedes permitir que todos los inquilinos accedan a un punto de conexión (por defecto) o especificar una lista de los inquilinos permitidos o bloqueados para cada punto de conexión.
+
+Puedes usar esta función para proporcionar un mejor aislamiento de seguridad entre los inquilinos y sus endpoints. Por ejemplo, podrías usar esta función para asegurarte de que los materiales top-secret o altamente clasificados que pertenecen a un inquilino sigan siendo completamente inaccesibles para los demás inquilinos.
+
+
+NOTE: A efectos del control de acceso, el inquilino se determina a partir de las claves de acceso utilizadas en la solicitud del cliente; si no se proporcionan claves de acceso como parte de la solicitud (como ocurre con el acceso anónimo), se utiliza al propietario del bucket para determinar el inquilino.
+
+
+
+==== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+. Has creado dos puntos de conexión del equilibrador de carga, como sigue:
++
+** Punto de conexión *público*: utiliza el puerto 10443 y permite el acceso a todos los inquilinos.
+** Punto final *Top secret*: utiliza el puerto 10444 y solo permite el acceso al inquilino *Top secret*. Todos los demás inquilinos tienen bloqueado el acceso a este punto final.
+
+
+. El `top-secret.pdf` está en un bucket propiedad del inquilino *Top secret*.
+
+
+Para acceder a `top-secret.pdf`, un usuario del tenant *Top secret* puede enviar una solicitud GET a `\https://w.x.y.z:10444/top-secret.pdf`. Dado que este tenant tiene permiso para utilizar el endpoint 10444, el usuario puede acceder al objeto. Sin embargo, si un usuario perteneciente a cualquier otro tenant envía la misma solicitud a la misma URL, recibe inmediatamente un mensaje de Acceso denegado. Se deniega el acceso incluso si las credenciales y la firma son válidas.
+
+
+
+[[cpu-availability]]
+== ${post_edited_translations.segment}
+
+El servicio Load Balancer en cada nodo de administración y nodo de puerta de enlace funciona de forma independiente al reenviar el tráfico S3 a los nodos de almacenamiento. A través de un proceso de ponderación, el servicio Load Balancer dirige más solicitudes a los nodos de almacenamiento con mayor disponibilidad de CPU. La información de carga de la CPU del nodo se actualiza cada pocos minutos, pero la ponderación podría actualizarse con más frecuencia. A todos los nodos de almacenamiento se les asigna un valor de peso base mínimo, incluso si un nodo informa de un 100 % de utilización o no informa de su utilización.
+
+${post_edited_translations.segment}

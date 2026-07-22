@@ -1,0 +1,260 @@
+---
+permalink: monitor/monitoring-system-health.html 
+sidebar: sidebar 
+keywords: how to monitor system health, how to view system health 
+summary: Supervisa diariamente el estado general de tu sistema StorageGRID. 
+---
+= Supervisa la salud del sistema en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Supervisa diariamente el estado general de tu sistema StorageGRID.
+
+.Acerca de esta tarea
+El sistema StorageGRID puede seguir funcionando aunque algunas partes de la red no estén disponibles. Los posibles problemas indicados por las alertas no tienen por qué ser problemas relacionados con el funcionamiento del sistema. Investiga los problemas resumidos en la tarjeta de estado de salud del panel de Grid Manager.
+
+Para recibir notificaciones de las alertas tan pronto como se activen, puedes  https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/setting-up-email-notifications-for-alerts.html["configura notificaciones por correo electrónico para alertas"^] o link:using-snmp-monitoring.html["configurar las traps SNMP"].
+
+image:health_status_card.png["Tarjeta de estado de salud - panel de control"]
+
+Cuando hay incidencias, aparecen enlaces que te permiten consultar más detalles:
+
+[cols="1a,2a"]
+|===
+| ${post_edited_translations.segment} | Aparece cuando... 
+
+
+ a| 
+Detalles de la cuadrícula
+ a| 
+Hay nodos desconectados (estado de conexión Unknown o Administratively Down).
+
+
+
+ a| 
+Alertas actuales (críticas, mayores, menores)
+ a| 
+Las alertas están <<Ver alertas actuales y resueltas,actualmente activo>>.
+
+
+
+ a| 
+Alertas resueltas recientemente
+ a| 
+Alertas activadas durante la última semana <<Ver alertas actuales y resueltas,ya se han resuelto>>.
+
+
+
+ a| 
+Licencia
+ a| 
+Hay un problema con la licencia de software de este sistema StorageGRID. Puedes link:../admin/updating-storagegrid-license-information.html["Actualiza la información de la licencia según sea necesario"].
+
+|===
+
+
+[[monitor-node-connection-states]]
+== Supervisa el estado de las conexiones de los nodos
+
+Si uno o varios nodos se desconectan de la grid, las operaciones críticas de StorageGRID podrían verse afectadas. Supervisa el estado de conexión de los nodos y resuelve cualquier problema con prontitud.
+
+[cols="1a,3a,3a"]
+|===
+| Icono | Descripción | Acción requerida 
+
+
+ a| 
+image:icon_alarm_blue_unknown.png["icono de signo de interrogación azul"]
+ a| 
+*Sin conexión - Desconocido*
+
+Por alguna razón desconocida, un nodo se ha desconectado o los servicios de dicho nodo han dejado de funcionar de forma inesperada. Por ejemplo, es posible que un servicio del nodo se haya detenido o que el nodo haya perdido la conexión a la red debido a un corte de corriente o a una interrupción inesperada.
+
+También podría activarse la alerta *Unable to communicate with node*. Es posible que también haya otras alertas activas.
+ a| 
+Requiere atención inmediata. <<Ver alertas actuales y resueltas,Selecciona cada alerta>> y sigue las acciones recomendadas.
+
+Por ejemplo, es posible que tengas que reiniciar un servicio que se haya detenido o reiniciar el host para el nodo.
+
+*Nota*: Es posible que un nodo aparezca como «Desconocido» durante las operaciones de apagado controlado. En estos casos, puedes ignorar el estado «Desconocido».
+
+
+
+ a| 
+image:icon_alarm_gray_administratively_down.png["icono de signo de interrogación gris"]
+ a| 
+*Sin conexión - Fuera de servicio por motivos administrativos*
+
+Por una razón previsible, el nodo no está conectado a la grid.
+
+Por ejemplo, el nodo, o los servicios en el nodo, se ha apagado de forma controlada, el nodo se está reiniciando o el software se está actualizando. También puede haber una o más alertas activas.
+
+Dependiendo del problema subyacente, estos nodos suelen volver a estar en línea sin intervención.
+ a| 
+Comprueba si hay alguna alerta que afecte a este nodo.
+
+Si hay una o varias alertas activas, <<Ver alertas actuales y resueltas,selecciona cada alerta>> y sigue las medidas recomendadas.
+
+
+
+ a| 
+image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"]
+ a| 
+*Conectado*
+
+El nodo está conectado a la grid.
+ a| 
+No es necesario realizar ninguna acción.
+
+|===
+
+
+[[view-current-and-resolved-alerts]]
+== Ver alertas actuales y resueltas
+
+*Alertas actuales*: Cuando se activa una alerta, aparece un icono de alerta en el panel de control. También aparece un icono de alerta para el nodo en la página de Nodos. Si link:email-alert-notifications.html["Las notificaciones por correo electrónico de alertas están configuradas"], también se enviará una notificación por correo electrónico, a menos que se haya silenciado la alerta.
+
+*Alertas resueltas*: Puedes buscar y consultar un historial de alertas que ya se han resuelto.
+
+Opcionalmente, has visto el vídeo:
+
+.Resumen de alertas
+video::2eea81c5-8323-417f-b0a0-b1ff008506c1[panopto]
+La siguiente tabla describe la información que se muestra en el Grid Manager para las alertas actuales y resueltas.
+
+[cols="1a,3a"]
+|===
+| Encabezado de columna | Descripción 
+
+
+ a| 
+Nombre o título
+ a| 
+El nombre de la alerta y su descripción.
+
+
+
+ a| 
+Gravedad
+ a| 
+La gravedad de la alerta. Para las alertas actuales, si hay varias alertas agrupadas, la fila del título muestra cuántas instancias de esa alerta están ocurriendo en cada gravedad.
+
+image:icon_alert_red_critical.png["Icono de alerta rojo crítico"] *Crítico*: Existe una condición anómala que ha detenido las operaciones normales de un nodo o servicio de StorageGRID. Debes solucionar el problema subyacente de inmediato. Si no resuelves el problema, podría haber interrupciones en el servicio y pérdida de datos.
+
+image:icon_alert_orange_major.png["Icono de alerta naranja grave"] *Grave*: Existe una situación anómala que está afectando al funcionamiento actual o que se está acercando al umbral de una alerta crítica. Deberías investigar las alertas graves y resolver cualquier problema subyacente para asegurarte de que la situación anómala no detenga el funcionamiento normal de un nodo o servicio de StorageGRID.
+
+image:icon_alert_yellow_minor.png["Icono de alerta amarillo menor"] *Menor*: El sistema funciona con normalidad, pero existe una situación anómala que, si continúa, podría afectar la capacidad del sistema para operar. Deberías supervisar y resolver las alertas menores que no se resuelvan por sí solas para asegurarte de que no resulten en un problema más grave.
+
+
+
+ a| 
+Activado por tiempo
+ a| 
+*Alertas actuales*: La fecha y la hora en que se activó la alerta, tanto en tu hora local como en UTC. Si hay varias alertas agrupadas, la fila del título muestra las horas de la instancia más reciente de la alerta (_newest_) y de la más antigua (_oldest_).
+
+*Alertas resueltas*: cuánto tiempo hace que se activó la alerta.
+
+
+
+ a| 
+Sitio/Nodo
+ a| 
+El nombre del sitio y del nodo en el que se está produciendo o se ha producido la alerta.
+
+
+
+ a| 
+Estado
+ a| 
+Si la alerta está activa, silenciada o resuelta. Si hay varias alertas agrupadas y se selecciona *All alerts* en el menú desplegable, la fila del título muestra cuántas instancias de esa alerta están activas y cuántas se han silenciado.
+
+
+
+ a| 
+Hora de resolución (solo alertas resueltas)
+ a| 
+Cuánto tiempo hace que se resolvió la alerta.
+
+
+
+ a| 
+Valores actuales o _valores de datos_
+ a| 
+El valor de la métrica que provocó que se activara la alerta. En algunas alertas, se muestran valores adicionales para ayudarte a comprender e investigar la alerta. Por ejemplo, los valores que se muestran para una alerta de *Low object data storage* incluyen el porcentaje de espacio en disco utilizado, la cantidad total de espacio en disco y la cantidad de espacio en disco utilizado.
+
+*Nota:* Si se agrupan varias alertas actuales, los valores actuales no se muestran en la fila del título.
+
+
+
+ a| 
+Valores activados (solo alertas resueltas)
+ a| 
+El valor de la métrica que provocó que se activara la alerta. En algunas alertas, se muestran valores adicionales para ayudarte a comprender e investigar la alerta. Por ejemplo, los valores que se muestran para una alerta de *Low object data storage* incluyen el porcentaje de espacio en disco utilizado, la cantidad total de espacio en disco y la cantidad de espacio en disco utilizado.
+
+|===
+.Pasos
+. Selecciona el enlace *Alertas actuales* o *Alertas resueltas* para ver una lista de alertas en esas categorías. También puedes ver los detalles de una alerta seleccionando *Nodos* > *_nodo_* > *Resumen* y luego seleccionando la alerta en la tabla de Alertas.
++
+De forma predeterminada, las alertas actuales se muestran de la siguiente manera:
+
++
+** Las alertas activadas más recientemente se muestran en primer lugar.
+** Varias alertas del mismo tipo se muestran como un grupo.
+** Las alertas que se han silenciado no se muestran.
+** En el caso de una alerta concreta en un nodo específico, si se alcanzan los umbrales para más de una gravedad, solo se muestra la alerta de mayor gravedad. Es decir, si se alcanzan los umbrales de alerta para las gravedades menor, mayor y crítica, solo se muestra la alerta crítica.
++
+La página «Alertas actuales» se actualiza cada dos minutos.
+
+
+
+. Para expandir los grupos de alertas, selecciona el símbolo de flecha hacia abajo image:icon_alert_caret_down.png["icono de la flecha hacia abajo"]. Para contraer alertas individuales en un grupo, selecciona el símbolo de flecha hacia arriba image:icon_alert_caret_up.png["Icono de flecha hacia arriba"] o selecciona el nombre del grupo.
+. Para mostrar alertas individuales en lugar de grupos de alertas, desmarca la casilla *Agrupar alertas*.
+. Para ordenar las alertas actuales o los grupos de alertas, selecciona las flechas arriba/abajo image:icon_alert_sort_column.png["Icono de flechas de ordenación"] en el encabezado de cada columna.
++
+** Cuando se selecciona *Alertas de grupo*, se ordenan tanto los grupos de alertas como las alertas individuales de cada grupo. Por ejemplo, podrías querer ordenar las alertas de un grupo por *Hora de activación* para encontrar la instancia más reciente de una alerta específica.
+** Cuando se desmarca la opción *Group alerts*, se ordena toda la lista de alertas. Por ejemplo, es posible que quieras ordenar todas las alertas por *Node/Site* para ver todas las alertas que afectan a un nodo concreto.
+
+
+. Para filtrar las alertas actuales por estado (*Todas las alertas*, *Activas* o *Silenciadas*, utiliza el menú desplegable situado en la parte superior de la tabla.
++
+Consulta link:silencing-alert-notifications.html["Silenciar las notificaciones de alerta"].
+
+. Para ordenar las alertas resueltas:
++
+** Selecciona un intervalo de tiempo en el menú desplegable *When triggered*.
+** Selecciona una o más gravedades en el menú desplegable *Gravedad*.
+** Selecciona una o varias reglas de alerta predeterminadas o personalizadas en el menú desplegable *Regla de alerta* para filtrar las alertas resueltas relacionadas con una regla de alerta concreta.
+** Selecciona uno o más nodos en el menú desplegable *Nodo* para filtrar las alertas resueltas relacionadas con un nodo específico.
+
+
+. Para ver los detalles de una alerta concreta, selecciona la alerta. Aparecerá un cuadro de diálogo con los detalles y las acciones recomendadas para la alerta que seleccionaste.
+. (Opcional) Para una alerta concreta, selecciona silence this alert para silenciar la regla de alerta que provocó que se activara esta alerta.
++
+Debes tener el link:../admin/admin-group-permissions.html["Gestiona alertas o permisos de acceso root"] para desactivar una regla de alerta.
+
++
+
+CAUTION: Ten cuidado a la hora de decidir silenciar una regla de alerta. Si se silencia una regla de alerta, es posible que no detectes un problema subyacente hasta que este impida que se complete una operación crítica.
+
+. Para consultar las condiciones actuales de la regla de alerta:
++
+.. En los detalles de la alerta, selecciona *Ver condiciones*.
++
+Aparece una ventana emergente, que muestra la expresión de Prometheus para cada gravedad definida.
+
+.. Para cerrar la ventana emergente, haz clic en cualquier lugar fuera de la ventana emergente.
+
+
+. Si lo deseas, selecciona *Editar regla* para modificar la regla de alerta que provocó que se activara esta alerta.
++
+Debes tener el link:../admin/admin-group-permissions.html["Gestiona alertas o permisos de acceso root"] para editar una regla de alerta.
+
++
+
+CAUTION: Ten cuidado a la hora de editar una regla de alerta. Si modificas los valores de activación, es posible que no detectes un problema subyacente hasta que este impida que se complete una operación crítica.
+
+. Para cerrar los detalles de la alerta, selecciona *Cerrar*.
+

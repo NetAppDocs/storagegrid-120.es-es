@@ -1,0 +1,41 @@
+---
+permalink: audit/accessing-audit-log-file.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, log, log file, access, accessing 
+summary: La carpeta «audit» contiene el archivo «audit.log» activo y cualquier archivo de registro de auditoría comprimido. Puedes acceder a los archivos de registro de auditoría directamente desde la línea de comandos del Admin Node. 
+---
+= Accede a los archivos de registro de auditoría desde la línea de comandos del nodo de administración de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El recurso compartido de auditoría contiene el archivo `audit.log` activo y cualquier archivo de registro de auditoría comprimido. Puedes acceder a los archivos de registro de auditoría directamente desde la línea de comandos del Admin Node.
+
+El archivo  `audit.log` permanece vacío a menos que configures StorageGRID para *Admin Nodes/local nodes* o *Admin Node and external syslog server*. Para más información, consulta link:../monitor/configure-log-management.html#select-log-location["${post_edited_translations.segment}"].
+
+.Antes de empezar
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+* Debes tener el archivo  `Passwords.txt`.
+* ${post_edited_translations.segment}
+
+
+.Pasos
+. Inicia sesión en un nodo de administración:
++
+.. Introduce el siguiente comando: `ssh admin@_primary_Admin_Node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. ${post_edited_translations.segment}
++
+`cd  /var/local/audit/export/`
+
+. ${post_edited_translations.segment}
+

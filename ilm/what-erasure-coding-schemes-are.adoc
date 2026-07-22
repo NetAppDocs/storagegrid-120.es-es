@@ -1,0 +1,354 @@
+---
+permalink: ilm/what-erasure-coding-schemes-are.html 
+sidebar: sidebar 
+keywords: erasure-coding scheme 
+summary: Los esquemas de código de borrado controlan cuántos fragmentos de datos y cuántos fragmentos de paridad se crean para cada objeto. 
+---
+= Conoce los esquemas de codificación de borrado en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los esquemas de código de borrado controlan cuántos fragmentos de datos y cuántos fragmentos de paridad se crean para cada objeto.
+
+Al crear o editar una regla de ILM, debes seleccionar un esquema de código de borrado disponible. StorageGRID crea automáticamente esquemas de código de borrado en función de cuántos nodos de almacenamiento y sitios forman el grupo de almacenamiento que planeas usar.
+
+
+
+[[data-protection]]
+== Protección de datos
+
+El sistema StorageGRID utiliza el algoritmo de código de borrado Reed-Solomon. El algoritmo divide un objeto en `k` fragmentos de datos y calcula `m` fragmentos de paridad.
+
+Los  `k + m = n` fragmentos se distribuyen entre  `n` los nodos de almacenamiento para proporcionar protección de datos de la siguiente manera:
+
+* Para recuperar o reparar un objeto, se necesitan fragmentos. `k`
+* Un objeto puede soportar hasta `m` fragmentos perdidos o dañados. Cuanto mayor sea el valor de `m`, mayor será la tolerancia a los fallos.
+
+
+La mejor protección de datos la ofrece el esquema de código de borrado con mayor tolerancia a fallos de nodos o volúmenes dentro de un storage pool.
+
+
+
+[[storage-overhead]]
+== Sobrecarga de almacenamiento
+
+La sobrecarga de almacenamiento de un esquema de codificación de borrado se calcula dividiendo el número de fragmentos de paridad (`m` entre el número de fragmentos de datos (`k`. Puedes utilizar la sobrecarga de almacenamiento para calcular cuánto espacio en disco requiere cada objeto codificado mediante código de borrado:
+
+`_disk space_ = _object size_ + (_object size_ * _storage overhead_)`
+
+Por ejemplo, si almacenas un objeto de 10 MB utilizando el esquema 4+2 (que tiene una sobrecarga de almacenamiento del 50 %), el objeto ocupa 15 MB de almacenamiento en grid. Si almacenas el mismo objeto de 10 MB utilizando el esquema 6+2 (que tiene una sobrecarga de almacenamiento del 33 %), el objeto ocupa aproximadamente 13,3 MB.
+
+Selecciona el esquema de código de borrado con el valor total más bajo de `k+m` que se adapte a tus necesidades. Los esquemas de código de borrado con un número menor de fragmentos son más eficientes desde el punto de vista computacional porque:
+
+* Se crean y distribuyen (o recuperan) menos fragmentos por objeto
+* Ofrecen un mejor rendimiento porque el tamaño de los fragmentos es mayor
+* Pueden requerir que se añadan menos nodos en un link:../expand/index.html["ampliación cuando se requiere más almacenamiento"]
+
+
+
+
+[[guidelines-for-storage-pools]]
+== Directrices para los grupos de almacenamiento
+
+Al seleccionar el grupo de almacenamiento que se va a utilizar para una regla que creará una copia con código de borrado, sigue estas directrices relativas a los grupos de almacenamiento:
+
+* El grupo de almacenamiento debe incluir tres o más emplazamientos, o exactamente un emplazamiento.
++
+
+NOTE: No puedes usar el código de borrado si el grupo de almacenamiento incluye dos sitios.
+
++
+** <<Esquemas de código de borrado para grupos de almacenamiento que contienen tres o más emplazamientos,Esquemas de código de borrado para grupos de almacenamiento que contienen tres o más emplazamientos>>
+** <<Esquemas de código de borrado para grupos de almacenamiento de un solo sitio,Esquemas de código de borrado para grupos de almacenamiento de un solo sitio>>
+
+
+* No utilices un grupo de almacenamiento que incluya el sitio All Sites.
+* El grupo de almacenamiento debe incluir al menos `_k+m_ +1` nodos de almacenamiento capaces de almacenar datos de objetos.
++
+
+NOTE: Los nodos de almacenamiento pueden configurarse durante la instalación para que contengan datos de objetos y metadatos (nodo de almacenamiento «combinado»), solo metadatos de objetos o solo datos de objetos. Para obtener más información, consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"].
+
++
+El número mínimo de nodos de almacenamiento necesarios es `k+m`. Sin embargo, tener al menos un nodo de almacenamiento adicional puede ayudar a evitar fallos en la ingesta o retrasos en el ILM si un nodo de almacenamiento necesario no está disponible temporalmente.
+
+
+
+
+
+[[erasure-coding-schemes-for-storage-pools-containing-three-or-more-sites]]
+== Esquemas de código de borrado para grupos de almacenamiento que contienen tres o más emplazamientos
+
+La siguiente tabla describe los esquemas de código de borrado que admite actualmente StorageGRID para los grupos de almacenamiento que incluyen tres o más emplazamientos. Todos estos esquemas ofrecen protección frente a la pérdida de un emplazamiento. Se puede perder un emplazamiento y el objeto seguirá siendo accesible.
+
+Para los esquemas de código de borrado que ofrecen protección frente a la pérdida de un sitio, el número recomendado de Storage Nodes en el storage pool supera `_k+m_ +1` porque cada sitio requiere un mínimo de tres Storage Nodes.
+
+[cols="1a,1a,1a,1a,1a,1a"]
+|===
+| Esquema de código de borrado (_k+m_) | Número mínimo de sitios implementados | Número recomendado de nodos de almacenamiento en cada sitio | Número total recomendado de nodos de almacenamiento | ¿Protección contra la pérdida del sitio? | Sobrecarga de almacenamiento 
+
+
+ a| 
+4+2
+ a| 
+3
+ a| 
+3
+ a| 
+9
+ a| 
+Sí
+ a| 
+50%
+
+
+
+ a| 
+6+2
+ a| 
+4
+ a| 
+3
+ a| 
+12
+ a| 
+Sí
+ a| 
+33%
+
+
+
+ a| 
+8+2
+ a| 
+5
+ a| 
+3
+ a| 
+15
+ a| 
+Sí
+ a| 
+25%
+
+
+
+ a| 
+6+3
+ a| 
+3
+ a| 
+4
+ a| 
+12
+ a| 
+Sí
+ a| 
+50%
+
+
+
+ a| 
+9+3
+ a| 
+4
+ a| 
+4
+ a| 
+16
+ a| 
+Sí
+ a| 
+33%
+
+
+
+ a| 
+2+1
+ a| 
+3
+ a| 
+3
+ a| 
+9
+ a| 
+Sí
+ a| 
+50%
+
+
+
+ a| 
+4+1
+ a| 
+5
+ a| 
+3
+ a| 
+15
+ a| 
+Sí
+ a| 
+25%
+
+
+
+ a| 
+6+1
+ a| 
+7
+ a| 
+3
+ a| 
+21
+ a| 
+Sí
+ a| 
+17%
+
+
+
+ a| 
+7+5
+ a| 
+3
+ a| 
+5
+ a| 
+15
+ a| 
+Sí
+ a| 
+71%
+
+|===
+
+NOTE: StorageGRID requiere un mínimo de tres nodos de almacenamiento por sitio. Para usar el esquema 7+5, cada sitio requiere un mínimo de cuatro nodos de almacenamiento. Se recomienda usar cinco nodos de almacenamiento por sitio.
+
+A la hora de seleccionar un esquema de código de borrado que ofrezca protección de sitio, hay que sopesar la importancia relativa de los siguientes factores:
+
+* *Número de fragmentos*: Por lo general, el rendimiento y la flexibilidad de expansión son mejores cuando el número total de fragmentos es menor.
+* *Tolerancia a fallos*: La tolerancia a fallos aumenta al disponer de más segmentos de paridad (es decir, cuando  `m` tiene un valor más alto).
+* *Tráfico de red*: Al recuperarse de fallos, usar un esquema con más fragmentos (es decir, un valor total más alto para  `k+m`) genera más tráfico de red.
+* *Sobrecarga de almacenamiento*: los esquemas con mayor sobrecarga requieren más espacio de almacenamiento por objeto.
+
+
+Por ejemplo, a la hora de decidir entre un esquema 4+2 y uno 6+3 (ambos con una sobrecarga de almacenamiento del 50 %), elige el esquema 6+3 si se requiere una mayor tolerancia a fallos. Elige el esquema 4+2 si los recursos de red son limitados. Si todos los demás factores son iguales, elige el 4+2 porque tiene un número total de fragmentos menor.
+
+
+NOTE: Si no estás seguro de qué esquema debes utilizar, selecciona 4+2 o 6+3, o ponte en contacto con soporte técnico.
+
+
+
+[[erasure-coding-schemes-for-one-site-storage-pools]]
+== Esquemas de código de borrado para grupos de almacenamiento de un solo sitio
+
+Un grupo de almacenamiento de un solo sitio es compatible con todos los esquemas de código de borrado definidos para tres o más sitios, siempre que dicho sitio cuente con suficientes nodos de almacenamiento.
+
+El número mínimo de nodos de almacenamiento necesarios es `k+m`, pero se recomienda un grupo de almacenamiento con `k+m +1` nodos de almacenamiento. Por ejemplo, el esquema de código de borrado 2+1 requiere un grupo de almacenamiento con un mínimo de tres nodos de almacenamiento, pero se recomienda un grupo de cuatro nodos de almacenamiento.
+
+[cols="1a,1a,1a,1a"]
+|===
+| Esquema de código de borrado (_k+m_) | Número mínimo de nodos de almacenamiento | Número recomendado de nodos de almacenamiento | Sobrecarga de almacenamiento 
+
+
+ a| 
+4+2
+ a| 
+6
+ a| 
+7
+ a| 
+50%
+
+
+
+ a| 
+6+2
+ a| 
+8
+ a| 
+9
+ a| 
+33%
+
+
+
+ a| 
+8+2
+ a| 
+10
+ a| 
+11
+ a| 
+25%
+
+
+
+ a| 
+6+3
+ a| 
+9
+ a| 
+10
+ a| 
+50%
+
+
+
+ a| 
+9+3
+ a| 
+12
+ a| 
+13
+ a| 
+33%
+
+
+
+ a| 
+2+1
+ a| 
+3
+ a| 
+4
+ a| 
+50%
+
+
+
+ a| 
+4+1
+ a| 
+5
+ a| 
+6
+ a| 
+25%
+
+
+
+ a| 
+6+1
+ a| 
+7
+ a| 
+8
+ a| 
+17%
+
+
+
+ a| 
+7+5
+ a| 
+12
+ a| 
+13
+ a| 
+71%
+
+|===

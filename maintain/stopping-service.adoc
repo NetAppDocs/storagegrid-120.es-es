@@ -1,0 +1,53 @@
+---
+permalink: maintain/stopping-service.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, stop service, service 
+summary: Algunos procedimientos de mantenimiento requieren que detengas un único servicio mientras los demás servicios del nodo de la grid siguen en funcionamiento. Solo detén servicios individuales cuando un procedimiento de mantenimiento te lo indique. 
+---
+= Detén un servicio StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Algunos procedimientos de mantenimiento requieren que detengas un único servicio mientras los demás servicios del nodo de la grid siguen en funcionamiento. Solo detén servicios individuales cuando un procedimiento de mantenimiento te lo indique.
+
+.Antes de empezar
+Tienes el archivo  `Passwords.txt`.
+
+.Acerca de esta tarea
+Si sigues estos pasos para «detener administrativamente» un servicio, Administrador de servidores no reiniciará automáticamente dicho servicio. Debes iniciar el servicio manualmente o reiniciar Administrador de servidores.
+
+Si necesitas detener el servicio LDR en un nodo de almacenamiento, ten en cuenta que puede tardar un rato en detenerse si hay conexiones activas.
+
+.Pasos
+. Inicia sesión en el nodo de la grid:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Detener un servicio concreto: `service _servicename_ stop`
++
+Por ejemplo:
+
++
+[listing]
+----
+service ldr stop
+----
++
+
+NOTE: Los servicios pueden tardar hasta 11 minutos en detenerse.
+
+. Cierra la sesión del intérprete de comandos: `exit`
+
+
+.Información relacionada
+link:forcing-service-to-terminate.html["Forzar la finalización del servicio"]

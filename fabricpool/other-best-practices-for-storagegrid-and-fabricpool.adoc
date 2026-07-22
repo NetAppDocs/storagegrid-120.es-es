@@ -1,0 +1,63 @@
+---
+permalink: fabricpool/other-best-practices-for-storagegrid-and-fabricpool.html 
+sidebar: sidebar 
+keywords: fabricPool, StorageGRID, best practices, audit log, encryption, compressions, tiering, ontap, consistency 
+summary: Al configurar un sistema StorageGRID para usarlo con FabricPool, es posible que debas cambiar otras opciones de StorageGRID. Antes de cambiar una configuración global, considera cómo afectará el cambio a otras aplicaciones S3. 
+---
+= Mejores prácticas para la configuración global de StorageGRID con FabricPool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al configurar un sistema StorageGRID para usarlo con FabricPool, es posible que debas cambiar otras opciones de StorageGRID. Antes de cambiar una configuración global, considera cómo afectará el cambio a otras aplicaciones S3.
+
+
+
+[[audit-message-and-log-destinations]]
+== Destinos de mensajes de auditoría y registros
+
+FabricPool suele tener cargas de trabajo con una alta tasa de operaciones de lectura, lo que puede generar un gran volumen de mensajes de auditoría.
+
+* Si no necesitas un registro de las operaciones de lectura de los clientes para FabricPool o cualquier otra aplicación de S3, puedes ir a *Configuración* > *Supervisión* > *Servidor de auditoría y syslog*. Cambia el ajuste *Lecturas de clientes* a *Error* para reducir el número de mensajes de auditoría registrados en el registro de auditoría. Consulta link:../monitor/configure-log-management.html["Configura la gestión de registros y el servidor syslog externo"] para obtener más detalles.
+* Si tienes una grid grande, usas varios tipos de aplicaciones S3 o quieres conservar todos los datos de auditoría, configura un servidor syslog externo y guarda la información de auditoría de forma remota. Usar un servidor externo minimiza el impacto en el rendimiento del registro de mensajes de auditoría sin reducir la integridad de los datos de auditoría. Consulta link:../monitor/considerations-for-external-syslog-server.html["Aspectos a tener en cuenta para un servidor syslog externo"] para más detalles.
+
+
+
+
+[[object-encryption]]
+== Cifrado de objetos
+
+Al configurar StorageGRID, puedes habilitar opcionalmente link:../admin/changing-network-options-object-encryption.html["Opción global para el cifrado de objetos almacenados"] si necesitas cifrar los datos para otros clientes de StorageGRID. Los datos que se transfieren por niveles desde FabricPool a StorageGRID ya están cifrados, por lo que no es necesario que habilites la configuración de StorageGRID. Las claves de cifrado del lado del cliente pertenecen a ONTAP.
+
+
+
+[[object-compression]]
+== Compresión de objetos
+
+Al configurar StorageGRID, no actives la link:../admin/configuring-stored-object-compression.html["${post_edited_translations.segment}"]. Los datos que se transfieren de FabricPool a StorageGRID ya están comprimidos. Usar la opción de StorageGRID no reducirá aún más el tamaño de un objeto.
+
+
+
+[[s3-object-lock]]
+== Bloqueo de objetos de S3
+
+Si la configuración global de S3 Object Lock está habilitada para tu sistema StorageGRID, no habilites link:../s3/use-s3-api-for-s3-object-lock.html["Bloqueo de objetos de S3"] cuando crees buckets de FabricPool. S3 Object Lock no es compatible con los buckets de FabricPool.
+
+
+
+[[bucket-consistency]]
+== Consistencia del bucket
+
+Para los buckets de FabricPool, la consistencia recomendada es *Read-after-new-write*, que es la consistencia predeterminada para un bucket nuevo. No edites los buckets de FabricPool para que usen *Available* o *Strong-site*.
+
+
+
+[[fabricpool-tiering]]
+== FabricPool organización en niveles
+
+Si un nodo de StorageGRID utiliza almacenamiento asignado desde un sistema NetApp ONTAP, comprueba que el volumen no tenga habilitada una política de organización por niveles de FabricPool. Por ejemplo, si un nodo de StorageGRID se ejecuta en un host de VMware, asegúrate de que el volumen que respalda el datastore para el nodo de StorageGRID no tenga habilitada una política de organización por niveles de FabricPool. Desactivar la organización por niveles de FabricPool para los volúmenes utilizados con nodos de StorageGRID simplifica la resolución de problemas y las operaciones de almacenamiento.
+
+
+CAUTION: Nunca uses FabricPool para transferir ningún dato relacionado con StorageGRID de vuelta al propio StorageGRID. Transferir datos de StorageGRID de vuelta a StorageGRID aumenta la complejidad de la resolución de problemas y de las operaciones.

@@ -1,0 +1,86 @@
+---
+permalink: admin/temporarily-disabling-and-reenabling-sso-for-admin-node.html 
+sidebar: sidebar 
+keywords: signing in when sso is down, single sign on failure 
+summary: 'Es posible que no puedas iniciar sesión en Grid Manager si el sistema de inicio de sesión único (SSO) deja de funcionar. En ese caso, puedes desactivar y volver a activar temporalmente el SSO para un Admin Node. Para desactivar y volver a activar el SSO, debes acceder al shell de comandos del nodo.' 
+---
+= Deshabilita temporalmente y vuelve a habilitar SSO para un nodo de administración StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que no puedas iniciar sesión en el Grid Manager si el sistema de inicio de sesión único (SSO) deja de funcionar. En este caso, puedes desactivar y volver a activar temporalmente el SSO para un nodo de administración. Para desactivar y luego volver a activar el SSO, debes acceder al shell de comandos del nodo.
+
+.Antes de empezar
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+* Tienes el archivo  `Passwords.txt`.
+* Conoces la contraseña del usuario raíz local.
+
+
+.Acerca de esta tarea
+Después de deshabilitar el SSO para un nodo de administración, puedes iniciar sesión en el Grid Manager como el usuario raíz local. Para proteger tu sistema StorageGRID, debes usar el shell de comandos del nodo para volver a habilitar el SSO en el nodo de administración tan pronto como cierres sesión.
+
+
+TIP: Desactivar el SSO en un nodo de administración no afecta la configuración del SSO de los demás nodos de administración en la grid. La casilla *Habilitar SSO* en la página de inicio de sesión único en el Grid Manager permanece seleccionada y todos los ajustes de SSO existentes se mantienen a menos que los actualices.
+
+.Pasos
+. Inicia sesión en un nodo de administración:
++
+.. Introduce el siguiente comando: `ssh admin@Admin_Node_IP`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. Ejecuta el siguiente comando:``disable-saml``
++
+Un mensaje indica que el comando solo se aplica a este Admin Node.
+
+. ${post_edited_translations.segment}
++
+Aparece un mensaje que indica que el inicio de sesión único está desactivado en el nodo.
+
+. Desde un navegador web, accede al Grid Manager en el mismo nodo de administración.
++
+Ahora se muestra la página de inicio de sesión de Grid Manager porque se ha desactivado el inicio de sesión único.
+
+. ${post_edited_translations.segment}
+. Si has desactivado temporalmente el SSO porque tenías que corregir la configuración del SSO:
++
+.. Selecciona *Configuración* > *Control de acceso* > *inicio de sesión único*.
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar*.
++
+Al seleccionar *Guardar* en la página de inicio de sesión único, se vuelve a activar automáticamente el SSO para toda la grid.
+
+
+
+. Si has desactivado temporalmente el SSO porque necesitabas acceder al Grid Manager por cualquier otro motivo:
++
+.. ${post_edited_translations.segment}
+.. Selecciona *Cerrar sesión* y cierra el Grid Manager.
+.. Vuelve a activar el SSO en el nodo de administración. Puedes seguir cualquiera de los siguientes pasos:
++
+*** Ejecuta el siguiente comando: `enable-saml`
++
+Un mensaje indica que el comando solo se aplica a este Admin Node.
+
++
+Confirma que deseas activar el inicio de sesión único.
+
++
+Aparece un mensaje que indica que el inicio de sesión único está activado en el nodo.
+
+*** Reinicia el nodo de grid: `reboot`
+
+
+
+
+. ${post_edited_translations.segment}
+. Comprueba que aparece la página de Sign in de StorageGRID y que debes introducir tus credenciales de SSO para acceder a Grid Manager.
+

@@ -1,0 +1,128 @@
+---
+permalink: ilm/example-1-ilm-rules-and-policy-for-object-storage.html 
+sidebar: sidebar 
+keywords: example ILM rule, information lifecycle rule examples 
+summary: Puedes usar las siguientes reglas y políticas de ejemplo como punto de partida al definir una política de ILM que se ajuste a tus requisitos de protección y retención de objetos. 
+---
+= Reglas y políticas de ILM para la protección y retención básica de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes usar las siguientes reglas y políticas de ejemplo como punto de partida al definir una política de ILM que se ajuste a tus requisitos de protección y retención de objetos.
+
+
+CAUTION: Las siguientes reglas y políticas de ILM son solo ejemplos. Existen muchas formas de configurar reglas de ILM. Antes de activar una nueva política, simúlala para confirmar que funcionará como esperas y protegerá el contenido contra la pérdida.
+
+
+
+[[ilm-rule-1-for-example-1-copy-object-data-to-two-sites]]
+== Regla 1 de ILM para el ejemplo 1: Copia los datos de los objetos en dos sitios
+
+Esta regla de ILM de ejemplo copia los datos de los objetos a grupos de almacenamiento en dos sitios.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Grupos de almacenamiento en un único sitio
+ a| 
+Dos grupos de almacenamiento, cada uno con diferentes sitios, llamados Site 1 y Site 2.
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+Dos copias dos sitios
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Desde el día 0 hasta siempre, mantén una copia replicada en el sitio 1 y otra copia replicada en el sitio 2.
+
+|===
+La sección de análisis de reglas del diagrama de retención dice:
+
+* La protección contra la pérdida de un sitio de StorageGRID se aplicará mientras esté vigente esta regla.
+* Los objetos procesados por esta regla no serán eliminados por ILM.
+
+
+image:ilm_rule_two_copies_two_data_centers.png["Regla 1 de ILM para el ejemplo 1: Copia los datos de los objetos en dos sitios"]
+
+
+
+[[ilm-rule-2-for-example-1-erasure-coding-profile-with-bucket-matching]]
+== Regla 2 de ILM para el ejemplo 1: perfil de código de borrado con coincidencia de bucket
+
+Esta regla de ILM de ejemplo utiliza un perfil de código de borrado y un bucket de S3 para determinar dónde y durante cuánto tiempo se almacena el objeto.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Grupo de almacenamiento con múltiples emplazamientos
+ a| 
+* Un grupo de almacenamiento que abarca tres sitios (sitios 1, 2 y 3)
+* Utiliza el esquema de codificación de borrado 6+3
+
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+Bucket S3 finance-records
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Para los objetos del bucket S3 llamado finance-records, crea una copia con código de borrado en el pool especificado por el perfil de erasure-coding. Conserva esta copia para siempre.
+
+|===
+image:ilm_rule_ec_for_s3_bucket_finance_records.png["Regla 2 de ILM para el ejemplo 1: perfil de código de borrado con coincidencia de bucket"]
+
+
+
+[[ilm-policy-for-example-1]]
+== Política de ILM para el ejemplo 1
+
+En la práctica, la mayoría de las políticas de ILM son sencillas, aunque el sistema StorageGRID permite diseñar políticas de ILM sofisticadas y complejas.
+
+Una política típica de ILM para una red con múltiples emplazamientos podría incluir reglas de ILM como las siguientes:
+
+* Durante la importación, almacena todos los objetos pertenecientes al bucket de S3 llamado `finance-records` en un pool de almacenamiento que contenga tres sitios. Utiliza codificación de borrado 6+3.
+* Si un objeto no cumple con la primera regla de ILM, usa la regla de ILM predeterminada de la política, Two Copies Two Data Centers, para almacenar una copia de ese objeto en Site 1 y otra copia en Site 2.
++
+image:policy_1_configured_policy.png["Política de ILM para el ejemplo 1"]
+
+
+
+.Información relacionada
+* link:ilm-policy-overview.html["Usa políticas de ILM"]
+* link:creating-ilm-policy.html["${post_edited_translations.segment}"]
+

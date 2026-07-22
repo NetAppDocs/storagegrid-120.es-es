@@ -1,0 +1,211 @@
+---
+permalink: maintain/restoring-existing-nodes.html 
+sidebar: sidebar 
+keywords: recover, restore node to host, node configuration file, start host service 
+summary: Para restaurar un nodo de grid que ha fallado en un nuevo host Linux, sigue estos pasos para restaurar el archivo de configuración del nodo. 
+---
+= Restaura los nodos StorageGRID en el host
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para restaurar un nodo de grid que ha fallado en un nuevo host Linux, sigue estos pasos para restaurar el archivo de configuración del nodo.
+
+. <<restore-validate-grid-nodes,Restaurar y validar el nodo>> restaurando el archivo de configuración del nodo. Para una nueva instalación, creas un archivo de configuración de nodo para cada nodo de grid que se va a instalar en un host. Cuando restauras un nodo de grid en un host de reemplazo, restauras o reemplazas el archivo de configuración de nodo para cualquier nodo de grid que haya fallado.
+. <<start-storagegrid-host-service,Inicia el servicio de host de StorageGRID>>.
+. Si es necesario, <<recover-nodes-fail-start,recupera cualquier nodo que no logre iniciarse>>.
+
+
+Si se han conservado volúmenes de almacenamiento en bloque del host anterior, es posible que tengas que llevar a cabo procedimientos de recuperación adicionales. Los comandos de esta sección te ayudan a determinar qué procedimientos adicionales son necesarios.
+
+
+
+[[restore-and-validate-grid-nodes]]
+[[restore-validate-grid-nodes]]
+== Restaurar y validar los nodos de la red
+
+Debes restaurar los archivos de configuración de la grid para cualquier nodo de la grid que haya fallado y luego validar los archivos de configuración de la grid y resolver cualquier error.
+
+.Acerca de esta tarea
+Puedes importar cualquier nodo de la grid que deba estar presente en el host, siempre y cuando su volumen  `/var/local` no se haya perdido como resultado del fallo del host anterior. Por ejemplo, el volumen  `/var/local` podría seguir existiendo si usaste almacenamiento compartido para los volúmenes de datos del sistema StorageGRID, como se describe en las instrucciones de instalación de StorageGRID para tu sistema operativo Linux. Importar el nodo restaura su archivo de configuración en el host.
+
+Si no es posible importar los nodos que faltan, deberás volver a crear sus archivos de configuración de grid.
+
+A continuación, debes validar el archivo de configuración de grid y resolver cualquier problema de red o almacenamiento que pueda surgir antes de reiniciar StorageGRID. Cuando vuelvas a crear el archivo de configuración de un nodo, debes usar el mismo nombre para el nodo de reemplazo que se usó para el nodo que estás recuperando.
+
+Consulta la link:../swnodes/index.html["Instrucciones de instalación de Linux"] para obtener más información sobre la ubicación del volumen  `/var/local` de un nodo.
+
+.Pasos
+. En la línea de comandos del host recuperado, muestra todos los nodos de StorageGRID configurados actualmente:``sudo storagegrid node list``
++
+Si no se ha configurado ningún nodo de la grid, no habrá salida. Si se han configurado algunos nodos de la grid, la salida tendrá el siguiente formato:
+
++
+[listing]
+----
+Name               Metadata-Volume
+================================================================
+dc1-adm1           /dev/mapper/sgws-adm1-var-local
+dc1-gw1            /dev/mapper/sgws-gw1-var-local
+dc1-sn1            /dev/mapper/sgws-sn1-var-local
+dc1-arc1           /dev/mapper/sgws-arc1-var-local
+----
++
+Si no aparecen en la lista algunos o todos los nodos de grid que deberían estar configurados en el host, necesitas restaurar los nodos de grid que faltan.
+
+. Para importar nodos de la grid que tienen un volumen  `/var/local`:
++
+.. Ejecuta el siguiente comando para cada nodo que quieras importar:``sudo storagegrid node import node-var-local-volume-path``
++
+El  `storagegrid node import` comando solo se ejecuta correctamente si el nodo de destino se apagó correctamente en el host en el que se ejecutó por última vez. Si no es así, aparecerá un error similar al siguiente:
+
++
+`This node (_node-name_) appears to be owned by another host (UUID host-uuid).`
+
++
+`Use the --force flag if you are sure import is safe.`
+
+.. Si ves el error de que el nodo pertenece a otro host, ejecuta el comando de nuevo con la opción  `--force` para completar la importación:``sudo storagegrid --force node import node-var-local-volume-path``
++
+
+NOTE: Cualquier nodo importado con el indicador  `--force` requerirá pasos de recuperación adicionales antes de poder volver a unirse a la grid, como se describe en link:whats-next-performing-additional-recovery-steps-if-required.html["Próximos pasos: realiza los pasos de recuperación adicionales, si es necesario"].
+
+
+
+. Para los nodos de la grid que no tienen un volumen  `/var/local`, vuelve a crear el archivo de configuración del nodo para restaurarlo en el host. Para obtener instrucciones, consulta link:../swnodes/creating-node-configuration-files.html["Crear archivos de configuración de nodos"].
++
+
+NOTE: Al volver a crear el archivo de configuración de un nodo, debes usar para el nodo de reemplazo el mismo nombre que se usó para el nodo que estás recuperando. Para implementaciones en Linux, asegúrate de que el nombre del archivo de configuración contenga el nombre de nodo. Deberías usar las mismas interfaces de red, asignaciones de dispositivos de bloque y direcciones IP siempre que sea posible. Esta práctica minimiza la cantidad de datos que se deben copiar al nodo durante la recuperación, lo que podría hacer que la recuperación sea significativamente más rápida (en algunos casos, minutos en lugar de semanas).
+
++
+
+NOTE: Si utilizas dispositivos de bloque nuevos (dispositivos que el nodo de StorageGRID no haya utilizado anteriormente) como valores para cualquiera de las variables de configuración que comienzan con  `BLOCK_DEVICE_` cuando vuelvas a crear el archivo de configuración de un nodo, sigue las pautas de <<fix-block-errors,Soluciona los errores de dispositivos de bloque que faltan>>.
+
+. Ejecuta el siguiente comando en el host recuperado para listar todos los nodos de StorageGRID.
++
+`sudo storagegrid node list`
+
+. Valida el archivo de configuración de cada nodo de grid cuyo nombre apareció en la salida de storagegrid node list:
++
+`sudo storagegrid node validate _node-name_`
+
++
+Debes solucionar cualquier error o advertencia antes de iniciar el servicio de host de StorageGRID. En las secciones siguientes se ofrece más información sobre los errores que pueden tener una importancia especial durante la recuperación.
+
+
+
+
+
+[[fix-missing-network-interface-errors]]
+=== Soluciona los errores de interfaz de red faltante
+
+Si la red de host no está configurada correctamente o hay un error ortográfico en un nombre, se produce un error cuando StorageGRID comprueba la asignación especificada en el archivo  `/etc/storagegrid/nodes/_node-name_.conf`.
+
+Es posible que veas un error o una advertencia que se ajuste a este patrón:
+
+[listing]
+----
+Checking configuration file /etc/storagegrid/nodes/<node-name>.conf for node <node-name>...
+ERROR: <node-name>: GRID_NETWORK_TARGET = <host-interface-name>
+       <node-name>: Interface <host-interface-name>' does not exist
+----
+El error podría haberse notificado en la red Grid, la red Admin o la red Client. Este error significa que el  `/etc/storagegrid/nodes/_node-name_.conf` archivo asigna la red StorageGRID indicada a la interfaz del host llamada  `_host-interface-name_`, pero no existe ninguna interfaz con ese nombre en el host actual.
+
+Si aparece este error, comprueba que hayas seguido los pasos que se indican en link:deploying-new-linux-hosts.html["Implementar nuevos hosts Linux"]. Utiliza para todas las interfaces del host los mismos nombres que se utilizaban en el host original.
+
+Si no puedes asignar nombres a las interfaces del host que coincidan con el archivo de configuración del nodo, puedes editar el archivo de configuración del nodo y cambiar el valor de GRID_NETWORK_TARGET, ADMIN_NETWORK_TARGET o CLIENT_NETWORK_TARGET para que coincida con una interfaz del host ya existente.
+
+Asegúrate de que la interfaz del host proporcione acceso al puerto de red físico o a la VLAN adecuados, y de que la interfaz no haga referencia directa a un dispositivo bond o bridge. Debes configurar una VLAN (u otra interfaz virtual) sobre el dispositivo bond del host, o bien utilizar un bridge y un par de Ethernet virtual (veth).
+
+
+
+[[fix-missing-block-device-errors]]
+[[fix-block-errors]]
+=== Soluciona los errores de dispositivos de bloque que faltan
+
+El sistema comprueba que cada nodo recuperado se asigne a un archivo especial de dispositivo de bloques válido o a un enlace simbólico válido que apunte a un archivo especial de dispositivo de bloques. Si StorageGRID detecta una asignación no válida en el archivo  `/etc/storagegrid/nodes/_node-name_.conf`, se muestra un error de dispositivo de bloques ausente.
+
+Si detectas un error que se ajuste a este patrón:
+
+[listing]
+----
+Checking configuration file /etc/storagegrid/nodes/<node-name>.conf for node <node-name>...
+ERROR: <node-name>: BLOCK_DEVICE_PURPOSE = <path-name>
+       <node-name>: <path-name> does not exist
+----
+Esto significa que  `/etc/storagegrid/nodes/_node-name_.conf` asigna el dispositivo de bloques utilizado por _node-name_ para  `PURPOSE` a la ruta dada en el sistema de archivos de Linux, pero no hay un archivo especial de dispositivo de bloques válido ni un enlace simbólico a un archivo especial de dispositivo de bloques en esa ubicación.
+
+Comprueba que has seguido los pasos descritos en link:deploying-new-linux-hosts.html["Implementar nuevos hosts Linux"]. Utiliza los mismos nombres de dispositivo persistentes para todos los dispositivos de bloque que se usaban en el host original.
+
+Si no puedes restaurar o volver a crear el archivo especial de dispositivo de bloques que falta, puedes asignar un nuevo dispositivo de bloques del tamaño y la categoría de almacenamiento adecuados y editar el archivo de configuración del nodo para cambiar el valor de  `BLOCK_DEVICE_PURPOSE` para que apunte al nuevo archivo especial de dispositivo de bloques.
+
+Determina el tamaño y la categoría de almacenamiento adecuados utilizando las tablas correspondientes a tu sistema operativo Linux. Consulta link:../swnodes/storage-and-performance-requirements.html["Requisitos de almacenamiento y rendimiento"].
+
+Consulta las recomendaciones de link:../swnodes/configuring-host-storage.html["configuración del almacenamiento del host"] antes de proceder con la sustitución del dispositivo de bloque.
+
+
+NOTE: Si tienes que proporcionar un nuevo dispositivo de almacenamiento en bloque para cualquiera de las variables del archivo de configuración que comienzan por  `BLOCK_DEVICE_` porque el dispositivo en bloque original se perdió junto con el host que falló, asegúrate de que el nuevo dispositivo en bloque no esté formateado antes de intentar seguir con los procedimientos de recuperación. El nuevo dispositivo en bloque no estará formateado si usas almacenamiento compartido y has creado un nuevo volumen. Si no estás seguro, ejecuta el siguiente comando en cualquier archivo especial de un nuevo dispositivo de almacenamiento en bloque.
+
+[CAUTION]
+====
+Ejecuta el siguiente comando únicamente para dispositivos de almacenamiento en bloque nuevos. No ejecutes este comando si crees que el almacenamiento en bloque aún contiene datos válidos para el nodo que se está recuperando, ya que se perderán todos los datos del dispositivo.
+
+`sudo dd if=/dev/zero of=/dev/mapper/my-block-device-name bs=1G count=1`
+
+====
+
+
+[[start-storagegrid-host-service]]
+== Inicia el servicio de host de StorageGRID
+
+Para iniciar los nodos de StorageGRID y asegurarte de que se reinicien después de un reinicio del host, debes habilitar e iniciar el servicio de host de StorageGRID.
+
+.Pasos
+. Ejecuta los siguientes comandos en cada host:
++
+[listing]
+----
+sudo systemctl enable storagegrid
+sudo systemctl start storagegrid
+----
+. ${post_edited_translations.segment}
++
+[listing]
+----
+sudo storagegrid node status node-name
+----
+. Si algún nodo muestra el estado "Not Running" o "Stopped", ejecuta el siguiente comando:
++
+[listing]
+----
+sudo storagegrid node start node-name
+----
+. Si ya has habilitado e iniciado el servicio de host de StorageGRID (o si no estás seguro de si el servicio se ha habilitado e iniciado), ejecuta también el siguiente comando:
++
+[listing]
+----
+sudo systemctl reload-or-restart storagegrid
+----
+
+
+
+
+[[recover-nodes-that-fail-to-start-normally]]
+[[recover-nodes-fail-start]]
+== Recupera los nodos que no se inician normalmente
+
+Si un nodo de StorageGRID no vuelve a incorporarse a la red de forma normal y no aparece como recuperable, es posible que esté dañado. Puedes forzar que el nodo entre en modo de recuperación.
+
+.Pasos
+. Comprueba que la configuración de red del nodo sea correcta.
++
+Es posible que el nodo no haya podido volver a unirse al grid debido a asignaciones incorrectas de la interfaz de red o a una dirección IP o puerta de enlace incorrectas de la Grid Network.
+
+. Si la configuración de red es correcta, ejecuta el comando  `force-recovery`:
++
+`sudo storagegrid node force-recovery _node-name_`
+
+. Sigue los pasos de recuperación adicionales para el nodo. Consulta link:whats-next-performing-additional-recovery-steps-if-required.html["Próximos pasos: realiza los pasos de recuperación adicionales, si es necesario"].
+

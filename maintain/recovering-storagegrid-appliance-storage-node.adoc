@@ -1,0 +1,23 @@
+---
+permalink: maintain/recovering-storagegrid-appliance-storage-node.html 
+sidebar: sidebar 
+keywords: recover, appliance storage node failure, workflow 
+summary: El procedimiento para recuperar un nodo de almacenamiento de un dispositivo StorageGRID que ha fallado es el mismo, tanto si se trata de una recuperación tras la pérdida de la unidad del sistema como si se trata únicamente de la pérdida de volúmenes de almacenamiento. 
+---
+= Advertencias para recuperar los Storage Nodes del dispositivo StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El procedimiento para recuperar un nodo de almacenamiento de un dispositivo StorageGRID que ha fallado es el mismo, tanto si se trata de una recuperación tras la pérdida de la unidad del sistema como si se trata únicamente de la pérdida de volúmenes de almacenamiento.
+
+
+CAUTION: Si se ha producido un fallo en más de un nodo de almacenamiento (o está desconectado), ponte en contacto con soporte técnico. No realices el siguiente procedimiento de recuperación. Podría producirse una pérdida de datos. Para obtener más información, consulta link:how-site-recovery-is-performed-by-technical-support.html["Cómo el soporte técnico recupera un sitio"].
+
+
+CAUTION: Si las reglas de ILM están configuradas para almacenar únicamente una copia replicada y dicha copia se encuentra en un volumen de almacenamiento que ha fallado, no podrás recuperar el objeto.
+
+
+NOTE: Para los procedimientos de mantenimiento del hardware, como las instrucciones para reemplazar un controlador o reinstalar SANtricity OS, consulta la  https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/index.html["Instrucciones de mantenimiento para tu dispositivo de almacenamiento"^].

@@ -1,0 +1,66 @@
+---
+permalink: admin/controlling-access-through-firewalls.html 
+sidebar: sidebar 
+keywords: firewall access, firewall ports, external firewall 
+summary: Puedes abrir o cerrar puertos específicos en el firewall externo. 
+---
+= Controla el acceso a StorageGRID en un firewall externo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes abrir o cerrar puertos específicos en el firewall externo.
+
+Puedes controlar el acceso a las interfaces de usuario y a las API en los Admin Nodes de StorageGRID abriendo o cerrando puertos específicos en el firewall externo. Por ejemplo, es posible que quieras evitar que los inquilinos puedan conectarse al Grid Manager en el firewall, además de utilizar otros métodos para controlar el acceso al sistema.
+
+Si quieres configurar el firewall interno de StorageGRID, consulta link:../admin/configure-firewall-controls.html["Configura el cortafuegos interno"].
+
+[cols="1a,1a,2a"]
+|===
+| Puerto | Descripción | ${post_edited_translations.segment} 
+
+
+ a| 
+443
+ a| 
+${post_edited_translations.segment}
+ a| 
+Los navegadores web y los clientes de la API de gestión pueden acceder al Grid Manager, a la Grid Management API, al Tenant Manager y a la Tenant Management API.
+
+*Nota:* El puerto 443 también se utiliza para parte del tráfico interno.
+
+
+
+ a| 
+8443
+ a| 
+Puerto restringido de Grid Manager en los nodos de administración
+ a| 
+* Los navegadores web y los clientes de la API de gestión pueden acceder al Grid Manager y a la Grid Management API mediante HTTPS.
+* ${post_edited_translations.segment}
+* Se rechazarán las solicitudes de contenido interno.
+
+
+
+
+ a| 
+9443
+ a| 
+Puerto restringido de Tenant Manager en los nodos de administración
+ a| 
+* Los navegadores web y los clientes de la API de gestión pueden acceder al Tenant Manager y a la Tenant Management API mediante HTTPS.
+* Los navegadores web y los clientes de la API de gestión no pueden acceder al Grid Manager ni a la Grid Management API.
+* Se rechazarán las solicitudes de contenido interno.
+
+
+|===
+
+TIP: El inicio de sesión único (SSO) no está disponible en los puertos restringidos de Grid Manager o Tenant Manager. Debes utilizar el puerto HTTPS predeterminado (443) si quieres que los usuarios se autentiquen con el inicio de sesión único.
+
+.Información relacionada
+* link:signing-in-to-grid-manager.html["Inicia sesión en Grid Manager"]
+* link:creating-tenant-account.html["Crear cuenta de inquilino"]
+* link:../network/external-communications.html["Comunicaciones externas"]
+

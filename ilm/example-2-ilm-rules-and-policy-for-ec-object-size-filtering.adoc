@@ -1,0 +1,111 @@
+---
+permalink: ilm/example-2-ilm-rules-and-policy-for-ec-object-size-filtering.html 
+sidebar: sidebar 
+keywords: object size for erasure coding, example ILM rule, information lifecycle rule examples, 1 MB 
+summary: Puedes usar las siguientes reglas y políticas de ejemplo como punto de partida para definir una política de ILM que filtre según el tamaño de los objetos para cumplir los requisitos recomendados de EC. 
+---
+= Reglas y política de ILM para el filtrado de tamaño de objetos EC en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes usar las siguientes reglas y políticas de ejemplo como punto de partida para definir una política de ILM que filtre según el tamaño de los objetos para cumplir los requisitos recomendados de EC.
+
+
+CAUTION: Las siguientes reglas y políticas de ILM son solo ejemplos. Existen muchas formas de configurar reglas de ILM. Antes de activar una nueva política, simúlala para confirmar que funcionará como esperas y protegerá el contenido contra la pérdida.
+
+
+
+[[ilm-rule-1-for-example-2-use-ec-for-objects-greater-than-1-mb]]
+== Regla 1 de ILM para el ejemplo 2: usa EC para objetos mayores de 1 MB
+
+Esta regla de ILM de ejemplo aplica códigos de borrado a los objetos que son mayores de 1 MB.
+
+
+NOTE: El código de borrado es más adecuado para objetos de más de 1 MB. No uses el código de borrado para objetos de menos de 200 KB para evitar la sobrecarga de gestionar fragmentos muy pequeños codificados por borrado.
+
+[cols="2a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Nombre de la regla
+ a| 
+Solo objetos EC > 1 MB
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Filtro avanzado por tamaño del objeto
+ a| 
+Tamaño del objeto superior a 1 MB
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Crea una copia con código de borrado 2+1 usando tres sitios
+
+|===
+image:policy_2_rule_1_ec_objects_adv_filtering.png["Regla 1 de ILM para el ejemplo 2: usa EC para todos los objetos mayores de 1 MB"]
+
+
+
+[[ilm-rule-2-for-example-2-two-replicated-copies]]
+== Regla de ILM 2 para el ejemplo 2: dos copias replicadas
+
+Esta regla de ILM de ejemplo crea dos copias replicadas y no filtra por tamaño de objeto. Esta regla es la regla predeterminada de la política. Dado que la primera regla descarta todos los objetos de más de 1 MB, esta regla solo se aplica a los objetos de 1 MB o menos.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Nombre de la regla
+ a| 
+Dos copias replicadas
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Filtro avanzado por tamaño del objeto
+ a| 
+Ninguno
+
+
+
+ a| 
+Ubicaciones
+ a| 
+Desde el día 0 hasta siempre, mantén una copia replicada en el sitio 1 y otra copia replicada en el sitio 2.
+
+|===
+
+
+[[ilm-policy-for-example-2-use-ec-for-objects-greater-than-1-mb]]
+== Política de ILM para el ejemplo 2: usar EC para objetos de más de 1 MB
+
+Esta política de ILM de ejemplo incluye dos reglas de ILM:
+
+* La primera regla aplica códigos de borrado a todos los objetos que son mayores de 1 MB.
+* La segunda regla de ILM (predeterminada) crea dos copias replicadas. Dado que la regla 1 ha filtrado los objetos de más de 1 MB, la regla 2 solo se aplica a los objetos de 1 MB o menos.
+

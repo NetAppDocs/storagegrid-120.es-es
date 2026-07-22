@@ -1,0 +1,119 @@
+---
+permalink: upgrade/how-your-system-is-affected-during-upgrade.html 
+sidebar: sidebar 
+keywords: upgrade, firmware, appliance, alert 
+summary: Descubre cómo se verá afectado tu sistema StorageGRID durante la actualización. 
+---
+= Cómo afectan las actualizaciones de StorageGRID a tu sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Descubre cómo se verá afectado tu sistema StorageGRID durante la actualización.
+
+
+
+[[external-ssh-access-is-allowed-until-upgrade-completes]]
+== Se permite el acceso externo mediante SSH hasta que finalice la actualización
+
+Durante la actualización se permite el acceso SSH externo. Una vez finalizada la actualización, el acceso SSH externo queda bloqueado de forma predeterminada. Tras la actualización, puedes utilizar la pestaña *Bloquear SSH*, disponible en la página *Grid Manager* > *Configuración de seguridad*, para link:../admin/manage-external-ssh-access.html["gestionar el acceso externo mediante SSH"]. El acceso SSH entre los nodos de la red no se ve afectado.
+
+
+
+[[storagegrid-upgrades-are-non-disruptive]]
+== Las actualizaciones de StorageGRID se realizan sin interrupciones
+
+El sistema StorageGRID puede recibir y recuperar datos de las aplicaciones cliente durante todo el proceso de actualización. Si autorizas la actualización de todos los nodos de un mismo tipo (por ejemplo, Storage Nodes), estos se desconectan de uno en uno, por lo que en ningún momento todos los nodos de la red ni todos los nodos de un tipo concreto quedan indisponibles.
+
+Para garantizar la disponibilidad continua, asegúrate de que tu política de ILM incluya reglas que especifiquen el almacenamiento de varias copias de cada objeto. También debes asegurarte de que todos los clientes externos de S3 estén configurados para enviar solicitudes a uno de los siguientes:
+
+* Una dirección IP virtual de un grupo de alta disponibilidad (HA)
+* Un equilibrador de carga de terceros de alta disponibilidad
+* Varios nodos de puerta de enlace para cada cliente
+* Varios nodos de almacenamiento para cada cliente
+
+
+
+
+[[client-applications-might-experience-short-term-disruptions]]
+== Las aplicaciones de los clientes podrían experimentar interrupciones de corta duración
+
+El sistema StorageGRID puede recibir y recuperar datos de las aplicaciones cliente durante todo el proceso de actualización; sin embargo, las conexiones de los clientes a nodos Gateway o nodos Storage concretos podrían verse interrumpidas temporalmente si la actualización requiere reiniciar los servicios en dichos nodos. La conectividad se restablecerá una vez que finalice el proceso de actualización y se reanuden los servicios en los nodos concretos.
+
+Es posible que tengas que programar un tiempo de inactividad para aplicar una actualización si no es aceptable que se produzca una pérdida de conectividad durante un breve periodo de tiempo. Puedes utilizar la aprobación selectiva para programar cuándo se actualizan determinados nodos.
+
+
+NOTE: Puedes usar varias puertas de enlace y grupos de alta disponibilidad (HA) para proporcionar conmutación automática por error durante el proceso de actualización. Consulta las instrucciones para link:../admin/configure-high-availability-group.html["configuración de grupos de alta disponibilidad"].
+
+
+
+[[background-repairs-wont-run-on-grids-with-mixed-version-nodes]]
+== Las reparaciones en segundo plano no se ejecutarán en grids con nodos de versiones mixtas
+
+Las reparaciones en segundo plano no se ejecutan durante la actualización cuando la red contiene nodos de versiones mixtas. Cualquier inconsistencia que se produzca durante un fallo energético en el sitio no se reparará hasta que la actualización haya finalizado.
+
+
+
+[[appliance-firmware-is-upgraded]]
+== Se ha actualizado el firmware del appliance
+
+Durante la actualización de StorageGRID 12.0:
+
+* Todos los nodos del dispositivo StorageGRID se actualizan automáticamente a la versión 12.0 del firmware de StorageGRID Appliance Installer.
+* Los dispositivos SG6060 y SGF6024 se actualizan automáticamente a la versión 3B08.EX del firmware de la BIOS y a la versión 4.01.07 del firmware del BMC.
+* Los dispositivos SG100 y SG1000 se actualizan automáticamente a la versión 3B13.EC del firmware del BIOS y a la versión 4.75.07 del firmware del BMC.
+* Los dispositivos SGF6112, SG6160, SG110 y SG1100 se actualizan automáticamente a la versión 3A14.QD del firmware BIOS y a la versión 3.19.07 del firmware BMC.
+
+
+
+
+[[ilm-policies-are-handled-differently-according-to-their-status]]
+== Las políticas de ILM se gestionan de forma diferente según su estado
+
+* La política activa seguirá siendo la misma tras la actualización.
+* Solo se conservan las últimas 10 políticas históricas al actualizar.
+* Si hay una política propuesta, se eliminará durante la actualización.
+
+
+
+
+[[alerts-might-be-triggered]]
+== Es posible que se activen alertas
+
+Es posible que se activen alertas al iniciar y detener los servicios, así como cuando el sistema StorageGRID funcione en un entorno con versiones mixtas (en el que algunos nodos de la red ejecutan una versión anterior, mientras que otros se han actualizado a una versión posterior). También es posible que se activen otras alertas una vez finalizada la actualización.
+
+Por ejemplo, es posible que veas la alerta *No se puede establecer comunicación con el nodo* cuando los servicios están detenidos, o que veas la alerta *Error de comunicación de Cassandra* cuando algunos nodos se han actualizado a StorageGRID 12.0 pero otros siguen ejecutando StorageGRID 11.9. En general, estas alertas se eliminarán cuando termine la actualización.
+
+La alerta *ILM placement unachievable* puede activarse cuando los Storage Nodes se detienen durante la actualización a StorageGRID 12.0. Esta alerta puede persistir durante 1 día después de que se complete la actualización.
+
+Una vez finalizada la actualización, puedes consultar cualquier alerta relacionada con la actualización seleccionando *Alertas resueltas recientemente* o *Alertas actuales* desde el panel de control de Grid Manager.
+
+
+
+[[configuration-changes-are-restricted]]
+== Los cambios en la configuración están restringidos
+
+
+NOTE: Esta lista se aplica específicamente a las actualizaciones de StorageGRID 11.9 a StorageGRID 12.0. Si vas a actualizar a otra versión de StorageGRID, consulta la lista de cambios restringidos en las instrucciones de actualización de esa versión.
+
+Hasta que finalice la tarea *Habilitar nueva función*:
+
+* ${post_edited_translations.segment}
+* No actives ni desactives ninguna función nueva.
+* No actualices la configuración de ILM. De lo contrario, podrías encontrarte con un comportamiento inconsistente e inesperado de ILM.
+* No apliques una corrección urgente ni recuperes un nodo de grid.
++
+
+NOTE: Ponte en contacto con el soporte técnico si necesitas recuperar un nodo durante la actualización.
+
+* ${post_edited_translations.segment}
+* No elimines ningún grupo de HA hasta que se complete la actualización a StorageGRID 12.0. Las direcciones IP virtuales de otros grupos de HA podrían quedar inaccesibles.
+
+
+Hasta que finalice la tarea *Pasos finales de la actualización*:
+
+* No realices un procedimiento de expansión.
+* No realices un procedimiento de decomisionar.
+

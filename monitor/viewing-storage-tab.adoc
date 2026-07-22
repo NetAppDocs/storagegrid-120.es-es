@@ -1,0 +1,40 @@
+---
+permalink: monitor/viewing-storage-tab.html 
+sidebar: sidebar 
+keywords: storage tab 
+summary: La pestaña Almacenamiento resume la disponibilidad del almacenamiento y otras métricas de almacenamiento. 
+---
+= Ver la pestaña StorageGRID Storage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña Almacenamiento resume la disponibilidad del almacenamiento y otras métricas de almacenamiento.
+
+La pestaña «Almacenamiento» se muestra para todos los nodos, cada sitio y toda la grid.
+
+
+
+[[storage-used-graphs]]
+== Gráficos de almacenamiento utilizado
+
+Para los nodos de almacenamiento, cada sitio y toda la grid, la pestaña de Almacenamiento incluye gráficos que muestran cuánto almacenamiento se ha utilizado para los datos de objetos y los metadatos de objetos a lo largo del tiempo.
+
+
+NOTE: Cuando un nodo no está conectado a la grid, como durante una actualización o en un estado desconectado, es posible que algunas métricas no estén disponibles o se excluyan de los totales del sitio y de la grid. Después de que un nodo se vuelva a conectar a la grid, espera varios minutos para que los valores se estabilicen.
+
+image:nodes_storage_node_storage_tab.png["Nodos > Nodo de almacenamiento > pestaña Almacenamiento"]
+
+
+
+[[disk-devices-volumes-and-object-stores-tables]]
+== Tablas de dispositivos de disco, volúmenes y almacenes de objetos
+
+Para todos los nodos, la pestaña «Almacenamiento» contiene detalles sobre los dispositivos de disco y los volúmenes del nodo. Para los nodos de almacenamiento, la tabla «Almacenes de objetos» ofrece información sobre cada volumen de almacenamiento.
+
+image:nodes_page_storage_tables.png["Tablas de almacenamiento de la página de nodos"]
+
+.Información relacionada
+link:monitoring-storage-capacity.html["Supervisa la capacidad de almacenamiento"]

@@ -1,0 +1,39 @@
+---
+permalink: tenant/editing-group-name.html 
+sidebar: sidebar 
+keywords: how to edit tenant group name 
+summary: Puedes modificar el nombre que se muestra para un grupo. No puedes modificar el nombre único de un grupo. 
+---
+= Edita el nombre de un grupo de inquilinos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes modificar el nombre que se muestra para un grupo. No puedes modificar el nombre único de un grupo.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene permiso de acceso a raíz. Consulta link:tenant-management-permissions.html["Permisos de gestión de inquilinos"].
+
+
+.Pasos
+. ${post_edited_translations.segment}
+. Marca la casilla de verificación correspondiente al grupo cuyo nombre de visualización quieras editar.
+. Selecciona *Acciones* > *Editar nombre del grupo*.
++
+Aparece el cuadro de diálogo «Editar nombre de grupo».
+
++
+image:edit_group_name.png["Editar nombre del grupo"]
+
+. Si estás editando un grupo local, actualiza el nombre para mostrar según sea necesario.
++
+No puedes cambiar el nombre único de un grupo. No puedes editar el nombre que se muestra de un grupo federado.
+
+. Selecciona *Guardar cambios*.
++
+Aparece un mensaje de confirmación en la esquina superior derecha de la página.
+
+

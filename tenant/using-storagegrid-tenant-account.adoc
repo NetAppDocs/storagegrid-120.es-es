@@ -1,0 +1,68 @@
+---
+permalink: tenant/using-storagegrid-tenant-account.html 
+sidebar: sidebar 
+keywords: how to use tenant account 
+summary: 'Una cuenta de inquilino te permite utilizar la API de REST del Servicio de Almacenamiento Sencillo (S3) para almacenar y recuperar objetos en un sistema StorageGRID.' 
+---
+= Usa la cuenta de inquilino de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una cuenta de inquilino te permite utilizar la API de REST del Servicio de Almacenamiento Sencillo (S3) para almacenar y recuperar objetos en un sistema StorageGRID.
+
+Cada cuenta de cliente tiene sus propios grupos federados o locales, usuarios, buckets de S3 y objetos.
+
+
+TIP: Se han eliminado los detalles de Swift de esta versión del sitio de documentación. Consulta https://docs.netapp.com/us-en/storagegrid-118/tenant/using-storagegrid-tenant-account.html["StorageGRID 11.8: usa la cuenta de inquilino de StorageGRID"^].
+
+De forma opcional, se pueden utilizar cuentas de inquilino para separar los objetos almacenados por entidades diferentes. Por ejemplo, se pueden utilizar varias cuentas de inquilino para cualquiera de estos casos de uso:
+
+* *Caso de uso empresarial:* Si el sistema StorageGRID se utiliza en el ámbito empresarial, el almacenamiento de objetos de la grid podría estar segmentado por los distintos departamentos de la organización. Por ejemplo, podría haber cuentas de inquilino para el departamento de Marketing, el departamento de Customer Support, el departamento de Human Resources, y así sucesivamente.
++
+
+NOTE: Si usas el protocolo de cliente S3, también puedes usar buckets de S3 y políticas de bucket para segregar objetos entre los departamentos de una empresa. No necesitas crear cuentas de inquilino separadas. Consulta las instrucciones para implementar link:../s3/use-access-policies.html["${post_edited_translations.segment}"] para obtener más información.
+
+* *Caso de uso de proveedor de servicios:* si un proveedor de servicios utiliza el sistema StorageGRID, el almacenamiento de objetos del grid podría estar segregado por las diferentes entidades que alquilan el almacenamiento. Por ejemplo, podría haber cuentas de inquilino para Company A, Company B, Company C, y así sucesivamente.
+
+
+
+
+[[create-tenant-accounts]]
+== Crear cuentas de inquilino
+
+Un administrador de grid de StorageGRID crea las cuentas de inquilino mediante el Grid Manager. Al crear una cuenta de inquilino, el administrador de grid especifica la siguiente información:
+
+* Nombre que se muestra para el inquilino (el ID de cuenta del inquilino se asigna automáticamente y no se puede cambiar).
+* ${post_edited_translations.segment}
+* Para cuentas de inquilino de S3: si se permite que la cuenta de inquilino utilice servicios de plataforma. Si se permite el uso de servicios de plataforma, el grid debe estar configurado para admitir su uso.
+* Opcionalmente, una cuota de almacenamiento para la cuenta de inquilino -- el número máximo de gigabytes, terabytes o petabytes disponibles para los objetos del inquilino. La cuota de almacenamiento de un inquilino representa una cantidad lógica (tamaño del objeto), no una cantidad física (tamaño en disco).
+* Si la federación de identidades está habilitada para el sistema StorageGRID, ¿qué grupo federado tiene permiso de acceso de usuario raíz para configurar la cuenta de inquilino?
+* ${post_edited_translations.segment}
+
+
+Además, los administradores de la grid pueden activar la configuración de S3 Object Lock para el sistema StorageGRID si las cuentas de inquilinos de S3 deben cumplir con requisitos normativos. Cuando S3 Object Lock está activado, todas las cuentas de inquilinos de S3 pueden crear y gestionar buckets compatibles.
+
+
+
+[[configure-s3-tenants]]
+== Configura clientes de S3
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Uso de los servicios de la plataforma (si están habilitados)
+* Supervisión del uso del almacenamiento
+
+
+
+TIP: ${post_edited_translations.segment}
+
+.Información relacionada
+* link:../admin/index.html["Administrar StorageGRID"]
+* link:../s3/index.html["Usa la API de REST de S3"]
+

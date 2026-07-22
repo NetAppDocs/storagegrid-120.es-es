@@ -1,0 +1,29 @@
+---
+permalink: network/grid-network-topology.html 
+sidebar: sidebar 
+keywords: grid network topology 
+summary: La topología de red más sencilla se crea configurando únicamente la Grid Network. 
+---
+= Topología de red Grid para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La topología de red más sencilla se crea configurando únicamente la Grid Network.
+
+Cuando configuras la Grid Network, estableces la dirección IP del host, la máscara de subred y la dirección IP de la puerta de enlace para la interfaz eth0 de cada nodo de grid.
+
+Durante la configuración, debes añadir todas las subredes de la red Grid a la Lista de subredes de la red Grid (GNSL). Esta lista incluye todas las subredes de todos los sitios y también puede incluir subredes externas que proporcionan acceso a servicios críticos como NTP, DNS o LDAP.
+
+Durante la instalación, la interfaz de Grid Network aplica rutas estáticas para todas las subredes en la GNSL y establece la ruta predeterminada del nodo hacia la puerta de enlace de Grid Network si se ha configurado una. La GNSL no es necesaria si no hay red de clientes y la puerta de enlace de Grid Network es la ruta predeterminada del nodo. También se generan rutas de host hacia todos los demás nodos en el grid.
+
+En este ejemplo, todo el tráfico comparte la misma red, incluido el tráfico relacionado con las solicitudes de cliente S3 y las funciones administrativas y de mantenimiento.
+
+
+NOTE: Esta topología es adecuada para implementaciones en un único sitio que no estén disponibles externamente, para implementaciones de prueba de concepto o de prueba, o cuando un equilibrador de carga de terceros actúa como límite de acceso de los clientes. Siempre que sea posible, la red Grid debe usarse exclusivamente para el tráfico interno. Tanto la red Admin como la red Client tienen restricciones adicionales de firewall que bloquean el tráfico externo hacia los servicios internos. Se admite el uso de la red Grid para el tráfico de clientes externos, pero este uso ofrece menos capas de protección.
+
+image:grid_network.png["Red de grid"]
+
+image:grid_network_ips.png["Direcciones IP de la red de grid"]

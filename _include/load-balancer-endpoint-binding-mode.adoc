@@ -1,0 +1,40 @@
+= 
+:allow-uri-read: 
+
+
+[cols="1a,3a"]
+|===
+| Modo | Descripción 
+
+
+ a| 
+Global (predeterminado)
+ a| 
+Los clientes pueden acceder al punto final usando la dirección IP de cualquier Gateway Node o Admin Node, la dirección IP virtual (VIP) de cualquier grupo HA en cualquier red, o el FQDN correspondiente.
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+Direcciones IP virtuales de los grupos de alta disponibilidad
+ a| 
+Los clientes deben utilizar una dirección IP virtual (o el nombre de dominio completo correspondiente) de un grupo de alta disponibilidad para acceder a este endpoint.
+
+Todos los puntos finales con este modo de enlace pueden utilizar el mismo número de puerto, siempre y cuando los grupos de alta disponibilidad que selecciones para los puntos finales no se solapen.
+
+
+
+ a| 
+Interfaces de nodo
+ a| 
+Los clientes deben utilizar las direcciones IP (o los FQDN correspondientes) de las interfaces de los nodos seleccionados para acceder a este endpoint.
+
+
+
+ a| 
+Tipo de nodo
+ a| 
+En función del tipo de nodo que selecciones, los clientes deben usar la dirección IP (o el FQDN correspondiente) de cualquier Admin Node o la dirección IP (o el FQDN correspondiente) de cualquier Gateway Node para acceder a este endpoint.
+
+|===

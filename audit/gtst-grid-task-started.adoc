@@ -1,0 +1,42 @@
+---
+permalink: audit/gtst-grid-task-started.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, GTST, Grid Task Started 
+summary: Este mensaje de auditoría indica que el servicio CMN ha comenzado a procesar la tarea de grid especificada. El mensaje de auditoría sigue inmediatamente al mensaje Grid Task Submitted para las tareas de grid iniciadas por el servicio interno Grid Task Submission y seleccionadas para su activación automática. Para las tareas de grid enviadas a la tabla Pending, este mensaje se genera cuando inicias la tarea de grid. 
+---
+= Mensaje de auditoría GTST para tareas grid iniciadas en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje de auditoría indica que el servicio CMN ha comenzado a procesar la tarea de grid especificada. El mensaje de auditoría sigue inmediatamente al mensaje Grid Task Submitted para las tareas de grid iniciadas por el servicio interno Grid Task Submission y seleccionadas para su activación automática. Para las tareas de grid enviadas a la tabla Pending, este mensaje se genera cuando inicias la tarea de grid.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+TSID
+ a| 
+ID de la tarea
+ a| 
+${post_edited_translations.segment}
+
+*Nota:* el ID de tarea se asigna en el momento en que se genera una tarea de grid, no en el momento en que se envía. Es posible que una tarea de grid determinada se envíe varias veces y, en este caso, el campo ID de tarea no es suficiente para vincular de forma única los mensajes de auditoría Submitted, Started y Ended.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+El resultado. Este campo solo tiene un valor:
+
+* SUCS: La tarea de la grid se inició correctamente.
+
+
+|===

@@ -1,0 +1,92 @@
+---
+permalink: tenant/signing-in-to-tenant-manager.html 
+sidebar: sidebar 
+keywords: how to sign in to tenant manager 
+summary: Accedes al Tenant Manager introduciendo la URL del tenant en la barra de direcciones de un navegador web compatible. 
+---
+= Inicia sesión en StorageGRID Tenant Manager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Accedes al Tenant Manager introduciendo la URL del tenant en la barra de direcciones de un link:../admin/web-browser-requirements.html["navegador web compatible"].
+
+.Antes de empezar
+* Ya tienes tus datos de acceso.
+* Dispones de una URL para acceder al Tenant Manager, facilitada por el administrador de tu grid. La URL tendrá un aspecto similar a uno de estos ejemplos:
++
+`\https://FQDN_or_Admin_Node_IP/`
+
++
+`\https://FQDN_or_Admin_Node_IP:port/`
+
++
+`\https://FQDN_or_Admin_Node_IP/?accountId=20-digit-account-id`
+
++
+`\https://FQDN_or_Admin_Node_IP:port/?accountId=20-digit-account-id`
+
++
+La URL siempre incluye un nombre de dominio completo (FQDN), la dirección IP de un Admin Node o la dirección IP virtual de un grupo HA de Admin Nodes. También puede incluir un número de puerto, el ID de cuenta del tenant de 20 dígitos o ambos.
+
+* Si la URL no incluye el ID de cuenta de 20 dígitos del arrendatario, dispones de dicho ID de cuenta.
+* Estás usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Las cookies están activadas en tu navegador web.
+* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["permisos de acceso específicos"].
+
+
+.Pasos
+. Inicia un link:../admin/web-browser-requirements.html["navegador web compatible"].
+. En la barra de direcciones del navegador, introduce la URL para acceder a Tenant Manager.
+. ${post_edited_translations.segment}
+. Inicia sesión en Tenant Manager.
++
+${post_edited_translations.segment}
+
++
+[role="tabbed-block"]
+====
+.No usas SSO
+--
+Si StorageGRID no utiliza el inicio de sesión único, aparece una de las siguientes pantallas:
+
+** La página de inicio de sesión de Grid Manager. Selecciona el enlace *Inicio de sesión de inquilino*.
+** La página de inicio de sesión de Tenant Manager. Es posible que el campo *Cuenta* ya esté completado.
++
+... Si no aparece el ID de cuenta de 20 dígitos del arrendatario, selecciona el nombre de la cuenta del arrendatario si figura en la lista de cuentas recientes o introduce el ID de cuenta.
+... Introduce tu nombre de usuario y contraseña.
+... Selecciona *Sign in*.
++
+Aparece el panel de control de Tenant Manager.
+
+... Si has recibido una contraseña inicial de otra persona, selecciona *_username_* > *Cambiar contraseña* para proteger tu cuenta.
+
+
+
+
+--
+.${post_edited_translations.segment}
+--
+${post_edited_translations.segment}
+
+** La página de inicio de sesión único (SSO) de tu organización.
++
+Introduce tus credenciales estándar de SSO y selecciona *Sign in*.
+
+** ${post_edited_translations.segment}
++
+... Si no aparece el ID de cuenta de 20 dígitos del arrendatario, selecciona el nombre de la cuenta del arrendatario si figura en la lista de cuentas recientes o introduce el ID de cuenta.
+... Selecciona *Sign in*.
+... Inicia sesión con tus credenciales estándar de SSO en la página de inicio de sesión único de tu organización.
++
+Aparece el panel de control de Tenant Manager.
+
+
+
+
+
+--
+====
+

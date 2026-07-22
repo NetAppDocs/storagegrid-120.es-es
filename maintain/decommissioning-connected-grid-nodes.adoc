@@ -1,0 +1,132 @@
+---
+permalink: maintain/decommissioning-connected-grid-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission, connected nodes, decommission node 
+summary: Puedes decomisionar y eliminar definitivamente los nodos que están conectados a la grid. 
+---
+= Decomisionar nodos StorageGRID conectados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes decomisionar y eliminar definitivamente los nodos que están conectados a la grid.
+
+.Antes de empezar
+* Conoces los aspectos que hay que tener en cuenta para decomisionar link:considerations-for-decommissioning-admin-or-gateway-nodes.html["Nodos de administración y de pasarela"] y los aspectos que hay que tener en cuenta para decomisionar link:considerations-for-decommissioning-storage-nodes.html["Nodos de almacenamiento"].
+* Ya has reunido todos los materiales necesarios.
+* Te has asegurado de que no haya ninguna tarea de reparación de datos activa.
+* Has confirmado que no hay ninguna recuperación de Storage Node en curso en ninguna parte del grid. Si es así, espera a que finalice cualquier reconstrucción de Cassandra que se esté llevando a cabo como parte de la recuperación. Luego puedes proceder a decomisionar.
+* Te has asegurado de que no se ejecuten otros procedimientos de mantenimiento mientras se está ejecutando el procedimiento de decomisionar el nodo, a menos que el procedimiento de decomisionar el nodo esté en pausa.
+* Tienes la frase de contraseña de aprovisionamiento.
+* Los nodos de la red están conectados.
+* La columna «*Posibilidad de decomisionar*» correspondiente al nodo o nodos que deseas decomisionar incluye una marca de verificación verde.
++
+
+NOTE: El proceso de decomisionar no se iniciará si uno o más volúmenes están sin conexión (desmontados) o si están en línea (montados) pero en estado de error.
+
++
+
+NOTE: Si uno o más volúmenes se desconectan mientras se está llevando a cabo el proceso de decomisionar, el proceso de decomisionar finaliza después de que estos volúmenes hayan vuelto a estar en línea.
+
+* Todos los nodos de la red tienen un estado Normal (verde) image:icon_alert_green_checkmark.png["icono de marca de verificación verde"]. Si ves uno de estos iconos en la columna *Health*, debes intentar resolver el problema:
++
+[cols="1a,1a,3a"]
+|===
+| Icono | Color | Gravedad 
+
+
+ a| 
+image:icon_alarm_yellow_notice.gif["icono cuadrado amarillo"]
+ a| 
+Amarillo
+ a| 
+Aviso
+
+
+
+ a| 
+image:icon_alert_yellow_minor.png["icono de rombo naranja claro"]
+ a| 
+Naranja claro
+ a| 
+Menor
+
+
+
+ a| 
+image:icon_alert_orange_major.png["icono de rombo naranja oscuro"]
+ a| 
+Naranja oscuro
+ a| 
+Mayor
+
+
+
+ a| 
+image:icon_alert_red_critical.png["icono de x roja"]
+ a| 
+Rojo
+ a| 
+Crítico
+
+|===
+* Si anteriormente descomisionaste un nodo de almacenamiento desconectado, todas las tareas de reparación de datos se han completado correctamente. Consulta link:checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"].
+
+
+
+CAUTION: No elimines la máquina virtual ni otros recursos de un nodo de la grid hasta que se te indique hacerlo en este procedimiento.
+
+
+CAUTION: Actúa con precaución al decomisionar nodos de almacenamiento en una grid que contenga nodos basados en software destinados exclusivamente a metadatos. Si decomisionas todos los nodos configurados para almacenar _tanto_ objetos como metadatos, la capacidad de almacenar objetos se elimina de la grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento destinados exclusivamente a metadatos.
+
+.Acerca de esta tarea
+Cuando se decomisiona un nodo, se desactivan sus servicios y el nodo se apaga automáticamente.
+
+.Pasos
+. En la página Decomisionar nodos, marca la casilla correspondiente a cada nodo de grid que quieras descomisionar.
+. Introduce la contraseña de aprovisionamiento.
++
+El botón *Iniciar decomisionar* está habilitado.
+
+. Selecciona *Start Decommission*.
+. Revisa la lista de nodos en el cuadro de diálogo de confirmación y selecciona *OK*.
++
+El procedimiento de descomisionar el nodo comienza y se muestra el progreso de cada nodo.
+
++
+
+CAUTION: No desconectes un nodo de almacenamiento después de que se haya iniciado el procedimiento de decomisionar. Cambiar el estado podría hacer que parte del contenido no se copie a otras ubicaciones.
+
+. En cuanto esté disponible el nuevo paquete de recuperación, haz clic en el enlace del paquete de recuperación que aparece en el banner o selecciona *Mantenimiento* > *Sistema* > *Paquete de recuperación* para acceder a la página del paquete de recuperación. Luego, descarga el archivo  `.zip`.
++
+Consulta link:downloading-recovery-package.html["descargar el paquete de recuperación"].
+
++
+
+NOTE: Descarga el paquete de recuperación lo antes posible para asegurarte de que puedas recuperar tu grid si algo sale mal durante el procedimiento de descomisionar.
+
+. Supervisa periódicamente la página Decommission Nodes para asegurarte de que todos los nodos seleccionados se hayan decomisionado correctamente.
++
+
+TIP: Decomisionar los nodos de almacenamiento puede tardar días o semanas.
+
++
+Cuando se hayan completado todas las tareas, se vuelve a mostrar la lista de selección de nodos con un mensaje de éxito.
+
+
+
+.Después de que termines
+Sigue estos pasos una vez que hayas completado el procedimiento de decomisionar el nodo:
+
+. Sigue los pasos correspondientes a tu plataforma. Por ejemplo:
++
+** *Linux*: Es posible que quieras desconectar los volúmenes y eliminar los archivos de configuración del nodo que creaste durante la instalación. Consulta link:../swnodes/index.html["Instalar StorageGRID en nodos basados en software"].
+** *VMware*: Es posible que te interese utilizar la opción «Eliminar del disco» de vCenter para eliminar la máquina virtual. Es posible que también tengas que eliminar cualquier disco de datos que sea independiente de la máquina virtual.
+** *Dispositivo StorageGRID*: El nodo del dispositivo vuelve automáticamente a un estado sin implementar, desde el que puedes acceder al instalador del dispositivo StorageGRID. Puedes apagar el dispositivo o añadirlo a otro sistema StorageGRID.
+
+
+. Asegúrate de que las unidades del nodo de red decomisionado se borren por completo. Utiliza una herramienta o un servicio de borrado de datos disponible en el mercado para eliminar de forma permanente y segura los datos de las unidades.
+. Si decomisionaste un nodo de dispositivo y los datos del dispositivo estaban protegidos mediante el cifrado de nodos, usa el StorageGRID Appliance Installer para borrar la configuración del servidor de gestión de claves (Clear KMS). Debes borrar la configuración del KMS si quieres añadir el dispositivo a otra grid. Para obtener instrucciones, consulta https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/monitoring-node-encryption-in-maintenance-mode.html["Supervisar el cifrado de los nodos en modo de mantenimiento"^].
+

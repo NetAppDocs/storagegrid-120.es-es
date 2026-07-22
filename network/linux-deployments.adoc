@@ -1,0 +1,140 @@
+---
+permalink: network/linux-deployments.html 
+sidebar: sidebar 
+keywords: linux network, container engine, red hat enterprise linux network, rhel network, ubuntu network 
+summary: Para garantizar la eficiencia, la fiabilidad y la seguridad, el sistema StorageGRID se ejecuta en Linux como un conjunto de motores de contenedores. En un sistema StorageGRID no es necesario realizar ninguna configuración de red relacionada con los motores de contenedores. 
+---
+= Configuración de red para implementaciones de StorageGRID Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para garantizar la eficiencia, la fiabilidad y la seguridad, el sistema StorageGRID se ejecuta en Linux como un conjunto de motores de contenedores. En un sistema StorageGRID no es necesario realizar ninguna configuración de red relacionada con los motores de contenedores.
+
+Utiliza un dispositivo no vinculado, como una VLAN o un par de interfaces Ethernet virtuales (veth), como interfaz de red del contenedor. Especifica este dispositivo como la interfaz de red en el archivo de configuración del nodo.
+
+
+CAUTION: No utilices dispositivos «bond» o «bridge» directamente como interfaz de red del contenedor. Si lo haces, podrías impedir el arranque del nodo debido a un problema del núcleo relacionado con el uso de «macvlan» con dispositivos «bond» y «bridge» en el espacio de nombres del contenedor.
+
+Consulta el link:../swnodes/index.html["instrucciones de instalación"].
+
+
+
+[[host-network-configuration-for-container-engine-deployments]]
+== Configuración de la red del host para implementaciones del motor de contenedores
+
+Antes de iniciar la implementación de StorageGRID en una plataforma de motor de contenedores, determina qué redes (Grid, Admin, Client) utilizará cada nodo. Debes asegurarte de que la interfaz de red de cada nodo esté configurada en la interfaz del host virtual o física correcta y de que cada red disponga de ancho de banda suficiente.
+
+
+
+[[physical-hosts]]
+=== Servidores físicos
+
+Si utilizas servidores físicos para alojar los nodos de la red:
+
+* Asegúrate de que todos los hosts utilicen la misma interfaz del host para cada interfaz de nodo. Esta estrategia simplifica la configuración de los hosts y permite la migración futura de los nodos.
+* Obtén una dirección IP para el propio host físico.
++
+
+NOTE: Una interfaz física del host puede ser utilizada tanto por el propio host como por uno o varios nodos que se ejecuten en el host. Las direcciones IP asignadas al host o a los nodos que utilicen esta interfaz deben ser únicas. El host y el nodo no pueden compartir direcciones IP.
+
+* Abre los puertos necesarios para el host.
+* Si tienes previsto utilizar interfaces VLAN en StorageGRID, el host debe tener una o más interfaces trunk que proporcionen acceso a las VLAN deseadas. Estas interfaces pueden pasarse al contenedor del nodo como eth0, eth2 o como interfaces adicionales. Para añadir interfaces trunk o de acceso, consulta lo siguiente:
++
+** *Linux (antes de instalar el nodo)*: link:../swnodes/creating-node-configuration-files.html["Crear archivos de configuración de nodos"]
+** *Linux (después de instalar el nodo)*: link:../maintain/linux-adding-trunk-or-access-interfaces-to-node.html["Agrega interfaces trunk o de acceso a un nodo"]
+
+
+
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+
+
+[[minimum-bandwidth-recommendations]]
+=== Recomendaciones sobre el ancho de banda mínimo
+
+La siguiente tabla recoge las recomendaciones de ancho de banda mínimo de LAN para cada tipo de nodo de StorageGRID y cada tipo de red. Debes dotar a cada host físico o virtual de suficiente ancho de banda de red para cumplir los requisitos mínimos de ancho de banda de agregado correspondientes al número total y al tipo de nodos de StorageGRID que tengas previsto ejecutar en dicho host.
+
+[cols="1a,1a,1a,1a"]
+|===
+| Tipo de nodo 3+| Tipo de red 
+
+
+ a| 
+ a| 
+${post_edited_translations.segment}
+ a| 
+Administrador
+ a| 
+Cliente
+
+
+
+ a| 
+ a| 
+*Ancho de banda LAN mínimo*
+
+
+
+ a| 
+Administrador
+ a| 
+10 Gbps
+ a| 
+1 Gbps
+ a| 
+1 Gbps
+
+
+
+ a| 
+Pasarela
+ a| 
+10 Gbps
+ a| 
+1 Gbps
+ a| 
+10 Gbps
+
+
+
+ a| 
+Almacenamiento
+ a| 
+10 Gbps
+ a| 
+1 Gbps
+ a| 
+10 Gbps
+
+
+
+ a| 
+Archivo
+ a| 
+10 Gbps
+ a| 
+1 Gbps
+ a| 
+10 Gbps
+
+|===
+
+NOTE: Esta tabla no incluye el ancho de banda SAN, que es necesario para acceder al almacenamiento compartido. Si estás usando almacenamiento compartido al que se accede por Ethernet (iSCSI o FCoE), deberías aprovisionar interfaces físicas independientes en cada host para proporcionar suficiente ancho de banda SAN. Para evitar introducir un cuello de botella, el ancho de banda SAN para un host determinado debería coincidir aproximadamente con el ancho de banda de red agregado de los Storage Node para todos los Storage Node que se ejecutan en ese host.
+
+Usa la tabla para determinar el número mínimo de interfaces de red que debes habilitar en cada host, según el número y tipo de nodos de StorageGRID que planeas ejecutar en ese host.
+
+Por ejemplo, para ejecutar un nodo de administración, un nodo de puerta de enlace y un nodo de almacenamiento en un único host:
+
+* Conecta las redes Grid y Admin en el nodo de administración (se requieren 10 + 1 = 11 Gbps)
+* Conecta las redes Grid y de clientes en el nodo de gateway (se requieren 10 + 10 = 20 Gbps)
+* Conecta la red Grid en el nodo de almacenamiento (requiere 10 Gbps)
+
+
+En este escenario, deberías proporcionar un mínimo de 11 + 20 + 10 = 41 Gbps de ancho de banda de red, lo que podría cubrirse con dos interfaces de 40 Gbps o cinco de 10 Gbps, que podrían agregarse en troncales y luego compartirse entre las tres o más VLANs que transportan las subredes Grid, Admin y Client, locales al centro de datos físico que contiene el host.
+
+Para conocer algunas recomendaciones sobre cómo configurar los recursos físicos y de red en los hosts de tu clúster de StorageGRID con el fin de preparar la implementación de StorageGRID, consulta link:../swnodes/configuring-host-network.html["Configura la red del host"].

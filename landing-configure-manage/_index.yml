@@ -1,0 +1,73 @@
+---
+indexpage:
+  title: Configurar y gestionar un sistema StorageGRID
+  summary: Las tareas de configuración que necesitas realizar para un nuevo sistema
+    StorageGRID dependen de cómo vayas a usar tu grid. Como mínimo, configuras el
+    acceso al sistema; usas los asistentes de FabricPool y S3; y gestionas varios
+    ajustes de almacenamiento y seguridad.
+  keywords: configure, sign in, manage admin groups, manage admin users, use identity
+    federation, use ILM, create tenants, manage client connections, secure system,
+    harden system
+  lead: Las tareas de configuración que necesitas realizar para un nuevo sistema StorageGRID
+    dependen de cómo vayas a usar tu grid. Como mínimo, configuras el acceso al sistema;
+    usas los asistentes de FabricPool y S3; y gestionas varios ajustes de almacenamiento
+    y seguridad.
+  tiles:
+  - title: Empezar
+    links:
+    - title: Inicia sesión en Grid Manager
+      url: "../admin/signing-in-to-grid-manager.html"
+    - title: Configura AutoSupport
+      url: "../admin/configure-autosupport-grid-manager.html"
+    - title: Usa la API de gestión de Grid
+      url: "../admin/using-grid-management-api.html"
+  - title: Gestiona grupos de administradores y usuarios
+    links:
+    - title: Usa la federación de identidades
+      url: "../admin/using-identity-federation.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../admin/managing-admin-groups.html"
+    - title: Permisos del grupo de administradores
+      url: "../admin/admin-group-permissions.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../admin/how-sso-works.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: "${post_edited_translations.segment}"
+      url: "../admin/grid-federation-overview.html"
+    - title: Compara la replicación entre grids con CloudMirror
+      url: "../admin/grid-federation-compare-cgr-to-cloudmirror.html"
+    - title: Crear conexiones de federación de grid
+      url: "../admin/grid-federation-create-connection.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../admin/grid-federation-manage-tenants.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: "${post_edited_translations.segment}"
+      url: "../admin/configuring-s3-api-endpoint-domain-names.html"
+    - title: Usa el asistente de configuración de S3
+      url: "../admin/use-s3-setup-wizard.html"
+    - title: Utiliza el asistente de configuración de FabricPool
+      url: "../fabricpool/use-fabricpool-setup-wizard.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../admin/creating-tenant-account.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Infórmate sobre el ciclo de vida de ILM
+      url: "../ilm/how-ilm-operates-throughout-objects-life.html"
+    - title: Gestiona reglas de ILM
+      url: "../ilm/what-ilm-rule-is.html"
+    - title: Gestiona las políticas de ILM
+      url: "../ilm/creating-ilm-policy.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../ilm/example-1-ilm-rules-and-policy-for-object-storage.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Por qué es fundamental el refuerzo de la seguridad del sistema
+      url: "../harden/index.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../admin/reviewing-storagegrid-encryption-methods.html"
+    - title: Gestiona certificados de seguridad
+      url: "../admin/using-storagegrid-security-certificates.html"
+    - title: Gestiona la política de TLS y SSH
+      url: "../admin/manage-tls-ssh-policy.html"

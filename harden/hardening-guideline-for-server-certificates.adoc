@@ -1,0 +1,62 @@
+---
+permalink: harden/hardening-guideline-for-server-certificates.html 
+sidebar: sidebar 
+keywords: StorageGRID, hardening guidelines, certificates 
+summary: Debes sustituir los certificados predeterminados creados durante la instalación y seleccionar la política de seguridad adecuada para las conexiones TLS y SSH. 
+---
+= Directrices de endurecimiento para TLS y SSH en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes controlar el acceso SSH, reemplazar los certificados TLS predeterminados y seleccionar la política de seguridad adecuada para las conexiones TLS y SSH.
+
+
+
+[[hardening-guidelines-for-certificates]]
+== Directrices de refuerzo de la seguridad de los certificados
+
+Debes sustituir los certificados predeterminados creados durante la instalación por tus propios certificados personalizados.
+
+Para muchas organizaciones, el certificado digital autofirmado para el acceso web a StorageGRID no cumple con sus políticas de seguridad de la información. En los sistemas de producción, deberías instalar un certificado digital firmado por una CA para usarlo en la autenticación de StorageGRID.
+
+En concreto, deberías utilizar certificados de servidor personalizados en lugar de estos certificados predeterminados:
+
+* *Certificado de interfaz de gestión*: Se utiliza para proteger el acceso al Grid Manager, al Tenant Manager, a la Grid Management API y a la Tenant Management API.
+* *Certificado de la API de S3*: Se utiliza para proteger el acceso a los nodos de almacenamiento y a los nodos de puerta de enlace, que las aplicaciones cliente de S3 utilizan para cargar y descargar datos de objetos.
+
+
+Consulta link:../admin/using-storagegrid-security-certificates.html["Gestiona certificados de seguridad"] para obtener detalles e instrucciones.
+
+
+NOTE: StorageGRID gestiona por separado los certificados utilizados para los puntos finales del equilibrador de carga. Para configurar los certificados del equilibrador de carga, consulta link:../admin/configuring-load-balancer-endpoints.html["Configura los puntos de conexión del equilibrador de carga"].
+
+Si utilizas certificados de servidor personalizados, sigue estas directrices:
+
+* Los certificados deben tener un `_subjectAltName_` que coincida con las entradas DNS de StorageGRID. Para más detalles, consulta la sección 4.2.1.6, "Subject Alternative Name", en https://tools.ietf.org/html/rfc5280#section-4.2.1.6["RFC 5280: Perfil de certificados PKIX y CRL"^].
+* Siempre que sea posible, evita el uso de certificados comodín. Una excepción a esta directriz es el certificado para un endpoint de estilo S3 virtual hosted, que requiere el uso de un comodín si no se conocen de antemano los nombres de los buckets.
+* Cuando tengas que utilizar comodines en los certificados, debes tomar medidas adicionales para reducir los riesgos. Utiliza un patrón de comodín como `*.s3.example.com`, y no utilices el sufijo `s3.example.com` para otras aplicaciones. Este patrón también funciona con el acceso S3 de tipo ruta, como `dc1-s1.s3.example.com/mybucket`.
+* Establece plazos de caducidad cortos para los certificados (por ejemplo, 2 meses) y utiliza la Grid Management API para automatizar la rotación de certificados. Esto es especialmente importante para los certificados comodín.
+
+
+Además, los clientes deben aplicar una verificación rigurosa del nombre de host al comunicarse con StorageGRID.
+
+
+
+[[hardening-guidelines-for-tls-and-ssh-policy]]
+== Directrices de refuerzo para la política de TLS y SSH
+
+Puedes seleccionar una política de seguridad para determinar qué protocolos y algoritmos de cifrado se utilizan para establecer conexiones TLS seguras con aplicaciones cliente y conexiones SSH seguras con los servicios internos de StorageGRID.
+
+La política de seguridad controla cómo TLS y SSH cifran los datos en tránsito. Como práctica recomendada, debes desactivar las opciones de cifrado que no sean necesarias para la compatibilidad de las aplicaciones. Utiliza la política predeterminada Modern, a menos que tu sistema necesite cumplir con Common Criteria, FIPS 140-2, o que necesites usar otros cifrados.
+
+Consulta link:../admin/manage-tls-ssh-policy.html["Administra la política de TLS y SSH"] para obtener más detalles e instrucciones.
+
+
+
+[[manage-external-ssh-access]]
+== Gestiona el acceso externo mediante SSH
+
+Para mejorar la seguridad del sistema, el acceso SSH externo está bloqueado de forma predeterminada. Activa el acceso SSH únicamente cuando necesites realizar tareas que requieran acceso SSH entrante, como la resolución de problemas. Consulta link:../admin/manage-external-ssh-access.html["Gestiona el acceso externo mediante SSH"] para obtener más detalles e instrucciones.

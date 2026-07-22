@@ -1,0 +1,60 @@
+---
+permalink: maintain/configuring-replacement-primary-admin-node.html 
+sidebar: sidebar 
+keywords: storagegrid, primary admin node, replace primary admin node, replacing primary admin node 
+summary: El nodo de sustitución debe configurarse como nodo de administración principal para tu sistema StorageGRID. 
+---
+= Configura un nodo de administración primario de reemplazo en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El nodo de sustitución debe configurarse como nodo de administración principal para tu sistema StorageGRID.
+
+.Antes de empezar
+* Para los nodos de administración primarios alojados en máquinas virtuales, la máquina virtual ya fue implementada, encendida e inicializada.
+* En el caso de los nodos de administración principales alojados en un dispositivo de servicios, has sustituido el dispositivo y has instalado el software. Consulta el https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html["Instrucciones de instalación de tu appliance"^].
+* Tienes la última copia de seguridad del archivo del paquete de recuperación (`sgws-recovery-package-_id-revision_.zip`).
+* Tienes la frase de contraseña de aprovisionamiento.
+
+
+.Pasos
+. Abre tu navegador web y ve a `\https://primary_admin_node_ip`.
+. Gestiona una contraseña temporal de instalador según sea necesario:
++
+** Si ya se ha establecido una contraseña mediante uno de estos métodos, introduce la contraseña para continuar.
++
+*** Un usuario estableció la contraseña al acceder al instalador anteriormente
+*** Para los sistemas bare metal, la contraseña se importó automáticamente desde el archivo de configuración del nodo en `/etc/storagegrid/nodes/_<node_name>_.conf`
+*** Para las máquinas virtuales, la contraseña de SSH/consola se importó automáticamente desde las propiedades del OVF
+
+
+** Si no se ha establecido una contraseña, opcionalmente establece una para proteger el instalador de StorageGRID.
+
+
+. Haz clic en *Recuperar un nodo de administración principal que ha fallado*.
++
+image:install_or_recover_primary_admin_node.png["Instalar o recuperar el nodo de administración principal"]
+
+. Sube la copia de seguridad más reciente del paquete de recuperación:
++
+.. Haz clic en *Examinar*.
+.. Busca el archivo del paquete de recuperación más reciente para tu sistema StorageGRID y haz clic en *Abrir*.
+
+
+. Introduce la contraseña de aprovisionamiento.
+. Haz clic en *Iniciar recuperación*.
++
+Comienza el proceso de recuperación. Es posible que el Grid Manager no esté disponible durante unos minutos mientras se inician los servicios necesarios. Cuando se completa la recuperación, se muestra la página de inicio de sesión.
+
+. Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID y la confianza de parte dependiente del nodo de administración que recuperaste se configuró para usar el certificado predeterminado de la interfaz de gestión, actualiza (o elimina y vuelve a crear) la confianza de parte dependiente del nodo en Active Directory Federation Services (AD FS). Usa el nuevo certificado de servidor predeterminado que se generó durante el proceso de recuperación del nodo de administración.
++
+
+NOTE: Para configurar una relación de confianza con una parte confiable, consulta link:../admin/configure-sso.html["${post_edited_translations.segment}"]. Para acceder al certificado predeterminado del servidor, inicia sesión en el intérprete de comandos del Admin Node. Ve al directorio `/var/local/mgmt-api` y selecciona el archivo `server.crt`.
+
+
+
+
+CAUTION: Tras recuperar un nodo de administración principal, link:assess-hotfix-requirement-during-primary-admin-node-recovery.html["Averigua si necesitas aplicar una corrección urgente"].

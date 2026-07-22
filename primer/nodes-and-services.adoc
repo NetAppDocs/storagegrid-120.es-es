@@ -1,0 +1,419 @@
+---
+permalink: primer/nodes-and-services.html 
+sidebar: sidebar 
+keywords: StorageGRID, services, grid nodes, primary admin, storage, gateway 
+summary: El componente básico de un sistema StorageGRID es el nodo de la grid. Los nodos contienen servicios, que son módulos de software que proporcionan un conjunto de capacidades a un nodo de la grid. 
+---
+= Nodos y servicios de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El componente básico de un sistema StorageGRID es el nodo de la grid. Los nodos contienen servicios, que son módulos de software que proporcionan un conjunto de capacidades a un nodo de la grid.
+
+
+
+[[types-of-grid-nodes]]
+== Tipos de nodos de grid
+
+El sistema StorageGRID utiliza tres tipos de nodos de grid:
+
+Nodos de administración:: Proporciona servicios de gestión, como la configuración del sistema, la supervisión y el registro. Cuando inicias sesión en Grid Manager, te conectas a un nodo de administración. Cada grid debe tener un nodo de administración principal y puede tener nodos de administración no principales adicionales para la redundancia. Puedes conectarte a cualquier nodo de administración, y cada nodo de administración muestra una vista similar del sistema StorageGRID. Sin embargo, los procedimientos de mantenimiento deben realizarse usando el nodo de administración principal.
++
+--
+Los nodos de administración también se pueden usar para equilibrar la carga del tráfico de los clientes S3.
+
+Ver link:what-admin-node-is.html["¿Qué es un nodo de administración?"]
+
+--
+Nodos de almacenamiento:: Gestiona y almacena datos y metadatos de objetos. Cada sitio de tu sistema StorageGRID debe tener al menos tres nodos de almacenamiento.
++
+--
+Durante la instalación inicial de un nuevo nodo de almacenamiento, puedes especificar que solo se utilice para link:../primer/what-storage-node-is.html#types-of-storage-nodes["almacenar metadatos"].
+
+Ver link:what-storage-node-is.html["¿Qué es un nodo de almacenamiento?"]
+
+--
+Nodos de puerta de enlace (opcional):: Proporciona una interfaz de equilibrio de carga que las aplicaciones cliente pueden utilizar para conectarse a StorageGRID. Un equilibrador de carga dirige a los clientes de forma transparente hacia un Storage Node óptimo, así que el fallo de los nodos o incluso de un sitio completo pasa desapercibido.
++
+--
+Ver link:what-gateway-node-is.html["¿Qué es un nodo de puerta de enlace?"]
+
+--
+
+
+
+
+[[hardware-and-software-nodes]]
+== Nodos de hardware y software
+
+Los nodos de StorageGRID pueden implementarse como nodos de dispositivo StorageGRID o como nodos basados en software. El número máximo de nodos (incluidos todos los tipos de nodos) por sistema es 220.
+
+
+
+[[storagegrid-appliance-nodes]]
+=== Nodos de la appliance StorageGRID
+
+Los dispositivos de hardware de StorageGRID están diseñados específicamente para su uso en un sistema StorageGRID. Algunos dispositivos pueden utilizarse como Storage Nodes. Otros dispositivos pueden utilizarse como Admin Nodes o Gateway Nodes. Puedes combinar nodos de dispositivo con nodos basados en software o implementar grids totalmente diseñados, compuestos exclusivamente por dispositivos, que no dependen de hipervisores externos, almacenamiento ni hardware de cómputo.
+
+Consulta lo siguiente para conocer los appliances disponibles:
+
+* https://docs.netapp.com/us-en/storagegrid-appliances/["Documentación de StorageGRID Appliance"^]
+* https://hwu.netapp.com["NetApp Hardware Universe"^]
+
+
+
+
+[[software-based-nodes]]
+=== Nodos basados en software
+
+Los nodos de red basados en software pueden implementarse como máquinas virtuales de VMware o dentro de motores de contenedores en un host Linux. Consulta link:../swnodes/index.html["Instalar StorageGRID en nodos basados en software"].
+
+Utiliza la  https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^] para determinar las versiones compatibles.
+
+
+
+[[storagegrid-services]]
+== Servicios de StorageGRID
+
+A continuación se incluye una lista completa de los servicios de StorageGRID.
+
+[cols="2a,3a,2a"]
+|===
+| Servicio | Descripción | Ubicación 
+
+
+ a| 
+Reenviador del servicio de cuentas
+ a| 
+Proporciona una interfaz para que el servicio de Load Balancer consulte el Account Service en hosts remotos y envía notificaciones al servicio de Load Balancer sobre los cambios en la configuración del Load Balancer Endpoint.
+ a| 
+Servicio de equilibrado de carga en los nodos de administración y los nodos de puerta de enlace
+
+
+
+ a| 
+ADC (Controlador de dominio administrativo)
+ a| 
+Mantiene la información sobre la topología, proporciona servicios de autenticación y responde a las consultas de los servicios LDR y CMN.
+ a| 
+Al menos tres nodos de almacenamiento que contengan el servicio ADC en cada sitio
+
+
+
+ a| 
+AMS (Sistema de gestión de auditorías)
+ a| 
+Supervisa y registra todos los eventos y transacciones auditados del sistema en un archivo de registro de texto.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Apache Tomcat
+ a| 
+Servidor web para aplicaciones basadas en Java.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Avahi Daemon
+ a| 
+Gestiona mDNS, que se utiliza para la resolución de nombres y la detección de servicios dentro de la red local.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Servicio de caché
+ a| 
+Se ejecuta en los nodos del equilibrador de carga (Gateway) y gestiona una caché local del contenido de los objetos.
+ a| 
+Nodos de puerta de enlace
+
+
+
+ a| 
+Cassandra
+ a| 
+Gestiona la base de datos distribuida de metadatos de objetos.
+ a| 
+Nodos de almacenamiento (excepto los de solo datos)
+
+
+
+ a| 
+Cassandra Reaper
+ a| 
+Realiza reparaciones automáticas de metadatos de objetos.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+Servicio de fragmentos
+ a| 
+Gestiona los datos con código de borrado y los fragmentos de paridad.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+CMN (Nodo de gestión de la configuración)
+ a| 
+Gestiona las configuraciones de todo el sistema y las tareas de la grid. Cada grid tiene un servicio CMN.
+ a| 
+Nodo de administración principal
+
+
+
+ a| 
+DDS (Almacén de datos distribuido)
+ a| 
+Se conecta con la base de datos Cassandra para gestionar los metadatos de los objetos.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+DMV (Data Mover)
+ a| 
+Transfiere datos a los puntos finales en la nube.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+IP dinámica (dynip)
+ a| 
+Supervisa la grid en busca de cambios dinámicos de IP y actualiza las configuraciones locales.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Grafana
+ a| 
+Se utiliza para la visualización de métricas en el Grid Manager.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Alta disponibilidad
+ a| 
+Gestiona las direcciones IP virtuales de alta disponibilidad en los nodos configurados en la página High Availability Groups. Este servicio también se conoce como el servicio keepalived.
+ a| 
+Nodos de administración y de pasarela
+
+
+
+ a| 
+Identidad (idnt)
+ a| 
+Gestiona usuarios y grupos locales, la autenticación y federación de identidades de usuario de LDAP y Active Directory.
+ a| 
+Nodos de almacenamiento que utilizan el servicio ADC
+
+
+
+ a| 
+Árbitro Lambda
+ a| 
+Gestiona las solicitudes de S3 Select SelectObjectContent.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Equilibrador de carga (nginx-gw)
+ a| 
+Proporciona equilibrio de carga del tráfico de S3 procedente de los clientes hacia los Storage Nodes. El servicio de Load Balancer se puede configurar a través de la página de configuración de Load Balancer Endpoints. Este servicio también se conoce como el servicio nginx-gw.
+ a| 
+Nodos de administración y de pasarela
+
+
+
+ a| 
+LDR (enrutador de distribución local)
+ a| 
+Gestiona el almacenamiento y la transferencia de contenido dentro de la grid.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+MISCd Demonio de control del servicio de información
+ a| 
+Proporciona una interfaz para consultar y gestionar servicios en otros nodos y para gestionar configuraciones ambientales en el nodo, como consultar el estado de los servicios que se ejecutan en otros nodos.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+nginx
+ a| 
+Actúa como un mecanismo de autenticación y comunicación segura para que diversos servicios de grid (como Prometheus y Dynamic IP) puedan comunicarse con servicios en otros nodos a través de APIs HTTPS.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Balanceador de carga nginx-gw
+ a| 
+Proporciona equilibrio de carga del tráfico de S3 procedente de los clientes hacia los Storage Nodes. El servicio de Load Balancer se puede configurar a través de la página de configuración de Load Balancer Endpoints. Este servicio también se conoce como el servicio nginx-gw.
+ a| 
+Nodos de administración y de pasarela
+
+
+
+ a| 
+NMS (Sistema de gestión de redes)
+ a| 
+Impulsa las opciones de supervisión, generación de informes y configuración que se muestran a través de Grid Manager.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Node Exporter (recopilación de datos de Prometheus)
+ a| 
+Publica estadísticas a nivel del sistema para la recopilación de métricas de series temporales de Prometheus.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+ntp
+ a| 
+Servicio de protocolo de tiempo de red (NTP).
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Persistencia
+ a| 
+Gestiona los archivos del disco raíz que deben conservarse tras un reinicio.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Prometheus
+ a| 
+Recopila métricas de series temporales de los servicios de todos los nodos.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+RSM (máquina de estados replicada)
+ a| 
+Garantiza que las solicitudes de servicio de la plataforma se envíen a sus respectivos endpoints.
+ a| 
+Nodos de almacenamiento que utilizan el servicio ADC
+
+
+
+ a| 
+SSM (Monitor de estado del servidor)
+ a| 
+Supervisa el estado del hardware y envía informes al servicio NMS.
+ a| 
+Hay una instancia en cada nodo de la red
+
+
+
+ a| 
+Administrador de servidores
+ a| 
+Gestiona los servicios de StorageGRID.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Agente SNMP
+ a| 
+Responde a las solicitudes SNMP.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Servicio de gestión de puertos SNMP
+ a| 
+Se encarga de la gestión dinámica de los puertos SNMP.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+SSH (Secure Shell)
+ a| 
+Gestiona el acceso seguro y la administración de sistema remota.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+SSM (Monitor de estado del sistema)
+ a| 
+Supervisa el estado del hardware y envía informes al servicio NMS.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Estadística
+ a| 
+Registra métricas adicionales relacionadas con los buckets de S3.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+Trace Agent (jaeger-agent)
+ a| 
+Recibe y procesa la información de rastreo enviada por el trace collector (jaeger-collector).
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Recopilador de trazas (jaeger-collector)
+ a| 
+Realiza la recopilación de trazas para recabar información que podrá utilizar soporte técnico. El servicio de recopilación de trazas utiliza el software de código abierto Jaeger.
+ a| 
+Nodos de administración
+
+|===

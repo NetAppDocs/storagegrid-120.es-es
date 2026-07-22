@@ -1,0 +1,64 @@
+---
+permalink: s3/recommendations-for-implementing-s3-rest-api.html 
+sidebar: sidebar 
+keywords: implement s3 rest api 
+summary: Debes seguir estas recomendaciones al implementar la API de REST de S3 para su uso con StorageGRID. 
+---
+= Recomendaciones para implementar la API de REST de S3 con StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes seguir estas recomendaciones al implementar la API de REST de S3 para su uso con StorageGRID.
+
+
+
+[[recommendations-for-heads-to-non-existent-objects]]
+== Recomendaciones para HEADs a objetos inexistentes
+
+Si tu aplicación comprueba habitualmente si existe un objeto en una ruta en la que no esperas que exista realmente, debes utilizar la consistencia "Available" link:consistency.html["coherencia"]. Por ejemplo, debes utilizar la consistencia "Available" si tu aplicación realiza una operación HEAD en una ubicación antes de realizar una operación PUT en ella.
+
+De lo contrario, si la operación HEAD no encuentra el objeto, podrías recibir un gran número de errores 500 Internal Server si dos o más Storage Nodes en el mismo sitio no están disponibles o si un sitio remoto no es accesible.
+
+Puedes configurar la consistencia «Disponible» para cada bucket mediante la solicitud link:put-bucket-consistency-request.html["Consistencia de PUT Bucket"], o puedes especificar la consistencia en el encabezado de la solicitud para una operación individual de la API.
+
+
+
+[[recommendations-for-object-keys]]
+== Recomendaciones para las claves de los objetos
+
+Sigue estas recomendaciones para los nombres de clave de los objetos, según cuándo se creó el bucket por primera vez.
+
+.Buckets creados en StorageGRID 11.4 o versiones anteriores
+* No utilices valores aleatorios como los cuatro primeros caracteres de las claves de los objetos. Esto contrasta con la recomendación anterior de AWS sobre los prefijos de claves. En su lugar, utiliza prefijos no aleatorios y no únicos, como `image`.
+* Si sigues la antigua recomendación de AWS de utilizar caracteres aleatorios y únicos en los prefijos de las claves, añade un nombre de directorio como prefijo a las claves de los objetos. Es decir, utiliza este formato:
++
+`mybucket/mydir/f8e3-image3132.jpg`
+
++
+En lugar de este formato:
+
++
+`mybucket/f8e3-image3132.jpg`
+
+
+
+.Cubos creados en StorageGRID 11.4 o versiones posteriores
+No es obligatorio restringir los nombres de las claves de los objetos para cumplir con las mejores prácticas de rendimiento. En la mayoría de los casos, puedes usar valores aleatorios para los cuatro primeros caracteres de los nombres de las claves de los objetos.
+
+
+TIP: Una excepción a esto es una carga de trabajo de S3 que elimina continuamente todos los objetos tras un breve periodo de tiempo. Para minimizar el impacto en el rendimiento en este caso de uso, varía la parte inicial del nombre de la clave cada varios miles de objetos con algo como la fecha. Por ejemplo, supongamos que un cliente de S3 suele escribir 2,000 objetos por segundo y que la política de ILM o del ciclo de vida del bucket elimina todos los objetos al cabo de tres días. Para minimizar el impacto en el rendimiento, podrías nombrar las claves usando un patrón como este: `/mybucket/mydir/_yyyymmddhhmmss_-_random_UUID_.jpg`
+
+
+
+[[recommendations-for-range-reads]]
+== Recomendaciones para las «lecturas de rango»
+
+Si la link:../admin/configuring-stored-object-compression.html["${post_edited_translations.segment}"] está habilitada, las aplicaciones cliente de S3 deben evitar realizar operaciones GetObject que especifiquen que se devuelva un rango de bytes. Estas operaciones de "lectura de rango" son ineficientes porque StorageGRID debe descomprimir los objetos para acceder a los bytes solicitados. Las operaciones GetObject que solicitan un rango pequeño de bytes de un objeto muy grande son especialmente ineficientes; por ejemplo, es ineficiente leer un rango de 10 MB de un objeto comprimido de 50 GB.
+
+Si los rangos se leen de objetos comprimidos, las solicitudes de los clientes pueden agotar el tiempo de espera.
+
+
+NOTE: ${post_edited_translations.segment}

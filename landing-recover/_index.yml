@@ -1,0 +1,43 @@
+---
+indexpage:
+  title: Recuperar o sustituir nodos
+  summary: Si un nodo de la red falla, puedes recuperarlo sustituyendo el servidor
+    físico o virtual que haya fallado, reinstalando el software StorageGRID y restaurando
+    los datos recuperables.
+  keywords: recover node, replace node
+  lead: Si un nodo de la red falla, puedes recuperarlo sustituyendo el servidor físico
+    o virtual que haya fallado, reinstalando el software StorageGRID y restaurando
+    los datos recuperables.
+  tiles:
+  - title: Empezar
+    links:
+    - title: Advertencias y consideraciones
+      url: "../maintain/warnings-and-considerations-for-grid-node-recovery.html"
+    - title: Reúne los materiales necesarios
+      url: "../maintain/gathering-required-materials-for-grid-node-recovery.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Advertencias y consideraciones
+      url: "../maintain/warnings-and-considerations-for-grid-node-recovery.html"
+    - title: Nodos de almacenamiento
+      url: "../maintain/recovering-from-storage-node-failures.html"
+    - title: Nodos de administración
+      url: "../maintain/recovering-from-admin-node-failures.html"
+    - title: Nodos de puerta de enlace
+      url: "../maintain/replacing-gateway-node.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../maintain/recovering-from-archive-node-failures.html"
+  - title: Reemplazar nodo
+    links:
+    - title: Reemplazar nodo Linux
+      url: "../maintain/all-node-types-replacing-linux-node.html"
+    - title: Reemplazar nodo de VMware
+      url: "../maintain/all-node-types-replacing-vmware-node.html"
+    - title: Sustituir el nodo de Linux o VMware por un appliance de servicios
+      url: "../maintain/installing-services-appliance-platform-change-only.html"
+    - title: Clonar nodo de appliance
+      url: https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Cómo el soporte técnico recupera un sitio
+      url: "../maintain/how-site-recovery-is-performed-by-technical-support.html"

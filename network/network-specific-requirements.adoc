@@ -1,0 +1,110 @@
+---
+permalink: network/network-specific-requirements.html 
+sidebar: sidebar 
+keywords: network-specific requirements, network specific requirements, network requirements 
+summary: Sigue los requisitos para cada tipo de red StorageGRID. 
+---
+= Requisitos específicos de red para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sigue los requisitos para cada tipo de red StorageGRID.
+
+
+
+[[network-gateways-and-routers]]
+== Pasarelas de red y routers
+
+* Si se configura, la puerta de enlace de una red determinada debe estar dentro de la subred de esa red.
+* Si configuras una interfaz con direccionamiento estático, debes especificar una dirección de puerta de enlace distinta de 0.0.0.0.
+* Si no dispones de una puerta de enlace, lo más recomendable es configurar la dirección de la puerta de enlace como la dirección IP de la interfaz de red.
+
+
+
+
+[[subnets]]
+== Subredes
+
+
+NOTE: Cada red debe estar conectada a su propia subred que no se solape con ninguna otra red del nodo.
+
+El Grid Manager aplica las siguientes restricciones durante la implementación. Se incluyen aquí para ayudarte en la planificación de la red previa a la implementación.
+
+* La máscara de subred de cualquier dirección IP de red no puede ser 255.255.255.254 ni 255.255.255.255 (/31 o /32 en notación CIDR).
+* La subred definida por la dirección IP y la máscara de subred (CIDR) de una interfaz de red no puede solaparse con la subred de ninguna otra interfaz configurada en el mismo nodo.
+* No utilices subredes que contengan las siguientes direcciones IPv4 para la Grid Network, Admin Network o Client Network de ningún nodo:
++
+** 192.168.130.101
+** 192.168.130.121
+** 192.168.131.101
+** 192.168.131.121
+** 192.168.130.102
+** 192.168.130.122
+** 192.168.131.102
+** 192.168.131.122
+** 198.51.100.2
+** 198.51.100.4
+
+
++
+${post_edited_translations.segment}
+
++
+** 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+** 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+** 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+* La subred de Grid Network correspondiente a cada nodo debe figurar en el GNSL.
+* La subred Admin Network no puede solaparse con la subred Grid Network, la subred Client Network ni con ninguna subred del GNSL.
+* Las subredes de la AESL no pueden solaparse con ninguna subred de la GNSL.
+* La subred de la Client Network no puede solaparse con la subred de la Grid Network, la subred de la Admin Network, ninguna subred en el GNSL ni ninguna subred en el AESL.
+
+
+
+
+[[grid-network]]
+== Red de grid
+
+* En el tiempo de puesta en marcha, cada nodo de grid debe estar conectado a la Grid Network y debe poder comunicarse con el primary Admin Node utilizando la configuración de red que especifiques al implementar el nodo.
+* Durante el funcionamiento normal de la grid, cada nodo de la grid debe poder comunicarse con todos los demás nodos a través de la Grid Network.
++
+
+NOTE: La red Grid debe ser directamente enrutable entre cada nodo. No se admite la traducción de direcciones de red (NAT) entre nodos.
+
+* Si la red Grid está formada por varias subredes, añádelas a la lista de subredes de la red Grid (GNSL). Se crean rutas estáticas en todos los nodos para cada subred de la GNSL.
+* Si la interfaz de red Grid está configurada como un trunk para admitir interfaces VLAN, la trunk native VLAN debe ser la VLAN utilizada para el tráfico de red Grid. Todos los nodos de la red Grid deben ser accesibles a través de la trunk native VLAN.
+
+
+
+
+[[admin-network]]
+== Red de administración
+
+La red de administración es opcional. Si planeas configurar una red de administración, sigue estos requisitos y directrices.
+
+Entre los usos habituales de la red de administración se incluyen las conexiones de gestión, AutoSupport, KMS y las conexiones a servidores críticos como NTP, DNS y LDAP si estas conexiones no se proporcionan a través de la red de grid o la red de clientes.
+
+
+NOTE: La red de administración y la AESL pueden ser únicas para cada nodo, siempre y cuando los servicios de red y los clientes deseados sean accesibles.
+
+
+NOTE: Debes definir al menos una subred en la red de administración para habilitar las conexiones entrantes desde subredes externas. Las rutas estáticas se generan automáticamente en cada nodo para cada subred de la AESL.
+
+
+
+[[client-network]]
+== Red de clientes
+
+La red de clientes es opcional. Si planeas configurar una red de clientes, ten en cuenta las siguientes consideraciones.
+
+* La red de clientes está diseñada para gestionar el tráfico procedente de clientes de S3. Si se configura, la puerta de enlace de la red de clientes se convierte en la puerta de enlace predeterminada del nodo.
+* Si utilizas una red de clientes, puedes ayudar a proteger StorageGRID frente a ataques hostiles aceptando el tráfico entrante de clientes únicamente en los endpoints del equilibrador de carga configurados explícitamente. Consulta link:../admin/configuring-load-balancer-endpoints.html["Configura los puntos de conexión del equilibrador de carga"].
+* Si la interfaz de red del cliente está configurada como un enlace troncal para admitir interfaces VLAN, plantéate si es necesario configurar la interfaz de red del cliente (eth2). Si se configura, el tráfico de red del cliente discurrirá por la VLAN nativa del enlace troncal, como se haya configurado en el conmutador.
+
+
+.Información relacionada
+link:../maintain/changing-nodes-network-configuration.html["Modificar la configuración de red del nodo"]

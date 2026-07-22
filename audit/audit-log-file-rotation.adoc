@@ -1,0 +1,30 @@
+---
+permalink: audit/audit-log-file-rotation.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, log file, audit.log, audit.log file, rotation, save, autosave, auto save, auto-save 
+summary: Los archivos de auditoría se guardan en el directorio /var/local/audit/export/ de un nodo de administración. Los archivos de auditoría activos se denominan audit.log. 
+---
+= Conoce la rotación de archivos de registro de auditoría en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si StorageGRID está configurado para *nodos de administración/nodos locales* o *nodo de administración y servidor syslog externo*, los archivos de registros de auditoría se guardan en el directorio  `/var/local/audit/export/` del nodo de administración. Los archivos de registro de auditoría activos se denominan `audit.log`.
+
+
+NOTE: Opcionalmente, puedes cambiar el destino de los registros de auditoría y enviar la información de auditoría a un servidor syslog externo. Los registros locales de auditoría se siguen generando y almacenando cuando se configura un servidor syslog externo. Consulta link:../monitor/configure-audit-messages.html["Configura los mensajes de auditoría y el servidor syslog externo"].
+
+Una vez al día, el archivo activo `audit.log` se guarda y se inicia un nuevo archivo `audit.log`. El nombre del archivo guardado indica cuándo se guardó, en el formato `_yyyy-mm-dd.txt_`. Si se crea más de un registro de auditoría en un solo día, los nombres de los archivos usan la fecha en que se guardó el archivo, seguida de un número, en el formato `_yyyy-mm-dd.txt.n_`. Por ejemplo, `2018-04-15.txt` y `2018-04-15.txt.1` son el primer y el segundo archivo de registro creados y guardados el 15 de abril de 2018.
+
+Después de un día, el archivo guardado se comprime y se cambia de nombre, con el formato `_yyyy-mm-dd.txt.gz_`, que conserva la fecha original. Con el tiempo, se consume el almacenamiento del nodo de administración asignado para los registros de auditoría. Un script supervisa el consumo de espacio de los registros de auditoría y elimina los archivos de registro según sea necesario para liberar espacio en el directorio `/var/local/audit/export/`. Los registros de auditoría se eliminan en función de la fecha en la que se crearon. Los registros más antiguos se eliminan primero. Puedes supervisar las acciones del script en el siguiente archivo: `/var/local/log/manage-audit.log`.
+
+Este ejemplo muestra el archivo activo `audit.log`, el archivo del día anterior (`2018-04-15.txt`) y el archivo comprimido del día anterior (`2018-04-14.txt.gz`).
+
+[listing]
+----
+audit.log
+2018-04-15.txt
+2018-04-14.txt.gz
+----

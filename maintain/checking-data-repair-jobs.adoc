@@ -1,0 +1,59 @@
+---
+permalink: maintain/checking-data-repair-jobs.html 
+sidebar: sidebar 
+keywords: storagegrid, data repair 
+summary: Antes de decomisionar un nodo de la red, debes comprobar que no haya ninguna tarea de reparación de datos activa. Si alguna reparación ha fallado, debes reiniciarla y dejar que se complete antes de realizar el procedimiento de decomisionado. 
+---
+= Revisa los trabajos de reparación de datos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de decomisionar o ampliar un nodo de la red, debes asegurarte de que no haya ninguna tarea de reparación de datos en curso. Si alguna reparación ha fallado, debes reiniciarla y esperar a que se complete antes de realizar el procedimiento de decomisionar.
+
+Consulta link:../expand/index.html["Tipos de expansión"] para obtener más información sobre cómo ampliar un nodo de la cuadrícula.
+
+.Acerca de esta tarea
+Si necesitas decomisionar un nodo de almacenamiento desconectado, sigue estos pasos una vez finalizado el procedimiento de decomisionar para asegurarte de que la tarea de reparación de datos se ha completado. Debes asegurarte de que se hayan restaurado todos los fragmentos con código de borrado que estaban en el nodo retirado.
+
+Estos pasos solo se aplican a los sistemas que tienen objetos con código de borrado.
+
+.Pasos
+. Inicia sesión en el nodo de administración principal:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. Comprueba si hay reparaciones de emergencia: `repair-data show-ec-repair-status`
++
+** Si nunca has ejecutado una tarea de reparación de datos, el resultado es `No job found`. No necesitas reiniciar ninguna tarea de reparación.
+** Si la tarea de reparación de datos se ha ejecutado anteriormente o se está ejecutando en este momento, la salida muestra información sobre la reparación. Cada reparación tiene un ID de reparación único.
++
+image:repair-data-status.png["Estado de los datos de reparación"]
+
+
+
++
+
+TIP: Si lo deseas, puedes utilizar el Grid Manager para supervisar los procesos de restauración en curso y visualizar el historial de restauraciones. Consulta link:../maintain/restoring-volume.html["Restaura datos de objetos usando Grid Manager"].
+
+. Si el estado de todas las reparaciones es  `Completed`, no necesitas reiniciar ningún trabajo de reparación.
+. Si el estado de cualquier reparación es  `Stopped`, debes reiniciar dicha reparación.
++
+.. Obtén el ID de la reparación fallida de la salida.
+.. Ejecuta el comando `repair-data start-ec-node-repair`.
++
+Utiliza la opción  `--repair-id` para especificar el ID de reparación. Por ejemplo, si quieres volver a intentar una reparación con el ID de reparación 949292, ejecuta este comando: `repair-data start-ec-node-repair --repair-id 949292`
+
+.. Sigue supervisando el estado de las correcciones de datos de la EC hasta que el estado de todas las correcciones sea  `Completed`.
+
+
+

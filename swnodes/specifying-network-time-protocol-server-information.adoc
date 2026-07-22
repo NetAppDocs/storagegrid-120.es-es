@@ -1,0 +1,47 @@
+---
+permalink: swnodes/specifying-network-time-protocol-server-information.html 
+sidebar: sidebar 
+keywords: how to specify Network Time Protocol server information 
+summary: 'Debes especificar la información de configuración del Protocolo de tiempo de red (NTP) para el sistema StorageGRID, de modo que las operaciones realizadas en servidores independientes puedan mantenerse sincronizadas.' 
+---
+= Especifica la información del servidor Network Time Protocol para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes especificar la información de configuración del Protocolo de tiempo de red (NTP) para el sistema StorageGRID, de modo que las operaciones realizadas en servidores independientes puedan mantenerse sincronizadas.
+
+.Acerca de esta tarea
+Debes especificar las direcciones IPv4 de los servidores NTP.
+
+Debes especificar servidores NTP externos. Los servidores NTP especificados deben utilizar el protocolo NTP.
+
+Debes especificar cuatro referencias de servidor NTP de Stratum 3 o superior para evitar problemas de desviación horaria.
+
+[NOTE]
+====
+Al especificar la fuente NTP externa para una instalación de StorageGRID en entorno de producción, no utilices el servicio Windows Time (W32Time) en versiones de Windows anteriores a Windows Server 2016. El servicio de hora de las versiones anteriores de Windows no es lo suficientemente preciso y no es compatible por Microsoft para su uso en entornos de alta precisión, como StorageGRID.
+
+https://support.microsoft.com/en-us/help/939322/support-boundary-to-configure-the-windows-time-service-for-high-accura["Límite de soporte para configurar el servicio de hora de Windows en entornos de alta precisión"^]
+
+====
+Los servidores NTP externos son utilizados por los nodos a los que previamente asignaste funciones de NTP primario.
+
+
+CAUTION: Asegúrate de que al menos dos nodos de cada emplazamiento puedan acceder a al menos cuatro fuentes NTP externas. Si solo un nodo de un emplazamiento puede acceder a las fuentes NTP, se producirán problemas de sincronización si ese nodo deja de funcionar. Además, designar dos nodos por emplazamiento como fuentes NTP primarias garantiza una sincronización precisa en caso de que un emplazamiento quede aislado del resto de la red.
+
+(Solo VMware) Realiza comprobaciones adicionales para VMware, como asegurarte de que el hipervisor utilice la misma fuente NTP que la máquina virtual y usa VMTools para desactivar la sincronización horaria entre el hipervisor y las máquinas virtuales de StorageGRID.
+
+.Pasos
+. Indica las direcciones IPv4 de al menos cuatro servidores NTP en los campos de texto *Servidor 1* a *Servidor 4*.
+. Si es necesario, selecciona el signo más situado junto a la última entrada para añadir más entradas de servidor.
++
+image:8_gmi_installer_ntp_page.gif["Esta imagen se explica en el texto que la acompaña."]
+
+. Selecciona *Siguiente*.
+
+
+.Información relacionada
+link:../network/index.html["${post_edited_translations.segment}"]

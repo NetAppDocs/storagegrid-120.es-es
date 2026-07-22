@@ -1,0 +1,6 @@
+= 
+:allow-uri-read: 
+
+
+
+NOTE: Cuando un nodo no está conectado a la grid, como durante una actualización o en un estado desconectado, es posible que algunas métricas no estén disponibles o se excluyan de los totales del sitio y de la grid. Después de que un nodo se vuelva a conectar a la grid, espera varios minutos para que los valores se estabilicen.

@@ -1,0 +1,114 @@
+---
+permalink: audit/gtsu-grid-task-submitted.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, GTSU, Grid Task Submitted 
+summary: ${post_edited_translations.segment} 
+---
+= Mensaje de auditoría GTSU para tareas de grid enviadas en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+TSID
+ a| 
+ID de la tarea
+ a| 
+${post_edited_translations.segment}
+
+*Nota:* el ID de tarea se asigna en el momento en que se genera una tarea de grid, no en el momento en que se envía. Es posible que una tarea de grid determinada se envíe varias veces y, en este caso, el campo ID de tarea no es suficiente para vincular de forma única los mensajes de auditoría Submitted, Started y Ended.
+
+
+
+ a| 
+TTYP
+ a| 
+Tipo de tarea
+ a| 
+El tipo de tarea de grid.
+
+
+
+ a| 
+TVER
+ a| 
+Versión de la tarea
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+Una descripción legible para humanos de la tarea de grid.
+
+
+
+ a| 
+VATS
+ a| 
+Válido después de la marca de tiempo
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Válido antes de la marca de tiempo
+ a| 
+La hora más reciente (en microsegundos UINT64 desde el 1 de enero de 1970 - tiempo UNIX) en la que la tarea de grid es válida.
+
+
+
+ a| 
+TSRC
+ a| 
+Fuente
+ a| 
+El origen de la tarea:
+
+* TXTB: La tarea de la grid se envió a través del sistema StorageGRID como un bloque de texto firmado.
+* ${post_edited_translations.segment}
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+El tipo de activación:
+
+* ${post_edited_translations.segment}
+* PEND: la tarea del grid se envió a la tabla de pendientes. Esta es la única posibilidad para el origen de TXTB.
+
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+El resultado del envío:
+
+* ${post_edited_translations.segment}
+* ERROR: La tarea se ha movido directamente a la tabla histórica.
+
+
+|===

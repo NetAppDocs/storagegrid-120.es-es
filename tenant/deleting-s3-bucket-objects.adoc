@@ -1,0 +1,109 @@
+---
+permalink: tenant/deleting-s3-bucket-objects.html 
+sidebar: sidebar 
+keywords: how to delete bucket objects, empty bucket 
+summary: Puedes utilizar el Tenant Manager para eliminar los objetos de uno o varios buckets. 
+---
+= Eliminar objetos de un bucket S3 de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar el Tenant Manager para eliminar los objetos de uno o varios buckets.
+
+.${post_edited_translations.segment}
+${post_edited_translations.segment}
+
+* Cuando eliminas los objetos de un bucket, StorageGRID elimina de forma permanente todos los objetos y todas las versiones de objetos de cada bucket seleccionado en todos los nodos y sitios de tu sistema StorageGRID. StorageGRID también elimina los metadatos de objetos relacionados. No podrás recuperar esta información.
+* ${post_edited_translations.segment}
+* Si un bucket tiene link:using-s3-object-lock.html["S3 Object Lock activado"], podría permanecer en el estado *Eliminando objetos: solo lectura* durante _años_.
++
+
+TIP: ${post_edited_translations.segment}
+
+* Mientras se están eliminando objetos, el estado del depósito es *Eliminando objetos: solo lectura*. En este estado, no puedes añadir nuevos objetos al depósito.
+* Una vez eliminados todos los objetos, el bucket permanece en estado de solo lectura. Puedes realizar una de las siguientes acciones:
++
+** Vuelve a poner el bucket en modo de escritura y reutilízalo para nuevos objetos
+** Eliminar el bucket
+** Mantén el bucket en modo de solo lectura para reservar su nombre para un uso futuro
+
+
+* Si en un bucket se ha habilitado el control de versiones de objetos, los marcadores de eliminación creados en StorageGRID 11.8 o versiones posteriores se pueden eliminar mediante la operación Delete objects in bucket.
+* Si en un bucket está habilitado el control de versiones de objetos, la operación de eliminación de objetos no eliminará los marcadores de eliminación creados en StorageGRID 11.7 o versiones anteriores. Consulta la información sobre cómo eliminar objetos de un bucket en link:../ilm/how-objects-are-deleted.html#delete-s3-versioned-objects["Cómo se eliminan los objetos versionados de S3"].
+* Si utilizas link:grid-federation-manage-cross-grid-replication.html["replicación entre grids"], ten en cuenta lo siguiente:
++
+** El uso de esta opción no elimina ningún objeto del bucket en la otra grid.
+** Si seleccionas esta opción para el depósito de origen, se activará la alerta *Error de replicación entre redes* si añades objetos al depósito de destino en la otra red. Si no puedes garantizar que nadie vaya a añadir objetos al depósito en la otra red, link:../tenant/grid-federation-manage-cross-grid-replication.html["desactivar la replicación entre grids"] para ese depósito antes de eliminar todos los objetos del depósito.
+
+
+
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Permiso de acceso raíz"]. Este permiso anula la configuración de permisos de las políticas de grupo o de bucket.
+
+
+.Pasos
+. Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
++
+Aparece la página «Buckets» y muestra todos los buckets de S3 existentes.
+
+. Utiliza el menú *Acciones* o la página de detalles de un bucket concreto.
++
+[role="tabbed-block"]
+====
+.Menú de acciones
+--
+.. Marca la casilla de cada bucket del que quieras eliminar objetos.
+.. Selecciona *Actions* > *Delete objects in bucket*.
+
+
+--
+.${post_edited_translations.segment}
+--
+.. Selecciona el nombre de un bucket para ver sus detalles.
+.. Selecciona *Eliminar objetos en el bucket*.
+
+
+--
+====
+. Cuando aparezca el cuadro de diálogo de confirmación, revisa los detalles, escribe *Yes* y selecciona *OK*.
+. Espera a que comience la operación de eliminación.
++
+Al cabo de unos minutos:
+
++
+** En la página de detalles del bucket aparece un banner de estado amarillo. La barra de progreso indica el porcentaje de objetos que se han eliminado.
+** *(solo lectura)* aparece tras el nombre del depósito en la página de detalles del depósito.
+** *(Eliminación de objetos: solo lectura)* aparece junto al nombre del bucket en la página Buckets.
+
+
++
+image:delete-bucket-objects-in-progress.png["Captura de pantalla que muestra la eliminación de objetos de bucket"]
+
+. Si fuera necesario mientras se está ejecutando la operación, selecciona *Detener la eliminación de objetos* para detener el proceso. Luego, si lo deseas, selecciona *Eliminar objetos del bucket* para reanudar el proceso.
++
+Al seleccionar *Dejar de eliminar objetos*, el bucket vuelve al modo de escritura; sin embargo, no puedes acceder ni restaurar ningún objeto que se haya eliminado.
+
+. Espera a que finalice la operación.
++
+Cuando el bucket está vacío, se actualiza la barra de estado, pero el bucket sigue siendo de solo lectura.
+
++
+image:delete-bucket-objects-complete.png["Captura de pantalla que muestra que se han eliminado todos los objetos del bucket"]
+
+. Debe realizar una de las siguientes acciones:
++
+** Sal de la página para mantener el depósito en modo de solo lectura. Por ejemplo, podrías mantener un depósito vacío en modo de solo lectura para reservar el nombre del depósito para su uso futuro.
+** Elimina el depósito. Puedes seleccionar *Eliminar depósito* para eliminar un solo depósito o volver a la página Buckets y seleccionar *Acciones* > *Eliminar* buckets para eliminar más de uno.
++
+
+NOTE: Si no puedes eliminar un bucket con control de versiones después de haber eliminado todos los objetos, es posible que queden marcadores de eliminación. Para eliminar el bucket, debes eliminar todos los marcadores de eliminación restantes.
+
+** Vuelve a poner el bucket en modo de escritura y, si lo deseas, reutilízalo para nuevos objetos. Puedes seleccionar *Dejar de eliminar objetos* para un único bucket o volver a la página Buckets y seleccionar *Action* > *Dejar de eliminar objetos* para más de un bucket.
+
+
+

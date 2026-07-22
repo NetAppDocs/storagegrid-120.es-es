@@ -1,0 +1,24 @@
+---
+permalink: maintain/recovering-from-non-primary-admin-node-failures.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, non-primary admin node failure 
+summary: 'Debes realizar las siguientes tareas para recuperarte de un fallo en un nodo de administración no principal. Un nodo de administración aloja el servicio Configuration Management Node (CMN) y se conoce como el nodo de administración principal. Aunque puedes tener varios nodos de administración, cada sistema StorageGRID incluye solo un nodo de administración principal. Todos los demás nodos de administración son nodos de administración no principales.' 
+---
+= Recupera de fallos no primarios del nodo de administración StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes realizar las siguientes tareas para recuperarte de un fallo en un nodo de administración no principal. Un nodo de administración aloja el servicio Configuration Management Node (CMN) y se conoce como el nodo de administración principal. Aunque puedes tener varios nodos de administración, cada sistema StorageGRID incluye solo un nodo de administración principal. Todos los demás nodos de administración son nodos de administración no principales.
+
+Sigue estos pasos a grandes rasgos para recuperar un nodo de administración no principal:
+
+. link:copying-audit-logs-from-failed-non-primary-admin-node.html["Copia los registros de auditoría del nodo de administración no principal que ha fallado"]
+. link:replacing-non-primary-admin-node.html["Sustituye el nodo de administración no principal"]
+. link:selecting-start-recovery-to-configure-non-primary-admin-node.html["Selecciona Iniciar recuperación para configurar el nodo de administración no principal"]
+. link:restoring-audit-log-on-recovered-non-primary-admin-node.html["Restaura el registro de auditoría en un nodo de administración no principal recuperado"]
+. link:restoring-admin-node-database-non-primary-admin-node.html["Restaura la base de datos del nodo de administración cuando recuperas un nodo de administración que no es principal"]
+. link:restoring-prometheus-metrics-non-primary-admin-node.html["Restaura las métricas de Prometheus al recuperar un nodo de administración no principal"]
+

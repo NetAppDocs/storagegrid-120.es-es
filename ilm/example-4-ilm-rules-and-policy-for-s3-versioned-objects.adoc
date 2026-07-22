@@ -1,0 +1,141 @@
+---
+permalink: ilm/example-4-ilm-rules-and-policy-for-s3-versioned-objects.html 
+sidebar: sidebar 
+keywords: object versions, example ILM rule, information lifecycle rule examples 
+summary: Si tienes un bucket de S3 con el versionado activado, puedes gestionar las versiones de objetos no actuales incluyendo reglas en tu política de ILM que usen el tiempo de no actualidad como tiempo de referencia. 
+---
+= Reglas y políticas ILM para versiones no actuales de objetos S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si tienes un bucket de S3 con el versionado activado, puedes gestionar las versiones de objetos no actuales incluyendo reglas en tu política de ILM que usen "Noncurrent time" como tiempo de referencia.
+
+
+CAUTION: Si especificas un plazo de retención limitado para los objetos, estos se eliminarán de forma definitiva una vez transcurrido dicho plazo. Asegúrate de entender durante cuánto tiempo se conservarán los objetos.
+
+Como muestra este ejemplo, puedes controlar la cantidad de almacenamiento que ocupan los objetos versionados usando diferentes instrucciones de ubicación para las versiones no actuales de los objetos.
+
+
+CAUTION: Las siguientes reglas y políticas de ILM son solo ejemplos. Existen muchas formas de configurar reglas de ILM. Antes de activar una nueva política, simúlala para confirmar que funcionará como esperas y protegerá el contenido contra la pérdida.
+
+
+NOTE: Para realizar una simulación de la política de ILM en una versión no actual de un objeto, debes conocer el UUID o el CBID de la versión del objeto. Para encontrar el UUID y el CBID, usa link:verifying-ilm-policy-with-object-metadata-lookup.html["búsqueda de metadatos de objetos"] mientras el objeto siga siendo actual.
+
+.Información relacionada
+link:how-objects-are-deleted.html["Cómo se eliminan los objetos"]
+
+
+
+[[ilm-rule-1-for-example-4-save-three-copies-for-10-years]]
+== Regla 1 de ILM para el ejemplo 4: guardar tres copias durante 10 años
+
+Esta regla de ILM de ejemplo almacena una copia de cada objeto en tres ubicaciones durante 10 años.
+
+Esta regla se aplica a todos los objetos, tengan o no versión.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Grupos de almacenamiento
+ a| 
+Tres grupos de almacenamiento, cada uno compuesto por diferentes centros de datos, llamados Site 1, Site 2 y Site 3.
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+Tres copias diez años
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Ubicaciones
+ a| 
+El día 0, conserva tres copias replicadas durante 10 años (3,652 días), una en el sitio 1, una en el sitio 2 y una en el sitio 3. Al cabo de 10 años, elimina todas las copias del objeto.
+
+|===
+
+
+[[ilm-rule-2-for-example-4-save-two-copies-of-noncurrent-versions-for-2-years]]
+== Regla 2 de ILM para el ejemplo 4: guarda dos copias de las versiones no actuales durante 2 años
+
+Esta regla de ILM de ejemplo almacena dos copias de las versiones no actuales de un objeto con versiones de S3 durante 2 años.
+
+Dado que la regla 1 de ILM se aplica a todas las versiones del objeto, debes crear otra regla para filtrar cualquier versión que no sea la actual.
+
+Para crear una regla que utilice «Tiempo no actual» como tiempo de referencia, selecciona *Sí* en la pregunta «¿Aplicar esta regla solo a versiones antiguas de objetos (en buckets de S3 con control de versiones activado)?» en el Paso 1 (Introducir detalles) del asistente para crear una regla de ILM. Cuando seleccionas *Sí*, _Tiempo no actual_ se selecciona automáticamente como tiempo de referencia y no puedes seleccionar un tiempo de referencia diferente.
+
+image:ilm-rule-apply-only-to-older-object-verions.png["Aplicar la regla ILM únicamente a las versiones más antiguas de los objetos (Noncurrent time)"]
+
+En este ejemplo, solo se almacenan dos copias de las versiones no actuales, y dichas copias se almacenarán durante dos años.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Grupos de almacenamiento
+ a| 
+Dos grupos de almacenamiento, cada uno en un centro de datos diferente, Sitio 1 y Sitio 2.
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+Versiones no actuales: dos copias dos años
+
+
+
+ a| 
+Hora de referencia
+ a| 
+Tiempo no corriente
+
+Se selecciona automáticamente cuando eliges *Sí* en la pregunta, «¿Aplicar esta regla solo a las versiones anteriores de los objetos (en buckets de S3 con control de versiones activado)?» en el asistente para crear una regla de ILM.
+
+
+
+ a| 
+Ubicaciones
+ a| 
+En el día 0 con respecto al tiempo no actual (es decir, a partir del día en que la versión del objeto pasa a ser la versión no actual), conserva dos copias replicadas de las versiones no actuales del objeto durante 2 años (730 días), una en Site 1 y otra en Site 2. Al cabo de 2 años, elimina las versiones no actuales.
+
+|===
+
+
+[[ilm-policy-for-example-4-s3-versioned-objects]]
+== Política de ILM para el ejemplo 4: objetos con versiones de S3
+
+Si deseas gestionar las versiones anteriores de un objeto de forma diferente a la versión actual, las reglas que utilicen "Noncurrent time" como momento de referencia deben aparecer en la política de ILM antes que las reglas que se aplican a la versión actual del objeto.
+
+Una política de ILM para objetos versionados de S3 podría incluir reglas de ILM como las siguientes:
+
+* Conserva las versiones antiguas (no actuales) de cada objeto durante 2 años, a partir del día en que la versión se volvió no actual.
++
+
+NOTE: Las reglas de «Tiempo no actual» deben aparecer en la política antes que las reglas que se aplican a la versión actual del objeto. De lo contrario, las versiones no actuales del objeto nunca se ajustarán a la regla de «Tiempo no actual».
+
+* En el momento de la importación, crea tres copias replicadas y almacena una copia en cada uno de los tres sitios. Conserva las copias de la versión actual del objeto durante 10 años.
+
+
+Cuando simulas la política de ejemplo, esperarías que los objetos de prueba se evaluaran de la siguiente manera:
+
+* Cualquier versión de objeto no actual se ajustaría a la primera regla. Si una versión de objeto no actual tiene más de dos años, ILM la elimina de forma permanente (se eliminan de la grid todas las copias de la versión no actual).
+* La versión actual del objeto se ajustaría a la segunda regla. Cuando la versión actual del objeto lleva almacenada 10 años, el proceso ILM añade un marcador de eliminación como la versión actual del objeto y convierte la versión anterior del objeto en "no actual". La próxima vez que se realice una evaluación de ILM, esta versión no actual se ajusta a la primera regla. Como resultado, se elimina la copia en el Sitio 3 y las dos copias en el Sitio 1 y el Sitio 2 se almacenan durante 2 años más.
+

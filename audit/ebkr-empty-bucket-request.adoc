@@ -1,0 +1,55 @@
+---
+permalink: audit/ebkr-empty-bucket-request.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, EBKR, Empty Bucket Request 
+summary: ${post_edited_translations.segment} 
+---
+= Mensaje de auditoría EBKR para solicitudes de bucket vacíos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+BUID
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+EBJS
+ a| 
+Configuración JSON de Empty Bucket
+ a| 
+Contiene el JSON que representa la configuración actual de Empty Bucket.
+
+
+
+ a| 
+S3AI
+ a| 
+ID de cuenta de inquilino de S3
+ a| 
+El ID de cuenta de inquilino del usuario que envió la solicitud. Un valor vacío indica acceso anónimo.
+
+
+
+ a| 
+S3BK
+ a| 
+${post_edited_translations.segment}
+ a| 
+El nombre del depósito de S3.
+
+|===

@@ -1,0 +1,33 @@
+---
+permalink: swnodes/specifying-domain-name-system-server-information.html 
+sidebar: sidebar 
+keywords: how to specify domain name system server information, dns 
+summary: Debes especificar la información de DNS de tu sistema StorageGRID para poder acceder a servidores externos utilizando nombres de host en lugar de direcciones IP. 
+---
+= Especifica la información del servidor DNS para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes especificar la información de DNS de tu sistema StorageGRID para poder acceder a servidores externos utilizando nombres de host en lugar de direcciones IP.
+
+.Acerca de esta tarea
+Al especificar https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/checking-dns-server-configuration.html["Información del servidor DNS"^], podrás utilizar nombres de host con dominio completo (FQDN) en lugar de direcciones IP para las notificaciones por correo electrónico y AutoSupport.
+
+Para garantizar un funcionamiento correcto, especifica dos o tres servidores DNS. Si especificas más de tres, es posible que solo se usen tres debido a limitaciones conocidas del sistema operativo en algunas plataformas. Si tienes restricciones de enrutamiento en tu entorno, puedes link:../maintain/modifying-dns-configuration-for-single-grid-node.html["personalizar la lista de servidores DNS"] para que los nodos individuales (normalmente todos los nodos de un sitio) usen un conjunto diferente de hasta tres servidores DNS.
+
+${post_edited_translations.segment}
+
+.Pasos
+. Indica la dirección IPv4 de al menos un servidor DNS en el cuadro de texto *Server 1*.
+. Si es necesario, selecciona el signo más situado junto a la última entrada para añadir más entradas de servidor.
++
+image:9_gmi_installer_dns_page.gif["Esta imagen se explica en el texto que la acompaña."]
+
++
+Lo más recomendable es especificar al menos dos servidores DNS. Puedes especificar hasta seis servidores DNS.
+
+. Selecciona *Siguiente*.
+

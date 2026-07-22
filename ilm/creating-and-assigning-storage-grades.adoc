@@ -1,0 +1,65 @@
+---
+permalink: ilm/creating-and-assigning-storage-grades.html 
+sidebar: sidebar 
+keywords: what is a storage grade, create storage grade 
+summary: Los niveles de almacenamiento identifican el tipo de almacenamiento que utiliza un nodo de almacenamiento. Puedes crear niveles de almacenamiento si deseas que las reglas de ILM coloquen determinados objetos en determinados nodos de almacenamiento. 
+---
+= Crea y asigna grados de almacenamiento en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los niveles de almacenamiento identifican el tipo de almacenamiento que utiliza un nodo de almacenamiento. Puedes crear niveles de almacenamiento si deseas que las reglas de ILM coloquen determinados objetos en determinados nodos de almacenamiento.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+
+
+.Acerca de esta tarea
+Al instalar StorageGRID por primera vez, se asigna automáticamente el nivel de almacenamiento *Predeterminado* a todos los nodos de almacenamiento del sistema. Si es necesario, puedes definir opcionalmente niveles de almacenamiento personalizados y asignarlos a diferentes nodos de almacenamiento.
+
+El uso de niveles de almacenamiento personalizados te permite crear grupos de almacenamiento ILM que contengan únicamente un tipo específico de nodo de almacenamiento. Por ejemplo, es posible que desees que determinados objetos se almacenen en tus nodos de almacenamiento más rápidos, como los dispositivos de almacenamiento all-flash de StorageGRID.
+
+
+NOTE: A los nodos de almacenamiento «solo metadatos» no se les puede asignar un nivel de almacenamiento. Para obtener más información, consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"].
+
+Si el nivel de almacenamiento no es un factor relevante (por ejemplo, si todos los nodos de almacenamiento son idénticos), puedes omitir este procedimiento y utilizar la opción *incluye todos los niveles de almacenamiento* para el nivel de almacenamiento cuando link:creating-storage-pool.html["crear grupos de almacenamiento"]. Usar esta opción asegura que el grupo de almacenamiento incluya todos los nodos de almacenamiento del sitio, sin importar su nivel de almacenamiento.
+
+
+NOTE: No crees más niveles de almacenamiento de los necesarios. Por ejemplo, no crees un nivel de almacenamiento para cada Storage Node. En su lugar, asigna cada nivel de almacenamiento a dos o más nodos. Los niveles de almacenamiento asignados a un solo nodo pueden provocar atascos en ILM si ese nodo deja de estar disponible.
+
+.Pasos
+. Selecciona *ILM* > *Niveles de almacenamiento*.
+. Define grados de almacenamiento personalizados:
++
+.. Para cada nivel de almacenamiento personalizado que quieras añadir, selecciona *Insert* image:icon_nms_insert.gif["insertar icono"] para añadir una fila.
+.. Introduce una etiqueta descriptiva.
++
+image:editing_storage_grades.gif["Página de Storage Grades"]
+
+.. Selecciona *Aplicar cambios*.
+.. Si lo deseas, si necesitas modificar una etiqueta guardada, selecciona *Editar* image:icon_nms_edit.gif["icono de edición"] y selecciona *Aplicar cambios*.
++
+
+NOTE: No puedes eliminar los niveles de almacenamiento.
+
+
+
+. Asigna nuevos niveles de almacenamiento a los nodos de almacenamiento:
++
+.. Busca el nodo de almacenamiento en la lista LDR y selecciona su icono *Editar* image:icon_nms_edit.gif["icono de edición"].
+.. Selecciona el grado de almacenamiento adecuado de la lista.
++
+image:assigning_storage_grades_to_storage_nodes.gif["Página de Storage Grades"]
+
++
+
+NOTE: Asigna un nivel de almacenamiento a un Storage Node determinado solo una vez. Un Storage Node recuperado tras un fallo mantiene el nivel de almacenamiento asignado anteriormente. No cambies esta asignación después de que la política de ILM esté activada. Si se cambia la asignación, los datos se almacenan según el nuevo nivel de almacenamiento.
+
+.. Selecciona *Aplicar cambios*.
+
+
+

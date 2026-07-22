@@ -1,0 +1,260 @@
+---
+permalink: maintain/remounting-and-reformatting-storage-volumes-manual-steps.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, appliance storage volume, appliance volume, remount manually, reformat manually 
+summary: Debes ejecutar manualmente dos scripts para volver a montar los volúmenes de almacenamiento conservados y para reformatear cualquier volumen de almacenamiento que haya fallado. El primer script vuelve a montar los volúmenes que están correctamente formateados como volúmenes de almacenamiento de StorageGRID. El segundo script reformatea cualquier volumen desmontado, reconstruye Cassandra, si es necesario, e inicia los servicios. 
+---
+= Volver a montar y formatear los volúmenes de almacenamiento StorageGRID (pasos manuales)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes ejecutar manualmente dos scripts para volver a montar los volúmenes de almacenamiento conservados y para reformatear cualquier volumen de almacenamiento que haya fallado. El primer script vuelve a montar los volúmenes que están correctamente formateados como volúmenes de almacenamiento de StorageGRID. El segundo script reformatea cualquier volumen desmontado, reconstruye Cassandra, si es necesario, e inicia los servicios.
+
+.Antes de empezar
+* Ya has sustituido el hardware de cualquier volumen de almacenamiento fallido que sabes que requiere reemplazo.
++
+Ejecutar el  `sn-remount-volumes` script podría ayudarte a identificar otros volúmenes de almacenamiento que hayan fallado.
+
+* Has comprobado que no se está llevando a cabo el proceso de decomisionar un nodo de almacenamiento, o bien has pausado dicho proceso. (En Grid Manager, selecciona *Mantenimiento* > *Tareas* > *Decomisionar*.)
+* Has comprobado que no hay ninguna expansión en curso. (En el Grid Manager, selecciona *Mantenimiento* > *Tareas* > *Expansión*.)
+* Tienes link:reviewing-warnings-for-system-drive-recovery.html["Revisé las advertencias sobre la recuperación de la unidad del sistema del Storage Node"].
++
+
+CAUTION: Ponte en contacto con el soporte técnico si hay más de un nodo de almacenamiento desconectado. No ejecutes el  `sn-recovery-postinstall.sh` script.
+
+
+
+.Acerca de esta tarea
+Para completar este procedimiento, debes realizar estas tareas a grandes rasgos:
+
+* Inicia sesión en el nodo de almacenamiento recuperado.
+* Ejecuta el  `sn-remount-volumes` script para volver a montar los volúmenes de almacenamiento con el formato adecuado. Cuando se ejecuta este script, realiza lo siguiente:
++
+** Monta y desmonta cada volumen de almacenamiento para reproducir el journal de XFS.
+** Realiza una comprobación de la coherencia de archivos XFS.
+** Si el sistema de archivos es coherente, determina si el volumen de almacenamiento es un volumen de almacenamiento StorageGRID formateado correctamente.
+** Si el volumen de almacenamiento está formateado correctamente, vuelve a montar el volumen de almacenamiento. Los datos existentes en el volumen permanecen intactos.
+
+
+* Revisa el resultado del script y resuelve cualquier problema.
+* Ejecuta el  `sn-recovery-postinstall.sh` script. Cuando se ejecuta este script, realiza lo siguiente.
++
+
+CAUTION: No reinicies un nodo de almacenamiento durante la recuperación antes de ejecutar  `sn-recovery-postinstall.sh` para reformatear los volúmenes de almacenamiento que han fallado y restaurar los metadatos de los objetos. Reiniciar el nodo de almacenamiento antes de que  `sn-recovery-postinstall.sh` finalice provoca errores en los servicios que intentan iniciarse y hace que los nodos del dispositivo StorageGRID salgan del modo de mantenimiento. Consulta el paso para <<post-install-script-step,script de postinstalación>>.
+
++
+** Reformatea cualquier volumen de almacenamiento que el  `sn-remount-volumes` script no haya podido montar o que se haya detectado que está formateado incorrectamente.
++
+
+NOTE: Si se vuelve a formatear un volumen de almacenamiento, se perderán todos los datos que contenga. Debes realizar un procedimiento adicional para restaurar los datos de objetos desde otras ubicaciones en el grid, suponiendo que las reglas de ILM se hayan configurado para almacenar más de una copia de cada objeto.
+
+** Reconstruye la base de datos de Cassandra en el nodo, si es necesario.
+** Inicia los servicios en el nodo de almacenamiento.
+
+
+
+
+.Pasos
+. Inicia sesión en el nodo de almacenamiento recuperado:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Ejecuta el primer script para volver a montar los volúmenes de almacenamiento que estén correctamente formateados.
++
+
+NOTE: Si todos los volúmenes de almacenamiento son nuevos y hay que formatearlos, o si todos los volúmenes de almacenamiento han fallado, puedes saltarte este paso y ejecutar el segundo script para volver a formatear todos los volúmenes de almacenamiento desmontados.
+
++
+.. Ejecuta el script: `sn-remount-volumes`
++
+Es posible que este script tarde horas en ejecutarse en volúmenes de almacenamiento que contengan datos.
+
+.. A medida que se ejecuta el script, revisa la salida y responde a cualquier mensaje.
++
+
+NOTE: Si lo necesitas, puedes usar el comando  `tail -f` para supervisar el contenido del archivo de registro del script (`/var/local/log/sn-remount-volumes.log`). El archivo de registro contiene información más detallada que la salida de la línea de comandos.
+
++
+[listing]
+----
+root@SG:~ # sn-remount-volumes
+The configured LDR noid is 12632740
+
+====== Device /dev/sdb ======
+Mount and unmount device /dev/sdb and checking file system consistency:
+The device is consistent.
+Check rangedb structure on device /dev/sdb:
+Mount device /dev/sdb to /tmp/sdb-654321 with rangedb mount options
+This device has all rangedb directories.
+Found LDR node id 12632740, volume number 0 in the volID file
+Attempting to remount /dev/sdb
+Device /dev/sdb remounted successfully
+
+====== Device /dev/sdc ======
+Mount and unmount device /dev/sdc and checking file system consistency:
+Error: File system consistency check retry failed on device /dev/sdc.
+You can see the diagnosis information in the /var/local/log/sn-remount-volumes.log.
+
+This volume could be new or damaged. If you run sn-recovery-postinstall.sh,
+this volume and any data on this volume will be deleted. If you only had two
+copies of object data, you will temporarily have only a single copy.
+StorageGRID will attempt to restore data redundancy by making
+additional replicated copies or EC fragments, according to the rules in
+the active ILM policies.
+
+Don't continue to the next step if you believe that the data remaining on
+this volume can't be rebuilt from elsewhere in the grid (for example, if
+your ILM policy uses a rule that makes only one copy or if volumes have
+failed on multiple nodes). Instead, contact support to determine how to
+recover your data.
+
+====== Device /dev/sdd ======
+Mount and unmount device /dev/sdd and checking file system consistency:
+Failed to mount device /dev/sdd
+This device could be an uninitialized disk or has corrupted superblock.
+File system check might take a long time. Do you want to continue? (y or n) [y/N]? y
+
+Error: File system consistency check retry failed on device /dev/sdd.
+You can see the diagnosis information in the /var/local/log/sn-remount-volumes.log.
+
+This volume could be new or damaged. If you run sn-recovery-postinstall.sh,
+this volume and any data on this volume will be deleted. If you only had two
+copies of object data, you will temporarily have only a single copy.
+StorageGRID will attempt to restore data redundancy by making
+additional replicated copies or EC fragments, according to the rules in
+the active ILM policies.
+
+Don't continue to the next step if you believe that the data remaining on
+this volume can't be rebuilt from elsewhere in the grid (for example, if
+your ILM policy uses a rule that makes only one copy or if volumes have
+failed on multiple nodes). Instead, contact support to determine how to
+recover your data.
+
+====== Device /dev/sde ======
+Mount and unmount device /dev/sde and checking file system consistency:
+The device is consistent.
+Check rangedb structure on device /dev/sde:
+Mount device /dev/sde to /tmp/sde-654321 with rangedb mount options
+This device has all rangedb directories.
+Found LDR node id 12000078, volume number 9 in the volID file
+Error: This volume does not belong to this node. Fix the attached volume and re-run this script.
+----
++
+En el ejemplo de resultado, un volumen de almacenamiento se volvió a montar correctamente y tres volúmenes de almacenamiento presentaron errores.
+
++
+*** `/dev/sdb` superó la comprobación de coherencia del sistema de archivos XFS y presentaba una estructura de volumen válida, por lo que se volvió a montar correctamente. Los datos de los dispositivos que el script vuelve a montar se conservan.
+*** `/dev/sdc` La comprobación de coherencia del sistema de archivos XFS falló porque el volumen de almacenamiento era nuevo o estaba dañado.
+*** `/dev/sdd` No se ha podido montar porque el disco no estaba inicializado o el superbloque del disco estaba dañado. Cuando el script no puede montar un volumen de almacenamiento, te pregunta si deseas ejecutar la comprobación de coherencia del sistema de archivos.
++
+**** Si el volumen de almacenamiento está conectado a un disco nuevo, responde *N* a la pregunta. No es necesario comprobar el sistema de archivos en un disco nuevo.
+**** Si el volumen de almacenamiento está conectado a un disco ya existente, responde *Y* a la pregunta. Puedes utilizar los resultados de la comprobación del sistema de archivos para determinar el origen de la corrupción. Los resultados se guardan en el  `/var/local/log/sn-remount-volumes.log` archivo de registro.
+
+
+*** `/dev/sde` superó la comprobación de coherencia del sistema de archivos XFS y tenía una estructura de volumen válida; sin embargo, el ID del nodo LDR en el archivo volID no coincidía con el ID de este Storage Node (el  `configured LDR noid` que aparece en la parte superior). Este mensaje indica que este volumen pertenece a otro Storage Node.
+
+
+
+
+. Revisa el resultado del script y resuelve cualquier problema.
++
+
+CAUTION: Si un volumen de almacenamiento no ha superado la comprobación de coherencia del sistema de archivos XFS o no se ha podido montar, revisa detenidamente los mensajes de error que aparecen en la salida. Debes comprender las implicaciones de ejecutar el  `sn-recovery-postinstall.sh` script en estos volúmenes.
+
++
+.. Comprueba que los resultados incluyan una entrada para todos los volúmenes que esperabas. Si falta algún volumen en la lista, vuelve a ejecutar el script.
+.. Revisa los mensajes de todos los dispositivos montados. Asegúrate de que no haya errores que indiquen que un volumen de almacenamiento no pertenece a este Storage Node.
++
+En el ejemplo, la salida de  `/dev/sde` incluye el siguiente mensaje de error:
+
++
+[listing]
+----
+Error: This volume does not belong to this node. Fix the attached volume and re-run this script.
+----
++
+
+CAUTION: Si se indica que un volumen de almacenamiento pertenece a otro Storage Node, ponte en contacto con soporte técnico. Si ejecutas el  `sn-recovery-postinstall.sh` script, el volumen de almacenamiento se reformateará, lo que podría provocar la pérdida de datos.
+
+.. Si no se ha podido montar algún dispositivo de almacenamiento, anota el nombre del dispositivo y repáralo o reemplázalo.
++
+
+NOTE: Debes reparar o sustituir cualquier dispositivo de almacenamiento que no se haya podido montar.
+
++
+Utilizarás el nombre del dispositivo para buscar el ID del volumen, que es un dato obligatorio cuando ejecutes el script  `repair-data` para restaurar los datos de objetos en el volumen (el siguiente procedimiento).
+
+.. Después de reparar o reemplazar todos los dispositivos que no se pueden montar, ejecuta de nuevo el script  `sn-remount-volumes` para confirmar que todos los volúmenes de almacenamiento que se pueden volver a montar han sido montados nuevamente.
++
+
+CAUTION: Si no se puede montar un volumen de almacenamiento o está formateado incorrectamente, y continúas con el siguiente paso, el volumen y cualquier dato en el volumen se eliminarán. Si tenías dos copias de los datos de objetos, solo tendrás una copia hasta que completes el siguiente procedimiento (restaurar los datos de objetos).
+
+
+
++
+
+CAUTION: No ejecutes el script  `sn-recovery-postinstall.sh` si crees que los datos que quedan en un volumen de almacenamiento con fallo no se pueden reconstruir desde otra parte de la grid (por ejemplo, si tu política de ILM usa una regla que solo hace una copia o si los volúmenes han fallado en varios nodos). En su lugar, contacta al soporte técnico para ver cómo recuperar tus datos.
+
+. Ejecuta el  `sn-recovery-postinstall.sh` script: `sn-recovery-postinstall.sh`
++
+Este script reformatea cualquier volumen de almacenamiento que no se haya podido montar o que se haya detectado que está formateado incorrectamente; reconstruye la base de datos de Cassandra en el nodo, si es necesario; e inicia los servicios en el nodo de almacenamiento.
+
++
+Ten en cuenta lo siguiente:
+
++
+** Es posible que el script tarde horas en ejecutarse.
+** En general, deberías dejar la sesión SSH sin tocar mientras el script está en ejecución.
+** No pulses *Ctrl+C* mientras la sesión SSH esté activa.
+** El script se ejecutará en segundo plano si se produce una interrupción de la red y se interrumpe la sesión SSH, pero puedes ver el progreso desde la página de recuperación.
+** Si el nodo de almacenamiento utiliza el servicio RSM, puede parecer que el script se queda bloqueado durante 5 minutos mientras se reinician los servicios del nodo. Este retraso de 5 minutos es normal cada vez que el servicio RSM se inicia por primera vez.
++
+
+NOTE: El servicio RSM está presente en los nodos de almacenamiento que incluyen el servicio ADC.
+
+
+
++
+
+NOTE: Algunos procedimientos de recuperación de StorageGRID utilizan Reaper para gestionar las reparaciones de Cassandra. Las reparaciones se llevan a cabo automáticamente en cuanto se han iniciado los servicios relacionados o necesarios. Es posible que veas en la salida del script menciones a "reaper" o "reparación de Cassandra". Si aparece un mensaje de error que indica que la reparación ha fallado, ejecuta el comando que se indica en dicho mensaje.
+
+. [[post-install-script-step]]Mientras se ejecuta el  `sn-recovery-postinstall.sh` script, supervisa la página de Recuperación en el Grid Manager.
++
+La barra de progreso y la columna «Etapa» de la página «Recuperación» ofrecen a grandes rasgos el estado del  `sn-recovery-postinstall.sh` script.
+
++
+image:recovering_cassandra.png["Captura de pantalla que muestra el progreso de la recuperación en la Grid Management Interface"]
+
+. Después de que el  `sn-recovery-postinstall.sh` script haya iniciado los servicios en el nodo, puedes restaurar los datos de objetos en cualquier volumen de almacenamiento que haya formateado el script.
++
+El script te pregunta si deseas utilizar el proceso de restauración de volúmenes de Grid Manager.
+
++
+** En la mayoría de los casos, debes link:../maintain/restoring-volume.html["restaura datos de objetos usando Grid Manager"]. Responde `y` para usar Grid Manager.
+** En casos poco comunes, como cuando te lo indique el soporte técnico o cuando sepas que el nodo de reemplazo tiene menos volúmenes disponibles para el almacenamiento de objetos que el nodo original, debes link:restoring-object-data-to-storage-volume.html["restaurar los datos del objeto manualmente"] usando el script  `repair-data`. Si se aplica alguno de estos casos, responde  `n`.
++
+[NOTE]
+====
+Si respondes  `n` al usar el proceso de restauración de volúmenes de Grid Manager (restaurar los datos de objetos manualmente):
+
+*** No puedes restaurar datos de objetos usando Grid Manager.
+*** Puedes supervisar el progreso de las tareas de restauración manual mediante Grid Manager.
+
+
+====
++
+Una vez realizada la selección, el script finaliza y se muestran los siguientes pasos para recuperar los datos del objeto. Tras revisar estos pasos, pulsa cualquier tecla para volver a la línea de comandos.
+
+
+
+

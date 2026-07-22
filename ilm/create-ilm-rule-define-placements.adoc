@@ -1,0 +1,178 @@
+---
+permalink: ilm/create-ilm-rule-define-placements.html 
+sidebar: sidebar 
+keywords: ilm rule step 2, define placements 
+summary: 'El paso «Definir ubicaciones» del asistente para crear reglas de ILM te permite definir las instrucciones de ubicación que determinan cuánto tiempo se almacenan los objetos, el tipo de copias (replicadas o con código de borrado), la ubicación de almacenamiento y el número de copias.' 
+---
+= Define instrucciones de colocación para una regla de StorageGRID ILM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El paso *Definir ubicaciones* del asistente para crear reglas de ILM te permite definir las instrucciones de ubicación que determinan cuánto tiempo se almacenan los objetos, el tipo de copias (replicadas o con código de borrado), la ubicación de almacenamiento y el número de copias.
+
+
+NOTE: Las capturas de pantalla que se muestran son ejemplos. Tus resultados pueden variar en función de tu versión de StorageGRID.
+
+.Acerca de esta tarea
+Una regla ILM puede incluir una o varias instrucciones de ubicación. Cada instrucción de ubicación se aplica a un único periodo de tiempo. Cuando usas más de una instrucción, los periodos de tiempo deben ser contiguos y al menos una instrucción debe comenzar en el día 0. Las instrucciones pueden continuar para siempre o hasta que ya no necesites copias de ningún objeto.
+
+Cada instrucción de colocación puede constar de varias líneas si deseas crear diferentes tipos de copias o usar diferentes ubicaciones durante ese periodo de tiempo.
+
+En este ejemplo, la regla de ILM almacena una copia replicada en el sitio 1 y otra en el sitio 2 durante el primer año. Después de un año, se crea una copia con código de borrado 2+1 y se guarda únicamente en un sitio.
+
+image:ilm_create_ilm_rule_wizard_2.png["Asistente para crear una regla de ILM Paso 2"]
+
+.Pasos
+. Para *Hora de referencia*, selecciona el tipo de hora que quieres usar al calcular la hora de inicio de una instrucción de asignación.
++
+[cols="1a,2a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Tiempo de ingesta
+ a| 
+El momento en que se ingirió el objeto.
+
+
+
+ a| 
+Último tiempo de acceso
+ a| 
+El momento en que se recuperó (leyó o visualizó) el objeto por última vez.
+
+Para utilizar esta opción, deben estar habilitadas las actualizaciones del tiempo de acceso para el bucket de S3. Consulta link:using-last-access-time-in-ilm-rules.html["Usa el tiempo de acceso en las reglas de ILM"].
+
+
+
+ a| 
+Hora de creación definida por el usuario
+ a| 
+Una hora especificada en los metadatos definidos por el usuario.
+
+
+
+ a| 
+Tiempo no corriente
+ a| 
+La opción «Tiempo no actual» se selecciona automáticamente si seleccionaste *Sí* en la pregunta «¿Aplicar esta regla solo a versiones antiguas de objetos (en S3 buckets con versioning habilitado)?» en link:create-ilm-rule-enter-details.html["Paso 1 del asistente para crear una regla de ILM"].
+
+|===
++
+Si quieres crear una regla _conforme_, debes seleccionar *Hora de ingesta*. Consulta link:managing-objects-with-s3-object-lock.html["Gestiona objetos con S3 Object Lock"].
+
+. En la sección *Periodo de tiempo y asignaciones*, introduce una hora de inicio y una duración para el primer periodo de tiempo.
++
+Por ejemplo, es posible que quieras especificar dónde almacenar los objetos durante el primer año (_A partir del día 0, almacénalos durante 365 días_). Al menos una instrucción debe comenzar en el día 0.
+
+. Si quieres crear copias replicadas:
++
+.. En la lista desplegable *Almacenar objetos por*, selecciona *replicando*.
+.. Selecciona el número de copias que deseas hacer.
++
+Aparece una advertencia si cambias el número de copias a 1. Una regla de ILM que crea solo una copia replicada para cualquier periodo de tiempo pone los datos en riesgo de pérdida permanente. Consulta link:why-you-should-not-use-single-copy-replication.html["Por qué no debes utilizar la replicación de copia única"].
+
++
+Para evitar el riesgo, haz una o más de las siguientes acciones:
+
++
+*** Aumenta el número de copias para el periodo de tiempo.
+*** Agrega copias a otros pools de almacenamiento o a un Cloud Storage Pool.
+*** Selecciona *código de borrado* en lugar de *replicación*.
++
+Puedes ignorar esta advertencia sin problema si esta regla ya crea varias copias para todos los periodos.
+
+
+
+.. En el campo *copias en*, selecciona los grupos de almacenamiento que quieras añadir.
++
+*Si solo especificas un grupo de almacenamiento*, ten en cuenta que StorageGRID solo puede almacenar una copia replicada de un objeto en cada nodo de almacenamiento. Si tu grid incluye tres nodos de almacenamiento y seleccionas 4 como número de copias, solo se crearán tres copias—una copia por cada nodo de almacenamiento.
+
++
+Se activa la alerta *ILM placement unachievable* para indicar que no se ha podido aplicar completamente la regla de ILM.
+
++
+*Si especificas más de un grupo de almacenamiento*, ten en cuenta las siguientes reglas:
+
++
+*** El número de copias no puede ser mayor que el número de grupos de almacenamiento.
+*** Si el número de copias es igual al número de grupos de almacenamiento, se almacena una copia del objeto en cada grupo de almacenamiento.
+*** Si el número de copias es inferior al número de grupos de almacenamiento, se almacena una copia en el sitio de ingesta y luego el sistema distribuye las copias restantes para mantener equilibrado el uso del disco entre los grupos de almacenamiento, asegurando que ningún sitio reciba más de una copia de un objeto.
+*** Si los grupos de almacenamiento se solapan (contienen los mismos Storage Nodes), es posible que todas las copias del objeto se guarden únicamente en un sitio. Por este motivo, no especifiques el grupo de almacenamiento All Storage Nodes (StorageGRID 11.6 y versiones anteriores) junto con otro grupo de almacenamiento.
+
+
+
+
+. Si quieres crear una copia con código de borrado:
++
+.. En la lista desplegable *Almacenar objetos por*, selecciona *código de borrado*.
++
+
+NOTE: El código de borrado es más adecuado para objetos de más de 1 MB. No uses el código de borrado para objetos de menos de 200 KB para evitar la sobrecarga de gestionar fragmentos muy pequeños codificados por borrado.
+
+.. Si no has añadido un filtro de «Tamaño del objeto» para un valor superior a 200 KB, selecciona *Anterior* para volver al paso 1. Luego, selecciona *Añadir un filtro avanzado* y configura un filtro de «Tamaño del objeto» con cualquier valor superior a 200 KB.
+.. Selecciona el grupo de almacenamiento que quieras añadir y el esquema de código de borrado que quieras utilizar.
++
+La ubicación de almacenamiento de una copia con código de borrado incluye el nombre del esquema de código de borrado, seguido del nombre del grupo de almacenamiento.
+
++
+Los esquemas de código de borrado disponibles están limitados por el número de nodos de almacenamiento del grupo de almacenamiento que selecciones. Aparece una insignia de  `Recommended` junto a los esquemas que ofrecen ya sea el link:../ilm/what-erasure-coding-schemes-are.html["la mejor protección o la menor sobrecarga de almacenamiento"].
+
+
+
+. Opcionalmente:
++
+.. Selecciona *Add other type or location* para crear copias adicionales en distintas ubicaciones.
+.. Selecciona *Add another time period* para añadir diferentes periodos.
++
+[NOTE]
+====
+La eliminación de objetos se realiza según los siguientes ajustes:
+
+*** Los objetos se eliminan automáticamente al finalizar el último periodo de tiempo, a menos que otro periodo de tiempo termine con *forever*.
+*** Según link:../ilm/example-8-priorities-for-s3-bucket-lifecycle-and-ilm-policy.html#example-of-bucket-lifecycle-taking-priority-over-ilm-policy["Configuración del periodo de retención de buckets y de inquilinos"], es posible que los objetos no se eliminen aunque finalice el periodo de retención de ILM.
+
+
+====
+
+
+. Si quieres almacenar objetos en un grupo de almacenamiento en la nube:
++
+.. En la lista desplegable *Almacenar objetos por*, selecciona *replicating*.
+.. Selecciona el campo *copias en*, luego selecciona un Cloud Storage Pool.
++
+Cuando uses Cloud Storage Pools, ten en cuenta estas reglas:
+
++
+*** No puedes seleccionar más de un Cloud Storage Pool en una sola instrucción de ubicación. Del mismo modo, no puedes seleccionar un Cloud Storage Pool y un storage pool en la misma instrucción de ubicación.
+*** Solo puedes almacenar una sola copia de un objeto en cualquier Cloud Storage Pool. Aparece un mensaje de error si configuras *Copias* en 2 o más.
+*** No puedes almacenar más de una copia de un objeto en cualquier Cloud Storage Pool al mismo tiempo. Aparece un mensaje de error si varias ubicaciones que usan un Cloud Storage Pool tienen fechas que se solapan o si varias líneas de la misma ubicación usan un Cloud Storage Pool.
+*** Puedes almacenar un objeto en un Cloud Storage Pool al mismo tiempo que dicho objeto se almacena como copias replicadas o con código de borrado en StorageGRID. Sin embargo, debes incluir más de una línea en la instrucción de ubicación para ese periodo de tiempo, de modo que puedas especificar el número y los tipos de copias para cada ubicación.
+
+
+
+
+. En el diagrama de retención, comprueba tus instrucciones de colocación.
++
+En este ejemplo, la regla de ILM almacena una copia replicada en el Site 1 y otra copia replicada en el Site 2 durante el primer año. Después de un año y durante 10 años adicionales, se guardará una copia con código de borrado 6+3 en tres sites. Después de 11 años en total, los objetos se eliminarán de StorageGRID.
+
++
+La sección de análisis de reglas del diagrama de retención dice:
+
++
+** La protección contra la pérdida de un sitio de StorageGRID se aplicará mientras esté vigente esta regla.
+** Los objetos procesados por esta regla se eliminarán después del día 4015.
++
+Consulta link:using-multiple-storage-pools-for-cross-site-replication.html["Activa la protección contra la pérdida del sitio."]
+
++
+image:ilm_rule_retention_diagram.png["Diagrama de retención de reglas de ILM"]
+
+
+
+. Selecciona *Continuar*. link:create-ilm-rule-select-ingest-behavior.html["Paso 3 (Selecciona el comportamiento de ingesta)"] del asistente para crear una regla ILM aparece.
+

@@ -1,0 +1,114 @@
+---
+permalink: monitor/creating-custom-alert-rules.html 
+sidebar: sidebar 
+keywords: how to create custom alert rules 
+summary: Puedes crear reglas de alerta personalizadas para definir tus propias condiciones para activar alertas. 
+---
+= Crea reglas de alerta personalizadas en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes crear reglas de alerta personalizadas para definir tus propias condiciones para activar alertas.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Gestiona alertas o permisos de acceso root"].
+* Seguro que conoces el link:commonly-used-prometheus-metrics.html["Métricas de Prometheus más utilizadas"].
+* Entiendes el https://prometheus.io/docs/prometheus/latest/querying/basics/["Sintaxis de las consultas de Prometheus"^].
+* Opcionalmente, has visto el vídeo:
++
+.Alertas personalizadas
+video::54af90c4-9a38-4136-9621-b1ff008604a3[panopto]
+
+
+.Acerca de esta tarea
+StorageGRID no valida las alertas personalizadas. Si decides crear reglas de alerta personalizadas, sigue estas directrices generales:
+
+* Echa un vistazo a las condiciones de las reglas de alerta predeterminadas y utilízalas como ejemplos para tus reglas de alerta personalizadas.
+* Si defines más de una condición para una regla de alerta, utiliza la misma expresión para todas las condiciones. Luego, cambia el valor umbral de cada condición.
+* Revisa con atención cada condición para detectar posibles errores ortográficos y de lógica.
+* Utiliza únicamente las métricas que figuran en la Grid Management API.
+* Al probar una expresión mediante la API de gestión de cuadrículas, ten en cuenta que una respuesta "correcta" puede consistir en un cuerpo de respuesta vacío (sin que se active ninguna alerta). Para ver si la alerta realmente se activa, puedes establecer temporalmente un umbral en un valor que esperas que sea verdadero en este momento.
++
+Por ejemplo, para probar la expresión `node_memory_MemTotal_bytes < 24000000000`, primero ejecuta `node_memory_MemTotal_bytes >= 0` y asegúrate de que obtienes los resultados esperados (todos los nodos devuelven un valor). Luego, cambia el operador y el umbral a los valores previstos y ejecuta de nuevo. Si no hay resultados, significa que no hay alertas actuales para esta expresión.
+
+* No des por sentado que una alerta personalizada funciona a menos que hayas comprobado que se activa en el momento previsto.
+
+
+.Pasos
+. Selecciona *Alertas* > *Reglas*.
++
+Aparece la página Alert Rules.
+
+. Selecciona *Crear regla personalizada*.
++
+Aparece el cuadro de diálogo «Crear regla personalizada».
+
++
+image:alerts_create_custom_rule.png["Alertas > Crear regla personalizada"]
+
+. Marca o desmarca la casilla *Habilitado* para determinar si esta regla de alerta está habilitada actualmente.
++
+Si una regla de alerta está desactivada, sus expresiones no se evalúan y no se activan alertas.
+
+. Ingresa la siguiente información:
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre único
+ a| 
+Un nombre único para esta regla. El nombre de la regla de alerta aparece en la página Alertas y también es el asunto de las notificaciones por correo electrónico. Los nombres de las reglas de alerta pueden tener entre 1 y 64 caracteres.
+
+
+
+ a| 
+Descripción
+ a| 
+Una descripción del problema que se está produciendo. La descripción es el mensaje de alerta que aparece en la página Alertas y en las notificaciones por correo electrónico. Las descripciones de las reglas de alerta pueden tener entre 1 y 128 caracteres.
+
+
+
+ a| 
+Medidas recomendadas
+ a| 
+Opcionalmente, las acciones recomendadas que debes llevar a cabo cuando se active esta alerta. Introduce las acciones recomendadas como texto sin formato (sin códigos de formato). Las acciones recomendadas para las reglas de alerta pueden tener entre 0 y 1,024 caracteres.
+
+|===
+. En la sección Condiciones, introduce una expresión de Prometheus para uno o más de los niveles de gravedad de las alertas.
++
+Una expresión básica suele tener la forma:
+
++
+`[metric] [operator] [value]`
+
++
+Las expresiones pueden tener cualquier longitud, pero se muestran en una sola línea en la interfaz de usuario. Se requiere al menos una expresión.
+
++
+Esta expresión hace que se active una alerta si la cantidad de RAM instalada en un nodo es inferior a 24,000,000,000 bytes (24 GB).
+
++
+`node_memory_MemTotal_bytes < 24000000000`
+
++
+Para ver las métricas disponibles y probar expresiones de Prometheus, selecciona el icono de ayuda image:icon_nms_question.png["icono de signo de interrogación"] y sigue el enlace a la sección Metrics de la Grid Management API.
+
+. En el campo *Duración*, introduce el tiempo durante el que una condición debe permanecer vigente de forma ininterrumpida antes de que se active la alerta y selecciona una unidad de tiempo.
++
+Para activar una alerta de forma inmediata cuando se cumpla una condición, introduce *0*. Aumenta este valor para evitar que las condiciones temporales activen alertas.
+
++
+El valor predeterminado es 5 minutos.
+
+. Selecciona *Guardar*.
++
+El cuadro de diálogo se cierra y la nueva regla de alerta personalizada aparece en la tabla de Reglas de alerta.
+
+

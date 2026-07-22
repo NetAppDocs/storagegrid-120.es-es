@@ -1,0 +1,198 @@
+---
+permalink: admin/managing-admin-groups.html 
+sidebar: sidebar 
+keywords: what are admin groups, user permissions 
+summary: Puedes crear grupos de administradores para gestionar los permisos de seguridad de uno o varios usuarios administradores. Los usuarios deben pertenecer a un grupo para que se les conceda acceso al sistema StorageGRID. 
+---
+= Administra grupos de administración en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes crear grupos de administradores para gestionar los permisos de seguridad de uno o varios usuarios administradores. Los usuarios deben pertenecer a un grupo para que se les conceda acceso al sistema StorageGRID.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+* ${post_edited_translations.segment}
+
+
+
+
+[[create-an-admin-group]]
+== Crear un grupo de administradores
+
+${post_edited_translations.segment}
+
+
+
+[[access-the-wizard]]
+=== Accede al asistente
+
+.Pasos
+. ${post_edited_translations.segment}
+. Selecciona *Crear grupo*.
+
+
+
+
+[[choose-a-group-type]]
+=== ${post_edited_translations.segment}
+
+Puedes crear un grupo local o importar un grupo federado.
+
+* ${post_edited_translations.segment}
+* Crea un grupo federado para importar usuarios desde la fuente de identidad.
+
+
+[role="tabbed-block"]
+====
+.Grupo local
+--
+.Pasos
+. ${post_edited_translations.segment}
+. Introduce un nombre para mostrar para el grupo, que podrás modificar más adelante si es necesario. Por ejemplo, «Usuarios de mantenimiento» o «Administradores de ILM».
+. Introduce un nombre único para el grupo, que no podrás actualizar más adelante.
+. Selecciona *Continuar*.
+
+
+--
+.${post_edited_translations.segment}
+--
+.Pasos
+. ${post_edited_translations.segment}
+. Introduce el nombre del grupo que deseas importar, exactamente como aparece en la fuente de identidad configurada.
++
+** ${post_edited_translations.segment}
+** Para OpenLDAP, usa el CN (Common Name).
+** Para otro LDAP, utiliza el nombre único correspondiente para el servidor LDAP.
+
+
+. Selecciona *Continuar*.
+
+
+--
+====
+
+
+[[manage-group-permissions]]
+=== ${post_edited_translations.segment}
+
+.Pasos
+. Para *Modo de acceso*, selecciona si los usuarios del grupo pueden cambiar la configuración y realizar operaciones en el Grid Manager y la Grid Management API o si solo pueden ver la configuración y las funciones.
++
+** *Lectura/escritura* (por defecto): los usuarios pueden modificar la configuración y realizar las operaciones que les permiten sus permisos de gestión.
+** *Solo lectura*: los usuarios solo pueden ver la configuración y las funciones. No pueden realizar ningún cambio ni llevar a cabo ninguna operación en el Grid Manager o la Grid Management API. Los usuarios locales de solo lectura pueden cambiar sus propias contraseñas.
++
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+. Selecciona uno o varios link:admin-group-permissions.html["Permisos del grupo admin"].
++
+Debes asignar al menos un permiso a cada grupo; de lo contrario, los usuarios que pertenezcan al grupo no podrán iniciar sesión en StorageGRID.
+
+. Si vas a crear un grupo local, selecciona *Continuar*. Si vas a crear un grupo federado, selecciona *Crear grupo* y *Finalizar*.
+
+
+
+
+[[add-users-local-groups-only]]
+=== ${post_edited_translations.segment}
+
+.Pasos
+. ${post_edited_translations.segment}
++
+Si aún no has creado usuarios locales, puedes guardar el grupo sin añadir usuarios. Puedes añadir este grupo al usuario en la página «Usuarios». Consulta link:managing-users.html["Gestiona usuarios"] para obtener más información.
+
+. Selecciona *Crear grupo* y *Finalizar*.
+
+
+
+
+[[view-and-edit-admin-groups]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* Para consultar la información básica de todos los grupos, revisa la tabla de la página «Grupos».
+* ${post_edited_translations.segment}
++
+[cols="1a, 2a,2a"]
+|===
+| Tarea | Menú de acciones | ${post_edited_translations.segment} 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+.. Selecciona la casilla para el grupo.
+.. Selecciona *Acciones* > *Ver detalles del grupo*.
+
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+.. Selecciona la casilla para el grupo.
+.. Selecciona *Acciones* > *Editar nombre del grupo*.
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar cambios*.
+
+ a| 
+.. Selecciona el nombre del grupo para ver los detalles.
+.. Selecciona el icono de edición image:icon_edit_tm.png["Icono de edición"].
+.. ${post_edited_translations.segment}
+.. Selecciona *Guardar cambios*.
+
+
+
+
+ a| 
+Editar el modo de acceso o los permisos
+ a| 
+.. Selecciona la casilla para el grupo.
+.. Selecciona *Acciones* > *Ver detalles del grupo*.
+.. Opcionalmente, cambia el modo de acceso del grupo.
+.. Opcionalmente, selecciona o desmarca link:admin-group-permissions.html["Permisos del grupo admin"].
+.. Selecciona *Guardar cambios*.
+
+ a| 
+.. Selecciona el nombre del grupo para ver los detalles.
+.. Opcionalmente, cambia el modo de acceso del grupo.
+.. Opcionalmente, selecciona o desmarca link:admin-group-permissions.html["Permisos del grupo admin"].
+.. Selecciona *Guardar cambios*.
+
+
+|===
+
+
+
+
+[[duplicate-a-group]]
+== Duplicar un grupo
+
+.Pasos
+. Selecciona la casilla para el grupo.
+. Selecciona *Acciones* > *Duplicar grupo*.
+. Completa el asistente para duplicar grupos.
+
+
+
+
+[[delete-a-group]]
+== Borrar un grupo
+
+Puedes eliminar un grupo de administradores cuando quieras quitar el grupo del sistema y eliminar todos los permisos asociados con el grupo. Al eliminar un grupo de administradores, se eliminan los usuarios del grupo, pero no se eliminan los usuarios.
+
+.Pasos
+. En la página «Grupos», marca la casilla correspondiente a cada grupo que quieras eliminar.
+. Selecciona *Acciones* > *Eliminar grupo*.
+. Selecciona *Eliminar grupos*.
+

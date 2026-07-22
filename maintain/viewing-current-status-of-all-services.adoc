@@ -1,0 +1,44 @@
+---
+permalink: maintain/viewing-current-status-of-all-services.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, service, status 
+summary: Puedes consultar en cualquier momento el estado actual de todos los servicios que se están ejecutando en un nodo de la red. 
+---
+= Ver el estado actual de todos los servicios de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes consultar en cualquier momento el estado actual de todos los servicios que se están ejecutando en un nodo de la red.
+
+.Antes de empezar
+Tienes el archivo  `Passwords.txt`.
+
+.Pasos
+. Inicia sesión en el nodo de la grid:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Ver el estado de todos los servicios que se están ejecutando en el nodo de la red: `storagegrid-status`
++
+Por ejemplo, la salida correspondiente al nodo de administración principal muestra que el estado actual de los servicios AMS, CMN y NMS es En ejecución. Esta salida se actualiza de inmediato si cambia el estado de un servicio.
+
++
+image:storagegrid_status_output.gif["Captura de pantalla de la salida del comando storage-grid"]
+
+. Vuelve a la línea de comandos, pulsa *Ctrl*+*C*.
+. Si lo deseas, puedes consultar un informe estático de todos los servicios que se están ejecutando en el nodo de la red: `/usr/local/servermanager/reader.rb`
++
+Este informe incluye la misma información que el informe actualizado continuamente, pero no se actualiza si cambia el estado de un servicio.
+
+. Cierra la sesión del intérprete de comandos: `exit`
+

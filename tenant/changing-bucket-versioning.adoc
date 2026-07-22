@@ -1,0 +1,70 @@
+---
+permalink: tenant/changing-bucket-versioning.html 
+sidebar: sidebar 
+keywords: how to change bucket versioning, disabled versioning, enabled versioning, suspended versioning 
+summary: Si utilizas un inquilino de S3, puedes cambiar el estado de control de versiones de los buckets de S3. 
+---
+= Cambiar el versionado de objetos para un bucket S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utilizas un inquilino de S3, puedes cambiar el estado de control de versiones de los buckets de S3.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona todos los buckets o permiso de acceso a raíz"]. Estos permisos anulan la configuración de permisos en las políticas de grupo o de bucket.
+* Has comprobado que hay disponible el número necesario de Storage Nodes y sitios. Si no hay dos o más Storage Nodes disponibles en algún sitio, o si un sitio no está disponible, es posible que no puedas realizar cambios en estos ajustes.
+
+
+.Acerca de esta tarea
+Puedes activar o suspender el control de versiones de objetos para un bucket. Una vez que actives el control de versiones para un bucket, este no podrá volver a un estado sin control de versiones. Sin embargo, puedes suspender el control de versiones para el bucket.
+
+* Desactivado: la gestión de versiones nunca se ha activado
+* Activado: el control de versiones está activado
+* Suspendido: la gestión de versiones estaba activada anteriormente y ahora está suspendida
+
+
+${post_edited_translations.segment}
+
+* link:../s3/object-versioning.html["${post_edited_translations.segment}"]
+* link:../ilm/example-4-ilm-rules-and-policy-for-s3-versioned-objects.html["Normas y políticas de ILM para objetos versionados en S3 (Ejemplo 4)"]
+* link:../ilm/how-objects-are-deleted.html["Cómo se eliminan los objetos"]
+
+
+.Pasos
+. Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
+. ${post_edited_translations.segment}
++
+Aparece la página de detalles del bucket.
+
+. En la pestaña *Opciones del bucket*, selecciona el acordeón *Control de versiones de objetos*.
+. Selecciona un estado de control de versiones para los objetos en este bucket.
++
+El control de versiones de objetos debe permanecer habilitado para un bucket utilizado para la replicación entre grids. Si S3 Object Lock o la conformidad heredada están habilitados, las opciones de *control de versiones de objetos* están deshabilitadas.
+
++
+[cols="1a,3a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Habilitar el control de versiones
+ a| 
+Activa el versionado de objetos si quieres almacenar cada versión de cada objeto en este bucket. Después podrás recuperar las versiones anteriores de un objeto según lo necesites.
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Suspende el control de versiones de objetos si ya no quieres que se creen nuevas versiones de objetos. Aún puedes recuperar las versiones de objetos existentes.
+
+|===
+. Selecciona *Guardar cambios*.
+

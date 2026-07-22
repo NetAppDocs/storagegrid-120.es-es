@@ -1,0 +1,86 @@
+---
+permalink: admin/security-for-clients.html 
+sidebar: sidebar 
+keywords: security, S3, client application, TLS 
+summary: Las cuentas de inquilino de StorageGRID usan aplicaciones de cliente S3 para guardar datos de objetos en StorageGRID. Deberías revisar las medidas de seguridad implementadas para las aplicaciones de cliente. 
+---
+= Seguridad para clientes S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las cuentas de inquilino de StorageGRID usan aplicaciones de cliente S3 para guardar datos de objetos en StorageGRID. Deberías revisar las medidas de seguridad implementadas para las aplicaciones de cliente.
+
+
+
+[[summary]]
+== ${post_edited_translations.segment}
+
+La siguiente lista resume cómo se implementa la seguridad en la API de REST de S3:
+
+${post_edited_translations.segment}:: ${post_edited_translations.segment}
+${post_edited_translations.segment}:: Certificado de servidor X.509 firmado por la CA del sistema o certificado de servidor personalizado proporcionado por el administrador
+${post_edited_translations.segment}:: ${post_edited_translations.segment}
+Autorización del cliente:: La titularidad del bucket y todas las políticas de control de acceso aplicables
+
+
+
+
+[[how-storagegrid-provides-security-for-client-applications]]
+== Cómo StorageGRID proporciona seguridad para las aplicaciones cliente
+
+Las aplicaciones cliente de S3 pueden conectarse al servicio Load Balancer en los nodos de Gateway o Admin, o directamente a los nodos de Storage.
+
+* Los clientes que se conectan al servicio de equilibrador de carga pueden usar HTTPS o HTTP, según cómo link:configuring-load-balancer-endpoints.html["${post_edited_translations.segment}"].
++
+HTTPS ofrece una comunicación segura cifrada mediante TLS y es la opción recomendada. Debes asociar un certificado de seguridad al punto final.
+
++
+${post_edited_translations.segment}
+
+* Los clientes que se conectan a los nodos de almacenamiento también pueden usar HTTPS o HTTP.
++
+HTTPS es la opción predeterminada y se recomienda.
+
++
+HTTP proporciona una comunicación menos segura y sin cifrar, pero puede usarse opcionalmente link:changing-network-options-object-encryption.html["habilitado"] para grids que no sean de producción o de prueba.
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Los clientes deben proporcionar link:../s3/authenticating-requests.html["Encabezados de autenticación HTTP"] a StorageGRID para realizar operaciones de la API de REST.
+
+
+
+
+[[security-certificates-and-client-applications]]
+=== ${post_edited_translations.segment}
+
+En todos los casos, las aplicaciones cliente pueden establecer conexiones TLS utilizando ya sea un certificado de servidor personalizado cargado por el administrador de la grid o un certificado generado por el sistema StorageGRID:
+
+* Cuando las aplicaciones cliente se conectan al servicio de equilibrador de carga, utilizan el certificado que se ha configurado para el punto final del equilibrador de carga. Cada punto final del equilibrador de carga tiene su propio certificado—ya sea un certificado de servidor personalizado cargado por el administrador de grid o un certificado que el administrador de grid generó en StorageGRID al configurar el punto final.
++
+Consulta link:managing-load-balancing.html["Aspectos a tener en cuenta para el equilibrio de carga"].
+
+* Cuando las aplicaciones cliente se conectan directamente a un nodo de almacenamiento, utilizan los certificados de servidor generados por el sistema que se crearon para los nodos de almacenamiento al instalar el sistema StorageGRID (que están firmados por la entidad de certificación del sistema) o un único certificado de servidor personalizado proporcionado para el grid por un administrador de grid. Consulta link:configuring-custom-server-certificate-for-storage-node.html["${post_edited_translations.segment}"].
+
+
+Los clientes deben configurarse para que confíen en la autoridad de certificación que haya firmado el certificado que utilicen para establecer conexiones TLS.
+
+
+
+[[supported-hashing-and-encryption-algorithms-for-tls-libraries]]
+== ${post_edited_translations.segment}
+
+El sistema StorageGRID admite un conjunto de conjuntos de cifrado que las aplicaciones cliente pueden utilizar al establecer una sesión TLS. Para configurar los cifrados, ve a *Configuración* > *Seguridad* > *Ajustes de seguridad* y selecciona *Políticas de TLS y SSH*.
+
+
+
+[[supported-versions-of-tls]]
+=== Versiones compatibles de TLS
+
+${post_edited_translations.segment}
+
+
+NOTE: SSLv3 y TLS 1.1 (o versiones anteriores) ya no son compatibles.

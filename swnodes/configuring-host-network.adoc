@@ -1,0 +1,153 @@
+---
+permalink: swnodes/configuring-host-network.html 
+sidebar: sidebar 
+keywords: how to configure the host network 
+summary: Una vez completada la instalación de Linux en tus hosts, es posible que tengas que realizar alguna configuración adicional para preparar un conjunto de interfaces de red en cada host que sean adecuadas para asignarlas a los nodos de StorageGRID que implementarás más adelante. 
+---
+= Configura la red de host de StorageGRID para implementaciones en Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez completada la instalación de Linux en tus hosts, es posible que tengas que realizar alguna configuración adicional para preparar un conjunto de interfaces de red en cada host que sean adecuadas para asignarlas a los nodos de StorageGRID que implementarás más adelante.
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+.Antes de empezar
+* Has revisado la link:../network/index.html["Directrices de red de StorageGRID"].
+* Has consultado la información sobre link:node-container-migration-requirements.html["Requisitos para la migración de contenedores de nodo"].
+* Si utilizas hosts virtuales, debes haber leído la <<mac_address_cloning,Consideraciones y recomendaciones para la clonación de direcciones MAC>> antes de configurar la red del host.
+
+
+
+NOTE: Si utilizas máquinas virtuales como hosts, debes seleccionar VMXNET 3 como adaptador de red virtual. El adaptador de red VMware E1000 ha provocado problemas de conectividad con los contenedores de StorageGRID implementados en determinadas distribuciones de Linux.
+
+.Acerca de esta tarea
+Los nodos de la red Grid deben poder acceder a la Grid Network y, opcionalmente, a las Admin y Client Networks. Proporcionas este acceso creando asignaciones que asocian la interfaz física del host a las interfaces virtuales de cada grid node. Al crear interfaces del host, usa nombres amigables para facilitar la implementación en todos los hosts y permitir la migración.
+
+La misma interfaz puede compartirse entre el host y uno o más nodos. Por ejemplo, puedes usar la misma interfaz para el acceso al host y el acceso a la red de administración de los nodos, para facilitar el mantenimiento tanto del host como de los nodos. Aunque la misma interfaz puede compartirse entre el host y nodos individuales, todos deben tener direcciones IP diferentes. Las direcciones IP no pueden compartirse entre nodos ni entre el host y ningún nodo.
+
+Puedes utilizar la misma interfaz de red del host para proporcionar la interfaz de red Grid a todos los nodos de StorageGRID del host; puedes utilizar una interfaz de red del host diferente para cada nodo; o puedes hacer algo intermedio. Sin embargo, normalmente no proporcionarías la misma interfaz de red del host como interfaz de red Grid y de red de administración para un solo nodo, ni como interfaz de red Grid para un nodo y como interfaz de red de cliente para otro.
+
+Puedes realizar esta tarea de varias formas. Por ejemplo, si tus hosts son máquinas virtuales y vas a implementar uno o dos nodos de StorageGRID por cada host, puedes crear el número adecuado de interfaces de red en el hipervisor y utilizar una asignación 1 a 1. Si estás implementando varios nodos en hosts bare metal para uso en producción, puedes aprovechar la compatibilidad de la pila de red de Linux con VLAN y LACP para lograr tolerancia a fallos y compartir ancho de banda. Las siguientes secciones ofrecen enfoques detallados para ambos ejemplos. No necesitas usar ninguno de estos ejemplos; puedes emplear cualquier enfoque que se adapte a tus necesidades.
+
+
+NOTE: No utilices dispositivos «bond» o «bridge» directamente como interfaz de red del contenedor. Si lo haces, podrías impedir el arranque del nodo debido a un problema del núcleo relacionado con el uso de MACVLAN con dispositivos «bond» y «bridge» en el espacio de nombres del contenedor. En su lugar, utiliza un dispositivo que no sea «bond», como una VLAN o un par de Ethernet virtuales (veth). Especifica este dispositivo como la interfaz de red en el archivo de configuración del nodo.
+
+
+
+[[considerations-and-recommendations-for-mac-address-cloning]]
+== ${post_edited_translations.segment}
+
+.[[clonación_de_direcciones_MAC]]
+La clonación de direcciones MAC hace que el contenedor utilice la dirección MAC del host y que el host utilice la dirección MAC que tú especifiques o una generada aleatoriamente. Deberías usar la clonación de direcciones MAC para evitar el uso de configuraciones de red en modo promiscuo.
+
+
+
+[[enabling-mac-cloning]]
+=== Habilitar la clonación de direcciones MAC
+
+En determinados entornos, es posible mejorar la seguridad mediante la clonación de direcciones MAC, ya que permite utilizar una NIC virtual dedicada para la Admin Network, Grid Network y Client Network. Al hacer que el contenedor utilice la dirección MAC de la NIC dedicada del host, puedes evitar usar configuraciones de red en modo promiscuo.
+
+
+NOTE: La clonación de direcciones MAC está pensada para utilizarse con instalaciones de servidores virtuales y podría no funcionar correctamente con todas las configuraciones de dispositivos físicos.
+
+
+NOTE: Si un nodo no se inicia porque la interfaz en la que se va a clonar la dirección MAC está ocupada, es posible que tengas que establecer el enlace en "inactivo" antes de iniciar el nodo. Además, es posible que el entorno virtual impida la clonación de la dirección MAC en una interfaz de red mientras el enlace esté activo. Si un nodo no consigue establecer la dirección MAC ni iniciarse debido a que una interfaz está ocupada, establecer el enlace en "inactivo" antes de iniciar el nodo podría solucionar el problema.
+
+La clonación de direcciones MAC está desactivada por defecto y debe configurarse mediante claves de configuración del nodo. Debes activarla al instalar StorageGRID.
+
+Hay una clave para cada red:
+
+* `ADMIN_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC`
+* `GRID_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC`
+* `CLIENT_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC`
+
+
+Si se establece la clave en «true», el contenedor utilizará la dirección MAC de la NIC del host. Además, el host utilizará entonces la dirección MAC de la red del contenedor especificada. Por defecto, la dirección del contenedor es una dirección generada aleatoriamente, pero si has establecido una mediante la clave de configuración del nodo `_NETWORK_MAC`, se utilizará esa dirección en su lugar. El host y el contenedor siempre tendrán direcciones MAC diferentes.
+
+
+NOTE: Activar la clonación de direcciones MAC en un host virtual sin activar también el modo promiscuo en el hipervisor podría provocar que la red del host Linux que usa la interfaz del host deje de funcionar.
+
+
+
+[[mac-cloning-use-cases]]
+=== Casos de uso de la clonación de MAC
+
+Hay dos casos de uso que hay que tener en cuenta en relación con la clonación de direcciones MAC:
+
+* Clonación de MAC desactivada: cuando la  `_CLONE_MAC` clave en el archivo de configuración del nodo no está definida o está establecida en "false", el host usará la MAC de la NIC del host y el contenedor tendrá una MAC generada por StorageGRID, a menos que se especifique una MAC en la  `_NETWORK_MAC` clave. Si se establece una dirección en la  `_NETWORK_MAC` clave, el contenedor tendrá la dirección especificada en la  `_NETWORK_MAC` clave. Esta configuración de claves requiere el uso de modo promiscuo.
+* Clonación de MAC habilitada: cuando la  `_CLONE_MAC` clave en el archivo de configuración del nodo se establece en "true", el contenedor usa la MAC de la NIC del host y el host usa una MAC generada por StorageGRID, a menos que se especifique una MAC en la  `_NETWORK_MAC` clave. Si se establece una dirección en la  `_NETWORK_MAC` clave, el host usa la dirección especificada en lugar de una generada. En esta configuración de claves, no deberías usar el modo promiscuo.
+
+
+
+NOTE: Si no deseas utilizar la clonación de direcciones MAC y prefieres permitir que todas las interfaces reciban y transmitan datos para direcciones MAC distintas de las asignadas por el hipervisor, asegúrate de que las propiedades de seguridad a nivel de conmutador virtual y de grupo de puertos estén configuradas en *Aceptar* para el modo promiscuo, los cambios de dirección MAC y las transmisiones falsificadas. Los valores configurados en el conmutador virtual pueden ser anulados por los valores a nivel de grupo de puertos, así que asegúrate de que la configuración sea la misma en ambos lugares.
+
+Para habilitar la clonación de direcciones MAC, consulta la link:creating-node-configuration-files.html["Instrucciones para crear archivos de configuración de nodos"].
+
+
+
+[[mac-cloning-example]]
+=== Ejemplo de clonación de MAC
+
+Ejemplo de clonación de MAC habilitada en un host con la dirección MAC 11:22:33:44:55:66 para la interfaz ens256 y las siguientes claves en el archivo de configuración del nodo:
+
+* `ADMIN_NETWORK_TARGET = ens256`
+* `ADMIN_NETWORK_MAC = b2:9c:02:c2:27:10`
+* `ADMIN_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC = true`
+
+
+*Resultado*: la dirección MAC del host para ens256 es b2:9c:02:c2:27:10 y la dirección MAC de la Admin Network es 11:22:33:44:55:66
+
+
+
+[[example-1-1-to-1-mapping-to-physical-or-virtual-nics]]
+== Ejemplo 1: asignación 1 a 1 a tarjetas de red físicas o virtuales
+
+El ejemplo 1 describe una asignación de interfaz física sencilla que requiere poca o ninguna configuración en el host.
+
+image:rhel_install_vlan_diag_1.gif["Instala el diagrama de VLAN"]
+
+El sistema operativo Linux crea las  `ensXYZ` interfaces automáticamente durante la instalación o el arranque, o cuando las interfaces se agregan en caliente. No se requiere ninguna configuración aparte de asegurarte de que las interfaces estén configuradas para activarse automáticamente después del arranque. Tienes que determinar qué ensXYZ corresponde a cada red de StorageGRID (Grid, Admin o Client) para que puedas proporcionar las asignaciones correctas más adelante en el proceso de configuración.
+
+Ten en cuenta que en la figura se muestran varios nodos de StorageGRID; sin embargo, normalmente usarías esta configuración para máquinas virtuales de un solo nodo.
+
+Si el conmutador 1 es un conmutador físico, debes configurar los puertos conectados a las interfaces 10G1 a 10G3 en modo de acceso y colocarlos en las VLAN apropiadas.
+
+
+
+[[example-2-lacp-bond-carrying-vlans]]
+== Ejemplo 2: enlace LACP que transporta VLAN
+
+El ejemplo 2 da por hecho que estás familiarizado con la agrupación de interfaces de red y con la creación de interfaces VLAN en la distribución de Linux que utilizas.
+
+.Acerca de esta tarea
+El ejemplo 2 describe un esquema genérico y flexible, basado en VLAN, que facilita el reparto de todo el ancho de banda de red disponible entre todos los nodos de un único host. Este ejemplo es especialmente aplicable a los hosts bare metal.
+
+Para entender este ejemplo, supongamos que tienes tres subredes independientes para las redes Grid, Admin y Client en cada centro de datos. Las subredes se encuentran en VLAN independientes (1001, 1002 y 1003) y se presentan al host a través de un puerto troncal con enlace LACP (bond0). Configurarías tres interfaces de VLAN en el enlace: bond0.1001, bond0.1002 y bond0.1003.
+
+Si necesitas VLAN y subredes independientes para las redes de los nodos en un mismo host, puedes añadir interfaces de VLAN al bond y asignarlas al host (que aparece como bond0.1004 en la ilustración).
+
+image:rhel_install_vlan_diag_2.gif["Interfaces de VLAN"]
+
+.Pasos
+. Agrupa todas las interfaces de red físicas que se vayan a utilizar para la conectividad de red de StorageGRID en un único enlace LACP.
++
+Usa el mismo nombre para el bond en cada host, por ejemplo, `bond0`.
+
+. Crea interfaces VLAN que utilicen este enlace como su «dispositivo físico» asociado, usando la convención de nomenclatura estándar para interfaces VLAN `physdev-name.VLAN ID`.
++
+Ten en cuenta que los pasos 1 y 2 requieren una configuración adecuada en los switches periféricos que terminan los otros extremos de los enlaces de red. Los puertos del switch periférico también se deben agregar en un canal de puertos LACP, configurar como trunk y permitir el paso de todas las VLAN requeridas.
+
++
+${post_edited_translations.segment}
+
+
+
+.Información relacionada
+* link:example-etc-network-interfaces.html["${post_edited_translations.segment}"]
+* link:example-etc-sysconfig-network-scripts.html["${post_edited_translations.segment}"]
+

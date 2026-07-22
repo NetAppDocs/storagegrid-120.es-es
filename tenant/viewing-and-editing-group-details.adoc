@@ -1,0 +1,57 @@
+---
+permalink: tenant/viewing-and-editing-group-details.html 
+sidebar: sidebar 
+keywords: how to view and edit group 
+summary: ${post_edited_translations.segment} 
+---
+= Ver y editar los detalles del grupo de inquilinos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando ves los detalles de un grupo, puedes cambiar el nombre para mostrar del grupo, los permisos, las políticas y los usuarios que pertenecen al grupo.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene el permiso de acceso raíz.
+
+
+.Pasos
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+${post_edited_translations.segment}
+
++
+Aparece la página de detalles del grupo. El siguiente ejemplo muestra la página de detalles del grupo de S3.
+
++
+image:tenant_group_details.png["${post_edited_translations.segment}"]
+
+. Realiza los cambios necesarios en la configuración del grupo.
++
+
+TIP: Para asegurarte de que se guarden los cambios, selecciona *Guardar cambios* después de realizar cambios en cada sección. Cuando se guarden los cambios, aparecerá un mensaje de confirmación en la esquina superior derecha de la página.
+
++
+.. Si lo deseas, selecciona el nombre que se muestra o el icono de edición image:icon_edit_tm.png["Icono de edición"] para actualizar el nombre que se muestra.
++
+No puedes cambiar el nombre único de un grupo. No puedes editar el nombre que se muestra de un grupo federado.
+
+.. ${post_edited_translations.segment}
+.. ${post_edited_translations.segment}
++
+*** Si estás editando un grupo para un inquilino de S3, de forma opcional selecciona una política de grupo de S3 diferente. Si seleccionas una política de S3 personalizada, actualiza la cadena JSON según sea necesario.
+
+
+.. Si lo deseas, puedes añadir o eliminar usuarios.
+
+
+. ${post_edited_translations.segment}
+
+
+.Información relacionada
+* link:creating-groups-for-s3-tenant.html["Crear grupos para el inquilino de S3"]
+

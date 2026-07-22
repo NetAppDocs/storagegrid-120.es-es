@@ -1,0 +1,19 @@
+---
+permalink: network/network-gateway-requirements.html 
+sidebar: sidebar 
+keywords: network gateway requirements 
+summary: Sigue estos requisitos y directrices para las pasarelas de red o los routers. 
+---
+= Requisitos de gateway de red para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sigue estos requisitos y directrices para las pasarelas de red o los routers.
+
+* Si se configura, la puerta de enlace de una red determinada debe estar dentro de la subred de esa red.
+* Si configuras una interfaz con direccionamiento estático, debes especificar una dirección de puerta de enlace distinta de 0.0.0.0.
+* Si no dispones de una puerta de enlace, lo más recomendable es configurar la dirección de la puerta de enlace como la dirección IP de la interfaz de red.
+

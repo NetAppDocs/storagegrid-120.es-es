@@ -1,0 +1,98 @@
+---
+permalink: audit/cgrr-cross-grid-replication-request.html 
+sidebar: sidebar 
+keywords: cgrr, cross-grid replication request, audit message, 
+summary: ${post_edited_translations.segment} 
+---
+= Mensaje de auditoría CGRR para solicitudes de replicación entre grids en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Tamaño del objeto
+ a| 
+El tamaño del objeto en bytes.
+
+El atributo CSIZ se introdujo en StorageGRID 11.8. Como resultado, las solicitudes de replicación entre grids que abarquen una actualización de StorageGRID 11.7 a 11.8 podrían tener un tamaño total de objeto inexacto.
+
+
+
+ a| 
+S3AI
+ a| 
+ID de cuenta de inquilino de S3
+ a| 
+El ID de la cuenta de inquilino que es propietaria del bucket desde el que se está replicando el objeto.
+
+
+
+ a| 
+GFID
+ a| 
+ID de conexión de la federación de grid
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+OPER
+ a| 
+Operación de CGR
+ a| 
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+
+
+
+
+ a| 
+S3BK
+ a| 
+Bucket de S3
+ a| 
+El nombre del depósito de S3.
+
+
+
+ a| 
+S3KY
+ a| 
+Clave de S3
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+ID de versión
+ a| 
+El identificador de la versión concreta de un objeto que se estaba replicando.
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+Devuelve éxito (SUCS) o error general (GERR).
+
+|===

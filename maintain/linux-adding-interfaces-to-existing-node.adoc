@@ -1,0 +1,49 @@
+---
+permalink: maintain/linux-adding-interfaces-to-existing-node.html 
+sidebar: sidebar 
+keywords: add interfaces, add client network interface, add admin network interface 
+summary: Sigue estos pasos para añadir una interfaz en la red de administración o en la red de clientes a un nodo Linux después de que se haya instalado. 
+---
+= Agrega interfaces de Admin o Client a un nodo Linux en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sigue estos pasos para añadir una interfaz en la red de administración o en la red de clientes a un nodo Linux después de que se haya instalado.
+
+Si durante la instalación no has configurado ADMIN_NETWORK_TARGET ni CLIENT_NETWORK_TARGET en el archivo de configuración del nodo del host Linux, sigue este procedimiento para añadir la interfaz. Para obtener más información sobre el archivo de configuración del nodo, consulta link:../swnodes/index.html["Instalar StorageGRID en nodos basados en software"].
+
+Realiza este procedimiento en el servidor Linux que aloja el nodo que necesita la nueva asignación de red, no dentro del nodo. Este procedimiento solo añade la interfaz al nodo; ocurre un error de validación si intentas especificar cualquier otro parámetro de red.
+
+Para proporcionar la información de direccionamiento, debes usar la herramienta Change IP. Consulta link:changing-nodes-network-configuration.html["Modificar la configuración de red del nodo"].
+
+.Pasos
+. Inicia sesión en el servidor Linux que aloja el nodo.
+. Edita el archivo de configuración del nodo: `/etc/storagegrid/nodes/_node-name_.conf`.
++
+
+NOTE: No especifiques ningún otro parámetro de red o se producirá un error de validación.
+
++
+.. Agrega una entrada para el nuevo destino de red. Por ejemplo:
++
+`CLIENT_NETWORK_TARGET = bond0.3206`
+
+.. Opcional: Añade una entrada para la dirección MAC. Por ejemplo:
++
+`CLIENT_NETWORK_MAC = aa:57:61:07:ea:5c`
+
+
+
+. Ejecuta el comando «node validate»:
++
+`sudo storagegrid node validate _node-name_`
+
+. Soluciona todos los errores de validación.
+. Ejecuta el comando «node reload»:
++
+`sudo storagegrid node reload _node-name_`
+
+

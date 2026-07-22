@@ -1,0 +1,79 @@
+---
+permalink: audit/gnrg-gnds-registration.html 
+sidebar: sidebar 
+keywords: storagegrid, audi, message, GNRG, GNDS Registration 
+summary: ${post_edited_translations.segment} 
+---
+= Mensaje de auditoría GNRG para el registro GNDS en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+* SUNV: Servicio no disponible
+* GERR: Otro fallo
+
+
+
+
+ a| 
+GNID
+ a| 
+Nodo ID
+ a| 
+El identificador de nodo del servicio que inició la solicitud de actualización.
+
+
+
+ a| 
+GNTP
+ a| 
+Tipo de dispositivo
+ a| 
+El tipo de dispositivo del nodo de la grid (por ejemplo, BLDR para un servicio LDR).
+
+
+
+ a| 
+GNDV
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+GNGP
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+GNIA
+ a| 
+Dirección IP
+ a| 
+La dirección IP del nodo de la grid.
+
+|===
+Este mensaje se genera cada vez que un nodo de grid actualiza su entrada en el Grid Nodes Bundle.

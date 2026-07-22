@@ -1,0 +1,16 @@
+---
+permalink: maintain/recovering-from-archive-node-failures.html 
+sidebar: sidebar 
+keywords: recover, archive node failure, workflow 
+summary: Se ha eliminado la compatibilidad con los Archive Nodes. 
+---
+= Recupera de fallos del nodo de archivo StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Se ha eliminado la compatibilidad con los Archive Nodes.
+
+Para obtener información sobre cómo recuperar nodos de archivo, consulta https://docs.netapp.com/us-en/storagegrid-118/maintain/recovering-from-archive-node-failures.html["Recupera tras fallos en los nodos de archivo (sitio de documentación de StorageGRID 11.8)"^].

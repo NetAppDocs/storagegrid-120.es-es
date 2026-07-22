@@ -1,0 +1,1482 @@
+= Ubicación de los archivos de configuración de los nodos
+:allow-uri-read: 
+
+
+
+
+[[location-for-node-configuration-files]]
+== Ubicación de los archivos de configuración de los nodos
+
+Coloca el archivo de configuración de cada nodo de StorageGRID en el directorio `/etc/storagegrid/nodes` del host donde se ejecutará el nodo. Por ejemplo, si planeas ejecutar un Admin Node, un Gateway Node y un Storage Node en HostA, debes colocar tres archivos de configuración de nodo en `/etc/storagegrid/nodes` en HostA.
+
+Puedes crear los archivos de configuración directamente en cada host utilizando un editor de texto, como vim o nano, o puedes crearlos en otro lugar y moverlos a cada host.
+
+
+
+[[naming-of-node-configuration-files]]
+== ${post_edited_translations.segment}
+
+Los nombres de los archivos de configuración son importantes. El formato es `node-name.conf`, donde `node-name` es un nombre que tú le asignas al nodo. Este nombre aparece en el StorageGRID Installer y se usa para operaciones de mantenimiento del nodo, como la migración del nodo.
+
+Los nombres de los nodos deben cumplir las siguientes normas:
+
+* Debe ser único
+* Debe empezar por una letra
+* Puede contener los caracteres de la A a la Z y de la a a la z
+* Puede contener los números del 0 al 9
+* ${post_edited_translations.segment}
+* No debe tener más de 32 caracteres, sin contar la  `.conf` extensión
+
+
+Cualquier archivo en  `/etc/storagegrid/nodes` que no siga estas convenciones de nomenclatura no será procesado por el servicio de alojamiento.
+
+Si tienes prevista una topología con varios emplazamientos para tu grid, un esquema típico de nomenclatura de nodos podría ser:
+
+`site-nodetype-nodenumber.conf`
+
+Por ejemplo, podrías utilizar `dc1-adm1.conf` para el primer nodo de administración en Data Center 1, y `dc2-sn3.conf` para el tercer nodo de almacenamiento en Data Center 2. Sin embargo, puedes usar cualquier esquema que quieras, siempre y cuando todos los nombres de los nodos sigan las reglas de nomenclatura.
+
+
+
+[[contents-of-a-node-configuration-file]]
+== Contenido de un archivo de configuración de nodo
+
+Un archivo de configuración contiene pares clave/valor, con una clave y un valor por línea. Para cada par clave/valor, sigue estas reglas:
+
+* La clave y el valor deben estar separados por un signo igual (`=`) y espacios en blanco opcionales.
+* Las claves no pueden contener espacios.
+* Los valores pueden contener espacios incrustados.
+* Se ignoran los espacios en blanco al principio o al final.
+
+
+En la siguiente tabla se definen los valores de todas las claves admitidas. Cada clave tiene una de las siguientes denominaciones:
+
+* *Obligatorio*: obligatorio para todos los nodos o para los tipos de nodos especificados
+* *Práctica recomendada*: opcional, aunque se recomienda
+* *Opcional*: opcional para todos los nodos
+
+
+
+
+[[admin-network-keys]]
+=== Claves de la red de administración
+
+
+
+==== ADMIN_IP
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Dirección IPv4 de la red Grid del nodo de administración que deseas utilizar para instalar el nodo basado en Linux. Para la recuperación, utiliza la dirección IP del nodo de administración principal si está disponible; de lo contrario, utiliza la dirección IP de un nodo de administración no principal. Si omites este parámetro, el nodo intenta descubrir un nodo de administración principal usando mDNS.
+
+link:how-grid-nodes-discover-primary-admin-node.html["Cómo detectan los nodos de la grid el nodo de administración principal"]
+
+*Nota*: Este valor se ignora y puede que esté prohibido en el nodo de administración principal.
+ a| 
+Mejor práctica
+
+|===
+
+
+==== ADMIN_NETWORK_CONFIG
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+DHCP, ESTÁTICO o DESACTIVADO
+ a| 
+Opcional
+
+|===
+
+
+==== ADMIN_NETWORK_ESL
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Lista separada por comas de subredes en notación CIDR con las que este nodo debe comunicarse usando la pasarela de la red de administración.
+
+Ejemplo: `172.16.0.0/21,172.17.0.0/21`
+ a| 
+Opcional
+
+|===
+
+
+==== ADMIN_NETWORK_GATEWAY
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Dirección IPv4 de la puerta de enlace de la red de administración local para este nodo. Debe estar en la subred definida por ADMIN_NETWORK_IP y ADMIN_NETWORK_MASK. Este valor se ignora para las redes configuradas mediante DHCP.
+
+Ejemplos:
+
+`1.1.1.1`
+
+`10.224.4.81`
+ a| 
+Obligatorio si se especifica  `ADMIN_NETWORK_ESL`. Opcional en caso contrario.
+
+|===
+
+
+==== ADMIN_NETWORK_IP
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Dirección IPv4 de este nodo en la red de administración. Esta clave solo es necesaria cuando ADMIN_NETWORK_CONFIG = STATIC; no la especifiques para otros valores.
+
+Ejemplos:
+
+`1.1.1.1`
+
+`10.224.4.81`
+ a| 
+Es obligatorio cuando ADMIN_NETWORK_CONFIG = STATIC.
+
+Opcional de lo contrario.
+
+|===
+
+
+==== ADMIN_NETWORK_MAC
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+La dirección MAC de la interfaz de red Admin en el contenedor.
+
+Este campo es opcional. Si no se indica, se generará automáticamente una dirección MAC.
+
+${post_edited_translations.segment}
+
+Ejemplo: `b2:9c:02:c2:27:10`
+ a| 
+Opcional
+
+|===
+
+
+==== ADMIN_NETWORK_MASK
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Máscara de red IPv4 para este nodo, en la Admin Network. Especifica esta clave cuando ADMIN_NETWORK_CONFIG = STATIC; no la especifiques para otros valores.
+
+Ejemplos:
+
+`255.255.255.0`
+
+`255.255.248.0`
+ a| 
+Es obligatorio si se especifica ADMIN_NETWORK_IP y ADMIN_NETWORK_CONFIG = STATIC.
+
+Opcional de lo contrario.
+
+|===
+
+
+==== ADMIN_NETWORK_MTU
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+La unidad máxima de transmisión (MTU) para este nodo en la Admin Network. No lo especifiques si ADMIN_NETWORK_CONFIG = DHCP. Si lo especificas, el valor debe estar entre 1280 y 9216. Si lo omites, se usa 1500.
+
+Si deseas utilizar tramas gigantes, configura el MTU con un valor adecuado para las tramas gigantes, como 9000. De lo contrario, mantén el valor predeterminado.
+
+*IMPORTANTE*: el valor de MTU de la red debe coincidir con el valor configurado en el puerto del switch al que está conectado el nodo. De lo contrario, podrían producirse problemas de rendimiento de la red o pérdida de paquetes.
+
+Ejemplos:
+
+`1500`
+
+`8192`
+ a| 
+Opcional
+
+|===
+
+
+==== ADMIN_NETWORK_TARGET
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Nombre del dispositivo host que vas a usar para el acceso a la red de administración por parte del nodo de StorageGRID. Solo se admiten nombres de interfaz de red. Normalmente, usas un nombre de interfaz diferente al que se especificó para GRID_NETWORK_TARGET o CLIENT_NETWORK_TARGET.
+
+*Nota*: No utilices dispositivos bond o bridge como destino de red. Configura una VLAN (u otra interfaz virtual) sobre el dispositivo bond, o utiliza un bridge y un par de Ethernet virtual (veth).
+
+*Práctica recomendada*: especifica un valor incluso si este nodo no va a tener inicialmente una dirección IP de la red de administración. Así podrás añadir una dirección IP de la red de administración más adelante, sin tener que volver a configurar el nodo en el host.
+
+Ejemplos:
+
+`bond0.1002`
+
+`ens256`
+ a| 
+Mejor práctica
+
+|===
+
+
+==== ADMIN_NETWORK_TARGET_TYPE
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Interfaz (Este es el único valor admitido.)
+ a| 
+Opcional
+
+|===
+
+
+==== ADMIN_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Verdadero o falso
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["${post_edited_translations.segment}"]
+ a| 
+Mejor práctica
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+Opcional de lo contrario.
+
+|===
+
+
+[[block-device-keys]]
+=== Claves de dispositivos de bloque
+
+
+
+==== BLOCK_DEVICE_AUDIT_LOGS
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Ruta y nombre del archivo especial de dispositivo de bloques que utilizará este nodo para almacenamiento persistente de los registros de auditoría.
+
+Ejemplos:
+
+`/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0` Greenfield deployment of StorageGRID with StorageGRID-mapped drives is supported. However, you cannot use StorageGRID-mapped drives if you are upgrading from StorageGRID 11.4 or earlier.
+
+To use StorageGRID-mapped drives, you must configure the StorageGRID appliance to use StorageGRID-mapped drives during the initial installation. You cannot change this configuration after installation.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must use the standard drive mapping.
+
+For more information about StorageGRID-mapped drives, see the `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### StorageGRID-mapped drives
+
+StorageGRID-mapped drives are drives that are mapped to a specific StorageGRID node. This mapping is persistent and does not change even if the drive is moved to a different slot in the appliance or if the appliance is rebooted.
+
+Using StorageGRID-mapped drives provides the following benefits:
+
+*   **Simplified drive replacement**: When you replace a failed drive, the new drive is automatically mapped to the same StorageGRID node as the failed drive. You do not need to manually configure the mapping.
+*   **Improved reliability**: StorageGRID-mapped drives help prevent data loss by ensuring that data is always written to the correct drive, even if the drive is moved to a different slot.
+*   **Easier troubleshooting**: If a drive fails, you can easily identify which StorageGRID node is affected by looking at the drive mapping.
+
+### Standard drive mapping
+
+With standard drive mapping, drives are mapped to StorageGRID nodes based on their physical slot location in the appliance. If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must continue to use standard drive mapping. You cannot migrate to StorageGRID-mapped drives.
+
+### How to determine which drive mapping is in use
+
+You can determine which drive mapping is in use by looking at the **Drive Mapping** field on the **Nodes** page in the StorageGRID Grid Manager.
+
+*   If the field displays **StorageGRID-mapped**, the appliance is using StorageGRID-mapped drives.
+*   If the field displays **Standard**, the appliance is using standard drive mapping.
+
+You can also use the StorageGRID API to determine which drive mapping is in use. For more information, see the .
+
+### Configuring StorageGRID-mapped drives
+
+You configure StorageGRID-mapped drives during the initial installation of the StorageGRID appliance.
+
+For instructions on how to configure StorageGRID-mapped drives, see the installation guide for your appliance:
+
+*   
+*   
+*   
+
+### Replacing drives
+
+The procedure for replacing a drive depends on whether the appliance is using StorageGRID-mapped drives or standard drive mapping.
+
+*   **StorageGRID-mapped drives**: When you replace a failed drive, the new drive is automatically mapped to the correct StorageGRID node. You do not need to perform any manual configuration steps. For instructions, see .
+*   **Standard drive mapping**: When you replace a failed drive, you must ensure that the new drive is installed in the same physical slot as the failed drive. If you install the drive in a different slot, the data on the drive might not be accessible. For instructions, see .
+
+### Moving drives
+
+You should not move drives between slots in the appliance unless you are instructed to do so by NetApp Support.
+
+*   **StorageGRID-mapped drives**: If you move a StorageGRID-mapped drive to a different slot, the mapping remains intact, and the data on the drive remains accessible to the StorageGRID node. However, moving drives is still not recommended.
+*   **Standard drive mapping**: If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node. This can result in data loss. Do not move drives if the appliance is using standard drive mapping. 
+Se admite la implementación desde cero de StorageGRID con unidades asignadas a StorageGRID. Sin embargo, no puedes usar unidades asignadas a StorageGRID si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores.
+
+Para usar unidades asignadas a StorageGRID, debes configurar el dispositivo de StorageGRID para que use unidades asignadas a StorageGRID durante la instalación inicial. No puedes cambiar esta configuración después de la instalación.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes usar la asignación de unidades estándar.
+
+Para obtener más información sobre las unidades asignadas a StorageGRID, consulta la `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### Unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID son unidades que se asignan a un nodo de StorageGRID específico. Esta asignación es persistente y no cambia incluso si la unidad se mueve a una ranura diferente en el dispositivo o si este se reinicia.
+
+El uso de unidades asignadas a StorageGRID proporciona las siguientes ventajas:
+
+*   **Sustitución de unidades simplificada**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al mismo nodo de StorageGRID que la unidad que falló. No necesitas configurar la asignación de forma manual.
+*   **Fiabilidad mejorada**: las unidades asignadas a StorageGRID ayudan a evitar la pérdida de datos al garantizar que los datos siempre se escriban en la unidad correcta, incluso si la unidad se mueve a una ranura diferente.
+*   **Resolución de problemas más sencilla**: si una unidad falla, puedes identificar fácilmente qué nodo de StorageGRID se ve afectado al observar la asignación de unidades.
+
+### Asignación de unidades estándar
+
+Con la asignación de unidades estándar, las unidades se asignan a los nodos de StorageGRID según su ubicación física en la ranura del dispositivo. Si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes seguir usando la asignación de unidades estándar. No puedes migrar a unidades asignadas a StorageGRID.
+
+### Cómo determinar qué asignación de unidades se está utilizando
+
+Puedes determinar qué asignación de unidades se está utilizando observando el campo **Asignación de unidades** en la página **Nodos** en el Gestor de grid de StorageGRID.
+
+*   Si el campo muestra **Asignada a StorageGRID**, el dispositivo está utilizando unidades asignadas a StorageGRID.
+*   Si el campo muestra **Estándar**, el dispositivo está utilizando la asignación de unidades estándar.
+
+También puedes usar la API de StorageGRID para determinar qué asignación de unidades se está utilizando. Para obtener más información, consulta la .
+
+### Configuración de unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID se configuran durante la instalación inicial del dispositivo de StorageGRID.
+
+Para obtener instrucciones sobre cómo configurar las unidades asignadas a StorageGRID, consulta la guía de instalación de tu dispositivo:
+
+*   
+*   
+*   
+
+### Sustitución de unidades
+
+El procedimiento para sustituir una unidad depende de si el dispositivo utiliza unidades asignadas a StorageGRID o la asignación de unidades estándar.
+
+*   **Unidades asignadas a StorageGRID**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al nodo de StorageGRID correcto. No necesitas realizar ningún paso de configuración manual. Para obtener instrucciones, consulta .
+*   **Asignación de unidades estándar**: cuando sustituyes una unidad que ha fallado, debes asegurarte de que la nueva unidad se instale en la misma ranura física que la unidad que falló. Si instalas la unidad en una ranura diferente, es posible que no se pueda acceder a los datos de la unidad. Para obtener instrucciones, consulta .
+
+### Movimiento de unidades
+
+No debes mover unidades entre ranuras en el dispositivo a menos que te lo indique el soporte de NetApp.
+
+*   **Unidades asignadas a StorageGRID**: si mueves una unidad asignada a StorageGRID a una ranura diferente, la asignación permanece intacta y el nodo de StorageGRID sigue teniendo acceso a los datos de la unidad. Sin embargo, no se recomienda mover las unidades.
+*   **Asignación de unidades estándar**: si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad. Esto puede provocar la pérdida de datos. No muevas las unidades si el dispositivo utiliza la asignación de unidades estándar. _
+
+`/dev/disk/by-id/wwn-0x600a09800059d6df000060d757b475fd`
+
+`/dev/mapper/sgws-adm1-audit-logs`
+ a| 
+Es necesario para los nodos con NODE_TYPE = VM_Admin_Node. No lo especifiques para otros tipos de nodo.
+
+|===
+
+
+==== BLOCK_DEVICE_RANGEDB_nnn
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Ruta y nombre del archivo especial de dispositivo de bloques que este nodo usará para el almacenamiento persistente de objetos. Esta clave solo es necesaria para nodos con NODE_TYPE = VM_Storage_Node; no la especifiques para otros tipos de nodo.
+
+Solo se requiere BLOCK_DEVICE_RANGEDB_000; los demás son opcionales. El dispositivo de bloques especificado para BLOCK_DEVICE_RANGEDB_000 debe tener al menos 4 TB; los otros pueden ser más pequeños.
+
+No dejes huecos. Si especificas BLOCK_DEVICE_RANGEDB_005, también debes especificar BLOCK_DEVICE_RANGEDB_004.
+
+${post_edited_translations.segment}
+
+Ejemplos:
+
+`/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0` Greenfield deployment of StorageGRID with StorageGRID-mapped drives is supported. However, you cannot use StorageGRID-mapped drives if you are upgrading from StorageGRID 11.4 or earlier.
+
+To use StorageGRID-mapped drives, you must configure the StorageGRID appliance to use StorageGRID-mapped drives during the initial installation. You cannot change this configuration after installation.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must use the standard drive mapping.
+
+For more information about StorageGRID-mapped drives, see the `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### StorageGRID-mapped drives
+
+StorageGRID-mapped drives are drives that are mapped to a specific StorageGRID node. This mapping is persistent and does not change even if the drive is moved to a different slot in the appliance or if the appliance is rebooted.
+
+Using StorageGRID-mapped drives provides the following benefits:
+
+*   **Simplified drive replacement**: When you replace a failed drive, the new drive is automatically mapped to the same StorageGRID node as the failed drive. You do not need to manually configure the mapping.
+*   **Improved reliability**: StorageGRID-mapped drives help prevent data loss by ensuring that data is always written to the correct drive, even if the drive is moved to a different slot.
+*   **Easier troubleshooting**: If a drive fails, you can easily identify which StorageGRID node is affected by looking at the drive mapping.
+
+### Standard drive mapping
+
+With standard drive mapping, drives are mapped to StorageGRID nodes based on their physical slot location in the appliance. If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must continue to use standard drive mapping. You cannot migrate to StorageGRID-mapped drives.
+
+### How to determine which drive mapping is in use
+
+You can determine which drive mapping is in use by looking at the **Drive Mapping** field on the **Nodes** page in the StorageGRID Grid Manager.
+
+*   If the field displays **StorageGRID-mapped**, the appliance is using StorageGRID-mapped drives.
+*   If the field displays **Standard**, the appliance is using standard drive mapping.
+
+You can also use the StorageGRID API to determine which drive mapping is in use. For more information, see the .
+
+### Configuring StorageGRID-mapped drives
+
+You configure StorageGRID-mapped drives during the initial installation of the StorageGRID appliance.
+
+For instructions on how to configure StorageGRID-mapped drives, see the installation guide for your appliance:
+
+*   
+*   
+*   
+
+### Replacing drives
+
+The procedure for replacing a drive depends on whether the appliance is using StorageGRID-mapped drives or standard drive mapping.
+
+*   **StorageGRID-mapped drives**: When you replace a failed drive, the new drive is automatically mapped to the correct StorageGRID node. You do not need to perform any manual configuration steps. For instructions, see .
+*   **Standard drive mapping**: When you replace a failed drive, you must ensure that the new drive is installed in the same physical slot as the failed drive. If you install the drive in a different slot, the data on the drive might not be accessible. For instructions, see .
+
+### Moving drives
+
+You should not move drives between slots in the appliance unless you are instructed to do so by NetApp Support.
+
+*   **StorageGRID-mapped drives**: If you move a StorageGRID-mapped drive to a different slot, the mapping remains intact, and the data on the drive remains accessible to the StorageGRID node. However, moving drives is still not recommended.
+*   **Standard drive mapping**: If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node. This can result in data loss. Do not move drives if the appliance is using standard drive mapping. 
+Se admite la implementación desde cero de StorageGRID con unidades asignadas a StorageGRID. Sin embargo, no puedes usar unidades asignadas a StorageGRID si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores.
+
+Para usar unidades asignadas a StorageGRID, debes configurar el dispositivo de StorageGRID para que use unidades asignadas a StorageGRID durante la instalación inicial. No puedes cambiar esta configuración después de la instalación.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes usar la asignación de unidades estándar.
+
+Para obtener más información sobre las unidades asignadas a StorageGRID, consulta la `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### Unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID son unidades que se asignan a un nodo de StorageGRID específico. Esta asignación es persistente y no cambia incluso si la unidad se mueve a una ranura diferente en el dispositivo o si este se reinicia.
+
+El uso de unidades asignadas a StorageGRID proporciona las siguientes ventajas:
+
+*   **Sustitución de unidades simplificada**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al mismo nodo de StorageGRID que la unidad que falló. No necesitas configurar la asignación de forma manual.
+*   **Fiabilidad mejorada**: las unidades asignadas a StorageGRID ayudan a evitar la pérdida de datos al garantizar que los datos siempre se escriban en la unidad correcta, incluso si la unidad se mueve a una ranura diferente.
+*   **Resolución de problemas más sencilla**: si una unidad falla, puedes identificar fácilmente qué nodo de StorageGRID se ve afectado al observar la asignación de unidades.
+
+### Asignación de unidades estándar
+
+Con la asignación de unidades estándar, las unidades se asignan a los nodos de StorageGRID según su ubicación física en la ranura del dispositivo. Si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes seguir usando la asignación de unidades estándar. No puedes migrar a unidades asignadas a StorageGRID.
+
+### Cómo determinar qué asignación de unidades se está utilizando
+
+Puedes determinar qué asignación de unidades se está utilizando observando el campo **Asignación de unidades** en la página **Nodos** en el Gestor de grid de StorageGRID.
+
+*   Si el campo muestra **Asignada a StorageGRID**, el dispositivo está utilizando unidades asignadas a StorageGRID.
+*   Si el campo muestra **Estándar**, el dispositivo está utilizando la asignación de unidades estándar.
+
+También puedes usar la API de StorageGRID para determinar qué asignación de unidades se está utilizando. Para obtener más información, consulta la .
+
+### Configuración de unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID se configuran durante la instalación inicial del dispositivo de StorageGRID.
+
+Para obtener instrucciones sobre cómo configurar las unidades asignadas a StorageGRID, consulta la guía de instalación de tu dispositivo:
+
+*   
+*   
+*   
+
+### Sustitución de unidades
+
+El procedimiento para sustituir una unidad depende de si el dispositivo utiliza unidades asignadas a StorageGRID o la asignación de unidades estándar.
+
+*   **Unidades asignadas a StorageGRID**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al nodo de StorageGRID correcto. No necesitas realizar ningún paso de configuración manual. Para obtener instrucciones, consulta .
+*   **Asignación de unidades estándar**: cuando sustituyes una unidad que ha fallado, debes asegurarte de que la nueva unidad se instale en la misma ranura física que la unidad que falló. Si instalas la unidad en una ranura diferente, es posible que no se pueda acceder a los datos de la unidad. Para obtener instrucciones, consulta .
+
+### Movimiento de unidades
+
+No debes mover unidades entre ranuras en el dispositivo a menos que te lo indique el soporte de NetApp.
+
+*   **Unidades asignadas a StorageGRID**: si mueves una unidad asignada a StorageGRID a una ranura diferente, la asignación permanece intacta y el nodo de StorageGRID sigue teniendo acceso a los datos de la unidad. Sin embargo, no se recomienda mover las unidades.
+*   **Asignación de unidades estándar**: si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad. Esto puede provocar la pérdida de datos. No muevas las unidades si el dispositivo utiliza la asignación de unidades estándar. _
+
+`/dev/disk/by-id/wwn-0x600a09800059d6df000060d757b475fd`
+
+`/dev/mapper/sgws-sn1-rangedb-000`
+ a| 
+Requerido:
+
+BLOCK_DEVICE_RANGEDB_000
+
+${post_edited_translations.segment}
+
+BLOCK_DEVICE_RANGEDB_001
+
+BLOCK_DEVICE_RANGEDB_002
+
+BLOCK_DEVICE_RANGEDB_003
+
+BLOCK_DEVICE_RANGEDB_004
+
+BLOCK_DEVICE_RANGEDB_005
+
+BLOCK_DEVICE_RANGEDB_006
+
+BLOCK_DEVICE_RANGEDB_007
+
+BLOCK_DEVICE_RANGEDB_008
+
+BLOCK_DEVICE_RANGEDB_009
+
+BLOCK_DEVICE_RANGEDB_010
+
+BLOCK_DEVICE_RANGEDB_011
+
+BLOCK_DEVICE_RANGEDB_012
+
+BLOCK_DEVICE_RANGEDB_013
+
+BLOCK_DEVICE_RANGEDB_014
+
+BLOCK_DEVICE_RANGEDB_015
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Ruta y nombre del archivo especial de dispositivo de bloque que este nodo utilizará para el almacenamiento persistente de las tablas de la base de datos. Esta clave solo es necesaria para los nodos con NODE_TYPE = VM_Admin_Node; no la especifiques para otros tipos de nodos.
+
+Ejemplos:
+
+`/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0` Greenfield deployment of StorageGRID with StorageGRID-mapped drives is supported. However, you cannot use StorageGRID-mapped drives if you are upgrading from StorageGRID 11.4 or earlier.
+
+To use StorageGRID-mapped drives, you must configure the StorageGRID appliance to use StorageGRID-mapped drives during the initial installation. You cannot change this configuration after installation.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must use the standard drive mapping.
+
+For more information about StorageGRID-mapped drives, see the `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### StorageGRID-mapped drives
+
+StorageGRID-mapped drives are drives that are mapped to a specific StorageGRID node. This mapping is persistent and does not change even if the drive is moved to a different slot in the appliance or if the appliance is rebooted.
+
+Using StorageGRID-mapped drives provides the following benefits:
+
+*   **Simplified drive replacement**: When you replace a failed drive, the new drive is automatically mapped to the same StorageGRID node as the failed drive. You do not need to manually configure the mapping.
+*   **Improved reliability**: StorageGRID-mapped drives help prevent data loss by ensuring that data is always written to the correct drive, even if the drive is moved to a different slot.
+*   **Easier troubleshooting**: If a drive fails, you can easily identify which StorageGRID node is affected by looking at the drive mapping.
+
+### Standard drive mapping
+
+With standard drive mapping, drives are mapped to StorageGRID nodes based on their physical slot location in the appliance. If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must continue to use standard drive mapping. You cannot migrate to StorageGRID-mapped drives.
+
+### How to determine which drive mapping is in use
+
+You can determine which drive mapping is in use by looking at the **Drive Mapping** field on the **Nodes** page in the StorageGRID Grid Manager.
+
+*   If the field displays **StorageGRID-mapped**, the appliance is using StorageGRID-mapped drives.
+*   If the field displays **Standard**, the appliance is using standard drive mapping.
+
+You can also use the StorageGRID API to determine which drive mapping is in use. For more information, see the .
+
+### Configuring StorageGRID-mapped drives
+
+You configure StorageGRID-mapped drives during the initial installation of the StorageGRID appliance.
+
+For instructions on how to configure StorageGRID-mapped drives, see the installation guide for your appliance:
+
+*   
+*   
+*   
+
+### Replacing drives
+
+The procedure for replacing a drive depends on whether the appliance is using StorageGRID-mapped drives or standard drive mapping.
+
+*   **StorageGRID-mapped drives**: When you replace a failed drive, the new drive is automatically mapped to the correct StorageGRID node. You do not need to perform any manual configuration steps. For instructions, see .
+*   **Standard drive mapping**: When you replace a failed drive, you must ensure that the new drive is installed in the same physical slot as the failed drive. If you install the drive in a different slot, the data on the drive might not be accessible. For instructions, see .
+
+### Moving drives
+
+You should not move drives between slots in the appliance unless you are instructed to do so by NetApp Support.
+
+*   **StorageGRID-mapped drives**: If you move a StorageGRID-mapped drive to a different slot, the mapping remains intact, and the data on the drive remains accessible to the StorageGRID node. However, moving drives is still not recommended.
+*   **Standard drive mapping**: If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node. This can result in data loss. Do not move drives if the appliance is using standard drive mapping. 
+Se admite la implementación desde cero de StorageGRID con unidades asignadas a StorageGRID. Sin embargo, no puedes usar unidades asignadas a StorageGRID si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores.
+
+Para usar unidades asignadas a StorageGRID, debes configurar el dispositivo de StorageGRID para que use unidades asignadas a StorageGRID durante la instalación inicial. No puedes cambiar esta configuración después de la instalación.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes usar la asignación de unidades estándar.
+
+Para obtener más información sobre las unidades asignadas a StorageGRID, consulta la `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### Unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID son unidades que se asignan a un nodo de StorageGRID específico. Esta asignación es persistente y no cambia incluso si la unidad se mueve a una ranura diferente en el dispositivo o si este se reinicia.
+
+El uso de unidades asignadas a StorageGRID proporciona las siguientes ventajas:
+
+*   **Sustitución de unidades simplificada**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al mismo nodo de StorageGRID que la unidad que falló. No necesitas configurar la asignación de forma manual.
+*   **Fiabilidad mejorada**: las unidades asignadas a StorageGRID ayudan a evitar la pérdida de datos al garantizar que los datos siempre se escriban en la unidad correcta, incluso si la unidad se mueve a una ranura diferente.
+*   **Resolución de problemas más sencilla**: si una unidad falla, puedes identificar fácilmente qué nodo de StorageGRID se ve afectado al observar la asignación de unidades.
+
+### Asignación de unidades estándar
+
+Con la asignación de unidades estándar, las unidades se asignan a los nodos de StorageGRID según su ubicación física en la ranura del dispositivo. Si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes seguir usando la asignación de unidades estándar. No puedes migrar a unidades asignadas a StorageGRID.
+
+### Cómo determinar qué asignación de unidades se está utilizando
+
+Puedes determinar qué asignación de unidades se está utilizando observando el campo **Asignación de unidades** en la página **Nodos** en el Gestor de grid de StorageGRID.
+
+*   Si el campo muestra **Asignada a StorageGRID**, el dispositivo está utilizando unidades asignadas a StorageGRID.
+*   Si el campo muestra **Estándar**, el dispositivo está utilizando la asignación de unidades estándar.
+
+También puedes usar la API de StorageGRID para determinar qué asignación de unidades se está utilizando. Para obtener más información, consulta la .
+
+### Configuración de unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID se configuran durante la instalación inicial del dispositivo de StorageGRID.
+
+Para obtener instrucciones sobre cómo configurar las unidades asignadas a StorageGRID, consulta la guía de instalación de tu dispositivo:
+
+*   
+*   
+*   
+
+### Sustitución de unidades
+
+El procedimiento para sustituir una unidad depende de si el dispositivo utiliza unidades asignadas a StorageGRID o la asignación de unidades estándar.
+
+*   **Unidades asignadas a StorageGRID**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al nodo de StorageGRID correcto. No necesitas realizar ningún paso de configuración manual. Para obtener instrucciones, consulta .
+*   **Asignación de unidades estándar**: cuando sustituyes una unidad que ha fallado, debes asegurarte de que la nueva unidad se instale en la misma ranura física que la unidad que falló. Si instalas la unidad en una ranura diferente, es posible que no se pueda acceder a los datos de la unidad. Para obtener instrucciones, consulta .
+
+### Movimiento de unidades
+
+No debes mover unidades entre ranuras en el dispositivo a menos que te lo indique el soporte de NetApp.
+
+*   **Unidades asignadas a StorageGRID**: si mueves una unidad asignada a StorageGRID a una ranura diferente, la asignación permanece intacta y el nodo de StorageGRID sigue teniendo acceso a los datos de la unidad. Sin embargo, no se recomienda mover las unidades.
+*   **Asignación de unidades estándar**: si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad. Esto puede provocar la pérdida de datos. No muevas las unidades si el dispositivo utiliza la asignación de unidades estándar. _
+
+`/dev/disk/by-id/wwn-0x600a09800059d6df000060d757b475fd`
+
+`/dev/mapper/sgws-adm1-tables`
+ a| 
+Requerido
+
+|===
+
+
+==== BLOCK_DEVICE_VAR_LOCAL
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Ruta y nombre del archivo especial de dispositivo de bloques que este nodo utilizará para su `/var/local` almacenamiento persistente.
+
+Ejemplos:
+
+`/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0` Greenfield deployment of StorageGRID with StorageGRID-mapped drives is supported. However, you cannot use StorageGRID-mapped drives if you are upgrading from StorageGRID 11.4 or earlier.
+
+To use StorageGRID-mapped drives, you must configure the StorageGRID appliance to use StorageGRID-mapped drives during the initial installation. You cannot change this configuration after installation.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must use the standard drive mapping.
+
+For more information about StorageGRID-mapped drives, see the `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### StorageGRID-mapped drives
+
+StorageGRID-mapped drives are drives that are mapped to a specific StorageGRID node. This mapping is persistent and does not change even if the drive is moved to a different slot in the appliance or if the appliance is rebooted.
+
+Using StorageGRID-mapped drives provides the following benefits:
+
+*   **Simplified drive replacement**: When you replace a failed drive, the new drive is automatically mapped to the same StorageGRID node as the failed drive. You do not need to manually configure the mapping.
+*   **Improved reliability**: StorageGRID-mapped drives help prevent data loss by ensuring that data is always written to the correct drive, even if the drive is moved to a different slot.
+*   **Easier troubleshooting**: If a drive fails, you can easily identify which StorageGRID node is affected by looking at the drive mapping.
+
+### Standard drive mapping
+
+With standard drive mapping, drives are mapped to StorageGRID nodes based on their physical slot location in the appliance. If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node.
+
+If you are upgrading from StorageGRID 11.4 or earlier, you must continue to use standard drive mapping. You cannot migrate to StorageGRID-mapped drives.
+
+### How to determine which drive mapping is in use
+
+You can determine which drive mapping is in use by looking at the **Drive Mapping** field on the **Nodes** page in the StorageGRID Grid Manager.
+
+*   If the field displays **StorageGRID-mapped**, the appliance is using StorageGRID-mapped drives.
+*   If the field displays **Standard**, the appliance is using standard drive mapping.
+
+You can also use the StorageGRID API to determine which drive mapping is in use. For more information, see the .
+
+### Configuring StorageGRID-mapped drives
+
+You configure StorageGRID-mapped drives during the initial installation of the StorageGRID appliance.
+
+For instructions on how to configure StorageGRID-mapped drives, see the installation guide for your appliance:
+
+*   
+*   
+*   
+
+### Replacing drives
+
+The procedure for replacing a drive depends on whether the appliance is using StorageGRID-mapped drives or standard drive mapping.
+
+*   **StorageGRID-mapped drives**: When you replace a failed drive, the new drive is automatically mapped to the correct StorageGRID node. You do not need to perform any manual configuration steps. For instructions, see .
+*   **Standard drive mapping**: When you replace a failed drive, you must ensure that the new drive is installed in the same physical slot as the failed drive. If you install the drive in a different slot, the data on the drive might not be accessible. For instructions, see .
+
+### Moving drives
+
+You should not move drives between slots in the appliance unless you are instructed to do so by NetApp Support.
+
+*   **StorageGRID-mapped drives**: If you move a StorageGRID-mapped drive to a different slot, the mapping remains intact, and the data on the drive remains accessible to the StorageGRID node. However, moving drives is still not recommended.
+*   **Standard drive mapping**: If you move a drive to a different slot, the mapping changes, and the data on the drive might no longer be accessible to the StorageGRID node. This can result in data loss. Do not move drives if the appliance is using standard drive mapping. 
+Se admite la implementación desde cero de StorageGRID con unidades asignadas a StorageGRID. Sin embargo, no puedes usar unidades asignadas a StorageGRID si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores.
+
+Para usar unidades asignadas a StorageGRID, debes configurar el dispositivo de StorageGRID para que use unidades asignadas a StorageGRID durante la instalación inicial. No puedes cambiar esta configuración después de la instalación.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes usar la asignación de unidades estándar.
+
+Para obtener más información sobre las unidades asignadas a StorageGRID, consulta la `/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0`.
+
+### Unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID son unidades que se asignan a un nodo de StorageGRID específico. Esta asignación es persistente y no cambia incluso si la unidad se mueve a una ranura diferente en el dispositivo o si este se reinicia.
+
+El uso de unidades asignadas a StorageGRID proporciona las siguientes ventajas:
+
+*   **Sustitución de unidades simplificada**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al mismo nodo de StorageGRID que la unidad que falló. No necesitas configurar la asignación de forma manual.
+*   **Fiabilidad mejorada**: las unidades asignadas a StorageGRID ayudan a evitar la pérdida de datos al garantizar que los datos siempre se escriban en la unidad correcta, incluso si la unidad se mueve a una ranura diferente.
+*   **Resolución de problemas más sencilla**: si una unidad falla, puedes identificar fácilmente qué nodo de StorageGRID se ve afectado al observar la asignación de unidades.
+
+### Asignación de unidades estándar
+
+Con la asignación de unidades estándar, las unidades se asignan a los nodos de StorageGRID según su ubicación física en la ranura del dispositivo. Si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad.
+
+Si vas a realizar una actualización desde StorageGRID 11.4 o versiones anteriores, debes seguir usando la asignación de unidades estándar. No puedes migrar a unidades asignadas a StorageGRID.
+
+### Cómo determinar qué asignación de unidades se está utilizando
+
+Puedes determinar qué asignación de unidades se está utilizando observando el campo **Asignación de unidades** en la página **Nodos** en el Gestor de grid de StorageGRID.
+
+*   Si el campo muestra **Asignada a StorageGRID**, el dispositivo está utilizando unidades asignadas a StorageGRID.
+*   Si el campo muestra **Estándar**, el dispositivo está utilizando la asignación de unidades estándar.
+
+También puedes usar la API de StorageGRID para determinar qué asignación de unidades se está utilizando. Para obtener más información, consulta la .
+
+### Configuración de unidades asignadas a StorageGRID
+
+Las unidades asignadas a StorageGRID se configuran durante la instalación inicial del dispositivo de StorageGRID.
+
+Para obtener instrucciones sobre cómo configurar las unidades asignadas a StorageGRID, consulta la guía de instalación de tu dispositivo:
+
+*   
+*   
+*   
+
+### Sustitución de unidades
+
+El procedimiento para sustituir una unidad depende de si el dispositivo utiliza unidades asignadas a StorageGRID o la asignación de unidades estándar.
+
+*   **Unidades asignadas a StorageGRID**: cuando sustituyes una unidad que ha fallado, la nueva unidad se asigna automáticamente al nodo de StorageGRID correcto. No necesitas realizar ningún paso de configuración manual. Para obtener instrucciones, consulta .
+*   **Asignación de unidades estándar**: cuando sustituyes una unidad que ha fallado, debes asegurarte de que la nueva unidad se instale en la misma ranura física que la unidad que falló. Si instalas la unidad en una ranura diferente, es posible que no se pueda acceder a los datos de la unidad. Para obtener instrucciones, consulta .
+
+### Movimiento de unidades
+
+No debes mover unidades entre ranuras en el dispositivo a menos que te lo indique el soporte de NetApp.
+
+*   **Unidades asignadas a StorageGRID**: si mueves una unidad asignada a StorageGRID a una ranura diferente, la asignación permanece intacta y el nodo de StorageGRID sigue teniendo acceso a los datos de la unidad. Sin embargo, no se recomienda mover las unidades.
+*   **Asignación de unidades estándar**: si mueves una unidad a una ranura diferente, la asignación cambia y es posible que el nodo de StorageGRID ya no pueda acceder a los datos de la unidad. Esto puede provocar la pérdida de datos. No muevas las unidades si el dispositivo utiliza la asignación de unidades estándar. _
+
+`/dev/disk/by-id/wwn-0x600a09800059d6df000060d757b475fd`
+
+`/dev/mapper/sgws-sn1-var-local`
+ a| 
+Requerido
+
+|===
+
+
+[[client-network-keys]]
+=== Claves de red del cliente
+
+
+
+==== CLIENT_NETWORK_CONFIG
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+DHCP, ESTÁTICO o DESACTIVADO
+ a| 
+Opcional
+
+|===
+
+
+==== CLIENT_NETWORK_GATEWAY
+
+[cols="4a,2a"]
+|===
+
+
+ a| 
+Valor
+ a| 
+Denominación
+
+
+
+ a| 
+Dirección IPv4 de la puerta de enlace de la red local del cliente para este nodo, que debe estar en la subred definida por CLIENT_NETWORK_IP y CLIENT_NETWORK_MASK. Este valor se ignora para las redes configuradas por DHCP.
+
+Ejemplos:
+
+`1.1.1.1`
+
+`10.224.4.81`
+ a| 
+Opcional
+
+|===
+
+
+==== CLIENT_NETWORK_IP
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Dirección IPv4 de este nodo en la red del cliente.
+
+Esta clave solo es necesaria cuando CLIENT_NETWORK_CONFIG = STATIC; no la especifiques para otros valores.
+
+Ejemplos:
+
+`1.1.1.1`
+
+`10.224.4.81`
+ a| 
+Obligatorio cuando CLIENT_NETWORK_CONFIG = STATIC
+
+Opcional de lo contrario.
+
+|===
+
+
+==== CLIENT_NETWORK_MAC
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+${post_edited_translations.segment}
+
+Este campo es opcional. Si no se indica, se generará automáticamente una dirección MAC.
+
+${post_edited_translations.segment}
+
+Ejemplo: `b2:9c:02:c2:27:20`
+ a| 
+Opcional
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Máscara de red IPv4 para este nodo en la red del cliente.
+
+Especifica esta clave cuando CLIENT_NETWORK_CONFIG = STATIC; no la especifiques para otros valores.
+
+Ejemplos:
+
+`255.255.255.0`
+
+`255.255.248.0`
+ a| 
+Obligatorio si se especifica CLIENT_NETWORK_IP y CLIENT_NETWORK_CONFIG = STATIC
+
+Opcional de lo contrario.
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+La unidad máxima de transmisión (MTU) para este nodo en la red del cliente. No especifiques si CLIENT_NETWORK_CONFIG = DHCP. Si se especifica, el valor debe estar entre 1280 y 9216. Si se omite, se usa 1500.
+
+Si deseas utilizar tramas gigantes, configura el MTU con un valor adecuado para las tramas gigantes, como 9000. De lo contrario, mantén el valor predeterminado.
+
+*IMPORTANTE*: el valor de MTU de la red debe coincidir con el valor configurado en el puerto del switch al que está conectado el nodo. De lo contrario, podrían producirse problemas de rendimiento de la red o pérdida de paquetes.
+
+Ejemplos:
+
+`1500`
+
+`8192`
+ a| 
+Opcional
+
+|===
+
+
+==== CLIENT_NETWORK_TARGET
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Nombre del dispositivo host que usarás para el acceso a la red de clientes por parte del nodo de StorageGRID. Solo se admiten nombres de interfaz de red. Por lo general, usarás un nombre de interfaz diferente al que especificaste para GRID_NETWORK_TARGET o ADMIN_NETWORK_TARGET.
+
+*Nota*: No utilices dispositivos bond o bridge como destino de red. Configura una VLAN (u otra interfaz virtual) sobre el dispositivo bond, o utiliza un bridge y un par de Ethernet virtual (veth).
+
+*Práctica recomendada:* especifica un valor incluso si este nodo no tendrá inicialmente una dirección IP de red de cliente. Así podrás añadir una dirección IP de red de cliente más adelante, sin tener que volver a configurar el nodo en el host.
+
+Ejemplos:
+
+`bond0.1003`
+
+`ens423`
+ a| 
+Mejor práctica
+
+|===
+
+
+==== CLIENT_NETWORK_TARGET_TYPE
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Opcional
+
+|===
+
+
+==== CLIENT_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Verdadero o falso
+
+${post_edited_translations.segment}
+
+*Práctica recomendada:* En redes donde se requiera el modo promiscuo, usa la clave CLIENT_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC en su lugar.
+
+Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["${post_edited_translations.segment}"]
+ a| 
+Mejor práctica
+
+|===
+
+
+[[grid-network-keys]]
+=== Claves de la red Grid
+
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+ESTÁTICA o DHCP
+
+El valor predeterminado es STATIC si no se especifica.
+ a| 
+Mejor práctica
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Dirección IPv4 de la puerta de enlace de la red Grid local para este nodo, que debe estar en la subred definida por GRID_NETWORK_IP y GRID_NETWORK_MASK. Este valor se ignora para las redes configuradas por DHCP.
+
+${post_edited_translations.segment}
+ a| 
+Requerido
+
+|===
+
+
+==== GRID_NETWORK_IP
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Dirección IPv4 de este nodo en la Grid Network. Esta clave solo es necesaria cuando GRID_NETWORK_CONFIG = STATIC; no la especifiques para otros valores.
+
+Ejemplos:
+
+`1.1.1.1`
+
+`10.224.4.81`
+ a| 
+${post_edited_translations.segment}
+
+Opcional de lo contrario.
+
+|===
+
+
+==== GRID_NETWORK_MAC
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+La dirección MAC de la interfaz de red Grid en el contenedor.
+
+${post_edited_translations.segment}
+
+Ejemplo: `b2:9c:02:c2:27:30`
+ a| 
+Opcional
+
+${post_edited_translations.segment}
+
+|===
+
+
+==== GRID_NETWORK_MASK
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Máscara de red IPv4 para este nodo en la Grid Network. Especifica esta clave cuando GRID_NETWORK_CONFIG = STATIC; no la especifiques para otros valores.
+
+Ejemplos:
+
+`255.255.255.0`
+
+`255.255.248.0`
+ a| 
+Es obligatorio cuando se especifica GRID_NETWORK_IP y GRID_NETWORK_CONFIG = STATIC.
+
+Opcional de lo contrario.
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+La unidad máxima de transmisión (MTU) para este nodo en la red Grid. No lo especifiques si GRID_NETWORK_CONFIG = DHCP. Si lo especificas, el valor debe estar entre 1280 y 9216. Si lo omites, se usa 1500.
+
+Si deseas utilizar tramas gigantes, configura el MTU con un valor adecuado para las tramas gigantes, como 9000. De lo contrario, mantén el valor predeterminado.
+
+*IMPORTANTE*: el valor de MTU de la red debe coincidir con el valor configurado en el puerto del switch al que está conectado el nodo. De lo contrario, podrían producirse problemas de rendimiento de la red o pérdida de paquetes.
+
+*IMPORTANTE*: Para obtener el mejor rendimiento de la red, todos los nodos deben configurarse con valores de MTU similares en sus interfaces de red de Grid Network. La alerta *Discrepancia en el MTU de la red Grid* se activa si existe una diferencia significativa en la configuración del MTU de la red Grid en los distintos nodos. No es necesario que los valores de MTU sean iguales para todos los tipos de red.
+
+Ejemplos:
+
+`1500`
+
+`8192`
+ a| 
+Opcional
+
+|===
+
+
+==== GRID_NETWORK_TARGET
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Nombre del dispositivo host que usarás para el acceso a la Grid Network por parte del nodo de StorageGRID. Solo se admiten nombres de interfaz de red. Normalmente, usas un nombre de interfaz diferente al especificado para ADMIN_NETWORK_TARGET o CLIENT_NETWORK_TARGET.
+
+*Nota*: No utilices dispositivos bond o bridge como destino de red. Configura una VLAN (u otra interfaz virtual) sobre el dispositivo bond, o utiliza un bridge y un par de Ethernet virtual (veth).
+
+Ejemplos:
+
+`bond0.1001`
+
+`ens192`
+ a| 
+Requerido
+
+|===
+
+
+==== GRID_NETWORK_TARGET_TYPE
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Interfaz (Este es el único valor admitido.)
+ a| 
+Opcional
+
+|===
+
+
+==== GRID_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Verdadero o falso
+
+${post_edited_translations.segment}
+
+*Práctica recomendada:* En redes en las que sea necesario utilizar el modo promiscuo, usa en su lugar la clave GRID_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC.
+
+Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["${post_edited_translations.segment}"]
+ a| 
+Mejor práctica
+
+|===
+
+
+[[installation-password-key-temporary]]
+=== ${post_edited_translations.segment}
+
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Para el nodo de administración principal, establece una contraseña temporal predeterminada para la API de instalación de StorageGRID durante la instalación.
+
+*Nota*: Establece una contraseña de instalación únicamente en el nodo de administración principal. Si intentas establecer una contraseña en otro tipo de nodo, la validación del archivo de configuración del nodo fallará.
+
+Establecer este valor no tiene ningún efecto una vez finalizada la instalación.
+
+Si se omite esta clave, por defecto no se establece ninguna contraseña temporal. Como alternativa, puedes establecer una contraseña temporal usando la StorageGRID Installation API.
+
+Debe ser un `crypt()` hash de contraseña SHA-512 con formato `$6$<salt>$<password hash>` para una contraseña de al menos 8 y no más de 32 caracteres.
+
+Puedes generar este hash con herramientas de CLI, como el comando  `openssl passwd` en modo SHA-512.
+ a| 
+Mejor práctica
+
+|===
+
+
+[[interfaces-key]]
+=== Clave de interfaces
+
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Nombre y descripción opcional de una interfaz adicional que desees añadir a este nodo. Puedes añadir varias interfaces adicionales a cada nodo.
+
+${post_edited_translations.segment}
+
+Como valor, especifica el nombre de la interfaz física en el host bare-metal. Luego, si quieres, añade una coma y proporciona una descripción de la interfaz, que se muestra en la página de interfaces VLAN y en la página de grupos HA.
+
+Ejemplo: `INTERFACE_TARGET_0001=ens256, Trunk`
+
+Si añades una interfaz troncal, debes configurar una interfaz de VLAN en StorageGRID. Si añades una interfaz de acceso, puedes añadir la interfaz directamente a un grupo de HA; no necesitas configurar una interfaz de VLAN.
+ a| 
+Opcional
+
+|===
+
+
+[[maximum-ram-key]]
+=== ${post_edited_translations.segment}
+
+
+
+==== RAM_MÁXIMA
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+La cantidad máxima de RAM que puede consumir este nodo. Si se omite esta clave, el nodo no tiene restricciones de memoria. Al configurar este campo para un nodo de producción, especifica un valor de al menos 24 GB y de 16 a 32 GB menos que la RAM total del sistema.
+
+*Nota*: El valor de la RAM afecta al espacio reservado para los metadatos de un nodo. Consulta link:../admin/managing-object-metadata-storage.html["Descripción de qué es el espacio reservado para metadatos"].
+
+El formato de este campo es `_numberunit_`, donde `_unit_` puede ser `b`, `k`, `m` o `g`.
+
+Ejemplos:
+
+`24g`
+
+`38654705664b`
+
+*Nota*: Si quieres utilizar esta opción, debes habilitar la compatibilidad del kernel con los cgroups de memoria.
+ a| 
+Opcional
+
+|===
+
+
+[[node-type-keys]]
+=== Claves de tipo de nodo
+
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Tipo de nodo:
+
+* VM_Admin_Node
+* VM_Storage_Node
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+
+ a| 
+Requerido
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Define el tipo de objetos que contiene un nodo de almacenamiento. Para obtener más información, consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"]. Esta clave solo es necesaria para nodos con NODE_TYPE = VM_Storage_Node; no la especifiques para otros tipos de nodo. Tipos de almacenamiento:
+
+* combinado
+* data
+* metadatos
+
+
+${post_edited_translations.segment}
+ a| 
+Opcional
+
+|===
+
+
+[[port-remap-keys]]
+=== Teclas de reasignación de puerto
+
+
+NOTE: La compatibilidad con la reasignación de puertos está en desuso y se eliminará en una futura versión. Para eliminar los puertos reasignados, consulta link:../maintain/removing-port-remaps-on-bare-metal-hosts.html["Eliminar las reasignaciones de puertos en los hosts bare metal"].
+
+
+
+==== PORT_REMAP
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Reasigna cualquier puerto utilizado por un nodo para las comunicaciones internas entre nodos de la red o para las comunicaciones externas. La reasignación de puertos es necesaria si las políticas de red empresarial restringen uno o varios puertos utilizados por StorageGRID, como se describe en link:../network/internal-grid-node-communications.html["Comunicaciones internas entre nodos de grid"] o link:../network/external-communications.html["Comunicaciones externas"].
+
+*IMPORTANTE*: No reasignes los puertos que tengas previsto utilizar para configurar los endpoints del balanceador de carga.
+
+*Nota*: Si solo se configura PORT_REMAP, la asignación que especifiques se usará tanto para las comunicaciones entrantes como para las salientes. Si también se especifica PORT_REMAP_INBOUND, PORT_REMAP solo se aplicará a las comunicaciones salientes.
+
+El formato utilizado es: `_network type_/_protocol_/_default port used by grid node_/_new port_`, donde `_network type_` es grid, admin o client, y `_protocol_` es tcp o udp.
+
+Ejemplo: `PORT_REMAP = client/tcp/18082/443`
+
+También puedes reasignar varios puertos utilizando una lista separada por comas.
+
+Ejemplo: `PORT_REMAP = client/tcp/18082/443, client/tcp/18083/80`
+ a| 
+Opcional
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+[cols="4a,2a"]
+|===
+| Valor | Denominación 
+
+
+ a| 
+Reasigna las comunicaciones entrantes al puerto especificado. Si especificas PORT_REMAP_INBOUND pero no especificas un valor para PORT_REMAP, las comunicaciones salientes del puerto no cambian.
+
+*IMPORTANTE*: No reasignes los puertos que tengas previsto utilizar para configurar los endpoints del balanceador de carga.
+
+El formato utilizado es: `_network type_/_protocol_/_remapped port_/_default port used by grid node_`, donde `_network type_` es grid, admin o client, y `_protocol_` es tcp o udp.
+
+Ejemplo: `PORT_REMAP_INBOUND = grid/tcp/3022/22`
+
+${post_edited_translations.segment}
+
+Ejemplo: `PORT_REMAP_INBOUND = grid/tcp/3022/22, admin/tcp/3022/22`
+ a| 
+Opcional
+
+|===

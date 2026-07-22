@@ -1,0 +1,106 @@
+---
+permalink: admin/creating-enterprise-application-entra-id.html 
+sidebar: sidebar 
+keywords: enterprise application, entra id, single sign on, sso 
+summary: Utiliza Entra ID para crear una aplicación empresarial para cada Admin Node en tu sistema. 
+---
+= Crea aplicaciones empresariales en Entra ID para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utiliza Entra ID para crear una aplicación empresarial para cada Admin Node en tu sistema.
+
+.Antes de empezar
+* ${post_edited_translations.segment}
+* Tienes link:../admin/configure-sso.html#enter-sandbox-mode["ha entrado en modo sandbox"] en Grid Manager.
+* Tienes el *nombre de la aplicación empresarial* para cada nodo de administración de tu sistema. Puedes copiar estos valores de la tabla de detalles del nodo de administración en la página Configurar SSO.
++
+
+NOTE: Debes crear una aplicación empresarial para cada nodo de administración de tu sistema StorageGRID. Contar con una aplicación empresarial para cada nodo de administración garantiza que los usuarios puedan iniciar sesión y cerrar sesión de forma segura en cualquier nodo de administración.
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Tienes uno de los siguientes roles en la cuenta de Entra ID: Global Administrator, Cloud Application Administrator, Application Administrator o propietario del service principal.
+
+
+
+
+[[access-entra-id]]
+== Accede a Entra ID
+
+.Pasos
+. Inicia sesión en el https://portal.azure.com["${post_edited_translations.segment}"^].
+. Accede a https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade["Entra ID"^].
+. Selecciona https://portal.azure.com/#blade/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/Overview/menuId/["Aplicaciones empresariales"^].
+
+
+
+
+[[create-enterprise-applications-and-save-storagegrid-sso-configuration]]
+== ${post_edited_translations.segment}
+
+Para guardar la configuración de SSO para Entra ID en StorageGRID, debes usar Entra ID para crear una aplicación empresarial para cada nodo de administración. Copiarás las URL de metadatos de federación de Entra ID y las pegarás en los campos correspondientes de *URL de metadatos de federación* en la página Configurar SSO.
+
+.Pasos
+. ${post_edited_translations.segment}
++
+.. ${post_edited_translations.segment}
+.. Selecciona *Crear tu propia aplicación*.
+.. ${post_edited_translations.segment}
+.. Deja seleccionado el botón de opción *Integrar cualquier otra aplicación que no encuentres en la galería (fuera de la galería)*.
+.. Selecciona *Crear*.
+.. Selecciona el enlace *Empezar* en el recuadro *2. Configura el inicio de sesión único*, o selecciona el enlace *Inicio de sesión único* en el margen izquierdo.
+.. Selecciona la casilla *SAML*.
+.. ${post_edited_translations.segment}
+.. Ve a la página «Configurar SSO» y pega la URL en el campo *URL de metadatos de federación* que corresponde al *Enterprise application name* que usaste.
+
+
+. Una vez que hayas pegado la URL de metadatos de la federación para cada nodo de administración y hayas realizado todos los demás cambios necesarios en la configuración de SSO, selecciona *Guardar* en la página Configure SSO.
+
+
+
+
+[[download-saml-metadata-for-every-admin-node]]
+== ${post_edited_translations.segment}
+
+Una vez guardada la configuración de SSO, puedes descargar un archivo de metadatos SAML para cada nodo de administración en tu sistema StorageGRID.
+
+.Pasos
+. ${post_edited_translations.segment}
++
+.. Inicia sesión en StorageGRID desde el nodo de administración.
+.. Selecciona *Configuración* > *Control de acceso* > *inicio de sesión único*.
+.. Pulsa el botón para descargar los metadatos SAML de ese nodo de administración.
+.. Guarda el archivo, que luego subirás a Entra ID.
+
+
+
+
+
+
+[[upload-saml-metadata-to-each-enterprise-application]]
+== Sube los metadatos SAML a cada aplicación empresarial
+
+${post_edited_translations.segment}
+
+.Pasos
+. Vuelve al Portal de Azure.
+. Repite estos pasos para cada aplicación empresarial:
++
+
+NOTE: Es posible que tengas que actualizar la página de aplicaciones de Enterprise para ver en la lista las aplicaciones que añadiste anteriormente.
+
++
+.. Ve a la página Propiedades de la aplicación empresarial.
+.. Establece *Asignación obligatoria* en *No* (a menos que quieras configurar las asignaciones por separado).
+.. Accede a la página de inicio de sesión único.
+.. Completa la configuración de SAML.
+.. Pulsa el botón *Cargar archivo de metadatos* y selecciona el archivo de metadatos SAML que descargaste para el Admin Node correspondiente.
+.. Una vez que se cargue el archivo, selecciona *Guardar* y luego selecciona *X* para cerrar el panel. Regresarás a la página Configurar el inicio de sesión único con SAML.
+
+
+. link:../admin/configure-sso.html#test-sso["Prueba cada aplicación"].
+

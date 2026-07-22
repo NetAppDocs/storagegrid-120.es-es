@@ -1,0 +1,26 @@
+---
+permalink: troubleshoot/troubleshooting-lost-and-missing-object-data.html 
+sidebar: sidebar 
+keywords: how to troubleshoot lost object data, how to troubleshoot missing object data 
+summary: ${post_edited_translations.segment} 
+---
+= Conoce la pérdida y la ausencia de datos de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+El sistema StorageGRID utiliza la información de ubicación en los metadatos de un objeto para determinar de qué ubicación recuperar el objeto. Si no se encuentra una copia del objeto en la ubicación esperada, el sistema intenta recuperar otra copia del objeto de otro lugar del sistema, asumiendo que la política de ILM contiene una regla para realizar dos o más copias del objeto.
+
+Si esta recuperación se realiza con éxito, el sistema StorageGRID sustituye la copia perdida del objeto. De lo contrario, se activa la alerta *Objetos potencialmente perdidos* de la siguiente manera:
+
+* ${post_edited_translations.segment}
+* En el caso de las copias con codificación de borrado, si no se puede recuperar una copia de la ubicación esperada, el atributo Corrupt Copies Detected (ECOR) se incrementa en uno antes de intentar recuperar una copia de otra ubicación. Si no se encuentra ninguna otra copia, se activa la alerta.
+
+
+Debes investigar inmediatamente todas las alertas de *Objetos potencialmente perdidos* para determinar la causa principal de la pérdida y comprobar si el objeto podría seguir existiendo en algún nodo de almacenamiento fuera de línea o que, por cualquier otro motivo, no esté disponible en ese momento. Consulta link:../troubleshoot/investigating-potentially-lost-objects.html["Investiga los objetos que puedan haberse perdido"]. Las alertas de objetos perdidos pueden activarse por error como medida de precaución.
+
+En caso de que se pierdan datos de objetos sin copias, no hay ninguna solución de recuperación. Sin embargo, debes link:../troubleshoot/investigating-potentially-lost-objects.html#reset-lost-obj-count["${post_edited_translations.segment}"] para evitar que los objetos perdidos conocidos oculten nuevos objetos perdidos.

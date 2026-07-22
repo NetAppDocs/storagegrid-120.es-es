@@ -1,0 +1,57 @@
+---
+permalink: harden/hardening-guidelines-for-storagegrid-networks.html 
+sidebar: sidebar 
+keywords: StorageGRID, hardening guidelines, networks, networking, security 
+summary: El sistema StorageGRID admite hasta tres interfaces de red por nodo de la red, lo que te permite configurar la red de cada nodo de forma individual para que se adapte a tus requisitos de seguridad y acceso. 
+---
+= Directrices de refuerzo de la seguridad para redes StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El sistema StorageGRID admite hasta tres interfaces de red por nodo de la red, lo que te permite configurar la red de cada nodo de forma individual para que se adapte a tus requisitos de seguridad y acceso.
+
+Para obtener información detallada sobre las redes StorageGRID, consulta la link:../network/storagegrid-network-types.html["Tipos de redes StorageGRID"].
+
+
+
+[[guidelines-for-grid-network]]
+== Directrices para la red Grid
+
+Debes configurar una Grid Network para todo el tráfico interno de StorageGRID. Todos los nodos de la grid están en la Grid Network y deben poder comunicarse con todos los demás nodos.
+
+Al configurar la Grid Network, sigue estas directrices:
+
+* Asegúrate de que la red esté protegida frente a clientes no fiables, como los que están en internet abierta.
+* Siempre que sea posible, utiliza la Grid Network exclusivamente para el tráfico interno. Tanto la Admin Network como la Client Network tienen restricciones adicionales de firewall que bloquean el tráfico externo hacia los servicios internos. Usar la Grid Network para el tráfico externo de los clientes está permitido, pero este uso ofrece menos capas de protección.
+* Si la implementación de StorageGRID abarca varios centros de datos, usa una red privada virtual (VPN) o una solución equivalente en la red Grid para brindar protección adicional al tráfico interno.
+* Algunos procedimientos de mantenimiento requieren acceso SSH (Secure Shell) en el puerto 22 entre el nodo de administración principal y todos los demás nodos de la grid. Usa un firewall externo para restringir el acceso SSH a clientes de confianza.
+
+
+
+
+[[guidelines-for-admin-network]]
+== Directrices para la red de administración
+
+La red de administración se utiliza normalmente para tareas administrativas (empleados de confianza que utilizan Grid Manager o SSH) y para comunicarse con otros servicios de confianza, como LDAP, DNS, NTP o KMS (o servidor KMIP). Sin embargo, StorageGRID no impone este uso internamente.
+
+Si utilizas la red de administración, sigue estas instrucciones:
+
+* Bloquea todos los puertos de tráfico interno en la red de administración. Consulta el link:../network/internal-grid-node-communications.html["lista de puertos internos"].
+* Si hay clientes no fiables que puedan acceder a la red de administración, bloquea el acceso a StorageGRID en dicha red mediante un cortafuegos externo.
+
+
+
+
+[[guidelines-for-client-network]]
+== Directrices para la red de clientes
+
+La red de clientes se utiliza normalmente para los inquilinos y para comunicarse con servicios externos, como el servicio de replicación CloudMirror o con otro servicio de la plataforma. Sin embargo, StorageGRID no impone este uso internamente.
+
+Si utilizas la Client Network, sigue estas instrucciones:
+
+* Bloquea todos los puertos de tráfico interno en la red del cliente. Consulta link:../network/internal-grid-node-communications.html["lista de puertos internos"].
+* Acepta el tráfico entrante de los clientes únicamente en los puntos finales configurados explícitamente. Consulta la información sobre link:../admin/manage-firewall-controls.html["gestión de los controles del cortafuegos"].
+

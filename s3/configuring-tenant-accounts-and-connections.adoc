@@ -1,0 +1,84 @@
+---
+permalink: s3/configuring-tenant-accounts-and-connections.html 
+sidebar: sidebar 
+keywords: aws cli, test s3 client connection 
+summary: 'Puedes utilizar la interfaz de línea de comandos de Amazon Web Services (AWS CLI) para probar tu conexión con el sistema y verificar que puedes leer y escribir objetos.' 
+---
+= Prueba la configuración de la API de REST de StorageGRID S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar la interfaz de línea de comandos de Amazon Web Services (AWS CLI) para probar tu conexión con el sistema y verificar que puedes leer y escribir objetos.
+
+.Antes de empezar
+* Has descargado e instalado la AWS CLI desde https://aws.amazon.com/cli["aws.amazon.com/cli"^].
+* Opcionalmente, tienes link:../admin/configuring-load-balancer-endpoints.html["creaste un endpoint de balanceador de carga"]. De lo contrario, sabes la dirección IP del nodo de almacenamiento al que quieres conectarte y el número de puerto que debes usar. Consulta link:../admin/summary-ip-addresses-and-ports-for-client-connections.html["Direcciones IP y puertos para las conexiones de los clientes"].
+* Tienes link:../admin/creating-tenant-account.html["creaste una cuenta de usuario de S3"].
+* Has iniciado sesión en el tenant y link:../tenant/creating-your-own-s3-access-keys.html["creaste una clave de acceso"].
+
+
+Para obtener más información sobre estos pasos, consulta link:../admin/configuring-client-connections.html["Configura las conexiones de los clientes"].
+
+.Pasos
+. Configura los ajustes de la CLI de AWS para utilizar la cuenta que creaste en el sistema StorageGRID:
++
+.. Accede al modo de configuración: `aws configure`
+.. Introduce el ID de la clave de acceso de la cuenta que creaste.
+.. Introduce la clave de acceso secreta de la cuenta que has creado.
+.. Introduce la región predeterminada que se va a utilizar. Por ejemplo, `us-east-1`.
+.. Introduce el formato de salida predeterminado que deseas utilizar o pulsa *Intro* para seleccionar JSON.
+
+
+. Crea un bucket.
++
+Este ejemplo asume que configuraste un endpoint del balanceador de carga para usar la dirección IP 10.96.101.17 y el puerto 10443.
+
++
+[listing]
+----
+aws s3api --endpoint-url https://10.96.101.17:10443
+--no-verify-ssl create-bucket --bucket testbucket
+----
++
+Si el bucket se crea correctamente, se devuelve la ubicación del bucket, como se muestra en el siguiente ejemplo:
+
++
+[listing]
+----
+"Location": "/testbucket"
+----
+. Sube un objeto.
++
+[listing]
+----
+aws s3api --endpoint-url https://10.96.101.17:10443 --no-verify-ssl
+put-object --bucket testbucket --key s3.pdf --body C:\s3-test\upload\s3.pdf
+----
++
+Si el objeto se sube correctamente, se devuelve un Etag, que es un hash de los datos del objeto.
+
+. Enumera el contenido del bucket para comprobar que el objeto se subió.
++
+[listing]
+----
+aws s3api --endpoint-url https://10.96.101.17:10443 --no-verify-ssl
+list-objects --bucket testbucket
+----
+. Elimina el objeto.
++
+[listing]
+----
+aws s3api --endpoint-url https://10.96.101.17:10443 --no-verify-ssl
+delete-object --bucket testbucket --key s3.pdf
+----
+. Elimina el bucket.
++
+[listing]
+----
+aws s3api --endpoint-url https://10.96.101.17:10443 --no-verify-ssl
+delete-bucket --bucket testbucket
+----
+

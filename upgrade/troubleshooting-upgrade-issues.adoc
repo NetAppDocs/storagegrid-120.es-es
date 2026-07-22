@@ -1,0 +1,176 @@
+---
+permalink: upgrade/troubleshooting-upgrade-issues.html 
+sidebar: sidebar 
+keywords: upgrade, troubleshoot, troubleshooting, errors, upgrade precheck 
+summary: Si surge algún problema al realizar una actualización, es posible que puedas resolverlo por tu cuenta. Si no consigues resolver el problema, recopila toda la información que puedas y luego ponte en contacto con soporte técnico. 
+---
+= Soluciona problemas de actualización de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si surge algún problema al realizar una actualización, es posible que puedas resolverlo por tu cuenta. Si no consigues resolver el problema, recopila toda la información que puedas y luego ponte en contacto con soporte técnico.
+
+
+
+[[upgrade-does-not-complete]]
+== La actualización no se completa
+
+Las siguientes secciones describen cómo recuperar situaciones en las que la actualización ha fallado parcialmente.
+
+
+
+[[upgrade-precheck-errors]]
+=== Errores de comprobación previa de la actualización
+
+Para detectar y resolver problemas, puedes ejecutar manualmente las comprobaciones previas de la actualización antes de iniciar la actualización real. La mayoría de los errores de las comprobaciones previas proporcionan información sobre cómo resolver el problema.
+
+
+
+[[provisioning-failures]]
+=== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+
+
+[[grid-node-crashes-or-fails-to-start]]
+=== El nodo de grid se bloquea o no se inicia
+
+Si un nodo de la red se bloquea durante el proceso de actualización o no se inicia correctamente una vez finalizada la actualización, ponte en contacto con el soporte técnico para que investiguen y solucionen cualquier problema subyacente.
+
+
+
+[[ingest-or-data-retrieval-is-interrupted]]
+=== ${post_edited_translations.segment}
+
+Si la importación o la recuperación de datos se interrumpe de forma inesperada cuando no estés actualizando un nodo de la grid, ponte en contacto con soporte técnico.
+
+
+
+[[database-upgrade-errors]]
+=== Errores en la actualización de la base de datos
+
+Si la actualización de la base de datos falla y se produce un error, vuelve a intentar la actualización. Si vuelve a fallar, ponte en contacto con soporte técnico.
+
+.Información relacionada
+link:checking-systems-condition-before-upgrading-software.html["Comprobación del estado del sistema antes de actualizar el software"]
+
+
+
+[[user-interface-issues]]
+== Problemas con la interfaz de usuario
+
+Es posible que experimentes problemas con el Grid Manager o el Tenant Manager durante o después de la actualización.
+
+
+
+[[grid-manager-displays-multiple-error-messages-during-upgrade]]
+=== Grid Manager muestra varios mensajes de error durante la actualización
+
+Si actualizas el navegador o accedes a otra página de Grid Manager mientras se está actualizando el nodo de administración principal, es posible que veas varios mensajes del tipo "503: Service Unavailable" y "Problem connecting to the server". Puedes ignorar estos mensajes sin problema; dejarán de aparecer en cuanto se haya actualizado el nodo.
+
+Si estos mensajes siguen apareciendo más de una hora después de haber iniciado la actualización, es posible que haya ocurrido algo que haya impedido la actualización del nodo de administración principal. Si no consigues resolver el problema por tu cuenta, ponte en contacto con soporte técnico.
+
+
+
+[[web-interface-does-not-respond-as-expected]]
+=== La interfaz web no responde como se esperaba
+
+Es posible que Grid Manager o Tenant Manager no respondan como se espera después de actualizar el software de StorageGRID.
+
+Si tienes algún problema con la interfaz web:
+
+* Asegúrate de que estás utilizando un link:../admin/web-browser-requirements.html["navegador web compatible"].
++
+
+NOTE: La compatibilidad con los navegadores suele variar en cada versión de StorageGRID.
+
+* Borra la caché de tu navegador web.
++
+Al vaciar la caché se eliminan los recursos obsoletos utilizados por la versión anterior del software StorageGRID, y permite que la interfaz de usuario vuelva a funcionar correctamente. Para obtener instrucciones, consulta la documentación de tu navegador web.
+
+
+
+
+
+[[docker-image-availability-check-error-messages]]
+== Mensajes de error de «Comprobación de disponibilidad de la imagen de Docker»
+
+Al intentar iniciar el proceso de actualización, es posible que recibas un mensaje de error que dice: "La suite de validación de la comprobación de disponibilidad de la imagen de Docker ha detectado los siguientes problemas". Debes resolver todos los problemas antes de poder completar la actualización.
+
+Ponte en contacto con el soporte técnico si no estás seguro de los cambios necesarios para resolver los problemas detectados.
+
+[cols="1a,1a,1a"]
+|===
+| Mensaje | Causa | Solución 
+
+
+ a| 
+No se ha podido determinar la versión de actualización. El archivo de información de la versión de actualización `{file_path}` no coincidía con el formato esperado.
+ a| 
+El paquete de actualización está dañado.
+ a| 
+Vuelve a cargar el paquete de actualización e inténtalo de nuevo. Si el problema persiste, ponte en contacto con el soporte técnico.
+
+
+
+ a| 
+No se encontró el archivo de información de la versión de actualización `{file_path}`. No se puede determinar la versión de actualización.
+ a| 
+El paquete de actualización está dañado.
+ a| 
+Vuelve a cargar el paquete de actualización e inténtalo de nuevo. Si el problema persiste, ponte en contacto con el soporte técnico.
+
+
+
+ a| 
+No se puede determinar la versión instalada actualmente en `{node_name}`.
+ a| 
+${post_edited_translations.segment}
+ a| 
+Ponte en contacto con el soporte técnico.
+
+
+
+ a| 
+Error de conexión al intentar listar las versiones en `{node_name}`
+ a| 
+El nodo está desconectado o se ha interrumpido la conexión.
+ a| 
+Comprueba que todos los nodos estén en línea y sean accesibles desde el nodo de administración principal, y vuelve a intentarlo.
+
+
+
+ a| 
+El host del nodo `{node_name}` no tiene cargada la imagen de StorageGRID `{upgrade_version}`. Las imágenes y los servicios deben instalarse en el host antes de que puedas continuar con la actualización.
+ a| 
+Los paquetes RPM o DEB para la actualización no se han instalado en el host donde se está ejecutando el nodo, o las imágenes todavía están en proceso de importación.
+
+*Nota:* Este error solo aplica a los nodos que se ejecutan como contenedores en Linux.
+ a| 
+Comprueba que los paquetes RPM o DEB se hayan instalado en todos los hosts Linux en los que se están ejecutando los nodos. Asegúrate de que la versión sea la correcta tanto para el servicio como para el archivo de imágenes. Espera unos minutos e inténtalo de nuevo.
+
+Consulta link:../upgrade/linux-installing-rpm-or-deb-package-on-all-hosts.html["${post_edited_translations.segment}"].
+
+
+
+ a| 
+Error al comprobar el nodo `{node_name}`
+ a| 
+Se ha producido un error inesperado.
+ a| 
+Espera unos minutos y vuelve a intentarlo.
+
+
+
+ a| 
+Error no controlado al ejecutar las comprobaciones previas. `{error_string}`
+ a| 
+Se ha producido un error inesperado.
+ a| 
+Espera unos minutos y vuelve a intentarlo.
+
+|===

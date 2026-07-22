@@ -1,0 +1,52 @@
+---
+permalink: upgrade/verifying-installed-version-of-storagegrid.html 
+sidebar: sidebar 
+keywords: storagegrid, version, current version, previous version 
+summary: Antes de iniciar la actualización, verifica que la versión anterior de StorageGRID esté instalada con la última corrección urgente disponible aplicada. 
+---
+= Verifica la versión instalada de StorageGRID antes de actualizar
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de iniciar la actualización, verifica que la versión anterior de StorageGRID esté instalada con la última corrección urgente disponible aplicada.
+
+.Acerca de esta tarea
+Antes de actualizar a StorageGRID 12.0, tu grid debe tener instalado StorageGRID 11.9.0.8 o una versión posterior. Si actualmente estás usando una versión anterior de StorageGRID, debes instalar todos los archivos de actualización anteriores junto con sus últimas correcciones urgentes (muy recomendable) hasta que la versión actual de tu grid sea al menos StorageGRID 11.9.0.8.
+
+En la <<example-upgrade-path,ejemplo>> se muestra una posible ruta de actualización.
+
+
+CAUTION: NetApp te recomienda encarecidamente que apliques la última corrección urgente para cada versión de StorageGRID antes de actualizar a la siguiente versión, y que también apliques la última corrección urgente para cada nueva versión que instales. En algunos casos, debes aplicar una corrección urgente para evitar el riesgo de pérdida de datos. Consulta https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["Descargas de NetApp: StorageGRID"^] y las notas de la versión de cada corrección urgente para obtener más información.
+
+
+
+[[verify-installed-version]]
+== ${post_edited_translations.segment}
+
+.Pasos
+. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
+. En la parte superior del Grid Manager, selecciona *Ayuda* > *Acerca de*.
+. ${post_edited_translations.segment}
+. Si *Versión* no es 11.9.0.8 o posterior, entra en https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["Descargas de NetApp: StorageGRID"^] para descargar los archivos de actualización y corrección urgente que necesites.
+. link:../upgrade/index.html["Sigue las instrucciones de actualización"] para cada versión que descargaste. link:../maintain/storagegrid-hotfix-procedure.html["${post_edited_translations.segment}"] para cada versión (altamente recomendado).
+
+
+${post_edited_translations.segment}
+
+
+
+[[example-upgrade-pathexample-upgrade-to-storagegrid-12-0-from-version-11-8]]
+== [[example-upgrade-path]]Ejemplo: actualización a StorageGRID 12.0 desde la versión 11.8
+
+El siguiente ejemplo muestra los pasos para actualizar de StorageGRID versión 11.8 a la versión 11.9, como preparación para una actualización a StorageGRID 12.0.
+
+Descarga e instala el software en el siguiente orden para preparar tu sistema para la actualización:
+
+. Actualiza a la versión principal StorageGRID 11.8.0.
+. Aplica la última corrección urgente de StorageGRID 11.8.0._y_.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+

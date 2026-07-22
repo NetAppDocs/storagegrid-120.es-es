@@ -1,0 +1,71 @@
+---
+permalink: expand/updating-subnets-for-grid-network.html 
+sidebar: sidebar 
+keywords: expand, expansion, add subnets, Grid Network, StorageGRID 
+summary: Al añadir nodos de grid o un nuevo sitio en una ampliación, es posible que tengas que actualizar o añadir subredes a la Grid Network. 
+---
+= Agrega o actualiza subredes a la Grid Network para expansión en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al añadir nodos de grid o un nuevo sitio en una ampliación, es posible que tengas que actualizar o añadir subredes a la Grid Network.
+
+StorageGRID mantiene una lista de las subredes utilizadas para la comunicación entre los nodos de la red Grid (eth0). Estas entradas incluyen las subredes que utiliza cada sitio de tu sistema StorageGRID para la red Grid, así como cualquier subred utilizada para NTP, DNS, LDAP u otros servidores externos a los que se accede a través de la pasarela de la red Grid.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+* Tienes la frase de contraseña de aprovisionamiento.
+* Dispones de las direcciones de red, en notación CIDR, de las subredes que deseas configurar.
+
+
+.Acerca de esta tarea
+Si alguno de los nuevos nodos tiene una dirección IP de la red Grid en una subred que no se haya utilizado anteriormente, debes añadir la nueva subred a la lista de subredes de la red Grid antes de iniciar la ampliación. De lo contrario, tendrás que cancelar la ampliación, añadir la nueva subred y volver a iniciar el procedimiento.
+
+[NOTE]
+====
+No utilices subredes que contengan las siguientes direcciones IPv4 para la Grid Network, Admin Network o Client Network de ningún nodo:
+
+* 192.168.130.101
+* 192.168.130.121
+* 192.168.131.101
+* 192.168.131.121
+* 192.168.130.102
+* 192.168.130.122
+* 192.168.131.102
+* 192.168.131.122
+* 198.51.100.2
+* 198.51.100.4
+
+
+${post_edited_translations.segment}
+
+* 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+* 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+* 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+====
+.Pasos
+. Selecciona *Mantenimiento* > *Red* > *Red de grid*.
+. Selecciona *Add another subnet* para añadir una nueva subred en notación CIDR.
++
+Por ejemplo, escribe `10.96.104.0/22`.
+
+. Introduce la contraseña de aprovisionamiento y selecciona *Guardar*.
+. Espera a que se apliquen los cambios y luego descarga un nuevo paquete de recuperación.
++
+.. Selecciona *Mantenimiento* > *Sistema* > *Paquete de recuperación*.
+.. Introduce la *frase de contraseña de aprovisionamiento*.
++
+
+CAUTION: Debes proteger el archivo del paquete de recuperación porque contiene claves de cifrado y contraseñas que se pueden usar para obtener datos del sistema StorageGRID. También se utiliza para recuperar el nodo de administración primario.
+
+
+
+
+
+Las subredes que has especificado se configuran automáticamente para tu sistema StorageGRID.

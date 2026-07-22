@@ -1,0 +1,46 @@
+---
+permalink: audit/ilm-audit-messages.html 
+sidebar: sidebar 
+keywords: audit messages, ILM, IDEL, LKCU, ORLM 
+summary: ${post_edited_translations.segment} 
+---
+= Mensajes de auditoría de StorageGRID ILM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los mensajes de auditoría pertenecientes a la categoría de auditoría ILM se utilizan para eventos relacionados con las operaciones de gestión del ciclo de vida de la información (ILM).
+
+[cols="1a,3a,1a"]
+|===
+| Código | ${post_edited_translations.segment} | Ver 
+
+
+ a| 
+IDEL
+ a| 
+Eliminación iniciada por ILM: este mensaje de auditoría se genera cuando ILM inicia el proceso de eliminación de un objeto.
+ a| 
+link:idel-ilm-initiated-delete.html["IDEL: eliminación iniciada por ILM"]
+
+
+
+ a| 
+LKCU
+ a| 
+Limpieza de objetos sobrescritos. Este mensaje de auditoría se genera cuando un objeto sobrescrito se elimina automáticamente para liberar espacio de almacenamiento.
+ a| 
+link:lkcu-overwritten-object-cleanup.html["${post_edited_translations.segment}"]
+
+
+
+ a| 
+ORLM
+ a| 
+Reglas de objeto cumplidas: Este mensaje de auditoría se genera cuando los datos del objeto se almacenan tal y como especifican las reglas de ILM.
+ a| 
+link:orlm-object-rules-met.html["${post_edited_translations.segment}"]
+
+|===

@@ -1,0 +1,172 @@
+---
+permalink: audit/system-audit-messages.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, messages, system, ECOC, ETAF, GNRG, GNUR, GTED, GTST, GTSU, LLST, OLST, SADD, SADE, SVRF, SVRU, SYSD, SYST, SYSU, VLST 
+summary: 'Los mensajes de auditoría pertenecientes a la categoría de auditoría del sistema se usan para eventos relacionados con el propio sistema de auditoría, los estados de los nodos de grid, la actividad de tareas a nivel de todo el sistema (tareas de grid) y las operaciones de copia de seguridad de servicios.' 
+---
+= Mensajes de auditoría para eventos del sistema en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los mensajes de auditoría pertenecientes a la categoría de auditoría del sistema se usan para eventos relacionados con el propio sistema de auditoría, los estados de los nodos de grid, la actividad de tareas a nivel de todo el sistema (tareas de grid) y las operaciones de copia de seguridad de servicios.
+
+[cols="1a,2a,1a"]
+|===
+| Código | ${post_edited_translations.segment} | Ver 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Falta un fragmento de datos con código de borrado: indica que se ha detectado un fragmento de datos con código de borrado faltante.
+ a| 
+link:ecmc-missing-erasure-coded-data-fragment.html["ECMC: fragmento de datos con código de borrado ausente"]
+
+
+
+ a| 
+ECOC
+ a| 
+Fragmento de datos con código de borrado dañado: indica que se ha detectado un fragmento de datos con código de borrado dañado.
+ a| 
+link:ecoc-corrupt-erasure-coded-data-fragment.html["ECOC: fragmento de datos con código de borrado corrupto"]
+
+
+
+ a| 
+ETAF
+ a| 
+Error de autenticación de seguridad: falló un intento de conexión usando Transport Layer Security (TLS).
+ a| 
+link:etaf-security-authentication-failed.html["ETAF: Error de autenticación de seguridad"]
+
+
+
+ a| 
+GNRG
+ a| 
+Registro en GNDS: un servicio actualizó o registró información sobre sí mismo en el sistema StorageGRID.
+ a| 
+link:gnrg-gnds-registration.html["GNRG: Inscripción en GNDS"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Cancelación del registro de GNDS: un servicio se ha dado de baja del sistema StorageGRID.
+ a| 
+link:gnur-gnds-unregistration.html["GNUR: Baja del GNDS"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:gted-grid-task-ended.html["${post_edited_translations.segment}"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:gtst-grid-task-started.html["GTST: tarea de grid iniciada"]
+
+
+
+ a| 
+GTSU
+ a| 
+Tarea de grid enviada: Se envió una tarea de grid al servicio CMN.
+ a| 
+link:gtsu-grid-task-submitted.html["GTSU: tarea de red enviada"]
+
+
+
+ a| 
+LLST
+ a| 
+Pérdida de ubicación: este mensaje de auditoría se genera cuando se pierde una ubicación.
+ a| 
+link:llst-location-lost.html["LLST: ubicación perdida"]
+
+
+
+ a| 
+OLST
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:olst-system-detected-lost-object.html["OLST: el sistema detectó un objeto perdido"]
+
+
+
+ a| 
+SADD
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:sadd-security-audit-disable.html["SADD: desactivación de la auditoría de seguridad"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Activación de la auditoría de seguridad: se ha restablecido el registro de mensajes de auditoría.
+ a| 
+link:sade-security-audit-enable.html["SADE: activación de la auditoría de seguridad"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Error en la verificación del almacén de objetos: un bloque de contenido no pasó las comprobaciones de verificación.
+ a| 
+link:svrf-object-store-verify-fail.html["SVRF: Fallo en la verificación del almacén de objetos"]
+
+
+
+ a| 
+SVRU
+ a| 
+Verificación desconocida del almacén de objetos: se detectaron datos de objeto inesperados en el almacén de objetos.
+ a| 
+link:svru-object-store-verify-unknown.html["SVRU: verificación de almacén de objetos desconocida"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Parada del nodo: se solicitó un apagado.
+ a| 
+link:sysd-node-stop.html["SYSD: Parada de nodo"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Parada del nodo: un servicio inició una parada controlada.
+ a| 
+link:syst-node-stopping.html["${post_edited_translations.segment}"]
+
+
+
+ a| 
+SYSU
+ a| 
+Inicio del nodo: se ha iniciado un servicio; en el mensaje se indica el motivo del apagado anterior.
+ a| 
+link:sysu-node-start.html["SYSU: Inicio del nodo"]
+
+|===

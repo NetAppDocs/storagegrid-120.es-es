@@ -1,0 +1,82 @@
+---
+permalink: s3/put-bucket-consistency-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, PUT bucket consistency request 
+summary: ${post_edited_translations.segment} 
+---
+= Especifica los niveles de consistencia en StorageGRID con la solicitud de consistencia PUT Bucket
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+La consistencia predeterminada está configurada para garantizar la lectura posterior a la escritura para los objetos recién creados.
+
+.Antes de empezar
+Debes tener el permiso s3:PutBucketConsistency, o ser la raíz de la cuenta, para completar esta operación.
+
+
+
+[[request]]
+== Solicitud
+
+El  `x-ntap-sg-consistency` parámetro debe contener uno de los siguientes valores:
+
+[cols="1a,2a"]
+|===
+| Coherencia | Descripción 
+
+
+ a| 
+all
+ a| 
+Todos los nodos reciben los datos de inmediato o la solicitud fallará.
+
+
+
+ a| 
+strong-global
+ a| 
+Garantiza la consistencia de lectura tras escritura para todas las solicitudes de los clientes en todos los sitios.
+
+
+
+ a| 
+sitio fuerte
+ a| 
+Garantiza la consistencia de lectura tras escritura para todas las solicitudes de los clientes dentro de un sitio.
+
+
+
+ a| 
+lectura tras una nueva escritura
+ a| 
+(Predeterminado) Proporciona consistencia de lectura después de escritura para los objetos nuevos y consistencia eventual para las actualizaciones de objetos. Ofrece alta disponibilidad y garantías de protección de datos. Recomendado para la mayoría de los casos.
+
+
+
+ a| 
+disponible
+ a| 
+Proporciona consistencia eventual tanto para los objetos nuevos como para las actualizaciones de objetos. Para los buckets de S3, úsalo solo cuando sea necesario (por ejemplo, para un bucket que contiene valores de registro que rara vez se leen, o para operaciones HEAD o GET en claves que no existen). No es compatible con los buckets de S3 FabricPool.
+
+|===
+*Nota:* En general, deberías usar la consistencia "Read-after-new-write". Si las solicitudes no funcionan correctamente, cambia el comportamiento del cliente de la aplicación si es posible. O configura el cliente para que especifique la consistencia en cada solicitud de API. Establece la consistencia a nivel de bucket solo como último recurso.
+
+
+
+[[request-example]]
+== Ejemplo de solicitud
+
+[listing, subs="specialcharacters,quotes"]
+----
+PUT /bucket?x-ntap-sg-consistency=strong-global HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+.Información relacionada
+link:consistency.html["Coherencia"]

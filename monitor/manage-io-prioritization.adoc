@@ -1,0 +1,33 @@
+---
+permalink: monitor/manage-io-prioritization.html 
+sidebar: sidebar 
+keywords: ec repair priority, ec purge priority 
+summary: 'La priorización de entrada/salida (E/S) te permite cambiar las prioridades relativas de las operaciones de E/S en el grid.' 
+---
+= Cambiar la priorización de I/O en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La priorización de entrada/salida (E/S) te permite cambiar las prioridades relativas de las operaciones de E/S en el grid.
+
+De forma predeterminada, el tráfico de E/S PUT y GET de los clientes tiene la máxima prioridad frente a actividades en segundo plano como la purga de datos con código de borrado (EC) y la reparación de EC. Al aumentar la prioridad de la purga de datos con código de borrado (EC) y las actividades de reparación de EC, estas tareas pueden completarse más rápido. La eficacia de los cambios en la priorización de E/S se ve afectada por la tasa de solicitudes de los clientes, las fluctuaciones del tráfico de red y otras tareas de red en curso.
+
+.Antes de empezar
+* Consulta la página sobre la priorización de E/S para determinar qué opciones podrían afectar a tu grid.
+* Evalúa si el tráfico actual de clientes puede manejar de forma segura tiempos de espera más largos o timeouts de los clientes.
+* Prepárate para supervisar el efecto del cambio en las prioridades y realizar los ajustes necesarios. Estos cambios se aplican rápidamente, pero es posible que su efecto tarde unas horas en hacerse visible.
+
+
+.Pasos
+. Selecciona *Support* > *Priorización de E/S*.
+. (Opcional) Cambia la prioridad de purga y reparación de EC, para las operaciones en segundo plano que purgan datos de EC, desde sus valores predeterminados.
++
+
+NOTE: Utiliza la prioridad predeterminada de purga y reparación de EC baja para grids que tienen nodos basados en RAID.
+
+. Selecciona *Guardar*.
+. Supervisa el link:../monitor/commonly-used-prometheus-metrics.html#where-are-prometheus-metrics-used["métricas"] para evaluar el efecto de los cambios en la priorización.
+

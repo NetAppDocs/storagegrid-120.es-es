@@ -1,0 +1,103 @@
+---
+permalink: admin/benefits-of-active-idle-and-concurrent-http-connections.html 
+sidebar: sidebar 
+keywords: active http connection benefits, idle http connection benefits, concurrent http connection benefits 
+summary: La forma en que configuras las conexiones HTTP puede afectar el rendimiento del sistema StorageGRID. Las configuraciones varían según si la conexión HTTP está activa o inactiva, o si tienes varias conexiones simultáneas. 
+---
+= Beneficios de las conexiones HTTP activas, inactivas y concurrentes en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La forma en que configuras las conexiones HTTP puede afectar el rendimiento del sistema StorageGRID. Las configuraciones varían según si la conexión HTTP está activa o inactiva, o si tienes varias conexiones simultáneas.
+
+Puedes identificar los beneficios de rendimiento para los siguientes tipos de conexiones HTTP:
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Conexiones HTTP simultáneas
+
+
+
+
+[[benefits-of-keeping-idle-http-connections-open]]
+== Ventajas de mantener abiertas las conexiones HTTP inactivas
+
+Mantén abiertas las conexiones HTTP cuando las aplicaciones cliente estén inactivas para permitir transacciones posteriores. Mantén abierta una conexión HTTP inactiva durante un máximo de 10 minutos. StorageGRID podría cerrar automáticamente una conexión HTTP que esté abierta e inactiva durante más de 10 minutos.
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
++
+La reducción de la latencia es la principal ventaja, especialmente por el tiempo que se necesita para establecer conexiones TCP/IP y TLS.
+
+* Aumento de la tasa de transferencia de datos al preparar el algoritmo de inicio lento de TCP/IP con transferencias realizadas anteriormente
+* Notificación instantánea de varias clases de condiciones de fallo que interrumpen la conectividad entre la aplicación cliente y el sistema StorageGRID
+
+
+Decide cuánto tiempo mantener abierta una conexión inactiva, equilibrando los beneficios del slow start y la asignación de recursos.
+
+
+
+[[benefits-of-active-http-connections]]
+== Ventajas de las conexiones HTTP activas
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
++
+Con el tiempo, puede que una conexión HTTP ya no sea óptima a medida que cambian los requisitos de balanceo de carga. El sistema realiza su mejor balanceo de carga cuando las aplicaciones cliente establecen una conexión HTTP independiente para cada transacción, pero este método anula las valiosas ventajas asociadas con las conexiones persistentes.
+
+* ${post_edited_translations.segment}
+* Permite iniciar los procedimientos de mantenimiento.
++
+Algunos procedimientos de mantenimiento solo comienzan después de que se completan todas las conexiones HTTP en curso.
+
+
+
+En el caso de las conexiones de los clientes al servicio Load Balancer, limitar la duración de las conexiones abiertas puede ser útil para permitir que algunos procedimientos de mantenimiento se inicien sin demora. Si no se limita la duración de las conexiones de los clientes, las conexiones activas pueden tardar varios minutos en cerrarse automáticamente.
+
+
+
+[[benefits-of-concurrent-http-connections]]
+== ${post_edited_translations.segment}
+
+Debes mantener abiertas varias conexiones TCP/IP con el sistema StorageGRID para permitir el paralelismo, lo que aumenta el rendimiento. El número óptimo de conexiones paralelas depende de diversos factores.
+
+Las conexiones HTTP simultáneas ofrecen las siguientes ventajas:
+
+* Latencia reducida
++
+Las transacciones pueden iniciarse de inmediato en lugar de esperar a que se completen otras transacciones.
+
+* Aumento del rendimiento
++
+El sistema StorageGRID puede realizar transacciones en paralelo y aumentar el rendimiento global de las transacciones.
+
+
+
+Las aplicaciones cliente deberían establecer varias conexiones HTTP. Cuando una aplicación cliente tenga que realizar una transacción, puede seleccionar y usar inmediatamente cualquier conexión establecida que no esté procesando una transacción en ese momento.
+
+La topología de cada sistema StorageGRID tiene un rendimiento máximo diferente para las transacciones y conexiones simultáneas. El rendimiento máximo depende de la computación, la red, los recursos de almacenamiento, los enlaces WAN y el número de servidores, servicios y aplicaciones que admite el sistema StorageGRID.
+
+Los sistemas StorageGRID suelen admitir varias aplicaciones cliente. Ten esto en cuenta cuando determines el número máximo de conexiones simultáneas. Si la aplicación cliente consta de varias entidades de software y cada una de ellas establece conexiones con el sistema StorageGRID, suma todas las conexiones de las distintas entidades. Es posible que tengas que ajustar el número máximo de conexiones simultáneas en las siguientes situaciones:
+
+* La topología del sistema StorageGRID influye en el número máximo de transacciones y conexiones simultáneas que el sistema puede admitir.
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+
+
+
+
+[[separation-of-http-connection-pools-for-read-and-write-operations]]
+== ${post_edited_translations.segment}
+
+Puedes usar pools de conexiones HTTP independientes para las operaciones de lectura y escritura, y controlar qué parte de un pool utilizar para cada una. Los pools de conexiones HTTP independientes te permiten controlar mejor las transacciones y equilibrar las cargas.
+
+Las aplicaciones cliente pueden generar cargas en las que predomine la recuperación de datos (lectura) o el almacenamiento de datos (escritura). Con grupos separados de conexiones HTTP para las transacciones de lectura y escritura, puedes ajustar cuánto de cada grupo se dedica a las transacciones de lectura o escritura.

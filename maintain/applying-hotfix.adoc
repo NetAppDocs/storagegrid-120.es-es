@@ -1,0 +1,123 @@
+---
+permalink: maintain/applying-hotfix.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix, software update 
+summary: La corrección urgente se aplica primero de forma automática al nodo de administración principal. Luego, debes aprobar la aplicación de la corrección urgente a otros nodos de grid hasta que todos los nodos estén ejecutando la misma versión del software. Puedes personalizar la secuencia de aprobación seleccionando aprobar nodos individuales de grid, grupos de nodos de grid o todos los nodos de grid. 
+---
+= Aplica una corrección urgente en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La corrección urgente se aplica primero de forma automática al nodo de administración principal. Luego, debes aprobar la aplicación de la corrección urgente a otros nodos de grid hasta que todos los nodos estén ejecutando la misma versión del software. Puedes personalizar la secuencia de aprobación seleccionando aprobar nodos individuales de grid, grupos de nodos de grid o todos los nodos de grid.
+
+.Antes de empezar
+* Has revisado la link:storagegrid-hotfix-procedure.html["consideraciones para aplicar una corrección urgente"].
+* Tienes la frase de contraseña de aprovisionamiento.
+* Tienes acceso Root o el permiso de mantenimiento.
+
+
+.Acerca de esta tarea
+* Puedes retrasar la aplicación de una corrección urgente a un nodo, pero el proceso de corrección urgente no se completa hasta que aplicas la corrección urgente a todos los nodos.
+* No puedes realizar una actualización del software de StorageGRID ni una actualización del sistema operativo de SANtricity hasta que hayas completado el proceso de corrección urgente.
+
+
+.Pasos
+. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
+. Selecciona *Mantenimiento* > *Sistema* > *Actualización de software*.
++
+Aparece la página «Actualización de software».
+
++
+image:software_update_landing.png["Página de inicio de la actualización de software"]
+
+. Selecciona *Aplicar corrección urgente*.
++
+Aparece la página de corrección urgente de StorageGRID.
+
++
+image:hotfix_choose_file.png["Corrección urgente Seleccionar archivo"]
+
+. Selecciona el archivo de corrección urgente que descargaste del sitio de soporte de NetApp.
++
+.. Selecciona *Examinar*.
+.. Busca y selecciona el archivo.
++
+`hotfix-install-_version_`
+
+.. Selecciona *Open*.
++
+El archivo se ha subido. Cuando finaliza la subida, el nombre del archivo aparece en el campo Detalles.
+
++
+
+NOTE: No cambies el nombre del archivo porque es parte del proceso de verificación.
+
+
+
+. Introduce la frase de contraseña de aprovisionamiento en el cuadro de texto.
++
+El botón *Inicio* queda activado.
+
+. Selecciona *Inicio*.
++
+Aparece un aviso en el que se indica que la conexión de tu navegador podría perderse temporalmente mientras se reinician los servicios en el nodo de administración principal.
+
+. Selecciona *Aceptar* para comenzar a aplicar la corrección urgente al nodo de administración principal.
++
+Cuando se inicia la corrección urgente:
+
++
+.. Se ejecutan las validaciones de la corrección urgente, incluida la verificación de la firma del código.
++
+
+NOTE: Si se detecta algún error, corrígelo, vuelve a cargar el archivo de corrección urgente y selecciona *Iniciar* de nuevo.
+
+.. Aparece la tabla de progreso de la instalación de la corrección urgente.
++
+Esta tabla muestra todos los nodos de tu grid y la fase actual de la instalación de la corrección urgente para cada nodo. Los nodos de la tabla están agrupados por tipo (Admin Nodes, Gateway Nodes y Storage Nodes).
+
+.. La barra de progreso llega al final y luego el nodo de administración principal aparece como "Complete".
++
+image:hotfix_progress_table.png["Tabla de progreso de las correcciones urgentes"]
+
+
+
+. Si lo deseas, ordena las listas de nodos de cada grupo en orden ascendente o descendente por *Sitio*, *Nombre*, *Progreso*, *Fase* o *Detalles*. O introduce un término en el cuadro *Buscar* para buscar nodos específicos.
+. Aprueba los nodos de la red que están listos para ser actualizados. Los nodos aprobados del mismo tipo se actualizan de uno en uno.
++
+
+CAUTION: No apruebes la corrección urgente para un nodo a menos que estés seguro de que el nodo está listo para ser actualizado. Cuando se aplica la corrección urgente a un nodo de la red, algunos servicios de ese nodo podrían reiniciarse. Estas operaciones pueden causar interrupciones en el servicio para los clientes que se están comunicando con el nodo.
+
++
+** Selecciona uno o varios botones *Aprobar* para añadir uno o varios nodos individuales a la cola de corrección urgente.
+** Selecciona el botón *Aprobar todo* dentro de cada grupo para añadir todos los nodos del mismo tipo a la cola de corrección urgente. Si has introducido criterios de búsqueda en el cuadro *Buscar*, el botón *Aprobar todo* se aplica a todos los nodos seleccionados por los criterios de búsqueda.
++
+
+NOTE: El botón *Aprobar todo* situado en la parte superior de la página aprueba todos los nodos que aparecen en ella, mientras que el botón *Aprobar todo* situado en la parte superior de una agrupación de tablas solo aprueba todos los nodos de ese grupo. Si el orden en el que se actualizan los nodos es importante, aprueba los nodos o grupos de nodos de uno en uno y espera a que se complete la actualización en cada nodo antes de aprobar el siguiente o los siguientes.
+
+** Selecciona el botón de primer nivel *Aprobar todo* en la parte superior de la página para añadir todos los nodos de la cuadrícula a la cola de corrección urgente.
++
+
+NOTE: Debes completar la corrección urgente de StorageGRID antes de poder iniciar una actualización de software diferente. Si no puedes completar la corrección urgente, ponte en contacto con soporte técnico.
+
+** Selecciona *Eliminar* o *Eliminar todo* para eliminar un nodo o todos los nodos de la cola de corrección urgente.
++
+Cuando la fase pasa del estado «En cola», el botón *Eliminar* se oculta y ya no puedes eliminar el nodo del proceso de corrección urgente.
+
++
+image:approve_all_progresstable.png["Progreso de la corrección urgente con el botón eliminar"]
+
+
+
+. Espera mientras se aplica la corrección urgente a cada nodo de grid aprobado.
++
+Cuando la corrección urgente se haya instalado correctamente en todos los nodos, la tabla de progreso de la instalación de la corrección urgente se cerrará. Una barra verde muestra la fecha y la hora en que se completó la corrección urgente.
+
+. Si no se pudo aplicar la corrección urgente a ningún nodo, revisa el error de cada nodo, resuelve el problema y repite estos pasos.
++
+El procedimiento no se completa hasta que la corrección urgente se aplica correctamente en todos los nodos. Puedes volver a intentar el proceso de corrección urgente tantas veces como sea necesario hasta que se complete, sin ningún riesgo.
+
+

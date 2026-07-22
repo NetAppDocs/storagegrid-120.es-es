@@ -1,0 +1,47 @@
+---
+permalink: swnodes/reviewing-your-configuration-and-completing-installation.html 
+sidebar: sidebar 
+keywords: how to review your configuration and complete installation 
+summary: Debes revisar detenidamente la información de configuración que has introducido para asegurarte de que la instalación se complete correctamente. 
+---
+= Revisa tu configuración de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes revisar detenidamente la información de configuración que has introducido para asegurarte de que la instalación se complete correctamente.
+
+.Pasos
+. Consulta la página *Resumen*.
++
+image:11_gmi_installer_summary_page.gif["Página de resumen del instalador de Grid Manager"]
+
+. Comprueba que toda la información de configuración de la grid sea correcta. Utiliza los enlaces Modificar en la página Resumen para volver atrás y corregir cualquier error.
+. Haz clic en *Instalar*.
++
+
+NOTE: Si un nodo está configurado para utilizar la red del cliente, la puerta de enlace predeterminada de ese nodo cambia de la red de grid a la red del cliente cuando haces clic en *Instalar*. Si pierdes la conectividad, debes asegurarte de que estás accediendo al nodo de administración principal a través de una subred accesible. Consulta link:../network/index.html["${post_edited_translations.segment}"] para más detalles.
+
+. Haz clic en *Descargar paquete de recuperación*.
++
+Cuando la instalación llega al punto en el que se define la topología de la red, se te pedirá que descargues el archivo Recovery Package (`.zip` y confirmes que puedes acceder correctamente al contenido de este archivo. Debes descargar el archivo Recovery Package para que puedas recuperar el sistema StorageGRID si uno o más nodos de la grid fallan. La instalación continúa en segundo plano, pero no puedes completarla ni acceder al sistema StorageGRID hasta que descargues y verifiques este archivo.
+
+. Comprueba que puedes extraer el contenido del archivo  `.zip` y luego guardarlo en dos ubicaciones seguras y separadas.
++
+
+CAUTION: ${post_edited_translations.segment}
+
+. Marca la casilla *He descargado y verificado correctamente el archivo del paquete de recuperación* y haz clic en *Siguiente*.
++
+Si la instalación aún está en curso, aparece la página de estado. Esta página muestra el progreso de la instalación para cada nodo de la grid.
+
++
+image:12_gmi_installer_status_page.gif["Esta imagen se explica en el texto que la acompaña."]
+
++
+Cuando se alcanza la fase Complete en todos los nodos de la grid, aparece la página de sign-in del Grid Manager.
+
+. Inicia sesión en Grid Manager con el usuario raíz y la contraseña que especificaste durante la instalación.
+

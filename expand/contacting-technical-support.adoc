@@ -1,0 +1,61 @@
+---
+permalink: expand/contacting-technical-support.html 
+sidebar: sidebar 
+keywords: troubleshoot expansion, contact technical support, StorageGRID 
+summary: ${post_edited_translations.segment} 
+---
+= Solucionar errores de expansión en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+.Pasos
+. El acceso externo por SSH está bloqueado de forma predeterminada. Si es necesario, link:../admin/manage-external-ssh-access.html["permitir el acceso de forma temporal"].
+. Conéctate al nodo de expansión que ha sufrido fallos:
++
+.. Introduce el siguiente comando:``ssh -p 8022 admin@_grid_node_IP_``
++
+${post_edited_translations.segment}
+
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Después de que inicies sesión como root, el indicador cambia de  `$` a  `#`.
+
+. ${post_edited_translations.segment}
++
+[cols="1a,2a"]
+|===
+| Plataforma | Registros 
+
+
+ a| 
+VMware
+ a| 
+** `/var/log/daemon.log`
+** `/var/log/storagegrid/daemon.log`
+** `/var/log/storagegrid/nodes/<node-name>.log`
+
+
+
+
+ a| 
+Linux
+ a| 
+** `/var/log/storagegrid/daemon.log`
+** `/etc/storagegrid/nodes/<node-name>.conf` (por cada nodo fallido)
+** `/var/log/storagegrid/nodes/<node-name>.log` (por cada nodo con errores; podría no existir)
+
+
+|===
+. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado la tarea.
+

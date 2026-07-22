@@ -1,0 +1,174 @@
+---
+permalink: maintain/decommissioning-disconnected-grid-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, disconnected nodes, decommission node 
+summary: 'Es posible que tengas que decomisionar un nodo que no esté conectado actualmente a la grid (uno cuyo estado sea Desconocido o Administratively Down).' 
+---
+= Decomisionar nodos StorageGRID desconectados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que tengas que decomisionar un nodo que no esté conectado actualmente a la grid (uno cuyo estado sea Desconocido o Administratively Down).
+
+.Antes de empezar
+* Conoces los aspectos que hay que tener en cuenta para decomisionar link:considerations-for-decommissioning-admin-or-gateway-nodes.html["Nodos de administración y de pasarela"] y los aspectos que hay que tener en cuenta para decomisionar link:considerations-for-decommissioning-storage-nodes.html["Nodos de almacenamiento"].
+* Ya has conseguido todos los objetos necesarios.
+* Te has asegurado de que no haya ninguna tarea de reparación de datos activa. Consulta link:checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"].
+* Has confirmado que no hay ninguna recuperación de Storage Node en curso en ninguna parte del grid. Si la hay, debes esperar a que finalice cualquier reconstrucción de Cassandra que se esté llevando a cabo como parte de la recuperación. Luego puedes proceder a decomisionar.
+* Te has asegurado de que no se ejecuten otros procedimientos de mantenimiento mientras se está ejecutando el procedimiento de decomisionar el nodo, a menos que el procedimiento de decomisionar el nodo esté en pausa.
+* La columna *Posibilidad de decomisionar* correspondiente al nodo o nodos desconectados que quieres decomisionar incluye una marca de verificación verde.
+* Tienes la frase de contraseña de aprovisionamiento.
+
+
+.Acerca de esta tarea
+Puedes identificar los nodos desconectados buscando el icono azul Unknown image:icon_alarm_blue_unknown.png["Icono desconocido"] o el icono gris Administratively down image:icon_alarm_gray_administratively_down.png["Icono administrativamente inactivo"] en la columna *Health*.
+
+Antes de decomisionar cualquier nodo desconectado, ten en cuenta lo siguiente:
+
+* Este procedimiento está pensado principalmente para eliminar un único nodo desconectado. Si tu grid contiene varios nodos desconectados, el software requiere que los decomisiones todos al mismo tiempo, lo que aumenta la posibilidad de resultados inesperados.
++
+
+CAUTION: Podría producirse una pérdida de datos si se decomisiona más de un nodo de almacenamiento desconectado a la vez. Véase link:considerations-for-decommissioning-storage-nodes.html#considerations-disconnected-storage-nodes["Consideraciones para los nodos de almacenamiento desconectados"].
+
++
+
+CAUTION: Actúa con precaución al decomisionar nodos de almacenamiento en una grid que contenga nodos basados en software destinados exclusivamente a metadatos. Si decomisionas todos los nodos configurados para almacenar _tanto_ objetos como metadatos, la capacidad de almacenar objetos se elimina de la grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento destinados exclusivamente a metadatos.
+
+* Si no es posible eliminar un nodo desconectado (por ejemplo, un Storage Node que es necesario para el quórum del ADC), tampoco se puede eliminar ningún otro nodo desconectado.
+
+
+.Pasos
+. A menos que estés decomisionando un Archive Node (que debe desconectarse), intenta volver a poner en línea o recuperar cualquier nodo de grid que esté desconectado.
++
+Consulta link:warnings-and-considerations-for-grid-node-recovery.html["Procedimientos de recuperación de nodos de la grid"] para obtener instrucciones.
+
+. Si no puedes recuperar un nodo de la grid que está desconectado y quieres decomisionarlo mientras está desconectado, selecciona la casilla de verificación para ese nodo.
++
+
+NOTE: Si tu red contiene varios nodos desconectados, el software te obliga a descomisionarlos todos al mismo tiempo, lo que aumenta la probabilidad de que se produzcan resultados inesperados.
+
++
+
+CAUTION: Ten cuidado al decidir decomisionar más de un nodo de la red desconectado a la vez, especialmente si seleccionas varios nodos de almacenamiento desconectados. Si tienes más de un nodo de almacenamiento desconectado que no puedes recuperar, ponte en contacto con soporte técnico para determinar cuál es la mejor forma de proceder.
+
+. Introduce la contraseña de aprovisionamiento.
++
+El botón *Iniciar decomisionar* está habilitado.
+
+. Haz clic en *Iniciar decomisionar*.
++
+Aparece un aviso que indica que has seleccionado un nodo desconectado y que se perderán los datos del objeto si el nodo tiene la única copia de un objeto.
+
+. Revisa la lista de nodos y haz clic en *OK*.
++
+Se inicia el procedimiento de decomisionar y se muestra el progreso de cada nodo. Durante el procedimiento, se genera un nuevo paquete de recuperación que contiene el cambio de configuración de la grid.
+
+. En cuanto esté disponible el nuevo paquete de recuperación, haz clic en el enlace o selecciona *Mantenimiento* > *Sistema* > *Paquete de recuperación* para acceder a la página del paquete de recuperación. Luego, descarga el archivo  `.zip`.
++
+Consulta las instrucciones para link:downloading-recovery-package.html["descargar el paquete de recuperación"].
+
++
+
+NOTE: Descarga el paquete de recuperación lo antes posible para asegurarte de que puedas recuperar tu grid si algo sale mal durante el procedimiento de descomisionar.
+
++
+
+CAUTION: El archivo del paquete de recuperación debe protegerse porque contiene claves de cifrado y contraseñas que pueden usarse para obtener datos del sistema StorageGRID.
+
+. Supervisa periódicamente la página de Decomisionamiento para asegurarte de que todos los nodos seleccionados se hayan descomisionado correctamente.
++
+El proceso de decomisionar los nodos de almacenamiento puede tardar días o semanas. Cuando se hayan completado todas las tareas, se vuelve a mostrar la lista de selección de nodos con un mensaje de éxito. Si decomisionaste un nodo de almacenamiento desconectado, aparecerá un mensaje informativo indicando que se han iniciado los trabajos de reparación.
+
+. Una vez que los nodos se hayan apagado automáticamente como parte del procedimiento de decomisionar, elimina cualquier máquina virtual restante u otros recursos asociados al nodo descomisionado.
++
+
+CAUTION: No realices este paso hasta que los nodos se hayan apagado automáticamente.
+
+. Si vas a decomisionar un nodo de almacenamiento, supervisa el estado de las tareas de reparación de los *datos replicados* y de los *datos con código de borrado (EC)* que se inician automáticamente durante el proceso de decomisionamiento.
+
+
+[role="tabbed-block"]
+====
+.Datos replicados
+--
+* Para obtener un porcentaje estimado de finalización de la reparación replicada, añade la opción  `show-replicated-repair-status` al comando repair-data.
++
+`repair-data show-replicated-repair-status`
+
+* ${post_edited_translations.segment}
++
+.. Selecciona *Nodos* > *_Nodo de almacenamiento en reparación_* > *ILM*.
+.. Revisa los atributos en la sección de evaluación. Cuando se completen las reparaciones, el atributo *Awaiting - All* indica 0 objetos.
+
+
+* Para monitorear la reparación con más detalle:
++
+.. Selecciona *Nodos*.
+.. Selecciona *_nombre de la cuadrícula_* > *ILM*.
+.. ${post_edited_translations.segment}
+.. En la sección Cola de ILM, fíjate en los siguientes atributos:
++
+*** *Duración del escaneo - estimada*: El tiempo estimado para completar un escaneo ILM completo de todos los objetos.
++
+Un análisis completo no garantiza que se haya aplicado ILM a todos los objetos.
+
+*** *Reparaciones intentadas*: el número total de operaciones de reparación de objetos intentadas para datos replicados que se consideran de alto riesgo. Los objetos de alto riesgo son aquellos a los que les queda una sola copia, ya sea porque así lo especifica la política de ILM o como resultado de la pérdida de copias. Este recuento se incrementa cada vez que un Storage Node intenta reparar un objeto de alto riesgo. Las reparaciones de ILM de alto riesgo se priorizan si el grid se ocupa.
++
+La misma reparación de objetos podría volver a incrementarse si la replicación falló después de la reparación. + Estos atributos pueden ser útiles cuando estés monitorizando el progreso de la recuperación de volúmenes del Storage Node. Si el número de intentos de reparación ha dejado de aumentar y se ha completado un escaneo completo, es probable que la reparación haya finalizado.
+
+
+
+.. Como alternativa, envía una consulta de Prometheus para `storagegrid_ilm_scan_period_estimated_minutes` y `storagegrid_ilm_repairs_attempted`.
+
+
+
+
+--
+.${post_edited_translations.segment}
+--
+Para supervisar la reparación de los datos con código de borrado y volver a intentar cualquier solicitud que haya podido fallar:
+
+. Determina el estado de las reparaciones de los datos con código de borrado:
++
+** Selecciona *Support* > *Tools* > *Metrics* para ver el tiempo estimado hasta la finalización y el porcentaje de finalización del trabajo actual. Luego, selecciona *EC Overview* en la sección de Grafana. Consulta los paneles *Grid EC Job Estimated Time to Completion* y *Grid EC Job Percentage Completed*.
+** Usa este comando para ver el estado de una operación `repair-data` específica:
++
+`repair-data show-ec-repair-status --repair-id repair ID`
+
+** Utiliza este comando para listar todas las reparaciones:
++
+`repair-data show-ec-repair-status`
+
++
+El resultado muestra información, incluida `repair ID`, sobre todas las reparaciones que se han realizado anteriormente y las que se están llevando a cabo actualmente.
+
+
+
+. Si el resultado indica que la operación de reparación ha fallado, utiliza la opción  `--repair-id` para volver a intentar la reparación.
++
+${post_edited_translations.segment}
+
++
+`repair-data start-ec-node-repair --repair-id 6949309319275667690`
+
++
+${post_edited_translations.segment}
+
++
+`repair-data start-ec-volume-repair --repair-id 6949309319275667690`
+
+
+
+--
+====
+.Después de que termines
+Tan pronto como se hayan decomisionado los nodos desconectados y se hayan completado todas las tareas de reparación de datos, podrás decomisionar cualquier nodo de la red conectado, según sea necesario.
+
+A continuación, sigue estos pasos una vez que hayas finalizado el procedimiento de decomisionar:
+
+* Asegúrate de que las unidades del nodo de red decomisionado se borren por completo. Utiliza una herramienta o un servicio de borrado de datos disponible en el mercado para eliminar de forma permanente y segura los datos de las unidades.
+* Si decomisionaste un nodo de dispositivo y los datos del dispositivo estaban protegidos mediante el cifrado de nodos, usa el StorageGRID Appliance Installer para borrar la configuración del servidor de gestión de claves (Clear KMS). Debes borrar la configuración del KMS si quieres añadir el dispositivo a otra grid. Para obtener instrucciones, consulta https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/monitoring-node-encryption-in-maintenance-mode.html["Supervisar el cifrado de los nodos en modo de mantenimiento"^].
+

@@ -1,0 +1,33 @@
+---
+permalink: upgrade/index.html 
+sidebar: sidebar 
+keywords: storagegrid software upgrade 
+summary: ${post_edited_translations.segment} 
+---
+= Actualizar el software StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+
+CAUTION: No comiences la actualización si necesitas ampliar urgentemente tu almacenamiento para aumentar la capacidad (si tu almacenamiento está casi lleno). Completa el procedimiento de actualización a tiempo. Si se requiere una recuperación, contacta al soporte técnico.
+
+
+
+[[before-you-upgrade]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* link:how-your-system-is-affected-during-upgrade.html["Cómo se ve afectado tu sistema durante la actualización"]
+* link:../release-notes/whats-new.html["${post_edited_translations.segment}"]
+* link:../release-notes/removed-or-deprecated-features.html["Funcionalidades eliminadas u obsoletas"]
+* link:../release-notes/changes-to-grid-management-api.html["Cambios en la API de gestión de grid"]
+* link:../release-notes/changes-to-tenant-management-api.html["Cambios en la API de gestión de inquilinos"]
+

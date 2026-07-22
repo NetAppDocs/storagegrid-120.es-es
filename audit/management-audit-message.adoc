@@ -1,0 +1,28 @@
+---
+permalink: audit/management-audit-message.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, management, user request, user requests 
+summary: ${post_edited_translations.segment} 
+---
+= Mensajes de auditoría de gestión de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,3a,1a"]
+|===
+| Código | ${post_edited_translations.segment} | Ver 
+
+
+ a| 
+MGAU
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:mgau-management-audit-message.html["${post_edited_translations.segment}"]
+
+|===

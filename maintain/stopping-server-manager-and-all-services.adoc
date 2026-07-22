@@ -1,0 +1,36 @@
+---
+permalink: maintain/stopping-server-manager-and-all-services.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, stop server manager, stop all services, stop services 
+summary: Administrador de servidores está diseñado para estar siempre en ejecución, pero es posible que tengas que detener Administrador de servidores y todos los servicios que se ejecutan en un nodo de la red. 
+---
+= Detén StorageGRID Administrador de servidores y todos los servicios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Administrador de servidores está diseñado para estar siempre en ejecución, pero es posible que tengas que detener Administrador de servidores y todos los servicios que se ejecutan en un nodo de la red.
+
+.Antes de empezar
+Tienes el archivo  `Passwords.txt`.
+
+.Pasos
+. Inicia sesión en el nodo de la grid:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Detén el Administrador de servidores y todos los servicios que se estén ejecutando en el nodo de la red: `service servermanager stop`
++
+El Administrador de servidores y todos los servicios que se ejecutan en el nodo de la red se cierran de forma controlada. Los servicios pueden tardar hasta 15 minutos en cerrarse.
+
+. Cierra la sesión del intérprete de comandos: `exit`
+

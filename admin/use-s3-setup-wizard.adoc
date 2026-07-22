@@ -1,0 +1,60 @@
+---
+permalink: admin/use-s3-setup-wizard.html 
+sidebar: sidebar 
+keywords: S3, S3 setup wizard 
+summary: Puedes utilizar el asistente de configuración de S3 para configurar StorageGRID como sistema de almacenamiento de objetos para una aplicación S3. 
+---
+= Consideraciones y requisitos del asistente de configuración de StorageGRID S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar el asistente de configuración de S3 para configurar StorageGRID como sistema de almacenamiento de objetos para una aplicación S3.
+
+
+
+[[when-to-use-the-s3-setup-wizard]]
+== Cuándo utilizar el asistente de configuración de S3
+
+El asistente de configuración de S3 te guía a lo largo de cada paso de la configuración de StorageGRID para su uso con una aplicación S3. Como parte de completar el asistente, descargas archivos que puedes usar para introducir valores en la aplicación S3. Utiliza el asistente para configurar tu sistema más rápido y para asegurarte de que tus ajustes cumplen con las mejores prácticas de StorageGRID.
+
+Si tienes la link:admin-group-permissions.html["Permiso de acceso raíz"], puedes completar el asistente de configuración de S3 cuando empieces a usar StorageGRID Grid Manager, o puedes acceder y completar el asistente en cualquier momento después. Dependiendo de tus necesidades, también puedes configurar manualmente algunos o todos los elementos necesarios y luego usar el asistente para reunir los valores que necesita una aplicación S3.
+
+
+
+[[before-using-the-wizard]]
+== Antes de utilizar el asistente
+
+Antes de utilizar el asistente, comprueba que has cumplido estos requisitos previos.
+
+Obtener direcciones IP y configurar interfaces VLAN:: Si vas a configurar un grupo de alta disponibilidad (HA), ya sabes a qué nodos se conectará la aplicación S3 y qué red StorageGRID se utilizará. También sabes qué valores debes introducir para el CIDR de la subred, la dirección IP de la puerta de enlace y las direcciones IP virtuales (VIP).
++
+--
+Si tienes previsto usar una LAN virtual para segregar el tráfico de la aplicación S3, ya configuraste la interfaz de la VLAN. Consulta link:../admin/configure-vlan-interfaces.html["Configurar interfaces VLAN"].
+
+--
+Configura la federación de identidades y el inicio de sesión único (SSO):: Si tienes previsto usar la federación de identidades o el inicio de sesión único (SSO) para tu sistema StorageGRID, ya habrás habilitado estas funciones. También sabes qué grupo federado debe tener acceso a raíz para la cuenta de inquilino que usará la aplicación S3. Consulta link:../admin/using-identity-federation.html["Usa la federación de identidades"] y link:../admin/how-sso-works.html["${post_edited_translations.segment}"].
+Obtener y configurar nombres de dominio:: Ya sabes qué nombre de dominio completo (FQDN) debes usar para StorageGRID. Las entradas del servidor de nombres (DNS) asignarán este FQDN a las direcciones IP virtuales (VIP) del grupo de alta disponibilidad (HA) que crees usando el asistente.
++
+--
+Si tienes pensado utilizar solicitudes de S3 de tipo virtual hosted-style, debes tener link:../admin/configuring-s3-api-endpoint-domain-names.html["Nombres de dominio de los endpoints S3 configurados"]. Se recomienda utilizar solicitudes de tipo virtual hosted-style.
+
+--
+Revisa los requisitos del equilibrador de carga y del certificado de seguridad:: Si tienes previsto utilizar el equilibrador de carga de StorageGRID, ya revisaste las consideraciones generales para el equilibrio de carga. Tienes los certificados que vas a cargar o los valores que necesitas para generar un certificado.
++
+--
+Si tienes previsto usar un endpoint de un equilibrador de carga externo (de terceros), tienes el nombre de dominio completo (FQDN), el puerto y el certificado para ese equilibrador de carga.
+
+--
+Configura cualquier conexión de federación de redes:: Si deseas permitir que el inquilino de S3 clone los datos de la cuenta y replique los objetos del bucket en otra grid mediante una conexión de federación de grids, comprueba lo siguiente antes de iniciar el asistente de configuración:
++
+--
+* Tienes link:grid-federation-manage-connection.html["configuraste la conexión de federación de grid"].
+* El estado de la conexión es *Conectado*.
+* Tienes permiso de acceso root.
+
+
+--
+

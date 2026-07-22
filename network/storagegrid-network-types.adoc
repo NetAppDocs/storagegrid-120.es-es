@@ -1,0 +1,219 @@
+---
+permalink: network/storagegrid-network-types.html 
+sidebar: sidebar 
+keywords: network types, grid traffic, admin traffic, client traffic, grid network, admin network, client network 
+summary: Los nodos de grid en un sistema StorageGRID procesan el tráfico de grid, el tráfico de administración y el tráfico de clientes. Debes configurar la red adecuadamente para gestionar estos tres tipos de tráfico y para proporcionar control y seguridad. 
+---
+= Tipos de redes StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los nodos de la red en un sistema StorageGRID procesan el _tráfico de grid_, el _tráfico de administración_ y el _tráfico de cliente_. Debes configurar la red adecuadamente para gestionar estos tres tipos de tráfico y proporcionar control y seguridad.
+
+
+
+[[traffic-types]]
+== Tipos de tráfico
+
+[cols="1a,4a,2a"]
+|===
+| Tipo de tráfico | Descripción | Tipo de red 
+
+
+ a| 
+Tráfico de grid
+ a| 
+El tráfico interno de StorageGRID que circula entre todos los nodos de la grid. Todos los nodos de la grid deben poder comunicarse con todos los demás nodos de la grid a través de esta red.
+ a| 
+Red de grid (obligatorio)
+
+
+
+ a| 
+Tráfico de administración
+ a| 
+El tráfico utilizado para la administración y el mantenimiento del sistema.
+ a| 
+Red de administración (opcional), <<Redes VLAN opcionales,Red VLAN (opcional)>>
+
+
+
+ a| 
+Tráfico de clientes
+ a| 
+El tráfico que circula entre las aplicaciones de clientes externos y el grid, incluidas todas las solicitudes de almacenamiento de objetos de clientes S3.
+ a| 
+Red de clientes (opcional), <<Redes VLAN opcionales,Red VLAN (opcional)>>
+
+|===
+Puedes configurar la red de las siguientes maneras:
+
+* Solo red de grid
+* Redes Grid y de administración
+* Red de grid y de clientes
+* Redes Grid, Admin y Client
+
+
+La red Grid es obligatoria y puede gestionar todo el tráfico de red. Las redes Admin y Client pueden incluirse en el momento de la instalación o añadirse después para adaptarse a los cambios en los requisitos. Aunque las redes Admin y Client son opcionales, cuando usas estas redes para manejar el tráfico administrativo y de los clientes, la red Grid puede quedar aislada y segura.
+
+Solo se puede acceder a los puertos internos a través de la Grid Network. Se puede acceder a los puertos externos desde cualquier tipo de red. Esta flexibilidad ofrece múltiples opciones para diseñar una implementación de StorageGRID y configurar el filtrado de direcciones IP y puertos externos en switches y firewalls. Consulta link:../network/internal-grid-node-communications.html["comunicaciones internas entre nodos de la grid"] y link:../network/external-communications.html["comunicaciones externas"].
+
+
+
+[[network-interfaces]]
+== Interfaces de red
+
+Los nodos de StorageGRID se conectan a cada red mediante las siguientes interfaces específicas:
+
+[cols="1a,1a"]
+|===
+| Red | Nombre de la interfaz 
+
+
+ a| 
+Red de grid (obligatorio)
+ a| 
+eth0
+
+
+
+ a| 
+Red de administración (opcional)
+ a| 
+eth1
+
+
+
+ a| 
+Red de clientes (opcional)
+ a| 
+eth2
+
+|===
+Para obtener más información sobre cómo asignar puertos virtuales o físicos a las interfaces de red de los nodos, consulta link:../swnodes/index.html["Instalar StorageGRID en nodos basados en software"].
+
+.Nodos de appliance
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg6100.html["Dispositivo de almacenamiento SG6160"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg6100.html["Dispositivo de almacenamiento SGF6112"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg6000.html["Dispositivo de almacenamiento SG6000"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg5800.html["Dispositivo de almacenamiento SG5800"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg5700.html["Dispositivo de almacenamiento SG5700"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg110-and-1100.html["Aparatos de servicios SG110 y SG1100"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg100-and-1000.html["Aparatos de servicios SG100 y SG1000"^]
+
+
+
+
+[[network-information-for-each-node]]
+=== Información de red de cada nodo
+
+Debes configurar lo siguiente para cada red que actives en un nodo:
+
+* Dirección IP
+* Máscara de subred
+* Dirección IP de la puerta de enlace
+
+
+Solo puedes configurar una combinación de dirección IP, máscara y puerta de enlace para cada una de las tres redes en cada nodo de la red. Si no quieres configurar una puerta de enlace para una red, deberías usar la dirección IP como dirección de puerta de enlace.
+
+
+
+[[high-availability-groups]]
+=== Grupos de alta disponibilidad
+
+Los grupos de alta disponibilidad (HA) permiten añadir direcciones IP virtuales (VIP) a la interfaz de red Grid o Client. Para obtener más información, consulta link:../admin/managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"].
+
+
+
+[[grid-network]]
+== Red de grid
+
+Es necesaria la red Grid. Se utiliza para todo el tráfico interno de StorageGRID. La red Grid proporciona conectividad entre todos los nodos de la grid, en todos los sitios y subredes. Todos los nodos de la red Grid deben poder comunicarse con todos los demás nodos. La red Grid puede consistir en varias subredes. Las redes que contienen servicios críticos de la grid, como NTP, también pueden añadirse como subredes de la grid.
+
+
+NOTE: StorageGRID no admite la traducción de direcciones de red (NAT) entre nodos.
+
+La red Grid se puede utilizar para todo el tráfico de administración y todo el tráfico de cliente, incluso si se han configurado la red de administración y la red de cliente. La puerta de enlace de la red Grid es la puerta de enlace predeterminada del nodo, a menos que el nodo tenga configurada la red de cliente.
+
+
+CAUTION: Al configurar la red Grid, debes asegurarte de que la red esté protegida frente a clientes no fiables, como los que se encuentran en la internet pública.
+
+Ten en cuenta los siguientes requisitos y detalles para la pasarela de Grid Network:
+
+* La pasarela de la red Grid debe configurarse si hay varias subredes de Grid.
+* La puerta de enlace de la red Grid es la puerta de enlace predeterminada del nodo hasta que se complete la configuración de Grid.
+* Las rutas estáticas se generan automáticamente para todos los nodos hacia todas las subredes configuradas en la lista global de subredes de la Grid Network.
+* Si se añade una red de cliente, la puerta de enlace predeterminada cambia de la puerta de enlace de la red de grid a la puerta de enlace de la red de cliente cuando se completa la configuración de la grid.
+
+
+
+
+[[admin-network]]
+== Red de administración
+
+La red de administración es opcional. Cuando se configura, puede usarse para el tráfico de administración y mantenimiento del sistema. La red de administración suele ser una red privada y no necesita ser enrutable entre nodos.
+
+Puedes elegir en qué nodos de la grid se debe activar la red de administración.
+
+Cuando usas la red de administración, el tráfico administrativo y de mantenimiento no necesita viajar a través de la Grid Network. Entre los usos habituales de la red de administración se incluyen los siguientes:
+
+* Acceso a las interfaces de usuario de Grid Manager y Tenant Manager.
+* Acceso a servicios críticos como servidores NTP, servidores DNS, servidores externos de gestión de claves (KMS) y servidores Lightweight Directory Access Protocol (LDAP).
+* Acceso a los registros de auditoría en los nodos de administración.
+* Acceso mediante el protocolo Secure Shell (SSH) para tareas de mantenimiento y soporte.
+
+
+La red de administración nunca se utiliza para el tráfico interno de grid. Se proporciona una puerta de enlace de la red de administración que permite a la red de administración comunicarse con varias subredes externas. Sin embargo, la puerta de enlace de la red de administración nunca se utiliza como puerta de enlace predeterminada del nodo.
+
+Ten en cuenta los siguientes requisitos y detalles para la pasarela de red de administración:
+
+* La puerta de enlace de la red de administración es necesaria si se van a establecer conexiones desde fuera de la subred de la red de administración o si se han configurado varias subredes de la red de administración.
+* Se crean rutas estáticas para cada subred configurada en la lista de subredes de red de administración del nodo.
+
+
+
+
+[[client-network]]
+== Red de clientes
+
+La red de clientes es opcional. Cuando se configura, se utiliza para proporcionar acceso a los servicios de grid a aplicaciones cliente como S3. Si planeas hacer que los datos de StorageGRID sean accesibles para un recurso externo (por ejemplo, un Cloud Storage Pool o el servicio de replicación StorageGRID CloudMirror), el recurso externo también puede usar la red de clientes. Los nodos de grid pueden comunicarse con cualquier subred a la que se pueda acceder a través de la puerta de enlace de la red de clientes.
+
+Puedes elegir en qué nodos de la grid quieres habilitar la Client Network. No es necesario que todos los nodos estén en la misma Client Network, y los nodos nunca se comunicarán entre sí a través de la Client Network. La Client Network no se vuelve operativa hasta que se completa la instalación de la grid.
+
+Para mayor seguridad, puedes especificar que la interfaz de red de cliente de un nodo no sea de confianza, de modo que la red de cliente sea más restrictiva a la hora de permitir conexiones. Si la interfaz de red de cliente de un nodo no es de confianza, la interfaz acepta conexiones salientes, como las que utiliza la replicación de CloudMirror, pero solo acepta conexiones entrantes en los puertos que se hayan configurado explícitamente como puntos finales del equilibrador de carga. Consulta link:../admin/manage-firewall-controls.html["Gestiona los controles del cortafuegos"] y link:../admin/configuring-load-balancer-endpoints.html["Configura los puntos de conexión del equilibrador de carga"].
+
+Cuando usas una Client Network, el tráfico de los clientes no tiene que pasar por la Grid Network. El tráfico de la Grid Network puede separarse en una red segura y no enrutable. Los siguientes tipos de nodos suelen configurarse con una Client Network:
+
+* Nodos de puerta de enlace, ya que estos nodos proporcionan acceso al servicio StorageGRID Load Balancer y acceso de cliente S3 a la grid.
+* Nodos de almacenamiento, porque estos nodos proporcionan acceso al protocolo S3, a los Cloud Storage Pools y al servicio de replicación CloudMirror.
+* Nodos de administración, para garantizar que los usuarios del inquilino puedan conectarse al Tenant Manager sin necesidad de utilizar la Admin Network.
+
+
+Ten en cuenta lo siguiente respecto a la puerta de enlace de la red de clientes:
+
+* La pasarela de la red de clientes es necesaria si se ha configurado la red de clientes.
+* La pasarela de la red de clientes se convierte en la ruta predeterminada para el nodo de la red cuando se completa la configuración de la red.
+
+
+
+
+[[optional-vlan-networks]]
+== Redes VLAN opcionales
+
+Si es necesario, puedes utilizar opcionalmente redes LAN virtuales (VLAN) para el tráfico de clientes y para algunos tipos de tráfico de administración. Sin embargo, el tráfico de Grid no puede usar una interfaz VLAN. El tráfico interno de StorageGRID entre nodos debe usar siempre la red Grid en eth0.
+
+Para habilitar el uso de VLAN, debes configurar una o varias interfaces de un nodo como interfaces de enlace troncal en el conmutador. Puedes configurar la interfaz de red Grid Network (eth0) o la interfaz de red Client Network (eth2) como enlace troncal, o bien puedes añadir interfaces de enlace troncal al nodo.
+
+Si eth0 está configurada como un trunk, el tráfico de red Grid fluye a través de la interfaz nativa del trunk, como está configurado en el switch. De manera similar, si eth2 está configurada como un trunk y la Client Network también está configurada en el mismo nodo, la Client Network usa la VLAN nativa del puerto trunk como está configurado en el switch.
+
+Solo se admite el tráfico de administración entrante, como el utilizado para SSH, Grid Manager o Tenant Manager, en las redes VLAN. El tráfico saliente, como el utilizado para NTP, DNS, LDAP, KMS y Cloud Storage Pools, no es compatible con las redes VLAN.
+
+
+NOTE: Las interfaces VLAN solo se pueden añadir a los nodos de administración y a los nodos de puerta de enlace. No puedes usar una interfaz VLAN para el acceso de clientes o de administración a los nodos de almacenamiento.
+
+Consulta link:../admin/configure-vlan-interfaces.html["Configurar interfaces VLAN"] para obtener instrucciones y directrices.
+
+Las interfaces VLAN solo se utilizan en grupos de alta disponibilidad (HA) y se les asignan direcciones VIP en el nodo activo. Consulta link:../admin/managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"] para obtener instrucciones y directrices.

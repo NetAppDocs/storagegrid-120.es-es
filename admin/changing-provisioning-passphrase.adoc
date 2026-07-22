@@ -1,0 +1,47 @@
+---
+permalink: admin/changing-provisioning-passphrase.html 
+sidebar: sidebar 
+keywords: provisioning passphrase, change passphrase 
+summary: Usa este procedimiento para cambiar la frase de contraseña de aprovisionamiento de StorageGRID. La frase de contraseña es necesaria para los procedimientos de recuperación, expansión y mantenimiento. La frase de contraseña también es necesaria para descargar copias de seguridad de paquetes de recuperación que incluyen la información de la topología de grid, las contraseñas de las consolas de los nodos de grid y las claves de cifrado del sistema StorageGRID. 
+---
+= Cambia la contraseña de aprovisionamiento de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Usa este procedimiento para cambiar la frase de contraseña de aprovisionamiento de StorageGRID. La frase de contraseña es necesaria para los procedimientos de recuperación, expansión y mantenimiento. La frase de contraseña también es necesaria para descargar copias de seguridad de paquetes de recuperación que incluyen la información de la topología de la grid, las contraseñas de la consola de los nodos de la grid y las claves de cifrado del sistema StorageGRID.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* ${post_edited_translations.segment}
+* Tienes la contraseña de aprovisionamiento actual.
+
+
+.Acerca de esta tarea
+La frase de contraseña de aprovisionamiento es necesaria para muchos procedimientos de instalación y mantenimiento, y para link:../maintain/downloading-recovery-package.html["descargar el paquete de recuperación"]. La frase de contraseña de aprovisionamiento no aparece en el archivo  `Passwords.txt`. Asegúrate de documentar la frase de contraseña de aprovisionamiento y de guardarla en un lugar seguro.
+
+.Pasos
+. Selecciona *Configuración* > *Control de acceso* > *Contraseñas de grid*.
+. ${post_edited_translations.segment}
+. Introduce tu contraseña de aprovisionamiento actual.
+. Introduce la nueva frase de contraseña. La frase de contraseña debe contener al menos 8 y no más de 32 caracteres. Las frases de contraseña distinguen mayúsculas de minúsculas.
++
+
+CAUTION: Guarda la frase de contraseña de aprovisionamiento en un lugar seguro. Es necesaria para los procedimientos de instalación, ampliación y mantenimiento.
+
+. ${post_edited_translations.segment}
++
+${post_edited_translations.segment}
+
++
+image:change_provisioning_passphrase_success.png["Mensaje de éxito por cambio de la frase de acceso para el aprovisionamiento"]
+
+. Selecciona *Paquete de recuperación*.
+. Introduce la nueva frase de contraseña de aprovisionamiento para descargar el nuevo paquete de recuperación.
++
+
+CAUTION: Tras cambiar la contraseña de aprovisionamiento, debes descargar inmediatamente un nuevo paquete de recuperación. El archivo del paquete de recuperación te permite restaurar el sistema en caso de que se produzca un fallo.
+
+

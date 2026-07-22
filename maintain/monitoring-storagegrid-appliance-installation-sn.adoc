@@ -1,0 +1,42 @@
+---
+permalink: maintain/monitoring-storagegrid-appliance-installation-sn.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, appliance 
+summary: El instalador de StorageGRID Appliance muestra el estado hasta que la instalación se completa. Cuando la instalación del software se completa, el appliance se reinicia. 
+---
+= Supervisar la instalación del dispositivo StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El instalador de StorageGRID Appliance muestra el estado hasta que la instalación se completa. Cuando la instalación del software se completa, el appliance se reinicia.
+
+.Pasos
+. Para supervisar el progreso de la instalación, haz clic en *Monitor Installation* en la barra de menús.
++
+${post_edited_translations.segment}
+
++
+La barra de estado azul indica qué tarea está actualmente en progreso. Las barras de estado verdes indican las tareas que se han completado correctamente.
+
++
+
+NOTE: El instalador se asegura de que las tareas completadas en una instalación anterior no se vuelvan a ejecutar. Si vuelves a ejecutar una instalación, las tareas que no necesiten volver a ejecutarse se muestran con una barra de estado verde y el estado "Skipped".
+
+. ${post_edited_translations.segment}
++
+** *1. Configura el almacenamiento*
++
+Durante esta fase, el instalador se conecta al controlador de almacenamiento, borra cualquier configuración existente, se comunica con SANtricity OS para configurar los volúmenes y configura los parámetros del host.
+
+** *2. Instala el sistema operativo*
++
+Durante esta fase, el instalador copia la imagen del sistema operativo base de StorageGRID en el dispositivo.
+
+
+
+. Sigue supervisando el progreso de la instalación hasta que la fase *Instalar StorageGRID* se detenga y aparezca un mensaje en la consola integrada en el que se te pida que apruebes este nodo en el Admin Node usando Grid Manager.
+. Vaya a link:selecting-start-recovery-to-configure-appliance-storage-node.html["Selecciona Iniciar recuperación para configurar el nodo de almacenamiento del appliance Storage Node"].
+

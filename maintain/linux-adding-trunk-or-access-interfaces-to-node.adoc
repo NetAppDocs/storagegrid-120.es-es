@@ -1,0 +1,74 @@
+---
+permalink: maintain/linux-adding-trunk-or-access-interfaces-to-node.html 
+sidebar: sidebar 
+keywords: add extra interface to node, trunk interface, access interface 
+summary: Puedes añadir interfaces trunk o de acceso adicionales a un nodo Linux después de que se haya instalado. Las interfaces que añadas se muestran en la página de interfaces VLAN y en la página de grupos HA. 
+---
+= Agrega interfaces trunk o de acceso a un nodo Linux en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes añadir interfaces trunk o de acceso adicionales a un nodo Linux después de que se haya instalado. Las interfaces que añadas se muestran en la página de interfaces VLAN y en la página de grupos HA.
+
+.Antes de empezar
+* Tienes acceso a la link:../swnodes/index.html["Instrucciones para instalar StorageGRID"] en tu plataforma Linux.
+* Tienes el archivo  `Passwords.txt`.
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+
+
+
+CAUTION: No intentes añadir interfaces a un nodo mientras una actualización de software, un procedimiento de recuperación o un procedimiento de ampliación esté activo.
+
+.Acerca de esta tarea
+Sigue estos pasos para añadir una o más interfaces adicionales a un nodo Linux una vez que se haya instalado el nodo. Por ejemplo, podrías querer añadir una interfaz troncal a un Admin Node o Gateway Node, para poder usar interfaces VLAN y segregar el tráfico que pertenece a diferentes aplicaciones o tenants. O podrías querer añadir una interfaz de acceso para usarla en un grupo de alta disponibilidad (HA).
+
+Si añades una interfaz troncal, debes configurar una interfaz de VLAN en StorageGRID. Si añades una interfaz de acceso, puedes añadir la interfaz directamente a un grupo de HA; no necesitas configurar una interfaz de VLAN.
+
+El nodo queda indisponible durante un breve periodo de tiempo al añadir interfaces. Deberías realizar este procedimiento en un solo nodo a la vez.
+
+.Pasos
+. Inicia sesión en el servidor Linux que aloja el nodo.
+. Utilizando un editor de texto como vim o pico, edita el archivo de configuración del nodo:
++
+`/etc/storagegrid/nodes/_node-name_.conf`
+
+. Añade una entrada al archivo para especificar el nombre y, opcionalmente, la descripción de cada interfaz adicional que desees añadir al nodo. Utiliza este formato.
++
+`INTERFACE_TARGET_nnnn=_value_`
+
++
+Para _nnnn_, especifica un número único para cada entrada  `INTERFACE_TARGET` que agregues.
+
++
+Para _value_, especifica el nombre de la interfaz física en el host bare-metal. Luego, si quieres, añade una coma y proporciona una descripción de la interfaz, que se muestra en la página de interfaces VLAN y en la página de grupos HA.
+
++
+Por ejemplo:
+
++
+`INTERFACE_TARGET_0001=ens256, Trunk`
+
++
+
+NOTE: No especifiques ningún otro parámetro de red o se producirá un error de validación.
+
+. Ejecuta el siguiente comando para validar tus cambios en el archivo de configuración del nodo:
++
+`sudo storagegrid node validate _node-name_`
+
++
+Soluciona cualquier error o advertencia antes de pasar al siguiente paso.
+
+. Ejecuta el siguiente comando para actualizar la configuración del nodo:
++
+`sudo storagegrid node reload _node-name_`
+
+
+
+.Después de que termines
+* Si añadiste una o más interfaces de tronco, ve a link:../admin/configure-vlan-interfaces.html["configurar interfaces VLAN"] para configurar una o más interfaces VLAN para cada nueva interfaz principal.
+* Si añadiste una o más interfaces de acceso, ve a link:../admin/configure-high-availability-group.html["configurar grupos de alta disponibilidad"] para agregar las nuevas interfaces directamente a los grupos HA.
+

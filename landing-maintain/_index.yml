@@ -1,0 +1,37 @@
+---
+indexpage:
+  title: Mantén un sistema StorageGRID
+  summary: Puedes llevar a cabo procedimientos de mantenimiento para solucionar fallos
+    o para mantener tu sistema StorageGRID actualizado y funcionando de manera eficiente.
+  keywords: maintain grid, recovery package
+  lead: Puedes llevar a cabo procedimientos de mantenimiento para solucionar fallos
+    o para mantener tu sistema StorageGRID actualizado y funcionando de manera eficiente.
+  tiles:
+  - title: Empezar
+    links:
+    - title: Mantenimiento de grid
+      url: "../maintain/index.html"
+    - title: Descargar el paquete de recuperación
+      url: "../maintain/downloading-recovery-package.html"
+  - title: Decomisionar nodos o emplazamientos
+    links:
+    - title: Tipos de decomisionar
+      url: "../maintain/decommission-procedure.html"
+    - title: Eliminar un nodo de la red
+      url: "../maintain/grid-node-decommissioning.html"
+    - title: Eliminar un sitio
+      url: "../maintain/considerations-for-removing-site.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: "${post_edited_translations.segment}"
+      url: "../maintain/rename-grid-site-node-overview.html"
+    - title: Procedimientos de nodo
+      url: "../maintain/grid-node-procedures.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../maintain/updating-subnets-for-grid-network.html"
+    - title: Procedimientos de host y middleware
+      url: "../maintain/linux-migrating-grid-node-to-new-host.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Documentación de los dispositivos StorageGRID
+      url: https://docs.netapp.com/us-en/storagegrid-appliances/

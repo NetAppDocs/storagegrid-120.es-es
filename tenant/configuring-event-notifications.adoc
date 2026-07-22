@@ -1,0 +1,135 @@
+---
+permalink: tenant/configuring-event-notifications.html 
+sidebar: sidebar 
+keywords: how to configure event notifications, bucket notification 
+summary: ${post_edited_translations.segment} 
+---
+= Configura las notificaciones de eventos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+.Antes de empezar
+* Los servicios de la plataforma fueron habilitados para tu cuenta de inquilino por un administrador de StorageGRID.
+* ${post_edited_translations.segment}
+* El punto final que pretendes utilizar como destino para las notificaciones de eventos ya existe y tienes su URN.
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona todos los buckets o permiso de acceso a raíz"]. Estos permisos anulan la configuración de permisos de las políticas de grupo o de bucket al configurar el bucket mediante Tenant Manager.
+
+
+.Acerca de esta tarea
+Configuras las notificaciones de eventos asociando un archivo XML de configuración de notificaciones a un bucket de origen. El archivo XML de configuración de notificaciones sigue las convenciones de S3 para configurar notificaciones de buckets, con el tema de Amazon SNS, el tema de Kafka o el endpoint del webhook de destino especificado como el URN de un endpoint.
+
+Para obtener información general sobre las notificaciones de eventos y cómo configurarlas, consulta https://docs.aws.amazon.com/s3/["Documentación de Amazon"^]. Para obtener información sobre cómo StorageGRID implementa la API de configuración de notificaciones de buckets de S3, consulta link:../s3/index.html["Instrucciones para implementar aplicaciones cliente de S3"].
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Después de que configures las notificaciones de eventos, cada vez que ocurra un evento especificado para un objeto en el bucket de origen, se genera una notificación y se envía al tema de Amazon SNS, al tema de Kafka o al endpoint de webhook que uses como destino.
+* Si activas las notificaciones de eventos para un bucket que contiene objetos, solo se enviarán notificaciones sobre las acciones que se realicen después de guardar la configuración de notificaciones.
+
+
+.Pasos
+. Activa las notificaciones para tu depósito de origen:
++
+** ${post_edited_translations.segment}
+** Al configurar el XML, usa el URN de un endpoint de notificaciones de eventos como tema de destino.
++
+[listing]
+----
+<NotificationConfiguration>
+  <TopicConfiguration>
+     <Id>Image-created</Id>
+     <Filter>
+        <S3Key>
+          <FilterRule>
+            <Name>prefix</Name>
+            <Value>images/</Value>
+          </FilterRule>
+        </S3Key>
+    </Filter>
+    <Topic>arn:aws:sns:us-east-1:050340950352:sgws-topic</Topic>
+    <Event>s3:ObjectCreated:*</Event>
+   </TopicConfiguration>
+ </NotificationConfiguration>
+----
+
+
+. ${post_edited_translations.segment}
+. Selecciona el nombre del depósito de origen.
++
+Aparece la página de detalles del bucket.
+
+. ${post_edited_translations.segment}
+. Marca la casilla *Activar notificaciones de eventos*.
+. ${post_edited_translations.segment}
++
+
+NOTE: Un administrador de StorageGRID debe habilitar los servicios de la plataforma para cada cuenta de inquilino mediante Grid Manager o Grid Management API. Ponte en contacto con tu administrador de StorageGRID si se produce un error al guardar el archivo de configuración XML.
+
+. ${post_edited_translations.segment}
++
+.. Realiza una acción sobre un objeto en el bucket de origen que cumpla los requisitos para activar una notificación según lo configurado en el XML de configuración.
++
+En el ejemplo, se envía una notificación de evento cada vez que se crea un objeto con el prefijo  `images/`.
+
+.. ${post_edited_translations.segment}
++
+${post_edited_translations.segment}
+
++
+[listing]
+----
+{
+   "Records":[
+      {
+         "eventVersion":"2.0",
+         "eventSource":"sgws:s3",
+         "eventTime":"2017-08-08T23:52:38Z",
+         "eventName":"ObjectCreated:Put",
+         "userIdentity":{
+            "principalId":"1111111111111111111"
+         },
+         "requestParameters":{
+            "sourceIPAddress":"193.51.100.20"
+         },
+         "responseElements":{
+            "x-amz-request-id":"122047343"
+         },
+         "s3":{
+            "s3SchemaVersion":"1.0",
+            "configurationId":"Image-created",
+            "bucket":{
+               "name":"test1",
+               "ownerIdentity":{
+                  "principalId":"1111111111111111111"
+               },
+               "arn":"arn:sgws:s3:::test1"
+            },
+            "object":{
+               "key":"images/cat.jpg",
+               "size":0,
+               "eTag":"d41d8cd98f00b204e9800998ecf8427e",
+               "sequencer":"14D90402421461C7"
+            }
+         }
+      }
+   ]
+}
+----
++
+${post_edited_translations.segment}
+
+
+
+
+
+.Información relacionada
+* link:understanding-notifications-for-buckets.html["Entiende las notificaciones de los buckets"]
+* link:../s3/index.html["Usa la API de REST de S3"]
+* link:creating-platform-services-endpoint.html["Crear un endpoint de servicios de plataforma"]
+

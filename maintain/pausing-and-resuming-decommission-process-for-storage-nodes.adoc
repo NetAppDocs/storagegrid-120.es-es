@@ -1,0 +1,46 @@
+---
+permalink: maintain/pausing-and-resuming-decommission-process-for-storage-nodes.html 
+sidebar: sidebar 
+keywords: how to pause decommission 
+summary: Si necesitas realizar un segundo procedimiento de mantenimiento, puedes pausar el procedimiento de decomisionar un Storage Node durante determinadas fases. Después de que el otro procedimiento termine, puedes reanudar el decomisionamiento. 
+---
+= Pausar y reanudar el proceso de decomisionar los nodos de almacenamiento StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si necesitas realizar un segundo procedimiento de mantenimiento, puedes pausar el procedimiento de decomisionar un Storage Node durante determinadas fases. Después de que el otro procedimiento termine, puedes reanudar el decomisionamiento.
+
+
+NOTE: El botón *Pausa* solo está disponible cuando se llega a las fases de evaluación de ILM o de decomisionamiento de datos con código de borrado; sin embargo, la evaluación de ILM (migración de datos) seguirá ejecutándose en segundo plano.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+
+
+.Pasos
+. Selecciona *Mantenimiento* > *Tareas* > *Decomisionar*.
++
+Aparece la página Decommission.
+
+. Selecciona *Decomisionar nodos*.
++
+Aparece la página Decommission Nodes. Cuando el procedimiento de decomisionar llega a cualquiera de las siguientes fases, se activa el botón *Pause*.
+
++
+** Evaluación de ILM
+** Decomisionar datos con código de borrado
+
+
+. Selecciona *Pausa* para suspender el procedimiento.
++
+La etapa actual está en pausa y el botón *Reanudar* está habilitado.
+
++
+image:decommission_nodes_procedure_paused.png["Procedimiento de decomisionar nodos en pausa"]
+
+. Una vez finalizado el otro procedimiento de mantenimiento, selecciona *Reanudar* para continuar con el decomisionar.
+

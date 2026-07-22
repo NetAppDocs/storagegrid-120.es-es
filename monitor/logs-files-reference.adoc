@@ -1,0 +1,246 @@
+---
+permalink: monitor/logs-files-reference.html 
+sidebar: sidebar 
+keywords: log, logs, log files 
+summary: StorageGRID proporciona registros que se utilizan para capturar eventos, mensajes de diagnóstico y condiciones de error. Es posible que te pidan que recopiles los archivos de registro y los envíes al soporte técnico para ayudar con la resolución de problemas. 
+---
+= Archivos de registro de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID proporciona registros que se utilizan para capturar eventos, mensajes de diagnóstico y condiciones de error. Es posible que te pidan que recopiles los archivos de registro y los envíes al soporte técnico para ayudar con la resolución de problemas.
+
+Los registros se clasifican de la siguiente manera:
+
+* link:storagegrid-software-logs.html["Registros del software StorageGRID"]
+* link:deployment-and-maintenance-logs.html["Registros de implementación y mantenimiento"]
+* link:about-bycast-log.html["Acerca del archivo bycast.log"]
+
+
+
+NOTE: La información proporcionada para cada tipo de registro es meramente orientativa. Estos registros están destinados a la resolución avanzada de problemas por parte del soporte técnico. Las técnicas avanzadas que implican reconstruir el historial del problema utilizando los registros de auditoría y los archivos de registro de la aplicación quedan fuera del alcance de estas instrucciones.
+
+
+
+[[access-the-logs]]
+== Accede a los registros
+
+Para acceder a los registros, puedes link:collecting-log-files-and-system-data.html["recopilar archivos de registro y datos del sistema"] desde uno o varios nodos como un solo archivo comprimido de registros. O puedes acceder a los archivos de registro individuales de cada nodo de grid de la siguiente manera:
+
+.Pasos
+. Introduce el siguiente comando: `ssh admin@grid_node_IP`
+. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
+
+
+[[export-logs-to-the-syslog-server]]
+== Exportar los registros al servidor syslog
+
+Exportar los registros al servidor syslog ofrece estas capacidades:
+
+* Recibe una lista de todas las solicitudes de Grid Manager y Tenant Manager, además de las solicitudes de S3.
+* Mayor visibilidad de las solicitudes de S3 que devuelven errores, sin el impacto en el rendimiento que provocan los métodos de registro de auditoría.
+* Acceso a las solicitudes de la capa HTTP y a los códigos de error que son fáciles de analizar.
+* Mejor visibilidad de las solicitudes que fueron bloqueadas por los clasificadores de tráfico en el equilibrador de carga.
+
+
+Para exportar los registros, consulta link:../monitor/configure-log-management.html["Configura la gestión de registros y el servidor syslog externo"].
+
+
+
+[[log-file-categories]]
+== Categorías de archivos de registro
+
+El archivo de registros de StorageGRID contiene los registros descritos para cada categoría y archivos adicionales que contienen métricas y la salida de los comandos de depuración.
+
+[cols="1a,3a"]
+|===
+| Ubicación del archivo | Descripción 
+
+
+| auditoría  a| 
+Mensajes de auditoría generados durante el funcionamiento normal del sistema.
+
+
+
+| registros-del-sistema-operativo-base  a| 
+Información básica sobre el sistema operativo, incluidas las versiones de las imágenes de StorageGRID.
+
+
+
+| paquetes  a| 
+Información de configuración global (bundles).
+
+
+
+| cache-svc  a| 
+Registros del servicio de caché (solo en Gateway Nodes).
+
+
+
+| cassandra  a| 
+Información de la base de datos Cassandra y registros de reparación de Reaper.
+
+
+
+| ec  a| 
+Información de los VCS sobre el nodo actual e información del grupo EC por ID de perfil.
+
+
+
+| grid  a| 
+Registros generales de grid, incluidos los registros de depuración (`bycast.log`) y los registros  `servermanager`.
+
+
+
+| grid.json  a| 
+Archivo de configuración de grid compartido por todos los nodos. Además, `node.json` es específico del nodo actual.
+
+
+
+| hagroups  a| 
+Métricas y registros de los grupos de alta disponibilidad.
+
+
+
+| instalar  a| 
+`Gdu-server` y los registros de instalación.
+
+
+
+| Lambda-arbitrador  a| 
+Registros relacionados con la solicitud de proxy de S3 Select.
+
+
+
+| leakd  a| 
+Registros del servicio leakd.
+
+
+
+| lumberjack.log  a| 
+Mensajes de depuración relacionados con la recopilación de registros.
+
+
+
+| Métricas  a| 
+Registros de servicio de Grafana, Jaeger, node exporter y Prometheus.
+
+
+
+| miscd  a| 
+Registros diversos de acceso y errores.
+
+
+
+| mysql  a| 
+La configuración de la base de datos mariaDB y los registros relacionados.
+
+
+
+| red  a| 
+Registros generados por scripts relacionados con la red y el servicio Dynip.
+
+
+
+| nginx  a| 
+Archivos de configuración y registros del equilibrador de carga y de la federación de grid. También incluye los registros de tráfico de Grid Manager y Tenant Manager.
+
+
+
+| nginx-gw  a| 
+* `access.log`: Mensajes de registro de solicitudes de Grid Manager y Tenant manager.
++
+** Estos mensajes llevan el prefijo  `mgmt:` cuando se exportan mediante syslog.
+** El formato de estos mensajes de registro es `[$time_iso8601] $remote_addr $status $bytes_sent $request_length $request_time "$endpointId" "$request" "$http_host" "$http_user_agent" "$http_referer"`
+
+
+* `cgr-access.log.gz`: Solicitudes de replicación entre grids entrantes.
++
+** Estos mensajes llevan el prefijo  `cgr:` cuando se exportan mediante syslog.
+** El formato de estos mensajes de registro es `[$time_iso8601] $remote_addr $status $bytes_sent $request_length $request_time "$endpointId" "$upstream_addr" "$request" "$http_host"`
+
+
+* `endpoint-access.log.gz`: solicitudes de S3 a los puntos de conexión del equilibrador de carga.
++
+** Estos mensajes llevan el prefijo  `endpoint:` cuando se exportan mediante syslog.
+** El formato de estos mensajes de registro es `[$time_iso8601] $remote_addr $status $bytes_sent $request_length $request_time "$endpointId" "$upstream_addr" "$request" "$http_host"`
+
+
+* `nginx-gw-dns-check.log`: relacionado con la nueva alerta de comprobación del DNS.
+
+
+
+
+| ntp  a| 
+Archivo de configuración de NTP y registros.
+
+
+
+ a| 
+Objetos huérfanos
+ a| 
+Registros relacionados con objetos huérfanos.
+
+
+
+| os  a| 
+Archivo de estado del nodo y de la grid, incluidos los servicios `pid`.
+
+
+
+| otros  a| 
+Archivos de registro en  `/var/local/log` que no se recopilan en otras carpetas.
+
+
+
+| rendimiento  a| 
+Información sobre el rendimiento de la CPU, la red y la E/S de disco.
+
+
+
+| prometheus-data  a| 
+Métricas actuales de Prometheus, si la recopilación de registros incluye datos de Prometheus.
+
+
+
+| aprovisionamiento  a| 
+Registros relacionados con el proceso de aprovisionamiento de grid.
+
+
+
+| raft  a| 
+Registros del clúster de Raft usados en los servicios de plataforma.
+
+
+
+| ssh  a| 
+Registros relacionados con la configuración y el servicio SSH.
+
+
+
+| snmp  a| 
+Configuración del agente SNMP utilizada para enviar notificaciones SNMP.
+
+
+
+| sockets-data  a| 
+Datos de sockets para la depuración de red.
+
+
+
+| system-commands.txt  a| 
+Salida de los comandos de contenedores de StorageGRID. Contiene información del sistema, como la red y el uso del disco.
+
+
+
+| sincronizar-paquete-de-recuperación  a| 
+Relacionado con mantener la coherencia del paquete de recuperación más reciente en todos los nodos de administración y nodos de almacenamiento que alojan el servicio ADC.
+
+|===

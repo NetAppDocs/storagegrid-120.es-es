@@ -1,0 +1,121 @@
+---
+permalink: ilm/example-8-priorities-for-s3-bucket-lifecycle-and-ilm-policy.html 
+sidebar: sidebar 
+keywords: retention priority, example S3 bucket lifecycle, example ILM policy 
+summary: En función de la configuración del ciclo de vida, los objetos siguen los parámetros de retención del ciclo de vida del bucket de S3 o de una política de ILM. 
+---
+= Cómo interactúan el ciclo de vida de los buckets S3 y la política ILM en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En función de la configuración del ciclo de vida, los objetos siguen los parámetros de retención del ciclo de vida del bucket de S3 o de una política de ILM.
+
+
+
+[[example-of-bucket-lifecycle-taking-priority-over-ilm-policy]]
+== Ejemplo de cómo el ciclo de vida de un bucket tiene prioridad sobre la política de ILM
+
+Política de ILM::
++
+--
+* Regla basada en una referencia temporal no actual: el día 0, conserva X copias durante 20 días
+* Regla basada en la referencia de la hora de ingesta (por defecto): el día 0, conserva X copias durante 50 días
+
+
+--
+Ciclo de vida del bucket:: `"Filter": {"Prefix": "docs/"}, "Expiration": {"Days": 100}, "NoncurrentVersionExpiration": {"NoncurrentDays": 5}`
+Resultado::
++
+--
+* Se ha importado un objeto denominado "docs/text". Coincide con el filtro de ciclo de vida del bucket que tiene el prefijo "docs/".
++
+** Después de 100 días se crea un marcador de eliminación y "docs/text" pasa a ser no actual.
+** Después de 5 días, es decir, un total de 105 días desde la incorporación, "docs/text" se elimina.
+** Después de 95 días, un total de 200 días desde la ingestión y 100 días desde que se creó el marcador de eliminación, se elimina el marcador de eliminación caducado.
+
+
+* Se ha importado un objeto denominado "video/movie". No coincide con el filtro y utiliza la política de retención de ILM.
++
+** Después de 50 días, se crea un marcador de eliminación y "video/movie" pasa a estar no actual.
+** Después de 20 días, es decir, un total de 70 días desde la ingesta, "video/movie" se elimina.
+** Después de 30 días, es decir, un total de 100 días desde la ingesta y 50 días desde que se creó el marcador de eliminación, el marcador de eliminación caducado se elimina.
+
+
+
+
+--
+
+
+
+
+[[example-of-bucket-lifecycle-implicitly-keeping-forever]]
+== Ejemplo de ciclo de vida de un bucket que, de forma implícita, se mantiene indefinidamente
+
+Política de ILM::
++
+--
+* Regla basada en una referencia temporal no actual: el día 0, conserva X copias durante 20 días
+* Regla basada en la referencia de la hora de ingesta (por defecto): el día 0, conserva X copias durante 50 días
+
+
+--
+Ciclo de vida del bucket:: `"Filter": {"Prefix": "docs/"}, "Expiration": {"ExpiredObjectDeleteMarker": true}`
+Resultado::
++
+--
+* Se ha importado un objeto denominado "docs/text". Coincide con el filtro de ciclo de vida del bucket que tiene el prefijo "docs/".
++
+La acción  `Expiration` solo se aplica a los marcadores de eliminación caducados, lo que implica conservar todo lo demás para siempre (empezando por "docs/").
+
++
+Los marcadores de eliminación que empiezan por "docs/" se eliminan cuando caducan.
+
+* Se ha importado un objeto denominado "video/movie". No coincide con el filtro y utiliza la política de retención de ILM.
++
+** Después de 50 días, se crea un marcador de eliminación y "video/movie" pasa a estar no actual.
+** Después de 20 días, es decir, un total de 70 días desde la ingesta, "video/movie" se elimina.
+** Después de 30 días, es decir, un total de 100 días desde la ingesta y 50 días desde que se creó el marcador de eliminación, el marcador de eliminación caducado se elimina.
+
+
+
+
+--
+
+
+
+
+[[example-of-using-bucket-lifecycle-to-duplicate-ilm-and-clean-up-expired-delete-markers]]
+== Ejemplo de cómo utilizar el ciclo de vida de los buckets para duplicar el ILM y eliminar los marcadores de eliminación caducados
+
+Política de ILM::
++
+--
+* Regla basada en una referencia temporal no actual: el día 0, conserva X copias durante 20 días
+* Regla basada en la referencia de la hora de importación (por defecto): el día 0, conserva X copias para siempre
+
+
+--
+Ciclo de vida del bucket:: `"Filter": {}, "Expiration": {"ExpiredObjectDeleteMarker": true}, "NoncurrentVersionExpiration": {"NoncurrentDays": 20}`
+Resultado::
++
+--
+* La política de ILM se duplica en el ciclo de vida del bucket.
++
+** La regla «para siempre» de la política ILM está diseñada para eliminar objetos manualmente y limpiar las versiones obsoletas al cabo de 20 días. Por consiguiente, la regla basada en la fecha de ingesta conservará para siempre los marcadores de eliminación caducados.
+** El ciclo de vida del bucket reproduce el comportamiento de la política de ILM mientras añade  `"ExpiredObjectDeleteMarker": true`, que elimina los marcadores de eliminación una vez que han caducado
+
+
+* Se ingiere un objeto. La ausencia de filtro significa que el ciclo de vida del bucket se aplica a todos los objetos y anula la configuración de retención de ILM.
++
+** Cuando un inquilino envía una solicitud de eliminación de un objeto, se crea un marcador de eliminación y el objeto pasa a estar no actual.
+** Después de 20 días, el objeto no actual se elimina y el marcador de eliminación caduca.
+** Poco después, se elimina el marcador de eliminación caducado.
+
+
+
+
+--
+

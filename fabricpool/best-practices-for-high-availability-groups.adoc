@@ -1,0 +1,38 @@
+---
+permalink: fabricpool/best-practices-for-high-availability-groups.html 
+sidebar: sidebar 
+keywords: fabricPool, StorageGRID, high availability group, HA group, active-active, active-backup, cloud tier, best practices 
+summary: 'Antes de asociar StorageGRID como un nivel de cloud de FabricPool, infórmate sobre los grupos de alta disponibilidad (HA) de StorageGRID y revisa las mejores prácticas para usar grupos de HA con FabricPool.' 
+---
+= Prácticas recomendadas para grupos de alta disponibilidad (HA) de StorageGRID con FabricPool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de asociar StorageGRID como un nivel de cloud de FabricPool, infórmate sobre los grupos de alta disponibilidad (HA) de StorageGRID y revisa las mejores prácticas para usar grupos de HA con FabricPool.
+
+
+
+[[what-is-an-ha-group]]
+== ¿Qué es un grupo HA?
+
+Un grupo de alta disponibilidad (HA) es un conjunto de interfaces procedentes de varios nodos de puerta de enlace de StorageGRID, nodos de administración o ambos. Un grupo HA ayuda a mantener disponibles las conexiones de datos de los clientes. Si la interfaz activa del grupo HA falla, una interfaz de respaldo puede gestionar la carga de trabajo con poco impacto en las operaciones de FabricPool.
+
+Cada grupo de HA proporciona acceso de alta disponibilidad a los servicios compartidos en los nodos asociados. Por ejemplo, un grupo de HA que consta de interfaces solo en Gateway Nodes o tanto en Admin Nodes como en Gateway Nodes proporciona acceso de alta disponibilidad al servicio Load Balancer compartido.
+
+Para obtener más información sobre los grupos de alta disponibilidad, consulta link:../admin/managing-high-availability-groups.html["${post_edited_translations.segment}"].
+
+
+
+[[using-ha-groups]]
+== Uso de grupos HA
+
+Las prácticas recomendadas para crear un grupo de alta disponibilidad (HA) de StorageGRID para FabricPool dependen de la carga de trabajo.
+
+* Si planeas usar FabricPool con datos de cargas de trabajo principales, debes crear un grupo de alta disponibilidad que incluya al menos dos nodos con equilibrio de carga para evitar la interrupción en la recuperación de datos.
+* Si planeas usar la política de organización en niveles de volúmenes de solo instantáneas de FabricPool o niveles de rendimiento locales no primarios (por ejemplo, ubicaciones de recuperación ante desastres o destinos de NetApp SnapMirror®), puedes configurar un grupo de HA con un solo nodo.
+
+
+Estas instrucciones describen cómo configurar un grupo de HA para un esquema de HA activo-backup (un nodo está activo y el otro de backup). Sin embargo, es posible que prefieras utilizar DNS Round Robin o un esquema de HA activo-activo. Para conocer las ventajas de estas otras configuraciones de HA, consulta link:../admin/configuration-options-for-ha-groups.html["Opciones de configuración para los grupos de alta disponibilidad"].

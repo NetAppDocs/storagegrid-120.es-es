@@ -1,0 +1,30 @@
+---
+permalink: expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html 
+sidebar: sidebar 
+keywords: grid node, add node, add site, expand, expansion, StorageGRID 
+summary: Sigue este procedimiento para añadir nodos de grid a sitios existentes o para añadir un sitio nuevo. Solo puedes realizar un tipo de expansión a la vez. 
+---
+= Resumen del flujo de trabajo para añadir nodos de grid o nuevos sitios a StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sigue este procedimiento para añadir nodos de grid a sitios existentes o para añadir un sitio nuevo. Solo puedes realizar un tipo de expansión a la vez.
+
+.Antes de empezar
+* Tienes el link:../admin/admin-group-permissions.html["Acceso root o permiso de mantenimiento"].
+* Todos los nodos existentes en la grid están en funcionamiento en todos los sitios.
+* Cualquier procedimiento previo de ampliación, actualización, decomisionar o recuperación ya está completo.
++
+
+NOTE: No puedes iniciar una expansión mientras haya otra expansión, actualización, recuperación o procedimiento de decomisionado activo en curso. Sin embargo, si es necesario, puedes pausar un procedimiento de decomisionado para iniciar una expansión.
+
+
+
+.Pasos
+. link:updating-subnets-for-grid-network.html["Actualizar las subredes de la red Grid"].
+. link:deploying-new-grid-nodes.html["${post_edited_translations.segment}"].
+. link:performing-expansion.html["${post_edited_translations.segment}"].
+

@@ -1,0 +1,69 @@
+---
+permalink: admin/viewing-network-traffic-metrics.html 
+sidebar: sidebar 
+keywords: network traffic, traffic classification policy, monitor traffic 
+summary: ${post_edited_translations.segment} 
+---
+= Ver métricas de tráfico de red en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:admin-group-permissions.html["${post_edited_translations.segment}"].
+
+
+.Acerca de esta tarea
+Para cualquier política de clasificación de tráfico existente, puedes consultar las métricas del servicio de equilibrador de carga para determinar si la política está limitando correctamente el tráfico en la red. Los datos de los gráficos pueden ayudarte a determinar si necesitas ajustar la política.
+
+${post_edited_translations.segment}
+
+.Pasos
+. Selecciona *Configuración* > *Red* > *Clasificación del tráfico*.
++
+${post_edited_translations.segment}
+
+. Selecciona el nombre de la política de clasificación de tráfico para la que quieres ver las métricas.
+. Selecciona la pestaña *Métricas*.
++
+Aparecen los gráficos de la política de clasificación del tráfico. Los gráficos muestran métricas únicamente para el tráfico que coincide con la política seleccionada.
+
++
+En esta página se incluyen los siguientes gráficos.
+
++
+** Tasa de solicitudes: Este gráfico muestra la cantidad de ancho de banda que se ajusta a esta política y que gestionan todos los equilibradores de carga. Los datos recibidos incluyen los encabezados de todas las solicitudes y el tamaño del cuerpo de las respuestas que contienen datos en el cuerpo. Los datos enviados incluyen los encabezados de todas las solicitudes y el tamaño del cuerpo de las respuestas que contienen datos en el cuerpo.
++
+
+NOTE: Cuando las solicitudes se han completado, este gráfico solo muestra el uso del ancho de banda. En el caso de solicitudes lentas o de objetos de gran tamaño, el ancho de banda instantáneo real puede diferir de los valores que se muestran en este gráfico.
+
+** Tasa de respuestas con error: Este gráfico muestra una tasa aproximada a la que las solicitudes que cumplen esta política devuelven errores (código de estado HTTP >= 400) a los clientes.
+** Duración media de las solicitudes (sin errores): este gráfico muestra la duración media de las solicitudes correctas que cumplen esta política.
+** Uso del ancho de banda de la política: Este gráfico muestra la cantidad de ancho de banda correspondiente a esta política gestionada por todos los equilibradores de carga. Los datos recibidos incluyen los encabezados de las solicitudes y el tamaño del cuerpo de las respuestas que tienen datos en el cuerpo. Los datos enviados incluyen los encabezados de las respuestas y el tamaño del cuerpo de las respuestas para las solicitudes que incluyen datos en el cuerpo de la respuesta.
+
+
+. Coloca el cursor sobre un gráfico de líneas para que aparezca una ventana emergente con los valores correspondientes a una parte concreta del gráfico.
+. Selecciona *Grafana dashboard* justo debajo del título Metrics para ver todos los gráficos de una política. Además de los cuatro gráficos de la pestaña *Metrics*, puedes ver dos gráficos más:
++
+** Tasa de solicitudes de escritura por tamaño de objeto: la tasa correspondiente a las solicitudes PUT/POST/DELETE que cumplen esta política. Al situar el cursor sobre una celda concreta, se muestran las tasas por segundo. Las tasas que se muestran al pasar el cursor por encima se redondean a números enteros y pueden indicar 0 aunque haya solicitudes distintas de cero en el bucket.
+** Tasa de solicitudes de lectura por tamaño de objeto: la tasa de solicitudes GET/HEAD que coinciden con esta política. Al colocarte sobre una celda individual, verás las tasas por segundo. Las tasas que se muestran en la vista al pasar el cursor se truncan a números enteros y podrían mostrar 0 si hay solicitudes distintas de cero en el bucket.
+
+
+. También puedes acceder a los gráficos desde el menú *Support*.
++
+.. Selecciona *Soporte* > *Herramientas* > *Métricas*.
+.. Selecciona *Política de clasificación del tráfico* en la sección *Grafana*.
+.. Selecciona la política en el menú situado en la parte superior izquierda de la página.
+.. ${post_edited_translations.segment}
++
+Las políticas de clasificación de tráfico se identifican por su ID. Los ID de las políticas se muestran en la página Políticas de clasificación de tráfico.
+
+
+
+. ${post_edited_translations.segment}
+

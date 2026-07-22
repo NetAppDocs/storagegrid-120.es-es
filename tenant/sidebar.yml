@@ -1,0 +1,131 @@
+---
+section: tenant
+title: Utiliza una cuenta de inquilino
+entries:
+- title: "¿Qué es una cuenta de inquilino?"
+  pdf-filename: Utiliza una cuenta de StorageGRID
+  url: "/tenant/index.html"
+- title: "${post_edited_translations.segment}"
+  entries:
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/signing-in-to-tenant-manager.html"
+  - title: Cerrar sesión en Tenant Manager
+    url: "/tenant/signing-out-of-tenant-manager.html"
+- title: Panel de control de Tenant Manager
+  url: "/tenant/understanding-tenant-manager-dashboard.html"
+- title: API de gestión de inquilinos
+  entries:
+  - title: Entiende la API de gestión de inquilinos
+    url: "/tenant/understanding-tenant-management-api.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/tenant-management-api-versioning.html"
+  - title: Protégete contra la falsificación de solicitudes entre sitios (CSRF)
+    url: "/tenant/protecting-against-cross-site-request-forgery-csrf.html"
+- title: "${post_edited_translations.segment}"
+  entries:
+  - title: Clonar grupos de inquilinos y usuarios
+    url: "/tenant/grid-federation-account-clone.html"
+  - title: Clonar claves de acceso a S3 mediante la API
+    url: "/tenant/grid-federation-clone-keys-with-api.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/grid-federation-manage-cross-grid-replication.html"
+  - title: Ver conexiones de la federación de grid
+    url: "/tenant/grid-federation-view-connections-tenant.html"
+- title: Gestiona grupos y usuarios
+  entries:
+  - title: Usa la federación de identidades
+    url: "/tenant/using-identity-federation.html"
+  - title: "${post_edited_translations.segment}"
+    entries:
+    - title: "${post_edited_translations.segment}"
+      url: "/tenant/creating-groups-for-s3-tenant.html"
+    - title: Permisos de gestión de inquilinos
+      url: "/tenant/tenant-management-permissions.html"
+    - title: "${post_edited_translations.segment}"
+      url: "/tenant/manage-groups.html"
+  - title: Gestiona usuarios
+    url: "/tenant/manage-users.html"
+- title: Gestiona claves de acceso de S3
+  entries:
+  - title: Llaves de acceso de inquilinos
+    pdf-filename: Gestiona claves de acceso de S3
+    url: "/tenant/managing-s3-access-keys.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/creating-your-own-s3-access-keys.html"
+  - title: Ver tus claves de acceso a S3
+    url: "/tenant/viewing-your-s3-access-keys.html"
+  - title: Elimina tus claves de acceso a S3
+    url: "/tenant/deleting-your-own-s3-access-keys.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/creating-another-users-s3-access-keys.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/viewing-another-users-s3-access-keys.html"
+  - title: Eliminar las claves de acceso a S3 de otro usuario
+    url: "/tenant/deleting-another-users-s3-access-keys.html"
+- title: "${post_edited_translations.segment}"
+  entries:
+  - title: Crear bucket
+    url: "/tenant/creating-s3-bucket.html"
+  - title: Ver detalles del depósito
+    url: "/tenant/viewing-s3-bucket-details.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/what-is-branch-bucket.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/manage-branch-buckets.html"
+  - title: Aplicar la etiqueta de política de ILM al bucket
+    url: "/tenant/ilm-policy-tags.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/manage-bucket-policy.html"
+  - title: Gestiona la coherencia del bucket
+    url: "/tenant/manage-bucket-consistency.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/enabling-or-disabling-last-access-time-updates.html"
+  - title: Cambiar el control de versiones de objetos
+    url: "/tenant/changing-bucket-versioning.html"
+  - title: Usa S3 Object Lock
+    url: "/tenant/using-s3-object-lock.html"
+  - title: Actualizar la retención predeterminada de S3 Object Lock
+    url: "/tenant/update-default-retention-settings.html"
+  - title: Configura CORS para los buckets y los objetos
+    url: "/tenant/configuring-cross-origin-resource-sharing-for-buckets-and-objects.html"
+  - title: Eliminar objetos en el depósito
+    url: "/tenant/deleting-s3-bucket-objects.html"
+  - title: Eliminar bucket
+    url: "/tenant/deleting-s3-bucket.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/use-s3-console.html"
+- title: Gestiona los servicios de la plataforma S3
+  entries:
+  - title: Servicios de plataforma S3
+    pdf-filename: Gestiona los servicios de la plataforma S3
+    entries:
+    - title: Aspectos a tener en cuenta para los servicios de plataforma
+      url: "/tenant/considerations-for-platform-services.html"
+    - title: Servicio de replicación de CloudMirror
+      url: "/tenant/understanding-cloudmirror-replication-service.html"
+    - title: Notificaciones para los buckets
+      url: "/tenant/understanding-notifications-for-buckets.html"
+    - title: Servicio de integración de búsquedas
+      url: "/tenant/understanding-search-integration-service.html"
+  - title: Gestiona los puntos de conexión de los servicios de la plataforma
+    entries:
+    - title: "${post_edited_translations.segment}"
+      url: "/tenant/configuring-platform-services-endpoints.html"
+    - title: Especifica el URN
+      url: "/tenant/specifying-urn-for-platform-services-endpoint.html"
+    - title: Crear punto final
+      url: "/tenant/creating-platform-services-endpoint.html"
+    - title: "${post_edited_translations.segment}"
+      url: "/tenant/testing-connection-for-platform-services-endpoint.html"
+    - title: "${post_edited_translations.segment}"
+      url: "/tenant/editing-platform-services-endpoint.html"
+    - title: Eliminar punto final
+      url: "/tenant/deleting-platform-services-endpoint.html"
+    - title: "${post_edited_translations.segment}"
+      url: "/tenant/troubleshooting-platform-services-endpoint-errors.html"
+  - title: Configura la replicación de CloudMirror
+    url: "/tenant/configuring-cloudmirror-replication.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/configuring-event-notifications.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/tenant/configuring-search-integration-service.html"

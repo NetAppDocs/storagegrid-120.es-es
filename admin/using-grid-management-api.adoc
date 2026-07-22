@@ -1,0 +1,68 @@
+---
+permalink: admin/using-grid-management-api.html 
+sidebar: sidebar 
+keywords: use the Grid Management API, private API 
+summary: Puedes realizar tareas de administración de sistemas mediante la API de REST de Grid Management en lugar de la interfaz de usuario de Grid Manager. Por ejemplo, es posible que quieras utilizar la API para automatizar operaciones o para crear varias entidades, como usuarios, de forma más rápida. 
+---
+= Usa la API de gestión de StorageGRID Grid
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes realizar tareas de administración de sistemas mediante la API de REST de Grid Management en lugar de la interfaz de usuario de Grid Manager. Por ejemplo, es posible que quieras utilizar la API para automatizar operaciones o para crear varias entidades, como usuarios, de forma más rápida.
+
+
+
+[[top-level-resources]]
+== Recursos de primer nivel
+
+La API de gestión de la red ofrece los siguientes recursos de primer nivel:
+
+* `/grid`: El acceso está restringido a los usuarios de Grid Manager y se basa en los permisos de grupo configurados.
+* `/org`: El acceso está restringido a los usuarios que pertenezcan a un grupo LDAP local o federado de una cuenta de inquilino. Para obtener más información, consulta link:../tenant/index.html["Utiliza una cuenta de inquilino"].
+* `/private`: El acceso está restringido a los usuarios de Grid Manager y se basa en los permisos de grupo configurados. Las API privadas están sujetas a cambios sin previo aviso. Los endpoints privados de StorageGRID también ignoran la versión de la API de la solicitud.
+
+
+
+
+[[issue-api-requests]]
+== Realizar solicitudes a la API
+
+La API de gestión de la red utiliza la plataforma de API de código abierto Swagger. Swagger ofrece una interfaz de usuario intuitiva que permite tanto a desarrolladores como a usuarios sin conocimientos de programación realizar operaciones en tiempo real en StorageGRID mediante la API.
+
+La interfaz de usuario de Swagger ofrece información completa y documentación detallada para cada operación de la API.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+
+
+
+CAUTION: Cualquier operación de la API que realices a través de la página web de la documentación de la API es una operación en tiempo real. Ten cuidado de no crear, actualizar ni eliminar por error datos de configuración u otros datos.
+
+.Pasos
+. En la barra de encabezado de Grid Manager, selecciona el icono de ayuda y selecciona *Documentación de la API*.
++
+image:help_menu.png["Menú de ayuda"]
+
+. Para realizar una operación con la API privada, selecciona *Ir a la documentación de la API privada* en la página StorageGRID Management API.
++
+Las API privadas están sujetas a cambios sin previo aviso. Los puntos finales privados de StorageGRID también ignoran la versión de la API de la solicitud.
+
+. Selecciona la operación que desees.
++
+Al desplegar una operación de la API, podrás ver las acciones HTTP disponibles, como GET, PUT, UPDATE y DELETE.
+
+. Selecciona una acción HTTP para ver los detalles de la solicitud, incluyendo la URL del endpoint, una lista de los parámetros obligatorios u opcionales, un ejemplo del cuerpo de la solicitud (cuando sea necesario) y las posibles respuestas.
++
+image:swagger_example.png["Ejemplo de Swagger UI"]
+
+. Comprueba si la solicitud requiere parámetros adicionales, como un ID de grupo o de usuario. Luego, obtén estos valores. Puede que primero tengas que enviar otra solicitud a la API para obtener la información que necesitas.
+. Comprueba si es necesario modificar el cuerpo de la solicitud de ejemplo. Si es así, puedes seleccionar *Modelo* para conocer los requisitos de cada campo.
+. ${post_edited_translations.segment}
+. Introduce los parámetros necesarios o modifica el cuerpo de la solicitud según sea necesario.
+. Selecciona *Ejecutar*.
+. Revisa el código de respuesta para determinar si la solicitud fue exitosa.
+

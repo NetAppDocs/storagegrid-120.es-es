@@ -1,0 +1,29 @@
+---
+permalink: maintain/installing-services-appliance-platform-change-only.html 
+sidebar: sidebar 
+keywords: storagegrid, recover services appliance, recover appliance, recovering appliance, recovering services appliance, install services appliance, installing services appliance, services appliance 
+summary: 'Cuando estés recuperando un nodo de la red que haya fallado y que estuviera alojado en VMware o en un host Linux, y estés usando un dispositivo de servicios como nodo de reemplazo, primero debes instalar el nuevo hardware del dispositivo usando el mismo nombre de nodo (nombre del sistema) que el nodo que falló.' 
+---
+= Instala el dispositivo de servicios StorageGRID (solo cambio de plataforma)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando estés recuperando un nodo de la red que haya fallado y que estuviera alojado en VMware o en un host Linux, y estés usando un dispositivo de servicios como nodo de reemplazo, primero debes instalar el nuevo hardware del dispositivo usando el mismo nombre de nodo (nombre del sistema) que el nodo que falló.
+
+.Antes de empezar
+Dispones de la siguiente información sobre el nodo que ha fallado:
+
+* *Nombre de nodo*: Debes instalar el dispositivo de servicios utilizando el mismo nombre de nodo que el nodo que ha fallado. El nombre de nodo es el nombre de host (nombre del sistema).
+* *Direcciones IP*: Puedes asignar al dispositivo de servicios las mismas direcciones IP que el nodo que falló, que es la opción preferida, o puedes seleccionar una nueva dirección IP no utilizada en cada red.
+
+
+.Acerca de esta tarea
+Realiza este procedimiento únicamente si vas a recuperar un nodo que ha fallado y que estaba alojado en VMware o Linux y lo vas a sustituir por un nodo alojado en un dispositivo de servicios.
+
+.Pasos
+. Sigue las instrucciones para instalar un nuevo dispositivo de servicios. Consulta https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html["Guía de inicio rápido para la instalación del hardware"^].
+. Cuando se te solicite un nombre de nodo, usa el nombre de nodo del nodo que falló.
+

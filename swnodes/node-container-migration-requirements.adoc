@@ -1,0 +1,72 @@
+---
+permalink: swnodes/node-container-migration-requirements.html 
+sidebar: sidebar 
+keywords: how to migrate a node 
+summary: La función de migración de nodos te permite trasladar manualmente un nodo de un host a otro. Normalmente, ambos hosts se encuentran en el mismo centro de datos físico. 
+---
+= Requisitos de migración de contenedores de nodo StorageGRID para Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La función de migración de nodos te permite trasladar manualmente un nodo de un host a otro. Normalmente, ambos hosts se encuentran en el mismo centro de datos físico.
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+La migración de nodos te permite realizar tareas de mantenimiento en el host físico sin interrumpir el funcionamiento del grid. Mueves todos los nodos de StorageGRID, uno por uno, a otro host antes de desconectar el host físico. Migrar nodos solo requiere un breve tiempo de inactividad para cada nodo y no debería afectar el funcionamiento ni la disponibilidad de los servicios del grid.
+
+Si deseas utilizar la función de migración de nodos de StorageGRID, tu implementación debe cumplir requisitos adicionales:
+
+* Nombres de interfaces de red uniformes en todos los hosts de un mismo centro de datos físico
+* Almacenamiento compartido para los metadatos de StorageGRID y los volúmenes del repositorio de objetos, al que pueden acceder todos los hosts de un mismo centro de datos físico. Por ejemplo, podrías usar matrices de almacenamiento E-Series de NetApp.
+
+
+Si utilizas hosts virtuales y la capa de hipervisor subyacente admite la migración de máquinas virtuales, quizá te interese utilizar esta funcionalidad en lugar de la función de migración de nodos de StorageGRID. En este caso, puedes ignorar estos requisitos adicionales.
+
+Antes de realizar una migración o tareas de mantenimiento del hipervisor, apaga los nodos de forma controlada. Consulta las instrucciones para link:../maintain/shutting-down-grid-node.html["apagar un nodo de la red"].
+
+
+
+[[vmware-live-migration-not-supported]]
+== La migración en vivo de VMware no es compatible
+
+Al realizar una instalación bare-metal en máquinas virtuales de VMware, la migración en vivo de OpenStack y la migración en vivo de VMware vMotion provocan que la hora del reloj de la máquina virtual salte y no son compatibles con nodos de grid de ningún tipo. Aunque es poco frecuente, una hora incorrecta en el reloj puede provocar la pérdida de datos o de actualizaciones de configuración.
+
+Se admite la migración en frío. En la migración en frío, apagas los nodos de StorageGRID antes de migrarlos entre hosts. Consulta las instrucciones para link:../maintain/shutting-down-grid-node.html["apagar un nodo de la red"].
+
+
+
+[[consistent-network-interface-names]]
+== Nomenclatura coherente para las interfaces de red
+
+Para trasladar un nodo de un host a otro, el servicio de host de StorageGRID necesita tener cierta seguridad de que la conectividad de red externa de la que dispone el nodo en su ubicación actual se puede replicar en la nueva ubicación. Esta seguridad se consigue mediante el uso de nombres de interfaz de red coherentes en los hosts.
+
+Supongamos, por ejemplo, que StorageGRID NodeA, que se ejecuta en Host1, se ha configurado con las siguientes asignaciones de interfaces:
+
+image:eth0_bond.gif["Esta imagen se explica en el texto que la acompaña."]
+
+El lado izquierdo de las flechas corresponde a las interfaces tradicionales tal y como se ven desde el interior de un contenedor de StorageGRID (es decir, las interfaces Grid, Admin y Client Network, respectivamente). El lado derecho de las flechas corresponde a las interfaces reales del host que proporcionan estas redes, que son tres interfaces VLAN subordinadas al mismo enlace de interfaces físicas.
+
+Ahora, supongamos que quieres migrar NodeA a Host2. Si Host2 también tiene interfaces llamadas bond0.1001, bond0.1002 y bond0.1003, el sistema permitirá la migración, suponiendo que las interfaces con el mismo nombre proporcionarán en Host2 la misma conectividad que en Host1. Si Host2 no tiene interfaces con los mismos nombres, no se permitirá la migración.
+
+Hay muchas formas de conseguir una nomenclatura coherente para las interfaces de red en varios hosts; consulta link:configuring-host-network.html["Configura la red del host"] para ver algunos ejemplos.
+
+
+
+[[shared-storage]]
+== Almacenamiento compartido
+
+Para lograr migraciones de nodos rápidas con baja sobrecarga, la función de migración de nodos de StorageGRID no traslada físicamente los datos de los nodos. En su lugar, la migración de nodos se realiza como un par de operaciones de exportación e importación, de la siguiente manera:
+
+* Durante la operación de «exportación de nodo», se extrae una pequeña cantidad de datos de estado persistente del contenedor del nodo que se ejecuta en HostA y se almacena en caché en el volumen de datos del sistema de ese nodo. Luego, se desinstancia el contenedor del nodo en HostA.
+* Durante la operación de «importación de nodo», se instancia el contenedor del nodo en HostB que utiliza las mismas asignaciones de interfaz de red y almacenamiento en bloque que estaban vigentes en HostA. Luego, los datos de estado persistente almacenados en caché se insertan en la nueva instancia.
+
+
+Dado este modo de funcionamiento, todos los datos del sistema del nodo y los volúmenes de almacenamiento de objetos deben ser accesibles tanto desde HostA como desde HostB para que la migración se permita y funcione. Además, deben haberse asignado al nodo utilizando nombres que garanticen que hacen referencia a los mismos LUN en HostA y HostB.
+
+El siguiente ejemplo muestra una solución para la asignación de dispositivos de bloques en un nodo de almacenamiento de StorageGRID, donde se utiliza la multivía de DM en los hosts y se ha usado el campo alias en `/etc/multipath.conf` para proporcionar nombres de dispositivos de bloques coherentes y fáciles de recordar disponibles en todos los hosts.
+
+image:block_device_mapping_rhel.gif["Asignación de dispositivos de bloque"]

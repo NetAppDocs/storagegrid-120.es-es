@@ -1,0 +1,195 @@
+---
+permalink: ilm/working-with-ilm-rules-and-ilm-policies.html 
+sidebar: sidebar 
+keywords: remove ilm rule, edit ilm rule, clone ilm rule, ilm queue 
+summary: A medida que cambian tus requisitos de almacenamiento, puede que necesites aplicar una política diferente o modificar las reglas de ILM asociadas con la política. Puedes ver las métricas de ILM para determinar el rendimiento del sistema. 
+---
+= Trabaja con políticas ILM y reglas ILM en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A medida que cambian tus requisitos de almacenamiento, puede que necesites aplicar políticas adicionales o modificar las reglas de ILM asociadas a una política. Puedes consultar las métricas de ILM para determinar el rendimiento del sistema.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+
+
+
+
+[[view-ilm-policies]]
+== Ver las políticas de ILM
+
+Para consultar las políticas de ILM activas e inactivas y el historial de activación de políticas:
+
+. Selecciona *ILM* > *Policies*.
+. Selecciona *Policies* para ver una lista de las políticas activas e inactivas. La tabla muestra el nombre de cada política, las etiquetas a las que está asignada y si está activa o inactiva.
+. Selecciona *Historial de activación* para ver una lista de las fechas de inicio y fin de la activación de las políticas.
+. Selecciona el nombre de una política para ver los detalles de la política.
++
+
+NOTE: Si consultas los detalles de una política cuyo estado sea «Editado» o «Eliminado», aparecerá un mensaje en el que se explica que estás viendo la versión de la política que estuvo activa durante el periodo de tiempo especificado y que, desde entonces, ha sido editada o eliminada.
+
+
+
+
+
+[[edit-an-ilm-policy]]
+[[edit-ilm-policy]]
+== Editar una política de ILM
+
+Solo puedes editar una política inactiva. Si quieres editar una política activa, desactívala o crea un clon y edita el clon.
+
+Para editar una política:
+
+. Selecciona *ILM* > *Policies*.
+. Marca la casilla de la política que quieras editar y luego selecciona *Editar*.
+. Modifica la política siguiendo las instrucciones en link:creating-ilm-policy.html["${post_edited_translations.segment}"].
+. Simula la política antes de volver a activarla.
+
+
+
+CAUTION: Una política de ILM configurada incorrectamente puede provocar una pérdida de datos irrecuperable. Antes de activar una política de ILM, revisa detenidamente la política de ILM y sus reglas de ILM, y luego simula la política de ILM. Confirma siempre que la política de ILM funcionará como se espera.
+
+
+
+[[clone-an-ilm-policy]]
+[[clone-ilm-policy]]
+== Clonar una política de ILM
+
+Para clonar una política de ILM:
+
+. Selecciona *ILM* > *Policies*.
+. Marca la casilla de la política que quieres clonar y luego selecciona *Clonar*.
+. Crea una nueva política a partir de la que has clonado siguiendo las instrucciones en link:creating-ilm-policy.html["${post_edited_translations.segment}"].
+
+
+
+CAUTION: Una política de ILM configurada incorrectamente puede provocar una pérdida de datos irrecuperable. Antes de activar una política de ILM, revisa detenidamente la política de ILM y sus reglas de ILM, y luego simula la política de ILM. Confirma siempre que la política de ILM funcionará como se espera.
+
+
+
+[[remove-an-ilm-policy]]
+[[remove-ilm-policy]]
+== Eliminar una política de ILM
+
+Solo puedes eliminar una política de ILM si está inactiva. Para eliminar una política:
+
+. Selecciona *ILM* > *Policies*.
+. Marca la casilla de la política inactiva que quieras eliminar.
+. Selecciona *Eliminar*.
+
+
+
+
+[[view-ilm-rule-details]]
+== Ver detalles de la regla ILM
+
+Para consultar los detalles de una regla ILM, incluido el diagrama de retención y las instrucciones de ubicación de la regla:
+
+. Selecciona *ILM* > *Reglas*.
+. Selecciona el nombre de la regla cuyos detalles quieras consultar. Ejemplo:
++
+image:ilm_rule_details_page.png["Página de detalles de la regla ILM"]
+
+
+
+Además, puedes utilizar la página de detalles para clonar, editar o eliminar una regla. No puedes editar ni eliminar una regla si se utiliza en alguna política.
+
+
+
+[[clone-an-ilm-rule]]
+[[clone-ilm-rule]]
+== Clonar una regla de ILM
+
+Puedes clonar una regla existente si quieres crear una nueva regla que use algunos de los ajustes de la regla existente. Si necesitas editar una regla que se usa en alguna política, clona la regla y haz los cambios en la copia. Después de hacer los cambios en la copia, puedes quitar la regla original de la política y reemplazarla por la versión modificada según sea necesario.
+
+
+NOTE: No puedes clonar una regla de ILM si se creó con StorageGRID versión 10.2 o anterior.
+
+.Pasos
+. Selecciona *ILM* > *Reglas*.
+. Marca la casilla de la regla que quieras clonar y luego selecciona *Clonar*. O bien, selecciona el nombre de la regla y luego selecciona *Clonar* en la página de detalles de la regla.
+. Actualiza la regla clonada siguiendo los pasos para <<Editar una regla de ILM,Editar una regla ILM>> y link:create-ilm-rule-enter-details.html#use-advanced-filters-in-ilm-rules["uso de filtros avanzados en las reglas de ILM"].
++
+Al clonar una regla ILM, debes introducir un nuevo nombre.
+
+
+
+
+
+[[edit-an-ilm-rule]]
+== Editar una regla de ILM
+
+Es posible que tengas que modificar una regla de ILM para cambiar un filtro o una instrucción de ubicación.
+
+No puedes editar una regla si se utiliza en alguna política de ILM. En su lugar, puedes <<clone-ilm-rule,clonar la regla>> y realizar los cambios necesarios en la copia clonada.
+
+
+CAUTION: Una política de ILM configurada incorrectamente puede provocar una pérdida de datos irrecuperable. Antes de activar una política de ILM, revisa detenidamente la política de ILM y sus reglas de ILM, y luego simula la política de ILM. Confirma siempre que la política de ILM funcionará como se espera.
+
+.Pasos
+. Selecciona *ILM* > *Reglas*.
+. Confirma que la regla que deseas editar no se use en ninguna política de ILM.
+. Si la regla que deseas editar no está en uso, marca la casilla correspondiente a dicha regla y selecciona *Acciones* > *Editar*. O bien, selecciona el nombre de la regla y luego selecciona *Editar* en la página de detalles de la regla.
+. Sigue los pasos del asistente para editar reglas de ILM. Si es necesario, sigue los pasos para link:create-ilm-rule-enter-details.html["crear una regla de ILM"] y link:create-ilm-rule-enter-details.html#use-advanced-filters-in-ilm-rules["uso de filtros avanzados en las reglas de ILM"].
++
+Al editar una regla de ILM, no puedes cambiar su nombre.
+
+
+
+
+
+[[remove-an-ilm-rule]]
+== Eliminar una regla de ILM
+
+Para que la lista de reglas de ILM actuales sea más manejable, elimina aquellas reglas de ILM que probablemente no vayas a utilizar.
+
+.Pasos
+Para eliminar una regla de ILM que se esté utilizando actualmente en una política activa:
+
+. Clona la política.
+. Elimina la regla ILM del clon de la política.
+. Guarda, simula y activa la nueva política para asegurarte de que los objetos estén protegidos tal y como se espera.
+. Ve a los pasos para eliminar una regla de ILM que se está usando en una política inactiva.
+
+
+Para eliminar una regla de ILM que se está utilizando actualmente en una política inactiva:
+
+. Selecciona la política inactiva.
+. Elimina la regla ILM de la política o <<remove-ilm-policy,eliminar la política>>.
+. Sigue los pasos para eliminar una regla de ILM que no se esté utilizando actualmente.
+
+
+Para eliminar una regla de ILM que no se está utilizando actualmente:
+
+. Selecciona *ILM* > *Reglas*.
+. Confirma que la regla que deseas eliminar no se use en ninguna política.
+. Si la regla que deseas eliminar no está en uso, selecciónala y elige *Acciones* > *Eliminar*. Puedes seleccionar varias reglas y eliminarlas todas a la vez.
+. Selecciona *Sí* para confirmar que deseas eliminar la regla de ILM.
+
+
+
+
+[[view-ilm-metrics]]
+== Ver métricas de ILM
+
+Puedes consultar métricas de ILM, como el número de objetos en la cola y la tasa de evaluación. Puedes supervisar estas métricas para determinar el rendimiento del sistema. Una cola o una tasa de evaluación elevadas podrían indicar que el sistema no es capaz de seguir el ritmo de la tasa de consumo, que la carga de las aplicaciones cliente es excesiva o que existe alguna situación anómala.
+
+.Pasos
+. Selecciona *Dashboard* > *ILM*.
++
+
+NOTE: Dado que el panel de control se puede personalizar, es posible que la pestaña ILM no esté disponible.
+
+. Supervisa las métricas en la pestaña «ILM».
++
+Puedes hacer clic en el signo de interrogación image:icon_nms_question.png["icono de signo de interrogación"] para ver una descripción de los elementos de la pestaña ILM.
+
++
+image:ilm_metrics_on_dashboard.png["Métricas de ILM en el panel de control de Grid Manager"]
+
+

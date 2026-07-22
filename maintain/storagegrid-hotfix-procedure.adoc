@@ -1,0 +1,55 @@
+---
+permalink: maintain/storagegrid-hotfix-procedure.html 
+sidebar: sidebar 
+keywords: apply hotfix, install hotfix, replace primary admin node 
+summary: Es posible que tengas que aplicar una corrección urgente a tu sistema StorageGRID si se detectan y resuelven problemas con el software entre lanzamientos de funciones. 
+---
+= Procedimiento de corrección urgente de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que tengas que aplicar una corrección urgente a tu sistema StorageGRID si se detectan y resuelven problemas con el software entre lanzamientos de funciones.
+
+Las correcciones urgentes de StorageGRID contienen cambios de software que se ponen a disposición fuera de una versión de nuevas funciones o de parches. Los mismos cambios se incluyen en una versión futura. Además, cada versión de corrección urgente contiene un paquete acumulativo de todas las correcciones urgentes anteriores dentro de la versión de nuevas funciones o de parches.
+
+
+
+[[considerations-for-applying-a-hotfix]]
+== Aspectos a tener en cuenta a la hora de aplicar una corrección urgente
+
+No puedes aplicar una corrección urgente de StorageGRID mientras se está ejecutando otro procedimiento de mantenimiento. Por ejemplo, no puedes aplicar una corrección urgente mientras se está ejecutando un procedimiento de decomisionar, expansión o recuperación.
+
+
+NOTE: Si se ha pausado el procedimiento de decomisionar un nodo o una ubicación, puedes aplicar una corrección urgente de forma segura. Además, podrías aplicar una corrección urgente durante las etapas finales de un procedimiento de actualización de StorageGRID. Consulta las instrucciones para actualizar el software de StorageGRID para más detalles.
+
+Una vez que hayas cargado la corrección urgente en el Grid Manager, la corrección urgente se aplica automáticamente al nodo de administración principal. Luego, puedes aprobar la aplicación de la corrección urgente al resto de los nodos de tu sistema StorageGRID.
+
+Si no se consigue aplicar una corrección urgente a uno o varios nodos, el motivo del error aparece en la columna Detalles de la tabla de progreso de la corrección urgente. Debes resolver los problemas que hayan provocado los errores y luego volver a intentar todo el proceso. Los nodos en los que la aplicación de la corrección urgente se haya realizado correctamente antes se omitirán en aplicaciones posteriores. Puedes volver a intentar el proceso de la corrección urgente tantas veces como sea necesario hasta que todos los nodos se hayan actualizado. La corrección urgente debe instalarse correctamente en todos los nodos de la grid para que la aplicación se considere completa.
+
+Aunque los nodos de la red se actualizan con la nueva versión de la corrección urgente, es posible que los cambios reales de una corrección urgente solo afecten a servicios concretos en tipos específicos de nodos. Por ejemplo, una corrección urgente podría afectar únicamente al servicio LDR en los Storage Nodes.
+
+
+
+[[how-hotfixes-are-applied-for-recovery-and-expansion]]
+== Cómo se aplican las correcciones urgentes para la recuperación y la ampliación
+
+Una vez que se ha aplicado una corrección urgente a tu grid, el nodo de administración principal instala automáticamente la misma versión de la corrección urgente en cualquier nodo restaurado mediante operaciones de recuperación o añadido en una ampliación.
+
+Sin embargo, si necesitas recuperar el nodo de administración principal, debes instalar manualmente la versión correcta de StorageGRID y luego aplicar la corrección urgente. La versión final de StorageGRID del nodo de administración principal debe coincidir con la versión de los demás nodos de la grid.
+
+El siguiente ejemplo ilustra cómo aplicar una corrección urgente al recuperar el nodo de administración principal:
+
+. Supongamos que la red ejecuta una versión de StorageGRID 11._A.B_ con la última corrección urgente. La «versión de la red» es 11._A.B.y_.
+. El nodo de administración principal falla.
+. Vuelves a implementar el nodo de administración principal utilizando StorageGRID 11._A.B_ y realizas el procedimiento de recuperación.
++
+
+NOTE: Tal y como se requiere para que coincida con la versión de la grid, puedes utilizar una versión secundaria al implementar el nodo; no necesitas implementar primero la versión principal.
+
+. A continuación, aplicas la corrección urgente 11._A.B.y_ al nodo de administración principal.
+
+
+Para más información, consulta link:configuring-replacement-primary-admin-node.html["Configura el nodo de administración principal de sustitución"].

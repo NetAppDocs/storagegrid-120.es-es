@@ -1,0 +1,51 @@
+---
+indexpage:
+  title: Supervisar y solucionar problemas en un sistema StorageGRID
+  summary: Una vez que tu sistema esté en funcionamiento, debes supervisar sus actividades
+    de forma periódica y solucionar cualquier alerta. Quizás también quieras configurar
+    un servidor syslog externo, usar la supervisión SNMP o recopilar datos adicionales.
+  keywords: monitor, troubleshoot
+  lead: Una vez que tu sistema esté en funcionamiento, debes supervisar sus actividades
+    de forma periódica y solucionar cualquier alerta. Quizás también quieras configurar
+    un servidor syslog externo, usar la supervisión SNMP o recopilar datos adicionales.
+  tiles:
+  - title: Supervisa tu sistema
+    links:
+    - title: Gestionar el panel de control
+      url: "../monitor/viewing-dashboard.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../monitor/viewing-nodes-page.html"
+    - title: Supervisa el estado del sistema
+      url: "../monitor/monitoring-system-health.html"
+    - title: Supervisa la capacidad de almacenamiento
+      url: "../monitor/monitoring-storage-capacity.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Gestiona alertas
+      url: "../monitor/managing-alerts.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../monitor/creating-custom-alert-rules.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../monitor/email-alert-notifications.html"
+    - title: Usa la supervisión SNMP
+      url: "../monitor/using-snmp-monitoring.html"
+  - title: Usa mensajes de auditoría y otros registros
+    links:
+    - title: Configura la gestión de registros
+      url: "../monitor/configure-log-management.html"
+    - title: Usa un servidor syslog externo
+      url: "../monitor/considerations-for-external-syslog-server.html"
+    - title: Revisar los registros de auditoría
+      url: "../audit/index.html"
+    - title: Referencia de los archivos de registro
+      url: "../monitor/logs-files-reference.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Revisar las métricas de soporte
+      url: "../monitor/reviewing-support-metrics.html"
+    - title: Modificar la priorización de E/S
+      url: "../monitor/manage-io-prioritization.html"
+    - title: Ejecutar diagnósticos
+      url: "../monitor/running-diagnostics.html"
+    - title: Solucionar problemas habituales
+      url: "../troubleshoot/index.html"

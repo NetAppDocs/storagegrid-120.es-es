@@ -1,0 +1,52 @@
+---
+permalink: network/general-networking-requirements.html 
+sidebar: sidebar 
+keywords: networking requirements, storagegrid networks 
+summary: Todas las implementaciones de StorageGRID deben poder admitir las siguientes conexiones. 
+---
+= Requisitos generales de red para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Todas las implementaciones de StorageGRID deben poder admitir las siguientes conexiones.
+
+Estas conexiones pueden ocurrir a través de las redes Grid, Admin o Client, o combinaciones de estas redes como se muestra en los ejemplos de topología de red.
+
+* *Conexiones de administración*: Conexiones entrantes desde un administrador al nodo, normalmente a través de SSH. Acceso web al Grid Manager, al Tenant Manager y al StorageGRID Appliance Installer.
+* *Conexiones al servidor NTP*: Conexión UDP saliente que recibe una respuesta UDP entrante.
++
+Al menos un servidor NTP debe ser accesible por el nodo de administración principal.
+
+* *Conexiones al servidor DNS*: conexión UDP saliente que recibe una respuesta UDP entrante.
+* *Conexiones con el servidor LDAP/Active Directory*: conexión TCP saliente desde el servicio de identidad en los nodos de almacenamiento.
+* *AutoSupport*: Conexión TCP saliente desde los nodos de administración hacia `support.netapp.com` o un proxy configurado por el cliente.
+* *Servidor externo de gestión de claves*: Conexión TCP saliente desde cada nodo del appliance con el cifrado de nodo habilitado.
+* Conexiones TCP entrantes de clientes S3.
+* Solicitudes salientes de servicios de la plataforma StorageGRID, como la replicación de CloudMirror o de Cloud Storage Pools.
+
+
+Si StorageGRID no puede establecer contacto con ninguno de los servidores NTP o DNS provisionados utilizando las reglas de enrutamiento predeterminadas, intentará automáticamente establecer contacto en todas las redes (Grid, Admin y Client), siempre y cuando se hayan especificado las direcciones IP de los servidores DNS y NTP. Si se puede acceder a los servidores NTP o DNS desde cualquier red, StorageGRID creará automáticamente reglas de enrutamiento adicionales para garantizar que se utilice esa red en todos los intentos futuros de conexión.
+
+
+TIP: Aunque puedes utilizar estas rutas de host detectadas automáticamente, en general deberías configurar manualmente las rutas de DNS y NTP para garantizar la conectividad en caso de que falle la detección automática.
+
+Si aún no estás preparado para configurar las redes opcionales de administración y de clientes durante la implementación, puedes configurarlas cuando apruebes los nodos de la red durante los pasos de configuración. Además, puedes configurar estas redes una vez finalizada la instalación mediante la herramienta Change IP (consulta link:../maintain/configuring-ip-addresses.html["Configurar direcciones IP"]).
+
+
+
+[[connections-for-admin-nodes-and-gateway-nodes]]
+== Conexiones para los nodos de administración y los nodos de gateway
+
+Los nodos de administración deben protegerse siempre frente a clientes no fiables, como los que se encuentran en la red pública de Internet. Debes asegurarte de que ningún cliente no fiable pueda acceder a ningún nodo de administración en la red Grid, la red de administración o la red de clientes.
+
+Los nodos de administración y los nodos de puerta de enlace que planeas añadir a grupos de alta disponibilidad deben configurarse con una dirección IP estática. Consulta link:../admin/managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"].
+
+
+
+[[using-network-address-translation-nat]]
+== Uso de la traducción de direcciones de red (NAT)
+
+No utilices la traducción de direcciones de red (NAT) en la Grid Network entre nodos de la grid o entre sitios de StorageGRID. Cuando uses direcciones IPv4 privadas para la Grid Network, esas direcciones deben ser directamente enrutables desde cada nodo de la grid en cada sitio. Sin embargo, si es necesario, puedes usar NAT entre clientes externos y nodos de la grid, por ejemplo, para proporcionar una dirección IP pública a un Gateway Node. El uso de NAT para conectar un segmento de red pública solo está permitido cuando empleas una aplicación de túnel que sea transparente para todos los nodos de la grid, es decir, los nodos de la grid no necesitan conocer las direcciones IP públicas.

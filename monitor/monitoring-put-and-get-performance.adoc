@@ -1,0 +1,30 @@
+---
+permalink: monitor/monitoring-put-and-get-performance.html 
+sidebar: sidebar 
+keywords: put, get, performance 
+summary: Puedes supervisar el rendimiento de determinadas operaciones, como el almacén de objetos y la recuperación, para ayudar a identificar cambios que puedan requerir una investigación más detallada. 
+---
+= Supervisa el rendimiento de PUT y GET en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes supervisar el rendimiento de determinadas operaciones, como el almacén de objetos y la recuperación, para ayudar a identificar cambios que puedan requerir una investigación más detallada.
+
+.Acerca de esta tarea
+Para supervisar el rendimiento de las operaciones PUT y GET, puedes ejecutar comandos S3 directamente desde una estación de trabajo o usando la aplicación de código abierto S3tester. Usar estos métodos te permite evaluar el rendimiento independientemente de factores que son externos a StorageGRID, como problemas con una aplicación cliente o con una red externa.
+
+Al realizar pruebas de operaciones PUT y GET, sigue estas directrices:
+
+* Utiliza tamaños de objetos comparables a los que sueles incorporar a tu grid.
+* Realiza operaciones tanto en sitios locales como remotos.
+
+
+Los mensajes en la link:../audit/index.html["registro de auditoría"] indican el tiempo total necesario para ejecutar ciertas operaciones. Por ejemplo, para determinar el tiempo total de procesamiento de una solicitud S3 GET, puedes revisar el valor del atributo TIME en el mensaje de auditoría SGET. También puedes encontrar el atributo TIME en los mensajes de auditoría para las siguientes operaciones de S3: DELETE, GET, HEAD, Metadata Updated, POST, PUT
+
+Al analizar los resultados, fíjate en el tiempo medio necesario para atender una solicitud, así como en el rendimiento global que puedes alcanzar. Repite las mismas pruebas con regularidad y anota los resultados, para que puedas identificar tendencias que puedan requerir investigación.
+
+* Puedes https://github.com/s3tester["Descarga S3tester desde GitHub"^].
+

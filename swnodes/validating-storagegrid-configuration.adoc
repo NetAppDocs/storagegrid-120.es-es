@@ -1,0 +1,37 @@
+---
+permalink: swnodes/validating-storagegrid-configuration.html 
+sidebar: sidebar 
+keywords: how to validate StorageGRID configuration 
+summary: ${post_edited_translations.segment} 
+---
+= Valida la configuración de StorageGRID en Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez creados los archivos de configuración en `/etc/storagegrid/nodes` para cada uno de tus nodos de StorageGRID, debes comprobar el contenido de dichos archivos.
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+${post_edited_translations.segment}
+
+[listing]
+----
+sudo storagegrid node validate all
+----
+Si los archivos son correctos, el resultado muestra *APROBADO* para cada archivo de configuración, tal y como se muestra en el ejemplo.
+
+
+NOTE: Cuando usas solo un LUN en nodos dedicados exclusivamente a metadatos, puede aparecer un mensaje de advertencia que puedes ignorar.
+
+image:rhel_node_configuration_file_output.gif["Esta imagen se explica en el texto que la acompaña."]
+
+
+TIP: Para una instalación automatizada, puedes suprimir esta salida usando las opciones `-q` o `--quiet` en el comando `storagegrid` (por ejemplo, `storagegrid --quiet...`). Si suprimes la salida, el comando tendrá un valor de salida distinto de cero si se detecta alguna advertencia o error de configuración.
+
+Si los archivos de configuración son incorrectos, los problemas se muestran como *ADVERTENCIA* y *ERROR*, como se muestra en el ejemplo. Si se detecta algún error de configuración, debes corregirlo antes de continuar con la instalación.
+
+image:rhel_node_configuration_file_output_with_errors.gif["Esta imagen se explica en el texto que la acompaña."]

@@ -1,0 +1,52 @@
+---
+permalink: troubleshoot/troubleshooting-load-balancer-caching.html 
+sidebar: sidebar 
+keywords: how to troubleshoot load balancer caching 
+summary: Infórmate sobre los posibles problemas con el almacenamiento en caché del equilibrador de carga y cómo solucionarlos. 
+---
+= Conoce los problemas de almacenamiento en caché del equilibrador de carga en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Infórmate sobre los posibles problemas con el almacenamiento en caché del equilibrador de carga y cómo solucionarlos.
+
+
+
+[[determine-if-a-request-was-a-cache-hit]]
+== ${post_edited_translations.segment}
+
+* El encabezado X-Cache se establece en la respuesta a las solicitudes gestionadas por el servicio de caché. Códigos posibles:
++
+** `HIT`: El objeto se sirvió desde la caché
+** `PARTIAL-HIT`: El bucket/key tenía un registro en la caché, pero no se pudo servir desde la caché todo el rango solicitado
+** `STALE`: el bucket/key tenía un registro en la caché, pero el objeto se actualizó desde la última vez que se entregó desde la caché.
+** `MISS`: el objeto no estaba en la caché
+
+
+* El `nginx-gw/endpoint-access.log.gz` registro de la solicitud incluye "unix:/run/cache-svc/cache-svc.sock" para las solicitudes gestionadas por la caché.
+* El `cache-svc/cache-svc.log` muestra un mensaje como: «Request 320390: completed successfully (cache hit)» o «Request 320375: completed successfully (cache miss)». Busca la ruta solicitada buscando otros registros con la misma cadena «Request _<number>_».
+
+
+
+
+[[low-cache-hit-rate]]
+== Baja tasa de aciertos en la caché
+
+* Es normal que se produzcan bajas tasas de aciertos en la caché cuando se añade una nueva carga de trabajo o cuando cambia el conjunto de trabajo al que accede una carga de trabajo. En estas situaciones, se espera que la tasa de aciertos aumente con el tiempo.
+* Si varias cargas de trabajo utilizan el almacenamiento en caché, considera añadir políticas de clasificación de tráfico para aislar las partes de las cargas de trabajo a las que la caché presta servicio. Las métricas de tasa de aciertos de la caché están disponibles por cada política de clasificación de tráfico. Si algunas cargas de trabajo no registran una buena tasa de aciertos de la caché, considera moverlas a otros endpoints que no tengan habilitado el almacenamiento en caché.
+* Evalúa la tasa de expulsión de la caché. Si la caché es demasiado pequeña para albergar el conjunto de trabajo, experimentará altas tasas de expulsión y podría contribuir a una menor tasa de aciertos.
+* Es posible que FPVR ofrezca opciones para mejorar las tasas de aciertos de determinadas cargas de trabajo.
+
+
+
+
+[[low-performance]]
+== ${post_edited_translations.segment}
+
+* Evalúa la tasa de aciertos de la caché. Una tasa de aciertos de la caché baja puede provocar un rendimiento general bajo.
+* Evalúa la tasa de desalojo de la caché. Durante el desalojo, se utilizan algunos recursos de almacenamiento para eliminar objetos existentes del disco. Si el proceso de desalojo no sigue el ritmo del acceso de nuevos objetos, el sistema podría alcanzar los umbrales de marca de agua estricta y empezar a omitir la caché.
+* ${post_edited_translations.segment}
+

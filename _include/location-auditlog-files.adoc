@@ -1,0 +1,36 @@
+= 
+:allow-uri-read: 
+
+
+El directorio del registro de auditoría y los nodos correspondientes dependen de la configuración del destino de auditoría.
+
+[cols="1a,2a"]
+|===
+| Opción | Destino 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+`/var/local/log/localaudit.log`
+
+
+
+ a| 
+Nodos de administración/nodos locales
+ a| 
+* Nodos de administración (primarios y no primarios): `/var/local/audit/export/audit.log`
+* Todos los nodos: El archivo  `/var/local/log/localaudit.log` suele estar vacío o faltar en este modo.
+
+
+
+
+ a| 
+Servidor syslog externo
+ a| 
+`/var/local/log/localaudit.log`
+
+|===
+Según tu configuración de destino de auditoría, introduce: `cd /var/local/log` o `/var/local/audit/export/`
+
+Para saber más, consulta link:../monitor/configure-log-management.html#select-log-location["${post_edited_translations.segment}"].

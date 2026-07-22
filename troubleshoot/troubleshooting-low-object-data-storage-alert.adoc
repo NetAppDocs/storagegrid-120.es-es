@@ -1,0 +1,84 @@
+---
+permalink: troubleshoot/troubleshooting-low-object-data-storage-alert.html 
+sidebar: sidebar 
+keywords: how to troubleshoot the Low object data storage alert 
+summary: ${post_edited_translations.segment} 
+---
+= Resuelve la alerta de bajo almacenamiento de datos de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+
+
+.Acerca de esta tarea
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+[listing]
+----
+(storagegrid_storage_utilization_data_bytes/
+(storagegrid_storage_utilization_data_bytes + storagegrid_storage_utilization_usable_space_bytes)) >=0.90
+----
+${post_edited_translations.segment}
+
+* `storagegrid_storage_utilization_data_bytes` es una estimación del tamaño total de los datos de objetos replicados y codificados con código de borrado para un Storage Node.
+* `storagegrid_storage_utilization_usable_space_bytes` es la cantidad total de espacio de almacenamiento de objetos que le queda a un nodo de almacenamiento.
+
+
+${post_edited_translations.segment}
+
+.Pasos
+. Selecciona *Alertas* > *Actuales*.
++
+${post_edited_translations.segment}
+
+. En la tabla de alertas, despliega el grupo de alertas *Low object data storage*, si es necesario, y selecciona la alerta que quieras ver.
++
+
+NOTE: Selecciona la alerta, no el encabezado de un grupo de alertas.
+
+. Revisa los detalles en el cuadro de diálogo y ten en cuenta lo siguiente:
++
+** Activado por tiempo
+** El nombre del sitio y del nodo
+** Los valores actuales de las métricas para esta alerta
+
+
+. ${post_edited_translations.segment}
+. Coloca el cursor sobre el gráfico Almacenamiento utilizado - datos de objetos.
++
+Se muestran los siguientes valores:
+
++
+** *Utilizado (%)*: el porcentaje del espacio total utilizable que se ha utilizado para datos de objetos.
+** *Utilizado*: La cantidad del espacio total utilizable que se ha usado para los datos de objetos.
+** *Datos replicados*: una estimación de la cantidad de datos de objetos replicados en este nodo, sitio o grid.
+** *Datos con código de borrado*: Una estimación de la cantidad de datos de objetos con código de borrado en este nodo, sitio o grid.
+** *Total*: La cantidad total de espacio utilizable en este nodo, sitio o grid. El valor Used es la métrica  `storagegrid_storage_utilization_data_bytes`.
+
+
++
+image:nodes_page_storage_used_object_data.png["Página de nodos almacenamiento usado datos de objetos"]
+
+. Selecciona los controles de tiempo situados encima del gráfico para ver el uso del almacenamiento a lo largo de diferentes periodos de tiempo.
++
+Analizar el uso del almacenamiento a lo largo del tiempo puede ayudarte a comprender cuánto almacenamiento se utilizó antes y después de que se activara la alerta y puede ayudarte a estimar cuánto tiempo podría tardar en llenarse el espacio restante del nodo.
+
+. En cuanto sea posible, link:../expand/guidelines-for-adding-object-capacity.html["${post_edited_translations.segment}"] a tu grid.
++
+Puedes añadir volúmenes de almacenamiento (LUN) a los nodos de almacenamiento existentes o puedes añadir nuevos nodos de almacenamiento.
+
++
+
+NOTE: Para más información, consulta link:../admin/managing-full-storage-nodes.html["Gestiona todos los nodos de almacenamiento"].
+
+

@@ -1,0 +1,55 @@
+---
+permalink: troubleshoot/troubleshooting-certificate-errors.html 
+sidebar: sidebar 
+keywords: how to troubleshoot certificate errors 
+summary: ${post_edited_translations.segment} 
+---
+= Soluciona errores de certificado en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+.Acerca de esta tarea
+Los errores de certificado pueden causar problemas cuando intentas conectarte a StorageGRID mediante el Grid Manager, la Grid Management API, el Tenant Manager o la Tenant Management API. Los errores de certificado también pueden ocurrir cuando intentas conectarte con un cliente S3 o una herramienta de monitoreo externa.
+
+${post_edited_translations.segment}
+
+* El certificado de tu interfaz de gestión personalizada caduca.
+* Vuelves de un certificado personalizado de la interfaz de administración al certificado predeterminado del servidor.
+
+
+${post_edited_translations.segment}
+
+image:certificate_error.png["${post_edited_translations.segment}"]
+
+Para garantizar que las operaciones no se vean interrumpidas por un fallo en el certificado del servidor, se activa la alerta *Caducidad del certificado del servidor para la interfaz de gestión* cuando el certificado del servidor está a punto de caducar.
+
+Cuando se utilizan certificados de cliente para la integración externa con Prometheus, los errores de certificado pueden deberse al certificado de la interfaz de gestión de StorageGRID o a los certificados de cliente. La alerta *Caducidad de los certificados de cliente configurados en la página Certificados* se activa cuando un certificado de cliente está a punto de caducar.
+
+.Pasos
+Si has recibido una notificación de alerta sobre un certificado caducado, accede a los detalles del certificado: . Selecciona *Configuración* > *Seguridad* > *Certificados* y luego link:../admin/using-storagegrid-security-certificates.html#access-security-certificates["${post_edited_translations.segment}"].
+
+. Comprueba el periodo de validez del certificado. + Algunos navegadores web y clientes S3 no aceptan certificados con un periodo de validez superior a 398 días.
+. Si el certificado ha caducado o va a caducar pronto, sube o genera un nuevo certificado.
++
+** Para un certificado de servidor, consulta los pasos para link:../admin/configuring-custom-server-certificate-for-grid-manager-tenant-manager.html#add-a-custom-management-interface-certificate["configurar un certificado de servidor personalizado para Grid Manager y Tenant Manager"].
+** Para un certificado de cliente, consulta los pasos para link:../admin/configuring-administrator-client-certificates.html["${post_edited_translations.segment}"].
+
+
+. ${post_edited_translations.segment}
++
+** Asegúrate de que el Nombre alternativo del sujeto (SAN) del certificado esté rellenado y de que dicho SAN coincida con la dirección IP o el nombre de host del nodo al que te estás conectando.
+** ${post_edited_translations.segment}
++
+... Introduce la dirección IP del nodo de administración en lugar del nombre de dominio para evitar el error de conexión y acceder al Grid Manager.
+... Desde el Grid Manager, selecciona *Configuración* > *Seguridad* > *Certificados* y luego link:../admin/using-storagegrid-security-certificates.html#access-security-certificates["${post_edited_translations.segment}"] para instalar un nuevo certificado personalizado o continuar con el certificado predeterminado.
+... En las instrucciones para administrar StorageGRID, consulta los pasos para link:../admin/configuring-custom-server-certificate-for-grid-manager-tenant-manager.html#add-a-custom-management-interface-certificate["configurar un certificado de servidor personalizado para Grid Manager y Tenant Manager"].
+
+
+
+
+

@@ -1,0 +1,41 @@
+---
+permalink: ilm/index.html 
+sidebar: sidebar 
+keywords: information lifecycle management overview, about information lifecycle management, ilm overview, about ilm 
+summary: 'Las reglas de gestión del ciclo de vida de la información (ILM) en una política de ILM le indican a StorageGRID cómo crear y distribuir copias de los datos de los objetos y cómo gestionar esas copias a lo largo del tiempo.' 
+---
+= Administra objetos con ILM en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las reglas de gestión del ciclo de vida de la información (ILM) en una política de ILM le indican a StorageGRID cómo crear y distribuir copias de los datos de los objetos y cómo gestionar esas copias a lo largo del tiempo.
+
+
+
+[[about-these-instructions]]
+== ${post_edited_translations.segment}
+
+El diseño y la implementación de reglas y políticas de ILM requieren una planificación minuciosa. Debes conocer tus requisitos operativos, la topología de tu sistema StorageGRID, tus necesidades de protección de objetos y los tipos de almacenamiento disponibles. Luego, debes determinar cómo quieres que se copien, distribuyan y almacenen los diferentes tipos de objetos.
+
+Sigue estas instrucciones para:
+
+* Descubre más sobre StorageGRID ILM, incluida link:how-ilm-operates-throughout-objects-life.html["cómo funciona ILM a lo largo de la vida de un objeto"].
+* Descubre cómo configurar link:what-storage-pool-is.html["grupos de almacenamiento"], link:what-cloud-storage-pool-is.html["Grupos de almacenamiento en la nube"] y link:what-ilm-rule-is.html["Reglas de ILM"].
+* Descubre cómo link:creating-ilm-policy.html["crear, simular y activar una política de ILM"] que protegerá los datos de objetos en uno o varios sitios.
+* Descubre cómo link:managing-objects-with-s3-object-lock.html["gestionar objetos con S3 Object Lock"] , lo que ayuda a garantizar que los objetos en buckets específicos de S3 no se eliminen ni se sobrescriban durante un periodo de tiempo determinado.
+
+
+
+
+[[learn-more]]
+== Más información
+
+Para obtener más información, echa un vistazo a estos vídeos:
+
+.Resumen de las reglas de ILM
+video::9872d38f-80b3-4ad4-9f79-b1ff008760c7[panopto]
+.Resumen de las políticas de ILM
+video::e768d4da-da88-413c-bbaa-b1ff00874d10[panopto]

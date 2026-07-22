@@ -1,0 +1,6 @@
+---
+section: swift
+title: "${post_edited_translations.segment}"
+entries:
+- title: "${post_edited_translations.segment}"
+  url: "/swift/index.html"

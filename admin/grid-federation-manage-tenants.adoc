@@ -1,0 +1,216 @@
+---
+permalink: admin/grid-federation-manage-tenants.html 
+sidebar: sidebar 
+keywords: grid federation, manage tenant, use grid federation permission, remove permission, cross grid replication 
+summary: Puedes permitir que las cuentas de inquilino de S3 utilicen una conexión de federación de red entre dos sistemas StorageGRID. Cuando se permite a los inquilinos utilizar una conexión, se requieren pasos especiales para editar los detalles del inquilino o para eliminar de forma permanente el permiso del inquilino para usar la conexión. 
+---
+= Administra los inquilinos permitidos para la federación de grid de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes permitir que las cuentas de inquilino de S3 utilicen una conexión de federación de grid entre dos sistemas StorageGRID. Cuando se permite a los inquilinos usar una conexión, se requieren pasos especiales para editar los detalles del inquilino o para eliminar de forma permanente el permiso del inquilino para usar la conexión.
+
+.Antes de empezar
+* Has iniciado sesión en el Grid Manager de cualquiera de las dos grids usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"] de la grid en la que has iniciado sesión.
+* Tienes link:grid-federation-create-connection.html["creaste una conexión de federación de grid"] entre dos grids.
+* Has revisado los flujos de trabajo de link:grid-federation-what-is-account-clone.html["clon de cuenta"] y link:grid-federation-what-is-cross-grid-replication.html["replicación entre grids"].
+* Como se requiere, ya has configurado el inicio de sesión único (SSO) o la federación de identidades para ambas grids en la conexión. Consulta link:grid-federation-what-is-account-clone.html["¿Qué es un clon de cuenta?"].
+
+
+
+
+[[create-a-permitted-tenant]]
+== ${post_edited_translations.segment}
+
+Si quieres permitir que una cuenta de inquilino nueva o existente use una conexión de federación de grid para la clonación de cuentas y la replicación entre grids, sigue las instrucciones generales para link:creating-tenant-account.html["crear un nuevo cliente de S3"] o link:editing-tenant-account.html["editar una cuenta de inquilino"] y ten en cuenta lo siguiente:
+
+* Puedes crear el inquilino desde cualquiera de las dos cuadrículas de la conexión. La cuadrícula en la que se crea un inquilino es la _cuadrícula de origen del inquilino_.
+* El estado de la conexión debe ser *Conectado*.
+* Cuando creas o editas el inquilino para habilitar el permiso *Usar conexión de federación de grid* y luego lo guardas en el primer grid, se replica automáticamente un inquilino idéntico en el otro grid. El grid donde se replica el inquilino es el _grid de destino del inquilino_.
+* Los inquilinos de ambos grids tendrán el mismo ID de cuenta de 20 dígitos, nombre, descripción, cuota y permisos. Opcionalmente, puedes usar el campo *Descripción* para ayudarte a identificar cuál es el inquilino de origen y cuál es el de destino. Por ejemplo, esta descripción de un inquilino creado en el Grid 1 también aparecerá para el inquilino replicado en el Grid 2: "Este inquilino se creó en el Grid 1."
+* Por motivos de seguridad, la contraseña del usuario raíz no se copia en la grid de destino.
++
+
+TIP: Antes de que un usuario raíz local pueda iniciar sesión en el inquilino replicado en la grid de destino, un administrador de esa grid debe link:changing-password-for-tenant-local-root-user.html["cambiar la contraseña del usuario raíz local"].
+
+* Después de que el inquilino nuevo o editado esté disponible en ambas grids, los usuarios del inquilino pueden realizar estas operaciones:
++
+** Desde la grid de origen del tenant, crea grupos y usuarios locales, que se clonan automáticamente en la grid de destino del tenant. Consulta link:../tenant/grid-federation-account-clone.html["Clonar grupos de inquilinos y usuarios"].
+** Crea nuevas claves de acceso de S3, que opcionalmente pueden clonarse en la grid de destino del tenant. Consulta link:../tenant/grid-federation-clone-keys-with-api.html["Clonar claves de acceso a S3 mediante la API"].
+** Crea buckets idénticos en ambos grids de la conexión y habilita la replicación entre grids en una dirección o en ambas. Consulta link:../tenant/grid-federation-manage-cross-grid-replication.html["${post_edited_translations.segment}"].
+
+
+
+
+
+
+[[view-a-permitted-tenant]]
+== Ver un inquilino autorizado
+
+Puedes consultar los detalles de un inquilino al que se le permite utilizar una conexión de federación de grid.
+
+.Pasos
+. Selecciona *Tenants*.
+. En la página Tenants, selecciona el nombre del tenant para ver la página de detalles del tenant.
++
+Si esta es la grid de origen del tenant (es decir, si el tenant se creó en esta grid), aparecerá un mensaje para recordarte que el tenant se clonó en otra grid. Si editas o eliminas este tenant, los cambios no se sincronizarán con la otra grid.
+
++
+image:grid-federation-tenant-detail.png["Pestaña «Federación de grid» de la página de detalles del inquilino"]
+
+. De forma opcional, selecciona la pestaña *Grid federation* para link:../monitor/grid-federation-monitor-connections.html["${post_edited_translations.segment}"].
+
+
+
+
+[[edit-a-permitted-tenant]]
+== ${post_edited_translations.segment}
+
+Si necesitas editar un inquilino que tenga el permiso *Usar conexión de federación de red*, sigue las instrucciones generales de link:editing-tenant-account.html["Editar una cuenta de inquilino"] y ten en cuenta lo siguiente:
+
+* Si un inquilino tiene el permiso *Usar conexión de federación de grid*, puedes editar los detalles del inquilino desde cualquiera de los grids de la conexión. Sin embargo, los cambios que realices no se copiarán en el otro grid. Si quieres mantener sincronizados los detalles del inquilino entre los grids, debes realizar las mismas ediciones en ambos grids.
+* No puedes quitar el permiso *Utilizar conexión de federación de grid* cuando estás editando un inquilino.
+* No puedes seleccionar una conexión de federación de grid diferente cuando estás editando un inquilino.
+
+
+
+
+[[delete-a-permitted-tenant]]
+== ${post_edited_translations.segment}
+
+Si necesitas eliminar un inquilino que tiene el permiso *Use grid federation connection*, sigue las instrucciones generales para link:deleting-tenant-account.html["Eliminar una cuenta de inquilino"] y ten en cuenta lo siguiente:
+
+* ${post_edited_translations.segment}
+* Antes de poder eliminar el inquilino clonado en la grid de destino, debes eliminar todos los buckets de la cuenta en la grid de destino.
+* ${post_edited_translations.segment}
+* Si eliminas el tenant original de la grid de origen, cualquier grupo de tenant, usuario o clave que se haya clonado en la grid de destino no se verá afectado. Puedes eliminar el tenant clonado o permitir que gestione sus propios grupos, usuarios, claves de acceso y buckets.
+* Si vas a eliminar el inquilino clonado en la grid de destino, se producirán errores de clonación si se añaden nuevos grupos o usuarios al inquilino original.
++
+${post_edited_translations.segment}
+
+
+
+
+
+[[remove-grid-federation-connection-permissionremove-use-grid-federation-connection-permission]]
+== [[remove-grid-federation-connection-permission]]Eliminar el permiso Usar conexión de federación de grid
+
+${post_edited_translations.segment}
+
+image:grid-federation-remove-permission.png["Pasos para eliminar la conexión de federación de grid"]
+
+Antes de retirar a un inquilino el permiso para utilizar una conexión de federación de red, ten en cuenta lo siguiente:
+
+* No puedes eliminar el permiso *Usar conexión de federación de redes* si alguno de los buckets del inquilino tiene habilitada la replicación entre grids. La cuenta del inquilino debe desactivar la replicación entre grids en todos sus buckets primero.
+* Al eliminar el permiso *Usar conexión de federación entre grids*, no se elimina ningún elemento que ya se haya replicado entre grids. Por ejemplo, cualquier usuario, grupo y objeto del tenant que exista en ambos grids no se elimina de ninguno de los grids cuando se retira el permiso del tenant. Si quieres eliminar estos elementos, debes eliminarlos manualmente de ambos grids.
+* Si deseas volver a habilitar este permiso con la misma conexión de federación de grid, elimina primero este tenant en el grid de destino; de lo contrario, volver a habilitar este permiso resultará en un error.
+
+
+
+NOTE: Al volver a habilitar el permiso *Usar conexión de federación de grid*, el grid local pasa a ser el grid de origen y se inicia la clonación en el grid remoto especificado por la conexión de federación de grid seleccionada. Si la cuenta de tenant ya existe en el grid remoto, la clonación dará lugar a un error de conflicto.
+
+.Antes de empezar
+* Estás usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"] para ambas cuadrículas.
+
+
+
+
+[[disable-replication-for-tenant-buckets]]
+=== Desactivar la replicación para los buckets de los inquilinos
+
+${post_edited_translations.segment}
+
+.Pasos
+. Desde cualquiera de las dos grids, inicia sesión en el Grid Manager desde el nodo de administración principal.
+. Selecciona *Configuración* > *Sistema* > *Grid federation*.
+. Selecciona el nombre de la conexión para ver sus detalles.
+. ${post_edited_translations.segment}
+. Si el inquilino aparece en la lista, indícale que link:../tenant/grid-federation-manage-cross-grid-replication.html["desactivar la replicación entre grids"] para todos sus buckets en ambos grids de la conexión.
++
+
+TIP: No puedes eliminar el permiso *Usar conexión de federación de grid* si alguno de los buckets del inquilino tiene habilitada la replicación entre grids. El inquilino debe deshabilitar la replicación entre grids para sus buckets en ambos grids.
+
+
+
+
+
+[[remove-permission-for-tenant]]
+=== Quitar permiso para el tenant
+
+Después de desactivar la replicación entre grids para los buckets del inquilino, puedes eliminar el permiso del inquilino para usar la conexión de federación de grids.
+
+.Pasos
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+[role="tabbed-block"]
+====
+.Página de federación de grid
+--
+.. Selecciona *Configuración* > *Sistema* > *Grid federation*.
+.. Selecciona el nombre de la conexión para ver su página de detalles.
+.. ${post_edited_translations.segment}
+.. Selecciona *Eliminar permiso*.
+
+
+--
+.Página de inquilinos
+--
+.. Selecciona *Tenants*.
+.. Selecciona el nombre del inquilino para mostrar la página de detalles.
+.. En la pestaña *Grid federation*, selecciona el botón de opción para la conexión.
+.. Selecciona *Eliminar permiso*.
+
+
+--
+====
+. Revisa las advertencias que aparecen en el cuadro de diálogo de confirmación y selecciona *Eliminar*.
++
+** Si se puede eliminar el permiso, vuelves a la página de detalles y se muestra un mensaje de éxito. Este tenant ya no puede usar la conexión de grid federation.
+** Si uno o más buckets de un tenant siguen teniendo activada la replicación entre grids, se muestra un error.
++
+image:grid-federation-remove-permission-error.png["Mensaje de error que aparece si el tenant tiene habilitado CGR para un bucket"]
+
++
+${post_edited_translations.segment}
+
++
+*** (Recomendado.) Inicia sesión en Tenant Manager y desactiva la replicación para cada uno de los buckets del tenant. Consulta link:../tenant/grid-federation-manage-cross-grid-replication.html["${post_edited_translations.segment}"]. Luego, repite los pasos para quitar el permiso *Use grid connection*.
+*** Elimina el permiso a la fuerza. Consulta la siguiente sección.
+
+
+
+
+. Ve a la otra grid y repite estos pasos para eliminar el permiso del mismo tenant en la otra grid.
+
+
+
+
+[[forceremovepermissionremove-the-permission-by-force]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+Antes de retirar por la fuerza el permiso de un inquilino, ten en cuenta las consideraciones generales para <<remove-grid-federation-connection-permission,retirar el permiso>> así como estas consideraciones adicionales:
+
+* Si eliminas el permiso *Usar conexión de federación de grid* por la fuerza, todos los objetos que estén pendientes de replicación en el otro grid (ingestados pero aún no replicados) se seguirán replicando. Para evitar que estos objetos en proceso lleguen al bucket de destino, también debes eliminar el permiso del tenant en el otro grid.
+* ${post_edited_translations.segment}
+
+
+.Pasos
+. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Sistema* > *Grid federation*.
+. Selecciona el nombre de la conexión para ver su página de detalles.
+. ${post_edited_translations.segment}
+. Selecciona *Eliminar permiso*.
+. Lee las advertencias que aparecen en el cuadro de diálogo de confirmación y selecciona *Force remove*.
++
+Aparece un mensaje de éxito. Este inquilino ya no puede utilizar la conexión de federación de grid.
+
+. Si es necesario, ve a la otra grid y repite estos pasos para eliminar de forma forzada el permiso de la misma cuenta de tenant en la otra grid. Por ejemplo, debes repetir estos pasos en la otra grid para evitar que los objetos en proceso lleguen al bucket de destino.
+

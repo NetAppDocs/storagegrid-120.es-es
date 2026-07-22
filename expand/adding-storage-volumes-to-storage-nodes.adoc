@@ -1,0 +1,50 @@
+---
+permalink: expand/adding-storage-volumes-to-storage-nodes.html 
+sidebar: sidebar 
+keywords: storage volumes, expand, expansion, add, storage nodes, adding storage capacity, StorageGRID 
+summary: Puedes ampliar la capacidad de almacenamiento de los nodos de almacenamiento que estén por debajo del número máximo de volúmenes admitido. Es posible que tengas que añadir volúmenes de almacenamiento a más de un nodo de almacenamiento para cumplir con los requisitos de ILM para las copias replicadas o con codificación de borrado. 
+---
+= Agrega volúmenes de almacenamiento a tu sistema StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes ampliar la capacidad de almacenamiento de los nodos de almacenamiento que estén por debajo del número máximo de volúmenes admitido. Es posible que tengas que añadir volúmenes de almacenamiento a más de un nodo de almacenamiento para cumplir con los requisitos de ILM para las copias replicadas o con codificación de borrado.
+
+.Antes de empezar
+Antes de añadir volúmenes de almacenamiento, revisa link:guidelines-for-adding-object-capacity.html["${post_edited_translations.segment}"] para asegurarte de que sabes dónde añadir volúmenes para cumplir con los requisitos de tu política de ILM.
+
+
+NOTE: Estas instrucciones se aplican únicamente a los nodos de almacenamiento basados en software. Consulta https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/adding-expansion-shelf-to-deployed-sg6060.html["Agregar bandeja de expansión a SG6060 desplegado"^] o https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/adding-expansion-shelf-to-deployed-sg6160.html["Agregar bandeja de expansión a SG6160 desplegado"^] para saber cómo añadir volúmenes de almacenamiento a SG6060 o SG6160 mediante la instalación de bandejas de expansión. Otros nodos de almacenamiento de appliance no se pueden ampliar.
+
+.Acerca de esta tarea
+El almacenamiento subyacente de un nodo de almacenamiento se divide en volúmenes de almacenamiento. Los volúmenes de almacenamiento son dispositivos de almacenamiento basado en bloques que el sistema StorageGRID formatea y monta para almacenar objetos. Cada nodo de almacenamiento puede admitir hasta 48 volúmenes de almacenamiento, que en el Grid Manager se llaman _object stores_.
+
+
+NOTE: ${post_edited_translations.segment}
+
+Cada almacén de objetos se monta en un volumen que corresponde a su ID. Por ejemplo, el almacén de objetos con un ID de 0000 corresponde al punto de montaje  `/var/local/rangedb/0`.
+
+Antes de añadir nuevos volúmenes de almacenamiento, usa el Grid Manager para ver los almacenes de objetos actuales de cada Storage Node, así como los puntos de montaje correspondientes. Puedes usar esta información al añadir volúmenes de almacenamiento.
+
+.Pasos
+. Selecciona *Nodes* > *_site_* > *_Storage Node_* > *Storage*.
+. Desplázate hacia abajo para ver las cantidades de almacenamiento disponibles para cada volumen y almacén de objetos.
++
+${post_edited_translations.segment}
+
++
+Para ayudarte a interpretar las estadísticas de lectura y escritura del disco relacionadas con los puntos de montaje de los volúmenes, la primera parte del nombre que aparece en la columna *Nombre* de la tabla «Dispositivos de disco» (es decir, _sdc_, _sdd_, _sde_, y así sucesivamente) coincide con el valor que aparece en la columna *Dispositivo* de la tabla «Volúmenes».
+
++
+image:nodes_page_storage_tables_vol_expansion.png["Tablas de almacenamiento de la página de nodos"]
+
+. ${post_edited_translations.segment}
++
+** link:vmware-adding-storage-volumes-to-storage-node.html["VMware: agrega volúmenes de almacenamiento al nodo de almacenamiento"]
+** link:linux-adding-direct-attached-or-san-volumes-to-storage-node.html["Linux: Añade volúmenes conectados directamente o de SAN al nodo de almacenamiento"]
+
+
+

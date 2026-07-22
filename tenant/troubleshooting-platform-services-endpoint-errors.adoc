@@ -1,0 +1,77 @@
+---
+permalink: tenant/troubleshooting-platform-services-endpoint-errors.html 
+sidebar: sidebar 
+keywords: how to troubleshoot platform services endpoint 
+summary: Si se produce un error cuando StorageGRID intenta comunicarse con un endpoint de servicios de la plataforma, se muestra un mensaje en el panel de control. En la página de endpoints de servicios de la plataforma, la columna Último error indica hace cuánto ocurrió el error. No se muestra ningún error si los permisos asociados a las credenciales de un endpoint son incorrectos. 
+---
+= Soluciona errores en el punto final de los servicios de la plataforma StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si se produce un error cuando StorageGRID intenta comunicarse con un endpoint de servicios de plataforma, aparecerá un mensaje en el panel de control. En la página Endpoints de servicios de plataforma, la columna Último error indica hace cuánto tiempo se produjo el error. No se mostrará ningún error si los permisos asociados a las credenciales de un endpoint son incorrectos.
+
+
+
+[[determine-if-error-has-occurred]]
+== Determina si se ha producido un error
+
+Si se ha producido algún error en los puntos finales de los servicios de la plataforma en los últimos 7 días, el panel de control de Tenant Manager muestra un mensaje de alerta. Puedes ir a la página de puntos finales de los servicios de la plataforma para ver más detalles sobre el error.
+
+image:tenant_dashboard_endpoint_error.png["Mensaje de error del endpoint en el panel de control"]
+
+El mismo error que aparece en el panel de control también aparece en la parte superior de la página de endpoints de servicios de la plataforma. Para ver un mensaje de error más detallado:
+
+.Pasos
+. ${post_edited_translations.segment}
+. En la página de detalles del punto final, selecciona *Conexión*. Esta pestaña muestra únicamente el error más reciente de un punto final e indica cuánto tiempo hace que se produjo el error. Los errores que incluyen el icono de la X roja image:icon_alert_red_critical.png["${post_edited_translations.segment}"] ocurrieron en los últimos 7 días.
+
+
+
+
+[[check-if-error-is-still-current]]
+== Comprueba si el error sigue vigente
+
+Es posible que algunos errores sigan apareciendo en la columna *Último error* incluso después de haberse resuelto. Para ver si un error sigue activo o para forzar la eliminación de un error resuelto de la tabla:
+
+.Pasos
+. ${post_edited_translations.segment}
++
+Aparece la página de detalles del endpoint.
+
+. ${post_edited_translations.segment}
+
+
+Al seleccionar *Probar conexión*, StorageGRID valida que el endpoint de servicios de plataforma exista y que se pueda acceder a él con las credenciales actuales. La conexión con el endpoint se valida desde un nodo en cada sitio.
+
+
+
+[[resolve-endpoint-errors]]
+== ${post_edited_translations.segment}
+
+Puedes usar el mensaje *Último error* en la página de detalles del endpoint para ayudarte a determinar qué está causando el error. Algunos errores pueden requerir que edites el endpoint para resolver el problema. Por ejemplo, puede ocurrir un error de CloudMirroring si StorageGRID no puede acceder al bucket de destino de Amazon S3 porque no tiene los permisos de acceso correctos o la clave de acceso ha expirado. El mensaje es "Either the endpoint credentials or the destination access needs to be updated," y los detalles son "AccessDenied" o "InvalidAccessKeyId".
+
+Si necesitas modificar el endpoint para solucionar un error, al seleccionar *Probar y guardar cambios* StorageGRID valida el endpoint actualizado y confirma que se puede acceder a él con las credenciales actuales. La conexión con el endpoint se valida desde un nodo de cada sitio.
+
+.Pasos
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Modifica la configuración del punto final según sea necesario.
+. ${post_edited_translations.segment}
+
+
+
+
+[[endpoint-credentials-with-insufficient-permissions]]
+== ${post_edited_translations.segment}
+
+Cuando StorageGRID valida un punto final de servicios de la plataforma, comprueba que las credenciales de dicho punto final puedan utilizarse para contactar con el recurso de destino y realiza una comprobación básica de permisos. Sin embargo, StorageGRID no valida todos los permisos necesarios para determinadas operaciones de los servicios de la plataforma. Por este motivo, si recibes un error al intentar usar un servicio de la plataforma (como "403 Forbidden"), revisa los permisos asociados a las credenciales del punto final.
+
+.Información relacionada
+* link:../admin/troubleshooting-platform-services.html["Administrar StorageGRID > Solucionar problemas de los servicios de la plataforma"]
+* link:creating-platform-services-endpoint.html["Crear un endpoint de servicios de plataforma"]
+* link:testing-connection-for-platform-services-endpoint.html["Probar la conexión para el endpoint de los servicios de la plataforma"]
+* link:editing-platform-services-endpoint.html["Editar el endpoint de los servicios de plataforma"]
+

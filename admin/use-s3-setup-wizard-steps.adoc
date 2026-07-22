@@ -1,0 +1,455 @@
+---
+permalink: admin/use-s3-setup-wizard-steps.html 
+sidebar: sidebar 
+keywords: FabricPool and S3 setup wizard, object storage system, S3 application 
+summary: Puedes utilizar el asistente de configuración de S3 para configurar StorageGRID como sistema de almacenamiento de objetos para una aplicación S3. 
+---
+= Accede y completa el asistente de configuración de S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes utilizar el asistente de configuración de S3 para configurar StorageGRID para su uso con una aplicación S3. El asistente de configuración proporciona los valores que necesita la aplicación para acceder a un bucket de StorageGRID y guardar objetos.
+
+.Antes de empezar
+* Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"].
+* Has revisado la link:use-s3-setup-wizard.html["${post_edited_translations.segment}"] para usar el asistente.
+
+
+
+
+[[access-the-wizard]]
+== Accede al asistente
+
+.Pasos
+. Inicia sesión en Grid Manager usando una link:web-browser-requirements.html["navegador web compatible"] cuenta.
+. Si aparece en el panel de control el banner *FabricPool and S3 setup wizard*, selecciona el enlace que aparece en el banner. Si el banner ya no aparece, selecciona el icono de ayuda de la barra de encabezado en el Grid Manager y selecciona *FabricPool and S3 setup wizard*.
++
+image:help_menu.png["menú de ayuda"]
+
+. En la sección de aplicación S3 de la página del asistente de configuración de FabricPool y S3, selecciona *Configurar ahora*.
+
+
+
+
+[[step-1-of-6-configure-ha-group]]
+== Paso 1 de 6: Configura el grupo de alta disponibilidad
+
+Un grupo de alta disponibilidad (HA) es un conjunto de nodos que contienen, cada uno de ellos, el servicio StorageGRID Load Balancer. Un grupo de alta disponibilidad (HA) puede contener Gateway Nodes, Admin Nodes o ambos.
+
+Puedes usar un grupo HA para ayudar a mantener disponibles las conexiones de datos S3. Si la interfaz activa en el grupo HA falla, una interfaz de respaldo puede gestionar la carga de trabajo con poco impacto en las operaciones de S3.
+
+Para obtener más información sobre esta tarea, consulta link:managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"].
+
+.Pasos
+. Si tienes pensado utilizar un equilibrador de carga externo, no es necesario que crees un grupo de alta disponibilidad. Selecciona *Omitir este paso* y ve a <<Paso 2 de 6: Configura el endpoint del balanceador de carga>>.
+. Para utilizar el equilibrador de carga de StorageGRID, puedes crear un nuevo grupo de alta disponibilidad (HA) o usar un grupo de alta disponibilidad (HA) existente.
++
+[role="tabbed-block"]
+====
+.Crear grupo de alta disponibilidad
+--
+.. Para crear un nuevo grupo de alta disponibilidad, selecciona *Crear grupo de alta disponibilidad*.
+.. En el paso *Introducir datos*, rellena los siguientes campos.
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre del grupo HA
+ a| 
+Un nombre para mostrar único para este grupo de alta disponibilidad.
+
+
+
+ a| 
+Descripción (opcional)
+ a| 
+La descripción de este grupo de HA.
+
+|===
+.. En el paso *Add interfaces*, selecciona las interfaces de nodo que quieres usar en este grupo de alta disponibilidad.
++
+${post_edited_translations.segment}
+
++
+Puedes seleccionar uno o varios nodos, pero solo puedes seleccionar una interfaz por cada nodo.
+
+.. Para el paso *Priorizar interfaces*, determina la interfaz principal y cualquier interfaz de respaldo para este grupo de alta disponibilidad.
++
+Arrastra las filas para cambiar los valores de la columna *Orden de prioridad*.
+
++
+La primera interfaz de la lista es la interfaz principal. La interfaz principal es la interfaz activa salvo que se produzca un fallo.
+
++
+Si el grupo de alta disponibilidad (HA) incluye más de una interfaz y la interfaz activa falla, las direcciones IP virtuales (VIP) se transfieren a la primera interfaz de respaldo según el orden de prioridad. Si esa interfaz falla, las direcciones VIP se transfieren a la siguiente interfaz de respaldo y así sucesivamente. Cuando se resuelven los fallos, las direcciones VIP vuelven a la interfaz disponible con mayor prioridad.
+
+.. En el paso *Introducir direcciones IP*, completa los siguientes campos.
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+CIDR de la subred
+ a| 
+La dirección de la subred VIP en notación CIDR — una dirección IPv4 seguida de una barra y la longitud de la subred (0-32).
+
+La dirección de red no debe tener ningún bit de host activado. Por ejemplo, `192.16.0.0/22`.
+
+
+
+ a| 
+Dirección IP de la puerta de enlace (opcional)
+ a| 
+Si las direcciones IP de S3 utilizadas para acceder a StorageGRID no se encuentran en la misma subred que las direcciones VIP de StorageGRID, introduce la dirección IP de la puerta de enlace local de la VIP de StorageGRID. La dirección IP de la puerta de enlace local debe estar dentro de la subred de la VIP.
+
+
+
+ a| 
+Dirección IP virtual
+ a| 
+Introduce al menos una y no más de diez direcciones VIP para la interfaz activa del grupo de alta disponibilidad. Todas las direcciones VIP deben estar dentro de la subred VIP.
+
+Al menos una dirección debe ser IPv4. Opcionalmente, puedes especificar direcciones IPv4 e IPv6 adicionales.
+
+|===
+.. Selecciona *Crear grupo de alta disponibilidad* y luego selecciona *Finalizar* para volver al asistente de configuración de S3.
+.. Selecciona *Continuar* para pasar al paso del equilibrador de carga.
+
+
+--
+.Usa el grupo de alta disponibilidad existente
+--
+.. Para utilizar un grupo de alta disponibilidad ya existente, selecciona el nombre del grupo en la opción *Select an HA group*.
+.. Selecciona *Continuar* para pasar al paso del equilibrador de carga.
+
+
+--
+====
+
+
+
+
+[[step-2-of-6-configure-load-balancer-endpoint]]
+== Paso 2 de 6: Configura el endpoint del balanceador de carga
+
+StorageGRID utiliza un equilibrador de carga para gestionar la carga de trabajo de las aplicaciones cliente. El equilibrio de carga maximiza la velocidad y la capacidad de conexión entre varios Storage Nodes.
+
+Puedes utilizar el servicio StorageGRID Load Balancer, que está disponible en todos los nodos Gateway y Admin, o puedes conectarte a un equilibrador de carga externo (de terceros). Se recomienda usar el load balancer de StorageGRID.
+
+Para obtener más información sobre esta tarea, consulta link:managing-load-balancing.html["Aspectos a tener en cuenta para el equilibrio de carga"].
+
+Para usar el servicio StorageGRID Load Balancer, selecciona la pestaña *StorageGRID load balancer* y luego crea o selecciona el endpoint del load balancer que quieras usar. Para usar un load balancer externo, selecciona la pestaña *External load balancer* y proporciona los detalles sobre el sistema que ya configuraste.
+
+[role="tabbed-block"]
+====
+.Crear punto final
+--
+.Pasos
+. Para crear un punto de conexión de equilibrador de carga, selecciona *Crear punto de conexión*.
+. En el paso *Introducir los datos del punto final*, rellena los siguientes campos.
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre
+ a| 
+Un nombre descriptivo para el endpoint.
+
+
+
+ a| 
+Puerto
+ a| 
+El puerto de StorageGRID que deseas utilizar para el equilibrio de carga. Este campo tiene por defecto el valor 10433 para el primer punto final que crees, pero puedes introducir cualquier puerto externo que no esté en uso. Si introduces 80 o 443, el punto final solo se configura en los nodos de Gateway, porque estos puertos están reservados en los nodos de Admin.
+
+*Nota:* No se permiten los puertos utilizados por otros servicios de la red. Consulta link:../network/internal-grid-node-communications.html#storagegrid-internal-ports["Puertos internos de StorageGRID"].
+
+
+
+ a| 
+Tipo de cliente
+ a| 
+Debe ser *S3*.
+
+
+
+ a| 
+Protocolo de red
+ a| 
+Selecciona *HTTPS*.
+
+*Nota*: La comunicación con StorageGRID sin cifrado TLS es compatible, pero no se recomienda.
+
+|===
+. En el paso *Seleccionar modo de enlace*, especifica el modo de enlace. El modo de enlace controla cómo se accede al endpoint utilizando cualquier dirección IP o utilizando direcciones IP e interfaces de red específicas.
++
+[cols="1a,3a"]
+|===
+| Modo | Descripción 
+
+
+ a| 
+Global (predeterminado)
+ a| 
+Los clientes pueden acceder al punto final usando la dirección IP de cualquier Gateway Node o Admin Node, la dirección IP virtual (VIP) de cualquier grupo HA en cualquier red, o el FQDN correspondiente.
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+Direcciones IP virtuales de los grupos de alta disponibilidad
+ a| 
+Los clientes deben utilizar una dirección IP virtual (o el nombre de dominio completo correspondiente) de un grupo de alta disponibilidad para acceder a este endpoint.
+
+Todos los puntos finales con este modo de enlace pueden utilizar el mismo número de puerto, siempre y cuando los grupos de alta disponibilidad que selecciones para los puntos finales no se solapen.
+
+
+
+ a| 
+Interfaces de nodo
+ a| 
+Los clientes deben utilizar las direcciones IP (o los FQDN correspondientes) de las interfaces de los nodos seleccionados para acceder a este endpoint.
+
+
+
+ a| 
+Tipo de nodo
+ a| 
+En función del tipo de nodo que selecciones, los clientes deben usar la dirección IP (o el FQDN correspondiente) de cualquier Admin Node o la dirección IP (o el FQDN correspondiente) de cualquier Gateway Node para acceder a este endpoint.
+
+|===
+. Para el paso de acceso del inquilino, selecciona una de las siguientes opciones:
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Permitir a todos los inquilinos (por defecto)
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+Permitir inquilinos seleccionados
+ a| 
+Solo las cuentas de inquilino seleccionadas pueden usar este endpoint para acceder a sus buckets.
+
+
+
+ a| 
+Bloquear inquilinos seleccionados
+ a| 
+Las cuentas de inquilino seleccionadas no pueden utilizar este endpoint para acceder a sus buckets. El resto de inquilinos sí pueden utilizar este endpoint.
+
+|===
+. En el paso *Adjuntar certificado*, selecciona una de las siguientes opciones:
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Subir certificado (recomendado)
+ a| 
+Utiliza esta opción para cargar un certificado de servidor firmado por una CA, la clave privada del certificado y, opcionalmente, el paquete de CA.
+
+
+
+ a| 
+Generar certificado
+ a| 
+Utiliza esta opción para generar un certificado autofirmado. Consulta link:configuring-load-balancer-endpoints.html["Configura los puntos de conexión del equilibrador de carga"] para ver los detalles de qué debes introducir.
+
+
+
+ a| 
+Usa el certificado S3 de StorageGRID
+ a| 
+Utiliza esta opción solo si ya has subido o generado una versión personalizada del certificado global de StorageGRID. Consulta link:configuring-custom-server-certificate-for-storage-node.html["Configura los certificados de la API de S3"] para obtener más información.
+
+|===
+. Selecciona *Finalizar* para volver al asistente de configuración de S3.
+. Selecciona *Continuar* para pasar al paso del inquilino y el bucket.
+
+
+
+NOTE: Los cambios en el certificado de un endpoint pueden tardar hasta 15 minutos en aplicarse a todos los nodos.
+
+--
+.Utiliza el punto de conexión del equilibrador de carga existente
+--
+.Pasos
+. Para utilizar un endpoint ya existente, selecciona su nombre en *Selecciona un endpoint del balanceador de carga*.
+. Selecciona *Continuar* para pasar al paso del inquilino y el bucket.
+
+
+--
+.Utilizar un equilibrador de carga externo
+--
+.Pasos
+. Para utilizar un equilibrador de carga externo, completa los siguientes campos.
++
+[cols="1a,2a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+FQDN
+ a| 
+El nombre de dominio completo (FQDN) del equilibrador de carga externo.
+
+
+
+ a| 
+Puerto
+ a| 
+El número de puerto que utilizará la aplicación S3 para conectarse al equilibrador de carga externo.
+
+
+
+ a| 
+Certificado
+ a| 
+Copia el certificado del servidor del equilibrador de carga externo y pégalo en este campo.
+
+|===
+. Selecciona *Continuar* para pasar al paso del inquilino y el bucket.
+
+
+--
+====
+
+
+[[step-3-of-6-create-tenant-and-bucket]]
+== Paso 3 de 6: crea un inquilino y un bucket
+
+Un inquilino es una entidad que puede utilizar aplicaciones de S3 para almacenar y recuperar objetos en StorageGRID. Cada inquilino tiene sus propios usuarios, claves de acceso, buckets, objetos y un conjunto específico de capacidades.
+
+Un bucket es un contenedor que se utiliza para almacenar los objetos y los metadatos de un inquilino. Aunque los inquilinos pueden tener muchos buckets, el asistente te ayuda a crear un inquilino y un bucket de la forma más rápida y sencilla. Si necesitas añadir buckets o configurar opciones más adelante, puedes utilizar el Tenant Manager.
+
+Para obtener más información sobre esta tarea, consulta link:creating-tenant-account.html["Crear cuenta de inquilino"] y link:../tenant/creating-s3-bucket.html["Crear un bucket de S3"].
+
+.Pasos
+. Introduce un nombre para la cuenta de inquilino.
++
+Los nombres de los inquilinos no tienen por qué ser únicos. Al crear la cuenta de un inquilino, esta recibe un identificador de cuenta numérico único.
+
+. Define el acceso a raíz para la cuenta de inquilino, en función de si tu sistema StorageGRID utiliza link:using-identity-federation.html["federación de identidades"], link:how-sso-works.html["inicio de sesión único (SSO)"] o ambos.
++
+[cols="1a,2a"]
+|===
+| Opción | Haz esto 
+
+
+ a| 
+Si la federación de identidades no está habilitada
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+.. Selecciona un grupo federado ya existente para que el inquilino tenga link:../tenant/tenant-management-permissions.html["Permiso de acceso raíz"].
+.. Si lo deseas, indica la contraseña que se usará al iniciar sesión en el tenant como usuario raíz local.
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Selecciona un grupo federado existente para que el inquilino tenga link:../tenant/tenant-management-permissions.html["Permiso de acceso raíz"]. Ningún usuario local puede iniciar sesión.
+
+|===
+. Si quieres que el asistente cree el ID de la clave de acceso y la clave de acceso secreta para el usuario raíz, selecciona *Crear automáticamente la clave de acceso S3 del usuario raíz*.
++
+Selecciona esta opción si el único usuario del inquilino va a ser el usuario raíz. Si otros usuarios van a utilizar este inquilino, link:../tenant/index.html["usar Tenant Manager"] para configurar claves y permisos.
+
+. Si quieres crear un bucket para este inquilino ahora, selecciona *Crear bucket para este inquilino*.
++
+
+TIP: Si S3 Object Lock está habilitado para la grid, el bucket creado en este paso no tiene S3 Object Lock habilitado. Si necesitas usar un bucket con S3 Object Lock para esta aplicación de S3, no selecciones crear un bucket ahora. En su lugar, usa Tenant Manager para link:../tenant/creating-s3-bucket.html["crear el bucket"] más adelante.
+
++
+.. Introduce el nombre del bucket que utilizará la aplicación S3. Por ejemplo, `s3-bucket`.
++
+No puedes cambiar el nombre del bucket después de crearlo.
+
+.. Selecciona la *región* para este depósito.
++
+Utiliza la región predeterminada (`us-east-1`) a menos que tengas previsto utilizar ILM en el futuro para filtrar objetos en función de la región del bucket.
+
+
+
+. Selecciona *Crear y continuar*.
+
+
+
+
+[[download-datastep-4-of-6-download-data]]
+== [[download-data]]Paso 4 de 6: descargar datos
+
+En el paso de descarga de datos, puedes descargar uno o dos archivos para guardar los detalles de lo que acabas de configurar.
+
+.Pasos
+. Si has seleccionado *Crear automáticamente la clave de acceso S3 del usuario raíz*, haz una o ambas de las siguientes cosas:
++
+** Selecciona *Descargar claves de acceso* para descargar un archivo  `.csv` que contiene el nombre de la cuenta del inquilino, el ID de la clave de acceso y la clave de acceso secreta.
+** Selecciona el icono de copiar (image:icon_tenant_copy_url.png["icono de copiar"]) para copiar el ID de la clave de acceso y la clave secreta de acceso en el portapapeles.
+
+
+. Selecciona *Descargar valores de configuración* para descargar un  `.txt` archivo que contiene la configuración del punto final del balanceador de carga, el inquilino, el bucket y el usuario raíz.
+. Guarda esta información en un lugar seguro.
++
+
+CAUTION: No cierres esta página hasta que hayas copiado ambas claves de acceso. Las claves dejarán de estar disponibles una vez que cierres esta página. Asegúrate de guardar esta información en un lugar seguro porque puede usarse para obtener datos de tu sistema StorageGRID.
+
+. Si se te solicita, marca la casilla para confirmar que has descargado o copiado las claves.
+. Selecciona *Continuar* para ir al paso de reglas y políticas de ILM.
+
+
+
+
+[[step-5-of-6-review-ilm-rule-and-ilm-policy-for-s3]]
+== Paso 5 de 6: revisa la regla de ILM y la política de ILM para S3
+
+Las reglas de gestión del ciclo de vida de la información (ILM) controlan la ubicación, la duración y el comportamiento de ingesta de todos los objetos en tu sistema StorageGRID. La política de ILM incluida con StorageGRID crea dos copias replicadas de todos los objetos. Esta política está vigente hasta que actives al menos una nueva política.
+
+.Pasos
+. Revisa la información que aparece en la página.
+. Si deseas añadir instrucciones específicas para los objetos que pertenecen al nuevo inquilino o bucket, crea una nueva regla y una nueva política. Consulta link:../ilm/access-create-ilm-rule-wizard.html["Crear regla de ILM"] y link:../ilm/ilm-policy-overview.html["Usa políticas de ILM"].
+. Selecciona *He revisado estos pasos y entiendo lo que tengo que hacer*.
+. Marca la casilla de verificación para indicar que sabes qué hacer a continuación.
+. Selecciona *Continuar* para ir a *Resumen*.
+
+
+
+
+[[step-6-of-6-review-summary]]
+== Paso 6 de 6: resumen de revisión
+
+.Pasos
+. Revisa el resumen.
+. Toma nota de los detalles de los siguientes pasos, en los que se describe la configuración adicional que podría ser necesaria antes de conectarte al cliente S3. Por ejemplo, al seleccionar *Sign in as root* vas al Tenant Manager, donde puedes añadir usuarios del tenant, crear buckets adicionales y actualizar la configuración de los buckets.
+. Selecciona *Finalizar*.
+. Configura la aplicación usando el archivo que descargaste de StorageGRID o los valores que obtuviste manualmente.
+

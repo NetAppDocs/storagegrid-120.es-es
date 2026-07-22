@@ -1,0 +1,167 @@
+---
+permalink: troubleshoot/troubleshoot-low-watermark-alert.html 
+sidebar: sidebar 
+keywords: troubleshoot low soft read-only watermark override alert, optimized watermarks 
+summary: Si usas valores personalizados para los umbrales de volumen de almacenamiento, puede que tengas que resolver la alerta de anulación del umbral bajo de solo lectura. Si es posible, deberías actualizar tu sistema para empezar a usar los valores optimizados. 
+---
+= Resuelve la alerta de anulación de marca de agua en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utilizas valores personalizados para las marcas de agua del volumen de almacenamiento, es posible que tengas que resolver la alerta *Anulación de marca de agua de solo lectura baja*. Si es posible, deberías actualizar tu sistema para empezar a usar los valores optimizados.
+
+En versiones anteriores, los tres link:../admin/what-storage-volume-watermarks-are.html["marcas de nivel de agua en el volumen de almacenamiento"] eran ajustes globales: los mismos valores se aplicaban a todos los volúmenes de almacenamiento en cada Storage Node. A partir de StorageGRID 11.6, el software puede optimizar estos watermarks para cada volumen de almacenamiento, según el tamaño del Storage Node y la capacidad relativa del volumen.
+
+${post_edited_translations.segment}
+
+* Tu sistema está casi al límite de su capacidad y no podría aceptar nuevos datos si se aplicaran marcas de agua optimizadas. StorageGRID no cambiará la configuración de las marcas de agua en este caso.
+* Anteriormente configuraste alguna de las marcas de agua del volumen de almacenamiento con un valor personalizado. StorageGRID no anulará la configuración de las marcas de agua personalizadas con valores optimizados. Sin embargo, StorageGRID podría activar la alerta *Anulación de marca de agua de solo lectura baja* si tu valor personalizado para la marca de agua de solo lectura flexible del volumen de almacenamiento es demasiado bajo.
+
+
+
+
+[[understand-the-alert]]
+== Entiende la alerta
+
+${post_edited_translations.segment}
+
+Cada aparición de la alerta indica que el valor personalizado del umbral de solo lectura del volumen de almacenamiento es inferior al valor mínimo optimizado para ese Storage Node. Si sigues utilizando la configuración personalizada, el Storage Node podría quedarse críticamente sin espacio antes de poder pasar de forma segura al estado de solo lectura. Es posible que algunos volúmenes de almacenamiento dejen de estar accesibles (se desmonten automáticamente) cuando el nodo alcance su capacidad.
+
+Por ejemplo, supón que anteriormente configuraste el watermark de solo lectura suave del volumen de almacenamiento en 5 GB. Ahora supón que StorageGRID ha calculado los siguientes valores optimizados para los cuatro volúmenes de almacenamiento en Storage Node A:
+
+[cols="2a,2a"]
+|===
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+12 GB
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+12 GB
+
+
+
+ a| 
+Volumen 2
+ a| 
+11 GB
+
+
+
+ a| 
+Volumen 3
+ a| 
+15 GB
+
+|===
+La alerta *Anulación de marca de agua baja de solo lectura* se activa para el nodo de almacenamiento A porque tu marca de agua personalizada (5 GB) es inferior al valor mínimo optimizado para todos los volúmenes de ese nodo (11 GB). Si sigues utilizando la configuración personalizada, es posible que el nodo se quede con un nivel de espacio críticamente bajo antes de que pueda realizar la transición de forma segura al estado de solo lectura.
+
+
+
+[[resolve-the-alert]]
+== ${post_edited_translations.segment}
+
+Sigue estos pasos si se ha activado una o más alertas de *Anulación de marca de agua de solo lectura baja*. También puedes seguir estas instrucciones si actualmente usas una configuración personalizada de marcas de agua y quieres empezar a usar una configuración optimizada aunque no se haya activado ninguna alerta.
+
+.Antes de empezar
+* Has completado la actualización a StorageGRID 11.6 o una versión posterior.
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de acceso raíz"].
+
+
+.Acerca de esta tarea
+Puedes resolver la alerta *Low read-only watermark override* actualizando la configuración de las marcas de agua personalizadas con las nuevas anulaciones de marca de agua. Sin embargo, si uno o varios Storage Nodes están a punto de llenarse o tienes requisitos especiales de ILM, primero debes consultar las marcas de agua de almacenamiento optimizadas y determinar si es seguro utilizarlas.
+
+
+
+[[assess-object-data-usage-for-entire-grid]]
+=== Evalúa el uso de datos de objetos en toda la grid
+
+.Pasos
+. Selecciona *Nodos*.
+. Para cada sitio en la grid, despliega la lista de nodos.
+. Revisa los valores porcentuales que aparecen en la columna *Object data used* para cada Storage Node en cada sitio.
++
+image:nodes_page_object_data_used_with_alert.png["Página de nodos que muestra los datos de objetos usados para 3 SNs"]
+
+. Sigue el paso correspondiente:
++
+.. Si ninguno de los nodos de almacenamiento está a punto de llenarse (por ejemplo, todos los valores de *Datos de objeto utilizados* son inferiores al 80 %), puedes empezar a utilizar la configuración de anulación. Ve a <<use-optimized-watermarks,Utiliza marcas de agua optimizadas>>.
+.. Si las reglas de ILM utilizan el comportamiento de ingesta estricto o si determinados grupos de almacenamiento están a punto de llenarse, realiza los pasos en <<view-optimized-watermarks,Ver marcas de agua de almacenamiento optimizadas>> y <<determine-optimized-watermarks,Comprueba si puedes utilizar marcas de agua optimizadas>>.
+
+
+
+
+
+
+[[view-optimized-watermarksview-optimized-storage-watermarks]]
+=== [[view-optimized-watermarks]]Ver marcas de agua optimizadas para almacenamiento
+
+StorageGRID utiliza dos métricas de Prometheus para mostrar los valores optimizados que ha calculado para el umbral de solo lectura (soft) del volumen de almacenamiento. Puedes consultar los valores optimizados mínimos y máximos para cada Storage Node en tu grid.
+
+.Pasos
+. Selecciona *Soporte* > *Herramientas* > *Métricas*.
+. ${post_edited_translations.segment}
+. Para ver la marca de agua mínima recomendada de solo lectura, introduce la siguiente métrica de Prometheus y selecciona *Ejecutar*:
++
+`storagegrid_storage_volume_minimum_optimized_soft_readonly_watermark`
+
++
+La última columna muestra el valor mínimo optimizado de la marca de agua de solo lectura flexible para todos los volúmenes de almacenamiento de cada Storage Node. Si este valor es mayor que el ajuste personalizado de la marca de agua de solo lectura flexible del volumen de almacenamiento, se activa la alerta *Low read-only watermark override* para el Storage Node.
+
+. ${post_edited_translations.segment}
++
+`storagegrid_storage_volume_maximum_optimized_soft_readonly_watermark`
+
++
+${post_edited_translations.segment}
+
+. [[maximum_optimized_value]]Ten en cuenta el valor máximo optimizado para cada nodo de almacenamiento.
+
+
+
+
+[[determine-optimized-watermarksdetermine-if-you-can-use-optimized-watermarks]]
+=== [[determine-optimized-watermarks]]Averigua si puedes utilizar marcas de agua optimizadas
+
+.Pasos
+. Selecciona *Nodos*.
+. Repite estos pasos para cada nodo de almacenamiento en línea:
++
+.. Selecciona *_Nodo de almacenamiento_* > *Almacenamiento*.
+.. Desplázate hacia abajo hasta la tabla de almacenes de objetos.
+.. Compara el valor *Disponible* de cada almacén de objetos (volumen) con el nivel máximo optimizado que anotaste para ese Storage Node.
+
+
+. Si al menos un volumen de cada nodo de almacenamiento en línea tiene más espacio disponible que el umbral máximo optimizado para ese nodo, ve a <<use-optimized-watermarks,Utiliza marcas de agua optimizadas>> para empezar a usar los umbrales optimizados.
++
+De lo contrario, amplía la grid lo antes posible. O bien link:../expand/adding-storage-volumes-to-storage-nodes.html["añadir volúmenes de almacenamiento"] a un nodo existente o link:../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html["agrega nuevos nodos de almacenamiento"]. Luego, ve a <<use-optimized-watermarks,Utiliza marcas de agua optimizadas>> para actualizar la configuración de la marca de agua.
+
+. Si necesitas seguir utilizando valores personalizados para los umbrales del volumen de almacenamiento, link:../monitor/silencing-alert-notifications.html["silencio"] o link:../monitor/disabling-alert-rules.html["desactivar"] la alerta *Anulación del umbral bajo de solo lectura*.
++
+
+NOTE: Se aplican los mismos valores de marca de agua personalizados a todos los volúmenes de almacenamiento de cada Storage Node. El uso de valores inferiores a los recomendados para las marcas de agua de los volúmenes de almacenamiento podría provocar que algunos volúmenes de almacenamiento quedaran inaccesibles (se desmontaran automáticamente) cuando el nodo alcance su capacidad.
+
+
+
+
+
+[[use-optimized-watermarksuse-optimized-watermarks]]
+=== [[use-optimized-watermarks]]Usa marcas de agua optimizadas
+
+.Pasos
+. Ve a *Support* > *Other* > *Storage watermarks*.
+. Marca la casilla *Usar valores optimizados*.
+. Selecciona *Guardar*.
+
+
+Ya están en vigor los ajustes optimizados de los límites máximos de los volúmenes de almacenamiento para cada volumen, en función del tamaño del Storage Node y de la capacidad relativa del volumen.

@@ -1,0 +1,57 @@
+---
+permalink: tenant/use-s3-console.html 
+sidebar: sidebar 
+keywords: how to use s3 console 
+summary: ${post_edited_translations.segment} 
+---
+= Usa la consola S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* Subir, descargar, renombrar, copiar, mover y eliminar objetos
+* Ver, revertir, descargar y eliminar versiones de objetos
+* Buscar objetos por prefijo
+* Gestiona etiquetas de objetos
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+
+
+[NOTE]
+====
+La consola de S3 ofrece una experiencia de usuario mejorada para los casos más habituales. No está diseñada para sustituir las operaciones de la CLI o la API en todas las situaciones.
+
+Si al utilizar la consola de S3 las operaciones tardan demasiado (por ejemplo, minutos u horas), plantéate lo siguiente:
+
+* Reducir el número de objetos seleccionados
+* Utilizar métodos no gráficos (API o CLI) para acceder a tus datos
+
+
+====
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Si quieres gestionar objetos, perteneces a un grupo de usuarios que tiene el permiso de acceso Root. O bien, perteneces a un grupo de usuarios que tiene el permiso de usar la pestaña S3 Console y el permiso de ver todos los buckets o el permiso de gestionar todos los buckets. Consulta link:tenant-management-permissions.html["Permisos de gestión de inquilinos"].
+* Se ha configurado una política de grupo o de bucket de S3 para el usuario. Consulta link:../s3/use-access-policies.html["Usa políticas de acceso a buckets y de grupo"].
+* Conoces el ID de la clave de acceso y la clave de acceso secreta del usuario. Opcionalmente, tienes un archivo `.csv` que contiene esta información. Consulta el link:creating-your-own-s3-access-keys.html["Instrucciones para crear claves de acceso"].
+
+
+.Pasos
+. Selecciona *Storage* > *Buckets* > *_bucket name_*.
+. ${post_edited_translations.segment}
+. Pega el ID de la clave de acceso y la clave de acceso secreta en los campos. Si no, selecciona *Cargar claves de acceso* y selecciona tu archivo  `.csv`.
+. Selecciona *Sign in*.
+. Aparece la tabla de objetos de «bucket». Puedes gestionar los objetos según sea necesario.
+
+
+.Información adicional
+* *Búsqueda por prefijo*: La función de búsqueda por prefijo solo busca objetos que empiecen por una palabra concreta en relación con la carpeta actual. La búsqueda no incluye objetos que contengan la palabra en otra parte. Esta regla también se aplica a los objetos dentro de las carpetas. Por ejemplo, una búsqueda de  `folder1/folder2/somefile-` mostraría los objetos que están dentro de la carpeta  `folder1/folder2/` y que empiezan por la palabra  `somefile-`.
+* *Arrastrar y soltar*: Puedes arrastrar y soltar archivos desde el gestor de archivos de tu ordenador a la consola de S3. Sin embargo, no puedes subir carpetas.
+* *Operaciones con carpetas*: Cuando mueves, copias o cambias el nombre de una carpeta, todos los objetos en la carpeta se actualizan uno a uno, lo que puede llevar tiempo.
+* *Eliminación permanente cuando el control de versiones del bucket está desactivado*: Cuando sobrescribes o eliminas un objeto en un bucket con el control de versiones desactivado, la operación es permanente. Consulta link:changing-bucket-versioning.html["Cambiar el control de versiones de objetos para un bucket"].
+

@@ -1,0 +1,113 @@
+---
+permalink: swnodes/collecting-information-about-your-deployment-environment.html 
+sidebar: sidebar 
+keywords: how to collect information about your vmware deployment environment 
+summary: ${post_edited_translations.segment} 
+---
+= Recopila información sobre tu entorno VMware para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+
+NOTE: Es más eficaz realizar una instalación única de todos los nodos, en lugar de instalar algunos nodos ahora y otros más adelante.
+
+
+
+[[vmware-information]]
+== Información sobre VMware
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* El nombre de usuario y la contraseña de una cuenta de VMware vSphere que cuente con los permisos adecuados para completar la implementación.
+* ${post_edited_translations.segment}
+
+
+
+NOTE: VMware live vMotion hace que la hora del reloj de la máquina virtual salte y no es compatible con los nodos de grid de ningún tipo. Aunque es poco frecuente, los horarios incorrectos pueden provocar la pérdida de datos o de actualizaciones de configuración.
+
+
+
+[[grid-network-information]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+* El método utilizado para asignar direcciones IP, ya sea estáticas o mediante DHCP.
++
+** ${post_edited_translations.segment}
+** Si utilizas DHCP, la dirección IP del nodo de administración principal de la red Grid. Consulta link:how-grid-nodes-discover-primary-admin-node.html["Cómo detectan los nodos de la grid el nodo de administración principal"] para obtener más información.
+
+
+
+
+
+
+[[admin-network-information]]
+== Información de la red de administración
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+* El método utilizado para asignar direcciones IP, ya sea estáticas o mediante DHCP.
++
+** ${post_edited_translations.segment}
+** Si utilizas DHCP, la dirección IP del nodo de administración principal de la red Grid. Consulta link:how-grid-nodes-discover-primary-admin-node.html["Cómo detectan los nodos de la grid el nodo de administración principal"] para obtener más información.
+
+
+* La lista de subredes externas (ESL) de la red de administración.
+
+
+
+
+[[client-network-information]]
+== Información de la red del cliente
+
+En el caso de los nodos que se conectarán a la red opcional StorageGRID Client Network, debes recopilar información sobre la red de VMware creada para esta red, incluyendo:
+
+* ${post_edited_translations.segment}
+* El método utilizado para asignar direcciones IP, ya sea estáticas o mediante DHCP.
+* ${post_edited_translations.segment}
+
+
+
+
+[[information-about-additional-interfaces]]
+== Información sobre interfaces adicionales
+
+Si lo deseas, puedes añadir interfaces de tronco o de acceso a la máquina virtual en vCenter después de instalar el nodo. Por ejemplo, podrías querer añadir una interfaz de tronco a un Admin Node o Gateway Node, así puedes usar interfaces VLAN para segregar el tráfico que pertenece a diferentes aplicaciones o tenants. O podrías querer añadir una interfaz de acceso para usarla en un grupo de alta disponibilidad (HA).
+
+Las interfaces que añadas se muestran en la página de interfaces VLAN y en la página de grupos de alta disponibilidad en Grid Manager.
+
+* Si añades una interfaz trunk, configura una o varias interfaces VLAN para cada nueva interfaz principal. Consulta link:../admin/configure-vlan-interfaces.html["configurar interfaces VLAN"].
+* Si añades una interfaz de acceso, debes añadirla directamente a los grupos de alta disponibilidad. Consulta link:../admin/configure-high-availability-group.html["configurar grupos de alta disponibilidad"].
+
+
+
+
+[[storage-volumes-for-virtual-storage-nodes]]
+== Volúmenes de almacenamiento para nodos de almacenamiento virtuales
+
+Debes recopilar la siguiente información para los nodos de almacenamiento basados en máquinas virtuales:
+
+* El número y el tamaño de los volúmenes de almacenamiento (LUN de almacenamiento) que planeas añadir. Consulta link:storage-and-performance-requirements.html["Requisitos de almacenamiento y rendimiento"].
+
+
+
+
+[[grid-configuration-information]]
+== Información de configuración de grid
+
+Debes recopilar información para configurar tu grid:
+
+* Licencia de grid
+* Direcciones IP de los servidores Network Time Protocol (NTP)
+* Direcciones IP del servidor DNS
+

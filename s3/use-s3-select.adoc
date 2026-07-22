@@ -1,0 +1,165 @@
+---
+permalink: s3/use-s3-select.html 
+sidebar: sidebar 
+keywords: use S3 Select, S3 Select 
+summary: StorageGRID admite las siguientes cláusulas de Amazon S3 Select, tipos de datos, operadores y palabras clave reservadas para el comando SelectObjectContent. 
+---
+= Operaciones compatibles de Amazon S3 Select en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID admite las siguientes cláusulas de Amazon S3 Select, tipos de datos y operadores para el link:select-object-content.html["SelectObjectContent comando"].
+
+
+NOTE: Los artículos que no figuren en la lista no son compatibles.
+
+Para consultar la sintaxis, visita link:select-object-content.html["SelectObjectContent"]. Para obtener más información sobre S3 Select, consulta https://docs.aws.amazon.com/AmazonS3/latest/userguide/selecting-content-from-objects.html["Documentación de AWS sobre S3 Select"^].
+
+Solo las cuentas de inquilino que tengan habilitada la función S3 Select pueden realizar consultas SelectObjectContent. Consulta link:../admin/manage-s3-select-for-tenant-accounts.html["Consideraciones y requisitos para usar S3 Select"].
+
+
+
+[[clauses]]
+== Cláusulas
+
+* Lista SELECT
+* Cláusula FROM
+* Cláusula WHERE
+* Cláusula LIMIT
+
+
+
+
+[[data-types]]
+== Tipos de datos
+
+* bool
+* entero
+* cadena
+* flotante
+* decimal, numérico
+* marca de tiempo
+
+
+
+
+[[operators]]
+== Operadores
+
+
+
+[[logical-operators]]
+=== Operadores lógicos
+
+* Y
+* NO
+* O
+
+
+
+
+[[comparison-operators]]
+=== Operadores de comparación
+
+* <
+* >
+* <=
+* >=
+* =
+* =
+* <>
+* !=
+* ENTRE
+* EN
+
+
+
+
+[[pattern-matching-operators]]
+=== Operadores de coincidencia de patrones
+
+* ME GUSTA
+* _
+* %
+
+
+
+
+[[unitary-operators]]
+=== Operadores unitarios
+
+* ES NULO
+* NO ES NULO
+
+
+
+
+[[math-operators]]
+=== Operadores matemáticos
+
+* +
+* -
+* *
+* /
+* %
+
+
+StorageGRID sigue la precedencia de operadores de Amazon S3 Select.
+
+
+
+[[aggregate-functions]]
+== Funciones de agregación
+
+* AVG()
+* COUNT(*)
+* MAX()
+* ${post_edited_translations.segment}
+* SUM()
+
+
+
+
+[[conditional-functions]]
+== Funciones condicionales
+
+* ${post_edited_translations.segment}
+* COALESCE
+* ${post_edited_translations.segment}
+
+
+
+
+[[conversion-functions]]
+== ${post_edited_translations.segment}
+
+* CONVERSIÓN (para el tipo de datos admitido)
+
+
+
+
+[[date-functions]]
+== Funciones de fecha
+
+* DATE_ADD
+* ${post_edited_translations.segment}
+* EXTRACTO
+* TO_STRING
+* TO_TIMESTAMP
+* UTCNOW
+
+
+
+
+[[string-functions]]
+== Funciones de cadenas
+
+* CHAR_LENGTH, CHARACTER_LENGTH
+* ${post_edited_translations.segment}
+* SUBSTRING
+* TRIM
+* ${post_edited_translations.segment}
+

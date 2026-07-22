@@ -1,0 +1,98 @@
+---
+permalink: audit/cbrb-object-receive-begin.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, CBRB, Object Receive Begin 
+summary: Durante el funcionamiento normal del sistema, los bloques de contenido se transfieren continuamente entre los distintos nodos a medida que se accede a los datos, se replican y se conservan. Cuando se inicia la transferencia de un bloque de contenido de un nodo a otro, la entidad de destino emite este mensaje. 
+---
+= Mensaje de auditoría CBRB para el inicio de la recepción de objeto en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Durante el funcionamiento normal del sistema, los bloques de contenido se transfieren continuamente entre los distintos nodos a medida que se accede a los datos, se replican y se conservan. Cuando se inicia la transferencia de un bloque de contenido de un nodo a otro, la entidad de destino emite este mensaje.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+El identificador único de la sesión/conexión entre nodos.
+
+
+
+ a| 
+CBID
+ a| 
+Identificador del bloque de contenido
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+CTDR
+ a| 
+Sentido de la transferencia
+ a| 
+Indica si la transferencia CBID se inició mediante push o mediante pull:
+
+PUSH: La operación de transferencia fue solicitada por la entidad remitente.
+
+PULL: La operación de transferencia fue solicitada por la entidad receptora.
+
+
+
+ a| 
+CTSR
+ a| 
+Entidad de origen
+ a| 
+El identificador de nodo del origen (remitente) de la transferencia CBID.
+
+
+
+ a| 
+CTDS
+ a| 
+Entidad de destino
+ a| 
+El identificador de nodo del destino (receptor) de la transferencia CBID.
+
+
+
+ a| 
+CTSS
+ a| 
+Recuento de secuencia de inicio
+ a| 
+Indica el primer número de secuencia solicitado. Si la operación se realiza correctamente, la transferencia comienza a partir de este número de secuencia.
+
+
+
+ a| 
+CTES
+ a| 
+Conteo esperado de secuencias finales
+ a| 
+Indica el último recuento de secuencia solicitado. Si la operación se realiza con éxito, la transferencia se considera completa cuando se ha recibido este recuento de secuencia.
+
+
+
+ a| 
+RSLT
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+|===
+Este mensaje de auditoría indica que se ha iniciado una operación de transferencia de datos de nodo a nodo sobre un único elemento de contenido, identificado mediante su Content Block Identifier. La operación solicita datos desde "Start Sequence Count" hasta "Expected End Sequence Count". Los nodos emisores y receptores se identifican mediante sus ID de nodo. Esta información puede utilizarse para realizar un seguimiento del flujo de datos del sistema y, cuando se combina con mensajes de auditoría de almacenamiento, para verificar el recuento de réplicas.

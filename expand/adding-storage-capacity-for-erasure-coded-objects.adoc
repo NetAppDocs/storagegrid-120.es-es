@@ -1,0 +1,29 @@
+---
+permalink: expand/adding-storage-capacity-for-erasure-coded-objects.html 
+sidebar: sidebar 
+keywords: erasure coding, capacity, storage nodes, ec, expand, expansion, StorageGRID 
+summary: Si tu política de ILM incluye una regla que realiza copias con codificación de borrado, debes planificar dónde añadir nuevo almacenamiento y cuándo añadirlo. La cantidad de almacenamiento que añadas y el momento en que lo hagas pueden afectar a la capacidad de almacenamiento útil de la grid. 
+---
+= Planificación de la expansión para datos con código de borrado (EC) en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si tu política de ILM incluye una regla que crea copias con codificación de borrado, debes planificar dónde añadir nuevo almacenamiento y cuándo hacerlo. La cantidad de almacenamiento que añadas y el momento en que lo hagas pueden afectar a la capacidad de almacenamiento útil de la grid.
+
+El primer paso para planificar una ampliación del almacenamiento es examinar las reglas de tu política de ILM que crean objetos con código de borrado. Como StorageGRID crea _k+m_ fragmentos para cada objeto con código de borrado y almacena cada fragmento en un nodo de almacenamiento diferente, debes asegurarte de que al menos _k+m_ nodos de almacenamiento tengan espacio para los nuevos datos con código de borrado después de la ampliación. Si el perfil de código de borrado proporciona protección contra la pérdida de un sitio, debes añadir almacenamiento a cada sitio. Consulta link:../ilm/what-erasure-coding-schemes-are.html["${post_edited_translations.segment}"] para obtener información sobre los perfiles de código de borrado.
+
+El número de nodos que debes añadir también depende de lo llenos que estén los nodos existentes cuando realices la ampliación.
+
+
+
+[[general-recommendation-for-adding-storage-capacity-for-erasure-coded-objects]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+Esta recomendación general ofrece resultados razonables en una amplia gama de esquemas de código de borrado, tanto para grids de un solo sitio como para grids en las que el código de borrado proporciona protección frente a la pérdida de sitios.
+
+Para entender mejor los factores que llevaron a esta recomendación o para desarrollar un plan más preciso para tu sitio, consulta link:considerations-for-rebalancing-erasure-coded-data.html["Aspectos a tener en cuenta para el reequilibrio de datos con código de borrado"]. Para una recomendación personalizada optimizada para tu situación, contacta a tu consultor de Servicios Profesionales de NetApp.

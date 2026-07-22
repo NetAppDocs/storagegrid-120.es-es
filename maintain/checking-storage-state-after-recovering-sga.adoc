@@ -1,0 +1,25 @@
+---
+permalink: maintain/checking-storage-state-after-recovering-sga.html 
+sidebar: sidebar 
+keywords: storagegrid, recovery, node recovery, storage state 
+summary: Después de recuperar un nodo de almacenamiento del appliance, debes verificar que el estado deseado del nodo de almacenamiento del appliance esté configurado como en línea y asegurarte de que el estado será en línea de forma predeterminada cada vez que se reinicie el servidor del nodo de almacenamiento. 
+---
+= Comprueba el estado del almacenamiento después de recuperar un StorageGRID appliance Storage Node
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de recuperar un nodo de almacenamiento del appliance, debes verificar que el estado deseado del nodo de almacenamiento del appliance esté configurado como en línea y asegurarte de que el estado será en línea de forma predeterminada cada vez que se reinicie el servidor del nodo de almacenamiento.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* El nodo de almacenamiento se ha recuperado y la recuperación de datos ha finalizado.
+
+
+.Pasos
+. Selecciona *Nodos* > *_Storage Node_* > *Tareas*.
+. ${post_edited_translations.segment}
+. Selecciona *Guardar*.
+

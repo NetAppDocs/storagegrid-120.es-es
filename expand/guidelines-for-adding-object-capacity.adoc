@@ -1,0 +1,69 @@
+---
+permalink: expand/guidelines-for-adding-object-capacity.html 
+sidebar: sidebar 
+keywords: adding storage capacity, guidelines, storage volumes, expansion, StorageGRID 
+summary: 'Puedes ampliar la capacidad de almacenamiento de objetos de tu sistema StorageGRID añadiendo volúmenes de almacenamiento a los Storage Nodes existentes o añadiendo nuevos Storage Nodes a los sitios existentes. Debes añadir capacidad de almacenamiento de manera que cumpla con los requisitos de tu política de gestión del ciclo de vida de la información (ILM).' 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes ampliar la capacidad de almacenamiento de objetos de tu sistema StorageGRID añadiendo volúmenes de almacenamiento a los Storage Nodes existentes o añadiendo nuevos Storage Nodes a los sitios existentes. Debes añadir capacidad de almacenamiento de manera que cumpla con los requisitos de tu política de gestión del ciclo de vida de la información (ILM).
+
+
+
+[[guidelines-for-adding-storage-volumes]]
+== Guía para añadir volúmenes de almacenamiento
+
+${post_edited_translations.segment}
+
+* Debes revisar tus reglas actuales de ILM para determinar dónde y cuándo link:../expand/adding-storage-volumes-to-storage-nodes.html["añadir volúmenes de almacenamiento"] para aumentar la capacidad de almacenamiento disponible para link:../ilm/what-replication-is.html["${post_edited_translations.segment}"] o link:../ilm/what-erasure-coding-schemes-are.html["${post_edited_translations.segment}"].
+* No puedes aumentar la capacidad de metadatos de tu sistema añadiendo volúmenes de almacenamiento porque los metadatos de los objetos solo se almacenan en el volumen 0.
+* Cada nodo de almacenamiento basado en software puede admitir un máximo de 48 volúmenes de almacenamiento. Si necesitas añadir capacidad más allá de ese límite, debes añadir nuevos nodos de almacenamiento.
+* Puedes añadir una o dos bandejas de expansión a cada dispositivo SG6060. Cada bandeja de expansión añade 16 volúmenes de almacenamiento. Con ambas bandejas de expansión instaladas, el SG6060 puede admitir un total de 48 volúmenes de almacenamiento.
+* Puedes añadir una o dos bandejas de expansión a cada SG6160. Cada bandeja de expansión añade 60 volúmenes de almacenamiento. Con ambas bandejas de expansión instaladas, el SG6160 puede admitir un total de 180 volúmenes de almacenamiento.
+* No puedes añadir volúmenes de almacenamiento a ningún otro dispositivo de almacenamiento.
+* No puedes aumentar el tamaño de un volumen de almacenamiento existente.
+* No puedes añadir volúmenes de almacenamiento a un nodo de almacenamiento al mismo tiempo que realizas una actualización del sistema, una operación de recuperación u otra expansión.
+
+
+Una vez que hayas decidido añadir volúmenes de almacenamiento y hayas determinado qué nodos de almacenamiento debes ampliar para cumplir con tu política de ILM, sigue las instrucciones correspondientes a tu tipo de nodo de almacenamiento:
+
+* Para añadir una o dos bandejas de expansión a un dispositivo de almacenamiento SG6060, visita https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/adding-expansion-shelf-to-deployed-sg6060.html["Agregar bandeja de expansión a SG6060 desplegado"^].
+* Para añadir una o dos bandejas de expansión a un dispositivo de almacenamiento SG6160, ve a https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/adding-expansion-shelf-to-deployed-sg6160.html["Agregar bandeja de expansión a SG6160 desplegado"^]
+* Para un nodo basado en software, sigue las instrucciones para link:adding-storage-volumes-to-storage-nodes.html["Agregar volúmenes de almacenamiento a los nodos de almacenamiento"].
+
+
+
+
+[[guidelines-for-adding-storage-nodes]]
+== ${post_edited_translations.segment}
+
+Antes de añadir nodos de almacenamiento a los sitios existentes, revisa las siguientes directrices y limitaciones:
+
+* Debes revisar tus reglas actuales de ILM para determinar dónde y cuándo añadir nodos de almacenamiento para aumentar el almacenamiento disponible para link:../ilm/what-replication-is.html["${post_edited_translations.segment}"] o link:../ilm/what-erasure-coding-schemes-are.html["${post_edited_translations.segment}"].
+* No debes añadir más de 10 nodos de almacenamiento en un solo procedimiento de expansión.
+* Puedes añadir nodos de almacenamiento a más de un sitio en un único procedimiento de expansión.
+* Puedes añadir Storage Nodes y otros tipos de nodos en un único proceso de ampliación.
+* Antes de iniciar el procedimiento de expansión, debes confirmar que todas las operaciones de reparación de datos realizadas como parte de una recuperación estén completas. Consulta link:../maintain/checking-data-repair-jobs.html["Comprobar los trabajos de reparación de datos"].
+* Si necesitas eliminar nodos de almacenamiento antes o después de realizar una expansión, no debes decomisionar más de 10 nodos de almacenamiento en un solo procedimiento de Decomisionar nodo.
+* Añade suficientes nodos de almacenamiento para mantener el rendimiento de E/S del almacenamiento subyacente. Las operaciones de escritura se distribuirán entre los nodos de almacenamiento en función de la capacidad de almacenamiento disponible. Si los nodos de almacenamiento ampliados tienen una capacidad de almacenamiento disponible significativamente mayor, esos nodos recibirán un número significativamente mayor de escrituras. En particular, cuando los nodos de almacenamiento existentes estén casi llenos, las nuevas escrituras dependerán solo de los nodos de almacenamiento ampliados. Las operaciones de lectura y eliminación se gestionarán según tu carga de trabajo específica.
+
+
+
+
+[[guidelines-for-adc-service-on-storage-nodes]]
+== Directrices para el servicio ADC en los nodos de almacenamiento
+
+Al configurar la ampliación, debes elegir si deseas incluir el servicio de controlador de dominio administrativo (ADC) en cada nuevo nodo de almacenamiento. El servicio ADC realiza un seguimiento de la ubicación y la disponibilidad de los servicios de grid.
+
+* Puedes link:../maintain/move-adc-service.html["trasladar el servicio ADC de un nodo de almacenamiento a otro en el mismo sitio"].
+* El sistema StorageGRID requiere que un link:../maintain/understanding-adc-service-quorum.html["quórum de los servicios de ADC"] esté disponible en cada sede y en todo momento.
+* Al menos tres nodos de almacenamiento en cada sitio deben incluir el servicio ADC.
+* No se recomienda añadir el servicio ADC a todos los nodos de almacenamiento. Incluir demasiados servicios ADC puede provocar ralentizaciones debido al aumento de la comunicación entre los nodos.
+* Una misma grid no debe tener más de 48 nodos de almacenamiento con el servicio ADC. Esto equivale a 16 sitios con tres servicios ADC en cada sitio.
+* En general, cuando selecciones la configuración *ADC Service* para un nuevo nodo, deberías seleccionar *Automatic*. Selecciona *Yes* solo si el nuevo nodo reemplazará a otro nodo de almacenamiento que incluya el servicio ADC. Como no puedes decomisionar un nodo de almacenamiento si quedan muy pocos servicios ADC, seleccionar *Yes* garantiza que haya un nuevo servicio ADC disponible antes de eliminar el servicio antiguo.
+

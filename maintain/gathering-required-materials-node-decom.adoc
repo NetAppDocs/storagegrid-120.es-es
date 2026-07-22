@@ -1,0 +1,49 @@
+---
+permalink: maintain/gathering-required-materials-node-decom.html 
+sidebar: sidebar 
+keywords: storagegrid, node decommission, decommission 
+summary: Antes de decomisionar un nodo de la red, debes obtener la siguiente información. 
+---
+= Reúne el material necesario para decomisionar el nodo StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de decomisionar un nodo de la red, debes obtener la siguiente información.
+
+[cols="1a,2a"]
+|===
+| Artículo | Notas 
+
+
+ a| 
+Archivo del paquete de recuperación `.zip`
+ a| 
+Debes link:downloading-recovery-package.html["descargar el paquete de recuperación más reciente"] `.zip` archivo (`sgws-recovery-package-_id-revision_.zip`). Puedes utilizar el archivo del paquete de recuperación para restaurar el sistema en caso de que se produzca un fallo.
+
+
+
+ a| 
+`Passwords.txt` archivo
+ a| 
+Este archivo contiene las contraseñas necesarias para acceder a los nodos de la grid desde la línea de comandos y se incluye en el paquete de recuperación.
+
+
+
+ a| 
+Contraseña de aprovisionamiento
+ a| 
+La frase de contraseña se crea y se documenta al instalar el sistema StorageGRID por primera vez. La frase de contraseña de aprovisionamiento no está en el archivo `Passwords.txt`.
+
+
+
+ a| 
+Descripción de la topología del sistema StorageGRID antes de decomisionar
+ a| 
+Si está disponible, consigue toda la documentación que describa la topología actual del sistema.
+
+|===
+.Información relacionada
+link:../admin/web-browser-requirements.html["Requisitos del navegador web"]

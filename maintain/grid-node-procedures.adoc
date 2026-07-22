@@ -1,0 +1,29 @@
+---
+permalink: maintain/grid-node-procedures.html 
+sidebar: sidebar 
+keywords: storagegrid, grid node procedure 
+summary: Es posible que tengas que llevar a cabo procedimientos de mantenimiento relacionados con nodos específicos de la red o con servicios de los nodos. 
+---
+= Procedimientos de mantenimiento de nodos StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que tengas que llevar a cabo procedimientos de mantenimiento relacionados con nodos específicos de la red o con servicios de los nodos.
+
+Mover ADC:: El link:../maintain/understanding-adc-service-quorum.html["Servicio ADC"] se encuentra en algunos nodos de almacenamiento. En determinadas circunstancias de decomisionar y conversión de nodos, necesitas mover el servicio ADC a otro nodo de almacenamiento en el mismo sitio.
+Convertir nodo de almacenamiento en nodo de solo datos:: Puedes convertir los nodos de almacenamiento que no contengan el servicio ADC en nodos de almacenamiento solo para datos.
+Reinicio, apagado y alimentación del nodo:: Estos procedimientos sirven para reiniciar uno o varios nodos, para apagar y reiniciar nodos, o para apagar y volver a encender los nodos.
+Reasignación de puertos:: Puedes utilizar los procedimientos de reasignación de puertos para eliminar las reasignaciones de puertos de un nodo, por ejemplo, si quieres configurar un endpoint de balanceador de carga usando un puerto que se había reasignado antes.
+Administrador de servidores:: El Administrador de servidores se ejecuta en cada nodo de la red para supervisar el inicio y la detención de los servicios y garantizar que estos se incorporen y se retiren correctamente del sistema StorageGRID. El Administrador de servidores también supervisa los servicios en cada nodo de la red e intentará reiniciar automáticamente cualquier servicio que notifique fallos.
++
+--
+Para llevar a cabo los procedimientos del Administrador de servidores, normalmente necesitas acceder a la línea de comandos del nodo.
+
+
+CAUTION: Solo debes acceder al Administrador de servidores si el soporte técnico te lo ha indicado.
+
+--
+

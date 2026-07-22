@@ -1,0 +1,40 @@
+---
+permalink: maintain/restarting-server-manager-and-all-services.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, server manager, restart server manager 
+summary: Es posible que tengas que reiniciar el Administrador de servidores y todos los servicios que se están ejecutando en un nodo de grid. 
+---
+= Reinicia el Administrador de servidores StorageGRID y todos los servicios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que tengas que reiniciar el Administrador de servidores y todos los servicios que se están ejecutando en un nodo de grid.
+
+.Antes de empezar
+Tienes el archivo  `Passwords.txt`.
+
+.Pasos
+. Inicia sesión en el nodo de la grid:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Reinicia el Administrador de servidores y todos los servicios del nodo de la red: `service servermanager restart`
++
+El Administrador de servidores y todos los servicios del nodo de la red se detienen y luego se reinician.
+
++
+
+NOTE: Usar el comando  `restart` es lo mismo que usar el comando  `stop` seguido del comando  `start`.
+
+. Cierra la sesión del intérprete de comandos: `exit`
+

@@ -1,0 +1,52 @@
+---
+permalink: admin/manage-security.html 
+sidebar: sidebar 
+keywords: how to manage security 
+summary: ${post_edited_translations.segment} 
+---
+= Administra la seguridad en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+
+
+[[manage-encryption]]
+== Gestionar el cifrado
+
+StorageGRID ofrece varias opciones para cifrar datos. Debes link:reviewing-storagegrid-encryption-methods.html["revisar los métodos de cifrado disponibles"] para determinar cuáles se ajustan a tus requisitos de protección de datos.
+
+
+
+[[manage-certificates]]
+== Gestiona certificados
+
+Puedes link:using-storagegrid-security-certificates.html["configurar y gestionar los certificados del servidor"] usar para las conexiones HTTP o los certificados de cliente que se emplean para autenticar la identidad de un cliente o usuario ante el servidor.
+
+
+
+[[configure-key-management-servers]]
+== Configura servidores de gestión de claves
+
+El uso de un link:kms-configuring.html["servidor de gestión de claves"] te permite proteger los datos de StorageGRID incluso si se retira un dispositivo del centro de datos. Una vez cifrados los volúmenes del dispositivo, no podrás acceder a ningún dato del mismo a menos que el nodo pueda comunicarse con el KMS.
+
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+[[manage-proxy-settings]]
+== Gestiona la configuración del proxy
+
+Si usas los servicios de plataforma de S3 o Cloud Storage Pools, puedes configurar un link:configuring-storage-proxy-settings.html["servidor proxy de almacenamiento"] entre los nodos de almacenamiento y los endpoints de S3 externos. Si envías paquetes de AutoSupport a través de HTTPS o HTTP, puedes configurar un link:configuring-admin-proxy-settings.html["servidor proxy de administración"] entre los nodos de administración y el soporte técnico.
+
+
+
+[[control-firewalls]]
+== Controla los cortafuegos
+
+Para mejorar la seguridad de tu sistema, puedes controlar el acceso a los nodos de administración de StorageGRID abriendo o cerrando puertos específicos en link:controlling-access-through-firewalls.html["cortafuegos externo"]. También puedes controlar el acceso de red a cada nodo configurando su link:manage-firewall-controls.html["cortafuegos interno"]. Puedes impedir el acceso en todos los puertos excepto aquellos necesarios para tu implementación.

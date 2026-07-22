@@ -1,0 +1,34 @@
+---
+permalink: monitor/monitoring-object-ingest-and-retrieval-rates.html 
+sidebar: sidebar 
+keywords: object ingest rates, object retrieval rates, monitor s3, client operations 
+summary: Puedes supervisar las tasas de consumo y recuperación de objetos, así como las métricas relativas al recuento de objetos, las consultas y la verificación. Puedes ver el número de intentos exitosos y fallidos de las aplicaciones cliente para leer, escribir y modificar objetos en el sistema StorageGRID. 
+---
+= Supervisa las operaciones del cliente S3 en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes supervisar las tasas de consumo y recuperación de objetos, así como las métricas relativas al recuento de objetos, las consultas y la verificación. Puedes ver el número de intentos exitosos y fallidos de las aplicaciones cliente para leer, escribir y modificar objetos en el sistema StorageGRID.
+
+.Antes de empezar
+Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+
+.Pasos
+. Desde el panel de control, selecciona la pestaña *Performance*.
+. Consulta los gráficos de S3, que resumen el número de operaciones de cliente realizadas por los nodos de almacenamiento y el número de solicitudes de API recibidas por los nodos de almacenamiento durante el periodo seleccionado.
+. Selecciona *Nodos* para acceder a la página de Nodos.
+. En la página de inicio de Nodes (nivel de grid), selecciona la pestaña *Objects*.
++
+El gráfico muestra las tasas de consumo y recuperación de S3 para todo tu sistema StorageGRID en bytes por segundo y la cantidad de datos ingeridos o recuperados. Puedes seleccionar un intervalo de tiempo o aplicar un intervalo personalizado.
+
+. Para consultar la información de un nodo de almacenamiento concreto, selecciona el nodo en la lista de la izquierda y selecciona la pestaña *Objetos*.
++
+El gráfico muestra las tasas de ingestión y recuperación del nodo. La pestaña también incluye métricas sobre el recuento de objetos, las consultas de metadatos y las operaciones de verificación.
+
++
+image:nodes_storage_node_objects_help.png["captura de pantalla de Nodes > _Storage Node_ > Objects > attribute help"]
+
+

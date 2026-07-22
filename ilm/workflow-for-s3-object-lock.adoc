@@ -1,0 +1,52 @@
+---
+permalink: ilm/workflow-for-s3-object-lock.html 
+sidebar: sidebar 
+keywords: object lock workflow 
+summary: Como administrador de la grid, debes coordinarte estrechamente con los usuarios de los tenants para garantizar que los objetos estén protegidos de forma que se cumplan sus requisitos de retención. 
+---
+= Flujo de trabajo de S3 Object Lock en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como administrador de la grid, debes coordinarte estrechamente con los usuarios de los tenants para garantizar que los objetos estén protegidos de forma que se cumplan sus requisitos de retención.
+
+
+NOTE: ${post_edited_translations.segment}
+
+Las siguientes listas para administradores de grid y usuarios de inquilinos contienen las tareas a grandes rasgos para usar la función S3 Object Lock.
+
+Administrador de grid::
++
+--
+* Activa la configuración global de S3 Object Lock para todo el sistema StorageGRID.
+* Asegúrate de que las políticas de gestión del ciclo de vida de la información (ILM) sean _conformes_; es decir, que cumplan con link:../ilm/managing-objects-with-s3-object-lock.html["Requisitos de los buckets con S3 Object Lock activado"].
+* Si es necesario, permite que un inquilino utilice Compliance como modo de retención. De lo contrario, solo se permite el modo Governance.
+* Si es necesario, establece un periodo máximo de retención para un tenant.
+
+
+--
+Usuario arrendatario::
++
+--
+* Revisa las consideraciones para los buckets y objetos con S3 Object Lock.
+* Si es necesario, ponte en contacto con el administrador de grid para activar la configuración global de S3 Object Lock y establecer los permisos.
+* ${post_edited_translations.segment}
+* Opcionalmente, configura los ajustes de retención predeterminados para un bucket:
++
+** Modo de retención predeterminado: Governance o Compliance, si lo permite el administrador del grid.
+** Período de retención predeterminado: debe ser menor o igual al período máximo de retención establecido por el administrador de grid.
+
+
+* ${post_edited_translations.segment}
++
+** Modo de retención. Gobernanza o Cumplimiento, si lo permite el administrador de la grid.
+** Fecha de retención: debe ser menor o igual a lo permitido por el periodo máximo de retención establecido por el administrador de grid.
+
+
+
+
+--
+

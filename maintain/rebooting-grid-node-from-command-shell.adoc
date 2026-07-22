@@ -1,0 +1,37 @@
+---
+permalink: maintain/rebooting-grid-node-from-command-shell.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, reboot node, command shell reboot 
+summary: Si necesitas supervisar más de cerca el proceso de reinicio o si no puedes acceder al Grid Manager, puedes iniciar sesión en el nodo de la red y ejecutar el comando de reinicio de Server Manager desde la línea de comandos. 
+---
+= Reinicia el nodo StorageGRID desde el intérprete de comandos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si necesitas supervisar más de cerca el proceso de reinicio o si no puedes acceder al Grid Manager, puedes iniciar sesión en el nodo de la red y ejecutar el comando de reinicio de Server Manager desde la línea de comandos.
+
+.Antes de empezar
+Tienes el archivo  `Passwords.txt`.
+
+.Pasos
+. Inicia sesión en el nodo de la grid:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Si lo deseas, detén los servicios: `service servermanager stop`
++
+Detener los servicios es un paso opcional, aunque recomendable. El proceso de apagado de los servicios puede tardar hasta 15 minutos, por lo que quizá te interese iniciar sesión en el sistema de forma remota para supervisar dicho proceso antes de reiniciar el nodo en el siguiente paso.
+
+. Reinicia el nodo de grid: `reboot`
+. Cierra la sesión del intérprete de comandos: `exit`
+

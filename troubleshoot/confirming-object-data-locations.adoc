@@ -1,0 +1,57 @@
+---
+permalink: troubleshoot/confirming-object-data-locations.html 
+sidebar: sidebar 
+keywords: how to confirm object location, object metadata lookup 
+summary: Dependiendo del problema, es posible que quieras comprobar dónde se almacenan los datos de los objetos. Por ejemplo, quizá quieras verificar que la política de ILM funciona según lo previsto y que los datos de los objetos se almacenan donde se pretende. 
+---
+= Confirma las ubicaciones de los datos de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Según el problema, es posible que quieras link:../audit/object-ingest-transactions.html["confirma dónde se almacenan los datos del objeto"]. Por ejemplo, es posible que quieras verificar que la política de ILM funciona como se espera y que los datos de objetos se están almacenando donde corresponde.
+
+.Antes de empezar
+* ${post_edited_translations.segment}
++
+** *UUID*: el identificador único universal del objeto. Introduce el UUID completamente en mayúsculas.
+** *CBID*: el identificador único del objeto dentro de StorageGRID. Puedes obtener el CBID de un objeto a partir del registro de auditoría. Introduce el CBID todo en mayúsculas.
+** *Depósito S3 y clave de objeto*: Cuando se importa un objeto a través de link:../s3/operations-on-objects.html["${post_edited_translations.segment}"], la aplicación cliente utiliza una combinación de depósito y clave de objeto para almacenar e identificar el objeto.
+
+
+
+
+.Pasos
+. Selecciona *ILM* > *Búsqueda de metadatos de objetos*.
+. Escribe el identificador del objeto en el campo *Identificador*.
++
+Puedes introducir un UUID, un CBID o un bucket/clave de objeto de S3.
+
+. ${post_edited_translations.segment}
++
+image:object_lookup.png["Página de búsqueda de objetos"]
+
+. Selecciona *Buscar*.
++
+Los link:../ilm/verifying-ilm-policy-with-object-metadata-lookup.html["${post_edited_translations.segment}"] aparecen. Esta página muestra los siguientes tipos de información:
+
++
+** ${post_edited_translations.segment}
+** Cualquier par clave-valor de metadatos de usuario personalizados asociados al objeto.
+** Para los objetos de S3, cualquier par clave-valor de etiquetas asociado con el objeto.
+** En el caso de las copias replicadas de objetos, la ubicación de almacenamiento actual de cada copia.
+** ${post_edited_translations.segment}
+** Para las copias de objetos en un Cloud Storage Pool, la ubicación del objeto, incluyendo el nombre del bucket externo y el identificador único del objeto.
+** En el caso de los objetos segmentados y los objetos compuestos, una lista de los segmentos del objeto que incluye los identificadores de los segmentos y los tamaños de los datos. Para los objetos con más de 100 segmentos, solo se muestran los primeros 100 segmentos.
+** Todos los metadatos de los objetos en el formato de almacenamiento interno sin procesar. Estos metadatos sin procesar incluyen metadatos internos del sistema cuya persistencia no está garantizada de una versión a otra.
++
+El siguiente ejemplo muestra los resultados de la consulta de metadatos de un objeto de prueba de S3 almacenado en dos copias replicadas.
+
+
+
++
+image:object_lookup_results.png["Resultados de la búsqueda de objetos"]
+
+

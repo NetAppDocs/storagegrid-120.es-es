@@ -1,0 +1,49 @@
+---
+permalink: admin/viewing-storagegrid-license-information.html 
+sidebar: sidebar 
+keywords: storagegrid license, view license, licensed capacity of grid 
+summary: Puedes ver la información de la licencia de tu sistema StorageGRID, como la capacidad de almacenamiento máxima de tu grid, cuando lo necesites. 
+---
+= Ver la información de la licencia de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes ver la información de la licencia de tu sistema StorageGRID, como la capacidad de almacenamiento máxima de tu grid, cuando lo necesites.
+
+.Antes de empezar
+Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+
+.Acerca de esta tarea
+Si hay algún problema con la licencia de software de este sistema StorageGRID, la tarjeta de estado de salud en el panel incluye un icono de estado de licencia y un enlace *Licencia*. El número indica la cantidad de problemas relacionados con la licencia.
+
+image:dashboard_health_panel_license_status.png["${post_edited_translations.segment}"]
+
+.Pasos
+. ${post_edited_translations.segment}
++
+** Selecciona *Mantenimiento* > *Sistema* > *Licencia*.
+** ${post_edited_translations.segment}
++
+Este enlace solo aparece si hay algún problema con la licencia.
+
+
+
+. Consulta los detalles de solo lectura de la licencia actual:
++
+** ${post_edited_translations.segment}
+** Número de serie de la licencia
+** ${post_edited_translations.segment}
+** Capacidad de almacenamiento autorizada de la grid
+** ${post_edited_translations.segment}
+** Fecha de vencimiento de la licencia. *N/A* aparece para una licencia perpetua.
+** ${post_edited_translations.segment}
++
+Esta fecha se lee desde el archivo de licencia actual y podría estar desactualizada si ampliaste o renovaste el contrato de servicio de soporte después de obtener el archivo de licencia. Para actualizar este valor, consulta link:updating-storagegrid-license-information.html["Actualizar la información de la licencia de StorageGRID"]. También puedes ver la fecha de finalización real del contrato usando Active IQ.
+
+** Contenido del archivo de texto de la licencia
+
+
+

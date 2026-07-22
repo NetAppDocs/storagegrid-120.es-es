@@ -1,0 +1,138 @@
+---
+permalink: admin/manage-firewall-controls.html 
+sidebar: sidebar 
+keywords: firewall controls, untrusted client network, privileged address, manage external access 
+summary: StorageGRID incluye un cortafuegos interno en cada nodo que mejora la seguridad de tu grid al permitirte personalizar el acceso a la Grid Network, Admin Network y Client Network. 
+---
+= Administra los controles internos de firewall en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID incluye un cortafuegos interno en cada nodo que mejora la seguridad de tu grid al permitirte controlar el acceso de red al nodo. Usa el cortafuegos para evitar el acceso de red en todos los puertos excepto en los necesarios para tu implementación específica de grid. Los cambios de configuración que hagas en la página de control del cortafuegos se aplican a cada nodo.
+
+${post_edited_translations.segment}
+
+* *Lista de direcciones con privilegios*: utiliza esta pestaña para permitir el acceso seleccionado a los puertos cerrados. Puedes añadir direcciones IP o subredes en notación CIDR que puedan acceder a los puertos cerrados mediante la pestaña Gestionar acceso externo.
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
++
+La configuración de esta pestaña prevalece sobre la de la pestaña Gestionar acceso externo.
+
++
+** Un nodo con una red de clientes no fiable solo aceptará conexiones en los puertos de los puntos finales del equilibrador de carga configurados en dicho nodo (puntos finales globales, de interfaz de nodo y vinculados al tipo de nodo).
+** ${post_edited_translations.segment}
+** Cuando se consideran de confianza, se puede acceder a todos los puertos abiertos en la pestaña Gestionar acceso externo, así como a cualquier endpoint del equilibrador de carga abierto en la Client Network.
+
+
+
+
+
+NOTE: La configuración que realices en una pestaña puede afectar a los cambios de acceso que realices en otra pestaña. Asegúrate de comprobar la configuración de todas las pestañas para garantizar que tu red funcione tal y como esperas.
+
+Para configurar los controles del cortafuegos interno, consulta link:../admin/configure-firewall-controls.html["Configura los controles del cortafuegos"].
+
+Para obtener más información sobre los firewalls externos y la seguridad de la red, consulta link:../admin/controlling-access-through-firewalls.html["Controla el acceso en el cortafuegos externo"].
+
+
+
+[[privileged-address-list-and-manage-external-access-tabs]]
+== ${post_edited_translations.segment}
+
+La pestaña Privileged address list te permite registrar una o más direcciones IP para permitirles el acceso a los puertos de la grid que están cerrados. La pestaña Manage external access te permite cerrar el acceso externo a los puertos externos seleccionados o a todos los puertos externos abiertos (los puertos externos son aquellos a los que pueden acceder los nodos que no pertenecen a la grid de forma predeterminada). A menudo puedes utilizar estas dos pestañas juntas para personalizar el acceso exacto a la red que necesitas permitir para tu grid.
+
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+[[example-1-use-a-jump-host-for-maintenance-tasks]]
+=== Ejemplo 1: usa un servidor de enlace para tareas de mantenimiento
+
+Supón que quieres usar un jump host (un host con seguridad reforzada) para la administración de la red. Podrías seguir estos pasos generales:
+
+. Utiliza la pestaña «Lista de direcciones privilegiadas» para añadir la dirección IP del jump host.
+. ${post_edited_translations.segment}
+
+
+
+CAUTION: Añade la dirección IP privilegiada antes de bloquear los puertos 443 y 8443. Cualquier usuario que esté conectado actualmente a un puerto bloqueado, incluido tú, perderá el acceso a Grid Manager a menos que su dirección IP se haya añadido a la lista de direcciones privilegiadas.
+
+Después de guardar tu configuración, todos los puertos externos del Admin Node de tu grid se bloquearán para todos los hosts, excepto para el jump host. Luego puedes usar el jump host para realizar tareas de mantenimiento en tu grid de forma más segura.
+
+
+
+[[example-2-lock-down-sensitive-ports]]
+=== ${post_edited_translations.segment}
+
+Supongamos que quieres bloquear los puertos sensibles y el servicio en ese puerto. Podrías seguir estos pasos generales:
+
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+
+
+
+CAUTION: Añade la dirección IP privilegiada antes de bloquear el acceso a cualquier puerto asignado para acceder a Grid Manager y Tenant Manager (los puertos preestablecidos son 443 y 8443). Cualquier usuario que esté conectado actualmente a un puerto bloqueado, incluido tú, perderá el acceso a Grid Manager a menos que su dirección IP se haya añadido a la lista de direcciones privilegiadas.
+
+Después de que guardes tu configuración, el puerto sensible y el servicio en ese puerto estarán disponibles para los hosts en la lista de direcciones privilegiadas. A todos los demás hosts se les negará el acceso al servicio sin importar desde qué interfaz provenga la solicitud.
+
+
+
+[[example-3-disable-access-to-unused-services]]
+=== Ejemplo 3: desactivar el acceso a los servicios que no se utilizan
+
+A nivel de red, puedes desactivar algunos servicios que no tengas previsto utilizar. Por ejemplo, para bloquear el tráfico de clientes HTTP S3, usarías el interruptor de la pestaña Manage external access para bloquear el puerto 18084.
+
+
+
+[[untrusted-client-networks-tab]]
+== ${post_edited_translations.segment}
+
+Si utilizas una red de clientes, puedes ayudar a proteger StorageGRID de ataques hostiles aceptando el tráfico entrante de clientes solo en los endpoints configurados explícitamente.
+
+De forma predeterminada, la red de clientes de cada nodo de grid es de _confianza_. Es decir, de forma predeterminada, StorageGRID confía en las conexiones entrantes a cada nodo de grid en todos los link:../network/external-communications.html["puertos externos disponibles"].
+
+Puedes reducir la amenaza de ataques hostiles contra tu sistema StorageGRID especificando que la Client Network de cada nodo sea _untrusted_. Si la Client Network de un nodo es untrusted, el nodo solo acepta conexiones entrantes en los puertos configurados explícitamente como endpoints del load balancer. Consulta link:../admin/configuring-load-balancer-endpoints.html["Configura los puntos de conexión del equilibrador de carga"] y link:../admin/configure-firewall-controls.html["Configura los controles del cortafuegos"].
+
+
+
+[[example-1-gateway-node-only-accepts-https-s3-requests]]
+=== Ejemplo 1: el nodo de puerta de enlace solo acepta solicitudes HTTPS S3
+
+Supongamos que quieres que un nodo de puerta de enlace rechace todo el tráfico entrante en la red del cliente, excepto las solicitudes HTTPS S3. Para ello, deberías seguir estos pasos generales:
+
+. Desde la página link:../admin/configuring-load-balancer-endpoints.html["${post_edited_translations.segment}"], configura un endpoint del equilibrador de carga para S3 sobre HTTPS en el puerto 443.
+. En la página de control del cortafuegos, selecciona No fiable para indicar que la Client Network en el Gateway Node no es fiable.
+
+
+${post_edited_translations.segment}
+
+
+
+[[example-2-storage-node-sends-s3-platform-services-requests]]
+=== ${post_edited_translations.segment}
+
+Supongamos que quieres habilitar el tráfico saliente de los servicios de la plataforma S3 desde un nodo de almacenamiento, pero quieres impedir cualquier conexión entrante a ese nodo de almacenamiento desde la red del cliente. Realizarías este paso general:
+
+* ${post_edited_translations.segment}
+
+
+${post_edited_translations.segment}
+
+
+
+[[example-3-limiting-access-to-grid-manager-to-a-subnet]]
+=== Ejemplo 3: limitar el acceso a Grid Manager a una subred
+
+Supongamos que quieres permitir el acceso a Grid Manager únicamente en una subred concreta. Realiza los siguientes pasos:
+
+. Conecta la red de clientes de tus nodos de administración a la subred.
+. Utiliza la pestaña Untrusted Client Network para configurar la Client Network como no fiable.
+. Cuando creas un punto de conexión del equilibrador de carga de la interfaz de gestión, introduce el puerto y selecciona la interfaz de gestión a la que accederá el puerto.
+. ${post_edited_translations.segment}
+. Utiliza la pestaña «Gestionar acceso externo» para bloquear todos los puertos externos (con o sin direcciones IP privilegiadas configuradas para los hosts fuera de esa subred).
+
+
+Una vez que guardes tu configuración, solo los hosts de la subred que especificaste podrán acceder al Grid Manager. Todos los demás hosts quedarán bloqueados.

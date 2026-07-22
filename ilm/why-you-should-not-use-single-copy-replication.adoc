@@ -1,0 +1,29 @@
+---
+permalink: ilm/why-you-should-not-use-single-copy-replication.html 
+sidebar: sidebar 
+keywords: dual commit, single commit, number of copies for replication 
+summary: Al crear una regla de ILM para generar copias replicadas, siempre debes especificar al menos dos copias para cualquier periodo de tiempo en las instrucciones de ubicación. 
+---
+= Riesgos de la replicación de una sola copia en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al crear una regla de ILM para generar copias replicadas, siempre debes especificar al menos dos copias para cualquier periodo de tiempo en las instrucciones de ubicación.
+
+
+NOTE: No utilices una regla de ILM que cree una sola copia replicada durante cualquier periodo de tiempo. Si solo existe una copia replicada de un objeto, ese objeto se pierde si un Storage Node falla o tiene un error importante. También perderás temporalmente el acceso al objeto durante procedimientos de mantenimiento como las actualizaciones.
+
+En el siguiente ejemplo, la regla ILM «Make 1 Copy» especifica que se coloque una copia replicada de un objeto en un grupo de almacenamiento que contiene tres Storage Nodes. Cuando se ingiere un objeto que coincide con esta regla, StorageGRID coloca una sola copia en solo un Storage Node.
+
+image:ilm_replication_make_1_copy.png["Replicación ILM hacer 1 copia"]
+
+Cuando una regla de ILM crea solo una copia replicada de un objeto, el objeto se vuelve inaccesible cuando el nodo de almacenamiento no está disponible. En este ejemplo, perderás temporalmente el acceso al objeto AAA cada vez que el nodo de almacenamiento 2 esté fuera de línea, como durante una actualización u otro procedimiento de mantenimiento. Perderás por completo el objeto AAA si el nodo de almacenamiento 2 falla.
+
+image:ilm_replication_make_1_copy_sn_fails.png["Error al hacer 1 copia en la replicación de ILM SN"]
+
+Para evitar la pérdida de datos de los objetos, debes crear siempre al menos dos copias de todos los objetos que desees proteger mediante replicación. Si existen dos o más copias, puedes seguir accediendo al objeto si uno de los Storage Node falla o queda fuera de línea.
+
+image:ilm_replication_make_2_copies_sn_fails.png["La replicación de ILM crea dos copias, SN falla"]

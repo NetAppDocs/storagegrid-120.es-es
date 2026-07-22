@@ -1,0 +1,99 @@
+---
+permalink: tenant/understanding-tenant-manager-dashboard.html 
+sidebar: sidebar 
+keywords: how to understand tenant manager dashboard 
+summary: El panel de control de Tenant Manager ofrece una visión general de la configuración de la cuenta de un tenant y de la cantidad de espacio utilizado por los objetos en los buckets de S3 de ese tenant. Si el tenant tiene una cuota, el panel de control muestra cuánto de la cuota se ha utilizado y cuánto queda disponible. Si hay algún error relacionado con la cuenta del tenant, los errores se muestran en el panel de control. 
+---
+= Panel de control de Tenant Manager en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El panel de control de Tenant Manager ofrece una visión general de la configuración de la cuenta de un tenant y de la cantidad de espacio utilizado por los objetos en los buckets S3 del tenant. Si el tenant tiene una cuota, el panel de control muestra cuánto de la cuota se ha utilizado y cuánto queda disponible. Si hay algún error relacionado con la cuenta del tenant, los errores se muestran en el panel de control.
+
+
+NOTE: El tamaño lógico de todos los objetos pertenecientes a este inquilino incluye las subidas multiparte incompletas y en curso. El tamaño no incluye el espacio físico adicional utilizado para las políticas de ILM. Los valores de espacio utilizado son estimaciones. Estas estimaciones se ven afectadas por el momento en que se realizan las ingestas, la conectividad de red y el estado de los nodos.
+
+Cuando los objetos se han subido, el panel de control se ve como en el siguiente ejemplo:
+
+image:tenant_dashboard_with_buckets.png["Panel de control - Lista de buckets"]
+
+
+
+[[tenant-account-information]]
+== Información de la cuenta del inquilino
+
+En la parte superior del panel de control se muestra el número de buckets o contenedores, grupos y usuarios configurados. También se muestra el número de puntos de conexión de los servicios de la plataforma, en caso de que se haya configurado alguno. Selecciona los enlaces para ver los detalles.
+
+En función del link:tenant-management-permissions.html["permisos de gestión de inquilinos"] que tengas y de las opciones que hayas configurado, el resto del panel de control muestra diversas combinaciones de directrices, uso del almacenamiento, información sobre los objetos y detalles del inquilino.
+
+
+
+[[storage-and-quota-usage]]
+== Almacenamiento y uso de cuotas
+
+El panel «Uso del almacenamiento» contiene la siguiente información:
+
+* La cantidad de datos de objetos del inquilino.
++
+Este valor indica la cantidad total de datos de objetos cargados y no representa el espacio utilizado para almacenar copias de esos objetos y sus metadatos.
+
+* Si se establece una cuota, se muestra la cantidad total de espacio disponible para los datos de objetos y la cantidad y el porcentaje de espacio restante. La cuota limita la cantidad de datos de objetos que se pueden ingerir.
++
+
+CAUTION: El uso de la cuota se basa en estimaciones internas y podría superarse en algunos casos. Por ejemplo, StorageGRID comprueba la cuota cuando un inquilino comienza a cargar objetos y rechaza nuevas cargas si el inquilino ha superado la cuota. Sin embargo, StorageGRID no tiene en cuenta el tamaño de la carga actual al determinar si se ha superado la cuota. Si se eliminan objetos, es posible que temporalmente se impida al inquilino cargar nuevos objetos hasta que se recalcule el uso de la cuota. El cálculo del uso de la cuota puede tardar 10 minutos o más.
+
+* Un gráfico de barras que representa los tamaños relativos de los cubos o contenedores más grandes.
++
+Puedes situar el cursor sobre cualquiera de los segmentos del gráfico para ver el espacio total que ocupa ese bucket o contenedor.
+
++
+image:tenant_dashboard_storage_usage_segment.png["Segmento del gráfico de barras"]
+
+* Para corresponder con el gráfico de barras, una lista de los buckets o contenedores más grandes, incluyendo la cantidad total de datos de objetos y el número de objetos de cada bucket o contenedor.
++
+image:tenant_dashboard_buckets.png["Buckets del panel de control del inquilino"]
+
++
+Si el inquilino tiene más de nueve buckets o contenedores, todos los demás buckets o contenedores se agrupan en una única entrada al final de la lista.
+
+
+
+
+NOTE: Para cambiar las unidades de los valores de almacenamiento que se muestran en el Tenant Manager, selecciona el menú desplegable de usuario situado en la esquina superior derecha del Tenant Manager y luego selecciona *User preferences*.
+
+
+
+[[quota-usage-alerts]]
+== ${post_edited_translations.segment}
+
+Si se han activado las alertas de uso de cuotas en el Grid Manager, estas alertas aparecerán en el Tenant Manager cuando la cuota sea baja o se haya superado, como sigue:
+
+* Si se ha consumido el 90 % o más de la cuota de un inquilino, se activa la alerta *Alto consumo de la cuota del inquilino*.
++
+Plantéate pedirle al administrador de la grid que aumente la cuota.
+
+* Si superas tu cuota, aparecerá un aviso indicándote que no puedes subir nuevos objetos.
+
+
+
+
+[[bucket-capacity-usagecapacity-limit-usage]]
+== [[bucket-capacity-usage]]Uso del límite de capacidad
+
+${post_edited_translations.segment}
+
+Si no se establece ningún límite para un bucket, su capacidad es ilimitada. Sin embargo, si tu cuenta de inquilino tiene una cuota de almacenamiento total y se alcanza dicha cuota, no podrás añadir más objetos independientemente del límite de capacidad restante en un bucket.
+
+
+
+[[endpoint-errors]]
+== Errores de endpoint
+
+Si has utilizado el Grid Manager para configurar uno o más endpoints para usarlos con los servicios de plataforma, el panel de control de Tenant Manager muestra una alerta si ha ocurrido algún error en algún endpoint en los últimos siete días.
+
+image:tenant_dashboard_endpoint_error.png["Panel de control que muestra el mensaje del endpoint"]
+
+Para ver detalles sobre link:troubleshooting-platform-services-endpoint-errors.html["Errores en los endpoints de los servicios de plataforma"], selecciona *Endpoints* para mostrar la página Endpoints.

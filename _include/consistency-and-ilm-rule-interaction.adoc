@@ -1,0 +1,17 @@
+= 
+:allow-uri-read: 
+
+
+${post_edited_translations.segment}
+
+* *Regla de ILM*: crea tres copias de objeto, una en el sitio local y otra en cada sitio remoto. Usa el comportamiento de ingesta Strict.
+* *Consistencia*: Global fuerte (los metadatos de los objetos se distribuyen inmediatamente a varios sitios).
+
+
+${post_edited_translations.segment}
+
+El objeto queda totalmente protegido contra la pérdida en el momento en que se recibe el mensaje de ingesta correcta. Por ejemplo, si el sitio local se pierde poco después de la ingesta, siguen existiendo copias tanto de los datos del objeto como de los metadatos del objeto en los sitios remotos. El objeto se puede recuperar íntegramente desde los demás sitios.
+
+Si, por el contrario, usaste la misma regla de ILM y la consistencia de sitio fuerte, el cliente podría recibir un mensaje de éxito después de que los datos del objeto se replican en los sitios remotos, pero antes de que los metadatos del objeto se distribuyan allí. En este caso, el nivel de protección de los metadatos del objeto no coincide con el nivel de protección de los datos del objeto. Si el sitio local se pierde poco después de la ingesta, se pierden los metadatos del objeto. El objeto no se puede recuperar.
+
+La interrelación entre la coherencia y las reglas de ILM puede ser compleja. Ponte en contacto con NetApp si necesitas ayuda.

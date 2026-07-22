@@ -1,0 +1,55 @@
+---
+permalink: audit/ecoc-corrupt-erasure-coded-data-fragment.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ECOC, Corrupt Erasure-Coded Data Fragment 
+summary: Este mensaje de auditoría indica que el sistema ha detectado un fragmento de datos con código de borrado dañado. 
+---
+= Mensaje de auditoría ECOC para datos con código de borrado corruptos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje de auditoría indica que el sistema ha detectado un fragmento de datos con código de borrado dañado.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+VCCO
+ a| 
+ID de VCS
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+VLID
+ a| 
+ID de volumen
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+El identificador del fragmento con código de borrado dañado.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+Este campo tiene el valor «NONE». RSLT es un campo obligatorio del mensaje, pero no es relevante para este mensaje en concreto. Se utiliza «NONE» en lugar de «SUCS» para que este mensaje no sea filtrado.
+
+|===

@@ -1,0 +1,65 @@
+---
+permalink: maintain/grid-node-decommissioning.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission, remove grid node 
+summary: Puedes utilizar el procedimiento de decomisionar nodos para eliminar uno o varios nodos de la grid en uno o varios sitios. No puedes decomisionar el nodo de administración principal. 
+---
+= Decomisionar un nodo de grid de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes usar el procedimiento de decomisionar nodos para eliminar uno o más nodos de la grid en uno o más sitios. No puedes decomisionar el nodo de administración principal.
+
+
+
+[[when-to-decommission-a-node]]
+== Cuándo decomisionar un nodo
+
+Utiliza el procedimiento de decomisionar el nodo cuando se cumpla alguna de las siguientes condiciones:
+
+* Has añadido un nodo de almacenamiento más grande en una ampliación y quieres eliminar uno o varios nodos de almacenamiento más pequeños, conservando al mismo tiempo los objetos.
++
+
+TIP: Si quieres sustituir un dispositivo antiguo por uno más nuevo, plantéate  https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html["clonación del nodo del appliance"^] en lugar de añadir un nuevo dispositivo en una ampliación y luego decomisionar el dispositivo antiguo.
+
+* Necesitas menos espacio de almacenamiento en total.
+* Ya no necesitas un nodo de puerta de enlace.
+* Ya no necesitas un nodo de administración secundario.
+* Tu grid incluye un nodo desconectado que no puedes recuperar ni volver a poner en línea.
+* Tu grid incluye un Archive Node.
+
+
+
+
+[[how-to-decommission-a-node]]
+== Cómo decomisionar un nodo
+
+Puedes decomisionar nodos de grid conectados o nodos de grid desconectados.
+
+Decomisionar los nodos conectados:: En general, solo debes decomisionar nodos de la red cuando estén conectados al sistema StorageGRID y solo cuando todos los nodos se encuentren en buen estado (con iconos verdes en las páginas *Nodos* y en la página *Decomisionar nodos*).
++
+--
+Para ver las instrucciones, consulta link:decommissioning-connected-grid-nodes.html["Decomisionar los nodos conectados a la red"].
+
+--
+Decomisionar los nodos desconectados:: En algunos casos, es posible que tengas que decomisionar un nodo de la red que no esté conectado actualmente a la red (uno cuyo estado sea Desconocido o Administrativamente inactivo).
++
+--
+Para ver las instrucciones, consulta link:decommissioning-disconnected-grid-nodes.html["Decomisionar nodos de grid desconectados"].
+
+--
+
+
+
+
+[[what-to-consider-before-decommissioning-a-node]]
+== Qué hay que tener en cuenta antes de decomisionar un nodo
+
+Antes de realizar cualquiera de los dos procedimientos, revisa las consideraciones para cada tipo de nodo:
+
+* link:considerations-for-decommissioning-admin-or-gateway-nodes.html["Aspectos a tener en cuenta para decomisionar un nodo de administración o de pasarela"]
+* link:considerations-for-decommissioning-storage-nodes.html["Aspectos a tener en cuenta para decomisionar un nodo de almacenamiento"]
+

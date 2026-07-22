@@ -1,0 +1,237 @@
+---
+permalink: s3/example-bucket-policies.html 
+sidebar: sidebar 
+keywords: bucket policy examples 
+summary: Utiliza los ejemplos de esta sección para crear políticas de acceso de StorageGRID para los buckets. 
+---
+= Ejemplos de políticas de bucket de la API de REST de StorageGRID S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utiliza los ejemplos de esta sección para crear políticas de acceso de StorageGRID para los buckets.
+
+Las políticas de bucket especifican los permisos de acceso para el bucket al que está asociada la política. Configuras una política de bucket usando la API de S3 PutBucketPolicy a través de una de estas herramientas:
+
+* link:../tenant/manage-bucket-policy.html["Administrador de inquilinos"].
+* AWS CLI con este comando (consulta link:operations-on-buckets.html["Operaciones en cubos"]):
++
+[listing, subs="specialcharacters,quotes"]
+----
+> aws s3api put-bucket-policy --bucket examplebucket --policy _file://policy.json_
+----
+
+
+
+
+[[example-allow-everyone-read-only-access-to-a-bucket]]
+== Ejemplo: permitir a todos acceso de solo lectura a un bucket
+
+En este ejemplo, todos, incluidos los anónimos, pueden listar objetos en el bucket y realizar operaciones GetObject en todos los objetos del bucket. Todas las demás operaciones serán denegadas. Ten en cuenta que esta política podría no ser especialmente útil porque nadie excepto el usuario raíz de la cuenta tiene permisos para escribir en el bucket.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Sid": "AllowEveryoneReadOnlyAccess",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": [ "s3:GetObject", "s3:ListBucket" ],
+      "Resource": ["arn:aws:s3:::examplebucket","arn:aws:s3:::examplebucket/*"]
+    }
+  ]
+}
+----
+
+
+[[example-allow-everyone-in-one-account-full-access-and-everyone-in-another-account-read-only-access-to-a-bucket]]
+== Ejemplo: concede acceso completo a todos los usuarios de una cuenta y acceso de solo lectura a todos los usuarios de otra cuenta a un bucket
+
+En este ejemplo, todos en una cuenta especificada tienen acceso completo a un bucket, mientras que todos en otra cuenta especificada solo pueden listar el bucket y realizar operaciones GetObject en los objetos del bucket que comiencen con el prefijo de clave de objeto `shared/`.
+
+
+NOTE: En StorageGRID, los objetos creados por una cuenta que no sea la del propietario (incluidas las cuentas anónimas) son propiedad de la cuenta del propietario del bucket. La política del bucket se aplica a estos objetos.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "95390887230002558202"
+      },
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::examplebucket",
+        "arn:aws:s3:::examplebucket/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "31181711887329436680"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::examplebucket/shared/*"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "31181711887329436680"
+      },
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::examplebucket",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": "shared/*"
+        }
+      }
+    }
+  ]
+}
+----
+
+
+[[example-allow-everyone-read-only-access-to-a-bucket-and-full-access-by-specified-group]]
+== Ejemplo: conceder a todos acceso de solo lectura a un bucket y acceso completo a un grupo específico
+
+En este ejemplo, todos, incluidos los anónimos, pueden listar el bucket y realizar operaciones GetObject en todos los objetos del bucket, mientras que solo los usuarios que pertenecen al grupo `Marketing` en la cuenta especificada tienen acceso completo.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::95390887230002558202:federated-group/Marketing"
+      },
+      "Action": "s3:*",
+      "Resource": [
+        "arn:aws:s3:::examplebucket",
+        "arn:aws:s3:::examplebucket/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": ["s3:ListBucket","s3:GetObject"],
+      "Resource": [
+        "arn:aws:s3:::examplebucket",
+        "arn:aws:s3:::examplebucket/*"
+      ]
+    }
+  ]
+}
+----
+
+
+[[example-allow-everyone-read-and-write-access-to-a-bucket-if-client-in-ip-range]]
+== Ejemplo: permitir a todos acceso de lectura y escritura a un bucket si el cliente se encuentra en un rango de direcciones IP
+
+En este ejemplo, se permite a todo el mundo, incluidos los usuarios anónimos, consultar el contenido del bucket y realizar cualquier operación sobre todos los objetos del mismo, siempre que las solicitudes procedan de un rango de direcciones IP específico (de 54.240.143.0 a 54.240.143.255, excepto 54.240.143.188). El resto de operaciones serán denegadas, y todas las solicitudes fuera de ese rango de direcciones IP serán denegadas.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Sid": "AllowEveryoneReadWriteAccessIfInSourceIpRange",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": [ "s3:*Object", "s3:ListBucket" ],
+      "Resource": ["arn:aws:s3:::examplebucket","arn:aws:s3:::examplebucket/*"],
+      "Condition": {
+        "IpAddress": {"aws:SourceIp": "54.240.143.0/24"},
+        "NotIpAddress": {"aws:SourceIp": "54.240.143.188"}
+      }
+    }
+  ]
+}
+----
+
+
+[[example-allow-full-access-to-a-bucket-exclusively-by-a-specified-federated-user]]
+== Ejemplo: permitir el acceso completo a un depósito exclusivamente a un usuario federado específico
+
+En este ejemplo, al usuario federado Alex se le permite acceso completo al bucket `examplebucket` y a sus objetos. A todos los demás usuarios, incluido '`root`', se les deniegan explícitamente todas las operaciones. Sin embargo, ten en cuenta que a '`root`' nunca se le deniegan los permisos para Put/Get/DeleteBucketPolicy.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::95390887230002558202:federated-user/Alex"
+      },
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::examplebucket",
+        "arn:aws:s3:::examplebucket/*"
+      ]
+    },
+    {
+      "Effect": "Deny",
+      "NotPrincipal": {
+        "AWS": "arn:aws:iam::95390887230002558202:federated-user/Alex"
+      },
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": [
+        "arn:aws:s3:::examplebucket",
+        "arn:aws:s3:::examplebucket/*"
+      ]
+    }
+  ]
+}
+----
+
+
+[[example-putoverwriteobject-permission]]
+== Ejemplo: permiso PutOverwriteObject
+
+En este ejemplo, el `Deny` efecto de PutOverwriteObject y DeleteObject garantiza que nadie pueda sobrescribir ni eliminar los datos del objeto, los metadatos definidos por el usuario ni las etiquetas del objeto S3.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": [
+        "s3:PutOverwriteObject",
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion"
+      ],
+      "Resource": "arn:aws:s3:::wormbucket/*"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::95390887230002558202:federated-group/SomeGroup"
+
+},
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::wormbucket"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::95390887230002558202:federated-group/SomeGroup"
+
+},
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::wormbucket/*"
+    }
+  ]
+}
+----

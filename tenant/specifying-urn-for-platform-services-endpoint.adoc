@@ -1,0 +1,181 @@
+---
+permalink: tenant/specifying-urn-for-platform-services-endpoint.html 
+sidebar: sidebar 
+keywords: how to specify platform services urn 
+summary: 'Al crear un punto final de servicios de plataforma, debes especificar un nombre de recurso único (URN). Utilizarás el URN para hacer referencia al punto final cuando crees un archivo XML de configuración para el servicio de plataforma. El URN de cada punto final debe ser único.' 
+---
+= Especifica un URN para un endpoint de servicios de plataforma StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al crear un punto final de servicios de plataforma, debes especificar un nombre de recurso único (URN). Utilizarás el URN para hacer referencia al punto final cuando crees un archivo XML de configuración para el servicio de plataforma. El URN de cada punto final debe ser único.
+
+StorageGRID valida los endpoints de servicios de plataforma a medida que los creas. Antes de crear un endpoint de servicios de plataforma, confirma que el recurso especificado en el endpoint existe y que se puede acceder a él.
+
+
+
+[[urn-elements]]
+== ${post_edited_translations.segment}
+
+El URN para un endpoint de servicios de plataforma debe comenzar con `arn:aws` o con `urn:mysite`, de la siguiente manera:
+
+* Si el servicio está alojado en Amazon Web Services (AWS), utiliza `arn:aws`
+* Si el servicio está alojado en Google Cloud Platform (GCP), usa `arn:aws`
+* Si el servicio está alojado localmente, usa `urn:mysite`
+
+
+Por ejemplo, si estás especificando el URN para un endpoint de CloudMirror alojado en StorageGRID, el URN podría comenzar con `urn:sgws`.
+
+${post_edited_translations.segment}
+
+[cols="2a,1a"]
+|===
+| Servicio | Tipo 
+
+
+ a| 
+CloudMirror replicación
+ a| 
+`s3`
+
+
+
+ a| 
+Notificaciones
+ a| 
+`sns`, `kafka`, o `webhook`
+
+
+
+ a| 
+Integración de búsqueda
+ a| 
+`es`
+
+|===
+Por ejemplo, para continuar especificando la URN de un endpoint de CloudMirror alojado en StorageGRID, añadirías `s3` para obtener `urn:sgws:s3`.
+
+Para la mayoría de los endpoints, el elemento final del URN identifica el recurso de destino específico en la URI de destino, por ejemplo, `sns-topic-name`.
+
+${post_edited_translations.segment}
+
+[cols="1a,2a"]
+|===
+| Servicio | ${post_edited_translations.segment} 
+
+
+ a| 
+CloudMirror replicación
+ a| 
+`bucket-name`
+
+
+
+ a| 
+Notificaciones
+ a| 
+`sns-topic-name` o  `kafka-topic-name`
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+Integración de búsqueda
+ a| 
+`domain-name/index-name/type-name`
+
+${post_edited_translations.segment}
+
+|===
+
+
+[[urns-for-services-hosted-on-aws-and-gcp]]
+== URNs para servicios alojados en AWS y GCP
+
+Para las entidades de AWS y GCP, el URN completo es un ARN de AWS válido. Por ejemplo:
+
+* Replicación de CloudMirror:
++
+[listing]
+----
+arn:aws:s3:::bucket-name
+----
+* ${post_edited_translations.segment}
++
+[listing]
+----
+arn:aws:sns:region:account-id:topic-name
+----
+* ${post_edited_translations.segment}
++
+[listing]
+----
+arn:aws:es:region:account-id:domain/domain-name/index-name/type-name
+----
++
+
+NOTE: Para un endpoint de integración de búsqueda de AWS, el `domain-name` debe incluir la cadena literal `domain/`, como se muestra aquí.
+
+
+
+
+
+[[urns-for-locally-hosted-services]]
+== ${post_edited_translations.segment}
+
+Cuando utilices servicios alojados localmente en lugar de servicios en la nube, puedes especificar el URN de cualquier forma que cree un URN válido y único, siempre que el URN incluya los elementos requeridos en la tercera y última posición. Puedes dejar en blanco los elementos indicados como opcionales, o puedes especificarlos de cualquier forma que te ayude a identificar el recurso y hacer que el URN sea único. Por ejemplo:
+
+* Replicación de CloudMirror:
++
+[listing]
+----
+urn:mysite:s3:optional:optional:bucket-name
+----
++
+Para un endpoint de CloudMirror alojado en StorageGRID, puedes especificar un URN válido que comience con `urn:sgws`:
+
++
+[listing]
+----
+urn:sgws:s3:optional:optional:bucket-name
+----
+* ${post_edited_translations.segment}
++
+${post_edited_translations.segment}
+
++
+[listing]
+----
+urn:mysite:sns:optional:optional:sns-topic-name
+----
++
+${post_edited_translations.segment}
+
++
+[listing]
+----
+urn:mysite:kafka:optional:optional:kafka-topic-name
+----
++
+${post_edited_translations.segment}
+
++
+[listing]
+----
+urn:mysite:webhook:optional:optional:webhook-name
+----
+* ${post_edited_translations.segment}
++
+[listing]
+----
+urn:mysite:es:optional:optional:domain-name/index-name/type-name
+----
++
+
+NOTE: Para los endpoints de integración de búsqueda alojados localmente, el `domain-name` elemento puede ser cualquier cadena siempre que el URN del endpoint sea único.
+
+

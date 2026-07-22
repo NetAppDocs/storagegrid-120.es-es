@@ -1,0 +1,59 @@
+---
+permalink: maintain/how-your-system-is-affected-when-you-apply-hotfix.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix 
+summary: Debes comprender cómo se verá afectado tu sistema StorageGRID al aplicar una corrección urgente. 
+---
+= Cómo se ve afectado StorageGRID cuando aplicas una corrección urgente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes comprender cómo se verá afectado tu sistema StorageGRID al aplicar una corrección urgente.
+
+
+
+[[storagegrid-hotfixes-are-non-disruptive]]
+== Las correcciones urgentes de StorageGRID no provocan interrupciones
+
+El sistema StorageGRID puede recibir y recuperar datos de las aplicaciones cliente durante todo el proceso de aplicación de la corrección urgente. Si autorizas la aplicación de la corrección urgente en todos los nodos de un mismo tipo (por ejemplo, Storage Nodes), los nodos se desconectan de uno en uno, por lo que en ningún momento todos los nodos de la grid ni todos los nodos de un tipo concreto quedan indisponibles.
+
+Para garantizar la disponibilidad continua, asegúrate de que tu política de ILM incluya reglas que especifiquen el almacenamiento de varias copias de cada objeto. También debes asegurarte de que todos los clientes externos de S3 estén configurados para enviar solicitudes a uno de los siguientes:
+
+* Una dirección IP virtual de un grupo de alta disponibilidad (HA)
+* Un equilibrador de carga de terceros de alta disponibilidad
+* Varios nodos de puerta de enlace para cada cliente
+* Varios nodos de almacenamiento para cada cliente
+
+
+
+
+[[client-applications-might-experience-short-term-disruptions]]
+== Las aplicaciones de los clientes podrían experimentar interrupciones de corta duración
+
+El sistema StorageGRID puede recibir y recuperar datos de las aplicaciones cliente durante todo el proceso de corrección urgente; sin embargo, las conexiones de los clientes a nodos Gateway o nodos de almacenamiento concretos podrían verse interrumpidas temporalmente si la corrección urgente requiere reiniciar los servicios en esos nodos. La conectividad se restablecerá una vez que finalice el proceso de corrección urgente y se reanuden los servicios en los nodos concretos.
+
+Es posible que tengas que programar un tiempo de inactividad para aplicar una corrección urgente si no es aceptable que se produzca una pérdida de conectividad durante un breve periodo de tiempo. Puedes utilizar la aprobación selectiva para programar cuándo se actualizan determinados nodos.
+
+
+NOTE: Puedes usar varias puertas de enlace y grupos de alta disponibilidad (HA) para proporcionar conmutación automática por error durante el proceso de corrección urgente. Consulta las instrucciones para link:../admin/configure-high-availability-group.html["configuración de grupos de alta disponibilidad"].
+
+
+
+[[alerts-and-snmp-notifications-might-be-triggered]]
+== Es posible que se activen alertas y notificaciones SNMP
+
+Es posible que se activen alertas y notificaciones SNMP cuando se reinician los servicios y cuando el sistema StorageGRID funciona en un entorno de versiones mixtas (algunos nodos de la red ejecutan una versión anterior, mientras que otros se han actualizado a una versión posterior). En general, estas alertas y notificaciones desaparecerán cuando se complete la corrección urgente.
+
+
+
+[[configuration-changes-are-restricted]]
+== Los cambios en la configuración están restringidos
+
+Al aplicar una corrección urgente a StorageGRID:
+
+* No realices ningún cambio en la configuración de grid (por ejemplo, especificar subredes de Grid Network o aprobar nodos de grid pendientes) hasta que se haya aplicado la corrección urgente a todos los nodos.
+* No actualices la configuración de ILM hasta que se haya aplicado la corrección urgente a todos los nodos.
+

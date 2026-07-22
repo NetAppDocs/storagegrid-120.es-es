@@ -1,0 +1,97 @@
+---
+permalink: admin/managing-high-availability-groups.html 
+sidebar: sidebar 
+keywords: manage high availability group, ha groups, admin node, gateway node, active interface, backup interface, priority order 
+summary: ${post_edited_translations.segment} 
+---
+= Conoce los grupos de alta disponibilidad de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+Puedes agrupar las interfaces de red de varios nodos de administración y de puerta de enlace en un grupo de alta disponibilidad (HA). Si la interfaz activa del grupo de HA falla, una interfaz de respaldo puede gestionar la carga de trabajo.
+
+Cada grupo de HA proporciona acceso a los servicios compartidos en los nodos seleccionados.
+
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* Un grupo de alta disponibilidad (HA) que incluya únicamente dispositivos de servicios y nodos de software basados en VMware puede proporcionar conexiones de alta disponibilidad para link:../admin/manage-s3-select-for-tenant-accounts.html["${post_edited_translations.segment}"]. Se recomienda usar grupos de alta disponibilidad (HA) cuando usas S3 Select, pero no es obligatorio.
+
+
+
+
+[[how-do-you-create-an-ha-group]]
+== ¿Cómo creas un grupo de alta disponibilidad?
+
+. Selecciona una interfaz de red para uno o varios nodos de administración o nodos de puerta de enlace. Puedes utilizar una interfaz de red Grid Network (eth0), una interfaz Client Network (eth2), una interfaz VLAN o una interfaz de acceso que hayas añadido al nodo.
++
+
+NOTE: No puedes añadir una interfaz a un grupo de alta disponibilidad si tiene una dirección IP asignada por DHCP.
+
+. Tú especificas una interfaz para que sea la interfaz principal. La interfaz principal es la interfaz activa a menos que ocurra un fallo.
+. Tú determinas el orden de prioridad para cualquier interfaz de Backup.
+. Asignas entre una y diez direcciones IP virtuales (VIP) al grupo. Las aplicaciones de los clientes pueden usar cualquiera de estas direcciones VIP para conectarse a StorageGRID.
+
+
+Para ver las instrucciones, consulta link:configure-high-availability-group.html["Configurar grupos de alta disponibilidad"].
+
+
+
+[[what-is-the-active-interface]]
+== ¿Qué es la interfaz activa?
+
+Durante el funcionamiento normal, todas las direcciones VIP del grupo de alta disponibilidad (HA) se añaden a la interfaz primaria, que es la primera interfaz en el orden de prioridad. Mientras la interfaz primaria siga estando disponible, se utiliza cuando los clientes se conectan a cualquier dirección VIP del grupo. Es decir, durante el funcionamiento normal, la interfaz primaria es la interfaz "activa" del grupo.
+
+Del mismo modo, durante el funcionamiento normal, cualquier interfaz de menor prioridad del grupo de alta disponibilidad actúa como interfaz «de reserva». Estas interfaces de reserva no se utilizan a menos que la interfaz principal (la que está activa en ese momento) deje de estar disponible.
+
+
+
+[[view-the-current-ha-group-status-of-a-node]]
+== Ver el estado actual del grupo de alta disponibilidad de un nodo
+
+Para comprobar si un nodo está asignado a un grupo de alta disponibilidad y determinar su estado actual, selecciona *Nodos* > *_nodo_*.
+
+Si la pestaña *Resumen* incluye una entrada para *HA groups*, el nodo está asignado a los HA groups que aparecen en la lista. El valor que aparece tras el nombre del grupo es el estado actual del nodo en el HA group:
+
+* *Activo*: El grupo de alta disponibilidad está alojado actualmente en este nodo.
+* *Reserva*: El grupo de alta disponibilidad no está utilizando este nodo en este momento; esta es una interfaz de reserva.
+* *Detenido*: El grupo de alta disponibilidad no se puede alojar en este nodo porque el servicio de alta disponibilidad (keepalived) se ha detenido manualmente.
+* *Error*: El grupo de alta disponibilidad no se puede alojar en este nodo debido a una o varias de las siguientes causas:
++
+** El servicio Load Balancer (nginx-gw) no se está ejecutando en el nodo.
+** La interfaz eth0 o VIP del nodo está inactiva.
+** El nodo está inactivo.
+
+
+
+
+En este ejemplo, el nodo de administración principal se ha añadido a dos grupos de alta disponibilidad. Este nodo es actualmente la interfaz activa para el grupo de clientes Admin y una interfaz de respaldo para el grupo de clientes FabricPool.
+
+image:ha_group_primary_interface.png["Interfaz principal del Grupo HA"]
+
+
+
+[[what-happens-when-the-active-interface-fails]]
+== ¿Qué ocurre cuando falla la interfaz activa?
+
+La interfaz que actualmente aloja las direcciones VIP es la interfaz activa. Si el grupo de alta disponibilidad (HA) incluye más de una interfaz y la interfaz activa falla, las direcciones VIP se trasladan a la primera interfaz de respaldo disponible según el orden de prioridad. Si esa interfaz falla, las direcciones VIP se trasladan a la siguiente interfaz de respaldo disponible, y así sucesivamente.
+
+La conmutación por error puede activarse por cualquiera de estas razones:
+
+* El nodo en el que está configurada la interfaz deja de funcionar.
+* El nodo en el que se configura la interfaz pierde la conectividad con todos los demás nodos durante al menos 2 minutos.
+* La interfaz activa deja de funcionar.
+* El servicio Load Balancer se detiene.
+* El servicio de alta disponibilidad se detiene.
+
+
+
+NOTE: Es posible que la conmutación por error no se active debido a fallos de red externos al nodo que aloja la interfaz activa. Del mismo modo, la conmutación por error no se activa por los servicios de Grid Manager o Tenant Manager.
+
+El proceso de conmutación por error suele durar solo unos segundos y es lo suficientemente rápido como para que las aplicaciones cliente apenas noten el impacto y puedan seguir funcionando con normalidad mediante los mecanismos habituales de reintento.
+
+${post_edited_translations.segment}

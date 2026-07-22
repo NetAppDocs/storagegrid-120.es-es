@@ -1,0 +1,42 @@
+---
+section: troubleshoot
+title: Soluciona problemas del sistema StorageGRID
+entries:
+- title: "${post_edited_translations.segment}"
+  pdf-filename: Soluciona problemas del sistema StorageGRID
+  url: "/troubleshoot/index.html"
+- title: Soluciona problemas de objetos y almacenamiento
+  entries:
+  - title: Confirma las ubicaciones de los datos de los objetos
+    url: "/troubleshoot/confirming-object-data-locations.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/troubleshoot/object-store-storage-volume-failures.html"
+  - title: Verifica la integridad del objeto
+    url: "/troubleshoot/verifying-object-integrity.html"
+  - title: Soluciona problemas con la alerta de tamaño demasiado grande del objeto
+      en S3 PUT
+    url: "/troubleshoot/troubleshoot-s3-put-object-size-too-large-alert.html"
+  - title: Soluciona problemas de datos de objetos perdidos o faltantes
+    entries:
+    - title: Métodos para recuperar objetos
+      pdf-filename: Soluciona problemas de datos de objetos perdidos o faltantes
+      url: "/troubleshoot/troubleshooting-lost-and-missing-object-data.html"
+    - title: Investiga los objetos que puedan haberse perdido
+      url: "/troubleshoot/investigating-potentially-lost-objects.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/troubleshoot/troubleshooting-low-object-data-storage-alert.html"
+  - title: "${post_edited_translations.segment}"
+    url: "/troubleshoot/troubleshoot-low-watermark-alert.html"
+- title: "${post_edited_translations.segment}"
+  url: "/troubleshoot/troubleshooting-metadata-issues.html"
+- title: "${post_edited_translations.segment}"
+  url: "/troubleshoot/troubleshooting-certificate-errors.html"
+- title: Soluciona problemas del nodo de administración y la interfaz de usuario
+  url: "/troubleshoot/troubleshooting-admin-node-and-user-interface-issues.html"
+- title: Soluciona problemas de red, hardware y plataforma
+  url: "/troubleshoot/troubleshooting-network-hardware-and-platform-issues.html"
+- title: "${post_edited_translations.segment}"
+  url: "/troubleshoot/troubleshooting-syslog-server.html"
+- title: Soluciona problemas relacionados con el almacenamiento en caché del equilibrador
+    de carga
+  url: "/troubleshoot/troubleshooting-load-balancer-caching.html"

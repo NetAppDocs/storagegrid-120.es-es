@@ -1,0 +1,52 @@
+---
+indexpage:
+  title: "${post_edited_translations.segment}"
+  summary: Puedes ampliar la capacidad o las capacidades de tu sistema StorageGRID
+    sin interrumpir las operaciones del sistema.
+  keywords: expand grid, add volume, add node, add site
+  lead: Puedes ampliar la capacidad o las capacidades de tu sistema StorageGRID sin
+    interrumpir las operaciones del sistema.
+  tiles:
+  - title: Empezar
+    links:
+    - title: Tipos de expansión
+      url: "../expand/index.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/guidelines-for-adding-object-capacity.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/adding-metadata-capacity.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/adding-grid-nodes-to-add-capabilities.html"
+    - title: 'Instrucciones: añadir un sitio'
+      url: "../expand/adding-new-site.html"
+    - title: Reúne los materiales necesarios
+      url: "../expand/gather-required-materials.html"
+  - title: Agregar volúmenes de almacenamiento
+    links:
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/adding-storage-volumes-to-storage-nodes.html"
+    - title: 'VMware: agrega volúmenes de almacenamiento al nodo de almacenamiento'
+      url: "../expand/vmware-adding-storage-volumes-to-storage-node.html"
+    - title: 'Linux: Añade volúmenes conectados directamente o de SAN al nodo de almacenamiento'
+      url: "../expand/linux-adding-direct-attached-or-san-volumes-to-storage-node.html"
+  - title: Agregar nodos de grid o sitio
+    links:
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html"
+    - title: Actualizar las subredes de la red Grid
+      url: "../expand/updating-subnets-for-grid-network.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/deploying-new-grid-nodes.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../expand/performing-expansion.html"
+  - title: "${post_edited_translations.segment}"
+    links:
+    - title: Pasos de configuración
+      url: "../expand/configuring-expanded-storagegrid-system.html"
+    - title: Reequilibra los datos con código de borrado después de añadir Storage
+        Nodes
+      url: "../expand/rebalancing-erasure-coded-data-after-adding-storage-nodes.html"
+    - title: 'Soluciona problemas: recopila archivos de registro'
+      url: "../expand/contacting-technical-support.html"

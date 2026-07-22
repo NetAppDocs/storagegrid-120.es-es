@@ -1,0 +1,26 @@
+---
+permalink: swnodes/post-installation-guidelines.html 
+sidebar: sidebar 
+keywords: after installation guidelines 
+summary: Una vez completada la implementación y configuración de los nodos de la red, sigue estas directrices para la asignación de direcciones DHCP y los cambios en la configuración de la red. 
+---
+= Requisitos de red y DHCP después de instalar StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una vez completada la implementación y configuración de los nodos de la red, sigue estas directrices para la asignación de direcciones DHCP y los cambios en la configuración de la red.
+
+* Si se ha utilizado DHCP para asignar direcciones IP, configura una reserva DHCP para cada dirección IP en las redes que se estén utilizando.
++
+Solo puedes configurar DHCP durante la fase de implementación. No puedes configurar DHCP durante la configuración.
+
++
+
+NOTE: Los nodos se reinician cuando la configuración de la red Grid se cambia mediante DHCP, lo que puede causar interrupciones si un cambio de DHCP afecta a varios nodos al mismo tiempo.
+
+* Debes seguir los procedimientos de «Cambiar IP» si deseas modificar las direcciones IP, las máscaras de subred y las puertas de enlace predeterminadas de un nodo de la red. Consulta link:../maintain/configuring-ip-addresses.html["Configurar direcciones IP"].
+* Si realizas cambios en la configuración de red, incluidos los relacionados con el enrutamiento y la puerta de enlace, es posible que se pierda la conectividad de los clientes con el nodo de administración principal y con otros nodos de la grid. Dependiendo de los cambios de red aplicados, es posible que tengas que restablecer estas conexiones.
+

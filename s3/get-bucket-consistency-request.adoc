@@ -1,0 +1,97 @@
+---
+permalink: s3/get-bucket-consistency-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, GET bucket consistency 
+summary: La solicitud de consistencia de GET Bucket te permite determinar la consistencia que se aplica a un bucket concreto. 
+---
+= Recupera el nivel de consistencia del bucket en StorageGRID con la solicitud GET Bucket consistency
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La solicitud de consistencia de GET Bucket te permite determinar la consistencia que se aplica a un bucket concreto.
+
+La consistencia predeterminada está configurada para garantizar la lectura posterior a la escritura para los objetos recién creados.
+
+Debes tener el permiso s3:GetBucketConsistency o ser el usuario raíz de la cuenta para completar esta operación.
+
+
+
+[[request-example]]
+== Ejemplo de solicitud
+
+[listing, subs="specialcharacters,quotes"]
+----
+GET /bucket?x-ntap-sg-consistency HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+
+
+[[response]]
+== Respuesta
+
+En el XML de respuesta,  `<Consistency>` devolverá uno de los siguientes valores:
+
+[cols="1a,2a"]
+|===
+| Coherencia | Descripción 
+
+
+ a| 
+all
+ a| 
+Todos los nodos reciben los datos de inmediato o la solicitud fallará.
+
+
+
+ a| 
+strong-global
+ a| 
+Garantiza la consistencia de lectura tras escritura para todas las solicitudes de los clientes en todos los sitios.
+
+
+
+ a| 
+sitio fuerte
+ a| 
+Garantiza la consistencia de lectura tras escritura para todas las solicitudes de los clientes dentro de un sitio.
+
+
+
+ a| 
+lectura tras una nueva escritura
+ a| 
+(Predeterminado) Proporciona consistencia de lectura después de escritura para los objetos nuevos y consistencia eventual para las actualizaciones de objetos. Ofrece alta disponibilidad y garantías de protección de datos. Recomendado para la mayoría de los casos.
+
+
+
+ a| 
+disponible
+ a| 
+Proporciona consistencia eventual tanto para los objetos nuevos como para las actualizaciones de objetos. Para los buckets de S3, úsalo solo cuando sea necesario (por ejemplo, para un bucket que contiene valores de registro que rara vez se leen, o para operaciones HEAD o GET en claves que no existen). No es compatible con los buckets de S3 FabricPool.
+
+|===
+
+
+[[response-example]]
+== Ejemplo de respuesta
+
+[listing]
+----
+HTTP/1.1 200 OK
+Date: Fri, 18 Sep 2020 01:02:18 GMT
+Connection: CLOSE
+Server: StorageGRID/11.5.0
+x-amz-request-id: 12345
+Content-Length: 127
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Consistency xmlns="http://s3.storagegrid.com/doc/2015-02-01/">read-after-new-write</Consistency>
+----
+.Información relacionada
+link:consistency.html["Coherencia"]

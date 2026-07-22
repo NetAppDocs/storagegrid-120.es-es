@@ -1,0 +1,46 @@
+---
+permalink: admin/configuring-stored-object-compression.html 
+sidebar: sidebar 
+keywords: object compression, compress stored objects 
+summary: ${post_edited_translations.segment} 
+---
+= Comprime objetos almacenados en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+
+
+.Acerca de esta tarea
+De forma predeterminada, la compresión de objetos está desactivada. Si activas la compresión, StorageGRID intenta comprimir cada objeto al guardarlo, utilizando una compresión sin pérdidas.
+
+
+NOTE: Si modificas esta configuración, la nueva configuración tardará aproximadamente un minuto en aplicarse. El valor configurado se almacena en caché para mejorar el rendimiento y la escalabilidad.
+
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+* Las aplicaciones que guardan objetos en StorageGRID pueden comprimir objetos antes de guardarlos. Si una aplicación cliente ya ha comprimido un objeto antes de guardarlo en StorageGRID, seleccionar esta opción no reducirá aún más el tamaño del objeto.
+* No selecciones *Comprimir objetos almacenados* si estás usando NetApp FabricPool con StorageGRID.
+* Si se selecciona *Comprimir objetos almacenados*, las aplicaciones cliente de S3 deben evitar realizar operaciones GetObject que especifiquen que se devuelva un rango de bytes. Estas operaciones de "lectura de rango" son ineficientes porque StorageGRID debe descomprimir los objetos para acceder a los bytes solicitados. Las operaciones GetObject que solicitan un rango pequeño de bytes de un objeto muy grande son especialmente ineficientes; por ejemplo, resulta ineficiente leer un rango de 10 MB de un objeto comprimido de 50 GB.
++
+Si los rangos se leen de objetos comprimidos, las solicitudes de los clientes pueden agotar el tiempo de espera.
+
++
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+.Pasos
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Selecciona *Guardar*.
+

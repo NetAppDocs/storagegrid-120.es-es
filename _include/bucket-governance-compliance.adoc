@@ -1,0 +1,30 @@
+= 
+:allow-uri-read: 
+
+
+[cols="1a,2a"]
+|===
+| Modo de retención predeterminado | Descripción 
+
+
+ a| 
+Gobernanza
+ a| 
+* Los usuarios con el permiso  `s3:BypassGovernanceRetention` pueden usar el encabezado de solicitud  `x-amz-bypass-governance-retention: true` para omitir la configuración de retención.
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+
+
+
+
+ a| 
+Cumplimiento normativo
+ a| 
+* El objeto no se puede eliminar hasta que se alcance su fecha de retención.
+* ${post_edited_translations.segment}
+* La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
+
+
+*Nota*: El administrador de tu grid debe autorizarte a utilizar el modo de cumplimiento.
+
+|===

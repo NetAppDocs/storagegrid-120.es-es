@@ -1,0 +1,30 @@
+---
+permalink: ilm/removing-storage-pool.html 
+sidebar: sidebar 
+keywords: remove storage pool 
+summary: Puedes eliminar un grupo de almacenamiento que no se está utilizando. 
+---
+= Eliminar un pool de almacenamiento en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes eliminar un grupo de almacenamiento que no se está utilizando.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["permisos de acceso necesarios"].
+
+
+.Pasos
+. Selecciona *ILM* > *Storage pools*.
+. Consulta la columna «Uso de ILM» de la tabla para determinar si puedes eliminar el grupo de almacenamiento.
++
+No puedes eliminar un grupo de almacenamiento si se está utilizando en una regla de ILM o en un perfil de código de borrado. Según sea necesario, selecciona *_storage pool name_* > *ILM usage* para determinar dónde se utiliza el grupo de almacenamiento.
+
+. Si el grupo de almacenamiento que quieres eliminar no se está utilizando, selecciona la casilla.
+. Selecciona *Eliminar*.
+. Selecciona *Aceptar*.
+

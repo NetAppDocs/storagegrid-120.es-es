@@ -1,0 +1,184 @@
+---
+permalink: monitor/monitoring-tenant-activity.html 
+sidebar: sidebar 
+keywords: how to monitor tenant activity 
+summary: Toda la actividad de los clientes S3 está asociada a las cuentas de los inquilinos de StorageGRID. Puedes utilizar el Grid Manager para supervisar el uso del almacenamiento o el tráfico de red de todos los inquilinos o de uno concreto. Puedes utilizar el registro de auditoría o los paneles de Grafana para recabar información más detallada sobre cómo utilizan StorageGRID los inquilinos. 
+---
+= Supervisa la actividad de los inquilinos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Toda la actividad de los clientes S3 está asociada a las cuentas de los inquilinos de StorageGRID. Puedes utilizar el Grid Manager para supervisar el uso del almacenamiento o el tráfico de red de todos los inquilinos o de uno concreto. Puedes utilizar el registro de auditoría o los paneles de Grafana para recabar información más detallada sobre cómo utilizan StorageGRID los inquilinos.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["${post_edited_translations.segment}"].
+
+
+
+
+[[view-all-tenants]]
+== Ver todos los inquilinos
+
+La página «Tenants» muestra información básica sobre todas las cuentas de tenant actuales.
+
+.Pasos
+. Selecciona *Tenants*.
+. Revisa la información que aparece en las páginas de Tenant.
++
+Para cada inquilino se muestran el espacio lógico utilizado, el uso de la cuota, la cuota y el recuento de objetos. Si no se ha establecido una cuota para un inquilino, los campos uso de la cuota y cuota contienen un guion (&#8212;).
+
++
+
+NOTE: El tamaño lógico de todos los objetos pertenecientes a este inquilino incluye las subidas multiparte incompletas y en curso. El tamaño no incluye el espacio físico adicional utilizado para las políticas de ILM. Los valores de espacio utilizado son estimaciones. Estas estimaciones se ven afectadas por el momento en que se realizan las ingestas, la conectividad de red y el estado de los nodos.
+
++
+image:tenant_accounts_page.png["Página de cuentas de inquilinos"]
+
+. Si lo deseas, inicia sesión en una cuenta de inquilino seleccionando el enlace de sign-in image:icon_tenant_sign_in.png["Icono de inicio de sesión de inquilino"] en la columna *Sign in/Copiar URL*.
+. Si lo deseas, copia la URL de la página de inicio de sesión de un inquilino seleccionando el enlace de copiar URL image:icon_tenant_copy_url.png["Icono de copiar URL del inquilino"] en la columna *Sign in/Copy URL*.
+. Si lo deseas, selecciona *Exportar a CSV* para ver y exportar un archivo  `.csv` que contenga los valores de uso de todos los inquilinos.
++
+Se te pedirá que abras o guardes el archivo  `.csv`.
+
++
+El contenido del archivo  `.csv` es similar al del siguiente ejemplo:
+
++
+image:tenant_accounts_example_csv.png["Ejemplo de cuentas de inquilinos .csv"]
+
++
+Puedes abrir el archivo  `.csv` en una aplicación de hojas de cálculo o usarlo en automatización.
+
+. Si no aparece ningún objeto en la lista, si lo deseas, selecciona *Acciones* > *Eliminar* para eliminar uno o varios tenants. Consulta link:../admin/deleting-tenant-account.html["Eliminar cuenta de inquilino"].
++
+No puedes eliminar una cuenta de inquilino si la cuenta incluye algún bucket o contenedor.
+
+
+
+
+
+[[view-a-specific-tenant]]
+== Ver un inquilino concreto
+
+Puedes consultar los detalles de un tenant específico.
+
+.Pasos
+. Selecciona el nombre del inquilino en la página Tenants.
++
+Aparece la página de detalles del inquilino.
+
++
+image:tenant_usage_modal.png["Modal de uso del inquilino"]
+
+. Consulta la información general sobre el inquilino que aparece en la parte superior de la página.
++
+Esta sección de la página de detalles ofrece información resumida sobre el inquilino, incluyendo el número de objetos del inquilino, el uso de la cuota, el espacio lógico utilizado y la configuración de la cuota.
+
++
+
+NOTE: El tamaño lógico de todos los objetos pertenecientes a este inquilino incluye las subidas multiparte incompletas y en curso. El tamaño no incluye el espacio físico adicional utilizado para las políticas de ILM. Los valores de espacio utilizado son estimaciones. Estas estimaciones se ven afectadas por el momento en que se realizan las ingestas, la conectividad de red y el estado de los nodos.
+
+. En la pestaña *Desglose de espacio*, revisa el gráfico *Consumo de espacio*.
++
+Este gráfico muestra el consumo total de espacio para todos los buckets de S3 del inquilino.
+
++
+Si se ha establecido una cuota para este tenant, se muestra en texto la cantidad de cuota utilizada y restante (por ejemplo, `85.00 GB of 100 GB used`). Si no se ha establecido ninguna cuota, el tenant dispone de una cuota ilimitada y el texto solo incluye la cantidad de espacio utilizado (por ejemplo, `85.00 GB used`). El gráfico de barras muestra el porcentaje de cuota en cada bucket o contenedor. Si el tenant ha superado la cuota de almacenamiento en más de un 1 % y en al menos 1 GB, el gráfico muestra la cuota total y la cantidad excedida.
+
++
+Puedes situar el cursor sobre el gráfico de barras para ver el almacenamiento utilizado por cada bucket o contenedor. Puedes situar el cursor sobre el segmento de espacio libre para ver la cantidad de cuota de almacenamiento restante.
+
++
+image:tenant_bucket_space_consumption_GM.png["Gráfico de barras del consumo de bucket por inquilino"]
+
++
+
+CAUTION: El uso de la cuota se basa en estimaciones internas y podría superarse en algunos casos. Por ejemplo, StorageGRID comprueba la cuota cuando un inquilino comienza a cargar objetos y rechaza nuevas cargas si el inquilino ha superado la cuota. Sin embargo, StorageGRID no tiene en cuenta el tamaño de la carga actual al determinar si se ha superado la cuota. Si se eliminan objetos, es posible que temporalmente se impida al inquilino cargar nuevos objetos hasta que se recalcule el uso de la cuota. El cálculo del uso de la cuota puede tardar 10 minutos o más.
+
++
+
+NOTE: El uso de la cuota de un inquilino indica la cantidad total de datos de objetos que el inquilino ha cargado en StorageGRID (tamaño lógico). El uso de la cuota no representa el espacio utilizado para almacenar copias de dichos objetos y sus metadatos (tamaño físico).
+
++
+
+NOTE: Puedes activar la regla de alerta *Alto consumo de cuota del inquilino* para determinar si los inquilinos están consumiendo sus cuotas. Si está activada, esta alerta se activa cuando un inquilino ha usado el 90 % de su cuota. Para obtener instrucciones, consulta link:../monitor/editing-alert-rules.html["Editar reglas de alertas"].
+
+. En la pestaña *Desglose de espacio*, revisa los *detalles del bucket*.
++
+Esta tabla muestra los buckets de S3 del inquilino. El espacio utilizado es la cantidad total de datos de los objetos que hay en el bucket o contenedor. Este valor no representa el espacio de almacenamiento necesario para las copias de ILM ni los metadatos de los objetos.
+
+. Si lo deseas, selecciona *Exportar a CSV* para ver y exportar un archivo .csv que contenga los valores de uso de cada bucket o contenedor.
++
+El contenido de un archivo de S3 de un inquilino individual `.csv` tiene el siguiente aspecto:
+
++
+image:tenant_bucket_details_csv.png["Ejemplo de archivo CSV con los detalles de los buckets de los inquilinos"]
+
++
+Puedes abrir el archivo  `.csv` en una aplicación de hojas de cálculo o usarlo en automatización.
+
+. Si lo deseas, selecciona la pestaña *Funciones permitidas* para ver una lista de los permisos y las funciones que están habilitados para el inquilino. Consulta link:../admin/editing-tenant-account.html["Editar cuenta de inquilino"] si necesitas modificar alguna de estas configuraciones.
+. Si el usuario tiene el permiso *Utilizar conexión de federación de Grid*, opcionalmente selecciona la pestaña *Federación de Grid* para saber más sobre la conexión.
++
+Consulta link:../admin/grid-federation-overview.html["${post_edited_translations.segment}"] y link:../admin/grid-federation-manage-tenants.html["Gestiona los inquilinos permitidos para la federación de grid"].
+
+
+
+
+
+[[view-network-traffic]]
+== Ver el tráfico de red
+
+Si se han establecido políticas de clasificación del tráfico para un inquilino, revisa el tráfico de red de dicho inquilino.
+
+.Pasos
+. Selecciona *Configuración* > *Red* > *Clasificación del tráfico*.
++
+Aparece la página «Políticas de clasificación del tráfico» y las políticas existentes se muestran en la tabla.
+
+. Revisa la lista de políticas para identificar aquellas que se aplican a un tenant específico.
+. Para ver las métricas asociadas a una política, selecciona el botón de opción situado a la izquierda de la política y selecciona *Métricas*.
+. ${post_edited_translations.segment}
+
+
+Consulta link:../admin/managing-traffic-classification-policies.html["Gestiona las políticas de clasificación del tráfico"] para más información.
+
+
+
+[[use-the-audit-log]]
+== Utiliza el registro de auditoría
+
+Si lo deseas, puedes utilizar el registro de auditoría para realizar un seguimiento con mayor granularidad de las actividades de un tenant.
+
+Por ejemplo, puedes supervisar los siguientes tipos de información:
+
+* Operaciones específicas del cliente, como PUT, GET o DELETE
+* Tamaños de los objetos
+* La regla ILM aplicada a los objetos
+* La dirección IP de origen de las solicitudes de los clientes
+
+
+Los registros de auditoría se guardan en archivos de texto que puedes analizar con la herramienta de análisis de registros que prefieras. Esto te permite comprender mejor las actividades de los clientes o implementar modelos sofisticados de pago por uso y facturación.
+
+Consulta link:../audit/index.html["Revisar los registros de auditoría"] para más información.
+
+
+
+[[use-prometheus-metrics]]
+== Usa métricas de Prometheus
+
+Si lo deseas, puedes utilizar las métricas de Prometheus para generar informes sobre la actividad de los inquilinos.
+
+* En el Grid Manager, selecciona *Soporte* > *Herramientas* > *Métricas*. Puedes utilizar los paneles de control existentes, como S3 Overview, para revisar las actividades de los clientes.
++
+
+NOTE: Las herramientas disponibles en la página de Métricas están destinadas principalmente al soporte técnico. Algunas funciones y opciones de menú de estas herramientas no están operativas de forma intencionada.
+
+* En la parte superior de Grid Manager, selecciona el icono de ayuda y elige *API documentation*. Puedes utilizar las métricas de la sección de métricas de la Grid Management API para crear reglas de alerta personalizadas y paneles de control para la actividad de los tenants.
+
+
+Consulta link:reviewing-support-metrics.html["Revisar las métricas de soporte"] para más información.

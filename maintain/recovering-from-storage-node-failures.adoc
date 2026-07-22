@@ -1,0 +1,73 @@
+---
+permalink: maintain/recovering-from-storage-node-failures.html 
+sidebar: sidebar 
+keywords: recover, storage node failure, Reaper 
+summary: El procedimiento para recuperar un nodo de almacenamiento que ha fallado depende del tipo de fallo y del tipo de nodo de almacenamiento que ha fallado. 
+---
+= Recupera de fallos en el nodo de almacenamiento StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El procedimiento para recuperar un nodo de almacenamiento que ha fallado depende del tipo de fallo y del tipo de nodo de almacenamiento que ha fallado.
+
+Utiliza esta tabla para seleccionar el procedimiento de recuperación para un nodo de almacenamiento fallido.
+
+[cols="1a,1a,1a"]
+|===
+| Problema | Acción | Notas 
+
+
+ a| 
+* Han fallado más de un nodo de almacenamiento.
+
+ a| 
+Ponte en contacto con el soporte técnico.
+ a| 
+La recuperación de más de un nodo de almacenamiento podría afectar la integridad de la base de datos de Cassandra, lo que puede causar la pérdida de datos.
+
+El soporte técnico puede determinar cuándo es seguro iniciar la recuperación de un segundo nodo de almacenamiento.
+
+*Nota*: Si en un sitio fallan varios nodos de almacenamiento que contienen el servicio ADC, pierdes cualquier solicitud de servicio de plataforma pendiente para ese sitio.
+
+
+
+ a| 
+Han fallado más de un nodo de almacenamiento en una sede o ha fallado toda la sede.
+ a| 
+Contacta al soporte técnico. Puede que sea necesario realizar un procedimiento de recuperación del sitio.
+ a| 
+El soporte técnico evaluará tu situación y elaborará un plan de recuperación. Consulta link:how-site-recovery-is-performed-by-technical-support.html["Cómo el soporte técnico recupera un sitio"].
+
+
+
+ a| 
+Ha fallado un nodo de almacenamiento de appliance.
+ a| 
+link:recovering-storagegrid-appliance-storage-node.html["Recuperar el nodo de almacenamiento del appliance"]
+ a| 
+El procedimiento de recuperación para los nodos de almacenamiento de appliance es el mismo para todos los fallos.
+
+
+
+ a| 
+Uno o más volúmenes de almacenamiento han fallado, pero la unidad del sistema está intacta
+ a| 
+link:recovering-from-storage-volume-failure-where-system-drive-is-intact.html["Recupérate de un fallo del volumen de almacenamiento cuando la unidad del sistema está intacta"]
+ a| 
+Este procedimiento se utiliza para los nodos de almacenamiento basados en software.
+
+
+
+ a| 
+La unidad del sistema ha fallado.
+ a| 
+link:reviewing-warnings-for-system-drive-recovery.html["Recupera tu sistema tras un fallo de unidad"]
+ a| 
+El procedimiento de sustitución del nodo depende de la plataforma de implementación y de si también se ha producido algún fallo en los volúmenes de almacenamiento.
+
+|===
+
+NOTE: Algunos procedimientos de recuperación de StorageGRID utilizan Reaper para gestionar las reparaciones de Cassandra. Las reparaciones se llevan a cabo automáticamente en cuanto se han iniciado los servicios relacionados o necesarios. Es posible que veas en la salida del script menciones a "reaper" o "reparación de Cassandra". Si aparece un mensaje de error que indica que la reparación ha fallado, ejecuta el comando que se indica en dicho mensaje.

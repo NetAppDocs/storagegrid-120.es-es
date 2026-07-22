@@ -1,0 +1,67 @@
+---
+permalink: admin/managing-tenants.html 
+sidebar: sidebar 
+keywords: manage tenants, tenant account, what is a tenant 
+summary: 'Una cuenta de inquilino te permite utilizar la API de REST del Servicio de Almacenamiento Sencillo (S3) para almacenar y recuperar objetos en un sistema StorageGRID.' 
+---
+= Cuentas de tenant en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una cuenta de inquilino te permite utilizar la API de REST del Servicio de Almacenamiento Sencillo (S3) para almacenar y recuperar objetos en un sistema StorageGRID.
+
+
+TIP: Se han eliminado los detalles sobre Swift de esta versión del sitio de documentación. Consulta https://docs.netapp.com/us-en/storagegrid-118/admin/managing-tenants.html["StorageGRID 11.8: administra inquilinos"^].
+
+Como administrador de la grid, creas y gestionas las cuentas de inquilino que los clientes de S3 usan para almacenar y recuperar objetos.
+
+${post_edited_translations.segment}
+
+Puedes usar las cuentas de inquilino para segregar los objetos almacenados por diferentes entidades. Por ejemplo, puedes usar varias cuentas de inquilino para cualquiera de estos casos de uso:
+
+* *Caso de uso empresarial:* Si administras un sistema StorageGRID en una aplicación empresarial, es posible que desees segregar el almacenamiento de objetos de la red según los distintos departamentos de tu organización. En este caso, podrías crear cuentas de inquilino para el departamento de Marketing, el departamento de Customer Support, el departamento de Human Resources, etc.
++
+
+NOTE: Si utilizas el protocolo de cliente S3, puedes emplear los buckets de S3 y las políticas de bucket para segregar los objetos entre los departamentos de una empresa. No necesitas usar cuentas de inquilino. Consulta las instrucciones para implementar link:../s3/use-access-policies.html["${post_edited_translations.segment}"] para más información.
+
+* *Caso de uso de proveedor de servicios:* Si administras un sistema StorageGRID como proveedor de servicios, puedes segregar el almacenamiento de objetos del grid por las diferentes entidades que alquilarán el almacenamiento en tu grid. En este caso, crearías cuentas de inquilino para Company A, Company B, Company C, y así sucesivamente.
+
+
+Para más información, consulta link:../tenant/index.html["Utiliza una cuenta de inquilino"].
+
+
+
+[[how-do-i-create-a-tenant-account]]
+== ${post_edited_translations.segment}
+
+Utiliza el Grid manager para crear una cuenta de inquilino. Al crear una cuenta de inquilino, debes especificar la siguiente información:
+
+* ${post_edited_translations.segment}
+* Permisos de la cuenta de inquilino, como si la cuenta de inquilino puede usar los servicios de la plataforma S3, configurar su propia fuente de identidad, usar S3 Select o usar una conexión de federación de grid.
+* El acceso a raíz inicial para el inquilino, en función de si el sistema StorageGRID utiliza grupos y usuarios locales, federación de identidades o inicio de sesión único (SSO).
+
+
+Además, puedes activar la configuración de S3 Object Lock para el sistema StorageGRID si las cuentas de inquilino de S3 deben cumplir con los requisitos normativos. Cuando S3 Object Lock está activado, todas las cuentas de inquilino de S3 pueden crear y gestionar buckets conformes.
+
+
+
+[[what-is-tenant-manager-used-for]]
+== ¿Para qué sirve Tenant Manager?
+
+Después de crear la cuenta de inquilino, los usuarios del inquilino pueden iniciar sesión en el Tenant Manager para realizar tareas como las siguientes:
+
+* Configura la federación de identidades (a menos que la fuente de identidades se comparta con la grid)
+* Gestiona grupos y usuarios
+* Utiliza la federación de grid para la clonación de cuentas y la replicación entre grid
+* Gestiona claves de acceso de S3
+* Crear y gestionar buckets de S3
+* Usa los servicios de la plataforma S3
+* ${post_edited_translations.segment}
+* Supervisa el uso del almacenamiento
+
+
+
+TIP: Aunque los usuarios inquilinos de S3 pueden crear y gestionar claves de acceso y buckets de S3 con el Tenant Manager, deben usar una aplicación cliente de S3 para cargar y gestionar objetos. Consulta link:../s3/index.html["Usa la API de REST de S3"] para más detalles.

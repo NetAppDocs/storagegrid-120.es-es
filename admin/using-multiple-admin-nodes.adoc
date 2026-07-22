@@ -1,0 +1,30 @@
+---
+permalink: admin/using-multiple-admin-nodes.html 
+sidebar: sidebar 
+keywords: admin nodes, more than one admin node, multiple admin nodes 
+summary: Un sistema StorageGRID puede incluir varios nodos de administración para que puedas supervisar y configurar tu sistema StorageGRID de forma continua, incluso si falla uno de los nodos de administración. 
+---
+= Usa varios nodos de administración en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un sistema StorageGRID puede incluir varios nodos de administración para que puedas supervisar y configurar tu sistema StorageGRID de forma continua, incluso si falla uno de los nodos de administración.
+
+Si un nodo de administración deja de estar disponible, el procesamiento de atributos continúa, las alertas siguen activándose y las notificaciones por correo electrónico y los paquetes de AutoSupport siguen enviándose. Sin embargo, disponer de varios nodos de administración no ofrece protección frente a fallos, salvo en lo que respecta a las notificaciones y a los paquetes de AutoSupport.
+
+image:admin_node_redundancy.png["Diagrama de redundancia de Admin Node"]
+
+Existen dos opciones para seguir visualizando y configurando el sistema StorageGRID en caso de que falle un nodo de administración:
+
+* Los clientes web pueden volver a conectarse a cualquier otro nodo de administración disponible.
+* Si un administrador del sistema ha configurado un grupo de alta disponibilidad de nodos de administración, los clientes web pueden seguir accediendo al Grid Manager o al Tenant Manager usando la dirección IP virtual del grupo de alta disponibilidad. Consulta link:managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"].
++
+
+NOTE: Cuando se utiliza un grupo de alta disponibilidad (HA), el acceso se interrumpe si el nodo de administración activo falla. Los usuarios deben volver a iniciar sesión después de que la dirección IP virtual del grupo de alta disponibilidad falle y pase a otro nodo de administración del grupo.
+
+
+
+Algunas tareas de mantenimiento solo pueden realizarse mediante el nodo de administración principal. Si el nodo de administración principal falla, debe recuperarse antes de que el sistema StorageGRID vuelva a estar plenamente operativo.

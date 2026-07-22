@@ -1,0 +1,149 @@
+---
+permalink: tenant/enabling-or-disabling-last-access-time-updates.html 
+sidebar: sidebar 
+keywords: how to enable or disable last access time updates 
+summary: 'Cuando los administradores de la red crean las reglas de gestión del ciclo de vida de la información (ILM) para un sistema StorageGRID, pueden especificar, de forma opcional, que se utilice el tiempo de acceso más reciente a un objeto para determinar si dicho objeto debe trasladarse a una ubicación de almacenamiento diferente. Si usas un inquilino de S3, puedes aprovechar estas reglas habilitando las actualizaciones del tiempo de acceso para los objetos en un bucket de S3.' 
+---
+= Activar o desactivar las actualizaciones del tiempo de acceso en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando los administradores de grid crean las reglas de gestión del ciclo de vida de la información (ILM) para un sistema StorageGRID, pueden especificar de forma opcional que se utilice el tiempo de acceso más reciente de un objeto para determinar si ese objeto debe moverse a una ubicación de almacenamiento diferente. Si estás usando un tenant de S3, puedes aprovechar este tipo de reglas habilitando las actualizaciones del tiempo de acceso para los objetos en un bucket de S3.
+
+Estas instrucciones solo se aplican a los sistemas StorageGRID que incluyan al menos una regla ILM que utilice la opción *Tiempo de acceso más reciente* como filtro avanzado o como hora de referencia. Puedes ignorar estas instrucciones si tu sistema StorageGRID no incluye dicha regla. Consulta link:../ilm/using-last-access-time-in-ilm-rules.html["Usa el tiempo de acceso en las reglas de ILM"] para más detalles.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona todos los buckets o permiso de acceso a raíz"]. Estos permisos anulan la configuración de permisos en las políticas de grupo o de bucket.
+
+
+.Acerca de esta tarea
+*Tiempo de acceso* es una de las opciones disponibles para la instrucción de ubicación *Tiempo de referencia* de una regla de ILM. Al establecer el tiempo de referencia de una regla en tiempo de acceso, los administradores de grid pueden especificar que los objetos se coloquen en determinadas ubicaciones de almacenamiento según cuándo se recuperaron (leyeron o visualizaron) por última vez.
+
+Por ejemplo, para garantizar que los objetos consultados recientemente permanezcan en un almacenamiento más rápido, un administrador de la red puede crear una regla de ILM especificando lo siguiente:
+
+* Los objetos que se hayan recuperado en el último mes deben permanecer en los nodos de almacenamiento locales.
+* Los objetos que no se hayan consultado en el último mes deben trasladarse a una ubicación fuera del sitio.
+
+
+De forma predeterminada, las actualizaciones del tiempo de acceso están desactivadas. Si tu sistema StorageGRID incluye una regla ILM que utiliza la opción *tiempo de acceso* y quieres que esta opción se aplique a los objetos de este bucket, debes activar las actualizaciones del tiempo de acceso para los buckets S3 especificados en esa regla.
+
+
+CAUTION: Actualizar el tiempo de acceso al recuperar un objeto puede reducir el rendimiento de StorageGRID, especialmente en el caso de los objetos pequeños.
+
+Se produce un impacto en el rendimiento con las actualizaciones del tiempo de acceso porque StorageGRID debe realizar estos pasos adicionales cada vez que se recuperan objetos:
+
+* Actualiza los objetos con nuevas marcas de tiempo
+* Añade los objetos a la cola de ILM para que puedan volver a evaluarse según las reglas y la política actuales de ILM
+
+
+La tabla resume el comportamiento que se aplica a todos los objetos del bucket cuando el tiempo de acceso está desactivado o activado.
+
+[cols="1a,1a,1a,1a,1a"]
+|===
+
+
+.2+| Tipo de solicitud 2+| Comportamiento si el tiempo de acceso más reciente está desactivado (por defecto) 2+| Comportamiento si está activado el tiempo de acceso más reciente 
+
+
+| ¿Se actualizó el último tiempo de acceso? | ¿Objeto añadido a la cola de evaluación de ILM? | ¿Se actualizó el último tiempo de acceso? | ¿Objeto añadido a la cola de evaluación de ILM? 
+
+
+ a| 
+Solicitud para recuperar los metadatos de un objeto cuando se emite una operación HEAD
+ a| 
+No
+ a| 
+No
+ a| 
+No
+ a| 
+No
+
+
+
+ a| 
+Solicitud para recuperar un objeto, su lista de control de acceso o sus metadatos
+ a| 
+No
+ a| 
+No
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Solicitud para actualizar los metadatos de un objeto
+ a| 
+Sí
+ a| 
+Sí
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Solicitud para obtener una lista de objetos o versiones de objetos
+ a| 
+No
+ a| 
+No
+ a| 
+No
+ a| 
+No
+
+
+
+ a| 
+Solicitud para copiar un objeto de un bucket a otro
+ a| 
+* No, para la copia original
+* Sí, para la copia de destino
+
+ a| 
+* No, para la copia original
+* Sí, para la copia de destino
+
+ a| 
+* Sí, para la copia original
+* Sí, para la copia de destino
+
+ a| 
+* Sí, para la copia original
+* Sí, para la copia de destino
+
+
+
+
+ a| 
+Solicitud para completar una subida en varias partes
+ a| 
+Sí, para el objeto ensamblado
+ a| 
+Sí, para el objeto ensamblado
+ a| 
+Sí, para el objeto ensamblado
+ a| 
+Sí, para el objeto ensamblado
+
+|===
+.Pasos
+. Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
+. ${post_edited_translations.segment}
++
+Aparece la página de detalles del bucket.
+
+. En la pestaña *Opciones del bucket*, selecciona el acordeón *Actualizaciones del tiempo de acceso*.
+. Activar o desactivar las actualizaciones del tiempo de acceso.
+. Selecciona *Guardar cambios*.
+

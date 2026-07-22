@@ -1,0 +1,126 @@
+---
+permalink: maintain/powering-down-host.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, stop services, power down host, power off host 
+summary: Antes de apagar un host, debes detener los servicios en todos los nodos de grid de ese host. 
+---
+= Apaga un host StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de apagar un host, debes detener los servicios en todos los nodos de grid de ese host.
+
+.Pasos
+. Inicia sesión en el nodo de la grid:
++
+.. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+
+
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+. Detén todos los servicios que se estén ejecutando en el nodo: `service servermanager stop`
++
+El apagado de los servicios puede tardar hasta 15 minutos, por lo que quizá te interese iniciar sesión en el sistema de forma remota para supervisar el proceso de apagado.
+
+. Repite los pasos 1 y 2 para cada nodo en el host.
+. Si tienes un host Linux:
++
+.. Inicia sesión en el sistema operativo del host.
+.. Detén el nodo: `storagegrid node stop`
+.. Apaga el sistema operativo del host.
+
+
+. Si el nodo se está ejecutando en una máquina virtual de VMware o se trata de un nodo de dispositivo, ejecuta el comando de apagado: `shutdown -h now`
++
+Realiza este paso independientemente del resultado del comando  `service servermanager stop`.
+
++
+
+NOTE: Después de que ejecutes el comando  `shutdown -h now` en un nodo del dispositivo, debes apagar y volver a encender el dispositivo para reiniciar el nodo.
+
++
+En el caso del appliance, este comando apaga el controlador, pero el appliance sigue encendido. Debes completar el siguiente paso.
+
+. Si vas a apagar un nodo del appliance, sigue los pasos correspondientes a tu appliance.
++
+[role="tabbed-block"]
+====
+.SG6160
+--
+.. Desconecta la alimentación del controlador de almacenamiento SG6100-CN.
+.. Espera a que se apague el LED azul de alimentación del controlador de almacenamiento SG6100-CN.
+
+
+--
+.SGF6112
+--
+.. Apaga la alimentación del aparato.
+.. Espera a que se apague el LED azul de alimentación.
+
+
+--
+.SG6000
+--
+.. Espera a que se apague el LED verde «Cache Active» situado en la parte trasera de los controladores de almacenamiento.
++
+Este LED se enciende cuando es necesario escribir datos almacenados en la caché en las unidades. Debes esperar a que este LED se apague antes de apagar la alimentación.
+
+.. Desconecta el aparato de la corriente y espera a que se apague el LED azul de encendido.
+
+
+--
+.SG5800
+--
+.. Espera a que se apague el LED verde «Cache Active» situado en la parte trasera del controlador de almacenamiento.
++
+Este LED se enciende cuando es necesario escribir datos almacenados en la caché en las unidades. Debes esperar a que este LED se apague antes de apagar la alimentación.
+
+.. En la página de inicio de SANtricity System Manager, selecciona *Ver operaciones en curso*.
+.. Asegúrate de que todas las operaciones hayan finalizado antes de continuar con el siguiente paso.
+.. Apaga los dos interruptores de encendido del shelf del controlador y espera a que se apaguen todos los LED del shelf del controlador.
+
+
+--
+.SG5700
+--
+.. Espera a que se apague el LED verde «Cache Active» situado en la parte trasera del controlador de almacenamiento.
++
+Este LED se enciende cuando es necesario escribir datos almacenados en la caché en las unidades. Debes esperar a que este LED se apague antes de apagar la alimentación.
+
+.. Apaga el aparato y espera a que se detenga toda la actividad de los LED y de la pantalla de siete segmentos.
+
+
+--
+.SG110 o SG1100
+--
+.. Apaga la alimentación del aparato.
+.. Espera a que se apague el LED azul de alimentación.
+
+
+--
+.SG100 o SG1000
+--
+.. Apaga la alimentación del aparato.
+.. Espera a que se apague el LED azul de alimentación.
+
+
+--
+====
+. Cierra la sesión del intérprete de comandos: `exit`
+
+
+.Información relacionada
+* https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/index.html["Dispositivos de almacenamiento SGF6112 y SG6160"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/index.html["Dispositivos de almacenamiento SG6000"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/sg5700/index.html["Dispositivos de almacenamiento SG5700"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/sg5800/index.html["Dispositivos de almacenamiento SG5800"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/sg110-1100/index.html["Aparatos de servicios SG110 y SG1100"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/sg100-1000/index.html["Aparatos de servicios SG100 y SG1000"^]
+

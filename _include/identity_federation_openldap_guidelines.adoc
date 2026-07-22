@@ -1,0 +1,32 @@
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+
+
+Si deseas utilizar un servidor OpenLDAP para la federación de identidades, debes configurar determinados parámetros en el servidor OpenLDAP.
+
+
+CAUTION: En el caso de las fuentes de identidad que no sean Active Directory o Microsoft Entra ID, StorageGRID no bloqueará automáticamente el acceso a S3 a los usuarios que hayan sido desactivados externamente. Para bloquear el acceso a S3, elimina cualquier clave de S3 del usuario o elimina al usuario de todos los grupos.
+
+
+
+[[memberof-and-refint-overlays]]
+=== ${post_edited_translations.segment}
+
+Los overlays memberof y refint deben estar habilitados. Para obtener más información, consulta las instrucciones para el mantenimiento de la pertenencia inversa a grupos en http://www.openldap.org/doc/admin24/index.html["Documentación de OpenLDAP: Guía del administrador versión 2.4"^].
+
+
+
+[[indexing]]
+=== Indexación
+
+Debes configurar los siguientes atributos de OpenLDAP con las palabras clave de índice especificadas:
+
+* `olcDbIndex: objectClass eq`
+* `olcDbIndex: uid eq,pres,sub`
+* `olcDbIndex: cn eq,pres,sub`
+* `olcDbIndex: entryUUID eq`
+
+
+Además, asegúrate de que los campos mencionados en la ayuda para Nombre de usuario estén indexados para un rendimiento óptimo.
+
+Consulta la información sobre el mantenimiento inverso de la pertenencia a grupos en la http://www.openldap.org/doc/admin24/index.html["Documentación de OpenLDAP: Guía del administrador versión 2.4"^].

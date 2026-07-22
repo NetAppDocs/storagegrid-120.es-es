@@ -1,0 +1,487 @@
+---
+permalink: troubleshoot/index.html 
+sidebar: sidebar 
+keywords: how to troubleshoot a StorageGRID system 
+summary: ${post_edited_translations.segment} 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+
+
+[[defineproblemdefine-the-problem]]
+== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+[cols="1a,1a"]
+|===
+| ${post_edited_translations.segment} | Ejemplo de respuesta 
+
+
+ a| 
+¿Qué está haciendo o dejando de hacer el sistema StorageGRID? ¿Cuáles son sus síntomas?
+ a| 
+Las aplicaciones de los clientes indican que no es posible incorporar objetos a StorageGRID.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Notificado por la aplicación cliente. También recibiste notificaciones de alerta por correo electrónico.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+Si el problema se produce de forma intermitente, ¿cuándo ocurre? Anota las horas de cada incidente del que tengas constancia.
+ a| 
+El problema no es intermitente.
+
+
+
+ a| 
+¿Has visto este problema antes? ¿Con qué frecuencia has tenido este problema en el pasado?
+ a| 
+${post_edited_translations.segment}
+
+|===
+
+
+[[assess-the-risk-and-impact-on-the-system]]
+== ${post_edited_translations.segment}
+
+Una vez que hayas definido el problema, evalúa su riesgo e impacto en el sistema StorageGRID. Por ejemplo, la presencia de alertas críticas no significa necesariamente que el sistema no esté ofreciendo servicios principales.
+
+Esta tabla resume el impacto que el problema de ejemplo está teniendo en el funcionamiento del sistema:
+
+[cols="1a,1a"]
+|===
+| ${post_edited_translations.segment} | Ejemplo de respuesta 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+No.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+No.
+
+
+
+ a| 
+¿La capacidad para desarrollar la actividad empresarial está gravemente afectada?
+ a| 
+${post_edited_translations.segment}
+
+|===
+
+
+[[collect-data]]
+== Recopilar datos
+
+Una vez que hayas definido el problema y evaluado su riesgo e impacto, recopila datos para su análisis. El tipo de datos que resulta más útil recopilar depende de la naturaleza del problema.
+
+[cols="1a,2a,1a"]
+|===
+| Tipo de datos que se van a recopilar | ${post_edited_translations.segment} | Instrucciones 
+
+
+ a| 
+Crear una cronología de los cambios recientes
+ a| 
+Los cambios en tu sistema StorageGRID, en su configuración o en su entorno pueden provocar un comportamiento nuevo.
+ a| 
+* <<create_timeline,Crea una cronología de los cambios recientes>>
+
+
+
+
+ a| 
+Revisar alertas
+ a| 
+${post_edited_translations.segment}
+
+Consulta la lista de alertas actuales para ver si StorageGRID ha identificado la causa raíz de un problema por ti.
+
+Revisa las alertas que se activaron en el pasado para obtener información adicional.
+ a| 
+* link:../monitor/monitoring-system-health.html#view-current-and-resolved-alerts["Ver alertas actuales y resueltas"]
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Recopila información sobre los niveles normales de diversos valores operativos. Estos valores de referencia, y las desviaciones de estas líneas base, pueden proporcionar pistas valiosas.
+ a| 
+* <<establish-baselines,${post_edited_translations.segment}>>
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Para solucionar problemas de rendimiento relacionados con la importación y la recuperación, utiliza una estación de trabajo para almacenar y recuperar objetos. Compara los resultados con los obtenidos al utilizar la aplicación cliente.
+ a| 
+* link:../monitor/monitoring-put-and-get-performance.html["${post_edited_translations.segment}"]
+
+
+
+
+ a| 
+Revisar los mensajes de auditoría
+ a| 
+Revisa los mensajes de auditoría para realizar un seguimiento detallado de las operaciones de StorageGRID. La información detallada de los mensajes de auditoría puede ser útil para solucionar muchos tipos de problemas, incluidos los problemas de rendimiento.
+ a| 
+* link:../monitor/reviewing-audit-messages.html["Revisar los mensajes de auditoría"]
+
+
+
+
+ a| 
+Comprobar la ubicación de los objetos y la integridad del almacenamiento
+ a| 
+Si tienes problemas de almacenamiento, verifica que los objetos se estén colocando donde esperas. Verifica la integridad de los datos de los objetos en un Storage Node.
+ a| 
+* link:../monitor/monitoring-object-verification-operations.html["Supervisar las operaciones de verificación de objetos"]
+* link:../troubleshoot/confirming-object-data-locations.html["Confirma las ubicaciones de los datos de los objetos"]
+* link:../troubleshoot/verifying-object-integrity.html["Verifica la integridad del objeto"]
+
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Es posible que el soporte técnico te pida que recopiles datos o revises información concreta para ayudar a resolver problemas.
+ a| 
+* link:../monitor/collecting-log-files-and-system-data.html["Recopilar archivos de registro y datos del sistema"]
+* link:../monitor/manually-triggering-autosupport-message.html["Activar manualmente un paquete de AutoSupport"]
+* link:../monitor/reviewing-support-metrics.html["Revisar las métricas de soporte"]
+
+
+|===
+
+
+[[createtimelinecreate-a-timeline-of-recent-changes]]
+=== ${post_edited_translations.segment}
+
+Cuando surja un problema, debes considerar qué ha cambiado recientemente y cuándo ocurrieron esos cambios.
+
+* Los cambios en tu sistema StorageGRID, en su configuración o en su entorno pueden provocar un comportamiento nuevo.
+* ${post_edited_translations.segment}
+
+
+Elabora una tabla con los cambios recientes realizados en tu sistema que incluya información sobre cuándo se produjo cada cambio y cualquier detalle relevante al respecto, como por ejemplo qué más estaba ocurriendo mientras se llevaba a cabo el cambio:
+
+[cols="1a,1a,2a"]
+|===
+| Tiempo de cambio | Tipo de cambio | Detalles 
+
+
+ a| 
+Por ejemplo:
+
+* ${post_edited_translations.segment}
+* ¿Cuándo se completó la actualización del software?
+* ¿Interrumpiste el proceso?
+
+ a| 
+¿Qué ha pasado? ¿Qué has hecho?
+ a| 
+Documenta cualquier detalle relevante sobre el cambio. Por ejemplo:
+
+* Detalles de los cambios en la red.
+* ${post_edited_translations.segment}
+* Cómo han cambiado las cargas de trabajo de los clientes.
+
+
+Asegúrate de anotar si se estaba realizando más de un cambio al mismo tiempo. Por ejemplo, ¿se hizo este cambio mientras había una actualización en curso?
+
+|===
+
+
+==== ${post_edited_translations.segment}
+
+${post_edited_translations.segment}
+
+* ¿Se ha instalado, ampliado o recuperado recientemente el sistema StorageGRID?
+* ¿Se ha actualizado el sistema recientemente? ¿Se aplicó una corrección urgente?
+* ${post_edited_translations.segment}
+* ¿Se ha actualizado la política de ILM?
+* ¿Ha cambiado la carga de trabajo del cliente?
+* ${post_edited_translations.segment}
+* ¿Has cambiado los equilibradores de carga o has añadido o eliminado un grupo de alta disponibilidad de Admin Nodes o Gateway Nodes?
+* ¿Has iniciado alguna tarea que pueda tardar mucho en completarse? Por ejemplo:
++
+** Recuperación de un nodo de almacenamiento que ha fallado
+** Decomisionamiento de Storage Node
+
+
+* ¿Has hecho algún cambio en la autenticación de usuarios, como añadir un tenant o modificar la configuración de LDAP?
+* ${post_edited_translations.segment}
+* ${post_edited_translations.segment}
+* ¿Activaste recientemente la función de cumplimiento normativo?
+* ¿Se han añadido o eliminado Cloud Storage Pools?
+* ${post_edited_translations.segment}
+* ¿Se ha producido algún cambio en la infraestructura de red? Por ejemplo, VLANs, routers o DNS.
+* ¿Has hecho algún cambio en las fuentes NTP?
+* ¿Has hecho algún cambio en las interfaces de red Grid, Admin o Client Network?
+* ${post_edited_translations.segment}
+
+
+
+
+[[establish-baselines]]
+=== ${post_edited_translations.segment}
+
+Puedes establecer valores de referencia para tu sistema registrando los niveles normales de varios valores operativos. En el futuro, puedes comparar los valores actuales con estos valores de referencia para ayudar a detectar y resolver valores anómalos.
+
+[cols="1a,1a,2a"]
+|===
+| Propiedad | Valor | ${post_edited_translations.segment} 
+
+
+ a| 
+Consumo medio de almacenamiento
+ a| 
+${post_edited_translations.segment}
+
+Porcentaje consumido al día
+ a| 
+Accede al Grid Manager. En la página «Nodes», selecciona toda la grid o un sitio y ve a la pestaña «Storage».
+
+En el gráfico Storage Used - Object Data, busca un periodo en el que la línea sea bastante estable. Coloca el cursor sobre el gráfico para estimar cuánto almacenamiento se consume cada día
+
+Puedes recopilar esta información para todo el sistema o para un centro de datos específico.
+
+
+
+ a| 
+Consumo medio de metadatos
+ a| 
+${post_edited_translations.segment}
+
+Porcentaje consumido al día
+ a| 
+Accede al Grid Manager. En la página «Nodes», selecciona toda la grid o un sitio y ve a la pestaña «Storage».
+
+En el gráfico «Almacenamiento utilizado: metadatos de objetos», busca un periodo en el que la línea se mantenga bastante estable. Coloca el cursor sobre el gráfico para calcular cuánto almacenamiento de metadatos se consume cada día.
+
+Puedes recopilar esta información para todo el sistema o para un centro de datos específico.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Operaciones por segundo
+ a| 
+${post_edited_translations.segment}
+
+Para ver las tasas y los recuentos de ingesta y recuperación de un sitio o nodo específico, selecciona *Nodos* > *_sitio o nodo de almacenamiento_* > *Objetos*. Coloca el cursor sobre el gráfico de ingesta y recuperación de S3.
+
+
+
+ a| 
+Tasa de evaluación del ILM
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+En el gráfico de la cola de ILM, busca un periodo en el que la línea sea bastante estable. Coloca el cursor sobre el gráfico para estimar un valor de referencia para la *tasa de evaluación* de tu sistema.
+
+
+
+ a| 
+Velocidad de exploración del ILM
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+En el gráfico ILM Queue, busca un periodo en el que la línea sea bastante estable. Coloca el cursor sobre el gráfico para estimar un valor de referencia para *Scan rate* en tu sistema.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+En el gráfico «ILM Queue», busca un periodo en el que la línea se mantenga bastante estable. Coloca el cursor sobre el gráfico para calcular un valor de referencia para *Objetos en cola (from client operations)* en tu sistema.
+
+
+
+ a| 
+Latencia media de las consultas
+ a| 
+Milisegundos
+ a| 
+Selecciona *Nodes* > *_Storage Node_* > *Objects*. En la tabla de consultas, consulta el valor de latencia media.
+
+|===
+
+
+[[analyze-data]]
+== ${post_edited_translations.segment}
+
+Utiliza la información que recopiles para determinar la causa del problema y las posibles soluciones.
+
+${post_edited_translations.segment}
+
+* Localiza los puntos de fallo y los cuellos de botella usando las alertas.
+* Reconstruye el historial del problema utilizando el historial de alertas y los gráficos.
+* Utiliza los gráficos para detectar anomalías y comparar la situación problemática con el funcionamiento normal.
+
+
+
+
+[[escalation-information-checklist]]
+== Lista de comprobación de la información de escalación
+
+Si no puedes resolver el problema por tu cuenta, ponte en contacto con soporte técnico. Antes de ponerte en contacto con soporte técnico, recopila la información que se indica en la siguiente tabla para facilitar la resolución del problema.
+
+[cols="1a,2a,4a"]
+|===
+| image:feature_checkmark.gif["${post_edited_translations.segment}"] | Artículo | Notas 
+
+
+ a| 
+ a| 
+${post_edited_translations.segment}
+ a| 
+¿Cuáles son los síntomas del problema? ¿Cuándo empezó el problema? ¿Ocurre de forma constante o intermitente? Si es intermitente, ¿en qué momentos ha ocurrido?
+
+<<define_problem,Define el problema>>
+
+
+
+ a| 
+ a| 
+Evaluación de impacto
+ a| 
+¿Cuál es la gravedad del problema? ¿Cuál es el impacto en la aplicación cliente?
+
+* ¿El cliente se ha conectado correctamente antes?
+* ${post_edited_translations.segment}
+
+
+
+
+ a| 
+ a| 
+${post_edited_translations.segment}
+ a| 
+Selecciona *Mantenimiento* > *Sistema* > *Licencia*. El ID del sistema de StorageGRID se muestra como parte de la licencia actual.
+
+
+
+ a| 
+ a| 
+Versión del software
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+ a| 
+${post_edited_translations.segment}
+ a| 
+Resume cómo está configurado tu sistema StorageGRID. Por ejemplo, indica lo siguiente:
+
+* ¿La grid utiliza compresión de almacenamiento, cifrado de almacenamiento o cumplimiento?
+* ¿Crea ILM objetos replicados o con código de borrado? ¿Garantiza ILM la redundancia entre sitios? ¿Utilizan las reglas de ILM los comportamientos de ingesta «Equilibrado», «Estricto» o «Compromiso dual»?
+
+
+
+
+ a| 
+ a| 
+${post_edited_translations.segment}
+ a| 
+Recopila los archivos de registro y los datos del sistema para tu sistema. Selecciona *Soporte* > *Herramientas* > *Recopilación de registros*.
+
+${post_edited_translations.segment}
+
+Si solo vas a recopilar registros de determinados nodos, asegúrate de incluir al menos un nodo de almacenamiento que cuente con el servicio ADC. Los tres primeros nodos de almacenamiento instalados en una sede incluyen el servicio ADC.
+
+
+
+ a| 
+ a| 
+${post_edited_translations.segment}
+ a| 
+Recopila información de referencia sobre las operaciones de ingesta, las operaciones de recuperación y el consumo de almacenamiento.
+
+<<establish-baselines,${post_edited_translations.segment}>>
+
+
+
+ a| 
+ a| 
+Cronología de los cambios recientes
+ a| 
+${post_edited_translations.segment}
+
+<<create_timeline,Crea una cronología de los cambios recientes>>
+
+
+
+ a| 
+ a| 
+${post_edited_translations.segment}
+ a| 
+Si has tomado medidas para diagnosticar o solucionar el problema por tu cuenta, asegúrate de anotar los pasos que has seguido y el resultado.
+
+|===

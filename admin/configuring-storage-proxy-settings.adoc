@@ -1,0 +1,46 @@
+---
+permalink: admin/configuring-storage-proxy-settings.html 
+sidebar: sidebar 
+keywords: storage proxy, non-transparent proxy, platform service endpoint 
+summary: Si estás utilizando servicios de plataforma o Cloud Storage Pools, puedes configurar un proxy no transparente entre los nodos de almacenamiento y los endpoints de S3 externos. Por ejemplo, es posible que necesites un proxy no transparente para permitir que los mensajes de los servicios de plataforma se envíen a endpoints externos, como un endpoint en internet. 
+---
+= Configura un proxy de almacenamiento StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si estás utilizando servicios de plataforma o Cloud Storage Pools, puedes configurar un proxy no transparente entre los nodos de almacenamiento y los endpoints de S3 externos. Por ejemplo, es posible que necesites un proxy no transparente para permitir que los mensajes de los servicios de plataforma se envíen a endpoints externos, como un endpoint en internet.
+
+
+NOTE: ${post_edited_translations.segment}
+
+.Antes de empezar
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+
+
+.Acerca de esta tarea
+${post_edited_translations.segment}
+
+.Pasos
+. Selecciona *Configuración* > *Seguridad* > *Proxy settings*.
+. ${post_edited_translations.segment}
+. Selecciona el protocolo para el proxy de almacenamiento.
+. Introduce el nombre de host o la dirección IP del servidor proxy.
+. ${post_edited_translations.segment}
++
+Deja este campo en blanco para utilizar el puerto predeterminado del protocolo: 80 para HTTP o 1080 para SOCKS5.
+
+. Selecciona *Guardar*.
++
+Después de guardar el proxy de almacenamiento, puedes configurar y probar nuevos endpoints para los servicios de plataforma o Cloud Storage Pools.
+
++
+
+NOTE: Los cambios en el proxy pueden tardar hasta 10 minutos en surtir efecto.
+
+. ${post_edited_translations.segment}
+. Si necesitas desactivar un proxy de almacenamiento, desmarca la casilla de selección y selecciona *Guardar*.
+

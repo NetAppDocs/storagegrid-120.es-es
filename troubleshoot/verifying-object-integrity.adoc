@@ -1,0 +1,176 @@
+---
+permalink: troubleshoot/verifying-object-integrity.html 
+sidebar: sidebar 
+keywords: how to verify object integrity, object existence check, background verification 
+summary: El sistema StorageGRID verifica la integridad de los datos de los objetos en los nodos de almacenamiento, comprobando si hay objetos dañados o que faltan. 
+---
+= Verifica la integridad de los datos de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El sistema StorageGRID verifica la integridad de los datos de los objetos en los nodos de almacenamiento, comprobando si hay objetos dañados o que faltan.
+
+Hay dos procesos de verificación: la verificación en segundo plano y la comprobación de existencia de objetos (anteriormente llamada verificación en primer plano). Trabajan juntos para garantizar la integridad de los datos. La verificación en segundo plano se ejecuta automáticamente y comprueba de forma continua la corrección de los datos de los objetos. Puedes activar la comprobación de existencia de objetos para verificar más rápidamente la existencia (aunque no la corrección) de los objetos.
+
+
+
+[[what-is-background-verification]]
+== ${post_edited_translations.segment}
+
+El proceso de verificación de fondo comprueba de forma automática y continua los nodos de almacenamiento en busca de copias dañadas de los datos de los objetos e intenta reparar automáticamente cualquier problema que detecte.
+
+La verificación de antecedentes comprueba la integridad de los objetos replicados y de los objetos con código de borrado, como sigue:
+
+* *Objetos replicados*: Si el proceso de verificación en segundo plano detecta un objeto replicado que está dañado, la copia dañada se elimina de su ubicación y se pone en cuarentena en otra parte del Storage Node. Luego, se genera una nueva copia sin daños y se coloca para cumplir con las políticas de ILM activas. Es posible que la nueva copia no se coloque en el Storage Node que se usó para la copia original.
+
+
+
+NOTE: Los datos de objetos dañados se ponen en cuarentena en lugar de eliminarse del sistema, para que aún puedas acceder a ellos. Para obtener más información sobre cómo acceder a los datos de objetos en cuarentena, ponte en contacto con el soporte técnico.
+
+* *Objetos con código de borrado*: Si el proceso de verificación en segundo plano detecta que un fragmento de un objeto con código de borrado está dañado, StorageGRID intenta automáticamente reconstruir el fragmento que falta in situ en el mismo nodo de almacenamiento, utilizando los datos restantes y los fragmentos de paridad. Si no es posible reconstruir el fragmento dañado, se intenta recuperar otra copia del objeto. Si la recuperación se realiza con éxito, se lleva a cabo una evaluación de ILM para crear una copia de sustitución del objeto con código de borrado.
++
+El proceso de verificación en segundo plano solo comprueba los objetos en los nodos de almacenamiento. No comprueba los objetos en un Cloud Storage Pool. Los objetos deben tener más de cuatro días de antigüedad para ser aptos para la verificación en segundo plano.
+
+
+
+La verificación en segundo plano se ejecuta a un ritmo continuo diseñado para no interferir con las actividades habituales del sistema. La verificación en segundo plano no se puede detener. Sin embargo, puedes aumentar la velocidad de verificación en segundo plano para verificar más rápidamente el contenido de un nodo de almacenamiento si sospechas que hay algún problema.
+
+
+
+[[alerts-related-to-background-verification]]
+== Alertas relacionadas con la verificación en segundo plano
+
+${post_edited_translations.segment}
+
+Si la verificación en segundo plano no puede sustituir un objeto dañado porque no encuentra otra copia, se activa la alerta *Objetos potencialmente perdidos*.
+
+
+
+[[what-is-object-existence-check]]
+== ¿Qué es la comprobación de existencia de un objeto?
+
+La comprobación de existencia de objetos verifica si todas las copias replicadas esperadas de los objetos y los fragmentos con codificación de borrado existen en un nodo de almacenamiento. La comprobación de existencia de objetos no verifica los datos del objeto en sí (de eso se encarga la verificación en segundo plano); en su lugar, proporciona una forma de verificar la integridad de los dispositivos de almacenamiento, especialmente si un problema de hardware reciente pudiera haber afectado a la integridad de los datos.
+
+${post_edited_translations.segment}
+
+La comprobación de la existencia de objetos lee los metadatos de cada objeto almacenado en StorageGRID y verifica la existencia tanto de las copias replicadas de los objetos como de los fragmentos de objetos con código de borrado. Los datos que falten se gestionan de la siguiente manera:
+
+* *Copias replicadas*: Si falta una copia de los datos de un objeto replicado, StorageGRID intenta automáticamente sustituirla por una copia almacenada en otra ubicación del sistema. El nodo de almacenamiento somete la copia existente a una evaluación de ILM, que determinará que ya no se cumple la política de ILM actual para este objeto porque falta otra copia. Se genera una nueva copia y se coloca para cumplir con las políticas de ILM activas del sistema. Es posible que esta nueva copia no se coloque en la misma ubicación en la que estaba almacenada la copia que falta.
+* *Fragmentos con código de borrado*: Si falta un fragmento de un objeto con código de borrado, StorageGRID intenta automáticamente reconstruir el fragmento que falta in situ en el mismo nodo de almacenamiento utilizando los fragmentos restantes. Si no es posible reconstruir el fragmento que falta (porque se han perdido demasiados fragmentos), ILM intenta encontrar otra copia del objeto, que pueda utilizar para generar un nuevo fragmento con código de borrado.
+
+
+
+
+[[run-object-existence-check]]
+== ${post_edited_translations.segment}
+
+Creas y ejecutas un solo trabajo de comprobación de existencia de objetos a la vez. Cuando creas un trabajo, seleccionas los nodos de almacenamiento y los volúmenes que quieres verificar. También seleccionas la consistencia para el trabajo.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
+* Te has asegurado de que los Storage Nodes que quieres comprobar estén en línea. Selecciona *Nodes* para ver la tabla de nodos. Asegúrate de que no aparezca ningún icono de alerta junto al nombre de nodo de los nodos que quieres comprobar.
+* ${post_edited_translations.segment}
++
+** Ampliación de la red para añadir un nodo de almacenamiento
+** Decomisionar Storage Node
+** ${post_edited_translations.segment}
+** Recuperación de un nodo de almacenamiento con una unidad del sistema con error
+** ${post_edited_translations.segment}
+** ${post_edited_translations.segment}
+
+
+
+
+${post_edited_translations.segment}
+
+.Acerca de esta tarea
+Un trabajo de comprobación de existencia de objetos puede tardar días o semanas en completarse, según el número de objetos del grid, los nodos de almacenamiento y volúmenes seleccionados, y la consistencia seleccionada. Solo puedes ejecutar un trabajo a la vez, pero puedes seleccionar varios nodos de almacenamiento y volúmenes al mismo tiempo.
+
+.Pasos
+. Selecciona *Mantenimiento* > *Tareas* > *Comprobación de existencia de objetos*.
+. Selecciona *Crear trabajo*. Aparece el asistente Crear un trabajo de comprobación de existencia de objeto.
+. Selecciona los nodos que contienen los volúmenes que quieres verificar. Para seleccionar todos los nodos en línea, selecciona la casilla de verificación *Nombre de nodo* en el encabezado de la columna.
++
+${post_edited_translations.segment}
+
++
+${post_edited_translations.segment}
+
+. Selecciona *Continuar*.
+. Selecciona uno o más volúmenes para cada nodo de la lista. Puedes buscar volúmenes usando el número de volumen de almacenamiento o el nombre de nodo.
++
+Para seleccionar todos los volúmenes de cada nodo que seleccionaste, marca la casilla *Storage volume* en el encabezado de la columna.
+
+. Selecciona *Continuar*.
+. ${post_edited_translations.segment}
++
+${post_edited_translations.segment}
+
++
+** ${post_edited_translations.segment}
+** ${post_edited_translations.segment}
+** ${post_edited_translations.segment}
++
+Para obtener más información sobre la coherencia, consulta las descripciones que aparecen en el asistente.
+
+
+
+. Selecciona *Continuar*.
+. Revisa y verifica tus selecciones. Puedes seleccionar *Anterior* para volver a un paso anterior del asistente y actualizar tus selecciones.
++
+Se genera una tarea de comprobación de la existencia de un objeto y se ejecuta hasta que ocurra una de las siguientes situaciones:
+
++
+** La tarea se completa.
+** Puedes pausar o cancelar el trabajo. Puedes reanudar un trabajo que hayas pausado, pero no puedes reanudar un trabajo que hayas cancelado.
+** El trabajo se ha bloqueado. Se activa la alerta *Comprobación de existencia del objeto bloqueada*. Sigue las medidas correctivas especificadas para la alerta.
+** La tarea falla. Se activa la alerta *Fallo en la comprobación de existencia del objeto*. Sigue las acciones correctivas especificadas para la alerta.
+** Aparece el mensaje «Servicio no disponible» o «Error interno del servidor». Después de un minuto, actualiza la página para seguir supervisando el trabajo.
++
+
+NOTE: Si lo necesitas, puedes salir de la página de comprobación de la existencia del objeto y volver para seguir supervisando el trabajo.
+
+
+
+. Mientras se ejecuta el trabajo, consulta la pestaña *Trabajo activo* y toma nota del valor de Copias de objetos que faltan detectadas.
++
+Este valor representa el número total de copias que faltan de los objetos replicados y de los objetos con código de borrado que tienen uno o más fragmentos faltantes.
+
++
+Si el número de copias de objetos perdidos detectadas es superior a 100, es posible que haya un problema con el almacenamiento del Storage Node.
+
+. Una vez finalizado el trabajo, realiza cualquier acción adicional que sea necesaria:
++
+** Si el valor de Missing object copies detected es cero, entonces no se encontraron problemas. No es necesario realizar ninguna acción.
+** Si el valor de «Copias de objetos perdidas detectadas» es mayor que cero y no se ha activado la alerta *Objetos potencialmente perdidos*, entonces el sistema reparó todas las copias perdidas. Verifica que cualquier problema de hardware se haya corregido para evitar daños futuros en las copias de los objetos.
+** Si el valor de «Copias de objetos perdidos detectadas» es superior a cero y se ha activado la alerta *Objetos potencialmente perdidos*, la integridad de los datos podría verse afectada. Ponte en contacto con el soporte técnico.
+** Puedes investigar posibles copias de objetos perdidas utilizando grep para extraer los mensajes de auditoría de LLST: `grep LLST audit_file_name`.
++
+Este procedimiento es similar al de link:../troubleshoot/investigating-potentially-lost-objects.html["investigando objetos que puedan haberse perdido"], aunque para las copias de objetos buscas `LLST` en vez de `OLST`.
+
+
+
+. Si seleccionaste la consistencia strong-site o strong-global para el trabajo, espera aproximadamente tres semanas para la consistencia de los metadatos y luego vuelve a ejecutar el trabajo en los mismos volúmenes.
++
+Cuando StorageGRID haya tenido tiempo de lograr la coherencia de los metadatos de los nodos y volúmenes incluidos en el trabajo, volver a ejecutar el trabajo podría eliminar las copias de objetos que se habían señalado erróneamente como faltantes o hacer que se comprueben copias adicionales de objetos en caso de que se hubieran pasado por alto.
+
++
+.. Selecciona *Mantenimiento* > *Comprobación de existencia de objetos* > *Historial de trabajos*.
+.. Determina qué trabajos están listos para volver a ejecutarse:
++
+... Fíjate en la columna *Hora de finalización* para determinar qué trabajos se ejecutaron hace más de tres semanas.
+... Para esos trabajos, revisa la columna Control de consistencia para ver si aparece strong-site o strong-global.
+
+
+.. Marca la casilla de cada trabajo que quieras volver a ejecutar y, a continuación, selecciona *Rerun*.
+.. En el asistente de reejecución de tareas, revisa los nodos y volúmenes seleccionados y la consistencia.
+.. Cuando estés listo para volver a ejecutar los trabajos, selecciona *Rerun*.
+
+
+
+
+Aparece la pestaña «Tareas activas». Todas las tareas que seleccionaste se vuelven a ejecutar como una sola tarea con una consistencia de strong-site. Un campo *Tareas relacionadas* en la sección Detalles muestra los ID de las tareas originales.

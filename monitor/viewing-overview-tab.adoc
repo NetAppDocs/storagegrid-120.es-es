@@ -1,0 +1,64 @@
+---
+permalink: monitor/viewing-overview-tab.html 
+sidebar: sidebar 
+keywords: overview tab 
+summary: La pestaña «Descripción general» ofrece información básica sobre cada nodo. También muestra las alertas que afectan actualmente al nodo. 
+---
+= Ver la pestaña Overview de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña «Descripción general» ofrece información básica sobre cada nodo. También muestra las alertas que afectan actualmente al nodo.
+
+La pestaña «Resumen» se muestra para todos los nodos.
+
+
+
+[[node-information]]
+== Información del nodo
+
+La sección «Información del nodo» de la pestaña «Resumen» muestra información básica sobre el nodo.
+
+image:nodes_page_overview_tab.png["Pestaña «Descripción general» de la página «Nodos»"]
+
+La información general de un nodo incluye lo siguiente:
+
+* *Nombre de visualización* (solo se muestra si se ha cambiado el nombre del nodo): el nombre de visualización actual del nodo. Usa el procedimiento link:../maintain/rename-grid-site-node-overview.html["Cambiar el nombre de la grid, los sitios y los nodos"] para actualizar este valor.
+* *Nombre del sistema*: El nombre que introdujiste para el nodo durante la instalación. Los nombres de los sistemas se utilizan para operaciones internas de StorageGRID y no se pueden cambiar.
+* *Tipo*: el tipo de nodo: nodo de administración, nodo de administración principal, nodo de almacenamiento o nodo de puerta de enlace.
+* *ID*: El identificador único del nodo, que también se conoce como UUID.
+* *Estado de la conexión*: Uno de tres estados. El icono para el estado más grave se muestra.
++
+** *Desconocido* image:icon_alarm_blue_unknown.png["icono de signo de interrogación azul"]: Por una razón desconocida, el nodo no está conectado a la red o uno o más servicios están inactivos de forma inesperada. Por ejemplo, se ha perdido la conexión de red entre los nodos, hay un corte de corriente o un servicio está inactivo. También podría activarse la alerta *Unable to communicate with node*. Es posible que haya otras alertas activas. Esta situación requiere atención inmediata.
++
+
+NOTE: Un nodo puede aparecer como «Desconocido» durante las operaciones de apagado controlado. En estos casos, puedes ignorar el estado «Desconocido».
+
+** *Fuera de servicio por motivos administrativos* image:icon_alarm_gray_administratively_down.png["icono de signo de interrogación gris"]: el nodo no está conectado a la grid por un motivo previsto. Por ejemplo, el nodo, o los servicios en el nodo, se ha apagado de forma controlada, el nodo se está reiniciando o el software se está actualizando. También puede haber una o más alertas activas.
+** *Conectado* image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"]: el nodo está conectado a la red.
+
+
+* *Espacio de almacenamiento utilizado*: solo para nodos de almacenamiento.
++
+** *Datos de objetos*: el porcentaje del espacio total utilizable para datos de objetos que se ha utilizado en el Storage Node.
+** *Metadatos de objetos*: El porcentaje del espacio total permitido para metadatos de objetos que se ha utilizado en el nodo de almacenamiento.
+
+
+* *Versión del software*: La versión de StorageGRID que está instalada en el nodo.
+* *Grupos de alta disponibilidad*: solo para nodos de administración y nodos de puerta de enlace. Se muestra si una interfaz de red del nodo está incluida en un grupo de alta disponibilidad y si esa interfaz es la interfaz principal.
+* *Direcciones IP*: Las direcciones IP del nodo. Haz clic en *Mostrar direcciones IP adicionales* para ver las direcciones IPv4 e IPv6 del nodo y las asignaciones de interfaces.
+
+
+
+
+[[alerts]]
+== Alertas
+
+La sección de Alertas de la pestaña Resumen muestra cualquier link:monitoring-system-health.html#view-current-and-resolved-alerts["alertas que afectan actualmente a este nodo y que no se han silenciado"]. Selecciona el nombre de la alerta para ver detalles adicionales y acciones recomendadas.
+
+image:nodes_page_alerts_table.png["Tabla de alertas de la página de nodos"]
+
+También se incluyen alertas para link:monitoring-system-health.html#monitor-node-connection-states["Estados de conexión de los nodos"].

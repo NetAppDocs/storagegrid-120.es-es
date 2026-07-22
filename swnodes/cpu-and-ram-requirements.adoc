@@ -1,0 +1,66 @@
+---
+permalink: swnodes/cpu-and-ram-requirements.html 
+sidebar: sidebar 
+keywords: cpu, ram, cpu cores 
+summary: Antes de instalar el software StorageGRID, verifica y configura el hardware para que esté listo para soportar el sistema StorageGRID. 
+---
+= Requisitos de CPU y RAM para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de instalar el software StorageGRID, verifica y configura el hardware para que esté listo para soportar el sistema StorageGRID.
+
+Cada nodo de StorageGRID requiere los siguientes recursos mínimos:
+
+* Núcleos de CPU: 8 por nodo
+* ${post_edited_translations.segment}
++
+** ${post_edited_translations.segment}
+** Un mínimo de 64 GB para cada inquilino que tendrá aproximadamente 5,000 buckets
+
+
+
+
+Los recursos de nodos basados en software que contienen únicamente metadatos deben coincidir con los recursos de los Storage Nodes existentes. Por ejemplo:
+
+* Si el sitio de StorageGRID existente utiliza dispositivos SG6000 o SG6100, los nodos basados en software y dedicados exclusivamente a los metadatos deben cumplir los siguientes requisitos mínimos:
++
+** 128 GB de RAM
+** CPU de 8 núcleos
+** SSD de 8 TB o almacenamiento equivalente para la base de datos Cassandra (rangedb/0)
+
+
+* Si el sitio StorageGRID existente utiliza nodos de almacenamiento virtuales con 24 GB de RAM, 8 núcleos de CPU y 3 TB o 4 TB de almacenamiento de metadatos, los nodos basados en software dedicados exclusivamente a metadatos deberían utilizar recursos similares (24 GB de RAM, 8 núcleos de CPU y 4 TB de almacenamiento de metadatos (rangedb/0)).
+
+
+Al añadir un nuevo sitio de StorageGRID, la capacidad total de metadatos del nuevo sitio debe, como mínimo, igualar la de los sitios de StorageGRID existentes y los recursos del nuevo sitio deben igualar los nodos de almacenamiento en los sitios de StorageGRID existentes.
+
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+[role="tabbed-block"]
+====
+.Linux
+--
+Asegúrate de que el número de nodos de StorageGRID que tengas previsto ejecutar en cada host físico o virtual no supere el número de núcleos de CPU ni la memoria RAM física disponible. Si los hosts no están dedicados a ejecutar StorageGRID (no se recomienda), asegúrate de considerar los requisitos de recursos de las otras aplicaciones.
+
+--
+.VMware
+--
+VMware admite un nodo por máquina virtual. Asegúrate de que el nodo de StorageGRID no supere la memoria RAM física disponible. Cada máquina virtual debe estar dedicada a ejecutar StorageGRID.
+
+--
+====
+
+CAUTION: Supervisa periódicamente el uso de la CPU y la memoria para asegurarte de que estos recursos sigan siendo suficientes para tu carga de trabajo. Por ejemplo, duplicar la asignación de RAM y CPU para los nodos de almacenamiento virtual proporcionaría recursos similares a los que se proporcionan para los nodos de los dispositivos StorageGRID. Además, si la cantidad de metadatos por nodo supera los 500 GB, considera aumentar la RAM por nodo a 48 GB o más. Para obtener información sobre la gestión del almacenamiento de metadatos de objetos, el aumento del ajuste Espacio reservado para metadatos y la supervisión del uso de la CPU y la memoria, consulta las instrucciones para link:../admin/index.html["administrar"], link:../monitor/index.html["${post_edited_translations.segment}"] y link:../upgrade/index.html["actualización"] StorageGRID.
+
+Si hyperthreading está habilitado en los hosts físicos subyacentes, puedes proporcionar 8 núcleos virtuales (4 núcleos físicos) por nodo. Si hyperthreading no está habilitado en los hosts físicos subyacentes, debes proporcionar 8 núcleos físicos por nodo.
+
+${post_edited_translations.segment}
+
+(Solo RHEL, Debian y Ubuntu) Para implementaciones de producción, no deberías ejecutar varios nodos de almacenamiento en el mismo hardware de almacenamiento físico o host virtual. Cada nodo de almacenamiento en una única implementación de StorageGRID debería estar en su propio dominio de fallos aislado. Puedes maximizar la durabilidad y la disponibilidad de los datos de objetos si te aseguras de que un único fallo de hardware solo pueda afectar a un único nodo de almacenamiento.
+
+Véase también link:storage-and-performance-requirements.html["Requisitos de almacenamiento y rendimiento"].

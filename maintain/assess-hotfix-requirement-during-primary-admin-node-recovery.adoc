@@ -1,0 +1,31 @@
+---
+permalink: maintain/assess-hotfix-requirement-during-primary-admin-node-recovery.html 
+sidebar: sidebar 
+keywords: storagegrid, primary admin node, hotfix 
+summary: Después de recuperar un nodo de administración principal, determina si necesitas aplicar una corrección urgente. 
+---
+= Determina el requisito de corrección urgente para el nodo de administración primario en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de recuperar un nodo de administración principal, determina si necesitas aplicar una corrección urgente.
+
+.Antes de empezar
+La recuperación del nodo de administración principal está completa.
+
+.Pasos
+. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
+. Selecciona *Nodos*.
+. En la lista de la izquierda, selecciona el nodo de administración principal.
+. En la pestaña «Descripción general», fíjate en la versión que aparece en el campo *Versión del software*.
+. Selecciona cualquier otro nodo de la cuadrícula.
+. En la pestaña «Descripción general», fíjate en la versión que aparece en el campo *Versión del software*.
++
+** Si las versiones que aparecen en los campos *Versión de software* son las mismas, no necesitas aplicar una corrección urgente.
+** Si las versiones que aparecen en los campos *Versión de software* son diferentes, debes link:storagegrid-hotfix-procedure.html["aplicar una corrección urgente"] para actualizar el nodo de administración principal recuperado a la misma versión.
+
+
+

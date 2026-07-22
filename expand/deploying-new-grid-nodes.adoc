@@ -1,0 +1,187 @@
+---
+permalink: expand/deploying-new-grid-nodes.html 
+sidebar: sidebar 
+keywords: expansion, add nodes, StorageGRID 
+summary: Los pasos para implementar nuevos nodos de red en una ampliación son los mismos que los utilizados cuando se instaló la red por primera vez. Debes implementar todos los nuevos nodos de red antes de poder llevar a cabo la ampliación. 
+---
+= ${post_edited_translations.segment}
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los pasos para implementar nuevos nodos de red en una ampliación son los mismos que los utilizados cuando se instaló la red por primera vez. Debes implementar todos los nuevos nodos de red antes de poder llevar a cabo la ampliación.
+
+Cuando expandes un grid, los nodos que añades no tienen que coincidir con los tipos de nodos existentes. Puedes añadir nodos de VMware, nodos basados en contenedores de Linux o nodos de appliance.
+
+
+
+[[vmware-deploy-grid-nodes]]
+== VMware: implementar nodos de grid
+
+Debes implementar una máquina virtual en VMware vSphere para cada nodo de VMware que desees añadir en la ampliación.
+
+.Pasos
+. link:../swnodes/deploying-storagegrid-node-as-virtual-machine.html["Implementa el nuevo nodo como máquina virtual"] y conéctalo a una o más redes de StorageGRID.
++
+Cuando implementas el nodo, puedes opcionalmente reasignar los puertos del nodo o aumentar la configuración de CPU o memoria.
+
+. Una vez que hayas implementado todos los nuevos nodos de VMware, link:performing-expansion.html["llevar a cabo el procedimiento de expansión"].
+
+
+
+
+[[linux-deploy-grid-nodes]]
+== Linux: implementa nodos de red
+
+Puedes implementar nodos de grid en nuevos hosts Linux o en hosts Linux ya existentes. Si necesitas hosts Linux adicionales para satisfacer los requisitos de CPU, RAM y almacenamiento de los nodos de StorageGRID que quieres añadir a tu grid, debes prepararlos de la misma forma en que preparaste los hosts cuando los instalaste por primera vez. Luego, implementas los nodos de expansión de la misma forma en que implementaste los nodos de grid durante la instalación.
+
+.Antes de empezar
+* Tienes las instrucciones para instalar StorageGRID en tu versión de Linux y has revisado la link:../swnodes/index.html["Requisitos de hardware y almacenamiento"].
+* Si planeas implementar nuevos nodos de grid en los hosts existentes, ya confirmaste que los hosts tienen suficiente CPU, RAM y capacidad de almacenamiento para los nodos adicionales.
+* Tienes un plan para minimizar los dominios de fallo. Por ejemplo, no debes implementar todos los Gateway Nodes en un único host físico.
++
+
+CAUTION: En una implementación de producción, no ejecutes más de un Storage Node en un solo host físico o virtual. Usar un host dedicado para cada Storage Node proporciona un dominio de fallo aislado.
+
+* Si el nodo de StorageGRID utiliza almacenamiento asignado desde un sistema NetApp ONTAP, comprueba que el volumen no tenga una política de nivelación de FabricPool habilitada. Desactivar la nivelación de FabricPool para los volúmenes usados con nodos de StorageGRID simplifica la solución de problemas y las operaciones de almacenamiento.
+
+
+.Pasos
+. Si vas a añadir nuevos hosts, consulta las instrucciones de instalación para implementar nodos de StorageGRID.
+. Para implementar los nuevos hosts, sigue las instrucciones para prepararlos.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. Si vas a añadir nodos a un host de Linux ya existente, inicia los nuevos nodos usando la CLI del servicio storagegrid host:``sudo storagegrid node start [<node name\>]``
+
+
+.Después de que termines
+Una vez implementados todos los nuevos nodos de la red, puedes link:performing-expansion.html["${post_edited_translations.segment}"].
+
+
+
+[[appliances-deploying-storage-gateway-or-non-primary-admin-nodes]]
+== Dispositivos: implementación de almacenamiento, gateway o nodos de administración no principales
+
+Para instalar el software StorageGRID en un nodo de dispositivo, usas el StorageGRID Appliance Installer, que viene incluido en el dispositivo. En una expansión, cada dispositivo de almacenamiento funciona como un único nodo de almacenamiento, y cada dispositivo de servicios funciona como un único nodo de puerta de enlace o nodo de administración no primario. Cualquier dispositivo se puede conectar a la red de grid, a la red de administración y a la red de clientes.
+
+.Antes de empezar
+* ${post_edited_translations.segment}
+* Has completado los  https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/configuring-hardware.html["Configurar el hardware"^] pasos.
++
+La configuración del hardware del dispositivo incluye los pasos necesarios para configurar las conexiones de StorageGRID (enlaces de red y direcciones IP), así como los pasos opcionales para habilitar el cifrado de nodo, cambiar el modo RAID y reasignar los puertos de red.
+
+* Todas las subredes de la red Grid que aparecen en la página de Configuración de IP del StorageGRID Appliance Installer se han definido en la Grid Network Subnet List del nodo de administración principal.
+* El firmware del StorageGRID Appliance Installer en el dispositivo de reemplazo es compatible con la versión del software StorageGRID que está ejecutándose actualmente en tu grid. Si las versiones no son compatibles, tienes que actualizar el firmware del StorageGRID Appliance Installer.
+* Tienes un portátil de servicio con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Conoces una de las direcciones IP asignadas al controlador de computación del dispositivo. Puedes usar la dirección IP para cualquier red de StorageGRID conectada.
+
+
+.Acerca de esta tarea
+El proceso de instalación de StorageGRID en un nodo de dispositivo consta de las siguientes fases:
+
+* Debes especificar o confirmar la dirección IP del nodo de administración principal y el nombre del nodo de la appliance.
+* Inicia la instalación y espera a que se configuren los volúmenes y se instale el software.
++
+A mitad de las tareas de instalación de los dispositivos, la instalación se detiene. Para reanudar la instalación, debes iniciar sesión en Grid Manager, aprobar todos los nodos de la grid y completar el proceso de instalación de StorageGRID.
+
++
+
+NOTE: Si necesitas implementar varios nodos de appliance a la vez, puedes automatizar el proceso de instalación utilizando el `configure-sga.py` script de instalación de appliances.
+
+
+
+.Pasos
+. Abre un navegador e introduce una de las direcciones IP del controlador de cómputo del appliance.
++
+`https://_Controller_IP_:8443`
+
++
+${post_edited_translations.segment}
+
+. En la sección de conexión del *Nodo de administración principal*, comprueba si necesitas especificar la dirección IP del nodo de administración principal.
++
+Si ya has instalado otros nodos en este centro de datos, el instalador de StorageGRID Appliance puede detectar esta dirección IP automáticamente, siempre que el nodo de administración principal, o al menos otro nodo de grid con ADMIN_IP configurado, esté presente en la misma subred.
+
+. ${post_edited_translations.segment}
++
+[cols="1a,2a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+.. Desmarca la casilla *Habilitar detección de nodos de administración*.
+.. Introduce la dirección IP manualmente.
+.. Haz clic en *Guardar*.
+.. Espera a que el estado de conexión de la nueva dirección IP esté listo.
+
+
+
+
+ a| 
+Detección automática de todos los nodos de administración principales conectados
+ a| 
+.. Marca la casilla *Habilitar detección de nodos de administración*.
+.. ${post_edited_translations.segment}
+.. ${post_edited_translations.segment}
+.. Haz clic en *Guardar*.
+.. Espera a que el estado de conexión de la nueva dirección IP esté listo.
+
+
+|===
+. ${post_edited_translations.segment}
++
+El nombre de nodo se asigna a este nodo del dispositivo en el sistema StorageGRID. Aparece en la página Nodos (pestaña Resumen) en Grid Manager. Si lo necesitas, puedes cambiar el nombre cuando apruebes el nodo.
+
+. En la sección *Instalación*, comprueba que el estado actual sea «Listo para iniciar la instalación de _nombre de nodo_ en la grid con el nodo de administración principal _admin_ip_» y que el botón *Iniciar instalación* esté habilitado.
++
+Si el botón *Iniciar instalación* no está habilitado, es posible que debas cambiar la configuración de red o los ajustes de puerto. Para obtener instrucciones, consulta las instrucciones de mantenimiento de tu dispositivo.
+
+. En la página de inicio del instalador de StorageGRID Appliance, selecciona *Iniciar instalación*.
++
+${post_edited_translations.segment}
+
+. ${post_edited_translations.segment}
++
+
+NOTE: Si necesitas implementar varios nodos de almacenamiento appliance a la vez, puedes automatizar el proceso de instalación utilizando el script de instalación appliance configure-sga.py.
+
+. ${post_edited_translations.segment}
++
+${post_edited_translations.segment}
+
++
+La barra de estado azul indica qué tarea está actualmente en progreso. Las barras de estado verdes indican las tareas que se han completado correctamente.
+
++
+
+NOTE: El instalador se asegura de que las tareas completadas en una instalación anterior no se vuelvan a ejecutar. Si vuelves a ejecutar una instalación, las tareas que no necesiten volver a ejecutarse se muestran con una barra de estado verde y el estado "Skipped".
+
+. ${post_edited_translations.segment}
++
+*1. Configura el dispositivo*
+
++
+Durante esta etapa, ocurre uno de los siguientes procesos:
+
++
+** Para un dispositivo de almacenamiento, el instalador se conecta al controlador de almacenamiento, borra cualquier configuración existente, se comunica con SANtricity OS para configurar los volúmenes y configura la configuración del host.
+** En el caso de un dispositivo de servicios, el instalador borra cualquier configuración existente de las unidades del controlador de cálculo y configura los ajustes del host.
++
+*2. Instala el sistema operativo*
+
++
+Durante esta fase, el instalador copia la imagen del sistema operativo base de StorageGRID en el dispositivo.
+
+
+
+. Sigue supervisando el progreso de la instalación hasta que aparezca un mensaje en la ventana de la consola en el que se te pida que utilices el Grid Manager para aprobar el nodo.
++
+
+NOTE: Espera hasta que todos los nodos que añadiste en esta ampliación estén listos para su aprobación antes de ir al Grid Manager para aprobar los nodos.
+
+

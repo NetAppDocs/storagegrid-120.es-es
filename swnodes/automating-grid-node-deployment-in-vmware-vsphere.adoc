@@ -1,0 +1,678 @@
+---
+permalink: swnodes/automating-grid-node-deployment-in-vmware-vsphere.html 
+sidebar: sidebar 
+keywords: how to automate installation 
+summary: Puedes usar VMware OVF Tool para automatizar el despliegue de nodos grid en StorageGRID. También puedes automatizar la configuración de StorageGRID. 
+---
+= Automatiza el despliegue de nodos grid en StorageGRID con VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes usar la herramienta VMware OVF Tool para automatizar el despliegue de los nodos de grid. También puedes automatizar la configuración de StorageGRID.
+
+
+
+[[automate-grid-node-deployment]]
+== Automatiza la implementación de nodos de grid
+
+${post_edited_translations.segment}
+
+.Antes de empezar
+* Tienes acceso a un sistema Linux/Unix con Bash 3.2 o una versión posterior.
+* Tienes VMware vSphere con vCenter
+* Tienes VMware OVF Tool instalada y correctamente configurada.
+* Conoces el nombre de usuario y la contraseña para acceder a VMware vSphere mediante la OVF Tool
+* Dispones de los permisos necesarios para implementar máquinas virtuales a partir de archivos OVF y encenderlas, así como de los permisos para crear volúmenes adicionales que se puedan conectar a las máquinas virtuales. Consulta la  `ovftool` documentación para más detalles.
+* Conoces la URL de la infraestructura virtual (VI) para la ubicación en vSphere donde quieres implementar las máquinas virtuales de StorageGRID. Esta URL normalmente será un vApp o un Resource Pool. Por ejemplo: `vi://vcenter.example.com/vi/sgws`
++
+
+NOTE: Puedes usar la utilidad de VMware `ovftool` para determinar este valor (consulta la documentación de `ovftool` para más detalles).
+
++
+
+NOTE: Si realizas el despliegue en una vApp, las máquinas virtuales no se iniciarán automáticamente la primera vez y tendrás que encenderlas manualmente.
+
+* Has recopilado toda la información necesaria para el archivo de configuración de despliegue. Consulta link:collecting-information-about-your-deployment-environment.html["Recopila información sobre tu entorno de implementación"] para obtener información.
+* ${post_edited_translations.segment}
+
+
+[cols="1a,1a"]
+|===
+| ${post_edited_translations.segment} | Descripción 
+
+
+| NetApp-SG-version-SHA.vmdk  a| 
+El archivo de disco de la máquina virtual que se utiliza como plantilla para crear máquinas virtuales de nodos de grid.
+
+*Nota:* Este archivo debe estar en la misma carpeta que los archivos  `.ovf` y  `.mf`.
+
+
+
+| vsphere-primary-admin.ovf vsphere-primary-admin.mf  a| 
+El archivo de plantilla de Open Virtualization Format (`.ovf`) y el archivo de manifiesto (`.mf`) para implementar el nodo de administración primario.
+
+
+
+| ${post_edited_translations.segment}  a| 
+El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para implementar nodos de administración no principales.
+
+
+
+| ${post_edited_translations.segment}  a| 
+El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para implementar Gateway Nodes.
+
+
+
+| ${post_edited_translations.segment}  a| 
+El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para desplegar nodos de almacenamiento basados en máquinas virtuales.
+
+
+
+| ${post_edited_translations.segment}  a| 
+El script de Bash que se utiliza para automatizar la implementación de nodos de grid virtuales.
+
+
+
+| deploy-vsphere-ovftool-sample.ini  a| 
+El archivo de configuración de ejemplo para usar con el script  `deploy-vsphere-ovftool.sh`.
+
+|===
+
+
+[[define-the-configuration-file-for-your-deployment]]
+=== ${post_edited_translations.segment}
+
+Especificas la información necesaria para implementar nodos de grid virtuales para StorageGRID en un archivo de configuración, que utiliza el script de Bash `deploy-vsphere-ovftool.sh`. Puedes modificar un archivo de configuración de ejemplo para no tener que crear el archivo desde cero.
+
+.Pasos
+. Crea una copia del archivo de configuración de ejemplo (`deploy-vsphere-ovftool.sample.ini`). Guarda el nuevo archivo como  `deploy-vsphere-ovftool.ini` en el mismo directorio que  `deploy-vsphere-ovftool.sh`.
+. Abre `deploy-vsphere-ovftool.ini`.
+. ${post_edited_translations.segment}
++
+Consulta <<configuration-file-settings,Ajustes del archivo de configuración>> para obtener información.
+
+. Cuando hayas introducido y comprobado toda la información necesaria, guarda y cierra el archivo.
+
+
+
+
+[[configuration-file-settings]]
+=== Ajustes del archivo de configuración
+
+El archivo de configuración  `deploy-vsphere-ovftool.ini` contiene los ajustes necesarios para implementar nodos de grid virtual.
+
+El archivo de configuración enumera primero los parámetros globales y, a continuación, los parámetros específicos de cada nodo en secciones definidas por el nombre de nodo. Cuando se utiliza el archivo:
+
+* Los _parámetros globales_ se aplican a todos los nodos de la grid.
+* ${post_edited_translations.segment}
+
+
+
+
+==== ${post_edited_translations.segment}
+
+Los parámetros globales se aplican a todos los nodos de la grid, a menos que se anulen mediante la configuración en secciones individuales. Coloca los parámetros que se aplican a varios nodos en la sección de parámetros globales y luego anula estos ajustes según sea necesario en las secciones para nodos individuales.
+
+* *OVFTOOL_ARGUMENTS*: puedes especificar OVFTOOL_ARGUMENTS como configuración global o puedes aplicar argumentos de forma individual a nodos específicos. Por ejemplo:
++
+[listing, subs="specialcharacters,quotes"]
+----
+OVFTOOL_ARGUMENTS = --powerOn --noSSLVerify --diskMode=eagerZeroedThick --datastore='_datastore_name_'
+----
++
+Puedes utilizar las opciones  `--powerOffTarget` y  `--overwrite` para apagar y sustituir máquinas virtuales existentes.
+
++
+
+CAUTION: Deberías implementar los nodos en diferentes almacenes de datos y especificar OVFTOOL_ARGUMENTS para cada nodo, en lugar de hacerlo de forma global.
+
+* *SOURCE*: la ruta al archivo de la plantilla de máquina virtual de StorageGRID (`.vmdk`) y a los archivos  `.ovf` y  `.mf` para los nodos de grid individuales. Por defecto, es el directorio actual.
++
+[listing, subs="specialcharacters,quotes"]
+----
+SOURCE = /downloads/StorageGRID-Webscale-_version_/vsphere
+----
+* *DESTINO*: la URL de la infraestructura virtual (vi) de VMware vSphere para la ubicación donde se implementará StorageGRID. Por ejemplo:
++
+[listing]
+----
+TARGET = vi://vcenter.example.com/vm/sgws
+----
+* *GRID_NETWORK_CONFIG*: El método utilizado para obtener direcciones IP, ya sea STATIC o DHCP. El valor predeterminado es STATIC. Si todos o la mayoría de los nodos utilizan el mismo método para obtener direcciones IP, puedes especificar ese método aquí. Luego puedes anular la configuración global especificando ajustes diferentes para uno o más nodos individuales. Por ejemplo:
++
+[listing]
+----
+GRID_NETWORK_CONFIG = STATIC
+----
+* *GRID_NETWORK_TARGET*: El nombre de una red de VMware ya existente que se usará para la Grid Network. Si todos o la mayoría de los nodos usan el mismo nombre de red, puedes especificarlo aquí. Luego puedes anular la configuración global especificando ajustes diferentes para uno o más nodos individuales. Por ejemplo:
++
+[listing]
+----
+GRID_NETWORK_TARGET = SG Admin Network
+----
+* *GRID_NETWORK_MASK*: la máscara de red para la Grid Network. Si todos o la mayoría de los nodos usan la misma máscara de red, puedes especificarla aquí. Después, puedes sobrescribir la configuración global especificando configuraciones diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+GRID_NETWORK_MASK = 255.255.255.0
+----
+* *GRID_NETWORK_GATEWAY*: la puerta de enlace de red para la red Grid. Si todos o la mayoría de los nodos usan la misma puerta de enlace de red, puedes especificarla aquí. A continuación, puedes invalidar la configuración global especificando configuraciones diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+GRID_NETWORK_GATEWAY = 10.1.0.1
+----
+* *GRID_NETWORK_MTU*: opcional. La unidad máxima de transmisión (MTU) en la red Grid. Si se especifica, el valor debe estar entre 1280 y 9216. Por ejemplo:
++
+[listing]
+----
+GRID_NETWORK_MTU = 9000
+----
++
+${post_edited_translations.segment}
+
++
+Si deseas utilizar tramas gigantes, configura el MTU con un valor adecuado para las tramas gigantes, como 9000. De lo contrario, mantén el valor predeterminado.
+
++
+
+NOTE: El valor de MTU de la red debe coincidir con el valor configurado en el puerto del switch virtual en vSphere al que está conectado el nodo. De lo contrario, podrían ocurrir problemas de rendimiento de la red o pérdida de paquetes.
+
++
+
+NOTE: Para obtener el mejor rendimiento de la red, todos los nodos deben configurarse con valores de MTU similares en sus interfaces de red Grid. La alerta *Desajuste de MTU de la red Grid* se activa si existe una diferencia significativa en la configuración de MTU de la red Grid en los distintos nodos. No es necesario que los valores de MTU sean iguales para todos los tipos de red.
+
+* *ADMIN_NETWORK_CONFIG*: el método utilizado para adquirir direcciones IP, ya sea DISABLED, STATIC o DHCP. El valor predeterminado es DISABLED. Si todos o la mayoría de los nodos usan el mismo método para adquirir direcciones IP, puedes especificar ese método aquí. Luego puedes anular la configuración global especificando configuraciones diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+ADMIN_NETWORK_CONFIG = STATIC
+----
+* *ADMIN_NETWORK_TARGET*: el nombre de una red de VMware existente que se usará para la red de administración. Este ajuste es obligatorio a menos que la red de administración esté desactivada. Si todos o la mayoría de los nodos usan el mismo nombre de red, puedes especificarlo aquí. A diferencia de la red Grid, no es necesario que todos los nodos estén conectados a la misma red de administración. Después, puedes anular el ajuste global especificando diferentes ajustes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+ADMIN_NETWORK_TARGET = SG Admin Network
+----
+* *ADMIN_NETWORK_MASK*: la máscara de red para la red de administración. Este ajuste es necesario si estás usando direccionamiento IP estático. Si todos o la mayoría de los nodos usan la misma máscara de red, puedes especificarla aquí. Después, puedes anular el ajuste global especificando ajustes diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+ADMIN_NETWORK_MASK = 255.255.255.0
+----
+* *ADMIN_NETWORK_GATEWAY*: la puerta de enlace de red para la Admin Network. Este ajuste es necesario si estás usando direccionamiento IP estático y especificas subredes externas en el ajuste ADMIN_NETWORK_ESL. (Es decir, no es necesario si ADMIN_NETWORK_ESL está vacío). Si todos o la mayoría de los nodos usan la misma puerta de enlace de red, puedes especificarla aquí. Después, puedes anular el ajuste global especificando ajustes diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+ADMIN_NETWORK_GATEWAY = 10.3.0.1
+----
+* *ADMIN_NETWORK_ESL*: la lista de subredes externas (rutas) para la red de administración (Admin Network), especificada como una lista separada por comas de destinos de ruta CIDR. Si todos o la mayoría de los nodos usan la misma lista de subredes externas, puedes especificarla aquí. Luego puedes invalidar la configuración global especificando configuraciones diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+ADMIN_NETWORK_ESL = 172.16.0.0/21,172.17.0.0/21
+----
+* *ADMIN_NETWORK_MTU*: opcional. La unidad máxima de transmisión (MTU) en la red de administración. No lo especifiques si ADMIN_NETWORK_CONFIG = DHCP. Si se especifica, el valor debe estar entre 1280 y 9216. Si se omite, se usa 1400. Si quieres usar tramas jumbo, establece la MTU en un valor adecuado para tramas jumbo, como 9000. De lo contrario, mantén el valor predeterminado. Si todos o la mayoría de los nodos usan la misma MTU para la red de administración, puedes especificarla aquí. Después, puedes invalidar la configuración global especificando configuraciones diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+ADMIN_NETWORK_MTU = 8192
+----
+* *CLIENT_NETWORK_CONFIG*: el método utilizado para obtener direcciones IP, ya sea DISABLED, STATIC o DHCP. El valor predeterminado es DISABLED. Si todos o la mayoría de los nodos utilizan el mismo método para obtener direcciones IP, puedes especificar ese método aquí. Luego, puedes anular la configuración global especificando configuraciones diferentes para uno o más nodos individuales. Por ejemplo:
++
+[listing]
+----
+CLIENT_NETWORK_CONFIG = STATIC
+----
+* *CLIENT_NETWORK_TARGET*: el nombre de una red de VMware existente que quieras usar para la red de clientes. Este ajuste es obligatorio a menos que la red de clientes esté desactivada. Si todos o la mayoría de los nodos usan el mismo nombre de red, puedes especificarlo aquí. A diferencia de la red de grid, no es necesario que todos los nodos estén conectados a la misma red de clientes. Después, puedes anular el ajuste global especificando diferentes ajustes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+CLIENT_NETWORK_TARGET = SG Client Network
+----
+* *CLIENT_NETWORK_MASK*: la máscara de red para la Client Network. Este ajuste es necesario si estás utilizando direccionamiento IP estático. Si todos o la mayoría de los nodos usan la misma máscara de red, puedes especificarla aquí. Después, puedes invalidar el ajuste global especificando ajustes diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+CLIENT_NETWORK_MASK = 255.255.255.0
+----
+* *CLIENT_NETWORK_GATEWAY*: la puerta de enlace de red para la red de clientes. Este ajuste es necesario si utilizas direccionamiento IP estático. Si todos o la mayoría de los nodos usan la misma puerta de enlace de red, puedes especificarla aquí. A continuación, puedes invalidar el ajuste global especificando ajustes diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+CLIENT_NETWORK_GATEWAY = 10.4.0.1
+----
+* *CLIENT_NETWORK_MTU*: opcional. La unidad de transmisión máxima (MTU) en la red de clientes. No lo especifiques si CLIENT_NETWORK_CONFIG = DHCP. Si se especifica, el valor debe estar entre 1280 y 9216. Si se omite, se usa 1400. Si quieres usar tramas jumbo, establece la MTU en un valor adecuado para tramas jumbo, como 9000. De lo contrario, mantén el valor predeterminado. Si todos o la mayoría de los nodos usan la misma MTU para la red de clientes, puedes especificarla aquí. Después, puedes invalidar la configuración global especificando configuraciones diferentes para uno o varios nodos individuales. Por ejemplo:
++
+[listing]
+----
+CLIENT_NETWORK_MTU = 8192
+----
+* *PORT_REMAP*: Reasigna cualquier puerto utilizado por un nodo para comunicaciones internas entre nodos de la cuadrícula o para comunicaciones externas. La reasignación de puertos es necesaria si las políticas de red empresarial restringen uno o más puertos utilizados por StorageGRID. Para ver la lista de puertos utilizados por StorageGRID, consulta las comunicaciones internas entre nodos de la cuadrícula y las comunicaciones externas en link:../network/index.html["${post_edited_translations.segment}"].
++
+
+NOTE: No reasignes los puertos que planeas usar para configurar los endpoints del balanceador de carga.
+
++
+
+NOTE: Si solo se configura PORT_REMAP, el mapeo que especifiques se usará tanto para las comunicaciones entrantes como para las salientes. Si también se especifica PORT_REMAP_INBOUND, PORT_REMAP se aplica solo a las comunicaciones salientes.
+
++
+El formato utilizado es: `_network type/protocol/default port used by grid node/new port_`, donde el tipo de red es grid, admin o client, y el protocolo es tcp o udp.
+
++
+Por ejemplo:
+
++
+[listing]
+----
+PORT_REMAP = client/tcp/18082/443
+----
++
+Si la usas sola, esta configuración de ejemplo mapea simétricamente tanto las comunicaciones entrantes como las salientes para el nodo de grid del puerto 18082 al puerto 443. Si la usas en combinación con PORT_REMAP_INBOUND, esta configuración de ejemplo mapea las comunicaciones salientes del puerto 18082 al puerto 443.
+
++
+También puedes reasignar varios puertos utilizando una lista separada por comas.
+
++
+Por ejemplo:
+
++
+[listing]
+----
+PORT_REMAP = client/tcp/18082/443, client/tcp/18083/80
+----
+* *PORT_REMAP_INBOUND*: reasigna las comunicaciones entrantes para el puerto especificado. Si especificas PORT_REMAP_INBOUND pero no especificas un valor para PORT_REMAP, las comunicaciones salientes para el puerto no cambian.
++
+
+NOTE: No reasignes los puertos que planeas usar para configurar los endpoints del balanceador de carga.
+
++
+El formato utilizado es: `_network type_/_protocol/_default port used by grid node_/_new port_`, donde el tipo de red es grid, admin o client, y el protocolo es tcp o udp.
+
++
+Por ejemplo:
+
++
+[listing]
+----
+PORT_REMAP_INBOUND = client/tcp/443/18082
+----
++
+${post_edited_translations.segment}
+
++
+${post_edited_translations.segment}
+
++
+Por ejemplo:
+
++
+[listing]
+----
+PORT_REMAP_INBOUND = grid/tcp/3022/22, admin/tcp/3022/22
+----
+* ${post_edited_translations.segment}
++
+
+TIP: Si todos o la mayoría de los nodos utilizan el mismo tipo de contraseña de instalación temporal, especifica el tipo en la sección de parámetros globales. Luego, opcionalmente usa una configuración diferente para un nodo individual. Por ejemplo, si seleccionas *Use Custom Password* globalmente, puedes usar *CUSTOM_TEMPORARY_PASSWORD=<password>* para establecer la contraseña de cada nodo.
+
++
+${post_edited_translations.segment}
+
++
+** *Utilizar el nombre de nodo*: El nombre de nodo se utiliza como contraseña temporal de instalación y permite acceder a la consola de la VM, a la API de instalación de StorageGRID y a SSH.
+** *Desactivar contraseña*: no se utilizará ninguna contraseña de instalación temporal. Si necesitas acceder a la VM para depurar problemas de instalación, consulta link:troubleshooting-installation-issues.html["${post_edited_translations.segment}"].
+** *Utilizar contraseña personalizada*: El valor proporcionado con *CUSTOM_TEMPORARY_PASSWORD=<password>* se utiliza como contraseña temporal de instalación y permite acceder a la consola de la máquina virtual, a la API de instalación de StorageGRID y a SSH.
++
+
+TIP: Si lo prefieres, puedes omitir el parámetro *TEMPORARY_PASSWORD_TYPE* y especificar únicamente *CUSTOM_TEMPORARY_PASSWORD=<password>*.
+
+
+
+* *CUSTOM_TEMPORARY_PASSWORD=<password>* Opcional. La contraseña temporal que se utiliza durante la instalación al acceder a la consola de la VM, la API de instalación de StorageGRID y SSH. Se ignora si *TEMPORARY_PASSWORD_TYPE* está configurado en *Use node name* o *Disable password*.
+
+
+
+
+==== Parámetros específicos de nodo
+
+Cada nodo está en su propia sección del archivo de configuración. Cada nodo requiere los siguientes ajustes:
+
+* El encabezado de la sección define el nombre de nodo que se mostrará en el Grid Manager. Puedes sobrescribir ese valor especificando el parámetro opcional NODE_NAME para el nodo.
+* ${post_edited_translations.segment}
+* *STORAGE_TYPE*: combinado, datos o metadatos. Este parámetro opcional para los nodos de almacenamiento toma por defecto el valor combinado (datos y metadatos) si no se especifica. Para obtener más información, consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"].
+* *GRID_NETWORK_IP*: La dirección IP del nodo en la red Grid.
+* *ADMIN_NETWORK_IP*: La dirección IP del nodo en la red de administración. Solo es obligatorio si el nodo está conectado a la red de administración y ADMIN_NETWORK_CONFIG está configurado como STATIC.
+* *CLIENT_NETWORK_IP*: La dirección IP del nodo en la Client Network. Solo es obligatorio si el nodo está conectado a la Client Network y CLIENT_NETWORK_CONFIG para este nodo está configurado como STATIC.
+* *ADMIN_IP*: La dirección IP del nodo de administración principal de la red Grid. Utiliza el valor que especifiques como GRID_NETWORK_IP para el nodo de administración principal. Si omites este parámetro, el nodo intenta descubrir la dirección IP del nodo de administración principal usando mDNS. Para más información, consulta link:how-grid-nodes-discover-primary-admin-node.html["Cómo detectan los nodos de la grid el nodo de administración principal"].
++
+
+NOTE: El parámetro ADMIN_IP se ignora para el nodo de administración principal.
+
+* Cualquier parámetro que no se haya establecido de forma global. Por ejemplo, si un nodo está conectado a la Admin Network y no especificaste los parámetros de ADMIN_NETWORK de forma global, debes especificarlos para el nodo.
+
+
+.Nodo de administración principal
+Se requieren los siguientes ajustes adicionales para el nodo de administración principal:
+
+* ${post_edited_translations.segment}
+* *ADMIN_ROLE*: Principal
+
+
+Esta entrada de ejemplo corresponde a un nodo de administración principal que se encuentra en las tres redes:
+
+[listing]
+----
+[DC1-ADM1]
+  ADMIN_ROLE = Primary
+  NODE_TYPE = VM_Admin_Node
+  TEMPORARY_PASSWORD_TYPE = Use custom password
+  CUSTOM_TEMPORARY_PASSWORD = Passw0rd
+
+  GRID_NETWORK_IP = 10.1.0.2
+  ADMIN_NETWORK_IP = 10.3.0.2
+  CLIENT_NETWORK_IP = 10.4.0.2
+----
+La siguiente configuración adicional es opcional para el nodo de administración principal:
+
+* *DISK*: De forma predeterminada, a los nodos de administración se les asignan dos discos duros adicionales de 200 GB para auditoría y bases de datos. Puedes ampliar estos valores mediante el parámetro DISK. Por ejemplo:
++
+[listing]
+----
+DISK = INSTANCES=2, CAPACITY=300
+----
+
+
+
+NOTE: ${post_edited_translations.segment}
+
+.Nodo de almacenamiento
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
++
+Esta entrada de ejemplo es para un nodo de almacenamiento que está en las redes Grid y de administración, pero no en la red de cliente. Este nodo usa el ajuste ADMIN_IP para especificar la dirección IP del nodo de administración principal en la red Grid.
+
++
+[listing]
+----
+[DC1-S1]
+  NODE_TYPE = VM_Storage_Node
+
+  GRID_NETWORK_IP = 10.1.0.3
+  ADMIN_NETWORK_IP = 10.3.0.3
+
+  ADMIN_IP = 10.1.0.2
+----
++
+Esta segunda entrada de ejemplo corresponde a un nodo de almacenamiento en una red de cliente donde la política de red empresarial del cliente establece que una aplicación cliente S3 solo puede acceder al nodo de almacenamiento usando el puerto 80 o 443. El archivo de configuración de ejemplo usa PORT_REMAP para permitir que el nodo de almacenamiento envíe y reciba mensajes S3 en el puerto 443.
+
++
+[listing]
+----
+[DC2-S1]
+  NODE_TYPE = VM_Storage_Node
+
+  GRID_NETWORK_IP = 10.1.1.3
+  CLIENT_NETWORK_IP = 10.4.1.3
+  PORT_REMAP = client/tcp/18082/443
+
+  ADMIN_IP = 10.1.0.2
+----
++
+${post_edited_translations.segment}
+
++
+[listing]
+----
+[DC1-S3]
+  NODE_TYPE = VM_Storage_Node
+
+  GRID_NETWORK_IP = 10.1.1.3
+
+  PORT_REMAP = grid/tcp/22/3022
+  PORT_REMAP_INBOUND = grid/tcp/3022/22
+
+  ADMIN_IP = 10.1.0.2
+----
+
+
+${post_edited_translations.segment}
+
+* *DISK*: por defecto, a los nodos de almacenamiento se les asignan tres discos de 4 TB para el uso de RangeDB. Puedes aumentar estos ajustes con el parámetro DISK. Por ejemplo:
++
+[listing]
+----
+DISK = INSTANCES=16, CAPACITY=4096
+----
+* *STORAGE_TYPE*: de forma predeterminada, todos los nuevos Storage Nodes están configurados para almacenar tanto datos de objetos como metadatos, lo que se conoce como un Storage Node _combinado_. Puedes cambiar el tipo de Storage Node para almacenar solo datos o metadatos con el parámetro STORAGE_TYPE. Por ejemplo:
++
+[listing]
+----
+STORAGE_TYPE = data
+----
+
+
+.${post_edited_translations.segment}
+${post_edited_translations.segment}
+
+* ${post_edited_translations.segment}
+
+
+Esta entrada de ejemplo es para un nodo de puerta de enlace de ejemplo en las tres redes. En este ejemplo, no se especificaron parámetros de la red de clientes en la sección global del archivo de configuración, por lo que debes especificarlos para el nodo:
+
+[listing]
+----
+[DC1-G1]
+  NODE_TYPE = VM_API_Gateway
+
+  GRID_NETWORK_IP = 10.1.0.5
+  ADMIN_NETWORK_IP = 10.3.0.5
+
+  CLIENT_NETWORK_CONFIG = STATIC
+  CLIENT_NETWORK_TARGET = SG Client Network
+  CLIENT_NETWORK_MASK = 255.255.255.0
+  CLIENT_NETWORK_GATEWAY = 10.4.0.1
+  CLIENT_NETWORK_IP = 10.4.0.5
+
+  ADMIN_IP = 10.1.0.2
+----
+.Nodo de administración no principal
+Se requieren las siguientes configuraciones adicionales para los nodos de administración que no son primarios:
+
+* ${post_edited_translations.segment}
+* *ADMIN_ROLE*: No principal
+
+
+Esta entrada de ejemplo corresponde a un nodo de administración no principal que no se encuentra en la red del cliente:
+
+[listing]
+----
+[DC2-ADM1]
+  ADMIN_ROLE = Non-Primary
+  NODE_TYPE = VM_Admin_Node
+
+  GRID_NETWORK_TARGET = SG Grid Network
+  GRID_NETWORK_IP = 10.1.0.6
+  ADMIN_NETWORK_IP = 10.3.0.6
+
+  ADMIN_IP = 10.1.0.2
+----
+${post_edited_translations.segment}
+
+* *DISK*: De forma predeterminada, a los nodos de administración se les asignan dos discos duros adicionales de 200 GB para auditoría y bases de datos. Puedes ampliar estos valores mediante el parámetro DISK. Por ejemplo:
++
+[listing]
+----
+DISK = INSTANCES=2, CAPACITY=300
+----
+
+
+
+NOTE: ${post_edited_translations.segment}
+
+
+
+[[run-the-bash-script]]
+== Ejecuta el script de Bash
+
+Puedes usar el  `deploy-vsphere-ovftool.sh` script de Bash y el archivo de configuración deploy-vsphere-ovftool.ini que modificaste para automatizar el despliegue de nodos de StorageGRID en VMware vSphere.
+
+.Antes de empezar
+Has creado un archivo de configuración deploy-vsphere-ovftool.ini para tu entorno.
+
+Puedes consultar la ayuda disponible para el script de Bash introduciendo los comandos de ayuda (`-h/--help`). Por ejemplo:
+
+[listing]
+----
+./deploy-vsphere-ovftool.sh -h
+----
+o
+
+[listing]
+----
+./deploy-vsphere-ovftool.sh --help
+----
+.Pasos
+. ${post_edited_translations.segment}
+. Cambia al directorio donde extrajiste el archivo de instalación.
++
+Por ejemplo:
+
++
+[listing]
+----
+cd StorageGRID-Webscale-version/vsphere
+----
+. Para implementar todos los nodos de la red, ejecuta el script de Bash con las opciones adecuadas para tu entorno.
++
+Por ejemplo:
+
++
+[listing]
+----
+./deploy-vsphere-ovftool.sh --username=user --password=pwd ./deploy-vsphere-ovftool.ini
+----
+. Si un nodo de la red no se pudo implementar por un error, soluciona el error y vuelve a ejecutar el script de Bash solo para ese nodo.
++
+Por ejemplo:
+
++
+[listing]
+----
+./deploy-vsphere-ovftool.sh --username=user --password=pwd --single-node="DC1-S3" ./deploy-vsphere-ovftool.ini
+----
+
+
+${post_edited_translations.segment}
+
+[listing]
+----
+Deployment Summary
++-----------------------------+----------+----------------------+
+| node                        | attempts | status               |
++-----------------------------+----------+----------------------+
+| DC1-ADM1                    |        1 | Passed               |
+| DC1-G1                      |        1 | Passed               |
+| DC1-S1                      |        1 | Passed               |
+| DC1-S2                      |        1 | Passed               |
+| DC1-S3                      |        1 | Passed               |
++-----------------------------+----------+----------------------+
+----
+
+
+[[automate-the-configuration-of-storagegrid]]
+== Automatiza la configuración de StorageGRID
+
+${post_edited_translations.segment}
+
+.Antes de empezar
+* ${post_edited_translations.segment}
++
+[cols="1a,1a"]
+|===
+| ${post_edited_translations.segment} | Descripción 
+
+
+| configure-storagegrid.py  a| 
+${post_edited_translations.segment}
+
+
+
+| configure-storagegrid.sample.json  a| 
+${post_edited_translations.segment}
+
+
+
+| configure-storagegrid.blank.json  a| 
+${post_edited_translations.segment}
+
+|===
+* Has creado un `configure-storagegrid.json` archivo de configuración. Para crear este archivo, puedes modificar el archivo de configuración de ejemplo (`configure-storagegrid.sample.json`) o el archivo de configuración en blanco (`configure-storagegrid.blank.json`).
+
+
+
+CAUTION: Guarda la contraseña de administración y la frase de contraseña de aprovisionamiento de la sección de contraseñas del archivo de configuración `configure-storagegrid.json` modificado en un lugar seguro. Estas contraseñas son necesarias para los procedimientos de instalación, expansión y mantenimiento. También debes realizar una copia de seguridad del archivo de configuración `configure-storagegrid.json` modificado y guardarlo en un lugar seguro.
+
+.Acerca de esta tarea
+Puedes utilizar el `configure-storagegrid.py` script de Python y el `configure-storagegrid.json` archivo de configuración para automatizar la configuración de tu sistema StorageGRID.
+
+
+NOTE: ${post_edited_translations.segment}
+
+.Pasos
+. Inicia sesión en el equipo Linux que estás utilizando para ejecutar el script de Python.
+. Cambia al directorio donde extrajiste el archivo de instalación.
++
+Por ejemplo:
+
++
+[listing]
+----
+cd StorageGRID-Webscale-version/platform
+----
++
+donde  `platform` es debs, rpms o vsphere.
+
+. Ejecuta el script de Python y utiliza el archivo de configuración que creaste.
++
+Por ejemplo:
+
++
+[listing]
+----
+./configure-storagegrid.py ./configure-storagegrid.json --start-install
+----
+
+
+.Resultado
+Durante el proceso de configuración se genera un archivo de Recovery Package `.zip` y se descarga en el directorio desde donde estás ejecutando el proceso de instalación y configuración. Debes realizar una copia de seguridad del archivo de Recovery Package para poder recuperar el sistema StorageGRID si uno o varios nodos de grid fallan. Por ejemplo, cópialo en una ubicación de red segura con copia de seguridad y en una ubicación de almacenamiento en la nube segura.
+
+
+CAUTION: ${post_edited_translations.segment}
+
+Si especificaste que se generen contraseñas aleatorias, abre el  `Passwords.txt` archivo y busca las contraseñas necesarias para acceder a tu sistema StorageGRID.
+
+[listing]
+----
+######################################################################
+##### The StorageGRID "Recovery Package" has been downloaded as: #####
+#####           ./sgws-recovery-package-994078-rev1.zip          #####
+#####   Safeguard this file as it will be needed in case of a    #####
+#####                 StorageGRID node recovery.                 #####
+######################################################################
+----
+${post_edited_translations.segment}
+
+[listing]
+----
+StorageGRID has been configured and installed.
+----
+.Información relacionada
+* link:navigating-to-grid-manager.html["Accede al Grid Manager"]
+* link:overview-of-installation-rest-api.html["API de REST de instalación"]
+

@@ -1,0 +1,39 @@
+---
+permalink: audit/sysu-node-start.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, SYSU, Node Start 
+summary: ${post_edited_translations.segment} 
+---
+= Mensaje de auditoría SYSU para el inicio de nodo en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+RSLT
+ a| 
+Apagado correcto
+ a| 
+La naturaleza del cierre:
+
+SUCS: El sistema se ha apagado correctamente.
+
+DSDN: el sistema no se apagó correctamente.
+
+VRGN: El sistema se inició por primera vez después de la instalación (o reinstalación) del servidor.
+
+|===
+El mensaje no indica si se ha iniciado el servidor host, solo el servicio de generación de informes. Este mensaje se puede utilizar para:
+
+* Detectar discontinuidad en el registro de auditoría.
+* Determina si un servicio está fallando durante su funcionamiento (ya que la naturaleza distribuida del sistema StorageGRID puede ocultar estos fallos). Administrador de servidores reinicia automáticamente un servicio que ha fallado.
+

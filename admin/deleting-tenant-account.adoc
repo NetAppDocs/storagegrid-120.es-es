@@ -1,0 +1,37 @@
+---
+permalink: admin/deleting-tenant-account.html 
+sidebar: sidebar 
+keywords: tenant, delete, remove tenant 
+summary: Puedes eliminar una cuenta de inquilino si quieres eliminar de forma permanente el acceso de ese inquilino al sistema. 
+---
+= Eliminar una cuenta de inquilino de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes eliminar una cuenta de inquilino si quieres eliminar de forma permanente el acceso de ese inquilino al sistema.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
+* Has eliminado todos los buckets y objetos de S3 asociados con la cuenta de inquilino.
+* Si se permite al inquilino utilizar una conexión de federación de grid, ya has revisado las consideraciones para link:grid-federation-manage-tenants.html["Eliminar un inquilino con el permiso Use grid federation connection"].
+
+
+.Pasos
+. Selecciona *Tenants*.
+. Busca la cuenta o cuentas de inquilino que quieras eliminar.
++
+${post_edited_translations.segment}
+
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+** Marca la casilla de selección y selecciona *Actions* > *Delete*.
+** Selecciona el nombre del inquilino para mostrar la página de detalles y, a continuación, selecciona *Actions* > *Delete*.
+
+
+. Selecciona *Sí*.
+

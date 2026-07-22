@@ -1,0 +1,111 @@
+---
+permalink: maintain/step-5-resolve-node-conflicts.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, resolve node conflict 
+summary: 'Desde el paso 5 (Resolver conflictos entre nodos) del asistente para descomisionar un sitio, puedes determinar si algún nodo de tu sistema StorageGRID está desconectado o si algún nodo del sitio seleccionado pertenece a un grupo de alta disponibilidad (HA). Después de resolver cualquier conflicto entre nodos, inicias el procedimiento de decomisionar desde esta página.' 
+---
+= Resuelve conflictos de nodos e inicia la descomisión de sitios en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Desde el paso 5 (Resolver conflictos entre nodos) del asistente para descomisionar un sitio, puedes determinar si algún nodo de tu sistema StorageGRID está desconectado o si algún nodo del sitio seleccionado pertenece a un grupo de alta disponibilidad (HA). Después de resolver cualquier conflicto entre nodos, inicias el procedimiento de decomisionar desde esta página.
+
+.Antes de empezar
+Debes asegurarte de que todos los nodos de tu sistema StorageGRID estén en el estado correcto, como se indica a continuación:
+
+* Todos los nodos de tu sistema StorageGRID deben estar conectados (image:icon_alert_green_checkmark.png["Icono de alerta: marca de verificación verde"]).
++
+
+NOTE: Si vas a descomisionar un sitio desconectado, todos los nodos del sitio que vas a eliminar deben estar desconectados, y todos los nodos de los demás sitios deben estar conectados.
+
++
+
+NOTE: El proceso de decomisionar no se iniciará si uno o más volúmenes están sin conexión (desmontados) o si están en línea (montados) pero en estado de error.
+
++
+
+NOTE: Si uno o más volúmenes se desconectan mientras se está llevando a cabo el proceso de decomisionar, el proceso de decomisionar finaliza después de que estos volúmenes hayan vuelto a estar en línea.
+
+* Ningún nodo del sitio que vas a eliminar puede tener una interfaz que pertenezca a un grupo de alta disponibilidad (HA).
+
+
+.Acerca de esta tarea
+Si aparece algún nodo en el paso 5 (Resolver conflictos entre nodos), debes solucionar el problema antes de poder iniciar el decomisionar.
+
+Antes de iniciar el procedimiento de decomisionar el sitio desde esta página, ten en cuenta las siguientes consideraciones:
+
+* Debes prever el tiempo suficiente para que se complete el procedimiento de decomisionar.
++
+
+NOTE: Trasladar o eliminar datos de objetos de un sitio puede llevar días, semanas o incluso meses, dependiendo de la cantidad de datos que haya en el sitio, la carga del sistema, la latencia de red y la naturaleza de los cambios de ILM necesarios.
+
+* Mientras se está llevando a cabo el procedimiento de decomisionar el sitio:
++
+** No puedes crear reglas de ILM que hagan referencia al sitio que se va a descomisionar. Tampoco puedes editar una regla de ILM existente para que haga referencia al sitio.
+** No puedes realizar otros procedimientos de mantenimiento, como la expansión o la actualización.
++
+
+NOTE: Si necesitas realizar otro procedimiento de mantenimiento durante el proceso de decomisionar un sitio conectado, puedes pausar el procedimiento mientras se eliminan los Storage Nodes. El botón *Pause* está habilitado durante la etapa «Decommissioning Replicated and Erasure-Coded Data».
+
+** Si necesitas recuperar algún nodo tras iniciar el procedimiento de decomisionar el sitio, debes ponerte en contacto con soporte técnico.
+
+
+
+
+.Pasos
+. Consulta la sección sobre nodos desconectados del Paso 5 (Resolver conflictos entre nodos) para determinar si algún nodo de tu sistema StorageGRID tiene un estado de conexión Desconocido (image:icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"]) o Administrativamente inactivo (image:icon_alarm_gray_administratively_down.png["Icono alarma gris administrativamente inactivo"]).
++
+image:decommission_site_step_5_disconnected_nodes.png["Decomisionar sitio Paso 5 resolver conflictos de nodos"]
+
+. Si hay algún nodo desconectado, vuelve a ponerlo en línea.
++
+Consulta la link:../maintain/grid-node-procedures.html["Procedimientos de nodo"]. Ponte en contacto con el soporte técnico si necesitas ayuda.
+
+. Cuando todos los nodos desconectados hayan vuelto a estar en línea, revisa la sección de grupos de alta disponibilidad del paso 5 (Resolver conflictos entre nodos).
++
+Esta tabla muestra todos los nodos del sitio seleccionado que pertenecen a un grupo de alta disponibilidad (HA).
+
++
+image:decommission_site_step_5_ha_groups.png["Decomisionar sitio paso 5: grupos HA"]
+
+. Si aparece algún nodo en la lista, haz una de las siguientes cosas:
++
+** Edita cada grupo de alta disponibilidad afectado para eliminar la interfaz del nodo.
+** Elimina un grupo de alta disponibilidad (HA) que solo incluya nodos de este sitio. Consulta las instrucciones para administrar StorageGRID.
+
+
++
+Si todos los nodos están conectados y ningún nodo del sitio seleccionado forma parte de un grupo de HA, el campo *Contraseña de aprovisionamiento* se habilita.
+
+. Introduce la contraseña de aprovisionamiento.
++
+El botón *Start Decommission* queda activo.
+
++
+image:decommission_site_step_5_provision_passphrase.png["Decomisionar sitio Paso 5 establecer frase de contraseña"]
+
+. Si estás listo para iniciar el procedimiento de decomisionar el sitio, selecciona *Start Decommission*.
++
+En un aviso se enumeran el sitio y los nodos que se van a eliminar. Te recordamos que la eliminación completa del sitio puede tardar días, semanas o incluso meses.
+
++
+image:decommission_site_step_5_warning.png["Advertencia sobre el paso 5 para decomisionar el sitio"]
+
+. Lee la advertencia. Si estás listo para empezar, selecciona *OK*.
++
+Aparece un mensaje mientras se genera la nueva configuración de la grid. Este proceso puede tardar un tiempo, dependiendo del tipo y el número de nodos de la grid que se hayan decomisionado.
+
++
+image:decommission_site_step_5_grid_configuration.png["Decomisionar sitio Paso 5 Configuración de grid"]
+
++
+Cuando se ha generado la nueva configuración de la grid, aparece el paso 6 (Monitor Decommission).
+
++
+
+NOTE: El botón *Anterior* permanece desactivado hasta que se complete el proceso de decomisionar.
+
+

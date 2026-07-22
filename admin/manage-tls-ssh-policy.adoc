@@ -1,0 +1,163 @@
+---
+permalink: admin/manage-tls-ssh-policy.html 
+sidebar: sidebar 
+keywords: TLS and SSH policy, secure connection, FIPS, Common Criteria 
+summary: ${post_edited_translations.segment} 
+---
+= Administra la política TLS y SSH en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+La política de seguridad controla cómo TLS y SSH cifran los datos en tránsito. En general, utiliza la política «Compatibilidad moderna» (predeterminada), a menos que tu sistema deba cumplir con Common Criteria o que necesites usar otros cifrados.
+
+
+NOTE: Algunos servicios de StorageGRID no se han actualizado para usar los cifrados en estas políticas.
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"].
+
+
+
+
+[[select-a-security-policy]]
+== Selecciona una política de seguridad
+
+.Pasos
+. Selecciona *Configuración* > *Seguridad* > *Ajustes de seguridad*.
++
+La pestaña *Políticas de TLS y SSH* muestra las políticas disponibles. La política activa actualmente se identifica con una marca de verificación verde en el mosaico de la política.
+
++
+image:securitysettings_tls_ssh_policies_current.png["Políticas de TLS y SSH"]
+
+. ${post_edited_translations.segment}
++
+[role="tabbed-block"]
+====
+.Compatibilidad moderna (predeterminada)
+--
+Usa la política predeterminada si necesitas un cifrado robusto y no tienes requisitos especiales. Esta política es compatible con la mayoría de los clientes TLS y SSH.
+
+--
+.Compatibilidad con versiones anteriores
+--
+Utiliza la política de compatibilidad Legacy si necesitas opciones de compatibilidad adicionales para clientes más antiguos. Las opciones adicionales de esta política pueden hacer que sea menos segura que la política de compatibilidad Modern.
+
+--
+.Criterios Comunes
+--
+Utiliza la política de Common Criteria si necesitas la certificación de Common Criteria.
+
+--
+.FIPS estricto
+--
+Usa la política estricta de FIPS si necesitas la certificación Common Criteria y tienes que usar el módulo NetApp Cryptographic Security Module (NCSM) 3.0.8 o el módulo NetApp StorageGRID Kernel Crypto API 6.1.129-1-ntap1-amd64 para las conexiones de clientes externos con los endpoints del equilibrador de carga, Tenant Manager y Grid Manager. El uso de esta política podría reducir el rendimiento.
+
+El módulo NCSM 3.0.8 y el módulo NetApp StorageGRID Kernel Crypto API 6.1.129-1-ntap1-amd64 se usan en las siguientes operaciones:
+
+** NCSM
++
+*** ${post_edited_translations.segment}
+*** Conexiones TLS entre los clientes y el servicio nginx-gw (puntos finales del equilibrador de carga)
+*** Conexiones TLS entre los clientes y el servicio LDR
+*** Cifrado del contenido de objetos para SSE-S3, SSE-C y la configuración de cifrado de objetos almacenados
+*** Conexiones SSH
+
+
++
+Para obtener más información, consulta el NIST Cryptographic Algorithm Validation Program link:https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4838["Certificado n.º 4838"^].
+
+** NetApp Módulo Kernel Crypto API de StorageGRID
++
+El módulo NetApp StorageGRID Kernel Crypto API solo está presente en plataformas de máquinas virtuales (VM) y dispositivos StorageGRID.
+
++
+*** Recolección de entropía
+*** ${post_edited_translations.segment}
+
+
++
+Para obtener más información, consulta el Programa de Validación de Algoritmos Criptográficos de NIST link:https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/validation-search?searchMode=implementation&product=NetApp+StorageGRID+Kernel+Crypto+API&productType=-1&ipp=50["${post_edited_translations.segment}"^] y link:https://csrc.nist.gov/projects/cryptographic-module-validation-program/entropy-validations/certificate/223["${post_edited_translations.segment}"^].
+
+
+
+*Nota*: Después de seleccionar esta política, link:../maintain/rolling-reboot-procedure.html["realizar un reinicio progresivo"] en todos los nodos para activar el NCSM. Usa *Mantenimiento* > *Reinicio progresivo* para iniciar y monitorear los reinicios.
+
+--
+.Personalizado
+--
+Crea una política personalizada si necesitas aplicar tus propios cifrados.
+
+Opcionalmente, si tu StorageGRID tiene requisitos de criptografía FIPS 140, activa la función de modo FIPS para usar el módulo NCSM 3.0.8 y el módulo NetApp StorageGRID Kernel Crypto API 6.1.129-1-ntap1-amd64:
+
+.. Establece el parámetro `fipsMode` en `true`.
+.. Cuando se te solicite, link:../maintain/rolling-reboot-procedure.html["realizar un reinicio progresivo"] en todos los nodos para activar los módulos de criptografía. Usa *Mantenimiento* > *Reinicio progresivo* para iniciar y supervisar los reinicios.
+.. Selecciona *Soporte* > *Diagnóstico* para ver las versiones activas de los módulos FIPS.
+
+
+--
+====
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
++
+Aparece una marca de verificación verde junto a *Current policy* en el mosaico de la política.
+
+
+
+
+
+[[create-a-custom-security-policy]]
+== Crear una política de seguridad personalizada
+
+Puedes crear una política personalizada si necesitas aplicar tus propios cifrados.
+
+.Pasos
+. En la ficha de la política que más se parezca a la política personalizada que quieres crear, selecciona *Ver detalles*.
+. ${post_edited_translations.segment}
++
+image:securitysettings-custom-security-policy-copy.png["copiar una política existente para crear una política personalizada"]
+
+. ${post_edited_translations.segment}
+. Pega el JSON que copiaste y haz los cambios que sean necesarios.
+. Selecciona *Usar política*.
++
+${post_edited_translations.segment}
+
+. Si lo deseas, selecciona *Editar configuración* para realizar más cambios en la nueva política personalizada.
+
+
+
+
+[[temporarily-revert-to-the-default-security-policy]]
+[[temporarily-revert-to-default-security-policy]]
+== Volver temporalmente a la política de seguridad predeterminada
+
+Si has configurado una política de seguridad personalizada, puede que no puedas iniciar sesión en Grid Manager si la política TLS configurada es incompatible con link:global-certificate-types.html["certificado de servidor configurado"].
+
+Puedes volver temporalmente a la política de seguridad predeterminada.
+
+.Pasos
+. Inicia sesión en un nodo de administración:
++
+.. Introduce el siguiente comando: `ssh admin@_Admin_Node_IP_`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
+.. Introduce el siguiente comando para pasar a ser usuario root: `su -`
+.. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
++
+Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
+
+
+
+. Ejecuta el siguiente comando:
++
+`restore-default-cipher-configurations`
+
+. Desde un navegador web, accede al Grid Manager en el mismo nodo de administración.
+. Sigue los pasos de <<select-a-security-policy,Selecciona una política de seguridad>> para volver a configurar la política.
+

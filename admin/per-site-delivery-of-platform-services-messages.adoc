@@ -1,0 +1,24 @@
+---
+permalink: admin/per-site-delivery-of-platform-services-messages.html 
+sidebar: sidebar 
+keywords: platform services message delivery 
+summary: Todas las operaciones de los servicios de la plataforma se realizan por sitio. 
+---
+= Entrega por sitio de mensajes de servicios de plataforma StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Todas las operaciones de los servicios de la plataforma se realizan por sitio.
+
+${post_edited_translations.segment}
+
+image:notification_multiple_sites.gif["Diagrama que muestra que una acción sobre un objeto en el sitio 1 activa una notificación desde el sitio 1"]
+
+${post_edited_translations.segment}
+
+image:notifications_site_2.gif["${post_edited_translations.segment}"]
+
+Asegúrate de que la red de cada sitio esté configurada de tal forma que los mensajes de los servicios de la plataforma puedan entregarse a sus destinos.

@@ -1,0 +1,25 @@
+---
+permalink: audit/audit-messages-main.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, messages, message 
+summary: En las siguientes secciones se incluyen descripciones detalladas de los mensajes de auditoría que devuelve el sistema. Cada mensaje de auditoría aparece primero en una tabla que agrupa los mensajes relacionados según la clase de actividad que representa cada uno. Estas agrupaciones resultan útiles tanto para comprender los tipos de actividades que se auditan como para seleccionar el tipo deseado de filtrado de mensajes de auditoría. 
+---
+= Conoce los tipos y códigos de mensajes de auditoría en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En las siguientes secciones se incluyen descripciones detalladas de los mensajes de auditoría que devuelve el sistema. Cada mensaje de auditoría aparece primero en una tabla que agrupa los mensajes relacionados según la clase de actividad que representa cada uno. Estas agrupaciones resultan útiles tanto para comprender los tipos de actividades que se auditan como para seleccionar el tipo deseado de filtrado de mensajes de auditoría.
+
+Los mensajes de auditoría también se enumeran por orden alfabético según sus códigos de cuatro caracteres. Esta lista alfabética te permite encontrar información sobre mensajes concretos.
+
+Los códigos de cuatro caracteres utilizados a lo largo de este capítulo son los valores ATYP que aparecen en los mensajes de auditoría, como se muestra en el siguiente mensaje de ejemplo:
+
+[listing, subs="specialcharacters,quotes"]
+----
+2014-07-17T03:50:47.484627
+\[AUDT:[RSLT(FC32):VRGN][AVER(UI32):10][ATIM(UI64):1405569047484627][*ATYP\(FC32\):SYSU*][ANID(UI32):11627225][AMID(FC32):ARNI][ATID(UI64):9445736326500603516]]
+----
+Para obtener información sobre cómo configurar los niveles de los mensajes de auditoría, cambiar los destinos de los registros y utilizar un servidor syslog externo para tu información de auditoría, consulta link:../monitor/configure-log-management.html["Configura la gestión de registros y el servidor syslog externo"]

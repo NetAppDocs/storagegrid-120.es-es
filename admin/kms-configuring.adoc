@@ -1,0 +1,21 @@
+---
+permalink: admin/kms-configuring.html 
+sidebar: sidebar 
+keywords: configure kms, key management server, kmip, Key Management Interoperability Protocol 
+summary: 'Un servidor de gestión de claves (KMS) es un sistema externo de terceros que proporciona claves de cifrado a los nodos de los dispositivos StorageGRID en el sitio de StorageGRID asociado mediante el Key Management Interoperability Protocol (KMIP)' 
+---
+= Conoce los servidores de gestión de claves en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+StorageGRID solo admite determinados servidores de gestión de claves. Para obtener una lista de los productos y versiones compatibles, usa la https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+Puedes usar uno o varios servidores de gestión de claves para gestionar las claves de cifrado de los nodos de cualquier dispositivo StorageGRID que tenga habilitada la opción *Node Encryption* durante la instalación. Usar servidores de gestión de claves con estos nodos de dispositivo te permite proteger tus datos incluso si se retira un dispositivo del centro de datos. Después de que los volúmenes del dispositivo estén cifrados, no puedes acceder a ningún dato en el dispositivo a menos que el nodo pueda comunicarse con el KMS.
+
+
+CAUTION: StorageGRID no crea ni gestiona las claves externas utilizadas para cifrar y descifrar los nodos del appliance. Si tienes pensado utilizar un servidor de gestión de claves externo para proteger los datos de StorageGRID, debes comprender cómo configurar ese servidor y cómo gestionar las claves de cifrado. Realizar las tareas de gestión de claves queda fuera del alcance de estas instrucciones. Si necesitas ayuda, consulta la documentación de tu servidor de gestión de claves o ponte en contacto con el soporte técnico.

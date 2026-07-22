@@ -1,0 +1,39 @@
+---
+permalink: network/network-installation-and-provisioning.html 
+sidebar: sidebar 
+keywords: network install, network provisioning 
+summary: Debes comprender cómo se utilizan la Grid Network y las redes opcionales Admin y Client durante el despliegue de nodos y la configuración de la grid. 
+---
+= Instalación y aprovisionamiento de red para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes comprender cómo se utilizan la Grid Network y las redes opcionales Admin y Client durante el despliegue de nodos y la configuración de la grid.
+
+
+
+[[initial-deployment-of-a-node]]
+== Primera puesta en marcha de un nodo
+
+Cuando implementas un nodo por primera vez, debes conectarlo a la red Grid y asegurarte de que tenga acceso al nodo de administración principal. Si la red Grid está aislada, puedes configurar la red de administración en el nodo de administración principal para acceder a la configuración y la instalación desde fuera de la red Grid.
+
+Una Grid Network con una gateway configurada se convierte en la gateway predeterminada para un nodo durante la implementación. La gateway predeterminada permite que los grid nodes en subredes separadas se comuniquen con el primary Admin Node antes de que el grid haya sido configurado.
+
+Si es necesario, las subredes que contienen servidores NTP o que requieren acceso al Grid Manager o a la API también pueden configurarse como subredes de grid.
+
+
+
+[[automatic-node-registration-with-primary-admin-node]]
+== Registro automático de nodos en el nodo de administración principal
+
+Una vez que los nodos están desplegados, se registran ellos mismos en el nodo de administración principal usando la Grid Network. Luego puedes usar el Grid Manager, el  `configure-storagegrid.py` script de Python o la Installation API para configurar la grid y aprobar los nodos registrados. Durante la configuración de la grid, puedes configurar varias subredes de grid. Las rutas estáticas a estas subredes a través de la puerta de enlace de la Grid Network se crearán en cada nodo cuando completes la configuración de la grid.
+
+
+
+[[disabling-the-admin-network-or-client-network]]
+== Desactivar la red de administración o la red de clientes
+
+Si deseas desactivar la red de administración o la red de clientes, puedes eliminar la configuración correspondiente durante el proceso de aprobación del nodo o puedes usar la herramienta Cambiar IP una vez finalizada la instalación (consulta link:../maintain/configuring-ip-addresses.html["Configurar direcciones IP"]).

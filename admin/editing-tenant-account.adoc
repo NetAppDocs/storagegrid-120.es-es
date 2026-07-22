@@ -1,0 +1,89 @@
+---
+permalink: admin/editing-tenant-account.html 
+sidebar: sidebar 
+keywords: edit tenant account, change tenant name, allow platform services, tenant quota 
+summary: ${post_edited_translations.segment} 
+---
+= Editar una cuenta de inquilino de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+
+TIP: Si un inquilino tiene el permiso *Utilizar conexión de federación de grid*, puedes editar los detalles del inquilino desde cualquiera de los grids en la conexión. Sin embargo, los cambios que realices en un grid de la conexión no se copiarán al otro grid. Si quieres mantener los detalles del inquilino exactamente sincronizados entre grids, haz los mismos cambios en ambos grids. Consulta link:grid-federation-manage-tenants.html["Gestiona los inquilinos permitidos para la conexión de federación de grid"].
+
+.Antes de empezar
+* Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:admin-group-permissions.html["${post_edited_translations.segment}"].
+
+
+
+NOTE: ${post_edited_translations.segment}
+
+.Pasos
+. Selecciona *Tenants*.
++
+image:tenant_accounts_page.png["Página de cuentas de inquilinos"]
+
+. Busca la cuenta de inquilino que deseas modificar.
++
+${post_edited_translations.segment}
+
+. Selecciona el inquilino. Puedes hacer cualquiera de las siguientes cosas:
++
+** Marca la casilla de selección correspondiente al tenant y selecciona *Actions* > *Edit*.
+** ${post_edited_translations.segment}
+
+
+. ${post_edited_translations.segment}
++
+** *Nombre*
+** *Descripción*
+** *Cuota de almacenamiento*
+
+
+. Selecciona *Continuar*.
+. ${post_edited_translations.segment}
++
+** Si desactivas los *servicios de plataforma* para un inquilino que ya los está usando, los servicios que haya configurado para sus buckets S3 dejarán de funcionar. No se envía ningún mensaje de error al inquilino. Por ejemplo, si el inquilino ha configurado la replicación de CloudMirror para un bucket S3, aún podrá almacenar objetos en el bucket, pero ya no se realizarán copias de esos objetos en el bucket S3 externo que haya configurado como extremo. Consulta link:manage-platform-services-for-tenants.html["${post_edited_translations.segment}"].
+** ${post_edited_translations.segment}
++
+Si *Usar fuente de identidad propia* está:
+
++
+*** Deshabilitado y seleccionado, el inquilino ya ha activado su propio origen de identidad. Un inquilino debe deshabilitar su origen de identidad antes de poder usar el origen de identidad que se configuró para el Grid Manager.
+*** Si está desactivado y no se ha seleccionado, el inicio de sesión único está habilitado para el sistema StorageGRID. El inquilino debe usar la fuente de identidad que se configuró para el Grid Manager.
+
+
+** Selecciona o desmarca el permiso *Allow S3 Select* según lo necesites. Consulta link:manage-s3-select-for-tenant-accounts.html["${post_edited_translations.segment}"].
+** Para eliminar el permiso *Usar conexión de federación de grid*:
++
+... Selecciona la pestaña *Grid federation*.
+... Selecciona *Eliminar permiso*.
+
+
+** Para añadir el permiso *Use grid federation connection*:
++
+... Selecciona la pestaña *Grid federation*.
+... Selecciona la casilla *Usar conexión de federación de grid*.
+... Opcionalmente, selecciona *Clonar usuarios y grupos locales existentes* para clonarlos en el grid remoto. Si quieres, puedes detener la clonación en curso o reintentar la clonación si algunos usuarios o grupos locales no se pudieron clonar después de que se completara la última operación de clonación.
+
+
+** ${post_edited_translations.segment}
++
+
+NOTE: Debes habilitar S3 Object Lock en la grid antes de poder usar estos ajustes.
+
++
+... ${post_edited_translations.segment}
+... ${post_edited_translations.segment}
+... Para *Permitir el modo de cumplimiento*, marca la casilla de verificación.
+
+
+
+
+

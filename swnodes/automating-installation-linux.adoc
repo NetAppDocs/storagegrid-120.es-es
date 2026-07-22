@@ -1,0 +1,166 @@
+---
+permalink: swnodes/automating-installation-linux.html 
+sidebar: sidebar 
+keywords: how to automate linux installation 
+summary: Puedes automatizar la instalación del servicio host StorageGRID y la configuración de los nodos grid en Linux. 
+---
+= Automatiza la instalación del servicio host de StorageGRID y la configuración de los nodos grid en Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes automatizar la instalación del servicio de host de StorageGRID y la configuración de los nodos de grid.
+
+.Acerca de esta tarea
+
+NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
+
+${post_edited_translations.segment}
+
+* Ya utilizas un marco de orquestación estándar, como Ansible, Puppet o Chef, para implementar y configurar hosts físicos o virtuales.
+* Tienes la intención de implementar varias instancias de StorageGRID.
+* Estás implementando una instancia de StorageGRID grande y compleja.
+
+
+El servicio de host StorageGRID se instala mediante un paquete y se gestiona a través de archivos de configuración. Puedes crear los archivos de configuración usando uno de estos métodos:
+
+* link:creating-node-configuration-files.html["Crea los archivos de configuración"] de forma interactiva durante una instalación manual.
+* Prepara los archivos de configuración con antelación (o mediante código) para permitir la instalación automatizada utilizando marcos de orquestación estándar, como se describe en este artículo.
++
+StorageGRID ofrece scripts opcionales en Python para automatizar la configuración de los dispositivos StorageGRID y de todo el sistema StorageGRID (la «red»). Puedes utilizar estos scripts directamente o consultarlos para aprender a usar el link:overview-of-installation-rest-api.html["${post_edited_translations.segment}"] en las herramientas de implementación y configuración de la grid que desarrolles tú mismo.
+
+
+
+
+
+[[automate-the-installation-and-configuration-of-the-storagegrid-host-service]]
+== ${post_edited_translations.segment}
+
+Puedes automatizar la instalación del servicio de host de StorageGRID utilizando marcos de orquestación estándar como Ansible, Puppet, Chef, Fabric o SaltStack.
+
+El servicio de host de StorageGRID se distribuye en un paquete DEB (Ubuntu o Debian) o RPM (RHEL) y se gestiona mediante archivos de configuración que puedes preparar con antelación (o mediante programación) para permitir la instalación automatizada. Si ya utilizas un marco de orquestación estándar para instalar y configurar tu entorno Linux, añadir StorageGRID a tus playbooks o recetas debería resultar sencillo.
+
+${post_edited_translations.segment}
+
+
+
+[[example-ansible-role-and-playbook]]
+=== ${post_edited_translations.segment}
+
+Se suministran un rol y un playbook de Ansible de ejemplo con el archivo de instalación en la carpeta  `/extras`. El playbook de Ansible muestra cómo el rol  `storagegrid` prepara los hosts e instala StorageGRID en los servidores de destino. Puedes personalizar el rol o el playbook según sea necesario.
+
+
+NOTE: El playbook de ejemplo no incluye los pasos necesarios para crear dispositivos de red antes de iniciar el servicio de host de StorageGRID. Añade estos pasos antes de finalizar y utilizar el playbook.
+
+[role="tabbed-block"]
+====
+.RHEL
+--
+En el caso de RHEL, las tareas de instalación en el ejemplo de rol proporcionado  `storagegrid` utilizan el módulo  `ansible.builtin.dnf` para realizar la instalación desde los archivos RPM locales o desde un repositorio Yum remoto. Si el módulo no está disponible o no es compatible, puede que tengas que editar las tareas de Ansible correspondientes en los siguientes archivos para usar el módulo  `yum` o  `ansible.builtin.yum`:
+
+* `roles/storagegrid/tasks/rhel_install_from_repo.yml`
+* `roles/storagegrid/tasks/rhel_install_from_local.yml`
+
+
+--
+.Ubuntu o Debian
+--
+Para Ubuntu o Debian, las tareas de instalación en el ejemplo de rol  `storagegrid` proporcionado utilizan el módulo  `ansible.builtin.apt` para realizar la instalación desde los archivos DEB locales o un repositorio apt remoto. Si el módulo no está disponible o no es compatible, es posible que tengas que editar las tareas de Ansible correspondientes en los siguientes archivos para utilizar el módulo  `ansible.builtin.apt`:
+
+* `roles/storagegrid/tasks/deb_install_from_repo.yml`
+* `roles/storagegrid/tasks/deb_install_from_local.yml`
+
+
+--
+====
+
+
+[[automate-the-configuration-of-storagegrid]]
+== Automatiza la configuración de StorageGRID
+
+${post_edited_translations.segment}
+
+.Antes de empezar
+* ${post_edited_translations.segment}
++
+[cols="1a,1a"]
+|===
+| ${post_edited_translations.segment} | Descripción 
+
+
+| configure-storagegrid.py  a| 
+${post_edited_translations.segment}
+
+
+
+| configure-storagegrid.sample.json  a| 
+${post_edited_translations.segment}
+
+
+
+| configure-storagegrid.blank.json  a| 
+${post_edited_translations.segment}
+
+|===
+* Has creado un `configure-storagegrid.json` archivo de configuración. Para crear este archivo, puedes modificar el archivo de configuración de ejemplo (`configure-storagegrid.sample.json`) o el archivo de configuración en blanco (`configure-storagegrid.blank.json`).
+
+
+
+CAUTION: Guarda la contraseña de administración y la frase de contraseña de aprovisionamiento de la sección de contraseñas del archivo de configuración `configure-storagegrid.json` modificado en un lugar seguro. Estas contraseñas son necesarias para los procedimientos de instalación, expansión y mantenimiento. También debes realizar una copia de seguridad del archivo de configuración `configure-storagegrid.json` modificado y guardarlo en un lugar seguro.
+
+.Acerca de esta tarea
+Puedes utilizar el `configure-storagegrid.py` script de Python y el `configure-storagegrid.json` archivo de configuración para automatizar la configuración de tu sistema StorageGRID.
+
+
+NOTE: ${post_edited_translations.segment}
+
+.Pasos
+. Inicia sesión en el equipo Linux que estás utilizando para ejecutar el script de Python.
+. Cambia al directorio donde extrajiste el archivo de instalación.
++
+Por ejemplo:
+
++
+[listing]
+----
+cd StorageGRID-Webscale-version/platform
+----
++
+donde `platform` es `debs`, `rpms` o `vsphere`.
+
+. Ejecuta el script de Python y utiliza el archivo de configuración que creaste.
++
+Por ejemplo:
+
++
+[listing]
+----
+./configure-storagegrid.py ./configure-storagegrid.json --start-install
+----
+
+
+.Resultado
+Durante el proceso de configuración se genera un archivo de Recovery Package `.zip` y se descarga en el directorio desde donde estás ejecutando el proceso de instalación y configuración. Debes realizar una copia de seguridad del archivo de Recovery Package para poder recuperar el sistema StorageGRID si uno o varios nodos de grid fallan. Por ejemplo, cópialo en una ubicación de red segura con copia de seguridad y en una ubicación de almacenamiento en la nube segura.
+
+
+CAUTION: ${post_edited_translations.segment}
+
+Si especificaste que se generen contraseñas aleatorias, abre el  `Passwords.txt` archivo y busca las contraseñas necesarias para acceder a tu sistema StorageGRID.
+
+[listing]
+----
+######################################################################
+##### The StorageGRID "Recovery Package" has been downloaded as: #####
+#####           ./sgws-recovery-package-994078-rev1.zip          #####
+#####   Safeguard this file as it will be needed in case of a    #####
+#####                 StorageGRID node recovery.                 #####
+######################################################################
+----
+${post_edited_translations.segment}
+
+[listing]
+----
+StorageGRID has been configured and installed.
+----

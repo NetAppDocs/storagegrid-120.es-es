@@ -1,0 +1,45 @@
+---
+indexpage:
+  title: "${post_edited_translations.segment}"
+  summary: Un sistema StorageGRID consta de nodos individuales basados en hardware
+    y en software. Primero instalas el hardware para cada nodo de appliance y configuras
+    cada host de Linux o VMware. Luego, instalas el software StorageGRID en cada appliance
+    o host de software y conectas los nodos en un grid.
+  keywords: install, upgrade, hotfix
+  lead: Un sistema StorageGRID consta de nodos individuales basados en hardware y
+    en software. Primero instalas el hardware para cada nodo de appliance y configuras
+    cada host de Linux o VMware. Luego, instalas el software StorageGRID en cada appliance
+    o host de software y conectas los nodos en un grid.
+  tiles:
+  - title: Inicio rápido
+    links:
+    - title: Hardware de appliance
+      url: https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html
+    - title: Nodos basados en software
+      url: "../swnodes/index.html"
+  - title: Nodos basados en software
+    links:
+    - title: "${post_edited_translations.segment}"
+      url: "../swnodes/required-materials.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../swnodes/automating-installation-linux.html"
+    - title: Automatiza la instalación de VMware
+      url: "../swnodes/automating-grid-node-deployment-in-vmware-vsphere.html"
+    - title: Implementar Linux
+      url: "../swnodes/creating-node-configuration-files.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../swnodes/collecting-information-about-your-deployment-environment.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../swnodes/navigating-to-grid-manager.html"
+  - title: Actualización o corrección urgente
+    links:
+    - title: Novedades
+      url: "../release-notes/whats-new.html"
+    - title: Estima el tiempo para completarlo
+      url: "../upgrade/estimating-time-to-complete-upgrade.html"
+    - title: Cómo se ve afectado tu sistema durante la actualización
+      url: "../upgrade/how-your-system-is-affected-during-upgrade.html"
+    - title: Guía rápida de actualización
+      url: "../upgrade/upgrade-workflow.html"
+    - title: "${post_edited_translations.segment}"
+      url: "../maintain/storagegrid-hotfix-procedure.html"

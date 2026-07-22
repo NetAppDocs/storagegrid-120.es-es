@@ -1,0 +1,75 @@
+---
+permalink: monitor/monitoring-information-lifecycle-management.html 
+sidebar: sidebar 
+keywords: lifecycle management, lifecycle, monitoring, ILM, information lifecycle management 
+summary: 'El sistema de gestión del ciclo de vida de la información (ILM) proporciona gestión de datos para todos los objetos almacenados en el grid. Debes supervisar las operaciones de ILM para entender si el grid puede manejar la carga actual o si se necesitan más recursos.' 
+---
+= Supervisa la gestión del ciclo de vida de la información en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El sistema de gestión del ciclo de vida de la información (ILM) proporciona gestión de datos para todos los objetos almacenados en el grid. Debes supervisar las operaciones de ILM para entender si el grid puede manejar la carga actual o si se necesitan más recursos.
+
+.Acerca de esta tarea
+El sistema StorageGRID gestiona los objetos aplicando las políticas de ILM activas. Las políticas de ILM y las reglas de ILM asociadas determinan cuántas copias se hacen, el tipo de copias que se crean, dónde se colocan las copias y cuánto tiempo se conserva cada copia.
+
+La incorporación de objetos y otras actividades relacionadas con objetos pueden superar la tasa a la que StorageGRID puede evaluar el ILM, lo que provoca que el sistema ponga en cola los objetos cuyas instrucciones de ubicación según el ILM no se puedan cumplir casi en tiempo real. Debes supervisar si StorageGRID está manteniéndose al día con las acciones de los clientes.
+
+
+
+[[use-grid-manager-dashboard-tab]]
+== Usa la pestaña de panel de control de Grid Manager
+
+.Pasos
+Utiliza la pestaña ILM del panel de control de Grid Manager para supervisar las operaciones de ILM:
+
+. Inicia sesión en Grid Manager.
+. En el panel de control, selecciona la pestaña ILM y toma nota de los valores en la tarjeta de cola de ILM (Objetos) y en la tarjeta de tasa de evaluación de ILM.
++
+Es normal que se produzcan picos temporales en la tarjeta «ILM queue (Objects)» del panel de control. Pero si la cola sigue aumentando y nunca disminuye, el grid necesita más recursos para operar eficientemente: ya sea más Storage Nodes o, si la política de ILM coloca los objetos en ubicaciones remotas, más ancho de banda de red.
+
+
+
+
+
+[[use-the-nodes-page]]
+== Utiliza la página Nodes
+
+.Pasos
+Además, comprueba las colas de ILM mediante la página *Nodos*:
+
+
+NOTE: Los gráficos de la página *Nodos* se sustituirán por las tarjetas correspondientes del panel de control en una futura versión de StorageGRID.
+
+. Selecciona *Nodos*.
+. Selecciona *_nombre de la cuadrícula_* > *ILM*.
+. Coloca el cursor sobre el gráfico de la cola de ILM para ver el valor de los siguientes atributos en un momento específico:
++
+** *Objetos en cola (por operaciones del cliente)*: el número total de objetos que están a la espera de ser evaluados por ILM debido a operaciones del cliente (por ejemplo, ingest).
+** *Objetos en cola (de todas las operaciones)*: el número total de objetos que esperan la evaluación de ILM.
+** *Frecuencia de escaneo (objetos/segundo)*: la frecuencia a la que se escanean los objetos en el grid y se ponen en cola para ILM.
+** *Tasa de evaluación (objetos/segundo)*: la tasa actual a la que se están evaluando los objetos según la política de ILM en el grid.
+
+
++
+
+NOTE: La sección de colas de ILM solo se incluye para el grid. Esta información no aparece en la pestaña ILM de un sitio o de un Storage Node.
+
+. En la sección «Cola de ILM», fíjate en los siguientes atributos.
++
+** *Duración del escaneo - estimada*: El tiempo estimado para completar un escaneo ILM completo de todos los objetos.
++
+
+NOTE: Una exploración completa no garantiza que se haya aplicado ILM a todos los objetos.
+
+** *Intentos de reparación*: Número total de operaciones de reparación de objetos para datos replicados que se han intentado. Este recuento se incrementa cada vez que un Storage Node intenta reparar un objeto de alto riesgo. Las reparaciones ILM de alto riesgo tienen prioridad si la grid se vuelve ocupada.
++
+El contador de reparaciones del mismo objeto podría volver a incrementarse si la replicación fallara tras la reparación. + Estos atributos pueden resultar útiles cuando estás supervisando el progreso de la recuperación de un volumen de Storage Node. Si el número de reparaciones intentadas ha dejado de aumentar y se ha completado un análisis completo, probablemente la reparación ya terminó.
+
+
+
+. Como alternativa, envía una consulta de Prometheus para `storagegrid_ilm_scan_period_estimated_minutes` y `storagegrid_ilm_repairs_attempted`.
+

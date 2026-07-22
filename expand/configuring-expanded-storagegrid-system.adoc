@@ -1,0 +1,65 @@
+---
+permalink: expand/configuring-expanded-storagegrid-system.html 
+sidebar: sidebar 
+keywords: expansion, configuration, StorageGRID 
+summary: ${post_edited_translations.segment} 
+---
+= Configura los nodos y sitios recién añadidos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+.Acerca de esta tarea
+Debes completar las tareas de configuración que se enumeran a continuación para los nodos de red o los sitios que vayas añadiendo en tu ampliación. Algunas tareas pueden ser opcionales, dependiendo de las opciones seleccionadas al instalar y administrar tu sistema, y de cómo quieras configurar los nodos y sitios añadidos durante la ampliación.
+
+.Pasos
+. ${post_edited_translations.segment}
++
+** link:../ilm/creating-storage-pool.html["Crear un grupo de almacenamiento"] para el sitio y cada grado de almacenamiento que seleccionaste para los nuevos Storage Nodes.
+** Confirma que la política de ILM cumple con los nuevos requisitos. Si es necesario cambiar las reglas, link:../ilm/access-create-ilm-rule-wizard.html["${post_edited_translations.segment}"] y link:../ilm/creating-ilm-policy.html["actualizar la política de ILM"]. Si las reglas ya son correctas, link:../ilm/creating-ilm-policy.html#activate-ilm-policy["${post_edited_translations.segment}"] sin cambiar ninguna regla para asegurarte de que StorageGRID use los nuevos nodos.
+** Comprueba que se pueda acceder a los servidores NTP desde ese sitio. Consulta link:../maintain/configuring-ntp-servers.html["Gestionar servidores NTP"].
++
+
+CAUTION: Asegúrate de que al menos dos nodos de cada emplazamiento puedan acceder a al menos cuatro fuentes NTP externas. Si solo un nodo de un emplazamiento puede acceder a las fuentes NTP, se producirán problemas de sincronización si ese nodo deja de funcionar. Además, designar dos nodos por emplazamiento como fuentes NTP primarias garantiza una sincronización precisa en caso de que un emplazamiento quede aislado del resto de la red.
+
+
+
+. Si has añadido uno o varios nodos de almacenamiento a un sitio ya existente:
++
+** link:../ilm/viewing-storage-pool-details.html["Ver detalles del grupo de almacenamiento"] para comprobar que cada nodo que añadiste esté incluido en los grupos de almacenamiento esperados y se use en las reglas de ILM esperadas.
+** Confirma que la política de ILM cumple con los nuevos requisitos. Si es necesario cambiar las reglas, link:../ilm/access-create-ilm-rule-wizard.html["${post_edited_translations.segment}"] y link:../ilm/creating-ilm-policy.html["actualizar la política de ILM"]. Si las reglas ya son correctas, link:../ilm/creating-ilm-policy.html#activate-ilm-policy["${post_edited_translations.segment}"] sin cambiar ninguna regla para asegurarte de que StorageGRID use los nuevos nodos.
+** link:verifying-storage-node-is-active.html["Comprueba que el nodo de almacenamiento esté activo"] y capaz de ingerir objetos.
+** Si no has podido añadir el número recomendado de nodos de almacenamiento, reequilibra los datos con código de borrado. Consulta link:rebalancing-erasure-coded-data-after-adding-storage-nodes.html["Reequilibra los datos con código de borrado después de añadir Storage Nodes"].
+
+
+. ${post_edited_translations.segment}
++
+** Si se utilizan grupos de alta disponibilidad (HA) para las conexiones de clientes, de forma opcional puedes añadir el nodo de puerta de enlace a un grupo de HA. Selecciona *Configuración* > *Red* > *Grupos de alta disponibilidad* para revisar la lista de grupos de HA existentes y añadir el nuevo nodo. Consulta link:../admin/configure-high-availability-group.html["Configurar grupos de alta disponibilidad"].
+
+
+. Si has añadido un nodo de administración:
++
+.. Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID, crea una relación de confianza de parte dependiente para el nuevo nodo de administración. No podrás iniciar sesión en el nodo hasta que crees esta relación de confianza de parte dependiente. Consulta link:../admin/configure-sso.html["${post_edited_translations.segment}"].
+.. Si planeas usar el servicio Load Balancer en los nodos de administración, opcionalmente puedes añadir el nuevo nodo de administración a un grupo de alta disponibilidad. Selecciona *Configuración* > *Red* > *Grupos de alta disponibilidad* para revisar la lista de grupos de alta disponibilidad existentes y añadir el nuevo nodo. Consulta link:../admin/configure-high-availability-group.html["Configurar grupos de alta disponibilidad"].
+.. Opcionalmente, copia la base de datos del nodo de administración desde el nodo de administración primario al nodo de administración de expansión si quieres mantener la coherencia de la información de atributos y auditoría en cada nodo de administración. Consulta link:copying-admin-node-database.html["Copia la base de datos del nodo de administración"].
+.. Si lo deseas, copia la base de datos de Prometheus del nodo de administración principal al nodo de administración de expansión si quieres mantener la coherencia de las métricas históricas en cada nodo de administración. Consulta link:copying-prometheus-metrics.html["Copiar métricas de Prometheus"].
+.. Si lo deseas, copia los registros de auditoría existentes del nodo de administración principal al nodo de administración de expansión si quieres mantener la coherencia de la información histórica de los registros en cada nodo de administración. Consulta link:copying-audit-logs.html["Copiar los registros de auditoría"].
+
+
+. Para comprobar si se han añadido nodos de expansión con una Client Network no fiable o para cambiar si la Client Network de un nodo es no fiable o fiable, ve a *Configuración* > *Seguridad* > *Control de cortafuegos*.
++
+Si la red de clientes en el nodo de expansión no es de confianza, debes realizar las conexiones al nodo en la red de clientes mediante un endpoint de equilibrador de carga. Consulta link:../admin/configuring-load-balancer-endpoints.html["Configura los puntos de conexión del equilibrador de carga"] y link:../admin/manage-firewall-controls.html["Gestiona los controles del cortafuegos"].
+
+. Configura el DNS.
++
+Si has estado configurando los ajustes de DNS por separado para cada nodo de la red, debes añadir ajustes de DNS personalizados por nodo para los nuevos nodos. Consulta link:../maintain/modifying-dns-configuration-for-single-grid-node.html["Modificar la configuración de DNS para un único nodo de la red"].
+
+
+
+Para garantizar un funcionamiento correcto, especifica dos o tres servidores DNS. Si especificas más de tres, es posible que solo se usen tres debido a limitaciones conocidas del sistema operativo en algunas plataformas. Si tienes restricciones de enrutamiento en tu entorno, puedes link:../maintain/modifying-dns-configuration-for-single-grid-node.html["personalizar la lista de servidores DNS"] para que los nodos individuales (normalmente todos los nodos de un sitio) usen un conjunto diferente de hasta tres servidores DNS.
+
+${post_edited_translations.segment}

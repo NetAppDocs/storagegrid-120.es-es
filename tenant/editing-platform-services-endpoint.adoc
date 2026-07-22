@@ -1,0 +1,58 @@
+---
+permalink: tenant/editing-platform-services-endpoint.html 
+sidebar: sidebar 
+keywords: how to edit platform services endpoint 
+summary: Puedes editar la configuración de un punto final de servicios de la plataforma para cambiar su nombre, su URI u otros detalles. Por ejemplo, es posible que tengas que actualizar credenciales caducadas o cambiar el URI para que apunte a un índice de Elasticsearch de respaldo en caso de conmutación por error. No puedes cambiar el URN de un punto final de servicios de la plataforma. 
+---
+= Edita un punto final de servicios de plataforma en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes editar la configuración de un punto final de servicios de la plataforma para cambiar su nombre, su URI u otros detalles. Por ejemplo, es posible que tengas que actualizar credenciales caducadas o cambiar el URI para que apunte a un índice de Elasticsearch de respaldo en caso de conmutación por error. No puedes cambiar el URN de un punto final de servicios de la plataforma.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+
+
+.Pasos
+. Selecciona *STORAGE (S3)* > *Platform services endpoints*.
++
+Aparece la página «Puntos finales de los servicios de la plataforma» y muestra la lista de puntos finales de los servicios de la plataforma que ya se han configurado.
+
+. Selecciona el punto final que quieras editar.
++
+Aparece la página de detalles del endpoint.
+
+. Selecciona *Configuración*.
+. Si es necesario, cambia la configuración del endpoint.
++
+
+NOTE: No puedes cambiar el URN de un endpoint después de que se ha creado.
+
++
+.. Para cambiar el nombre que se muestra para el punto final, selecciona el icono de edición image:icon_edit_tm.png["Icono de edición"].
+.. Modifica el URI según sea necesario.
+.. Si es necesario, cambia el tipo de autenticación.
++
+*** Para la autenticación mediante clave de acceso, modifica la clave según sea necesario seleccionando *Editar clave S3* y pegando un nuevo access key ID y una nueva secret access key. Si necesitas cancelar los cambios, selecciona *Deshacer edición de clave S3*.
+*** Para la autenticación en CAP (C2S Access Portal), cambia la URL de las credenciales temporales o la frase de contraseña opcional de la clave privada del cliente y sube los nuevos archivos de certificado y clave según sea necesario.
++
+
+NOTE: La clave privada del cliente debe estar en formato cifrado con OpenSSL o en formato de clave privada sin cifrar.
+
+
+
+.. Si es necesario, cambia el método para verificar certificados.
+
+
+. Selecciona *Probar y guardar cambios*.
++
+** Aparece un mensaje de éxito si se puede acceder al punto final utilizando las credenciales especificadas. La conexión con el punto final se verifica desde un nodo de cada sitio.
+** Aparece un mensaje de error si falla la validación del punto final. Modifica el punto final para corregir el error y luego selecciona *Probar y guardar cambios*.
+
+
+

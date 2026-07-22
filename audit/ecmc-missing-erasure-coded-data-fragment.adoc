@@ -1,0 +1,46 @@
+---
+permalink: audit/ecmc-missing-erasure-coded-data-fragment.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ECMC, Missing Erasure-Coded Data Fragment 
+summary: ${post_edited_translations.segment} 
+---
+= Mensaje de auditoría ECMC por datos con código de borrado faltantes en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+${post_edited_translations.segment}
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+ID de VCS
+ a| 
+El nombre del VCS que contiene el fragmento que falta.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+El identificador del fragmento con código de borrado que falta.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+Este campo tiene el valor «NONE». RSLT es un campo obligatorio del mensaje, pero no es relevante para este mensaje en concreto. Se utiliza «NONE» en lugar de «SUCS» para que este mensaje no sea filtrado.
+
+|===

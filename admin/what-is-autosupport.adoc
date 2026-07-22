@@ -1,0 +1,238 @@
+---
+permalink: admin/what-is-autosupport.html 
+sidebar: sidebar 
+keywords: autosupport, technical support, storagegrid health, system status, Active IQ 
+summary: La función AutoSupport permite que StorageGRID envíe paquetes de estado y salud al soporte técnico de NetApp. 
+---
+= Conoce AutoSupport en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La función AutoSupport permite que StorageGRID envíe paquetes de estado y salud al soporte técnico de NetApp.
+
+Usar AutoSupport ayuda a resolver los problemas más rápido. El soporte técnico puede supervisar las necesidades de almacenamiento de tu sistema y ayudarte a determinar si necesitas añadir nuevos nodos o sitios. Opcionalmente, AutoSupport puede enviar paquetes a un destino adicional.
+
+StorageGRID tiene dos tipos de AutoSupport:
+
+* *StorageGRID AutoSupport* informa de los problemas de software de StorageGRID. Activado de forma predeterminada la primera vez que instalas StorageGRID. Puedes link:configure-autosupport-grid-manager.html["cambia la configuración predeterminada de AutoSupport"] si lo necesitas.
++
+
+NOTE: Si StorageGRID AutoSupport no está habilitado, aparece un mensaje en el panel de control de Grid Manager. El mensaje incluye un enlace a la página de configuración de AutoSupport. Si cierras el mensaje, no volverá a aparecer hasta que se borre la caché del navegador, incluso si AutoSupport sigue deshabilitado.
+
+* El *AutoSupport de hardware del appliance* informa de los problemas del appliance StorageGRID. Debes link:configure-autosupport-grid-manager.html#autosupport-for-appliances["Configura el hardware AutoSupport en cada dispositivo"].
+
+
+
+
+[[what-is-active-iq]]
+== ¿Qué es Active IQ?
+
+Active IQ es un asesor digital basado en cloud que aprovecha el análisis predictivo y la sabiduría colectiva de la base instalada de NetApp. Sus evaluaciones continuas de riesgos, alertas predictivas, orientación prescriptiva y acciones automatizadas te ayudan a prevenir problemas antes de que ocurran, lo que lleva a una mejor salud del sistema y una mayor disponibilidad del sistema.
+
+Si deseas utilizar los paneles de control y las funciones de Active IQ en el sitio de soporte de NetApp, debes activar AutoSupport.
+
+https://docs.netapp.com/us-en/active-iq/index.html["${post_edited_translations.segment}"^]
+
+
+
+[[information-included-in-autosupport-package]]
+== Información incluida en el paquete AutoSupport
+
+Un paquete de AutoSupport contiene los siguientes archivos y detalles.
+
+[cols="2a,2a,3a"]
+|===
+| Nombre del archivo | Campos | Descripción 
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Número de secuencia de AutoSupport + destino para este AutoSupport + estado de la entrega + intentos de entrega + asunto de AutoSupport + URI de entrega + último error + nombre de archivo PUT de AutoSupport + hora de generación + tamaño comprimido de AutoSupport + tamaño descomprimido de AutoSupport + tiempo total de recopilación (ms)
+ a| 
+Archivo de historial de AutoSupport.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Nodo + Protocolo para contactar soporte técnico + URL de soporte técnico para HTTP/HTTPS + Dirección de soporte técnico + AutoSupport OnDemand estado + AutoSupport OnDemand URL del servidor + AutoSupport OnDemand intervalo de sondeo
+ a| 
+Archivo de estado de AutoSupport. Proporciona detalles del protocolo utilizado, la dirección y URL de soporte técnico, el intervalo de sondeo y si OnDemand AutoSupport está habilitado o deshabilitado.
+
+
+
+ a| 
+BUCKETS.XML
+ a| 
+ID del bucket + ID de la cuenta + Versión de compilación + Configuración de restricción de ubicación + Cumplimiento activado + Configuración de cumplimiento + Bloqueo de objetos S3 activado + Configuración de bloqueo de objetos S3 + Configuración de consistencia + CORS activado + Configuración de CORS + Tiempo de último acceso activado + Política activada + Configuración de política + Notificaciones activadas + Configuración de notificaciones + Cloud Mirror activado + Configuración de Cloud Mirror + Búsqueda activada + Configuración de búsqueda + Etiquetado de bucket activado + Configuración de etiquetado de bucket + Configuración de versionado
+ a| 
+Proporciona detalles de configuración y estadísticas a nivel de bucket. Los ejemplos de configuraciones de bucket incluyen servicios de plataforma, cumplimiento y consistencia de bucket.
+
+
+
+ a| 
+GRID-CONFIGURATIONS.XML
+ a| 
+ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
+ a| 
+Archivo de configuración para toda la red. Contiene información sobre los certificados de la red, el espacio reservado para metadatos, los parámetros de configuración para toda la red (cumplimiento, S3 Object Lock, compresión de objetos, alertas, syslog y configuración de ILM), detalles del perfil de código de borrado, el nombre DNS y link:../primer/nodes-and-services.html#storagegrid-services["Nombre de la NMS"].
+
+
+
+ a| 
+GRID-SPEC.XML
+ a| 
+Especificaciones de grid, XML sin procesar
+ a| 
+Se utiliza para configurar e implementar StorageGRID. Contiene las especificaciones de grid, la dirección IP del servidor NTP, la dirección IP del servidor DNS, la topología de red y los perfiles de hardware de los nodos.
+
+
+
+ a| 
+GRID-TASKS.XML
+ a| 
+Nodo + Ruta del servicio + ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
+ a| 
+Archivo de estado de las tareas de grid (procedimientos de mantenimiento). Proporciona detalles sobre las tareas activas, finalizadas, completadas, fallidas y pendientes de grid.
+
+
+
+ a| 
+GRID.JSON
+ a| 
+Grid + Revisión + Versión del software + Descripción + Licencia + Contraseñas + DNS + NTP + Sitios + Nodos
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+ILM-CONFIGURATION.XML
+ a| 
+ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+Archivo de información de métricas de ILM. Contiene las tasas de evaluación de ILM para cada nodo y las métricas de todo el grid.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+XML sin procesar de ILM
+ a| 
+Archivo de políticas activas de ILM. Contiene información detallada sobre las políticas activas de ILM, como el ID del grupo de almacenamiento, el comportamiento de ingesta, los filtros, las reglas y la descripción.
+
+
+
+ a| 
+LOG.TGZ
+ a| 
+_n/a_
+ a| 
+Archivo de registro descargable. Contiene `bycast-err.log` y `servermanager.log` de cada nodo.
+
+
+
+ a| 
+MANIFEST.XML
+ a| 
+Orden de recopilación + Nombre de archivo de contenido de AutoSupport para estos datos + Descripción de este elemento de datos + Número de bytes recopilados + Tiempo empleado en la recopilación + Estado de este elemento de datos + Descripción del error + Tipo de contenido de AutoSupport para estos datos +
+ a| 
+Contiene metadatos de AutoSupport y descripciones breves de todos los archivos de AutoSupport.
+
+
+
+ a| 
+NMS-ENTITIES.XML
+ a| 
+Índice de atributo + OID de la entidad + ID del nodo + ID del modelo del dispositivo + Versión del modelo del dispositivo + Nombre de la entidad
+ a| 
+Entidades de grupo y de servicio en el link:../primer/nodes-and-services.html#storagegrid-services["Árbol NMS"]. Proporciona detalles de la topología de grid. El nodo se puede determinar según los servicios que se ejecutan en el nodo.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+Configuraciones del servidor. Contiene los siguientes datos para cada nodo: tipo de plataforma, sistema operativo, memoria instalada, memoria disponible, conectividad de almacenamiento, número de serie del chasis del dispositivo de almacenamiento, número de unidades con error del controlador de almacenamiento, temperatura del chasis del controlador de cómputo, hardware de cómputo, número de serie del controlador de cómputo, fuente de alimentación, tamaño de la unidad y tipo de unidad.
+
+
+
+ a| 
+SERVICE-STATUS.XML
+ a| 
+${post_edited_translations.segment}
+ a| 
+Archivo de información del nodo de servicio. Contiene detalles como el espacio de tabla asignado, el espacio de tabla libre, las métricas de Reaper de la base de datos, la duración de la reparación de segmentos, la duración del trabajo de reparación, los reinicios automáticos de trabajos y la finalización automática de trabajos.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+ID de nivel de almacenamiento + Nombre del nivel de almacenamiento + ID del nodo de almacenamiento + Ruta del nodo de almacenamiento
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+Datos a grandes rasgos sobre el estado del sistema que resumen la información de uso de StorageGRID. Proporciona detalles como el nombre de grid, los nombres de los sitios, el número de Storage Nodes por grid y por sitio, el tipo de licencia, la capacidad y el uso de la licencia, las condiciones de soporte técnico del software y los detalles de las operaciones S3.
+
+
+
+ a| 
+SYSTEM-ALERTS.XML
+ a| 
+${post_edited_translations.segment}
+ a| 
+Alertas actuales del sistema que indican posibles problemas en el sistema StorageGRID.
+
+
+
+ a| 
+USERAGENTS.XML
+ a| 
+Agente de usuario + Número de días + Total de peticiones HTTP + Total de bytes ingeridos + Total de bytes recuperados + Peticiones PUT + Peticiones GET + Peticiones DELETE + Peticiones HEAD + Peticiones POST + Peticiones OPTIONS + Tiempo medio de petición (ms) + Tiempo medio de petición PUT (ms) + Tiempo medio de petición GET (ms) + Tiempo medio de petición DELETE (ms) + Tiempo medio de petición HEAD (ms) + Tiempo medio de petición POST (ms) + Tiempo medio de petición OPTIONS (ms)
+ a| 
+Estadísticas basadas en los agentes de usuario de la aplicación. Por ejemplo, el número de operaciones PUT/GET/DELETE/HEAD por agente de usuario y el tamaño total en bytes de cada operación.
+
+
+
+ a| 
+X-HEADER-DATA
+ a| 
+${post_edited_translations.segment}
+ a| 
+Datos de cabecera de AutoSupport.
+
+|===

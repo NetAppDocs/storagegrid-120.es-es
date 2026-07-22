@@ -1,0 +1,60 @@
+---
+permalink: admin/web-browser-requirements.html 
+sidebar: sidebar 
+keywords: web browser requirements, supported browser, chrome, edge, firefox 
+summary: Debes utilizar un navegador web compatible. 
+---
+= Requisitos del navegador web para StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debes utilizar un navegador web compatible.
+
+[cols="2a,2a"]
+|===
+| Navegador web | Versión mínima compatible 
+
+
+ a| 
+Google Chrome
+ a| 
+138
+
+
+
+ a| 
+Microsoft Edge
+ a| 
+138
+
+
+
+ a| 
+Mozilla Firefox
+ a| 
+140
+
+|===
+Ajusta el ancho de la ventana del navegador al recomendado.
+
+[cols="3a,1a"]
+|===
+| Ancho del navegador | ${post_edited_translations.segment} 
+
+
+ a| 
+Mínimo
+ a| 
+1024
+
+
+
+ a| 
+Óptimo
+ a| 
+1280
+
+|===

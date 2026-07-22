@@ -1,0 +1,78 @@
+---
+permalink: maintain/all-node-types-replacing-vmware-node.html 
+sidebar: sidebar 
+keywords: replace VMware node 
+summary: Cuando recuperas un nodo de StorageGRID que ha fallado y que estaba alojado en VMware, eliminas el nodo que falló e implementas un nodo de recuperación. 
+---
+= Reemplazar un nodo VMware en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando recuperas un nodo de StorageGRID que ha fallado y que estaba alojado en VMware, eliminas el nodo que falló e implementas un nodo de recuperación.
+
+.Antes de empezar
+Has determinado que la máquina virtual no se puede restaurar y que hay que reemplazarla.
+
+.Acerca de esta tarea
+Usa el cliente web de VMware vSphere para primero eliminar la máquina virtual asociada con el nodo de grid que falló. Luego, puedes implementar una nueva máquina virtual.
+
+Este procedimiento es solo uno de los pasos del proceso de recuperación de nodos de la red. El procedimiento de eliminación y despliegue de nodos es el mismo para todos los nodos de VMware, incluidos los nodos de administración, los nodos de almacenamiento y los nodos de puerta de enlace.
+
+.Pasos
+. Inicia sesión en VMware vSphere Web Client.
+. Accede a la máquina virtual del nodo de grid que ha fallado.
+. Anota toda la información necesaria para implementar el nodo de recuperación.
++
+.. Haz clic con el botón derecho del ratón sobre la máquina virtual, selecciona la pestaña *Editar configuración* y toma nota de los ajustes en uso.
+.. Selecciona la pestaña *vApp Options* para ver y registrar la configuración de red del nodo de grid.
+
+
+. Si el nodo de la cuadrícula que ha fallado es un nodo de almacenamiento, determina si alguno de los discos duros virtuales usados para el almacenamiento de datos está sin daños y consérvalos para volver a adjuntarlos al nodo de la cuadrícula recuperado.
+. Apaga la máquina virtual.
+. Selecciona *Acciones* > *Todas las acciones de vCenter* > *Eliminar del disco* para eliminar la máquina virtual.
+. Implementa una nueva máquina virtual que sirva como nodo de sustitución y conéctala a una o varias redes StorageGRID. Para obtener instrucciones, consulta link:../swnodes/deploying-storagegrid-node-as-virtual-machine.html["Implementación de un nodo de StorageGRID como máquina virtual"].
++
+Cuando implementas el nodo, puedes opcionalmente reasignar los puertos del nodo o aumentar la configuración de CPU o memoria.
+
++
+
+NOTE: Después de implementar el nuevo nodo, puedes añadir nuevos discos virtuales según tus requisitos de almacenamiento, volver a conectar cualquier disco duro virtual que hayas conservado del nodo de grid averiado y eliminado anteriormente, o ambas cosas.
+
+. Completa el procedimiento de recuperación del nodo, según el tipo de nodo que estés recuperando.
++
+[cols="1a,2a"]
+|===
+| Tipo de nodo | Ir a 
+
+
+ a| 
+Nodo de administración principal
+ a| 
+link:configuring-replacement-primary-admin-node.html["Configura el nodo de administración principal de sustitución"]
+
+
+
+ a| 
+Nodo de administración no principal
+ a| 
+link:selecting-start-recovery-to-configure-non-primary-admin-node.html["Selecciona Iniciar recuperación para configurar un nodo de administración no principal"]
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+link:selecting-start-recovery-to-configure-gateway-node.html["Selecciona Iniciar recuperación para configurar el nodo de puerta de enlace"]
+
+
+
+ a| 
+Nodo de almacenamiento
+ a| 
+link:selecting-start-recovery-to-configure-storage-node.html["Selecciona Iniciar recuperación para configurar el nodo de almacenamiento"]
+
+|===
+

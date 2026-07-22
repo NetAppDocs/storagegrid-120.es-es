@@ -1,0 +1,33 @@
+---
+permalink: tenant/deleting-another-users-s3-access-keys.html 
+sidebar: sidebar 
+keywords: how to delete access key for other user 
+summary: Si estás usando un inquilino de S3 y tienes los permisos adecuados, puedes eliminar las claves de acceso de S3 de otro usuario. Una vez eliminada una clave de acceso, ya no se podrá usar para acceder a los objetos y buckets de la cuenta del inquilino. 
+---
+= Eliminar las claves de acceso S3 de otro usuario en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si estás usando un inquilino de S3 y tienes los permisos adecuados, puedes eliminar las claves de acceso de S3 de otro usuario. Después de eliminar una clave de acceso, ya no se podrá usar para acceder a los objetos y buckets de la cuenta del inquilino.
+
+.Antes de empezar
+* Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes el link:tenant-management-permissions.html["Permiso de acceso raíz"].
+
+
+
+CAUTION: Puedes acceder a los buckets y objetos de S3 que pertenecen a un usuario mediante el ID de clave de acceso y la clave de acceso secreta que se muestran para ese usuario en el Tenant Manager. Por este motivo, protege las claves de acceso como lo harías con una contraseña. Rota las claves de acceso de forma periódica, elimina de la cuenta las claves que no utilices y no las compartas nunca con otros usuarios.
+
+.Pasos
+. Selecciona *Gestión de acceso* > *Usuarios*.
+. En la página «Usuarios», selecciona el usuario cuyas claves de acceso a S3 quieras gestionar.
+. ${post_edited_translations.segment}
+. ${post_edited_translations.segment}
+. En el cuadro de diálogo de confirmación, selecciona *Delete key*.
++
+Aparece un mensaje de confirmación en la esquina superior derecha de la página.
+
+

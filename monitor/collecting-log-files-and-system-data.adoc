@@ -1,0 +1,81 @@
+---
+permalink: monitor/collecting-log-files-and-system-data.html 
+sidebar: sidebar 
+keywords: how to collect system data, how to collect logs 
+summary: Puedes recuperar los archivos de registro y los datos del sistema de StorageGRID, incluidos los datos de configuración, y enviarlos al soporte técnico. 
+---
+= Recopila archivos de registro de StorageGRID y datos del sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puedes recuperar los archivos de registro y los datos del sistema de StorageGRID, incluidos los datos de configuración, y enviarlos al soporte técnico.
+
+.Antes de empezar
+* Has iniciado sesión en el Grid Manager en cualquier nodo de administración usando una link:../admin/web-browser-requirements.html["navegador web compatible"].
+* Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
+* Tienes la frase de contraseña de aprovisionamiento.
+
+
+.Acerca de esta tarea
+Utiliza el Grid Manager para recopilar link:logs-files-reference.html["archivos de registro"], datos del sistema y datos de configuración de cualquier nodo de la red durante el periodo de tiempo que elijas. Los datos se recopilan y archivan en un archivo `.tar.gz` que luego puedes descargar en tu ordenador local o enviar al soporte técnico.
+
+Si lo deseas, puedes cambiar la ubicación de destino de los registros de auditoría y enviar la información de auditoría a un servidor syslog externo. Los registros locales de auditoría se siguen generando y almacenando cuando se configura un servidor syslog externo. Consulta link:../monitor/configure-log-management.html["Configura la gestión de registros y el servidor syslog externo"].
+
+.Pasos
+. Selecciona *Soporte* > *Herramientas* > *Recopilación de registros*. Se muestra una tabla con los nodos.
+. Selecciona los nodos de la grid de los que deseas recopilar los archivos de registro.
++
+Puedes ordenar por nombre de nodo, sitio y tipo de nodo. Las columnas Site y Node type contienen filtros para seleccionar por sitios y tipos de nodo individuales.
+
+. Selecciona *Continuar*.
+. Selecciona el intervalo de fechas y horas de los datos que se incluirán en los archivos de registro.
++
+Si seleccionas un periodo de tiempo muy largo o recopilas registros de todos los nodos en una grid grande, el archivo de registros podría llegar a ser demasiado grande para almacenarse en un nodo o demasiado grande para que un Admin Node lo recopile para su descarga. Si ocurre cualquiera de estos escenarios, reinicia la recopilación de registros con un conjunto de datos más pequeño.
+
+. Selecciona los tipos de registros que deseas recopilar.
++
+** *Registros de aplicaciones*: registros específicos de cada aplicación que el soporte técnico utiliza con mayor frecuencia para la resolución de problemas. Los registros recopilados son un subconjunto de los registros de aplicaciones disponibles.
+** *Registros de auditoría*: Registros que contienen los mensajes de auditoría generados durante el funcionamiento normal del sistema.
+** *Rastreo de red*: Registros usados para la depuración de red.
+** *Base de datos Prometheus*: métricas de series temporales de los servicios en todos los nodos.
+
+
+. Si lo deseas, puedes utilizar el cuadro de texto *Notas* para introducir notas sobre los archivos de registro que estás recopilando.
++
+Puedes utilizar estas notas para proporcionar información de soporte técnico sobre el problema que te llevó a recopilar los archivos de registro. Tus notas se añaden a un archivo llamado  `info.txt`, junto con otra información sobre la recopilación de archivos de registro. El archivo  `info.txt` se guarda en el paquete de archivo de los archivos de registro.
+
+. En el cuadro de texto *Contraseña de aprovisionamiento*, introduce la contraseña de aprovisionamiento de tu sistema StorageGRID.
+. Selecciona *Recopilar registros*.
++
+Puedes utilizar la página de recopilación de logs para supervisar el progreso de la recopilación de archivos de log de cada nodo de grid.
+
++
+Si recibes un mensaje de error sobre el tamaño de los registros, intenta recopilar los registros durante un periodo de tiempo más corto o para menos nodos.
+
+. Si falla la recopilación de registros:
++
+** Si aparece el mensaje «Error en la recopilación de registros», puedes volver a intentar la recopilación de registros o finalizar la sesión sin volver a intentarlo.
+** Si aparece el mensaje «La recopilación de registros ha fallado parcialmente», puedes volver a intentar la recopilación de registros, finalizar la sesión, descargar el archivo de registro parcial o enviar dicho archivo a AutoSupport.
+
+
+. Una vez finalizada la recopilación de los archivos de registro:
++
+** Selecciona *Descargar* para descargar el archivo  `.tar.gz`.
+** Selecciona *Enviar a AutoSupport* para enviar el archivo  `.tar.gz` al soporte técnico.
++
+El  `.tar.gz` archivo contiene todos los archivos de registro de todos los nodos de la grid donde la recopilación de registros fue exitosa. El archivo combinado  `.tar.gz` contiene un archivo de registro archivado por cada nodo de la grid.
+
++
+El asunto del paquete AutoSupport es `USER_TRIGGERED_SUPPORT_BUNDLE`.
+
+
+
+. Selecciona *Finalizar*.
++
+
+CAUTION: El archivo  `.tar.gz` se elimina al seleccionar *Finalizar*. Asegúrate de descargar o enviar el archivo primero.
+
+

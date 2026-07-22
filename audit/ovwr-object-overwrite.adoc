@@ -1,0 +1,93 @@
+---
+permalink: audit/ovwr-object-overwrite.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, OVWR, Object Overwrite 
+summary: 'Este mensaje se genera cuando una operación externa (solicitada por el cliente) provoca que un objeto sea sobrescrito por otro objeto.' 
+---
+= Mensaje de auditoría OVWR para sobrescrituras de objetos en StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cuando una operación externa (solicitada por el cliente) provoca que un objeto sea sobrescrito por otro objeto.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBID
+ a| 
+Identificador de bloque de contenido (nuevo)
+ a| 
+El CBID del nuevo objeto.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Tamaño del objeto anterior
+ a| 
+El tamaño, en bytes, del objeto que se va a sobrescribir.
+
+
+
+ a| 
+OCBD
+ a| 
+Identificador del bloque de contenido (anterior)
+ a| 
+El CBID del objeto anterior.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal (nuevo)
+ a| 
+El identificador del nuevo objeto dentro del sistema StorageGRID.
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+RUTA
+ a| 
+Ruta del objeto en S3
+ a| 
+${post_edited_translations.segment}
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+Resultado de la transacción «Sobrescribir objeto». El resultado es siempre:
+
+${post_edited_translations.segment}
+
+
+
+ a| 
+${post_edited_translations.segment}
+ a| 
+Sitio (Grupo)
+ a| 
+${post_edited_translations.segment}
+
+|===
