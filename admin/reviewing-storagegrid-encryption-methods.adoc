@@ -18,7 +18,7 @@ La tabla ofrece un resumen a grandes rasgos de los métodos de cifrado disponibl
 [[bucket-encryption-table]]
 [cols="1a,1a,1a"]
 |===
-| Opción de cifrado | Cómo funciona | ${post_edited_translations.segment} 
+| Opción de cifrado | Cómo funciona | Aplica a 
 
 
  a| 
@@ -57,7 +57,7 @@ Cifrado de objetos almacenados
  a| 
 Activa la opción link:changing-network-options-object-encryption.html["Cifrado de objetos almacenados"] en Grid Manager. Cuando está activada, cualquier objeto nuevo que no esté cifrado a nivel de bucket o a nivel de objeto se cifra durante la ingesta.
  a| 
-${post_edited_translations.segment}
+Datos de objetos S3 recién importados.
 
 Los objetos almacenados actualmente no están cifrados. Los metadatos de los objetos y otros datos confidenciales no están cifrados.
 
@@ -116,14 +116,14 @@ Cifrado de volúmenes externos o almacenes de datos
  a| 
 Tú usas un método de cifrado externo a StorageGRID para cifrar un volumen o un almacén de datos completo, si tu plataforma de implementación lo admite.
  a| 
-${post_edited_translations.segment}
+Todos los datos de los objetos, los metadatos y los datos de configuración del sistema, partiendo de la base de que todos los volúmenes o datastores están cifrados.
 
 Un método de cifrado externo permite un control más estricto sobre los algoritmos y las claves de cifrado. Se puede combinar con los demás métodos enumerados.
 
 
 
  a| 
-${post_edited_translations.segment}
+Cifrado de objetos fuera de StorageGRID
  a| 
 Tú usas un método de cifrado fuera de StorageGRID para cifrar los datos y metadatos de los objetos antes de que se incorporen a StorageGRID.
  a| 

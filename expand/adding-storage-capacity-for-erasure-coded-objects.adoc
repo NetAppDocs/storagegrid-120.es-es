@@ -13,16 +13,16 @@ summary: Si tu política de ILM incluye una regla que realiza copias con codific
 [role="lead"]
 Si tu política de ILM incluye una regla que crea copias con codificación de borrado, debes planificar dónde añadir nuevo almacenamiento y cuándo hacerlo. La cantidad de almacenamiento que añadas y el momento en que lo hagas pueden afectar a la capacidad de almacenamiento útil de la grid.
 
-El primer paso para planificar una ampliación del almacenamiento es examinar las reglas de tu política de ILM que crean objetos con código de borrado. Como StorageGRID crea _k+m_ fragmentos para cada objeto con código de borrado y almacena cada fragmento en un nodo de almacenamiento diferente, debes asegurarte de que al menos _k+m_ nodos de almacenamiento tengan espacio para los nuevos datos con código de borrado después de la ampliación. Si el perfil de código de borrado proporciona protección contra la pérdida de un sitio, debes añadir almacenamiento a cada sitio. Consulta link:../ilm/what-erasure-coding-schemes-are.html["${post_edited_translations.segment}"] para obtener información sobre los perfiles de código de borrado.
+El primer paso para planificar una ampliación del almacenamiento es examinar las reglas de tu política de ILM que crean objetos con código de borrado. Como StorageGRID crea _k+m_ fragmentos para cada objeto con código de borrado y almacena cada fragmento en un nodo de almacenamiento diferente, debes asegurarte de que al menos _k+m_ nodos de almacenamiento tengan espacio para los nuevos datos con código de borrado después de la ampliación. Si el perfil de código de borrado proporciona protección contra la pérdida de un sitio, debes añadir almacenamiento a cada sitio. Consulta link:../ilm/what-erasure-coding-schemes-are.html["¿Qué son los esquemas de erasure coding?"] para obtener información sobre los perfiles de código de borrado.
 
 El número de nodos que debes añadir también depende de lo llenos que estén los nodos existentes cuando realices la ampliación.
 
 
 
 [[general-recommendation-for-adding-storage-capacity-for-erasure-coded-objects]]
-== ${post_edited_translations.segment}
+== Recomendación general para añadir capacidad de almacenamiento para objetos con código de borrado
 
-${post_edited_translations.segment}
+Si quieres evitar cálculos detallados, puedes añadir dos nodos de almacenamiento por sitio cuando los nodos de almacenamiento existentes alcancen el 70% de capacidad.
 
 Esta recomendación general ofrece resultados razonables en una amplia gama de esquemas de código de borrado, tanto para grids de un solo sitio como para grids en las que el código de borrado proporciona protección frente a la pérdida de sitios.
 

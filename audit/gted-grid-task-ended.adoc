@@ -37,13 +37,13 @@ Resultado
 Resultado final del estado de la tarea de la grid:
 
 * SUCS: La tarea de la red se completó con éxito.
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* ABRT: La tarea de la grid se terminó sin un error de reversión.
+* ROLF: La tarea de grid se interrumpió y no pudo completar el proceso de reversión.
+* CANC: El usuario canceló la tarea de la cuadrícula antes de que se iniciara.
 * EXPR: La tarea de grid expiró antes de que se iniciara.
 * IVLD: La tarea de la cuadrícula no es válida.
 * AUTH: la tarea de la red no estaba autorizada.
-* ${post_edited_translations.segment}
+* DUPL: La tarea de la cuadrícula fue rechazada por ser un duplicado.
 
 
 |===

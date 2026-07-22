@@ -62,7 +62,7 @@ Se incluye la siguiente información para el sitio seleccionado:
 ** Detalles sobre cada nodo:
 +
 *** Para cada nodo de almacenamiento, la cantidad de espacio que se ha utilizado para los datos de objetos.
-*** Para los nodos de administración y los nodos de puerta de enlace, si el nodo se está usando actualmente en un grupo de alta disponibilidad (HA). No puedes decomisionar un nodo de administración ni un nodo de puerta de enlace que se use en un grupo de alta disponibilidad. Antes de empezar el decomisionamiento, edita los grupos de alta disponibilidad para quitar todos los nodos del sitio o elimina el grupo de alta disponibilidad si solo incluye nodos de este sitio. Para ver las instrucciones, consulta link:../admin/managing-high-availability-groups.html["${post_edited_translations.segment}"].
+*** Para los nodos de administración y los nodos de puerta de enlace, si el nodo se está usando actualmente en un grupo de alta disponibilidad (HA). No puedes decomisionar un nodo de administración ni un nodo de puerta de enlace que se use en un grupo de alta disponibilidad. Antes de empezar el decomisionamiento, edita los grupos de alta disponibilidad para quitar todos los nodos del sitio o elimina el grupo de alta disponibilidad si solo incluye nodos de este sitio. Para ver las instrucciones, consulta link:../admin/managing-high-availability-groups.html["Administra grupos de alta disponibilidad (HA)"].
 
 
 

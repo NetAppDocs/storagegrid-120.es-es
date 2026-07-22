@@ -1,6 +1,6 @@
 ---
 indexpage:
-  title: "${post_edited_translations.segment}"
+  title: Amplía la capacidad o las capacidades de tu sistema StorageGRID
   summary: Puedes ampliar la capacidad o las capacidades de tu sistema StorageGRID
     sin interrumpir las operaciones del sistema.
   keywords: expand grid, add volume, add node, add site
@@ -11,11 +11,11 @@ indexpage:
     links:
     - title: Tipos de expansión
       url: "../expand/index.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'Directrices: añadir capacidad de objetos'
       url: "../expand/guidelines-for-adding-object-capacity.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'Directrices: Añadir capacidad de metadatos'
       url: "../expand/adding-metadata-capacity.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'Directrices: añadir redundancia o nuevas funcionalidades'
       url: "../expand/adding-grid-nodes-to-add-capabilities.html"
     - title: 'Instrucciones: añadir un sitio'
       url: "../expand/adding-new-site.html"
@@ -23,7 +23,7 @@ indexpage:
       url: "../expand/gather-required-materials.html"
   - title: Agregar volúmenes de almacenamiento
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Agrega volúmenes de almacenamiento a los nodos de almacenamiento
       url: "../expand/adding-storage-volumes-to-storage-nodes.html"
     - title: 'VMware: agrega volúmenes de almacenamiento al nodo de almacenamiento'
       url: "../expand/vmware-adding-storage-volumes-to-storage-node.html"
@@ -31,17 +31,17 @@ indexpage:
       url: "../expand/linux-adding-direct-attached-or-san-volumes-to-storage-node.html"
   - title: Agregar nodos de grid o sitio
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Agrega nodos de grid a un sitio existente
       url: "../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Agregar nuevo sitio
       url: "../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html"
     - title: Actualizar las subredes de la red Grid
       url: "../expand/updating-subnets-for-grid-network.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Implementar nuevos nodos de la red
       url: "../expand/deploying-new-grid-nodes.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Realizar la expansión
       url: "../expand/performing-expansion.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Configura y soluciona problemas
     links:
     - title: Pasos de configuración
       url: "../expand/configuring-expanded-storagegrid-system.html"

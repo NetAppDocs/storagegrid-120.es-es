@@ -30,7 +30,7 @@ NOTE: Este procedimiento no funciona en un sistema StorageGRID implementado como
 +
 .. Introduce el siguiente comando: `ssh -p 8022 admin@node_IP`
 +
-${post_edited_translations.segment}
+El puerto 8022 es el puerto SSH del sistema operativo base, mientras que el puerto 22 es el puerto SSH del motor de contenedores en el que se ejecuta StorageGRID.
 
 .. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
 .. Introduce el siguiente comando para pasar a ser usuario root: `su -`
@@ -44,5 +44,5 @@ Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
 . Reinicia el nodo: `reboot`
 . Cierra la sesión del intérprete de comandos: `exit`
 . Repite estos pasos en cada Admin Node y Gateway Node que tenga puertos reasignados en conflicto.
-. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado de eliminar las reasignaciones de puertos.
+. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["bloquear el acceso"] cuando hayas terminado de eliminar las reasignaciones de puertos.
 

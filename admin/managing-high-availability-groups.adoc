@@ -2,7 +2,7 @@
 permalink: admin/managing-high-availability-groups.html 
 sidebar: sidebar 
 keywords: manage high availability group, ha groups, admin node, gateway node, active interface, backup interface, priority order 
-summary: ${post_edited_translations.segment} 
+summary: 'Los grupos de alta disponibilidad (HA) proporcionan conexiones de datos de alta disponibilidad para los clientes de S3 y conexiones de alta disponibilidad con el Grid Manager y el Tenant Manager.' 
 ---
 = Conoce los grupos de alta disponibilidad de StorageGRID
 :allow-uri-read: 
@@ -11,15 +11,15 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Los grupos de alta disponibilidad (HA) proporcionan conexiones de datos de alta disponibilidad para los clientes de S3 y conexiones de alta disponibilidad con el Grid Manager y el Tenant Manager.
 
 Puedes agrupar las interfaces de red de varios nodos de administración y de puerta de enlace en un grupo de alta disponibilidad (HA). Si la interfaz activa del grupo de HA falla, una interfaz de respaldo puede gestionar la carga de trabajo.
 
 Cada grupo de HA proporciona acceso a los servicios compartidos en los nodos seleccionados.
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* Un grupo de alta disponibilidad (HA) que incluya únicamente dispositivos de servicios y nodos de software basados en VMware puede proporcionar conexiones de alta disponibilidad para link:../admin/manage-s3-select-for-tenant-accounts.html["${post_edited_translations.segment}"]. Se recomienda usar grupos de alta disponibilidad (HA) cuando usas S3 Select, pero no es obligatorio.
+* Los grupos de alta disponibilidad que incluyen Gateway Nodes, Admin Nodes o ambos proporcionan conexiones de datos de alta disponibilidad para los clientes de S3.
+* Los grupos de alta disponibilidad que solo incluyen nodos de administración proporcionan conexiones de alta disponibilidad al Grid Manager y al Tenant Manager.
+* Un grupo de alta disponibilidad (HA) que incluya únicamente dispositivos de servicios y nodos de software basados en VMware puede proporcionar conexiones de alta disponibilidad para link:../admin/manage-s3-select-for-tenant-accounts.html["Arrendatarios de S3 que utilizan S3 Select"]. Se recomienda usar grupos de alta disponibilidad (HA) cuando usas S3 Select, pero no es obligatorio.
 
 
 
@@ -94,4 +94,4 @@ NOTE: Es posible que la conmutación por error no se active debido a fallos de r
 
 El proceso de conmutación por error suele durar solo unos segundos y es lo suficientemente rápido como para que las aplicaciones cliente apenas noten el impacto y puedan seguir funcionando con normalidad mediante los mecanismos habituales de reintento.
 
-${post_edited_translations.segment}
+Cuando se resuelve el fallo y una interfaz de mayor prioridad vuelve a estar disponible, las direcciones VIP se mueven automáticamente a la interfaz disponible de mayor prioridad.

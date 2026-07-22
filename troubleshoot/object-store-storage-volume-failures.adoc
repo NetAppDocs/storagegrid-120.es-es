@@ -15,6 +15,6 @@ El almacenamiento subyacente de un nodo de almacenamiento se divide en almacenes
 
 Puedes ver la información del almacén de objetos de cada nodo de almacenamiento. Selecciona *Nodos* > *_Nodo de almacenamiento_* > *Almacenamiento*.
 
-image:nodes_page_storage_nodes_storage_tables.png["${post_edited_translations.segment}"]
+image:nodes_page_storage_nodes_storage_tables.png["Página de nodos almacenamiento de nodos tablas de almacenamiento"]
 
 Dependiendo de la naturaleza del fallo, los fallos en un volumen de almacenamiento podrían reflejarse en link:../monitor/alerts-reference.html["alertas de volumen de almacenamiento"]. Si un volumen de almacenamiento falla, debes reparar el volumen de almacenamiento fallido para restaurar el Storage Node a su funcionalidad completa lo antes posible. Si es necesario, puedes ir a la pestaña *Configuration* y link:../maintain/checking-storage-state-after-recovering-storage-volumes.html["Coloca el nodo de almacenamiento en estado de solo lectura"] para que el sistema StorageGRID pueda usarlo para la recuperación de datos mientras te preparas para una recuperación completa del servidor.

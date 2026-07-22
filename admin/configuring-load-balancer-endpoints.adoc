@@ -16,12 +16,12 @@ Los puntos de conexión del equilibrador de carga determinan los puertos y los p
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"].
-* Has revisado la link:managing-load-balancing.html["${post_edited_translations.segment}"].
-* Si anteriormente has reasignado un puerto que pretendes utilizar para el punto final del equilibrador de carga, tienes link:../maintain/removing-port-remaps.html["${post_edited_translations.segment}"].
+* Has revisado la link:managing-load-balancing.html["consideraciones para el equilibrio de carga"].
+* Si anteriormente has reasignado un puerto que pretendes utilizar para el punto final del equilibrador de carga, tienes link:../maintain/removing-port-remaps.html["se eliminó la reasignación de puertos"].
 * Ya has creado los grupos de alta disponibilidad (HA) que planeas usar. Se recomiendan los grupos de alta disponibilidad, pero no son obligatorios. Consulta link:managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"].
 * Si el endpoint del equilibrador de carga lo va a utilizar link:../admin/manage-s3-select-for-tenant-accounts.html["Arrendatarios de S3 para S3 Select"], no debe usar las direcciones IP ni los FQDN de ningún nodo bare-metal. Solo se admiten dispositivos de servicios y nodos de software basados en VMware para los endpoints del equilibrador de carga que se utilicen para S3 Select.
 * Ya has configurado todas las interfaces VLAN que planeas usar. Consulta link:configure-vlan-interfaces.html["Configurar interfaces VLAN"].
-* ${post_edited_translations.segment}
+* Si vas a crear un endpoint HTTPS (recomendado), tienes la información para el certificado del servidor.
 +
 
 NOTE: Los cambios en el certificado de un endpoint pueden tardar hasta 15 minutos en aplicarse a todos los nodos.
@@ -60,12 +60,12 @@ Cada punto de conexión del equilibrador de carga de clientes S3 especifica un p
 === Introduce los datos del punto final
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona las instrucciones adecuadas para introducir los datos correspondientes al tipo de endpoint que deseas crear.
 
 
 [role="tabbed-block"]
 ====
-.${post_edited_translations.segment}
+.Cliente S3
 --
 [cols="1a,3a"]
 |===
@@ -75,7 +75,7 @@ Cada punto de conexión del equilibrador de carga de clientes S3 especifica un p
  a| 
 Nombre
  a| 
-${post_edited_translations.segment}
+Un nombre descriptivo para el endpoint, que aparecerá en la tabla de la página de endpoints del load balancer.
 
 
 
@@ -107,9 +107,9 @@ El protocolo de red que utilizarán los clientes al conectarse a este endpoint.
 
 
  a| 
-${post_edited_translations.segment}
+Habilitar el almacenamiento en caché
  a| 
-Activa o desactiva link:../admin/managing-load-balancing.html#considerations-for-load-balancer-caching["${post_edited_translations.segment}"] para este endpoint del balanceador de carga.
+Activa o desactiva link:../admin/managing-load-balancing.html#considerations-for-load-balancer-caching["almacenamiento en caché en los nodos de pasarela"] para este endpoint del balanceador de carga.
 
 Si surgen problemas con el almacenamiento en caché, consulta link:../troubleshoot/troubleshooting-load-balancer-caching.html["Soluciona problemas relacionados con el almacenamiento en caché del equilibrador de carga"].
 
@@ -125,7 +125,7 @@ Si surgen problemas con el almacenamiento en caché, consulta link:../troublesho
  a| 
 Nombre
  a| 
-${post_edited_translations.segment}
+Un nombre descriptivo para el endpoint, que aparecerá en la tabla de la página de endpoints del load balancer.
 
 
 
@@ -136,7 +136,7 @@ El puerto de StorageGRID que deseas utilizar para acceder al Grid Manager, al Te
 
 * Grid Manager: *8443*
 * Tenant Manager: *9443*
-* ${post_edited_translations.segment}
+* Tanto Grid Manager como Tenant Manager: *443*
 
 
 *Nota*: Puedes utilizar estos puertos predefinidos u otros puertos disponibles.
@@ -146,18 +146,18 @@ El puerto de StorageGRID que deseas utilizar para acceder al Grid Manager, al Te
  a| 
 Tipo de interfaz
  a| 
-${post_edited_translations.segment}
+Selecciona el botón de opción correspondiente a la interfaz de StorageGRID a la que vas a acceder mediante este endpoint.
 
 
 
  a| 
-${post_edited_translations.segment}
+Red de clientes no fiables
  a| 
 Selecciona *Sí* si este endpoint debe estar accesible para redes de clientes no confiables. De lo contrario, selecciona *No*.
 
 Cuando seleccionas *Sí*, el puerto está abierto en todas las redes de clientes no confiables.
 
-${post_edited_translations.segment}
+*Nota*: Solo puedes configurar un puerto para que esté abierto o cerrado a redes de clientes no fiables al crear el punto de conexión del equilibrador de carga.
 
 |===
 --
@@ -214,7 +214,7 @@ En función del tipo de nodo que selecciones, los clientes deben usar la direcci
 
 
  a| 
-${post_edited_translations.segment}
+Todos los nodos de administración (valor predeterminado para los endpoints de la interfaz de gestión)
  a| 
 Los clientes deben utilizar la dirección IP (o el nombre de dominio completo correspondiente) de cualquier Admin Node para acceder a este endpoint.
 
@@ -225,18 +225,18 @@ Si hay más de un endpoint que utiliza el mismo puerto, StorageGRID usa este ord
 +
 Si vas a crear puntos finales de la interfaz de gestión, solo se permiten los nodos de administración.
 
-. ${post_edited_translations.segment}
+. Si has seleccionado *Virtual IPs of HA groups*, selecciona uno o varios HA groups.
 +
 Si estás creando puntos finales de la interfaz de gestión, selecciona las VIP asociadas únicamente con los Admin Nodes.
 
-. ${post_edited_translations.segment}
+. Si seleccionaste *Node interfaces*, selecciona una o más interfaces de nodo para cada Admin Node o Gateway Node que quieras asociar con este endpoint.
 . Si seleccionaste *Tipo de nodo*, elige entre Admin Nodes, que incluye tanto el Admin Node principal como cualquier Admin Node no principal, o Gateway Nodes.
 
 
 
 
 [[control-tenant-access]]
-=== ${post_edited_translations.segment}
+=== Controlar el acceso de los inquilinos
 
 
 NOTE: Un punto final de la interfaz de gestión solo puede controlar el acceso de los inquilinos cuando el punto final tiene el <<enter-endpoint-details,Tipo de interfaz de Tenant Manager>>.
@@ -252,7 +252,7 @@ NOTE: Un punto final de la interfaz de gestión solo puede controlar el acceso d
  a| 
 Permitir a todos los inquilinos (por defecto)
  a| 
-${post_edited_translations.segment}
+Todas las cuentas de inquilinos pueden usar este endpoint para acceder a sus buckets.
 
 Debes seleccionar esta opción si aún no has creado ninguna cuenta de inquilino. Una vez que hayas añadido cuentas de inquilino, puedes editar el endpoint del balanceador de carga para permitir o bloquear cuentas específicas.
 
@@ -277,7 +277,7 @@ Las cuentas de inquilino seleccionadas no pueden utilizar este endpoint para acc
 
 
 [[attach-certificate]]
-=== ${post_edited_translations.segment}
+=== Adjuntar certificado
 
 .Pasos
 . Si vas a crear un punto final *HTTPS*, selecciona el tipo de certificado de seguridad que deseas asociar al punto final.
@@ -301,7 +301,7 @@ No puedes seleccionar esta opción a menos que hayas sustituido el certificado p
 .Subir certificado
 --
 .. Selecciona *Cargar certificado*.
-.. ${post_edited_translations.segment}
+.. Sube los archivos de certificados del servidor necesarios:
 +
 *** *Certificado del servidor*: el archivo del certificado personalizado del servidor en codificación PEM.
 *** *Clave privada del certificado*: El archivo de la clave privada del certificado del servidor personalizado (`.key`).
@@ -314,7 +314,7 @@ NOTE: Las claves privadas EC deben ser de 224 bits o más. Las claves privadas R
 
 .. Despliega *Detalles del certificado* para ver los metadatos de cada certificado que subiste. Si subiste un paquete de CA opcional, cada certificado se muestra en su propia pestaña.
 +
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado o selecciona *Descargar paquete de CA* para guardar el paquete de certificados.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
@@ -331,7 +331,7 @@ Por ejemplo: `storagegrid_certificate.pem`
 .Generar certificado
 --
 .. Selecciona *Generar certificado*.
-.. ${post_edited_translations.segment}
+.. Indica la información del certificado:
 +
 [cols="1a,3a"]
 |===
@@ -346,16 +346,16 @@ Uno o más dominios completos para incluir en el certificado. Usa un * como como
 
 
  a| 
-${post_edited_translations.segment}
+IP
  a| 
 Una o varias direcciones IP para incluir en el certificado.
 
 
 
  a| 
-${post_edited_translations.segment}
+Asunto (opcional)
  a| 
-${post_edited_translations.segment}
+Nombre del sujeto X.509 o nombre distintivo (DN) del titular del certificado.
 
 Si no se introduce ningún valor en este campo, el certificado generado utiliza el primer nombre de dominio o la primera dirección IP como nombre común (CN) del sujeto.
 
@@ -369,11 +369,11 @@ Número de días después de la creación en los que caduca el certificado.
 
 
  a| 
-${post_edited_translations.segment}
+Agregar extensiones de uso de clave
  a| 
-${post_edited_translations.segment}
+Si seleccionas esta opción (predeterminada y recomendada), se añaden al certificado generado las extensiones de uso de clave y uso ampliado de clave.
 
-${post_edited_translations.segment}
+Estas extensiones definen la finalidad de la clave incluida en el certificado.
 
 *Nota*: Deja esta casilla marcada a menos que tengas problemas de conexión con clientes antiguos cuando los certificados incluyan estas extensiones.
 
@@ -381,7 +381,7 @@ ${post_edited_translations.segment}
 .. Selecciona *Generar*.
 .. Selecciona *Detalles del certificado* para ver los metadatos del certificado generado.
 +
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
@@ -415,15 +415,15 @@ La dirección IP que introduzcas en el registro DNS depende de si estás utiliza
 ** Si has configurado un grupo de alta disponibilidad, los clientes se conectarán a las direcciones IP virtuales de ese grupo.
 ** Si no utilizas un grupo de alta disponibilidad (HA), los clientes se conectarán al servicio StorageGRID Load Balancer usando la dirección IP de un Gateway Node o Admin Node.
 +
-${post_edited_translations.segment}
+También debes asegurarte de que el registro DNS haga referencia a todos los nombres de dominio de endpoint necesarios, incluidos los nombres con comodín.
 
 
 
 . Proporciona a los clientes de S3 la información necesaria para conectarse al endpoint:
 +
-** ${post_edited_translations.segment}
+** Número de puerto
 ** Nombre de dominio completo o dirección IP
-** ${post_edited_translations.segment}
+** Cualquier detalle de certificado requerido
 
 
 
@@ -435,7 +435,7 @@ ${post_edited_translations.segment}
 
 Puedes ver los detalles de los puntos de conexión del equilibrador de carga existentes, incluidos los metadatos del certificado de un punto de conexión seguro. Puedes cambiar ciertos ajustes de un punto de conexión.
 
-* ${post_edited_translations.segment}
+* Para consultar la información básica de todos los endpoints del equilibrador de carga, revisa las tablas en la página de endpoints del equilibrador de carga.
 * Para ver todos los detalles sobre un endpoint concreto, incluidos los metadatos del certificado, selecciona el nombre del endpoint en la tabla. La información que se muestra varía en función del tipo de endpoint y de cómo esté configurado.
 +
 image:load_balancer_endpoint_details.png["Detalles del punto final del equilibrador de carga"]
@@ -443,7 +443,7 @@ image:load_balancer_endpoint_details.png["Detalles del punto final del equilibra
 * Para editar un punto final, utiliza el menú *Acciones* en la página de puntos finales del equilibrador de carga.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si pierdes el acceso a Grid Manager mientras editas el puerto de un endpoint de una interfaz de gestión, actualiza la URL y el puerto para recuperar el acceso.
 
 +
 
@@ -452,28 +452,28 @@ TIP: Tras editar un punto final, es posible que tengas que esperar hasta 15 minu
 +
 [cols="1a, 2a,2a"]
 |===
-| Tarea | Menú de acciones | ${post_edited_translations.segment} 
+| Tarea | Menú de acciones | Página de detalles 
 
 
  a| 
-${post_edited_translations.segment}
+Editar el nombre del punto final
  a| 
 .. Marca la casilla correspondiente al endpoint.
 .. Selecciona *Acciones* > *Editar nombre del punto final*.
-.. ${post_edited_translations.segment}
+.. Introduce el nuevo nombre.
 .. Selecciona *Guardar*.
 
  a| 
 .. Selecciona el nombre del endpoint para ver los detalles.
 .. Selecciona el icono de edición image:icon_edit_tm.png["Icono de edición"].
-.. ${post_edited_translations.segment}
+.. Introduce el nuevo nombre.
 .. Selecciona *Guardar*.
 
 
 
 
  a| 
-${post_edited_translations.segment}
+Editar el puerto del endpoint
  a| 
 .. Marca la casilla correspondiente al endpoint.
 .. Selecciona *Actions* > *Edit endpoint port*
@@ -503,17 +503,17 @@ Editar el modo de enlace del punto final
 
 
  a| 
-${post_edited_translations.segment}
+Editar el certificado del endpoint
  a| 
 .. Marca la casilla correspondiente al endpoint.
-.. ${post_edited_translations.segment}
+.. Selecciona *Actions* > *Edit endpoint certificate*.
 .. Sube o genera un nuevo certificado personalizado o empieza a utilizar el certificado global de S3, según sea necesario.
 .. Selecciona *Guardar cambios*.
 
  a| 
 .. Selecciona el nombre del endpoint para ver los detalles.
 .. Selecciona la pestaña *Certificate*.
-.. ${post_edited_translations.segment}
+.. Selecciona *Editar certificado*.
 .. Sube o genera un nuevo certificado personalizado o empieza a utilizar el certificado global de S3, según sea necesario.
 .. Selecciona *Guardar cambios*.
 
@@ -521,18 +521,18 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+Editar el acceso del inquilino
  a| 
 .. Marca la casilla correspondiente al endpoint.
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona *Acciones* > *Editar acceso del inquilino*.
+.. Elige otra opción de acceso, selecciona o elimina inquilinos de la lista o haz ambas cosas.
 .. Selecciona *Guardar cambios*.
 
  a| 
 .. Selecciona el nombre del endpoint para ver los detalles.
-.. ${post_edited_translations.segment}
+.. Selecciona la pestaña *Tenant access*.
 .. Selecciona *Editar acceso de inquilino*.
-.. ${post_edited_translations.segment}
+.. Elige otra opción de acceso, selecciona o elimina inquilinos de la lista o haz ambas cosas.
 .. Selecciona *Guardar cambios*.
 
 
@@ -555,13 +555,13 @@ NOTE: Si pierdes el acceso a Grid Manager al eliminar un punto final de la inter
 * Para eliminar uno o varios puntos finales:
 +
 .. En la página Load balancer, marca la casilla correspondiente a cada endpoint que quieras eliminar.
-.. ${post_edited_translations.segment}
+.. Selecciona *Acciones* > *Eliminar*.
 .. Selecciona *Aceptar*.
 
 
 * Para eliminar un endpoint de la página de detalles:
 +
-.. ${post_edited_translations.segment}
+.. En la página «Load balancer», selecciona el nombre del endpoint.
 .. Selecciona *Eliminar* en la página de detalles.
 .. Selecciona *Aceptar*.
 

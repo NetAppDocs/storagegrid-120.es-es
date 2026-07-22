@@ -23,7 +23,7 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El identificador único del bloque de contenido confirmado en el almacenamiento permanente.
 
 
 
@@ -32,7 +32,7 @@ RSLT
  a| 
 Código de resultado
  a| 
-${post_edited_translations.segment}
+Estado en el momento en que el objeto se guardó en el disco:
 
 SUCS: Objeto guardado correctamente.
 

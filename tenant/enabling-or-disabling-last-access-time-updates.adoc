@@ -139,7 +139,7 @@ Sí, para el objeto ensamblado
 |===
 .Pasos
 . Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
-. ${post_edited_translations.segment}
+. Selecciona el nombre del bucket de la tabla.
 +
 Aparece la página de detalles del bucket.
 

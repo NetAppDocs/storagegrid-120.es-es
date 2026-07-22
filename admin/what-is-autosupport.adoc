@@ -34,7 +34,7 @@ Active IQ es un asesor digital basado en cloud que aprovecha el análisis predic
 
 Si deseas utilizar los paneles de control y las funciones de Active IQ en el sitio de soporte de NetApp, debes activar AutoSupport.
 
-https://docs.netapp.com/us-en/active-iq/index.html["${post_edited_translations.segment}"^]
+https://docs.netapp.com/us-en/active-iq/index.html["Documentación de Active IQ Digital Advisor"^]
 
 
 
@@ -49,7 +49,7 @@ Un paquete de AutoSupport contiene los siguientes archivos y detalles.
 
 
  a| 
-${post_edited_translations.segment}
+AUTOSUPPORT-HISTORY.XML
  a| 
 Número de secuencia de AutoSupport + destino para este AutoSupport + estado de la entrega + intentos de entrega + asunto de AutoSupport + URI de entrega + último error + nombre de archivo PUT de AutoSupport + hora de generación + tamaño comprimido de AutoSupport + tamaño descomprimido de AutoSupport + tiempo total de recopilación (ms)
  a| 
@@ -58,7 +58,7 @@ Archivo de historial de AutoSupport.
 
 
  a| 
-${post_edited_translations.segment}
+AUTOSUPPORT.XML
  a| 
 Nodo + Protocolo para contactar soporte técnico + URL de soporte técnico para HTTP/HTTPS + Dirección de soporte técnico + AutoSupport OnDemand estado + AutoSupport OnDemand URL del servidor + AutoSupport OnDemand intervalo de sondeo
  a| 
@@ -107,7 +107,7 @@ GRID.JSON
  a| 
 Grid + Revisión + Versión del software + Descripción + Licencia + Contraseñas + DNS + NTP + Sitios + Nodos
  a| 
-${post_edited_translations.segment}
+Información del grid.
 
 
 
@@ -116,21 +116,21 @@ ILM-CONFIGURATION.XML
  a| 
 ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
  a| 
-${post_edited_translations.segment}
+Lista de atributos para las configuraciones de ILM.
 
 
 
  a| 
-${post_edited_translations.segment}
+ILM-STATUS.XML
  a| 
-${post_edited_translations.segment}
+Nodo + Ruta del servicio + ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
  a| 
 Archivo de información de métricas de ILM. Contiene las tasas de evaluación de ILM para cada nodo y las métricas de todo el grid.
 
 
 
  a| 
-${post_edited_translations.segment}
+ILM.XML
  a| 
 XML sin procesar de ILM
  a| 
@@ -166,18 +166,18 @@ Entidades de grupo y de servicio en el link:../primer/nodes-and-services.html#st
 
 
  a| 
-${post_edited_translations.segment}
+OBJECTS-STATUS.XML
  a| 
-${post_edited_translations.segment}
+Nodo + Ruta del servicio + ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
  a| 
-${post_edited_translations.segment}
+Estado de los objetos, incluyendo el estado del escaneo en segundo plano, la transferencia activa, la tasa de transferencia, el total de transferencias, la tasa de eliminación, los fragmentos dañados, los objetos perdidos, los objetos que faltan, los intentos de reparación, la tasa de escaneo, el periodo estimado de escaneo y el estado de finalización de la reparación.
 
 
 
  a| 
-${post_edited_translations.segment}
+SERVER-STATUS.XML
  a| 
-${post_edited_translations.segment}
+Nodo + Ruta del servicio + ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
  a| 
 Configuraciones del servidor. Contiene los siguientes datos para cada nodo: tipo de plataforma, sistema operativo, memoria instalada, memoria disponible, conectividad de almacenamiento, número de serie del chasis del dispositivo de almacenamiento, número de unidades con error del controlador de almacenamiento, temperatura del chasis del controlador de cómputo, hardware de cómputo, número de serie del controlador de cómputo, fuente de alimentación, tamaño de la unidad y tipo de unidad.
 
@@ -186,25 +186,25 @@ Configuraciones del servidor. Contiene los siguientes datos para cada nodo: tipo
  a| 
 SERVICE-STATUS.XML
  a| 
-${post_edited_translations.segment}
+Nodo + Ruta del servicio + ID del atributo + Nombre del atributo + Valor + Índice + ID de la tabla + Nombre de la tabla
  a| 
 Archivo de información del nodo de servicio. Contiene detalles como el espacio de tabla asignado, el espacio de tabla libre, las métricas de Reaper de la base de datos, la duración de la reparación de segmentos, la duración del trabajo de reparación, los reinicios automáticos de trabajos y la finalización automática de trabajos.
 
 
 
  a| 
-${post_edited_translations.segment}
+STORAGE-GRADES.XML
  a| 
 ID de nivel de almacenamiento + Nombre del nivel de almacenamiento + ID del nodo de almacenamiento + Ruta del nodo de almacenamiento
  a| 
-${post_edited_translations.segment}
+Archivo de definiciones de nivel de almacenamiento para cada nodo de almacenamiento.
 
 
 
  a| 
-${post_edited_translations.segment}
+RESUMEN-ATRIBUTOS.XML
  a| 
-${post_edited_translations.segment}
+OID del grupo + Ruta del grupo + ID del atributo de resumen + Nombre del atributo de resumen + Valor + Índice + ID de la tabla + Nombre de la tabla
  a| 
 Datos a grandes rasgos sobre el estado del sistema que resumen la información de uso de StorageGRID. Proporciona detalles como el nombre de grid, los nombres de los sitios, el número de Storage Nodes por grid y por sitio, el tipo de licencia, la capacidad y el uso de la licencia, las condiciones de soporte técnico del software y los detalles de las operaciones S3.
 
@@ -213,7 +213,7 @@ Datos a grandes rasgos sobre el estado del sistema que resumen la información d
  a| 
 SYSTEM-ALERTS.XML
  a| 
-${post_edited_translations.segment}
+Nombre + Gravedad + Nombre de nodo + Estado de la alerta + Nombre del sitio + Hora de activación de la alerta + Hora de resolución de la alerta + ID de la regla + ID del nodo + ID del sitio + Silenciada + Otras anotaciones + Otras etiquetas
  a| 
 Alertas actuales del sistema que indican posibles problemas en el sistema StorageGRID.
 
@@ -231,7 +231,7 @@ Estadísticas basadas en los agentes de usuario de la aplicación. Por ejemplo, 
  a| 
 X-HEADER-DATA
  a| 
-${post_edited_translations.segment}
+X-Netapp-asup-generated-on + X-Netapp-asup-hostname + X-Netapp-asup-os-version + X-Netapp-asup-serial-num + X-Netapp-asup-subject + X-Netapp-asup-system-id + X-Netapp-asup-model-name +
  a| 
 Datos de cabecera de AutoSupport.
 

@@ -36,7 +36,7 @@ NOTE: Si la red no podrá acceder a los servidores DNS actuales con las nuevas d
 
 +
 
-NOTE: Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID y se configuraron relaciones de confianza de partes dependientes usando direcciones IP de nodos de administración (en lugar de dominios completos, como se recomienda), prepárate para actualizar o reconfigurar estas relaciones de confianza de partes dependientes en Active Directory Federation Services (AD FS) inmediatamente después de cambiar las direcciones IP. Consulta link:../admin/configure-sso.html["${post_edited_translations.segment}"].
+NOTE: Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID y se configuraron relaciones de confianza de partes dependientes usando direcciones IP de nodos de administración (en lugar de dominios completos, como se recomienda), prepárate para actualizar o reconfigurar estas relaciones de confianza de partes dependientes en Active Directory Federation Services (AD FS) inmediatamente después de cambiar las direcciones IP. Consulta link:../admin/configure-sso.html["Configura el inicio de sesión único"].
 
 +
 
@@ -137,7 +137,7 @@ NOTE: Es necesario apagar toda la red, de modo que todos los nodos queden inacti
 .. Introduce la contraseña de aprovisionamiento.
 
 
-. Si has habilitado el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado de cambiar las direcciones IP.
+. Si has habilitado el acceso SSH externo, link:../admin/manage-external-ssh-access.html["bloquear el acceso"] cuando hayas terminado de cambiar las direcciones IP.
 
 
 .Información relacionada

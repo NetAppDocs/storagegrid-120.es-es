@@ -13,16 +13,16 @@ summary: StorageGRID admite hasta tres interfaces de red por nodo de grid, lo qu
 [role="lead"]
 Puedes utilizar el Grid Manager para configurar y gestionar las redes y conexiones de StorageGRID.
 
-Consulta link:configuring-client-connections.html["${post_edited_translations.segment}"] para saber cómo conectar clientes de S3.
+Consulta link:configuring-client-connections.html["Configura las conexiones del cliente S3"] para saber cómo conectar clientes de S3.
 
 
 
 [[default-storagegrid-networks]]
-== ${post_edited_translations.segment}
+== Redes StorageGRID predeterminadas
 
-${post_edited_translations.segment}
+De forma predeterminada, StorageGRID admite tres interfaces de red por nodo de la red, lo que te permite configurar la red de cada nodo de forma individual para que se adapte a tus requisitos de seguridad y acceso.
 
-Para obtener más información sobre la topología de red, consulta link:../network/index.html["${post_edited_translations.segment}"].
+Para obtener más información sobre la topología de red, consulta link:../network/index.html["Directrices de redes"].
 
 
 
@@ -48,7 +48,7 @@ Opcional. La red de clientes es una red abierta que se suele utilizar para propo
 
 
 [[guidelines]]
-== ${post_edited_translations.segment}
+== Directrices
 
 * Cada nodo de StorageGRID requiere una interfaz de red dedicada, una dirección IP, una máscara de subred y una puerta de enlace para cada red a la que esté asignado.
 * Un nodo de red no puede tener más de una interfaz en una red.
@@ -61,7 +61,7 @@ Opcional. La red de clientes es una red abierta que se suele utilizar para propo
 
 
  a| 
-${post_edited_translations.segment}
+Grid
  a| 
 eth0
 

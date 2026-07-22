@@ -633,7 +633,7 @@ Sí, permisos distintos para PUT y DELETE
 
 
 [[permissions-that-apply-to-objects]]
-=== ${post_edited_translations.segment}
+=== Permisos que se aplican a los objetos
 
 [cols="2a,2a,1a"]
 |===
@@ -839,14 +839,14 @@ RestoreObject
 
 El permiso s3:PutOverwriteObject es un permiso personalizado de StorageGRID que se aplica a las operaciones que crean o actualizan objetos. La configuración de este permiso determina si el cliente puede sobrescribir los datos de un objeto, los metadatos definidos por el usuario o las etiquetas de los objetos S3.
 
-${post_edited_translations.segment}
+Las posibles configuraciones para este permiso incluyen:
 
 * *Permitir*: El cliente puede sobrescribir un objeto. Esta es la configuración predeterminada.
 * *Denegar*: El cliente no puede sobrescribir un objeto. Cuando se establece en Denegar, el permiso PutOverwriteObject funciona de la siguiente manera:
 +
-** ${post_edited_translations.segment}
+** Si se encuentra un objeto ya existente en la misma ruta:
 +
-*** ${post_edited_translations.segment}
+*** No se pueden sobrescribir los datos del objeto, los metadatos definidos por el usuario ni las etiquetas del objeto S3.
 *** Se cancelan todas las operaciones de ingesta que estén en curso y se devuelve un error.
 *** Si el control de versiones de S3 está habilitado, la configuración Deny impide que las operaciones PutObjectTagging o DeleteObjectTagging modifiquen el TagSet de un objeto y sus versiones no vigentes.
 
@@ -854,7 +854,7 @@ ${post_edited_translations.segment}
 ** Si no se encuentra un objeto existente, este permiso no tiene ningún efecto.
 
 
-* ${post_edited_translations.segment}
+* Cuando no se dispone de este permiso, el efecto es el mismo que si Allow estuviera activado.
 
 
 
@@ -863,7 +863,7 @@ NOTE: Si la política de S3 actual permite la sobrescritura y el permiso PutOver
 
 
 [[specify-conditions-in-a-policy]]
-== ${post_edited_translations.segment}
+== Especifica las condiciones en una directiva
 
 Las condiciones definen cuándo estará vigente una política. Las condiciones se componen de operadores y pares clave-valor.
 
@@ -889,12 +889,12 @@ En el siguiente ejemplo, la condición IpAddress utiliza la clave de condición 
 
 
 [[supported-condition-operators]]
-=== ${post_edited_translations.segment}
+=== Operadores de condición admitidos
 
-${post_edited_translations.segment}
+Los operadores de condición se clasifican de la siguiente manera:
 
 * Cadena
-* ${post_edited_translations.segment}
+* Numérico
 * Booleano
 * Dirección IP
 * Comprobación de valores nulos
@@ -915,7 +915,7 @@ Compara una clave con un valor de cadena basándose en la coincidencia exacta (d
  a| 
 StringNotEquals
  a| 
-${post_edited_translations.segment}
+Compara una clave con un valor de cadena según una coincidencia negada (distingue mayúsculas de minúsculas).
 
 
 
@@ -950,7 +950,7 @@ Compara una clave con un valor de cadena según una coincidencia negada (disting
  a| 
 NumericEquals
  a| 
-${post_edited_translations.segment}
+Compara una clave con un valor numérico basándose en una coincidencia exacta.
 
 
 
@@ -971,7 +971,7 @@ Compara una clave con un valor numérico basándose en la condición "mayor que"
  a| 
 NumericGreaterThanEquals
  a| 
-${post_edited_translations.segment}
+Compara una clave con un valor numérico basándose en la condición "mayor o igual que".
 
 
 
@@ -990,9 +990,9 @@ Compara una clave con un valor numérico basándose en "menor o igual que".
 
 
  a| 
-${post_edited_translations.segment}
+Bool
  a| 
-${post_edited_translations.segment}
+Compara una clave con un valor booleano basándose en la coincidencia "verdadero o falso".
 
 
 
@@ -1013,7 +1013,7 @@ Compara una clave con una dirección IP o un rango de direcciones IP basándose 
  a| 
 Nulo
  a| 
-${post_edited_translations.segment}
+Comprueba si existe una clave de condición en el contexto de la solicitud actual.
 
 
 
@@ -1026,11 +1026,11 @@ Se añade a cualquier operador de condición, excepto a la condición Null, para
 
 
 [[supported-condition-keys]]
-=== ${post_edited_translations.segment}
+=== Claves de condición admitidas
 
 [cols="1a,1a,2a"]
 |===
-| ${post_edited_translations.segment} | ${post_edited_translations.segment} | Descripción 
+| Claves de condición | Acciones | Descripción 
 
 
  a| 
@@ -1047,9 +1047,9 @@ Se comparará con la dirección IP desde la que se envió la solicitud. Se puede
 
 
  a| 
-${post_edited_translations.segment}
+aws:username
  a| 
-${post_edited_translations.segment}
+Recurso/Identidad
  a| 
 Se comparará con el nombre de usuario del remitente desde el que se envió la solicitud. Se puede utilizar para operaciones con buckets u objetos.
 
@@ -1093,7 +1093,7 @@ s3:PutObjectVersionAcl
 
 s3:PutObjectVersionTagging
  a| 
-${post_edited_translations.segment}
+Exigirá que el objeto existente tenga la clave y el valor específicos de la etiqueta.
 
 
 
@@ -1109,7 +1109,7 @@ Se comparará con el parámetro max-keys especificado en una solicitud ListObjec
 
 
  a| 
-${post_edited_translations.segment}
+s3:object-lock-mode
  a| 
 s3:PutObject
  a| 
@@ -1118,7 +1118,7 @@ Se compara con el `object-lock-mode` expandido a partir de la cabecera de la sol
 
 
  a| 
-${post_edited_translations.segment}
+s3:object-lock-mode
  a| 
 s3:PutObjectRetention
  a| 
@@ -1150,7 +1150,7 @@ Lo compara con la fecha de retención especificada en la solicitud PutObjectRete
 
 
  a| 
-${post_edited_translations.segment}
+s3:prefijo
  a| 
 s3:ListBucket y
 
@@ -1169,12 +1169,12 @@ s3:PutObjectTagging
 
 s3:PutObjectVersionTagging
  a| 
-${post_edited_translations.segment}
+Requerirá una clave y un valor de etiqueta específicos cuando la solicitud del objeto incluya el etiquetado.
 
 
 
  a| 
-${post_edited_translations.segment}
+s3:x-amz-server-side-encryption-customer-algorithm
  a| 
 s3:PutObject
  a| 
@@ -1220,21 +1220,21 @@ Utiliza la clave SourceIp como la variable proporcionada.
  a| 
 `${aws:username}`
  a| 
-${post_edited_translations.segment}
+Utiliza la clave username como variable proporcionada.
 
 
 
  a| 
 `${s3:prefix}`
  a| 
-${post_edited_translations.segment}
+Utiliza la clave de prefijo específica del servicio como variable proporcionada.
 
 
 
  a| 
 `${s3:max-keys}`
  a| 
-${post_edited_translations.segment}
+Utiliza la clave max-keys específica del servicio como variable proporcionada.
 
 
 
@@ -1261,21 +1261,21 @@ Carácter especial. Usa el carácter como un carácter $ literal.
 
 
 [[create-policies-requiring-special-handling]]
-== ${post_edited_translations.segment}
+== Crea políticas que requieran un manejo especial
 
 A veces, una política puede conceder permisos que son peligrosos para la seguridad o para la continuidad de las operaciones, como bloquear al usuario raíz de la cuenta. La implementación de la API de REST de S3 de StorageGRID es menos restrictiva durante la validación de políticas que Amazon, pero igual de estricta durante la evaluación de políticas.
 
 [cols="2a,1a,2a,2a"]
 |===
-| ${post_edited_translations.segment} | Tipo de política | ${post_edited_translations.segment} | Comportamiento de StorageGRID 
+| Descripción de la política | Tipo de política | Comportamiento de Amazon | Comportamiento de StorageGRID 
 
 
  a| 
-${post_edited_translations.segment}
+Negarte cualquier permiso para la cuenta de root
  a| 
 Bucket
  a| 
-${post_edited_translations.segment}
+Válida y aplicada, pero el usuario raíz conserva el permiso para todas las operaciones de políticas de bucket de S3
  a| 
 Lo mismo
 
@@ -1284,16 +1284,16 @@ Lo mismo
  a| 
 Negar a uno mismo cualquier permiso para el usuario/grupo
  a| 
-${post_edited_translations.segment}
+Grupo
  a| 
-${post_edited_translations.segment}
+Válido y aplicable
  a| 
 Lo mismo
 
 
 
  a| 
-${post_edited_translations.segment}
+Permitir a un grupo de cuentas extranjeras cualquier permiso
  a| 
 Bucket
  a| 
@@ -1319,7 +1319,7 @@ Conceder a todos permisos para todas las acciones
  a| 
 Bucket
  a| 
-${post_edited_translations.segment}
+Es válido, pero los permisos para todas las operaciones de políticas de buckets de S3 devuelven un error 405 Method Not Allowed para el usuario raíz y los usuarios de la cuenta externa.
  a| 
 Lo mismo
 
@@ -1330,14 +1330,14 @@ Denegar a todos los usuarios los permisos para todas las acciones
  a| 
 Bucket
  a| 
-${post_edited_translations.segment}
+Válida y aplicada, pero el usuario raíz conserva el permiso para todas las operaciones de políticas de bucket de S3
  a| 
 Lo mismo
 
 
 
  a| 
-${post_edited_translations.segment}
+Principal es un usuario o grupo que no existe
  a| 
 Bucket
  a| 
@@ -1350,7 +1350,7 @@ Válido
  a| 
 El recurso es un bucket de S3 que no existe
  a| 
-${post_edited_translations.segment}
+Grupo
  a| 
 Válido
  a| 
@@ -1389,7 +1389,7 @@ Puedes crear buckets WORM (write-once-read-many) para proteger los datos, los me
 Para asegurarte de que las sobrescrituras siempre se rechacen, puedes:
 
 * Desde el Grid Manager, ve a *Configuration* > *Security* > *Security settings* > *Network and objects*, y selecciona la casilla *Prevent client modification*.
-* ${post_edited_translations.segment}
+* Aplica las siguientes reglas y políticas de S3:
 +
 ** Añade una operación DENY de PutOverwriteObject a la política de S3.
 ** Agrega una operación DENY de DeleteObject a la política de S3.
@@ -1404,7 +1404,7 @@ NOTE: Establecer DeleteObject en DENY en una política de S3 no impide que ILM e
 
 NOTE: Incluso cuando aplicas todas estas reglas y políticas, no protegen contra las escrituras simultáneas (ver Situación A). Sí protegen contra las sobrescrituras secuenciales completadas (ver Situación B).
 
-${post_edited_translations.segment}
+*Situación A*: Escrituras simultáneas (sin protección)
 
 [listing]
 ----
@@ -1421,8 +1421,8 @@ PUT#1 -------> PUT#2 ---X (denied)
 ----
 .Información relacionada
 * link:how-storagegrid-ilm-rules-manage-objects.html["Cómo gestionan los objetos las reglas de ILM de StorageGRID"]
-* link:example-bucket-policies.html["${post_edited_translations.segment}"]
-* link:example-group-policies.html["${post_edited_translations.segment}"]
+* link:example-bucket-policies.html["Ejemplos de políticas de bucket"]
+* link:example-group-policies.html["Ejemplos de políticas de grupo"]
 * link:example-session-policies.html["Ejemplo de política de sesión"]
 * link:../ilm/index.html["Gestiona objetos con ILM"]
 * link:../tenant/index.html["Utiliza una cuenta de inquilino"]

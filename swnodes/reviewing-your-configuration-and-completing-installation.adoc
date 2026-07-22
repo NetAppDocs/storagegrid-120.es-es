@@ -22,7 +22,7 @@ image:11_gmi_installer_summary_page.gif["Página de resumen del instalador de Gr
 . Haz clic en *Instalar*.
 +
 
-NOTE: Si un nodo está configurado para utilizar la red del cliente, la puerta de enlace predeterminada de ese nodo cambia de la red de grid a la red del cliente cuando haces clic en *Instalar*. Si pierdes la conectividad, debes asegurarte de que estás accediendo al nodo de administración principal a través de una subred accesible. Consulta link:../network/index.html["${post_edited_translations.segment}"] para más detalles.
+NOTE: Si un nodo está configurado para utilizar la red del cliente, la puerta de enlace predeterminada de ese nodo cambia de la red de grid a la red del cliente cuando haces clic en *Instalar*. Si pierdes la conectividad, debes asegurarte de que estás accediendo al nodo de administración principal a través de una subred accesible. Consulta link:../network/index.html["Directrices de redes"] para más detalles.
 
 . Haz clic en *Descargar paquete de recuperación*.
 +
@@ -31,7 +31,7 @@ Cuando la instalación llega al punto en el que se define la topología de la re
 . Comprueba que puedes extraer el contenido del archivo  `.zip` y luego guardarlo en dos ubicaciones seguras y separadas.
 +
 
-CAUTION: ${post_edited_translations.segment}
+CAUTION: El archivo del paquete de recuperación debe protegerse porque contiene claves de cifrado y contraseñas que pueden usarse para obtener datos del sistema StorageGRID.
 
 . Marca la casilla *He descargado y verificado correctamente el archivo del paquete de recuperación* y haz clic en *Siguiente*.
 +

@@ -16,7 +16,7 @@ El instalador de StorageGRID Appliance muestra el estado hasta que la instalaci�
 .Pasos
 . Para supervisar el progreso de la instalación, haz clic en *Monitor Installation* en la barra de menús.
 +
-${post_edited_translations.segment}
+La página de instalación del monitor muestra el progreso de la instalación.
 
 +
 La barra de estado azul indica qué tarea está actualmente en progreso. Las barras de estado verdes indican las tareas que se han completado correctamente.
@@ -25,7 +25,7 @@ La barra de estado azul indica qué tarea está actualmente en progreso. Las bar
 
 NOTE: El instalador se asegura de que las tareas completadas en una instalación anterior no se vuelvan a ejecutar. Si vuelves a ejecutar una instalación, las tareas que no necesiten volver a ejecutarse se muestran con una barra de estado verde y el estado "Skipped".
 
-. ${post_edited_translations.segment}
+. Revisa el avance de las dos primeras fases de la instalación.
 +
 ** *1. Configura el almacenamiento*
 +
@@ -51,7 +51,7 @@ Durante esta fase, el instalador copia la imagen del sistema operativo base de S
 
 
  a| 
-${post_edited_translations.segment}
+Nodo de puerta de enlace
  a| 
 link:selecting-start-recovery-to-configure-gateway-node.html["Selecciona Iniciar recuperación para configurar el nodo de puerta de enlace"]
 

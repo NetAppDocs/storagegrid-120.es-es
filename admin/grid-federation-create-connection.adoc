@@ -18,24 +18,24 @@ Como se muestra en la figura, crear una conexión de federación de grid incluye
 image:grid-federation-create-connection.png["Resumen gráfico de los pasos para crear una conexión en dos grids"]
 
 .Antes de empezar
-* Has revisado link:grid-federation-overview.html["${post_edited_translations.segment}"] para configurar conexiones de federación de grid.
-* ${post_edited_translations.segment}
+* Has revisado link:grid-federation-overview.html["consideraciones y requisitos"] para configurar conexiones de federación de grid.
+* Si planeas usar nombres de dominio completos (FQDN) para cada grid en lugar de direcciones IP o VIP, sabes qué nombres usar y has confirmado que el servidor DNS de cada grid tiene las entradas adecuadas.
 * Estás usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* ${post_edited_translations.segment}
+* Tienes permiso de acceso Root y la frase de contraseña de aprovisionamiento para ambas grids.
 
 
 
 
 [[add-connection]]
-== ${post_edited_translations.segment}
+== Agregar conexión
 
 Sigue estos pasos en cualquiera de los dos sistemas StorageGRID.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en Grid Manager desde el nodo Admin principal de cualquiera de las grids.
 . Selecciona *Configuración* > *Sistema* > *Grid federation*.
 . Selecciona *Add connection*.
-. ${post_edited_translations.segment}
+. Introduce los datos de la conexión.
 +
 [cols="1a,2a"]
 |===
@@ -43,9 +43,9 @@ Sigue estos pasos en cualquiera de los dos sistemas StorageGRID.
 
 
  a| 
-${post_edited_translations.segment}
+Nombre de la conexión
  a| 
-${post_edited_translations.segment}
+Un nombre único que te ayude a reconocer esta conexión, por ejemplo, «Grid 1-Grid 2».
 
 
 
@@ -87,12 +87,12 @@ La frase de acceso de aprovisionamiento de la grid en la que has iniciado sesió
 
 
  a| 
-${post_edited_translations.segment}
+FQDN o dirección IP de la otra grid
  a| 
 Una de las siguientes opciones:
 
 ** El dominio completo (FQDN) de la grid a la que quieres conectarte
-** ${post_edited_translations.segment}
+** Una dirección VIP de un grupo HA en la otra grid
 ** Una dirección IP de un nodo de administración o un nodo de puerta de enlace en la otra grid. La dirección IP puede estar en cualquier red a la que la grid de origen pueda acceder.
 
 
@@ -115,12 +115,12 @@ CAUTION: Este archivo contiene secretos (enmascarados como `***`) y otros detall
 
 
 [[complete-connection]]
-== ${post_edited_translations.segment}
+== Conexión completa
 
 Sigue estos pasos en el sistema StorageGRID al que te vas a conectar (la otra grid).
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en Grid Manager desde el nodo Admin principal.
 . Selecciona *Configuración* > *Sistema* > *Grid federation*.
 . Selecciona *Subir archivo de verificación* para acceder a la página de subida.
 . Selecciona *Subir archivo de verificación*. Luego, busca y selecciona el archivo que descargaste de la primera grid (`_connection-name_.grid-federation`).
@@ -135,23 +135,23 @@ En general, utiliza el mismo número de días para los certificados de ambos ext
 
 CAUTION: Si caducan los certificados de cualquiera de los extremos de la conexión, la conexión dejará de funcionar y las replicaciones quedarán pendientes hasta que se actualicen los certificados.
 
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Introduce la frase de contraseña de aprovisionamiento de la grid en la que has iniciado sesión actualmente.
+. Selecciona *Guardar y probar*.
 +
 Se generan los certificados y se prueba la conexión. Si la conexión es válida, aparece un mensaje de éxito y la nueva conexión se muestra en la página de federación de Grid. El *Estado de la conexión* será *Conectado*.
 
 +
-Si aparece un mensaje de error, soluciona cualquier problema. Consulta link:grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+Si aparece un mensaje de error, soluciona cualquier problema. Consulta link:grid-federation-troubleshoot.html["Solucionar errores de federación de grid"].
 
 . Ve a la página Grid federation en el primer grid y actualiza el navegador. Confirma que el *Estado de la conexión* ahora es *Conectado*.
-. ${post_edited_translations.segment}
+. Una vez establecida la conexión, elimina de forma segura todas las copias del archivo de verificación.
 +
 Si editas esta conexión, se creará un nuevo archivo de verificación. El archivo original no se podrá volver a utilizar.
 
 
 
 .Después de que termines
-* Consulta las consideraciones para link:grid-federation-manage-tenants.html["${post_edited_translations.segment}"].
+* Consulta las consideraciones para link:grid-federation-manage-tenants.html["gestión de inquilinos autorizados"].
 * link:creating-tenant-account.html["Crear una o varias cuentas de inquilino nuevas"], asigna el permiso *Usar conexión de federación de grid* y selecciona la nueva conexión.
 * link:grid-federation-manage-connection.html["Gestiona la conexión"] según sea necesario. Puedes editar los valores de conexión, comprobar una conexión, rotar los certificados de conexión o eliminar una conexión.
 * link:../monitor/grid-federation-monitor-connections.html["Supervisa la conexión"] como parte de tus actividades habituales de supervisión de StorageGRID.

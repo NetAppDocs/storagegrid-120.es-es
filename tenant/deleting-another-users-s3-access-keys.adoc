@@ -24,8 +24,8 @@ CAUTION: Puedes acceder a los buckets y objetos de S3 que pertenecen a un usuari
 .Pasos
 . Selecciona *Gestión de acceso* > *Usuarios*.
 . En la página «Usuarios», selecciona el usuario cuyas claves de acceso a S3 quieras gestionar.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. En la página «Detalles del usuario», selecciona *Claves de acceso* y, a continuación, marca la casilla correspondiente a cada clave de acceso que desees eliminar.
+. Selecciona *Acciones* > *Eliminar clave seleccionada*.
 . En el cuadro de diálogo de confirmación, selecciona *Delete key*.
 +
 Aparece un mensaje de confirmación en la esquina superior derecha de la página.

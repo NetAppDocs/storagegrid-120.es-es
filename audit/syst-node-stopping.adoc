@@ -25,7 +25,7 @@ Apagado correcto
  a| 
 La naturaleza del cierre:
 
-${post_edited_translations.segment}
+SUCS: el sistema se ha apagado correctamente.
 
 |===
 El mensaje no indica si el servidor host se está deteniendo, solo el servicio de informes. El código RSLT de un mensaje SYST no puede indicar un apagado "no limpio", ya que el mensaje solo se genera mediante apagados "limpios".

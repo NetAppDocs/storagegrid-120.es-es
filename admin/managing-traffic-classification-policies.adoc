@@ -20,12 +20,12 @@ Las políticas de clasificación de tráfico se aplican a los puntos de conexió
 [[matching-rules]]
 == Reglas de coincidencia
 
-${post_edited_translations.segment}
+Cada política de clasificación del tráfico contiene una o varias reglas de coincidencia para identificar el tráfico de red relacionado con una o varias de las siguientes entidades:
 
-* ${post_edited_translations.segment}
+* Buckets
 * Subred
 * Inquilino
-* ${post_edited_translations.segment}
+* Puntos de conexión del equilibrador de carga
 
 
 StorageGRID supervisa el tráfico que coincide con cualquier regla de la política de acuerdo con los objetivos de dicha regla. Todo el tráfico que coincida con cualquier regla de una política se gestiona mediante dicha política. Por el contrario, puedes establecer reglas para que coincidan con todo el tráfico excepto el de una entidad específica.
@@ -37,8 +37,8 @@ StorageGRID supervisa el tráfico que coincide con cualquier regla de la políti
 
 Si lo deseas, puedes añadir los siguientes tipos de límite a una política:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Ancho de banda de agregado
+* Ancho de banda por solicitud
 * Solicitudes simultáneas
 * Tasa de solicitud
 
@@ -50,12 +50,12 @@ NOTE: Puedes crear políticas para limitar el ancho de banda de agregado o para 
 
 Para los límites de ancho de banda de agregado o por solicitud, las solicitudes se transmiten de entrada o de salida a la velocidad que configures. StorageGRID solo puede aplicar una velocidad, por lo que la coincidencia de política más específica, por tipo de comparador, es la que se aplica. El ancho de banda consumido por la solicitud no cuenta para otras políticas coincidentes menos específicas que contengan políticas de límite de ancho de banda de agregado. Para todos los demás tipos de límites, las solicitudes de los clientes se retrasan 250 milisegundos y reciben una respuesta 503 Slow Down en el caso de las solicitudes que superen cualquier límite de política coincidente.
 
-${post_edited_translations.segment}
+En el Grid Manager, puedes consultar los gráficos de tráfico y comprobar que las políticas están aplicando los límites de tráfico que esperas.
 
 
 
 [[use-traffic-classification-policies-with-slas]]
-== ${post_edited_translations.segment}
+== Utiliza políticas de clasificación del tráfico con SLA
 
 Puedes usar las políticas de clasificación del tráfico junto con los límites de capacidad y la protección de datos para hacer cumplir los acuerdos de nivel de servicio (SLA) que proporcionan detalles específicos sobre capacidad, protección de datos y rendimiento.
 
@@ -63,7 +63,7 @@ El siguiente ejemplo muestra tres niveles de un SLA. Puedes crear políticas de 
 
 [cols="1a,1a,1a,1a,1a"]
 |===
-| ${post_edited_translations.segment} | Capacidad | Protección de datos | Rendimiento máximo permitido | Coste 
+| Nivel de servicio | Capacidad | Protección de datos | Rendimiento máximo permitido | Coste 
 
 
  a| 
@@ -71,9 +71,9 @@ Oro
  a| 
 1 PB de almacenamiento permitido
  a| 
-${post_edited_translations.segment}
+3 copia de la regla ILM
  a| 
-${post_edited_translations.segment}
+25 000 solicitudes por segundo
 
 5 GB/s (40 Gbps) de ancho de banda
  a| 
@@ -82,7 +82,7 @@ $$$ al mes
 
 
  a| 
-${post_edited_translations.segment}
+Plata
  a| 
 250 TB de almacenamiento permitidos
  a| 
@@ -103,9 +103,9 @@ Bronce
  a| 
 2 copia de la regla ILM
  a| 
-${post_edited_translations.segment}
+5 K solicitudes/seg
 
-${post_edited_translations.segment}
+1 GB/s (8 Gbps) de ancho de banda
  a| 
 $ al mes
 

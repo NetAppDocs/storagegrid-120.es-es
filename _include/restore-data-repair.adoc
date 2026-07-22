@@ -1,11 +1,11 @@
-= ${post_edited_translations.segment}
+= Buscar el nombre de host para el nodo de almacenamiento
 :allow-uri-read: 
 
 
 
 
 [[find-hostname-for-storage-node]]
-== ${post_edited_translations.segment}
+== Buscar el nombre de host para el nodo de almacenamiento
 
 . Inicia sesión en cualquier Admin Node:
 +
@@ -24,7 +24,7 @@ Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
 
 
 [[repair-data-if-all-volumes-have-failed]]
-== ${post_edited_translations.segment}
+== Repara los datos si todos los volúmenes han fallado
 
 Si todos los volúmenes de almacenamiento han fallado, repara todo el nodo. Sigue las instrucciones para *datos replicados*, *datos con codificación de borrado (EC)* o ambos, según si usas datos replicados, datos con codificación de borrado (EC) o ambos.
 
@@ -39,7 +39,7 @@ NOTE: No puedes ejecutar operaciones de  `repair-data` en más de un nodo al mis
 --
 Si tu grid incluye datos replicados, usa el comando `repair-data start-replicated-node-repair` con la opción `--nodes`, donde `--nodes` es el nombre de host (nombre del sistema), para reparar todo el Storage Node.
 
-${post_edited_translations.segment}
+Este comando repara los datos replicados en un nodo de almacenamiento denominado SG-DC-SN3:
 
 `repair-data start-replicated-node-repair --nodes SG-DC-SN3`
 
@@ -47,11 +47,11 @@ ${post_edited_translations.segment}
 NOTE: A medida que se restauran los datos de los objetos, se activa la alerta *Objetos perdidos* si el sistema StorageGRID no puede localizar los datos de los objetos replicados. Es posible que se activen alertas en los nodos de almacenamiento de todo el sistema. Debes determinar la causa de la pérdida y si la recuperación es posible. Consulta link:../troubleshoot/investigating-potentially-lost-objects.html["Investiga los objetos que puedan haberse perdido"].
 
 --
-.${post_edited_translations.segment}
+.Datos con código de borrado (EC)
 --
 Si tu grid contiene datos con código de borrado, usa el comando  `repair-data start-ec-node-repair` con la opción  `--nodes`, donde  `--nodes` es el hostname (nombre del sistema), para reparar todo el Storage Node.
 
-${post_edited_translations.segment}
+Este comando repara los datos con código de borrado en un nodo de almacenamiento denominado SG-DC-SN3:
 
 `repair-data start-ec-node-repair --nodes SG-DC-SN3`
 
@@ -68,7 +68,7 @@ Las reparaciones de los datos con código de borrado pueden comenzar mientras al
 
 Si solo algunos de los volúmenes han fallado, repara los volúmenes afectados. Sigue las instrucciones para *datos replicados*, *datos con código de borrado (EC)* o ambos, en función de si utilizas datos replicados, datos con código de borrado (EC) o ambos.
 
-Si todos los volúmenes han fallado, ve a <<${post_edited_translations.segment}>>.
+Si todos los volúmenes han fallado, ve a <<Repara los datos si todos los volúmenes han fallado>>.
 
 Introduce los ID de los volúmenes en formato hexadecimal. Por ejemplo, `0000` es el primer volumen y `000F` es el decimosexto volumen. Puedes especificar un volumen, un rango de volúmenes o varios volúmenes que no estén en secuencia.
 
@@ -96,7 +96,7 @@ Si tu grid contiene datos replicados, usa el comando  `start-replicated-volume-r
 NOTE: A medida que se restauran los datos de objetos, se activa la alerta *Objects Lost* si el sistema StorageGRID no puede localizar los datos de objetos replicados. Es posible que se activen alertas en los nodos de almacenamiento de todo el sistema. Toma nota de la descripción de la alerta y de las acciones recomendadas para determinar la causa de la pérdida y si la recuperación es posible.
 
 --
-.${post_edited_translations.segment}
+.Datos con código de borrado (EC)
 --
 Si tu grid contiene datos con código de borrado, utiliza el comando  `start-ec-volume-repair` con la opción  `--nodes` para identificar el nodo (donde  `--nodes` es el hostname del nodo). Luego añade la opción  `--volumes` o  `--volume-range`, como se muestra en los siguientes ejemplos.
 

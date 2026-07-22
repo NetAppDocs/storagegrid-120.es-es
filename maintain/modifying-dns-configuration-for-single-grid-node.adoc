@@ -78,5 +78,5 @@ Enter command [`add search <domain>|remove search <domain>|add nameserver <ip>`]
 . [[close_cmd_shell]]Cerrar el shell de comandos del servidor: `exit`
 . Para cada nodo de la red, repite los pasos desde <<log_in_to_node,iniciar sesión en el nodo>> hasta <<close_cmd_shell,cerrar la línea de comandos>>.
 . Cuando ya no necesites el acceso sin contraseña a otros servidores, elimina la clave privada del agente SSH. Escribe: `ssh-add -D`
-. Si has habilitado el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando termines de modificar la configuración del DNS.
+. Si has habilitado el acceso SSH externo, link:../admin/manage-external-ssh-access.html["bloquear el acceso"] cuando termines de modificar la configuración del DNS.
 

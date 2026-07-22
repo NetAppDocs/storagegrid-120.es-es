@@ -8,7 +8,7 @@ indexpage:
   lead: Antes de instalar y usar un sistema StorageGRID, tómate un tiempo para aprender
     sobre StorageGRID.
   tiles:
-  - title: "${post_edited_translations.segment}"
+  - title: Aprende y explora
     links:
     - title: "¿Qué es StorageGRID?"
       url: "../primer/index.html"
@@ -16,15 +16,15 @@ indexpage:
       url: "../primer/storagegrid-architecture-and-network-topology.html"
     - title: "¿Cómo gestiona StorageGRID los datos?"
       url: "../primer/how-storagegrid-manages-data.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Explora Grid Manager
       url: "../primer/exploring-grid-manager.html"
     - title: Explora Tenant Manager
       url: "../primer/exploring-tenant-manager.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Directrices de redes
     links:
     - title: Tipos de redes
       url: "../network/storagegrid-network-types.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Requisitos de red
       url: "../network/networking-requirements-and-guidelines.html"
     - title: Comunicaciones internas entre nodos de grid
       url: "../network/internal-grid-node-communications.html"

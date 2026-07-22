@@ -17,7 +17,7 @@ El diagrama de flujo muestra los pasos a grandes rasgos para usar un KMS y prote
 
 image:kms_configuration_overview.png["Flujo de trabajo de configuración de KMS, que se describe en el texto siguiente"]
 
-${post_edited_translations.segment}
+El diagrama de flujo muestra que la configuración de KMS y la configuración del dispositivo se realizan en paralelo; sin embargo, puedes configurar los servidores de gestión de claves antes o después de habilitar el cifrado de nodos para los nuevos nodos del dispositivo, en función de tus necesidades.
 
 
 
@@ -32,14 +32,14 @@ La configuración de un servidor de gestión de claves incluye los siguientes pa
 
 
  a| 
-${post_edited_translations.segment}
+Accede al software KMS y añade un cliente de StorageGRID a cada KMS o KMS cluster.
  a| 
 link:kms-configuring-storagegrid-as-client.html["Configura StorageGRID como cliente en el KMS"]
 
 
 
  a| 
-${post_edited_translations.segment}
+Obtén la información necesaria para el cliente de StorageGRID en el KMS.
  a| 
 link:kms-configuring-storagegrid-as-client.html["Configura StorageGRID como cliente en el KMS"]
 
@@ -56,9 +56,9 @@ link:kms-adding.html["Agrega un servidor de gestión de claves (KMS)"]
 [[set-up-the-appliance]]
 == Configura el appliance
 
-${post_edited_translations.segment}
+La configuración de un nodo de dispositivo para su uso con KMS incluye los siguientes pasos a grandes rasgos.
 
-. ${post_edited_translations.segment}
+. Durante la fase de configuración del hardware de la instalación del dispositivo, utiliza el StorageGRID Appliance Installer para activar la opción *Node Encryption* del dispositivo.
 +
 
 NOTE: No puedes activar la opción *Cifrado de nodos* después de añadir un appliance a la grid, y no puedes usar la gestión externa de claves para appliances que no tengan activado el cifrado de nodos.
@@ -77,14 +77,14 @@ Consulta https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/opti
 
 
 [[key-management-encryption-process-occurs-automatically]]
-== ${post_edited_translations.segment}
+== Proceso de cifrado con gestión de claves (ocurre automáticamente)
 
 El cifrado con gestión de claves incluye los siguientes pasos a grandes rasgos que se llevan a cabo de forma automática.
 
 . Al instalar en la red un dispositivo que tiene activado el cifrado de nodos, StorageGRID comprueba si existe una configuración de KMS para el sitio que contiene el nuevo nodo.
 +
 ** Si ya se ha configurado un KMS para el sitio, el dispositivo recibe la configuración del KMS.
-** ${post_edited_translations.segment}
+** Si aún no se ha configurado un KMS para el sitio, los datos del appliance seguirán cifrándose mediante la KEK temporal hasta que configures un KMS para el sitio y el appliance reciba la configuración del KMS.
 
 
 . El dispositivo utiliza la configuración de KMS para conectarse al KMS y solicitar una clave de cifrado.

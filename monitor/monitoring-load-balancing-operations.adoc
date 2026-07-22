@@ -20,7 +20,7 @@ Tras configurar el equilibrio de carga, debes comprobar que las operaciones de i
 
 Si configuraste un grupo de alta disponibilidad (HA) de Gateway Nodes o Admin Nodes en modo activo-backup, solo un nodo del grupo distribuye activamente las solicitudes de los clientes.
 
-Para más información, consulta link:../admin/configuring-client-connections.html["${post_edited_translations.segment}"].
+Para más información, consulta link:../admin/configuring-client-connections.html["Configura las conexiones del cliente S3"].
 
 .Pasos
 . Si los clientes de S3 se conectan mediante el servicio Load Balancer, comprueba que los nodos de administración o los nodos de puerta de enlace estén distribuyendo el tráfico como esperas:

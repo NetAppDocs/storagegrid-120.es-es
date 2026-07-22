@@ -2,7 +2,7 @@
 permalink: audit/gnrg-gnds-registration.html 
 sidebar: sidebar 
 keywords: storagegrid, audi, message, GNRG, GNDS Registration 
-summary: ${post_edited_translations.segment} 
+summary: El servicio CMN genera este mensaje de auditoría cuando un servicio ha actualizado o registrado información sobre sí mismo en el sistema StorageGRID. 
 ---
 = Mensaje de auditoría GNRG para el registro GNDS en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+El servicio CMN genera este mensaje de auditoría cuando un servicio ha actualizado o registrado información sobre sí mismo en el sistema StorageGRID.
 
 [cols="1a,1a,4a"]
 |===
@@ -23,9 +23,9 @@ RSLT
  a| 
 Resultado
  a| 
-${post_edited_translations.segment}
+El resultado de la solicitud de actualización:
 
-* ${post_edited_translations.segment}
+* SUCS: Exitoso
 * SUNV: Servicio no disponible
 * GERR: Otro fallo
 
@@ -53,18 +53,18 @@ El tipo de dispositivo del nodo de la grid (por ejemplo, BLDR para un servicio L
  a| 
 GNDV
  a| 
-${post_edited_translations.segment}
+Versión del modelo del dispositivo
  a| 
-${post_edited_translations.segment}
+La cadena que identifica la versión del modelo del dispositivo del nodo de la grid en el paquete DMDL.
 
 
 
  a| 
 GNGP
  a| 
-${post_edited_translations.segment}
+Grupo
  a| 
-${post_edited_translations.segment}
+El grupo al que pertenece el nodo de la red (en el contexto de los costes de enlace y la clasificación de las consultas de servicio).
 
 
 

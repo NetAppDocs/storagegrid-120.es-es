@@ -16,8 +16,8 @@ Utiliza el Tenant Manager para crear y ver detalles de los buckets de sucursal.
 .Antes de empezar
 * Has iniciado sesión en Tenant Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Perteneces a un grupo de usuarios que tiene el acceso Root o link:tenant-management-permissions.html["Gestiona el permiso de todos los buckets"]. Estos permisos anulan la configuración de permisos en las políticas de grupo o de bucket.
-* El bucket base desde el que quieres crear una rama tiene link:../tenant/changing-bucket-versioning.html["${post_edited_translations.segment}"].
-* ${post_edited_translations.segment}
+* El bucket base desde el que quieres crear una rama tiene link:../tenant/changing-bucket-versioning.html["control de versiones activado"].
+* Eres el propietario del bucket base.
 
 
 .Acerca de esta tarea
@@ -65,11 +65,11 @@ Un nombre para el bucket de la rama que cumpla estas reglas:
 ** Debe ser único en cada sistema StorageGRID (no solo dentro de la cuenta del inquilino).
 ** Debe ser compatible con DNS.
 ** Debe contener al menos 3 y no más de 63 caracteres.
-** ${post_edited_translations.segment}
+** Cada etiqueta debe comenzar y terminar con una letra minúscula o un número y solo puede usar letras minúsculas, números y guiones.
 ** No debe contener puntos en las solicitudes de tipo virtual hosted style. Los puntos provocarán problemas con la verificación del certificado comodín del servidor.
 
 
-Para más información, consulta el https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["${post_edited_translations.segment}"^].
+Para más información, consulta el https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["Documentación de Amazon Web Services (AWS) sobre las reglas de nomenclatura de los buckets"^].
 
 *Nota*: No puedes cambiar el nombre después de crear el bucket de la rama.
 
@@ -142,8 +142,8 @@ Cuando la *retención predeterminada* está activada, los nuevos objetos añadid
 Gobernanza
  a| 
 *** Los usuarios con el permiso  `s3:BypassGovernanceRetention` pueden usar el encabezado de solicitud  `x-amz-bypass-governance-retention: true` para omitir la configuración de retención.
-*** ${post_edited_translations.segment}
-*** ${post_edited_translations.segment}
+*** Estos usuarios pueden eliminar una versión de un objeto antes de que se alcance su retain-until-date.
+*** Estos usuarios pueden aumentar, disminuir o eliminar la fecha de retención de un objeto.
 
 
 
@@ -152,7 +152,7 @@ Gobernanza
 Cumplimiento normativo
  a| 
 *** El objeto no se puede eliminar hasta que se alcance su fecha de retención.
-*** ${post_edited_translations.segment}
+*** La fecha límite de retención del objeto se puede ampliar, pero no se puede reducir.
 *** La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
 
 
@@ -173,7 +173,7 @@ El administrador de la grid establece un periodo de retención _máximo_, que pu
 El límite de capacidad es la capacidad máxima disponible para el bucket de la rama. Este valor representa una cantidad lógica (tamaño del objeto), no una cantidad física (tamaño en el disco).
 
 +
-Si no se establece ningún límite, la capacidad del «branch bucket» es ilimitada. Consulta link:../tenant/understanding-tenant-manager-dashboard.html#bucket-capacity-usage["${post_edited_translations.segment}"] para más información.
+Si no se establece ningún límite, la capacidad del «branch bucket» es ilimitada. Consulta link:../tenant/understanding-tenant-manager-dashboard.html#bucket-capacity-usage["Uso del límite de capacidad"] para más información.
 
 +
 

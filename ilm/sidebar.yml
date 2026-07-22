@@ -17,13 +17,13 @@ entries:
       url: "/ilm/advantages-disadvantages-of-ingest-options.html"
   - title: Cómo se almacenan los objetos (replicación o código de borrado)
     entries:
-    - title: "${post_edited_translations.segment}"
+    - title: "¿Qué es la replicación?"
       url: "/ilm/what-replication-is.html"
     - title: Por qué no debes utilizar la replicación de copia única
       url: "/ilm/why-you-should-not-use-single-copy-replication.html"
     - title: "¿Qué es el erasure coding?"
       url: "/ilm/what-erasure-coding-is.html"
-    - title: "${post_edited_translations.segment}"
+    - title: "¿Qué son los esquemas de erasure coding?"
       url: "/ilm/what-erasure-coding-schemes-are.html"
     - title: Ventajas, desventajas y requisitos del código de borrado
       url: "/ilm/advantages-disadvantages-and-requirements-for-ec.html"
@@ -95,7 +95,7 @@ entries:
   entries:
   - title: Usa políticas de ILM
     url: "/ilm/ilm-policy-overview.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Crear políticas de ILM
     url: "/ilm/creating-ilm-policy.html"
   - title: Ejemplos de simulaciones de políticas de ILM
     url: "/ilm/simulating-ilm-policy-examples.html"

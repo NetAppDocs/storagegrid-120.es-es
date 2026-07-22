@@ -46,7 +46,7 @@ link:recovering-from-admin-node-failures.html["Recupérate de fallos del nodo de
 
 
  a| 
-${post_edited_translations.segment}
+Nodo de puerta de enlace
  a| 
 link:replacing-gateway-node.html["Recupera ante fallos del nodo de puerta de enlace"]
 

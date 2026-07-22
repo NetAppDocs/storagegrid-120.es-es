@@ -18,7 +18,7 @@ Si tienes previsto utilizar los servicios de la plataforma StorageGRID o los Clo
 [[networking-for-platform-services]]
 == Redes para servicios de plataforma
 
-Tal y como se describe en link:../admin/manage-platform-services-for-tenants.html["Gestiona los servicios de la plataforma para los inquilinos"] y link:../tenant/considerations-for-platform-services.html["${post_edited_translations.segment}"], los servicios de la plataforma incluyen servicios externos que proporcionan integración de búsqueda, notificación de eventos y replicación de CloudMirror.
+Tal y como se describe en link:../admin/manage-platform-services-for-tenants.html["Gestiona los servicios de la plataforma para los inquilinos"] y link:../tenant/considerations-for-platform-services.html["Gestiona los servicios de la plataforma"], los servicios de la plataforma incluyen servicios externos que proporcionan integración de búsqueda, notificación de eventos y replicación de CloudMirror.
 
 Los servicios de la plataforma requieren que los nodos de almacenamiento que alojan el servicio StorageGRID ADC tengan acceso a los puntos finales de los servicios externos. Entre los ejemplos de cómo proporcionar dicho acceso se incluyen:
 

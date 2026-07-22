@@ -21,36 +21,36 @@ La categoría Management registra las solicitudes de usuario a la API de Managem
  a| 
 MDIP
  a| 
-${post_edited_translations.segment}
+Dirección IP de destino
  a| 
-${post_edited_translations.segment}
+La dirección IP del servidor (destino).
 
 
 
  a| 
-${post_edited_translations.segment}
+MDNA
  a| 
 Nombre de dominio
  a| 
-${post_edited_translations.segment}
+El nombre de dominio del host.
 
 
 
  a| 
-${post_edited_translations.segment}
+MPAT
  a| 
-${post_edited_translations.segment}
+PATH de solicitud
  a| 
-${post_edited_translations.segment}
+La ruta de la solicitud.
 
 
 
  a| 
-${post_edited_translations.segment}
+MPQP
  a| 
-${post_edited_translations.segment}
+Parámetros de consulta de la solicitud
  a| 
-${post_edited_translations.segment}
+Los parámetros de consulta de la solicitud.
 
 
 
@@ -63,11 +63,11 @@ El contenido del cuerpo de la solicitud. Aunque el cuerpo de la respuesta se reg
 
 * Nombre de usuario e ID de cuenta en *POST authorize*
 * Nueva configuración de subredes en *POST /grid/grid-networks/update*
-* ${post_edited_translations.segment}
+* Nuevos servidores NTP en *POST /grid/ntp-servers/update*
 * Identificadores de servidores decomisionados en *POST /grid/servers/decommission*
 
 
-${post_edited_translations.segment}
+*Nota:* La información confidencial se elimina (por ejemplo, una clave de acceso a S3) o se oculta con asteriscos (por ejemplo, una contraseña).
 
 
 
@@ -79,7 +79,7 @@ Método de solicitud
 El método de solicitud HTTP:
 
 * POST
-* ${post_edited_translations.segment}
+* PUT
 * ELIMINAR
 * PATCH
 
@@ -89,7 +89,7 @@ El método de solicitud HTTP:
  a| 
 MRSC
  a| 
-${post_edited_translations.segment}
+Código de respuesta
  a| 
 El código de respuesta.
 
@@ -102,7 +102,7 @@ Cuerpo de respuesta
  a| 
 El contenido de la respuesta (el cuerpo de la respuesta) se registra de forma predeterminada.
 
-${post_edited_translations.segment}
+*Nota:* La información confidencial se elimina (por ejemplo, una clave de acceso a S3) o se oculta con asteriscos (por ejemplo, una contraseña).
 
 
 
@@ -116,7 +116,7 @@ La dirección IP del cliente (origen).
 
 
  a| 
-${post_edited_translations.segment}
+MUUN
  a| 
 URN del usuario
  a| 

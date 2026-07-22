@@ -2,13 +2,13 @@
 :allow-uri-read: 
 
 
-${post_edited_translations.segment}
+Supongamos que tienes una red de tres sitios con la siguiente regla de ILM y la siguiente consistencia:
 
 * *Regla de ILM*: crea tres copias de objeto, una en el sitio local y otra en cada sitio remoto. Usa el comportamiento de ingesta Strict.
 * *Consistencia*: Global fuerte (los metadatos de los objetos se distribuyen inmediatamente a varios sitios).
 
 
-${post_edited_translations.segment}
+Cuando un cliente almacena un objeto en la grid, StorageGRID crea las tres copias del objeto y distribuye los metadatos a varios sitios antes de indicar al cliente que la operación se ha realizado con éxito.
 
 El objeto queda totalmente protegido contra la pérdida en el momento en que se recibe el mensaje de ingesta correcta. Por ejemplo, si el sitio local se pierde poco después de la ingesta, siguen existiendo copias tanto de los datos del objeto como de los metadatos del objeto en los sitios remotos. El objeto se puede recuperar íntegramente desde los demás sitios.
 

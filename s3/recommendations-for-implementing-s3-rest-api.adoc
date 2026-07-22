@@ -56,9 +56,9 @@ TIP: Una excepción a esto es una carga de trabajo de S3 que elimina continuamen
 [[recommendations-for-range-reads]]
 == Recomendaciones para las «lecturas de rango»
 
-Si la link:../admin/configuring-stored-object-compression.html["${post_edited_translations.segment}"] está habilitada, las aplicaciones cliente de S3 deben evitar realizar operaciones GetObject que especifiquen que se devuelva un rango de bytes. Estas operaciones de "lectura de rango" son ineficientes porque StorageGRID debe descomprimir los objetos para acceder a los bytes solicitados. Las operaciones GetObject que solicitan un rango pequeño de bytes de un objeto muy grande son especialmente ineficientes; por ejemplo, es ineficiente leer un rango de 10 MB de un objeto comprimido de 50 GB.
+Si la link:../admin/configuring-stored-object-compression.html["Opción global para comprimir objetos almacenados"] está habilitada, las aplicaciones cliente de S3 deben evitar realizar operaciones GetObject que especifiquen que se devuelva un rango de bytes. Estas operaciones de "lectura de rango" son ineficientes porque StorageGRID debe descomprimir los objetos para acceder a los bytes solicitados. Las operaciones GetObject que solicitan un rango pequeño de bytes de un objeto muy grande son especialmente ineficientes; por ejemplo, es ineficiente leer un rango de 10 MB de un objeto comprimido de 50 GB.
 
 Si los rangos se leen de objetos comprimidos, las solicitudes de los clientes pueden agotar el tiempo de espera.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si necesitas comprimir objetos y tu aplicación cliente debe utilizar lecturas por rango, aumenta el tiempo de espera de lectura de la aplicación.

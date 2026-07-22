@@ -47,9 +47,9 @@ Impedir la modificación por parte del cliente es una configuración válida par
 
 De forma predeterminada, las aplicaciones cliente utilizan el protocolo de red HTTPS para cualquier conexión directa con los nodos de almacenamiento. Si lo deseas, puedes habilitar HTTP para estas conexiones, por ejemplo, al realizar pruebas en una red que no sea de producción.
 
-Utiliza HTTP para las conexiones con los nodos de almacenamiento únicamente si los clientes S3 necesitan establecer conexiones HTTP directamente con los nodos de almacenamiento. No necesitas usar esta opción para los clientes que solo usan conexiones HTTPS o para los clientes que se conectan al servicio de Load Balancer (porque puedes link:../admin/configuring-load-balancer-endpoints.html["${post_edited_translations.segment}"] usar tanto HTTP como HTTPS).
+Utiliza HTTP para las conexiones con los nodos de almacenamiento únicamente si los clientes S3 necesitan establecer conexiones HTTP directamente con los nodos de almacenamiento. No necesitas usar esta opción para los clientes que solo usan conexiones HTTPS o para los clientes que se conectan al servicio de Load Balancer (porque puedes link:../admin/configuring-load-balancer-endpoints.html["configurar cada endpoint del balanceador de carga"] usar tanto HTTP como HTTPS).
 
-Consulta link:summary-ip-addresses-and-ports-for-client-connections.html["${post_edited_translations.segment}"] para saber qué puertos usan los clientes S3 al conectarse a los nodos de almacenamiento mediante HTTP o HTTPS.
+Consulta link:summary-ip-addresses-and-ports-for-client-connections.html["Resumen: direcciones IP y puertos para las conexiones de los clientes"] para saber qué puertos usan los clientes S3 al conectarse a los nodos de almacenamiento mediante HTTP o HTTPS.
 
 
 
@@ -64,7 +64,7 @@ Consulta link:summary-ip-addresses-and-ports-for-client-connections.html["${post
 .Pasos
 . Selecciona *Configuración* > *Seguridad* > *Ajustes de seguridad*.
 . Selecciona la pestaña *Red y objetos*.
-. ${post_edited_translations.segment}
+. Para el cifrado de objetos almacenados, utiliza la configuración *Ninguna* (predeterminada) si no quieres que los objetos almacenados se cifren, o selecciona *AES-128* o *AES-256* para cifrar los objetos almacenados.
 . Si lo deseas, selecciona *Impedir la modificación por parte del cliente* si quieres evitar que los clientes de S3 realicen solicitudes específicas.
 +
 

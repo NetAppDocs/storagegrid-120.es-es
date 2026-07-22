@@ -47,7 +47,7 @@ Para editar una política:
 
 . Selecciona *ILM* > *Policies*.
 . Marca la casilla de la política que quieras editar y luego selecciona *Editar*.
-. Modifica la política siguiendo las instrucciones en link:creating-ilm-policy.html["${post_edited_translations.segment}"].
+. Modifica la política siguiendo las instrucciones en link:creating-ilm-policy.html["Crear políticas de ILM"].
 . Simula la política antes de volver a activarla.
 
 
@@ -64,7 +64,7 @@ Para clonar una política de ILM:
 
 . Selecciona *ILM* > *Policies*.
 . Marca la casilla de la política que quieres clonar y luego selecciona *Clonar*.
-. Crea una nueva política a partir de la que has clonado siguiendo las instrucciones en link:creating-ilm-policy.html["${post_edited_translations.segment}"].
+. Crea una nueva política a partir de la que has clonado siguiendo las instrucciones en link:creating-ilm-policy.html["Crear políticas de ILM"].
 
 
 

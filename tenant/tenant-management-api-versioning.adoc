@@ -2,7 +2,7 @@
 permalink: tenant/tenant-management-api-versioning.html 
 sidebar: sidebar 
 keywords: tenant management api version 
-summary: ${post_edited_translations.segment} 
+summary: La API de gestión de inquilinos utiliza un sistema de versiones para permitir actualizaciones sin interrupciones. 
 ---
 = Versionado de la API de gestión de inquilinos de StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+La API de gestión de inquilinos utiliza un sistema de versiones para permitir actualizaciones sin interrupciones.
 
 Por ejemplo, esta URL de solicitud especifica la versión 4 de la API.
 
@@ -23,7 +23,7 @@ El siguiente ejemplo ilustra cómo se incrementa la versión de la API en funci�
 
 [cols="1a,1a,1a"]
 |===
-| Tipo de cambio en la API | ${post_edited_translations.segment} | Nueva versión 
+| Tipo de cambio en la API | Versión anterior | Nueva versión 
 
 
  a| 
@@ -57,7 +57,7 @@ NOTE: Puedes configurar las versiones compatibles. Consulta la sección *config*
 
 Las solicitudes obsoletas se marcan como en desuso de las siguientes maneras:
 
-* ${post_edited_translations.segment}
+* El encabezado de respuesta es "Deprecated: true"
 * El cuerpo de la respuesta JSON incluye "deprecated": true
 * Se añade una advertencia de obsolescencia a nms.log. Por ejemplo:
 +

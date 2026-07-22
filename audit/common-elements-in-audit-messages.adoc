@@ -68,7 +68,7 @@ ID de rastreo: un identificador que es compartido por el conjunto de mensajes qu
 
 
  a| 
-${post_edited_translations.segment}
+ATIM
  a| 
 UI64
  a| 

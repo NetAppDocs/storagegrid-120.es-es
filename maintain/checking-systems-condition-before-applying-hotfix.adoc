@@ -16,7 +16,7 @@ Debes comprobar que el sistema está listo para instalar la corrección urgente.
 . Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
 . Si es posible, asegúrate de que el sistema funcione con normalidad y de que todos los nodos de la red estén conectados a la red.
 +
-Los nodos conectados tienen marcas de verificación verdes image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"] en la página de Nodos.
+Los nodos conectados tienen marcas de verificación verdes image:icon_alert_green_checkmark.png["icono de alerta con marca de verificación verde"] en la página de Nodos.
 
 . Comprueba si hay alguna alerta activa y, si es posible, resuélvela.
 . Asegúrate de que no haya ningún otro procedimiento de mantenimiento en curso, como una actualización, recuperación, ampliación o procedimiento de decomisionar.

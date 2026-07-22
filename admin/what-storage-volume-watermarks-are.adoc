@@ -71,10 +71,10 @@ Puedes consultar la configuración actual de las marcas de agua y los valores op
 [[view-current-watermark-settings]]
 === Ver la configuración actual de la marca de agua
 
-${post_edited_translations.segment}
+Puedes consultar la configuración actual de las marcas de agua de almacenamiento en el Grid Manager.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Support* > *Other* > *Storage watermarks*.
 . En la página de marcas de agua de almacenamiento, fíjate en la casilla de selección Usar valores optimizados.
 +
 ** Si se marca la casilla, las tres marcas de agua se optimizan para cada volumen de almacenamiento en cada nodo de almacenamiento, según el tamaño del nodo de almacenamiento y la capacidad relativa del volumen.
@@ -92,12 +92,12 @@ Al especificar ajustes personalizados para la marca de agua, debes introducir va
 
 
 [[view-optimized-storage-watermarksview-optimized-storage-watermarks]]
-=== ${post_edited_translations.segment}
+=== [[view-optimized-storage-watermarks]]Ver marcas de agua de almacenamiento optimizadas
 
 StorageGRID utiliza dos métricas de Prometheus para mostrar los valores optimizados que ha calculado para el umbral de solo lectura (soft) del volumen de almacenamiento. Puedes consultar los valores optimizados mínimos y máximos para cada Storage Node en tu grid.
 
 . Selecciona *Soporte* > *Herramientas* > *Métricas*.
-. ${post_edited_translations.segment}
+. En la sección Prometheus, selecciona el enlace para acceder a la interfaz de usuario de Prometheus.
 . Para ver la marca de agua mínima recomendada de solo lectura, introduce la siguiente métrica de Prometheus y selecciona *Ejecutar*:
 +
 `storagegrid_storage_volume_minimum_optimized_soft_readonly_watermark`
@@ -105,11 +105,11 @@ StorageGRID utiliza dos métricas de Prometheus para mostrar los valores optimiz
 +
 La última columna muestra el valor mínimo optimizado de la marca de agua de solo lectura flexible para todos los volúmenes de almacenamiento de cada Storage Node. Si este valor es mayor que el ajuste personalizado de la marca de agua de solo lectura flexible del volumen de almacenamiento, se activa la alerta *Low read-only watermark override* para el Storage Node.
 
-. ${post_edited_translations.segment}
+. Para ver el límite máximo recomendado de marcas de agua soft de solo lectura, introduce la siguiente métrica de Prometheus y selecciona *Execute*:
 +
 `storagegrid_storage_volume_maximum_optimized_soft_readonly_watermark`
 
 +
-${post_edited_translations.segment}
+La última columna muestra el valor máximo optimizado de la marca de agua de solo lectura para todos los volúmenes de almacenamiento en cada Storage Node.
 
 

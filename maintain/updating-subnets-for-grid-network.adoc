@@ -39,7 +39,7 @@ No utilices subredes que contengan las siguientes direcciones IPv4 para la Grid 
 * 198.51.100.4
 
 
-${post_edited_translations.segment}
+Por ejemplo, no utilices los siguientes rangos de subred para la Grid Network, Admin Network o Client Network de ningún nodo:
 
 * 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
 * 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102

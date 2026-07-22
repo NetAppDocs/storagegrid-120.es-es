@@ -15,11 +15,11 @@ Los mensajes de auditoría pertenecientes a la categoría de auditoría del sist
 
 [cols="1a,2a,1a"]
 |===
-| Código | ${post_edited_translations.segment} | Ver 
+| Código | Título y descripción del mensaje | Ver 
 
 
  a| 
-${post_edited_translations.segment}
+ECMC
  a| 
 Falta un fragmento de datos con código de borrado: indica que se ha detectado un fragmento de datos con código de borrado faltante.
  a| 
@@ -55,7 +55,7 @@ link:gnrg-gnds-registration.html["GNRG: Inscripción en GNDS"]
 
 
  a| 
-${post_edited_translations.segment}
+GNUR
  a| 
 Cancelación del registro de GNDS: un servicio se ha dado de baja del sistema StorageGRID.
  a| 
@@ -64,18 +64,18 @@ link:gnur-gnds-unregistration.html["GNUR: Baja del GNDS"]
 
 
  a| 
-${post_edited_translations.segment}
+GTED
  a| 
-${post_edited_translations.segment}
+Tarea de la red finalizada: el servicio CMN terminó de procesar la tarea de la red.
  a| 
-link:gted-grid-task-ended.html["${post_edited_translations.segment}"]
+link:gted-grid-task-ended.html["GTED: tarea de la red finalizada"]
 
 
 
  a| 
-${post_edited_translations.segment}
+GTST
  a| 
-${post_edited_translations.segment}
+Tarea de la red iniciada: el servicio CMN comenzó a procesar la tarea de la red.
  a| 
 link:gtst-grid-task-started.html["GTST: tarea de grid iniciada"]
 
@@ -102,7 +102,7 @@ link:llst-location-lost.html["LLST: ubicación perdida"]
  a| 
 OLST
  a| 
-${post_edited_translations.segment}
+Objeto perdido: No se puede localizar el objeto solicitado en el sistema StorageGRID.
  a| 
 link:olst-system-detected-lost-object.html["OLST: el sistema detectó un objeto perdido"]
 
@@ -111,14 +111,14 @@ link:olst-system-detected-lost-object.html["OLST: el sistema detectó un objeto 
  a| 
 SADD
  a| 
-${post_edited_translations.segment}
+Desactivación de la auditoría de seguridad: se desactivó el registro de mensajes de auditoría.
  a| 
 link:sadd-security-audit-disable.html["SADD: desactivación de la auditoría de seguridad"]
 
 
 
  a| 
-${post_edited_translations.segment}
+SADE
  a| 
 Activación de la auditoría de seguridad: se ha restablecido el registro de mensajes de auditoría.
  a| 
@@ -127,7 +127,7 @@ link:sade-security-audit-enable.html["SADE: activación de la auditoría de segu
 
 
  a| 
-${post_edited_translations.segment}
+SVRF
  a| 
 Error en la verificación del almacén de objetos: un bloque de contenido no pasó las comprobaciones de verificación.
  a| 
@@ -145,7 +145,7 @@ link:svru-object-store-verify-unknown.html["SVRU: verificación de almacén de o
 
 
  a| 
-${post_edited_translations.segment}
+SYSD
  a| 
 Parada del nodo: se solicitó un apagado.
  a| 
@@ -154,11 +154,11 @@ link:sysd-node-stop.html["SYSD: Parada de nodo"]
 
 
  a| 
-${post_edited_translations.segment}
+SYST
  a| 
 Parada del nodo: un servicio inició una parada controlada.
  a| 
-link:syst-node-stopping.html["${post_edited_translations.segment}"]
+link:syst-node-stopping.html["SYST: parada del nodo"]
 
 
 

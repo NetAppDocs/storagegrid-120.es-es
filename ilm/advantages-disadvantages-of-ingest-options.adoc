@@ -70,7 +70,7 @@ Por ejemplo, el comportamiento de ingesta seleccionado para una regla de ILM afe
 
 Aquí tienes un breve resumen de los valores de consistencia que están disponibles en StorageGRID:
 
-* ${post_edited_translations.segment}
+* *Todos*: Todos los nodos reciben los metadatos del objeto de forma inmediata o la solicitud fallará.
 * *Strong-global*: garantiza la consistencia de lectura después de escritura para todas las solicitudes de los clientes en todos los sitios. Cuando configuras la semántica de Quorum, se aplican los siguientes comportamientos:
 +
 ** Permite la tolerancia a fallos del sitio para las solicitudes de los clientes cuando los grids tienen tres o más sitios. Los grids de dos sitios no tendrán tolerancia a fallos del sitio.
@@ -103,13 +103,13 @@ NOTE: Antes de seleccionar un valor de consistencia, link:../s3/consistency.html
 [[example-of-how-consistency-and-ilm-rules-can-interact]]
 == Ejemplo de cómo la coherencia y las reglas de ILM pueden interactuar
 
-${post_edited_translations.segment}
+Supongamos que tienes una red de tres sitios con la siguiente regla de ILM y la siguiente consistencia:
 
 * *Regla de ILM*: crea tres copias de objeto, una en el sitio local y otra en cada sitio remoto. Usa el comportamiento de ingesta Strict.
 * *Consistencia*: Global fuerte (los metadatos de los objetos se distribuyen inmediatamente a varios sitios).
 
 
-${post_edited_translations.segment}
+Cuando un cliente almacena un objeto en la grid, StorageGRID crea las tres copias del objeto y distribuye los metadatos a varios sitios antes de indicar al cliente que la operación se ha realizado con éxito.
 
 El objeto queda totalmente protegido contra la pérdida en el momento en que se recibe el mensaje de ingesta correcta. Por ejemplo, si el sitio local se pierde poco después de la ingesta, siguen existiendo copias tanto de los datos del objeto como de los metadatos del objeto en los sitios remotos. El objeto se puede recuperar íntegramente desde los demás sitios.
 

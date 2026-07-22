@@ -82,7 +82,7 @@ GRID_NETWORK_GATEWAY = 10.1.0.1
 
 
 [[example-for-gateway-node]]
-== ${post_edited_translations.segment}
+== Ejemplo de nodo de pasarela
 
 *Nombre de archivo de ejemplo:* `/etc/storagegrid/nodes/dc1-gw1.conf`
 

@@ -19,8 +19,8 @@ Puedes eliminar un grupo del sistema. Los usuarios que pertenezcan únicamente a
 
 
 .Pasos
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Gestión de acceso* > *Grupos*.
+. Marca la casilla de cada grupo que quieras eliminar.
 . Selecciona *Acciones* > *Eliminar grupo*.
-. ${post_edited_translations.segment}
+. Selecciona *Eliminar grupo*.
 

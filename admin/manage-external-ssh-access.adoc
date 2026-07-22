@@ -23,8 +23,8 @@ Para mejorar la seguridad del sistema, el acceso SSH externo está bloqueado de 
 
 .Pasos
 . Selecciona *Configuración* > *Seguridad* > *Ajustes de seguridad*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona la pestaña *Bloquear SSH*.
+. Utiliza la opción *Bloquear el acceso SSH entrante* para gestionar el acceso SSH externo:
 +
 .. Marca la casilla para bloquear el acceso (predeterminado).
 .. Desmarca la casilla para permitir el acceso.

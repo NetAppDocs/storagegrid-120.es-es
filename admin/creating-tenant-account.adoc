@@ -17,15 +17,15 @@ Los pasos para crear una cuenta de inquilino varían en función de si link:usin
 
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Tienes el link:admin-group-permissions.html["${post_edited_translations.segment}"].
-* Si la cuenta de inquilino va a usar la fuente de identidad que se configuró para Grid Manager y quieres otorgar el permiso de acceso a raíz para la cuenta de inquilino a un grupo federado, ya habrás importado ese grupo federado en Grid Manager. No necesitas asignar ningún permiso de Grid Manager a este grupo de administradores. Consulta link:managing-admin-groups.html["${post_edited_translations.segment}"].
-* ${post_edited_translations.segment}
+* Tienes el link:admin-group-permissions.html["Acceso raíz o permisos de cuentas de inquilino"].
+* Si la cuenta de inquilino va a usar la fuente de identidad que se configuró para Grid Manager y quieres otorgar el permiso de acceso a raíz para la cuenta de inquilino a un grupo federado, ya habrás importado ese grupo federado en Grid Manager. No necesitas asignar ningún permiso de Grid Manager a este grupo de administradores. Consulta link:managing-admin-groups.html["Gestiona grupos de administradores"].
+* Si deseas permitir que un inquilino de S3 clone los datos de la cuenta y replique los objetos del bucket en otra grid mediante una conexión de federación de grids:
 +
 ** Tienes link:grid-federation-create-connection.html["configuraste la conexión de federación de grid"].
 ** El estado de la conexión es *Conectado*.
 ** Tienes permiso de acceso root.
 ** Ya has revisado las consideraciones para link:grid-federation-manage-tenants.html["gestionar los inquilinos permitidos para la federación de grid"].
-** ${post_edited_translations.segment}
+** Si la cuenta de inquilino va a utilizar la fuente de identidad que se configuró para Grid Manager, has importado el mismo grupo federado en Grid Manager en ambas grids.
 +
 Al crear el inquilino, deberás seleccionar este grupo para que tenga el permiso de acceso a raíz inicial tanto para la cuenta de inquilino de origen como para la de destino.
 
@@ -106,13 +106,13 @@ NOTE: Algunos de estos permisos tienen requisitos adicionales. Para obtener más
 +
 [cols="1a,3a"]
 |===
-| Permiso | ${post_edited_translations.segment} 
+| Permiso | Si seleccionas... 
 
 
  a| 
 Permitir los servicios de la plataforma
  a| 
-El arrendatario puede utilizar los servicios de la plataforma S3, como CloudMirror. Consulta link:../admin/manage-platform-services-for-tenants.html["${post_edited_translations.segment}"].
+El arrendatario puede utilizar los servicios de la plataforma S3, como CloudMirror. Consulta link:../admin/manage-platform-services-for-tenants.html["Administra los servicios de plataforma para las cuentas de inquilino de S3"].
 
 
 
@@ -124,18 +124,18 @@ El inquilino puede configurar y gestionar su propia fuente de identidad para gru
 
 
  a| 
-${post_edited_translations.segment}
+Permitir S3 Select
  a| 
-El inquilino puede realizar solicitudes de la API SelectObjectContent de S3 para filtrar y recuperar datos de objetos. Consulta link:../admin/manage-s3-select-for-tenant-accounts.html["${post_edited_translations.segment}"].
+El inquilino puede realizar solicitudes de la API SelectObjectContent de S3 para filtrar y recuperar datos de objetos. Consulta link:../admin/manage-s3-select-for-tenant-accounts.html["Administra S3 Select para cuentas de inquilino"].
 
 *Importante*: Las solicitudes de SelectObjectContent pueden reducir el rendimiento del balanceador de carga para todos los clientes de S3 y todos los inquilinos. Activa esta función solo cuando sea necesario y solo para inquilinos de confianza.
 
 |===
-. ${post_edited_translations.segment}
+. Si lo deseas, selecciona los permisos avanzados que quieras que tenga este inquilino.
 +
 [cols="1a,3a"]
 |===
-| Permiso | ${post_edited_translations.segment} 
+| Permiso | Si seleccionas... 
 
 
  a| 
@@ -143,7 +143,7 @@ Conexión de federación de grid
  a| 
 El inquilino puede usar una conexión de federación de grid, que:
 
-** ${post_edited_translations.segment}
+** Hace que este inquilino y todos los grupos de inquilinos y usuarios añadidos a la cuenta se clonen desde esta grid (la _grid de origen_) a la otra grid en la conexión seleccionada (la _grid de destino_).
 ** Permite a este inquilino configurar la replicación entre grids entre los buckets correspondientes de cada grid.
 
 
@@ -180,12 +180,12 @@ Permitir al inquilino usar funciones específicas de S3 Object Lock:
  a| 
 Si la federación de identidades no está habilitada
  a| 
-${post_edited_translations.segment}
+Indica la contraseña que se usará al iniciar sesión en el tenant como usuario raíz local.
 
 
 
  a| 
-${post_edited_translations.segment}
+Si la federación de identidades está activada
  a| 
 .. Selecciona un grupo federado ya existente para disponer de permiso de acceso a raíz para el inquilino.
 .. Si lo deseas, indica la contraseña que se usará al iniciar sesión en el tenant como usuario raíz local.
@@ -194,7 +194,7 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+Si están habilitados tanto la federación de identidades como el inicio de sesión único (SSO)
  a| 
 Selecciona un grupo federado existente para tener permiso de acceso a raíz para el inquilino. Ningún usuario local puede iniciar sesión.
 
@@ -205,14 +205,14 @@ Aparece un mensaje de éxito y el nuevo tenant aparece en la página Tenants. Pa
 
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Aplicar la configuración de los inquilinos en toda la grid podría tardar 15 minutos o más, según la conectividad de red, el estado de los nodos y las operaciones de Cassandra.
 
 . Si has seleccionado el permiso *Usar conexión de federación de grid* para el tenant:
 +
 .. Confirma que se haya replicado un inquilino idéntico en el otro grid de la conexión. Los inquilinos de ambos grids tendrán el mismo ID de cuenta de 20 dígitos, nombre, descripción, cuota y permisos.
 +
 
-NOTE: Si aparece el mensaje de error «Tenant creado sin clon», consulta las instrucciones en link:grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+NOTE: Si aparece el mensaje de error «Tenant creado sin clon», consulta las instrucciones en link:grid-federation-troubleshoot.html["Solucionar errores de federación de grid"].
 
 .. Si proporcionaste una contraseña de usuario raíz local al definir el acceso a raíz, link:changing-password-for-tenant-local-root-user.html["cambiar la contraseña del usuario raíz local"] para el inquilino replicado.
 +
@@ -226,14 +226,14 @@ TIP: Un usuario raíz local no puede iniciar sesión en Tenant Manager en la red
 
 
 [[sign-in-to-tenant-optional]]
-== ${post_edited_translations.segment}
+== Inicia sesión en el tenant (opcional)
 
 Según sea necesario, puedes iniciar sesión en el nuevo inquilino ahora para completar la configuración, o puedes iniciar sesión en el inquilino más tarde. Los pasos de inicio de sesión dependen de si has iniciado sesión en el Grid Manager utilizando el puerto predeterminado (443) o un puerto restringido. Consulta link:controlling-access-through-firewalls.html["Controla el acceso en el cortafuegos externo"].
 
 
 
 [[sign-in-now]]
-=== ${post_edited_translations.segment}
+=== Inicia sesión ahora
 
 [cols="1a,3a"]
 |===
@@ -245,7 +245,7 @@ El puerto 443 y configuras una contraseña para el usuario raíz local
  a| 
 . Selecciona *Sign in as root*.
 +
-${post_edited_translations.segment}
+Cuando inicias sesión, aparecen enlaces para configurar los buckets, la federación de identidades, los grupos y los usuarios.
 
 . Selecciona los enlaces para configurar la cuenta de inquilino.
 +
@@ -265,7 +265,7 @@ Selecciona *Sign in* e introduce las credenciales de un usuario del grupo federa
  a| 
 Un puerto restringido
  a| 
-. ${post_edited_translations.segment}
+. Selecciona *Finalizar*
 . Selecciona *Restricted* en la tabla Tenant para obtener más información sobre cómo acceder a esta cuenta de inquilino.
 +
 La URL de Tenant Manager tiene este formato:
@@ -285,15 +285,15 @@ La URL de Tenant Manager tiene este formato:
 
 
 [[sign-in-later]]
-=== ${post_edited_translations.segment}
+=== Inicia sesión más tarde
 
 [cols="1a,3a"]
 |===
-| Si estás utilizando... | ${post_edited_translations.segment} 
+| Si estás utilizando... | Haz una de estas cosas... 
 
 
  a| 
-${post_edited_translations.segment}
+Puerto 443
  a| 
 * Desde el Grid Manager, selecciona *Tenants* y luego selecciona *Sign in* a la derecha del nombre del tenant.
 * Introduce la URL del inquilino en un navegador web:

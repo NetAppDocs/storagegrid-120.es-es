@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: expand, expansion, storage node, add storage volumes, VMware, StorageGRID 
 summary: Si un nodo de almacenamiento incluye menos de 16 volúmenes de almacenamiento, puedes aumentar su capacidad utilizando VMware vSphere para añadir volúmenes. 
 ---
-= ${post_edited_translations.segment}
+= Agrega volúmenes de almacenamiento a los nodos de almacenamiento de VMware en StorageGRID
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -51,17 +51,17 @@ NOTE: No utilices *Apagar* o *Restablecer* para reiniciar la máquina virtual.
 ... Introduce la contraseña que figura en el archivo  `Passwords.txt`. Cuando hayas iniciado sesión como root, el indicador de comandos cambia de  `$` a  `#`.
 
 
-.. ${post_edited_translations.segment}
+.. Configura los nuevos volúmenes de almacenamiento:
 +
 `sudo add_rangedbs.rb`
 
 +
-${post_edited_translations.segment}
+Este script detecta cualquier volumen de almacenamiento nuevo y te pide que los formatees.
 
 .. Escribe *y* para aceptar el formato.
 .. Si alguno de los volúmenes se ha formateado anteriormente, decide si quieres volver a formatearlos.
 +
-*** ${post_edited_translations.segment}
+*** Introduce *y* para volver a dar formato.
 *** Introduce *n* para omitir el reformateo.
 
 
@@ -70,9 +70,9 @@ ${post_edited_translations.segment}
 +
 El `setup_rangedbs.sh` script se ejecuta automáticamente.
 
-. ${post_edited_translations.segment}
+. Comprueba que los servicios se inicien correctamente:
 +
-.. ${post_edited_translations.segment}
+.. Ver una lista del estado de todos los servicios en el servidor:
 +
 `sudo storagegrid-status`
 
@@ -86,17 +86,17 @@ El estado se actualiza automáticamente.
 
 
 
-. ${post_edited_translations.segment}
+. Verifica que el nodo de almacenamiento esté en línea:
 +
 .. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
 .. Selecciona *Nodos* > *_Storage Node_* > *Tareas*.
-.. ${post_edited_translations.segment}
+.. Si la lista desplegable *Estado de almacenamiento* está configurada en *Solo lectura* o *Sin conexión*, selecciona *En línea*.
 .. Selecciona *Guardar*.
 
 
 . Para ver los nuevos almacenes de objetos, selecciona *Storage*.
-. ${post_edited_translations.segment}
+. Consulta los detalles en la tabla *Volúmenes*.
 
 
 .Resultado
-${post_edited_translations.segment}
+Puedes utilizar la capacidad ampliada de los nodos de almacenamiento para guardar datos de objetos.

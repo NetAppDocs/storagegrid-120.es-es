@@ -14,7 +14,7 @@ summary: Puedes usar el asistente de configuración de FabricPool para configura
 Puedes usar el asistente de configuración de FabricPool para configurar StorageGRID como el sistema de almacenamiento de objetos para un nivel de nube de FabricPool.
 
 .Antes de empezar
-* Has revisado la link:../fabricpool/use-fabricpool-setup-wizard.html["${post_edited_translations.segment}"] para usar el asistente de configuración de FabricPool.
+* Has revisado la link:../fabricpool/use-fabricpool-setup-wizard.html["consideraciones y requisitos"] para usar el asistente de configuración de FabricPool.
 +
 
 NOTE: Si quieres configurar StorageGRID para utilizarlo con cualquier otra aplicación cliente S3, ve a link:../admin/use-s3-setup-wizard.html["Usa el asistente de configuración de S3"].
@@ -83,7 +83,7 @@ La descripción de este grupo de HA.
 |===
 .. En el paso *Add interfaces*, selecciona las interfaces de nodo que quieres usar en este grupo de alta disponibilidad.
 +
-${post_edited_translations.segment}
+Utiliza los encabezados de las columnas para ordenar las filas o introduce un término de búsqueda para encontrar interfaces más rápido.
 
 +
 Puedes seleccionar uno o varios nodos, pero solo puedes seleccionar una interfaz por cada nodo.
@@ -153,7 +153,7 @@ StorageGRID utiliza un equilibrador de carga para gestionar la carga de trabajo 
 
 Puedes utilizar el servicio StorageGRID Load Balancer, que está disponible en todos los nodos Gateway y Admin, o puedes conectarte a un equilibrador de carga externo (de terceros). Se recomienda usar el load balancer de StorageGRID.
 
-Para obtener más información sobre esta tarea, consulta la guía general link:../admin/managing-load-balancing.html["${post_edited_translations.segment}"] y la guía link:best-practices-for-load-balancing.html["buenas prácticas para el equilibrio de carga en FabricPool"].
+Para obtener más información sobre esta tarea, consulta la guía general link:../admin/managing-load-balancing.html["consideraciones para el equilibrio de carga"] y la guía link:best-practices-for-load-balancing.html["buenas prácticas para el equilibrio de carga en FabricPool"].
 
 .Pasos
 . Selecciona o crea un punto final del equilibrador de carga de StorageGRID o utiliza un equilibrador de carga externo.
@@ -213,7 +213,7 @@ Global (predeterminado)
  a| 
 Los clientes pueden acceder al punto final usando la dirección IP de cualquier Gateway Node o Admin Node, la dirección IP virtual (VIP) de cualquier grupo HA en cualquier red, o el FQDN correspondiente.
 
-${post_edited_translations.segment}
+Utiliza la configuración *Global* (por defecto) a menos que necesites restringir la accesibilidad de este endpoint.
 
 
 
@@ -249,7 +249,7 @@ En función del tipo de nodo que selecciones, los clientes deben usar la direcci
  a| 
 Permitir a todos los inquilinos (por defecto)
  a| 
-${post_edited_translations.segment}
+Todas las cuentas de inquilinos pueden usar este endpoint para acceder a sus buckets.
 
 *Permitir a todos los inquilinos* suele ser casi siempre la opción adecuada para el endpoint del balanceador de carga usado para FabricPool.
 
@@ -379,12 +379,12 @@ Crea un nuevo inquilino y un depósito, o selecciona un inquilino existente.
  a| 
 Si la federación de identidades no está habilitada
  a| 
-${post_edited_translations.segment}
+Indica la contraseña que se usará al iniciar sesión en el tenant como usuario raíz local.
 
 
 
  a| 
-${post_edited_translations.segment}
+Si la federación de identidades está activada
  a| 
 .. Selecciona un grupo federado ya existente para disponer de permiso de acceso a raíz para el inquilino.
 .. Si lo deseas, indica la contraseña que se usará al iniciar sesión en el tenant como usuario raíz local.
@@ -393,7 +393,7 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+Si están habilitados tanto la federación de identidades como el inicio de sesión único (SSO)
  a| 
 Selecciona un grupo federado existente para tener permiso de acceso a raíz para el inquilino. Ningún usuario local puede iniciar sesión.
 
@@ -624,6 +624,6 @@ Después de completar el asistente de FabricPool, realiza estos pasos adicionale
 
 .Pasos
 . Accede a link:configure-ontap.html["Configura ONTAP System Manager"] para introducir los valores guardados y completar la parte de ONTAP de la conexión. Debes añadir StorageGRID como nivel de nube, vincular el nivel de nube a un nivel local para crear un FabricPool y configurar las políticas de jerarquización de volúmenes.
-. Accede a link:configure-dns-server.html["${post_edited_translations.segment}"] y asegúrate de que el DNS incluya un registro que asocie el nombre del servidor StorageGRID (nombre de dominio completo) a cada dirección IP de StorageGRID que vayas a utilizar.
+. Accede a link:configure-dns-server.html["Configura el servidor DNS"] y asegúrate de que el DNS incluya un registro que asocie el nombre del servidor StorageGRID (nombre de dominio completo) a cada dirección IP de StorageGRID que vayas a utilizar.
 . Ve a link:other-best-practices-for-storagegrid-and-fabricpool.html["Otras prácticas recomendadas para StorageGRID y FabricPool"] para conocer las mejores prácticas para los registros de auditoría de StorageGRID y otras opciones de configuración global.
 

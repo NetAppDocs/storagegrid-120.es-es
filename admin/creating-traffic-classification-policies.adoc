@@ -17,7 +17,7 @@ Puedes crear políticas de clasificación de tráfico si quieres supervisar y, o
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"].
 * Has creado los puntos de conexión del equilibrador de carga que deseas hacer coincidir.
-* ${post_edited_translations.segment}
+* Has creado todos los tenants que deseas que coincidan.
 
 
 .Pasos
@@ -46,7 +46,7 @@ Valor de coincidencia
  a| 
 Introduce el valor que coincida con el tipo seleccionado.
 
-** ${post_edited_translations.segment}
+** Depósito: introduce uno o varios nombres de depósitos.
 ** Expresión regular de buckets: introduce una o varias expresiones regulares que se usan para buscar coincidencias con un conjunto de nombres de buckets.
 +
 La expresión regular no está anclada. Usa el ancla ^ para buscar coincidencias al principio del nombre del bucket y usa el ancla $ para buscar coincidencias al final del nombre. La coincidencia de expresiones regulares admite un subconjunto de la sintaxis de PCRE (expresión regular compatible con Perl).
@@ -63,7 +63,7 @@ Coincidencia inversa
  a| 
 Si deseas filtrar todo el tráfico de red _excepto_ aquel que coincida con el tipo y el valor de coincidencia que acabas de definir, marca la casilla *Coincidencia inversa*. En caso contrario, deja la casilla desmarcada.
 
-${post_edited_translations.segment}
+Por ejemplo, si quieres que esta política se aplique a todos los puntos finales del equilibrador de carga excepto uno, especifica el punto final del equilibrador de carga que se va a excluir y selecciona *Coincidencia inversa*.
 
 En una política que contenga varios criterios de coincidencia, donde al menos uno sea un criterio de coincidencia inversa, ten cuidado de no crear una política que coincida con todas las solicitudes.
 
@@ -100,7 +100,7 @@ En cuanto a los límites de ancho de banda, StorageGRID aplica la política que 
 
 
  a| 
-${post_edited_translations.segment}
+Aplica a
  a| 
 Si este límite se aplica a las solicitudes de lectura de los clientes (GET o HEAD) o a las solicitudes de escritura (PUT, POST o DELETE).
 

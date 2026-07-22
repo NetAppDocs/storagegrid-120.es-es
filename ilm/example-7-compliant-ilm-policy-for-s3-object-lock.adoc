@@ -168,7 +168,7 @@ Regla incumplida: usar Cloud Storage Pool
 
 
  a| 
-${post_edited_translations.segment}
+Cuentas de inquilinos
  a| 
 No especificado
 

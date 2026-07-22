@@ -19,18 +19,18 @@ Antes de iniciar la actualización del software, procura tener a mano todo el ma
 
 
  a| 
-${post_edited_translations.segment}
+Portátil de servicio
  a| 
 El portátil de servicio debe tener:
 
 * Puerto de red
-* ${post_edited_translations.segment}
+* Cliente SSH (por ejemplo, PuTTY)
 
 
 
 
  a| 
-link:../admin/web-browser-requirements.html["${post_edited_translations.segment}"]
+link:../admin/web-browser-requirements.html["Navegador web compatible"]
  a| 
 La compatibilidad con los navegadores suele variar en cada versión de StorageGRID. Asegúrate de que tu navegador sea compatible con la nueva versión de StorageGRID.
 
@@ -48,7 +48,7 @@ Archivo RPM o DEB de Linux
  a| 
 Si hay algún nodo instalado en servidores Linux, debes link:linux-installing-rpm-or-deb-package-on-all-hosts.html["Descarga e instala el paquete RPM o DEB en todos los hosts"] antes de iniciar la actualización.
 
-Asegúrate de que tu sistema operativo Linux cumpla los requisitos mínimos de versión del kernel de StorageGRID. Consulta link:../swnodes/installing-linux.html["${post_edited_translations.segment}"].
+Asegúrate de que tu sistema operativo Linux cumpla los requisitos mínimos de versión del kernel de StorageGRID. Consulta link:../swnodes/installing-linux.html["Instala StorageGRID en servidores Linux"].
 
 
 

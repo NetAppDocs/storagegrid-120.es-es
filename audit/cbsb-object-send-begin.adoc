@@ -32,7 +32,7 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El identificador único del bloque de contenido que se está transfiriendo.
 
 
 
@@ -88,9 +88,9 @@ Indica el último recuento de secuencia solicitado. Si la operación se realiza 
  a| 
 RSLT
  a| 
-${post_edited_translations.segment}
+Estado de inicio de la transferencia
  a| 
-${post_edited_translations.segment}
+Estado en el momento en que se inició la transferencia:
 
 SUCS: la transferencia se inició correctamente.
 

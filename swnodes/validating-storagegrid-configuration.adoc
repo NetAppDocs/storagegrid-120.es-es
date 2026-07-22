@@ -2,7 +2,7 @@
 permalink: swnodes/validating-storagegrid-configuration.html 
 sidebar: sidebar 
 keywords: how to validate StorageGRID configuration 
-summary: ${post_edited_translations.segment} 
+summary: Después de crear los archivos de configuración en /etc/storagegrid/nodes para cada uno de tus nodos de StorageGRID, debes validar el contenido de esos archivos. 
 ---
 = Valida la configuración de StorageGRID en Linux
 :allow-uri-read: 
@@ -16,7 +16,7 @@ Una vez creados los archivos de configuración en `/etc/storagegrid/nodes` para 
 
 NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
 
-${post_edited_translations.segment}
+Para validar el contenido de los archivos de configuración, ejecuta el siguiente comando en cada host:
 
 [listing]
 ----

@@ -2,7 +2,7 @@
 permalink: tenant/understanding-notifications-for-buckets.html 
 sidebar: sidebar 
 keywords: s3 bucket event notification, sequencer key 
-summary: ${post_edited_translations.segment} 
+summary: Puedes activar las notificaciones de eventos para un bucket de S3 si deseas que StorageGRID envíe notificaciones sobre eventos específicos a un clúster de Kafka de destino o a Amazon Simple Notification Service. 
 ---
 = Conoce las notificaciones de eventos de StorageGRID para buckets S3
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Puedes activar las notificaciones de eventos para un bucket de S3 si deseas que StorageGRID envíe notificaciones sobre eventos específicos a un clúster de Kafka, un endpoint de webhook o Amazon Simple Notification Service.
 
 Por ejemplo, podrías configurar alertas para que se envíen a los administradores sobre cada objeto añadido a un bucket, donde los objetos representan archivos de registro asociados con un evento crítico del sistema.
 
@@ -19,7 +19,7 @@ Las notificaciones de eventos se crean en el bucket de origen tal como se especi
 
 No se garantiza la unicidad ni el orden de las notificaciones. Puede que se entregue más de una notificación de un evento al destino como resultado de las operaciones realizadas para garantizar el éxito de la entrega. Y como la entrega es asíncrona, no se garantiza que el orden de las notificaciones en el destino coincida con el orden de los eventos en el bucket de origen, especialmente para operaciones que se originan en diferentes sitios de StorageGRID. Puedes usar la clave  `sequencer` en el mensaje del evento para determinar el orden de los eventos de un objeto en particular, como se describe en la documentación de Amazon S3.
 
-${post_edited_translations.segment}
+Las notificaciones de eventos de StorageGRID siguen la API de Amazon S3 con algunas limitaciones.
 
 * Se admiten los siguientes tipos de eventos:
 +
@@ -34,12 +34,12 @@ ${post_edited_translations.segment}
 ** s3:ObjectRestore:post
 
 
-* ${post_edited_translations.segment}
+* Las notificaciones de eventos enviadas desde StorageGRID utilizan el formato JSON estándar pero no incluyen algunas claves y utilizan valores específicos para otras, como se muestra en la tabla:
 
 
 [cols="1a,2a"]
 |===
-| ${post_edited_translations.segment} | Valor de StorageGRID 
+| Nombre de la clave | Valor de StorageGRID 
 
 
  a| 
@@ -52,14 +52,14 @@ eventSource
  a| 
 awsRegion
  a| 
-${post_edited_translations.segment}
+_no incluido_
 
 
 
  a| 
 x-amz-id-2
  a| 
-${post_edited_translations.segment}
+_no incluido_
 
 
 

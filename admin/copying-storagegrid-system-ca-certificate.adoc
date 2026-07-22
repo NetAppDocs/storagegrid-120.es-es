@@ -22,12 +22,12 @@ StorageGRID utiliza una autoridad de certificación (CA) interna para proteger e
 Si se ha configurado un certificado de servidor personalizado, las aplicaciones cliente deben verificar el servidor utilizando el certificado de servidor personalizado. No deben copiar el certificado de la CA del sistema StorageGRID.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Seguridad* > *Certificados* y luego selecciona la pestaña *Grid CA*.
 . En la sección *Certificado PEM*, descarga o copia el certificado.
 +
 [role="tabbed-block"]
 ====
-.${post_edited_translations.segment}
+.Descargar el archivo del certificado
 --
 Descarga el archivo de certificado `.pem`.
 
@@ -39,12 +39,12 @@ Por ejemplo: `storagegrid_certificate.pem`
 
 
 --
-.${post_edited_translations.segment}
+.Copiar certificado PEM
 --
 Copia el texto del certificado para pegarlo en otro sitio.
 
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona *Copiar certificado PEM*.
+.. Pega el certificado copiado en un editor de texto.
 .. Guarda el archivo de texto con la extensión `.pem`.
 +
 Por ejemplo: `storagegrid_certificate.pem`

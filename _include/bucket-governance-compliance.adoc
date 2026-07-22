@@ -11,8 +11,8 @@
 Gobernanza
  a| 
 * Los usuarios con el permiso  `s3:BypassGovernanceRetention` pueden usar el encabezado de solicitud  `x-amz-bypass-governance-retention: true` para omitir la configuración de retención.
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Estos usuarios pueden eliminar una versión de un objeto antes de que se alcance su retain-until-date.
+* Estos usuarios pueden aumentar, disminuir o eliminar la fecha de retención de un objeto.
 
 
 
@@ -21,7 +21,7 @@ Gobernanza
 Cumplimiento normativo
  a| 
 * El objeto no se puede eliminar hasta que se alcance su fecha de retención.
-* ${post_edited_translations.segment}
+* La fecha límite de retención del objeto se puede ampliar, pero no se puede reducir.
 * La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
 
 

@@ -2,7 +2,7 @@
 permalink: tenant/configuring-search-integration-service.html 
 sidebar: sidebar 
 keywords: how to configure search integration service 
-summary: ${post_edited_translations.segment} 
+summary: Habilitas la integración de búsqueda para un bucket creando el XML de configuración de integración de búsqueda y usando el Tenant Manager para aplicar el XML a un bucket. 
 ---
 = Configura el servicio de integración de búsqueda en StorageGRID
 :allow-uri-read: 
@@ -26,9 +26,9 @@ Después de que configuras el servicio de integración de búsqueda para un buck
 Si habilitas el servicio de integración de búsqueda para un bucket que ya contiene objetos, las notificaciones de metadatos no se envían automáticamente para los objetos existentes. Actualiza estos objetos existentes para asegurarte de que sus metadatos se agreguen al índice de búsqueda de destino.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Habilita la integración de búsqueda para un bucket:
 +
-** ${post_edited_translations.segment}
+** Utiliza un editor de texto para crear el archivo XML de notificación de metadatos necesario para habilitar la integración de búsqueda.
 ** Al configurar el XML, utiliza el URN de un punto final de integración de búsqueda como destino.
 +
 Los objetos se pueden filtrar según el prefijo de su nombre. Por ejemplo, se pueden enviar los metadatos de los objetos con el prefijo `images` a un destino, y los metadatos de los objetos con el prefijo `videos` a otro. Las configuraciones que contengan prefijos que se solapen no son válidas y se rechazan al enviarlas. Por ejemplo, no se permite una configuración que incluya una regla para objetos con el prefijo `test` y una segunda regla para objetos con el prefijo `test2`.
@@ -50,7 +50,7 @@ Si es necesario, consulta la <<example-notification-config,Ejemplos para la conf
 </MetadataNotificationConfiguration>
 ----
 +
-${post_edited_translations.segment}
+Elementos en el archivo XML de configuración de la notificación de metadatos:
 
 +
 [cols="1a,3a,1a"]
@@ -152,14 +152,14 @@ Sí
 |===
 
 
-. ${post_edited_translations.segment}
+. En el Gestor de inquilinos, selecciona *STORAGE (S3)* > *Buckets*.
 . Selecciona el nombre del depósito de origen.
 +
 Aparece la página de detalles del bucket.
 
 . Selecciona *Platform services* > *Search integration*
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Marca la casilla *Habilitar integración de búsqueda*.
+. Pega la configuración de la notificación de metadatos en el cuadro de texto y selecciona *Guardar cambios*.
 +
 
 NOTE: Un administrador de StorageGRID debe habilitar los servicios de la plataforma para cada cuenta de inquilino mediante Grid Manager o Management API. Ponte en contacto con tu administrador de StorageGRID si se produce un error al guardar el archivo XML de configuración.
@@ -168,7 +168,7 @@ NOTE: Un administrador de StorageGRID debe habilitar los servicios de la platafo
 +
 .. Añade un objeto al depósito de origen que cumpla los requisitos para activar una notificación de metadatos según lo especificado en el archivo XML de configuración.
 +
-${post_edited_translations.segment}
+En el ejemplo mostrado anteriormente, todos los objetos añadidos al bucket activan una notificación de metadatos.
 
 .. Comprueba que se haya añadido al índice de búsqueda especificado en el endpoint un documento JSON que contenga los metadatos y las etiquetas del objeto.
 
@@ -176,9 +176,9 @@ ${post_edited_translations.segment}
 
 
 .Después de que termines
-${post_edited_translations.segment}
+Si es necesario, puedes desactivar la integración de búsqueda para un bucket utilizando cualquiera de los siguientes métodos:
 
-* ${post_edited_translations.segment}
+* Selecciona *STORAGE (S3)* > *Buckets* y desmarca la casilla *Enable search integration*.
 * Si utilizas la API de S3 directamente, usa una solicitud de notificación de metadatos de DELETE Bucket. Consulta las instrucciones para implementar aplicaciones cliente de S3.
 
 
@@ -187,7 +187,7 @@ ${post_edited_translations.segment}
 [[example-notification-configexample-metadata-notification-configuration-that-applies-to-all-objects]]
 == [[example-notification-config]]Ejemplo: configuración de notificaciones de metadatos que se aplica a todos los objetos
 
-${post_edited_translations.segment}
+En este ejemplo, los metadatos de todos los objetos se envían al mismo destino.
 
 [listing]
 ----
@@ -261,7 +261,7 @@ Este ejemplo muestra un ejemplo del JSON que se podría generar cuando se crea u
 
 
 [[fields-included-in-the-json-document]]
-=== ${post_edited_translations.segment}
+=== Campos incluidos en el documento JSON
 
 El nombre del documento incluye el nombre del bucket, el nombre del objeto y el ID de versión, si lo hay.
 
@@ -293,7 +293,7 @@ Metadatos del usuario::
 `key:value`
 
 --
-${post_edited_translations.segment}::
+Etiquetas::
 +
 --
 `tags`: Todas las etiquetas de objeto definidas para el objeto, en forma de pares clave-valor
@@ -306,6 +306,6 @@ ${post_edited_translations.segment}::
 
 
 [[how-to-view-results-in-elasticsearch]]
-=== ${post_edited_translations.segment}
+=== Cómo consultar los resultados en Elasticsearch
 
 Para las etiquetas y los metadatos de usuario, StorageGRID pasa las fechas y los números a Elasticsearch como cadenas o como notificaciones de eventos de S3. Para configurar Elasticsearch para que interprete estas cadenas como fechas o números, sigue las instrucciones de Elasticsearch para la asignación dinámica de campos y para la asignación de formatos de fecha. Habilita las asignaciones de campos dinámicos en el índice antes de configurar el servicio de integración de búsqueda. Una vez indexado un documento, no puedes editar los tipos de campo del documento en el índice.

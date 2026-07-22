@@ -39,7 +39,7 @@ entries:
     url: "/primer/using-information-lifecycle-management.html"
 - title: Descubre StorageGRID
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Explora Grid Manager
     url: "/primer/exploring-grid-manager.html"
   - title: Explora Tenant Manager
     url: "/primer/exploring-tenant-manager.html"

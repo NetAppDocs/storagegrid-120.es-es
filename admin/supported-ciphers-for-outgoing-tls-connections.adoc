@@ -2,7 +2,7 @@
 permalink: admin/supported-ciphers-for-outgoing-tls-connections.html 
 sidebar: sidebar 
 keywords: tls cipher suites, transport layer security connections 
-summary: ${post_edited_translations.segment} 
+summary: 'El sistema StorageGRID admite un conjunto limitado de conjuntos de cifrado para las conexiones de Transport Layer Security (TLS) con los sistemas externos utilizados para la federación de identidades y Cloud Storage Pools.' 
 ---
 = Cifrados admitidos para conexiones TLS salientes en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+El sistema StorageGRID admite un conjunto limitado de conjuntos de cifrado para las conexiones de Transport Layer Security (TLS) con los sistemas externos utilizados para la federación de identidades y Cloud Storage Pools.
 
 
 

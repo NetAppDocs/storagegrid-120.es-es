@@ -2,7 +2,7 @@
 permalink: audit/gtsu-grid-task-submitted.html 
 sidebar: sidebar 
 keywords: storagegrid, audit, message, GTSU, Grid Task Submitted 
-summary: ${post_edited_translations.segment} 
+summary: Este mensaje de auditoría indica que se ha enviado una tarea de grid al servicio CMN. 
 ---
 = Mensaje de auditoría GTSU para tareas de grid enviadas en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Este mensaje de auditoría indica que se ha enviado una tarea de grid al servicio CMN.
 
 [cols="1a,1a,4a"]
 |===
@@ -23,7 +23,7 @@ TSID
  a| 
 ID de la tarea
  a| 
-${post_edited_translations.segment}
+Identifica de forma única una tarea de grid generada y permite gestionar dicha tarea a lo largo de su ciclo de vida.
 
 *Nota:* el ID de tarea se asigna en el momento en que se genera una tarea de grid, no en el momento en que se envía. Es posible que una tarea de grid determinada se envíe varias veces y, en este caso, el campo ID de tarea no es suficiente para vincular de forma única los mensajes de auditoría Submitted, Started y Ended.
 
@@ -43,14 +43,14 @@ TVER
  a| 
 Versión de la tarea
  a| 
-${post_edited_translations.segment}
+Un número que indica la versión de la tarea de grid.
 
 
 
  a| 
-${post_edited_translations.segment}
+TDSC
  a| 
-${post_edited_translations.segment}
+Descripción de la tarea
  a| 
 Una descripción legible para humanos de la tarea de grid.
 
@@ -61,12 +61,12 @@ VATS
  a| 
 Válido después de la marca de tiempo
  a| 
-${post_edited_translations.segment}
+El momento más temprano (en microsegundos UINT64 desde el 1 de enero de 1970 - tiempo UNIX) en el que la tarea de grid es válida.
 
 
 
  a| 
-${post_edited_translations.segment}
+VBTS
  a| 
 Válido antes de la marca de tiempo
  a| 
@@ -82,19 +82,19 @@ Fuente
 El origen de la tarea:
 
 * TXTB: La tarea de la grid se envió a través del sistema StorageGRID como un bloque de texto firmado.
-* ${post_edited_translations.segment}
+* GRID: La tarea de grid se envió a través del servicio interno de envío de tareas de grid.
 
 
 
 
  a| 
-${post_edited_translations.segment}
+ACTV
  a| 
-${post_edited_translations.segment}
+Tipo de activación
  a| 
 El tipo de activación:
 
-* ${post_edited_translations.segment}
+* AUTO: La tarea de grid se envió para activación automática.
 * PEND: la tarea del grid se envió a la tabla de pendientes. Esta es la única posibilidad para el origen de TXTB.
 
 
@@ -107,7 +107,7 @@ Resultado
  a| 
 El resultado del envío:
 
-* ${post_edited_translations.segment}
+* SUCS: La tarea de la grid se envió correctamente.
 * ERROR: La tarea se ha movido directamente a la tabla histórica.
 
 

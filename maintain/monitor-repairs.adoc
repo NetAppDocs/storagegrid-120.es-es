@@ -28,7 +28,7 @@ Supervisa el estado de los trabajos de  `repair-data` según si usas *datos repl
 +
 `repair-data show-replicated-repair-status`
 
-* ${post_edited_translations.segment}
+* Para comprobar si las reparaciones se han completado:
 +
 .. Selecciona *Nodos* > *_Nodo de almacenamiento en reparación_* > *ILM*.
 .. Revisa los atributos en la sección de evaluación. Cuando se completen las reparaciones, el atributo *Awaiting - All* indica 0 objetos.
@@ -38,7 +38,7 @@ Supervisa el estado de los trabajos de  `repair-data` según si usas *datos repl
 +
 .. Selecciona *Nodos*.
 .. Selecciona *_nombre de la cuadrícula_* > *ILM*.
-.. ${post_edited_translations.segment}
+.. Coloca el cursor sobre el gráfico de la cola de ILM para ver el valor del atributo *Frecuencia de escaneo (objetos/seg)*, que es la velocidad a la que se escanean los objetos en el grid y se colocan en la cola de ILM.
 .. En la sección Cola de ILM, fíjate en los siguientes atributos:
 +
 *** *Duración del escaneo - estimada*: El tiempo estimado para completar un escaneo ILM completo de todos los objetos.
@@ -57,7 +57,7 @@ La misma reparación de objetos podría volver a incrementarse si la replicació
 
 
 --
-.${post_edited_translations.segment}
+.Datos con código de borrado (EC)
 --
 Para supervisar la reparación de los datos con código de borrado y volver a intentar cualquier solicitud que haya podido fallar:
 
@@ -79,13 +79,13 @@ El resultado muestra información, incluida `repair ID`, sobre todas las reparac
 
 . Si el resultado indica que la operación de reparación ha fallado, utiliza la opción  `--repair-id` para volver a intentar la reparación.
 +
-${post_edited_translations.segment}
+Este comando vuelve a intentar la reparación de un nodo que ha fallado, usando el ID de reparación 6949309319275667690:
 
 +
 `repair-data start-ec-node-repair --repair-id 6949309319275667690`
 
 +
-${post_edited_translations.segment}
+Este comando vuelve a intentar una reparación de volumen que ha fallado, usando el ID de reparación 6949309319275667690:
 
 +
 `repair-data start-ec-volume-repair --repair-id 6949309319275667690`

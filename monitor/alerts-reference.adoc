@@ -921,14 +921,14 @@ Todos los volúmenes de los dispositivos se descifraron correctamente, pero uno 
 
 
  a| 
-${post_edited_translations.segment}
+KMS no está configurado
  a| 
 No existe ningún servidor de gestión de claves para este sitio.
 
 
 
  a| 
-${post_edited_translations.segment}
+La clave KMS no pudo descifrar el volumen de un dispositivo
  a| 
 Uno o más volúmenes en un dispositivo con el cifrado por nodo activado no se pudieron descifrar con la clave KMS actual.
 

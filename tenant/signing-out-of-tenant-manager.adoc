@@ -14,11 +14,11 @@ summary: Cuando termines de trabajar con Tenant Manager, debes cerrar la sesión
 Cuando hayas terminado de trabajar con Tenant Manager, debes cerrar la sesión para garantizar que los usuarios no autorizados no puedan acceder al sistema StorageGRID. Cerrar el navegador podría no cerrar tu sesión en el sistema, según la configuración de las cookies del navegador.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Busca el menú desplegable del nombre de usuario en la esquina superior derecha de la interfaz de usuario.
 +
 image:tenant_user_sign_out.png["Enlace para cerrar sesión"]
 
-. ${post_edited_translations.segment}
+. Selecciona el nombre de usuario y luego selecciona *Cerrar sesión*.
 +
 ** Si no se utiliza el SSO:
 +

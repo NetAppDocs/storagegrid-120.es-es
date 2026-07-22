@@ -5,9 +5,9 @@ entries:
 - title: "¿Qué es una cuenta de inquilino?"
   pdf-filename: Utiliza una cuenta de StorageGRID
   url: "/tenant/index.html"
-- title: "${post_edited_translations.segment}"
+- title: Cómo iniciar y cerrar sesión
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Inicia sesión en Tenant Manager
     url: "/tenant/signing-in-to-tenant-manager.html"
   - title: Cerrar sesión en Tenant Manager
     url: "/tenant/signing-out-of-tenant-manager.html"
@@ -17,17 +17,17 @@ entries:
   entries:
   - title: Entiende la API de gestión de inquilinos
     url: "/tenant/understanding-tenant-management-api.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Versionado de la API de gestión de inquilinos
     url: "/tenant/tenant-management-api-versioning.html"
   - title: Protégete contra la falsificación de solicitudes entre sitios (CSRF)
     url: "/tenant/protecting-against-cross-site-request-forgery-csrf.html"
-- title: "${post_edited_translations.segment}"
+- title: Usa conexiones de federación de grid
   entries:
   - title: Clonar grupos de inquilinos y usuarios
     url: "/tenant/grid-federation-account-clone.html"
   - title: Clonar claves de acceso a S3 mediante la API
     url: "/tenant/grid-federation-clone-keys-with-api.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona la replicación entre grids
     url: "/tenant/grid-federation-manage-cross-grid-replication.html"
   - title: Ver conexiones de la federación de grid
     url: "/tenant/grid-federation-view-connections-tenant.html"
@@ -35,13 +35,13 @@ entries:
   entries:
   - title: Usa la federación de identidades
     url: "/tenant/using-identity-federation.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona grupos de inquilinos
     entries:
-    - title: "${post_edited_translations.segment}"
+    - title: Crear grupos de S3
       url: "/tenant/creating-groups-for-s3-tenant.html"
     - title: Permisos de gestión de inquilinos
       url: "/tenant/tenant-management-permissions.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Gestionar grupos
       url: "/tenant/manage-groups.html"
   - title: Gestiona usuarios
     url: "/tenant/manage-users.html"
@@ -50,35 +50,35 @@ entries:
   - title: Llaves de acceso de inquilinos
     pdf-filename: Gestiona claves de acceso de S3
     url: "/tenant/managing-s3-access-keys.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Crea tus claves de acceso a S3
     url: "/tenant/creating-your-own-s3-access-keys.html"
   - title: Ver tus claves de acceso a S3
     url: "/tenant/viewing-your-s3-access-keys.html"
   - title: Elimina tus claves de acceso a S3
     url: "/tenant/deleting-your-own-s3-access-keys.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Crear las claves de acceso a S3 de otro usuario
     url: "/tenant/creating-another-users-s3-access-keys.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Ver las claves de acceso a S3 de otro usuario
     url: "/tenant/viewing-another-users-s3-access-keys.html"
   - title: Eliminar las claves de acceso a S3 de otro usuario
     url: "/tenant/deleting-another-users-s3-access-keys.html"
-- title: "${post_edited_translations.segment}"
+- title: Gestiona buckets de S3
   entries:
   - title: Crear bucket
     url: "/tenant/creating-s3-bucket.html"
   - title: Ver detalles del depósito
     url: "/tenant/viewing-s3-bucket-details.html"
-  - title: "${post_edited_translations.segment}"
+  - title: "¿Qué es un branch bucket?"
     url: "/tenant/what-is-branch-bucket.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona los buckets de las ramas
     url: "/tenant/manage-branch-buckets.html"
   - title: Aplicar la etiqueta de política de ILM al bucket
     url: "/tenant/ilm-policy-tags.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona la política del bucket
     url: "/tenant/manage-bucket-policy.html"
   - title: Gestiona la coherencia del bucket
     url: "/tenant/manage-bucket-consistency.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Activar o desactivar las actualizaciones del último tiempo de acceso
     url: "/tenant/enabling-or-disabling-last-access-time-updates.html"
   - title: Cambiar el control de versiones de objetos
     url: "/tenant/changing-bucket-versioning.html"
@@ -92,7 +92,7 @@ entries:
     url: "/tenant/deleting-s3-bucket-objects.html"
   - title: Eliminar bucket
     url: "/tenant/deleting-s3-bucket.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Usa la consola de S3
     url: "/tenant/use-s3-console.html"
 - title: Gestiona los servicios de la plataforma S3
   entries:
@@ -109,23 +109,23 @@ entries:
       url: "/tenant/understanding-search-integration-service.html"
   - title: Gestiona los puntos de conexión de los servicios de la plataforma
     entries:
-    - title: "${post_edited_translations.segment}"
+    - title: Configura los puntos de conexión de los servicios de la plataforma
       url: "/tenant/configuring-platform-services-endpoints.html"
     - title: Especifica el URN
       url: "/tenant/specifying-urn-for-platform-services-endpoint.html"
     - title: Crear punto final
       url: "/tenant/creating-platform-services-endpoint.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Probar la conexión
       url: "/tenant/testing-connection-for-platform-services-endpoint.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Editar punto final
       url: "/tenant/editing-platform-services-endpoint.html"
     - title: Eliminar punto final
       url: "/tenant/deleting-platform-services-endpoint.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Soluciona errores de los servicios de plataforma
       url: "/tenant/troubleshooting-platform-services-endpoint-errors.html"
   - title: Configura la replicación de CloudMirror
     url: "/tenant/configuring-cloudmirror-replication.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Configura las notificaciones de eventos
     url: "/tenant/configuring-event-notifications.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Configura el servicio de integración de búsqueda
     url: "/tenant/configuring-search-integration-service.html"

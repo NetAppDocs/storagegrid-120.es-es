@@ -1,4 +1,4 @@
-= ${post_edited_translations.segment}
+= Superposiciones Memberof y refint
 :allow-uri-read: 
 
 
@@ -10,7 +10,7 @@ CAUTION: En el caso de las fuentes de identidad que no sean Active Directory o M
 
 
 [[memberof-and-refint-overlays]]
-=== ${post_edited_translations.segment}
+=== Superposiciones Memberof y refint
 
 Los overlays memberof y refint deben estar habilitados. Para obtener más información, consulta las instrucciones para el mantenimiento de la pertenencia inversa a grupos en http://www.openldap.org/doc/admin24/index.html["Documentación de OpenLDAP: Guía del administrador versión 2.4"^].
 

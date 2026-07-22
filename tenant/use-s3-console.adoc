@@ -2,7 +2,7 @@
 permalink: tenant/use-s3-console.html 
 sidebar: sidebar 
 keywords: how to use s3 console 
-summary: ${post_edited_translations.segment} 
+summary: Puedes utilizar la consola de S3 para ver y gestionar los objetos de un bucket de S3. 
 ---
 = Usa la consola S3 en StorageGRID
 :allow-uri-read: 
@@ -11,16 +11,16 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Puedes utilizar la consola de S3 para ver y gestionar los objetos de un bucket de S3.
 
-${post_edited_translations.segment}
+La consola de S3 te permite:
 
 * Subir, descargar, renombrar, copiar, mover y eliminar objetos
 * Ver, revertir, descargar y eliminar versiones de objetos
 * Buscar objetos por prefijo
 * Gestiona etiquetas de objetos
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Ver metadatos del objeto
+* Ver, crear, renombrar, copiar, mover y eliminar carpetas
 
 
 [NOTE]
@@ -43,7 +43,7 @@ Si al utilizar la consola de S3 las operaciones tardan demasiado (por ejemplo, m
 
 .Pasos
 . Selecciona *Storage* > *Buckets* > *_bucket name_*.
-. ${post_edited_translations.segment}
+. Selecciona la pestaña Consola de S3.
 . Pega el ID de la clave de acceso y la clave de acceso secreta en los campos. Si no, selecciona *Cargar claves de acceso* y selecciona tu archivo  `.csv`.
 . Selecciona *Sign in*.
 . Aparece la tabla de objetos de «bucket». Puedes gestionar los objetos según sea necesario.

@@ -15,7 +15,7 @@ Un sistema StorageGRID consiste en varios tipos de nodos de grid en uno o más s
 
 Conoce más sobre la link:nodes-and-services.html["tipos de nodos de grid"].
 
-Para obtener más información sobre la topología de red de StorageGRID, los requisitos y las comunicaciones de la red, consulta la link:../network/index.html["${post_edited_translations.segment}"].
+Para obtener más información sobre la topología de red de StorageGRID, los requisitos y las comunicaciones de la red, consulta la link:../network/index.html["Directrices de redes"].
 
 
 

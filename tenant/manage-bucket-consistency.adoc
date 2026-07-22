@@ -37,7 +37,7 @@ NOTE: Cuando cambias la consistencia de un bucket, solo se garantiza que los obj
 
 .Pasos
 . Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
-. ${post_edited_translations.segment}
+. Selecciona el nombre del bucket de la tabla.
 +
 Aparece la página de detalles del bucket.
 
@@ -79,7 +79,7 @@ NOTE: El valor de consistencia para el control de versiones de buckets, S3 Objec
 Los siguientes ajustes del bucket no utilizan consistencia fuerte y ofrecen una mayor disponibilidad para los cambios. Es posible que los cambios en estos ajustes tarden un tiempo en surtir efecto.
 
 * link:considerations-for-platform-services.html["Configuración de los servicios de la plataforma: notificación, replicación o integración de búsqueda"]
-* link:configuring-cross-origin-resource-sharing-for-buckets-and-objects.html["${post_edited_translations.segment}"]
+* link:configuring-cross-origin-resource-sharing-for-buckets-and-objects.html["Configura StorageGRID CORS para los buckets y los objetos"]
 * <<change-bucket-consistency,Cambiar la consistencia del bucket>>
 
 

@@ -19,7 +19,7 @@ Al empezar a utilizar los grupos de almacenamiento en la nube, puede resultar ú
 
 
  a| 
-${post_edited_translations.segment}
+¿Cuál es el objetivo principal?
  a| 
 Actúa como destino de archivo. La copia del objeto en el Cloud Storage Pool puede ser la única copia del objeto o puede ser una copia adicional. Es decir, en lugar de conservar dos copias en las instalaciones, puedes conservar una copia en StorageGRID y enviar una copia al Cloud Storage Pool.
  a| 
@@ -46,15 +46,15 @@ Normalmente, un usuario de tenant
 
 
  a| 
-${post_edited_translations.segment}
+¿Cuál es el destino?
  a| 
 * Cualquier infraestructura S3 compatible (incluido Amazon S3)
 * Nivel de archivo de Azure Blob
-* ${post_edited_translations.segment}
+* Google Cloud Platform (GCP)
 
  a| 
 * Cualquier infraestructura S3 compatible (incluido Amazon S3)
-* ${post_edited_translations.segment}
+* Google Cloud Platform (GCP)
 
 
 

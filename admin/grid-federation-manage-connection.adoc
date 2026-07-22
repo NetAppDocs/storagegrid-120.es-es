@@ -2,7 +2,7 @@
 permalink: admin/grid-federation-manage-connection.html 
 sidebar: sidebar 
 keywords: grid federation, edit connection, remove connection, rotate certificates 
-summary: ${post_edited_translations.segment} 
+summary: La gestión de las conexiones de la federación de redes entre sistemas StorageGRID incluye editar los detalles de las conexiones, rotar los certificados, quitar permisos de los inquilinos y eliminar conexiones en desuso. 
 ---
 = Administra las conexiones de la federación de grid de StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+La gestión de las conexiones de la federación de redes entre sistemas StorageGRID incluye editar los detalles de las conexiones, rotar los certificados, quitar permisos de los inquilinos y eliminar conexiones en desuso.
 
 .Antes de empezar
 * Has iniciado sesión en el Grid Manager de cualquiera de las dos grids usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
@@ -34,7 +34,7 @@ NOTE: Mientras editas la conexión, las solicitudes de clonación de cuentas o d
 === Empieza a editar la conexión
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en Grid Manager desde el nodo Admin principal de cualquiera de las grids.
 . Selecciona *Nodos* y comprueba que todos los demás Admin Nodes de tu sistema estén online.
 +
 
@@ -47,13 +47,13 @@ NOTE: Al editar una conexión de federación de grid, StorageGRID intenta guarda
 ====
 .Menú de acciones
 --
-.. ${post_edited_translations.segment}
+.. Selecciona el botón de opción correspondiente a la conexión.
 .. Selecciona *Acciones* > *Editar*.
 .. Introduce la nueva información.
 
 
 --
-.${post_edited_translations.segment}
+.Página de detalles
 --
 .. Selecciona un nombre de conexión para ver sus detalles.
 .. Selecciona *Editar*.
@@ -65,7 +65,7 @@ NOTE: Al editar una conexión de federación de grid, StorageGRID intenta guarda
 . Introduce la contraseña de aprovisionamiento de la grid en la que has iniciado sesión.
 . Selecciona *Guardar y continuar*.
 +
-${post_edited_translations.segment}
+Los nuevos valores se guardan, pero no se aplicarán a la conexión hasta que hayas subido el nuevo archivo de verificación en la otra grid.
 
 . Selecciona *Descargar archivo de verificación*.
 +
@@ -80,7 +80,7 @@ CAUTION: El archivo de verificación contiene secretos y debe almacenarse y tran
 . Comprueba que el *Estado de la conexión* sea *Pendiente de edición*.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si el estado de la conexión era algo diferente de *Conectado* cuando empezaste a editar la conexión, no cambiará a *Pendiente de edición*.
 
 . Facilita el archivo  `_connection-name_.grid-federation` al administrador de grid de la otra grid.
 
@@ -93,19 +93,19 @@ NOTE: ${post_edited_translations.segment}
 Finaliza la edición de la conexión subiendo el archivo de verificación en la otra grid.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en Grid Manager desde el nodo Admin principal.
 . Selecciona *Configuración* > *Sistema* > *Grid federation*.
 . Selecciona *Subir archivo de verificación* para acceder a la página de carga.
 . Selecciona *Cargar archivo de verificación*. Luego, busca y selecciona el archivo que descargaste desde el primer grid.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Introduce la frase de contraseña de aprovisionamiento de la grid en la que has iniciado sesión actualmente.
+. Selecciona *Guardar y probar*.
 +
 Si se puede establecer la conexión utilizando los valores modificados, aparecerá un mensaje de éxito. En caso contrario, aparecerá un mensaje de error. Revisa el mensaje y soluciona cualquier problema.
 
 . Cierra el asistente para volver a la página de federación de Grid.
 . Comprueba que el *Estado de la conexión* sea *Conectado*.
 . Ve a la página Grid federation en el primer grid y actualiza el navegador. Confirma que el *Estado de la conexión* ahora es *Conectado*.
-. ${post_edited_translations.segment}
+. Una vez establecida la conexión, elimina de forma segura todas las copias del archivo de verificación.
 
 
 
@@ -114,7 +114,7 @@ Si se puede establecer la conexión utilizando los valores modificados, aparecer
 == [[test_grid_fed_connection]]Probar una conexión de federación de grid
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en Grid Manager desde el nodo Admin principal.
 . Selecciona *Configuración* > *Sistema* > *Grid federation*.
 . Prueba la conexión usando el menú *Acciones* en la página de Grid federation o en la página de detalles de una conexión específica.
 +
@@ -122,12 +122,12 @@ Si se puede establecer la conexión utilizando los valores modificados, aparecer
 ====
 .Menú de acciones
 --
-.. ${post_edited_translations.segment}
+.. Selecciona el botón de opción correspondiente a la conexión.
 .. Selecciona *Acciones* > *Probar*.
 
 
 --
-.${post_edited_translations.segment}
+.Página de detalles
 --
 .. Selecciona un nombre de conexión para ver sus detalles.
 .. Selecciona *Probar conexión*.
@@ -135,7 +135,7 @@ Si se puede establecer la conexión utilizando los valores modificados, aparecer
 
 --
 ====
-. ${post_edited_translations.segment}
+. Comprueba el estado de la conexión:
 +
 [cols="1a,2a"]
 |===
@@ -157,7 +157,7 @@ La conexión está en estado de error. Por ejemplo, un certificado ha caducado o
 
 
  a| 
-${post_edited_translations.segment}
+Edición pendiente
  a| 
 Has editado la conexión en esta grid, pero la conexión sigue utilizando la configuración existente. Para completar la edición, sube el nuevo archivo de verificación a la otra grid.
 
@@ -190,15 +190,15 @@ Cada conexión de federación de redes utiliza cuatro certificados SSL generados
 CAUTION: Si caducan los certificados de cualquiera de los extremos de la conexión, la conexión dejará de funcionar y las replicaciones quedarán pendientes hasta que se actualicen los certificados.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en Grid Manager desde el nodo Admin principal de cualquiera de las grids.
 . Selecciona *Configuración* > *Sistema* > *Grid federation*.
 . Desde cualquiera de las pestañas en la página de Grid federation, selecciona el nombre de la conexión para ver sus detalles.
 . Selecciona la pestaña *Certificados*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Rotar certificados*.
+. Indica durante cuántos días deben ser válidos los nuevos certificados.
 . Introduce la contraseña de aprovisionamiento de la grid en la que has iniciado sesión.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Rotar certificados*.
+. Según sea necesario, repite estos pasos en la otra grid de la conexión.
 +
 En general, utiliza el mismo número de días para los certificados de ambos extremos de la conexión.
 
@@ -216,7 +216,7 @@ image:grid-federation-remove-connection.png["Pasos para eliminar la conexión de
 Antes de quitar una conexión, ten en cuenta lo siguiente:
 
 * Al eliminar una conexión no se borran los elementos que ya se hayan copiado entre grids. Por ejemplo, los usuarios, grupos y objetos del tenant que existan en ambos grids no se borran de ninguno de los grids cuando se elimina el permiso del tenant. Si quieres borrar estos elementos, debes eliminarlos manualmente de ambos grids.
-* ${post_edited_translations.segment}
+* Cuando eliminas una conexión, cualquier objeto pendiente de replicación (ingresado pero aún no replicado en la otra grid) tendrá su replicación fallida de forma permanente.
 
 
 
@@ -239,30 +239,30 @@ TIP: No puedes eliminar el permiso *Usar conexión de federación entre grids* s
 
 
 [[remove-permission-for-each-tenant]]
-=== ${post_edited_translations.segment}
+=== Quitar el permiso para cada tenant
 
-${post_edited_translations.segment}
+Después de desactivar la replicación entre grids para todos los buckets de los inquilinos, elimina el permiso *Use grid federation permission* de todos los inquilinos en ambos grids.
 
 .Pasos
 . Selecciona *Configuración* > *Sistema* > *Grid federation*.
 . Selecciona el nombre de la conexión para ver sus detalles.
-. Para cada inquilino en la pestaña *Inquilinos permitidos*, quita el permiso *Usar conexión de federación de grid* de cada inquilino. Consulta link:grid-federation-manage-tenants.html["${post_edited_translations.segment}"].
+. Para cada inquilino en la pestaña *Inquilinos permitidos*, quita el permiso *Usar conexión de federación de grid* de cada inquilino. Consulta link:grid-federation-manage-tenants.html["Gestiona los inquilinos autorizados"].
 . Repite estos pasos para los inquilinos permitidos en la otra grid.
 
 
 
 
 [[remove-connection]]
-=== ${post_edited_translations.segment}
+=== Eliminar conexión
 
 .Pasos
 . Cuando ningún inquilino de ninguna de las dos grids esté utilizando la conexión, selecciona *Eliminar*.
-. ${post_edited_translations.segment}
+. Revisa el mensaje de confirmación y selecciona *Remove*.
 +
 ** Si es posible eliminar la conexión, aparecerá un mensaje de éxito. La conexión de federación entre grids ya se ha eliminado de ambos grids.
 ** Si no se puede eliminar la conexión (por ejemplo, porque todavía está en uso o hay un error de conexión), aparecerá un mensaje de error. Puedes hacer lo siguiente:
 +
-*** Soluciona el error (recomendado). Consulta link:grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+*** Soluciona el error (recomendado). Consulta link:grid-federation-troubleshoot.html["Solucionar errores de federación de grid"].
 *** Elimina la conexión a la fuerza. Consulta la siguiente sección.
 
 
@@ -280,7 +280,7 @@ Si es necesario, puedes forzar la eliminación de una conexión que no tenga el 
 La eliminación forzada solo elimina la conexión del grid local. Para eliminar por completo la conexión, realiza los mismos pasos en ambos grids.
 
 .Pasos
-. ${post_edited_translations.segment}
+. En el cuadro de diálogo de confirmación, selecciona *Forzar eliminación*.
 +
 Aparece un mensaje de éxito. Esta conexión de federación de grid ya no se puede utilizar. Sin embargo, es posible que los buckets de inquilino aún tengan habilitada la replicación entre grids y que algunas copias de objetos ya se hayan replicado entre los grids de la conexión.
 

@@ -51,6 +51,6 @@ Si quieres volver a intentar la recuperación después de reiniciar el procedimi
 . Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID y la confianza de parte dependiente del nodo de administración que recuperaste se configuró para usar el certificado predeterminado de la interfaz de gestión, actualiza (o elimina y vuelve a crear) la confianza de parte dependiente del nodo en Active Directory Federation Services (AD FS). Usa el nuevo certificado de servidor predeterminado que se generó durante el proceso de recuperación del nodo de administración.
 +
 
-NOTE: Para configurar una relación de confianza con una parte confiable, consulta link:../admin/configure-sso.html["${post_edited_translations.segment}"]. Para acceder al certificado predeterminado del servidor, inicia sesión en el intérprete de comandos del Admin Node. Ve al directorio `/var/local/mgmt-api` y selecciona el archivo `server.crt`.
+NOTE: Para configurar una relación de confianza con una parte confiable, consulta link:../admin/configure-sso.html["Configura el inicio de sesión único"]. Para acceder al certificado predeterminado del servidor, inicia sesión en el intérprete de comandos del Admin Node. Ve al directorio `/var/local/mgmt-api` y selecciona el archivo `server.crt`.
 
 

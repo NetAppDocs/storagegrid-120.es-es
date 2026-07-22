@@ -20,6 +20,6 @@ Después de recuperar un nodo de almacenamiento del appliance, debes verificar q
 
 .Pasos
 . Selecciona *Nodos* > *_Storage Node_* > *Tareas*.
-. ${post_edited_translations.segment}
+. Si la lista desplegable *Estado de almacenamiento* está configurada en *Solo lectura* o *Sin conexión*, selecciona *En línea*.
 . Selecciona *Guardar*.
 

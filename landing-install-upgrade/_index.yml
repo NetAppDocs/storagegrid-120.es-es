@@ -1,6 +1,6 @@
 ---
 indexpage:
-  title: "${post_edited_translations.segment}"
+  title: Instalar, actualizar y aplicar corrección urgente a StorageGRID
   summary: Un sistema StorageGRID consta de nodos individuales basados en hardware
     y en software. Primero instalas el hardware para cada nodo de appliance y configuras
     cada host de Linux o VMware. Luego, instalas el software StorageGRID en cada appliance
@@ -19,17 +19,17 @@ indexpage:
       url: "../swnodes/index.html"
   - title: Nodos basados en software
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Prepara los materiales
       url: "../swnodes/required-materials.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Automatiza la instalación de Linux
       url: "../swnodes/automating-installation-linux.html"
     - title: Automatiza la instalación de VMware
       url: "../swnodes/automating-grid-node-deployment-in-vmware-vsphere.html"
     - title: Implementar Linux
       url: "../swnodes/creating-node-configuration-files.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Implementar VMware
       url: "../swnodes/collecting-information-about-your-deployment-environment.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Instalación completa de nodos basada en software
       url: "../swnodes/navigating-to-grid-manager.html"
   - title: Actualización o corrección urgente
     links:
@@ -41,5 +41,5 @@ indexpage:
       url: "../upgrade/how-your-system-is-affected-during-upgrade.html"
     - title: Guía rápida de actualización
       url: "../upgrade/upgrade-workflow.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Aplicar corrección urgente
       url: "../maintain/storagegrid-hotfix-procedure.html"

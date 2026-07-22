@@ -11,46 +11,46 @@ summary: La replicación entre grids es la replicación automática de objetos e
 
 
 [role="lead"]
-La replicación entre grids es la replicación automática de objetos entre buckets S3 seleccionados en dos sistemas StorageGRID que están conectados en una link:grid-federation-overview.html["conexión de federación de grid"]. link:grid-federation-what-is-account-clone.html["${post_edited_translations.segment}"] es necesario para la replicación entre grids.
+La replicación entre grids es la replicación automática de objetos entre buckets S3 seleccionados en dos sistemas StorageGRID que están conectados en una link:grid-federation-overview.html["conexión de federación de grid"]. link:grid-federation-what-is-account-clone.html["Clon de cuenta"] es necesario para la replicación entre grids.
 
 
 
 [[workflow-for-cross-grid-replication]]
-== ${post_edited_translations.segment}
+== Flujo de trabajo para la replicación entre grids
 
-${post_edited_translations.segment}
+El diagrama de flujo resume los pasos para configurar la replicación entre grids entre buckets de dos grids.
 
-image:grid-federation-cgr-workflow.png["${post_edited_translations.segment}"]
+image:grid-federation-cgr-workflow.png["Flujo de trabajo de replicación entre grids"]
 
 
 
 [[requirements-for-cross-grid-replication]]
-== ${post_edited_translations.segment}
+== Requisitos para la replicación entre grids
 
-Si una cuenta de inquilino tiene el permiso *Usar conexión de federación de grid* para usar una o más link:grid-federation-overview.html["${post_edited_translations.segment}"], un usuario de inquilino con permiso de acceso raíz puede crear buckets en las cuentas de inquilino correspondientes de cada grid. Estos buckets:
+Si una cuenta de inquilino tiene el permiso *Usar conexión de federación de grid* para usar una o más link:grid-federation-overview.html["conexiones de federación de grid"], un usuario de inquilino con permiso de acceso raíz puede crear buckets en las cuentas de inquilino correspondientes de cada grid. Estos buckets:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Pueden tener nombres diferentes entre sí
+* Puede tener diferentes regiones
+* Debe tener activado el control de versiones
 * Debe estar vacío
 
 
-${post_edited_translations.segment}
+Después de que se hayan creado ambos buckets, puedes configurar la replicación entre grids para cualquiera de los buckets o para ambos.
 
 .Más información
-link:../tenant/grid-federation-manage-cross-grid-replication.html["${post_edited_translations.segment}"]
+link:../tenant/grid-federation-manage-cross-grid-replication.html["Gestiona la replicación entre grids"]
 
 
 
 [[how-cross-grid-replication-works]]
-== ${post_edited_translations.segment}
+== Cómo funciona la replicación entre grids
 
 Puedes configurar la replicación entre redes para que se realice en una sola dirección o en ambas direcciones.
 
 
 
 [[replication-in-one-direction]]
-=== ${post_edited_translations.segment}
+=== Replicación en una dirección
 
 Si habilitas la replicación entre redes para un bucket en solo una red, los objetos añadidos a ese bucket (el bucket de origen) se replican al bucket correspondiente en la otra red (el bucket de destino). Sin embargo, los objetos añadidos al bucket de destino no se replican de vuelta al de origen. En la figura, la replicación entre redes está habilitada para `my-bucket` desde Grid 1 a Grid 2, pero no está habilitada en la otra dirección.
 
@@ -59,18 +59,18 @@ image:grid-federation-cross-grid-replication-one-direction.png["Imagen que muest
 
 
 [[replication-in-both-directions]]
-=== ${post_edited_translations.segment}
+=== Replicación en ambas direcciones
 
 Si habilitas la replicación entre grids para el mismo bucket en ambos grids, los objetos añadidos a cualquiera de los buckets se replican en el otro grid. En la figura, la replicación entre grids está habilitada para `my-bucket` en ambas direcciones.
 
-image:grid-federation-cross-grid-replication.png["${post_edited_translations.segment}"]
+image:grid-federation-cross-grid-replication.png["Imagen que muestra la replicación en una sola dirección en comparación con la replicación en ambas direcciones"]
 
 
 
 [[what-happens-when-objects-are-ingested]]
 === ¿Qué ocurre cuando se ingieren objetos?
 
-${post_edited_translations.segment}
+Cuando un cliente de S3 añade un objeto a un bucket que tiene habilitada la replicación entre grids, ocurre lo siguiente:
 
 . StorageGRID replica automáticamente el objeto desde el bucket de origen al bucket de destino. El tiempo necesario para realizar esta operación de replicación en segundo plano depende de varios factores, incluido el número de otras operaciones de replicación que estén pendientes.
 +
@@ -79,7 +79,7 @@ El cliente S3 puede verificar el estado de replicación de un objeto enviando un
 +
 [cols="1a,2a"]
 |===
-| ${post_edited_translations.segment} | Estado de la replicación 
+| Grid | Estado de la replicación 
 
 
  a| 
@@ -110,7 +110,7 @@ NOTE: StorageGRID no admite la cabecera  `x-amz-replication-status`.
 [[what-happens-when-objects-are-deleted]]
 === ¿Qué ocurre cuando se eliminan objetos?
 
-Tal y como se describe en link:../primer/delete-data-flow.html["${post_edited_translations.segment}"], StorageGRID puede eliminar un objeto por cualquiera de estas razones:
+Tal y como se describe en link:../primer/delete-data-flow.html["Eliminar flujo de datos"], StorageGRID puede eliminar un objeto por cualquiera de estas razones:
 
 * El cliente S3 envía una solicitud de eliminación.
 * Un usuario de Tenant Manager selecciona la opción link:../tenant/deleting-s3-bucket-objects.html["Eliminar objetos en el depósito"] para eliminar todos los objetos de un bucket.
@@ -171,8 +171,8 @@ NOTE: SSE no admite AES-128. Si la opción *Stored object encryption* está habi
 A la hora de determinar cómo cifrar los objetos de origen, StorageGRID aplica estas reglas:
 
 . Utiliza el encabezado de ingesta  `x-amz-server-side-encryption`, si está presente.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Si no hay ningún encabezado de ingesta, usa la configuración de cifrado predeterminada del bucket, si está configurada.
+. Si no se ha configurado un parámetro para el bucket, usa el parámetro de cifrado para toda la grid, si está configurado.
 . Si no existe una configuración para toda la grid, no cifres el objeto de origen.
 
 
@@ -212,7 +212,7 @@ Habilitado
 |===
 Cuando S3 Object Lock está activado en el bucket de origen:
 
-* ${post_edited_translations.segment}
+* Los objetos se bloquean con los parámetros de retención en el destino en este orden:
 +
 .. Los valores del encabezado de retención del objeto de origen para:
 +
@@ -222,11 +222,11 @@ Cuando S3 Object Lock está activado en el bucket de origen:
 `x-amz-object-lock-retain-until-date`
 
 .. El tiempo de retención predeterminado del bucket de origen, si se ha configurado.
-.. ${post_edited_translations.segment}
+.. El tiempo de retención predeterminado del depósito de destino, si se ha configurado.
 
 
 +
-${post_edited_translations.segment}
+La retención predeterminada del bucket de destino no anula los parámetros de retención replicados desde el objeto de origen.
 
 * Puedes establecer el estado de retención legal del objeto de destino utilizando `x-amz-object-lock-legal-hold` al cargar el objeto.
 * Se produce un error si el inquilino o el bucket de destino no admiten la configuración de S3 Object Lock del objeto de origen. Consulta link:../admin/grid-federation-troubleshoot.html#cross-grid-replication-alerts-and-errors["Alertas y errores de replicación entre grids."]
@@ -235,7 +235,7 @@ ${post_edited_translations.segment}
 Cuando la función S3 Object Lock del bucket de origen está desactivada:
 
 * Puedes configurar la retención predeterminada en el bucket de destino para aplicar la configuración de retención de S3 Object Lock al objeto de destino.
-* ${post_edited_translations.segment}
+* El objeto de destino no puede establecer un estado de retención legal.
 
 
 
@@ -259,6 +259,6 @@ Si un cliente S3 realiza una solicitud PutObjectRetention o PutObjectLegalHold, 
 
 
 [[how-segmented-objects-are-replicated]]
-=== ${post_edited_translations.segment}
+=== Cómo se replican los objetos segmentados
 
 El tamaño máximo de segmento de la grid de origen se aplica a los objetos replicados en la grid de destino. Cuando los objetos se replican en otra grid, el parámetro *Maximum Segment Size* (*Configuration* > *System* > *Storage options*) de la grid de origen se utiliza en ambas grids. Por ejemplo, supón que el tamaño máximo de segmento de la grid de origen es de 1 GB, mientras que el tamaño máximo de segmento de la grid de destino es de 50 MB. Si ingestas un objeto de 2 GB en la grid de origen, ese objeto se guarda como dos segmentos de 1 GB. También se replica en la grid de destino como dos segmentos de 1 GB, aunque el tamaño máximo de segmento de esa grid sea de 50 MB.

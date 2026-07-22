@@ -19,7 +19,7 @@ Tienes dos opciones para gestionar los perfiles de AppArmor:
 
 * Deshabilita los perfiles individuales de los paquetes instalados en el sistema base que se solapen con los paquetes del contenedor del sistema StorageGRID. Cuando deshabilitas los perfiles individuales, aparece una entrada en los archivos de registro de StorageGRID que indica que AppArmor está habilitado.
 +
-${post_edited_translations.segment}
+Utiliza los siguientes comandos:
 
 +
 [listing]

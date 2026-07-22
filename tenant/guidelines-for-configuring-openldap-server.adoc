@@ -16,7 +16,7 @@ Si deseas utilizar un servidor OpenLDAP para la federación de identidades, debe
 
 
 [[memberof-and-refint-overlays]]
-== ${post_edited_translations.segment}
+== Superposiciones Memberof y refint
 
 Los overlays memberof y refint deben estar habilitados. Para obtener más información, consulta las instrucciones para el mantenimiento de la pertenencia inversa a grupos en la _OpenLDAP Software Administrator's Guide_.
 

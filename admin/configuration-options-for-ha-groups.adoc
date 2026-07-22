@@ -13,7 +13,7 @@ summary: El siguiente diagrama muestra ejemplos de diferentes formas en que pued
 [role="lead"]
 Los siguientes diagramas ofrecen ejemplos de diferentes formas en que puedes configurar grupos de alta disponibilidad (HA). Cada opción tiene ventajas y desventajas.
 
-${post_edited_translations.segment}
+En los diagramas, el azul indica la interfaz principal en el grupo de alta disponibilidad y el amarillo indica la interfaz de respaldo en el grupo de alta disponibilidad.
 
 image:high_availability_examples.png["Ejemplos de HA"]
 
@@ -53,7 +53,7 @@ DNS Round Robin
  a| 
 HA activo-activo
  a| 
-* ${post_edited_translations.segment}
+* El tráfico se distribuye entre varios grupos de alta disponibilidad.
 * Alto rendimiento agregado que escala con el número de grupos de alta disponibilidad.
 * Conmutación rápida por error.
 

@@ -28,13 +28,13 @@ settings:
   langs: es-es,us-en,de-de,fr-fr,it-it,pt-br,ja-jp,ko-kr,zh-cn,zh-tw
 sidebar:
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Software StorageGRID 12.0
     url: "/index.html"
   - title: Dispositivos StorageGRID
     url: "/swnodes/storagegrid-hardware.html"
   - title: Notas de publicación
     entries:
-    - title: "${post_edited_translations.segment}"
+    - title: Novedades de StorageGRID 12.0
       url: "/release-notes/whats-new.html"
     - title: Funciones y capacidades eliminadas o obsoletas
       url: "/release-notes/removed-or-deprecated-features.html"
@@ -49,24 +49,24 @@ sidebar:
     - section: network
     - title: Inicio rápido
       url: "/primer/quick-start.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Instala, actualiza y aplica correcciones urgentes
     url: "/landing-install-upgrade/index.html"
     entries:
     - section: swnodes
     - section: upgrade
-    - title: "${post_edited_translations.segment}"
+    - title: Aplicar la corrección urgente de StorageGRID
       entries:
       - title: Procedimiento de corrección urgente
         url: "/maintain/storagegrid-hotfix-procedure.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Cómo se ve afectado tu sistema al aplicar una corrección urgente
         url: "/maintain/how-your-system-is-affected-when-you-apply-hotfix.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Obtener los materiales necesarios para la corrección urgente
         url: "/maintain/obtaining-required-materials-for-hotfix.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Descargar el archivo de corrección urgente
         url: "/maintain/downloading-hotfix-file.html"
       - title: Comprueba el estado del sistema antes de aplicar la corrección urgente
         url: "/maintain/checking-systems-condition-before-applying-hotfix.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Aplicar corrección urgente
         url: "/maintain/applying-hotfix.html"
   - title: Configurar y gestionar
     url: "/landing-configure-manage/index.html"
@@ -81,7 +81,7 @@ sidebar:
     - section: tenant
     - section: s3
     - section: swift
-  - title: "${post_edited_translations.segment}"
+  - title: Supervisar y solucionar problemas
     url: "/landing-monitor-troubleshoot/index.html"
     entries:
     - section: monitor
@@ -99,29 +99,29 @@ sidebar:
       entries:
       - title: Decomisionar nodo o sitio
         url: "/maintain/decommission-procedure.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Decomisionar nodos
         entries:
         - title: Decomisionar nodo de grid
           url: "/maintain/grid-node-decommissioning.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Aspectos a tener en cuenta para los nodos de administración o gateway
           url: "/maintain/considerations-for-decommissioning-admin-or-gateway-nodes.html"
         - title: Aspectos a tener en cuenta para los nodos de almacenamiento
           entries:
           - title: Consideraciones generales
             url: "/maintain/considerations-for-decommissioning-storage-nodes.html"
-          - title: "${post_edited_translations.segment}"
+          - title: Quórum del ADC
             url: "/maintain/understanding-adc-service-quorum.html"
           - title: Revisar la política de ILM y la configuración del almacenamiento
             url: "/maintain/reviewing-ilm-policy-and-storage-configuration.html"
           - title: Consolidar nodos de almacenamiento
             url: "/maintain/consolidating-storage-nodes.html"
-          - title: "${post_edited_translations.segment}"
+          - title: Decomisionar varios nodos de almacenamiento
             url: "/maintain/decommissioning-multiple-storage-nodes.html"
         - title: Comprobar los trabajos de reparación de datos
           url: "/maintain/checking-data-repair-jobs.html"
         - title: Reúne los materiales necesarios
           url: "/maintain/gathering-required-materials-node-decom.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Accede a la página «Decomisionar nodos»
           url: "/maintain/accessing-decommission-nodes-page.html"
         - title: Decomisionar nodos de grid desconectados
           url: "/maintain/decommissioning-disconnected-grid-nodes.html"
@@ -129,9 +129,9 @@ sidebar:
           url: "/maintain/decommissioning-connected-grid-nodes.html"
         - title: Pausar y reanudar el proceso de decomisionar nodos de almacenamiento
           url: "/maintain/pausing-and-resuming-decommission-process-for-storage-nodes.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Descomisionar sitio
         entries:
-        - title: "${post_edited_translations.segment}"
+        - title: Aspectos a tener en cuenta al eliminar un sitio
           url: "/maintain/considerations-for-removing-site.html"
         - title: Reúne los materiales necesarios
           url: "/maintain/gathering-required-materials-site-decom.html"
@@ -141,13 +141,13 @@ sidebar:
           url: "/maintain/step-2-view-details.html"
         - title: Revisa las políticas de ILM
           url: "/maintain/step-3-revise-ilm-policy.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Eliminar referencias a ILM
           url: "/maintain/step-4-remove-ilm-references.html"
         - title: Resolver los conflictos entre nodos (y comenzar a decomisionar)
           url: "/maintain/step-5-resolve-node-conflicts.html"
         - title: Decomisionar el monitor
           url: "/maintain/step-6-monitor-decommission.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Cambiar el nombre de una grid, un sitio o un nodo
       entries:
       - title: Usa el procedimiento rename
         url: "/maintain/rename-grid-site-node-overview.html"
@@ -158,23 +158,23 @@ sidebar:
       - title: Procedimientos de mantenimiento de nodos
         pdf-filename: Procedimientos de nodo
         url: "/maintain/grid-node-procedures.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Mover el servicio ADC
         url: "/maintain/move-adc-service.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Convertir en nodo de solo datos
         url: "/maintain/convert-to-data-only-node.html"
       - title: Procedimientos de reinicio, apagado y encendido
         entries:
-        - title: "${post_edited_translations.segment}"
+        - title: Realiza un reinicio progresivo
           url: "/maintain/rolling-reboot-procedure.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Reinicia el nodo desde la pestaña «Tareas»
           url: "/maintain/rebooting-grid-node-from-grid-manager.html"
         - title: Reiniciar el nodo desde la línea de comandos
           url: "/maintain/rebooting-grid-node-from-command-shell.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Apagar el nodo
           url: "/maintain/shutting-down-grid-node.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Apagar el host
           url: "/maintain/powering-down-host.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Apaga y enciende todos los nodos
           url: "/maintain/powering-off-and-on-all-nodes-in-grid.html"
       - title: Procedimientos de reasignación de puertos
         entries:
@@ -200,13 +200,13 @@ sidebar:
           url: "/maintain/stopping-service.html"
         - title: Forzar la finalización del servicio
           url: "/maintain/forcing-service-to-terminate.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Iniciar o reiniciar servicio
           url: "/maintain/starting-or-restarting-service.html"
         - title: Usa un archivo DoNotStart
           url: "/maintain/using-donotstart-file.html"
         - title: Soluciona problemas del Administrador de servidores
           url: "/maintain/accessing-server-manager-log-file.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Procedimientos de red
       entries:
       - title: Actualizar las subredes de la red Grid
         url: "/maintain/updating-subnets-for-grid-network.html"
@@ -224,9 +224,9 @@ sidebar:
           url: "/maintain/changing-ip-addresses-and-mtu-values-for-all-nodes-in-grid.html"
       - title: Agrega interfaces a un nodo existente
         entries:
-        - title: "${post_edited_translations.segment}"
+        - title: 'Linux: agrega interfaces de administrador o de cliente'
           url: "/maintain/linux-adding-interfaces-to-existing-node.html"
-        - title: "${post_edited_translations.segment}"
+        - title: 'Linux: agrega interfaces trunk o access'
           url: "/maintain/linux-adding-trunk-or-access-interfaces-to-node.html"
         - title: 'VMware: agregar interfaces de tronco o de acceso'
           url: "/maintain/vmware-adding-trunk-or-access-interfaces-to-node.html"
@@ -236,11 +236,11 @@ sidebar:
         url: "/maintain/modifying-dns-configuration-for-single-grid-node.html"
       - title: Gestionar servidores NTP
         url: "/maintain/configuring-ntp-servers.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Restablece la conectividad de red de los nodos aislados
         url: "/maintain/restoring-network-connectivity-for-isolated-nodes.html"
     - title: Procedimientos de host y middleware
       entries:
-      - title: "${post_edited_translations.segment}"
+      - title: 'Linux: Migrar nodo de grid a un nuevo host'
         url: "/maintain/linux-migrating-grid-node-to-new-host.html"
       - title: 'VMware: Configurar una máquina virtual para que se reinicie automáticamente'
         url: "/maintain/vmware-configuring-virtual-machine-for-automatic-restart.html"
@@ -249,20 +249,21 @@ sidebar:
     entries:
     - title: Advertencias y consideraciones para la recuperación de nodos de la red
       url: "/maintain/warnings-and-considerations-for-grid-node-recovery.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Reúne los materiales necesarios para la recuperación de un nodo de la
+        red
       url: "/maintain/gathering-required-materials-for-grid-node-recovery.html"
     - title: Selecciona el procedimiento de recuperación del nodo
       url: "/maintain/selecting-node-recovery-procedure.html"
     - title: Recupérate de fallos en los nodos de almacenamiento
       entries:
-      - title: "${post_edited_translations.segment}"
+      - title: Recuperación del nodo de almacenamiento
         url: "/maintain/recovering-from-storage-node-failures.html"
       - title: Recuperar el nodo de almacenamiento del appliance
         entries:
         - title: Advertencias para recuperar los nodos de almacenamiento de appliance
           pdf-filename: Recuperar el nodo de almacenamiento del appliance
           url: "/maintain/recovering-storagegrid-appliance-storage-node.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Preparar el nodo de almacenamiento del dispositivo para su reinstalación
           url: "/maintain/preparing-appliance-storage-node-for-reinstallation.html"
         - title: Inicia la instalación del dispositivo StorageGRID
           url: "/maintain/starting-storagegrid-appliance-installation.html"
@@ -283,7 +284,7 @@ sidebar:
       - title: Recupérate de un fallo del volumen de almacenamiento cuando la unidad
           del sistema está intacta
         entries:
-        - title: "${post_edited_translations.segment}"
+        - title: Tareas de recuperación
           pdf-filename: Recupérate de un fallo del volumen de almacenamiento cuando
             la unidad del sistema está intacta
           url: "/maintain/recovering-from-storage-volume-failure-where-system-drive-is-intact.html"
@@ -292,7 +293,8 @@ sidebar:
         - title: Identifica y desmonta los volúmenes de almacenamiento que presentan
             fallos
           url: "/maintain/identifying-and-unmounting-failed-storage-volumes.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Recupera los volúmenes de almacenamiento que fallaron y reconstruye
+            la base de datos de Cassandra
           url: "/maintain/recovering-failed-storage-volumes-and-rebuilding-cassandra-database.html"
         - title: Restaura los datos de los objetos en el volumen de almacenamiento
             donde la unidad del sistema está intacta
@@ -302,7 +304,8 @@ sidebar:
           url: "/maintain/checking-storage-state-after-recovering-storage-volumes.html"
       - title: Recupera tu sistema tras un fallo de unidad
         entries:
-        - title: "${post_edited_translations.segment}"
+        - title: Advertencias sobre la recuperación de la unidad del sistema del nodo
+            de almacenamiento
           url: "/maintain/reviewing-warnings-for-system-drive-recovery.html"
         - title: Sustituir el nodo de almacenamiento
           url: "/maintain/replacing-storage-node.html"
@@ -314,7 +317,8 @@ sidebar:
         - title: Restaurar los datos de un objeto en el volumen de almacenamiento
             (fallo de unidad del sistema)
           url: "/maintain/restoring-object-data-to-storage-volume.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Comprueba el estado del almacenamiento tras recuperar la unidad del
+            sistema del Storage Node
           url: "/maintain/checking-storage-state-after-recovering-storage-node-system-drive.html"
       - title: Restaura datos de objetos usando Grid Manager
         url: "/maintain/restoring-volume.html"
@@ -322,7 +326,7 @@ sidebar:
         url: "/maintain/monitor-repairs.html"
     - title: Recupérate de fallos del nodo de administración
       entries:
-      - title: "${post_edited_translations.segment}"
+      - title: Nodo de administración principal o no principal
         pdf-filename: Recupérate de fallos del nodo de administración
         url: "/maintain/recovering-from-admin-node-failures.html"
       - title: Recupérate de fallos del nodo de administración principal
@@ -340,27 +344,30 @@ sidebar:
         - title: Determina el requisito de la corrección urgente para el nodo de administración
             principal
           url: "/maintain/assess-hotfix-requirement-during-primary-admin-node-recovery.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Restaurar el registro de auditoría en el nodo de administración principal
+            recuperado
           url: "/maintain/restoring-audit-log-on-recovered-primary-admin-node.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Restaurar la base de datos del nodo de administración al recuperar
+            el nodo de administración principal
           url: "/maintain/restoring-admin-node-database-primary-admin-node.html"
         - title: Restaurar las métricas de Prometheus al recuperar el nodo de administración
             principal
           url: "/maintain/restoring-prometheus-metrics-primary-admin-node.html"
       - title: Recupérate de fallos del nodo de administración no principal
         entries:
-        - title: "${post_edited_translations.segment}"
+        - title: Recuperar el nodo de administración no principal
           pdf-filename: Recupérate de fallos del nodo de administración no principal
           url: "/maintain/recovering-from-non-primary-admin-node-failures.html"
         - title: Copiar los registros de auditoría del nodo de administración no principal
             que falló
           url: "/maintain/copying-audit-logs-from-failed-non-primary-admin-node.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Reemplazar el nodo de administración no principal
           url: "/maintain/replacing-non-primary-admin-node.html"
         - title: Selecciona Iniciar recuperación para configurar un nodo de administración
             no principal
           url: "/maintain/selecting-start-recovery-to-configure-non-primary-admin-node.html"
-        - title: "${post_edited_translations.segment}"
+        - title: Restaurar el registro de auditoría en un nodo de administración no
+            principal recuperado
           url: "/maintain/restoring-audit-log-on-recovered-non-primary-admin-node.html"
         - title: Restaurar la base de datos del nodo de administración al recuperar
             un nodo de administración no principal
@@ -370,7 +377,7 @@ sidebar:
           url: "/maintain/restoring-prometheus-metrics-non-primary-admin-node.html"
     - title: Recupera ante fallos del nodo de puerta de enlace
       entries:
-      - title: "${post_edited_translations.segment}"
+      - title: Sustituir el nodo Gateway
         url: "/maintain/replacing-gateway-node.html"
       - title: Selecciona Iniciar recuperación para configurar el nodo de puerta de
           enlace
@@ -382,21 +389,22 @@ sidebar:
         url: "/maintain/recovering-from-archive-node-failures.html"
     - title: Reemplazar nodo Linux
       entries:
-      - title: "${post_edited_translations.segment}"
+      - title: Sustitución de nodo Linux
         pdf-filename: Sustituir nodo Linux (todos los tipos de nodos de grid)
         url: "/maintain/all-node-types-replacing-linux-node.html"
       - title: Implementar nuevos hosts Linux
         url: "/maintain/deploying-new-linux-hosts.html"
       - title: Restaurar los nodos de la grid en el host
         url: "/maintain/restoring-existing-nodes.html"
-      - title: "${post_edited_translations.segment}"
+      - title: 'Próximos pasos: realiza los pasos de recuperación adicionales, si
+          es necesario'
         url: "/maintain/whats-next-performing-additional-recovery-steps-if-required.html"
     - title: Reemplazar nodo de VMware
       url: "/maintain/all-node-types-replacing-vmware-node.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Sustituye el nodo averiado por un dispositivo de servicios
       entries:
-      - title: "${post_edited_translations.segment}"
-        pdf-filename: "${post_edited_translations.segment}"
+      - title: Directrices de sustitución
+        pdf-filename: Sustituye el nodo averiado por un dispositivo de servicios
         url: "/maintain/replacing-failed-node-with-services-appliance.html"
       - title: Instalar el dispositivo de servicios (solo cambio de plataforma)
         url: "/maintain/installing-services-appliance-platform-change-only.html"
@@ -404,7 +412,7 @@ sidebar:
         url: "/maintain/preparing-appliance-for-reinstallation-platform-replacement-only.html"
       - title: Inicia la instalación del software en el dispositivo de servicios
         url: "/maintain/starting-software-installation-on-services-appliance-recovery.html"
-      - title: "${post_edited_translations.segment}"
+      - title: Supervisa la instalación del dispositivo de servicios
         url: "/maintain/monitoring-services-appliance-installation.html"
     - title: Cómo el soporte técnico recupera un sitio
       url: "/maintain/how-site-recovery-is-performed-by-technical-support.html"

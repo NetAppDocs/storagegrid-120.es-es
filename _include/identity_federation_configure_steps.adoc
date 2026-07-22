@@ -3,12 +3,12 @@
 
 
 . Selecciona *Habilitar federación de identidades*.
-. ${post_edited_translations.segment}
+. En la sección de tipo de servicio LDAP, selecciona el tipo de servicio LDAP que quieres configurar.
 +
-image:ldap_service_type.png["${post_edited_translations.segment}"]
+image:ldap_service_type.png["Página de federación de identidades que muestra las opciones de tipo de servicio LDAP"]
 
 +
-${post_edited_translations.segment}
+Selecciona *Other* para configurar los valores de un servidor LDAP que utilice Oracle Directory Server.
 
 . Si has seleccionado *Other*, rellena los campos de la sección «Atributos LDAP». De lo contrario, pasa al siguiente paso.
 +
@@ -26,7 +26,7 @@ ${post_edited_translations.segment}
 
 NOTE: El puerto predeterminado para STARTTLS es 389, y el puerto predeterminado para LDAPS es 636. Sin embargo, puedes usar cualquier puerto siempre que tu firewall esté configurado correctamente.
 
-** ${post_edited_translations.segment}
+** *Nombre de usuario*: La ruta completa del nombre distintivo (DN) del usuario que se conectará al servidor LDAP.
 +
 Para Active Directory, también puedes especificar el Down-Level Logon Name o el User Principal Name.
 
@@ -62,7 +62,7 @@ NOTE: Los valores de *Nombre único de usuario* deben ser únicos dentro del *Us
 Se recomienda especificar el *formato de nombre de usuario de enlace* porque puede permitir que los usuarios inicien sesión si StorageGRID no puede enlazarse con la cuenta de servicio.
 
 +
-${post_edited_translations.segment}
+Introduce uno de estos patrones:
 
 +
 *** *Patrón UserPrincipalName (AD y Entra ID)*: `[USERNAME]@_example_.com`
@@ -88,10 +88,10 @@ NOTE: El uso de la opción *No usar TLS* no se admite si tu servidor de Active D
 
 . Si has seleccionado STARTTLS o LDAPS, elige el certificado que se usa para proteger la conexión.
 +
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** *Utilizar el certificado CA del sistema operativo*: Utiliza el certificado CA de Grid predeterminado instalado en el sistema operativo para proteger las conexiones.
+** *Usar certificado CA personalizado*: Usa un certificado de seguridad personalizado.
 +
-${post_edited_translations.segment}
+Si seleccionas esta opción, copia y pega el certificado de seguridad personalizado en el cuadro de texto de certificado de la CA.
 
 
 
@@ -106,7 +106,7 @@ Una vez introducidos todos los valores, debes comprobar la conexión antes de po
 
 .Pasos
 . Selecciona *Probar conexión*.
-. ${post_edited_translations.segment}
+. Si no proporcionaste un formato para el nombre de usuario de bind:
 +
 ** Si los parámetros de conexión son correctos, aparece el mensaje «Prueba de conexión realizada con éxito». Selecciona *Guardar* para guardar la configuración.
 ** Aparecerá el mensaje «No se ha podido establecer una conexión de prueba» si la configuración de la conexión no es válida. Selecciona *Cerrar*. Luego, soluciona cualquier problema y vuelve a probar la conexión.
@@ -117,7 +117,7 @@ Una vez introducidos todos los valores, debes comprobar la conexión antes de po
 Por ejemplo, introduce tu propio nombre de usuario y contraseña. No incluyas caracteres especiales en el nombre de usuario, como @ o /.
 
 +
-image:identity_federation_test_connection.png["${post_edited_translations.segment}"]
+image:identity_federation_test_connection.png["Mensaje de la federación de identidades para validar el formato del nombre de usuario de bind"]
 
 +
 ** Si los parámetros de conexión son correctos, aparece el mensaje «Prueba de conexión realizada con éxito». Selecciona *Guardar* para guardar la configuración.

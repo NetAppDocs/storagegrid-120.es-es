@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: expansion, add nodes, StorageGRID 
 summary: Los pasos para implementar nuevos nodos de red en una ampliación son los mismos que los utilizados cuando se instaló la red por primera vez. Debes implementar todos los nuevos nodos de red antes de poder llevar a cabo la ampliación. 
 ---
-= ${post_edited_translations.segment}
+= Implementar nuevos nodos de grid en StorageGRID
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -51,13 +51,13 @@ CAUTION: En una implementación de producción, no ejecutes más de un Storage N
 .Pasos
 . Si vas a añadir nuevos hosts, consulta las instrucciones de instalación para implementar nodos de StorageGRID.
 . Para implementar los nuevos hosts, sigue las instrucciones para prepararlos.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Para crear los archivos de configuración de los nodos y validar la configuración de StorageGRID, sigue las instrucciones para implementar los nodos de la red.
+. Si vas a añadir nodos a un nuevo host Linux, inicia el servicio de StorageGRID.
 . Si vas a añadir nodos a un host de Linux ya existente, inicia los nuevos nodos usando la CLI del servicio storagegrid host:``sudo storagegrid node start [<node name\>]``
 
 
 .Después de que termines
-Una vez implementados todos los nuevos nodos de la red, puedes link:performing-expansion.html["${post_edited_translations.segment}"].
+Una vez implementados todos los nuevos nodos de la red, puedes link:performing-expansion.html["realizar la expansión"].
 
 
 
@@ -67,7 +67,7 @@ Una vez implementados todos los nuevos nodos de la red, puedes link:performing-e
 Para instalar el software StorageGRID en un nodo de dispositivo, usas el StorageGRID Appliance Installer, que viene incluido en el dispositivo. En una expansión, cada dispositivo de almacenamiento funciona como un único nodo de almacenamiento, y cada dispositivo de servicios funciona como un único nodo de puerta de enlace o nodo de administración no primario. Cualquier dispositivo se puede conectar a la red de grid, a la red de administración y a la red de clientes.
 
 .Antes de empezar
-* ${post_edited_translations.segment}
+* El dispositivo se ha instalado en un rack o armario, se ha conectado a tus redes y se ha encendido.
 * Has completado los  https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/configuring-hardware.html["Configurar el hardware"^] pasos.
 +
 La configuración del hardware del dispositivo incluye los pasos necesarios para configurar las conexiones de StorageGRID (enlaces de red y direcciones IP), así como los pasos opcionales para habilitar el cifrado de nodo, cambiar el modo RAID y reasignar los puertos de red.
@@ -98,13 +98,13 @@ NOTE: Si necesitas implementar varios nodos de appliance a la vez, puedes automa
 `https://_Controller_IP_:8443`
 
 +
-${post_edited_translations.segment}
+Aparece la página de inicio del instalador de StorageGRID Appliance.
 
 . En la sección de conexión del *Nodo de administración principal*, comprueba si necesitas especificar la dirección IP del nodo de administración principal.
 +
 Si ya has instalado otros nodos en este centro de datos, el instalador de StorageGRID Appliance puede detectar esta dirección IP automáticamente, siempre que el nodo de administración principal, o al menos otro nodo de grid con ADMIN_IP configurado, esté presente en la misma subred.
 
-. ${post_edited_translations.segment}
+. Si esta dirección IP no aparece o necesitas cambiarla, indica la dirección:
 +
 [cols="1a,2a"]
 |===
@@ -112,7 +112,7 @@ Si ya has instalado otros nodos en este centro de datos, el instalador de Storag
 
 
  a| 
-${post_edited_translations.segment}
+Introducción manual de la dirección IP
  a| 
 .. Desmarca la casilla *Habilitar detección de nodos de administración*.
 .. Introduce la dirección IP manualmente.
@@ -126,14 +126,14 @@ ${post_edited_translations.segment}
 Detección automática de todos los nodos de administración principales conectados
  a| 
 .. Marca la casilla *Habilitar detección de nodos de administración*.
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Espera a que aparezca la lista de direcciones IP detectadas.
+.. Selecciona el nodo de administración principal del grid donde se va a implementar este nodo de almacenamiento del appliance.
 .. Haz clic en *Guardar*.
 .. Espera a que el estado de conexión de la nueva dirección IP esté listo.
 
 
 |===
-. ${post_edited_translations.segment}
+. En el campo *Nombre de nodo*, introduce el nombre que quieras utilizar para este nodo del appliance y selecciona *Guardar*.
 +
 El nombre de nodo se asigna a este nodo del dispositivo en el sistema StorageGRID. Aparece en la página Nodos (pestaña Resumen) en Grid Manager. Si lo necesitas, puedes cambiar el nombre cuando apruebes el nodo.
 
@@ -143,16 +143,16 @@ Si el botón *Iniciar instalación* no está habilitado, es posible que debas ca
 
 . En la página de inicio del instalador de StorageGRID Appliance, selecciona *Iniciar instalación*.
 +
-${post_edited_translations.segment}
+El estado actual cambia a «Instalación en curso» y se muestra la página «Supervisar la instalación».
 
-. ${post_edited_translations.segment}
+. Si tu ampliación incluye varios nodos de appliance, repite los pasos anteriores para cada appliance.
 +
 
 NOTE: Si necesitas implementar varios nodos de almacenamiento appliance a la vez, puedes automatizar el proceso de instalación utilizando el script de instalación appliance configure-sga.py.
 
-. ${post_edited_translations.segment}
+. Si necesitas acceder manualmente a la página *Monitor Installation*, selecciona *Monitor Installation* en la barra de menús.
 +
-${post_edited_translations.segment}
+La página de instalación del monitor muestra el progreso de la instalación.
 
 +
 La barra de estado azul indica qué tarea está actualmente en progreso. Las barras de estado verdes indican las tareas que se han completado correctamente.
@@ -161,7 +161,7 @@ La barra de estado azul indica qué tarea está actualmente en progreso. Las bar
 
 NOTE: El instalador se asegura de que las tareas completadas en una instalación anterior no se vuelvan a ejecutar. Si vuelves a ejecutar una instalación, las tareas que no necesiten volver a ejecutarse se muestran con una barra de estado verde y el estado "Skipped".
 
-. ${post_edited_translations.segment}
+. Revisa el avance de las dos primeras fases de la instalación.
 +
 *1. Configura el dispositivo*
 

@@ -11,7 +11,7 @@ summary: La API de gestión de la red organiza las operaciones de la API disponi
 
 
 [role="lead"]
-${post_edited_translations.segment}
+La API de gestión de la red organiza las operaciones disponibles en las siguientes secciones.
 
 
 NOTE: Esta lista solo incluye las operaciones disponibles en la API pública.
@@ -19,10 +19,10 @@ NOTE: Esta lista solo incluye las operaciones disponibles en la API pública.
 * *cuentas*: Operaciones para gestionar cuentas de inquilinos de almacenamiento, incluyendo la creación de nuevas cuentas y la obtención del uso de almacenamiento para una cuenta determinada.
 * *historial-alertas*: Operaciones en alertas resueltas.
 * *alert-receivers*: Operaciones sobre los receptores de notificaciones de alertas (correo electrónico).
-* ${post_edited_translations.segment}
+* *alert-rules*: Operaciones con reglas de alerta.
 * *alert-silences*: Operaciones sobre el silenciamiento de alertas.
 * *alertas*: Operaciones sobre alertas.
-* ${post_edited_translations.segment}
+* *audit*: Operaciones para mostrar y actualizar la configuración de auditoría.
 * *auth*: Operaciones para realizar la autenticación de la sesión del usuario.
 +
 La API de gestión de la red es compatible con el esquema de autenticación mediante token de portador. Para iniciar sesión, debes introducir un nombre de usuario y una contraseña en el cuerpo JSON de la solicitud de autenticación (es decir, `POST /api/v3/authorize`). Si el usuario se autentica correctamente, se devuelve un token de seguridad. Este token debe incluirse en el encabezado de las solicitudes posteriores a la API ("Authorization: Bearer _token_"). El token caduca después de 16 horas.
@@ -34,15 +34,15 @@ NOTE: Si el inicio de sesión único está habilitado para el sistema StorageGRI
 +
 Consulta «Protección contra la falsificación de solicitudes entre sitios» para obtener información sobre cómo mejorar la seguridad de autenticación.
 
-* ${post_edited_translations.segment}
+* *certificados de cliente*: Operaciones para configurar certificados de cliente para que se pueda acceder de forma segura a StorageGRID usando herramientas de supervisión externas.
 * *config*: operaciones relacionadas con la versión del producto y las versiones de la Grid Management API. Puedes enumerar la versión del producto y las versiones principales de la Grid Management API compatibles con esa versión, y puedes desactivar las versiones obsoletas de la API.
-* ${post_edited_translations.segment}
+* *funciones-desactivadas*: Operaciones para ver funciones que podrían haberse desactivado.
 * *dns-servers*: Operaciones para ver y modificar los servidores DNS externos configurados.
 * *drive-details*: Operaciones en unidades para modelos específicos de dispositivos de almacenamiento.
 * *endpoint-domain-names*: Operaciones para mostrar y cambiar los nombres de dominio de los endpoints de S3.
 * *código de borrado*: Operaciones sobre perfiles de código de borrado.
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* *expansión*: Operaciones sobre expansión (a nivel de procedimiento).
+* *nodos de expansión*: Operaciones en la expansión (a nivel de nodo).
 * *emplazamientos-de-expansión*: Operaciones de expansión (a nivel de emplazamiento).
 * *grid-networks*: Operaciones para mostrar y cambiar la lista de la Grid Network.
 * *grid-passwords*: Operaciones para la gestión de contraseñas de grid.
@@ -60,16 +60,16 @@ NOTE: Las métricas que incluyen ``_private_`` en sus nombres están destinadas 
 * *node-details*: Operaciones sobre los detalles de los nodos.
 * *node-health*: Operaciones sobre el estado de salud del nodo.
 * *node-storage-state*: Operaciones sobre el estado de almacenamiento del nodo.
-* ${post_edited_translations.segment}
+* *ntp-servers*: Operaciones para mostrar o actualizar servidores externos de Network Time Protocol (NTP).
 * *objetos*: Operaciones sobre objetos y metadatos de objetos.
-* ${post_edited_translations.segment}
+* *recuperación*: Operaciones para el procedimiento de recuperación.
 * *paquete-de-recuperación*: Operaciones para descargar el paquete de recuperación.
 * *regiones*: Operaciones para ver y crear regiones.
 * *s3-object-lock*: Operaciones sobre la configuración global de S3 Object Lock.
-* ${post_edited_translations.segment}
+* *certificado del servidor*: Operaciones para consultar y actualizar los certificados del servidor de Grid Manager.
 * *snmp*: Operaciones sobre la configuración actual de SNMP.
 * *marcas de agua de almacenamiento*: Marcas de agua de los nodos de almacenamiento.
 * *clases-de-tráfico*: Operaciones para las políticas de clasificación de tráfico.
-* ${post_edited_translations.segment}
+* *untrusted-client-network*: Operaciones en la configuración de la red de clientes no fiables.
 * *Usuarios*: Operaciones para ver y gestionar usuarios de Grid Manager.
 

@@ -16,9 +16,9 @@ La solicitud PUT Bucket last access time te permite activar o desactivar las act
 Debes tener el permiso s3:PutBucketLastAccessTime para un bucket, o ser el root de la cuenta, para completar esta operación.
 
 
-NOTE: A partir de la versión 10.3 de StorageGRID, las actualizaciones del último tiempo de acceso están desactivadas de forma predeterminada para todos los buckets nuevos. Si tienes buckets creados con una versión anterior de StorageGRID y quieres que coincidan con el nuevo comportamiento predeterminado, debes desactivar explícitamente las actualizaciones del último tiempo de acceso para cada uno de esos buckets anteriores. Puedes activar o desactivar las actualizaciones del último tiempo de acceso mediante la solicitud PUT Bucket last access time o desde la página de detalles de un bucket en el Tenant Manager. Consulta link:../tenant/enabling-or-disabling-last-access-time-updates.html["${post_edited_translations.segment}"].
+NOTE: A partir de la versión 10.3 de StorageGRID, las actualizaciones del último tiempo de acceso están desactivadas de forma predeterminada para todos los buckets nuevos. Si tienes buckets creados con una versión anterior de StorageGRID y quieres que coincidan con el nuevo comportamiento predeterminado, debes desactivar explícitamente las actualizaciones del último tiempo de acceso para cada uno de esos buckets anteriores. Puedes activar o desactivar las actualizaciones del último tiempo de acceso mediante la solicitud PUT Bucket last access time o desde la página de detalles de un bucket en el Tenant Manager. Consulta link:../tenant/enabling-or-disabling-last-access-time-updates.html["Activar o desactivar las actualizaciones del último tiempo de acceso"].
 
-${post_edited_translations.segment}
+Si las actualizaciones del tiempo de acceso más reciente están desactivadas para un bucket, se aplica el siguiente comportamiento a las operaciones en el bucket:
 
 * GetObject, GetObjectAcl, GetObjectTagging y HeadObject no actualizan el tiempo de acceso. El objeto no se añade a las colas para la evaluación del ciclo de vida de la información (ILM).
 * Las solicitudes CopyObject y PutObjectTagging que actualizan solo los metadatos también actualizan el tiempo de acceso. El objeto se añade a las colas para la evaluación de ILM.
@@ -29,9 +29,9 @@ ${post_edited_translations.segment}
 
 
 [[request-examples]]
-== ${post_edited_translations.segment}
+== Ejemplos de solicitudes
 
-${post_edited_translations.segment}
+Este ejemplo habilita el tiempo de último acceso para un bucket.
 
 [listing, subs="specialcharacters,quotes"]
 ----
@@ -40,7 +40,7 @@ Date: _date_
 Authorization: _authorization string_
 Host: _host_
 ----
-${post_edited_translations.segment}
+Este ejemplo desactiva el tiempo de acceso más reciente de un bucket.
 
 [listing, subs="specialcharacters,quotes"]
 ----

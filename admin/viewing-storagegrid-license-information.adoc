@@ -19,13 +19,13 @@ Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requi
 .Acerca de esta tarea
 Si hay algún problema con la licencia de software de este sistema StorageGRID, la tarjeta de estado de salud en el panel incluye un icono de estado de licencia y un enlace *Licencia*. El número indica la cantidad de problemas relacionados con la licencia.
 
-image:dashboard_health_panel_license_status.png["${post_edited_translations.segment}"]
+image:dashboard_health_panel_license_status.png["Tarjeta de estado de salud del panel Estado de la licencia"]
 
 .Pasos
-. ${post_edited_translations.segment}
+. Accede a la página «Licencia» haciendo una de las siguientes acciones:
 +
 ** Selecciona *Mantenimiento* > *Sistema* > *Licencia*.
-** ${post_edited_translations.segment}
+** En la tarjeta Estado de salud del panel de control, selecciona el icono de estado de la licencia o el enlace *License*.
 +
 Este enlace solo aparece si hay algún problema con la licencia.
 
@@ -33,13 +33,13 @@ Este enlace solo aparece si hay algún problema con la licencia.
 
 . Consulta los detalles de solo lectura de la licencia actual:
 +
-** ${post_edited_translations.segment}
+** ID del sistema StorageGRID, que es el número de identificación único de esta instalación de StorageGRID
 ** Número de serie de la licencia
-** ${post_edited_translations.segment}
+** Tipo de licencia, ya sea *Perpetua* o *Por suscripción*
 ** Capacidad de almacenamiento autorizada de la grid
-** ${post_edited_translations.segment}
+** Capacidad de almacenamiento compatible
 ** Fecha de vencimiento de la licencia. *N/A* aparece para una licencia perpetua.
-** ${post_edited_translations.segment}
+** Fecha de finalización del soporte
 +
 Esta fecha se lee desde el archivo de licencia actual y podría estar desactualizada si ampliaste o renovaste el contrato de servicio de soporte después de obtener el archivo de licencia. Para actualizar este valor, consulta link:updating-storagegrid-license-information.html["Actualizar la información de la licencia de StorageGRID"]. También puedes ver la fecha de finalización real del contrato usando Active IQ.
 

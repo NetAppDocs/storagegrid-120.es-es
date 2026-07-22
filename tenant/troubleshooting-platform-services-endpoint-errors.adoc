@@ -25,8 +25,8 @@ image:tenant_dashboard_endpoint_error.png["Mensaje de error del endpoint en el p
 El mismo error que aparece en el panel de control también aparece en la parte superior de la página de endpoints de servicios de la plataforma. Para ver un mensaje de error más detallado:
 
 .Pasos
-. ${post_edited_translations.segment}
-. En la página de detalles del punto final, selecciona *Conexión*. Esta pestaña muestra únicamente el error más reciente de un punto final e indica cuánto tiempo hace que se produjo el error. Los errores que incluyen el icono de la X roja image:icon_alert_red_critical.png["${post_edited_translations.segment}"] ocurrieron en los últimos 7 días.
+. En la lista de endpoints, selecciona el endpoint que presenta el error.
+. En la página de detalles del punto final, selecciona *Conexión*. Esta pestaña muestra únicamente el error más reciente de un punto final e indica cuánto tiempo hace que se produjo el error. Los errores que incluyen el icono de la X roja image:icon_alert_red_critical.png["Icono de X roja"] ocurrieron en los últimos 7 días.
 
 
 
@@ -37,11 +37,11 @@ El mismo error que aparece en el panel de control también aparece en la parte s
 Es posible que algunos errores sigan apareciendo en la columna *Último error* incluso después de haberse resuelto. Para ver si un error sigue activo o para forzar la eliminación de un error resuelto de la tabla:
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona el punto final.
 +
 Aparece la página de detalles del endpoint.
 
-. ${post_edited_translations.segment}
+. Selecciona *Conexión* > *Probar conexión*.
 
 
 Al seleccionar *Probar conexión*, StorageGRID valida que el endpoint de servicios de plataforma exista y que se pueda acceder a él con las credenciales actuales. La conexión con el endpoint se valida desde un nodo en cada sitio.
@@ -49,23 +49,23 @@ Al seleccionar *Probar conexión*, StorageGRID valida que el endpoint de servici
 
 
 [[resolve-endpoint-errors]]
-== ${post_edited_translations.segment}
+== Resolver errores de endpoint
 
 Puedes usar el mensaje *Último error* en la página de detalles del endpoint para ayudarte a determinar qué está causando el error. Algunos errores pueden requerir que edites el endpoint para resolver el problema. Por ejemplo, puede ocurrir un error de CloudMirroring si StorageGRID no puede acceder al bucket de destino de Amazon S3 porque no tiene los permisos de acceso correctos o la clave de acceso ha expirado. El mensaje es "Either the endpoint credentials or the destination access needs to be updated," y los detalles son "AccessDenied" o "InvalidAccessKeyId".
 
 Si necesitas modificar el endpoint para solucionar un error, al seleccionar *Probar y guardar cambios* StorageGRID valida el endpoint actualizado y confirma que se puede acceder a él con las credenciales actuales. La conexión con el endpoint se valida desde un nodo de cada sitio.
 
 .Pasos
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona el punto final.
+. En la página de detalles del punto final, selecciona *Configuración*.
 . Modifica la configuración del punto final según sea necesario.
-. ${post_edited_translations.segment}
+. Selecciona *Conexión* > *Probar conexión*.
 
 
 
 
 [[endpoint-credentials-with-insufficient-permissions]]
-== ${post_edited_translations.segment}
+== Credenciales de endpoint con permisos insuficientes
 
 Cuando StorageGRID valida un punto final de servicios de la plataforma, comprueba que las credenciales de dicho punto final puedan utilizarse para contactar con el recurso de destino y realiza una comprobación básica de permisos. Sin embargo, StorageGRID no valida todos los permisos necesarios para determinadas operaciones de los servicios de la plataforma. Por este motivo, si recibes un error al intentar usar un servicio de la plataforma (como "403 Forbidden"), revisa los permisos asociados a las credenciales del punto final.
 

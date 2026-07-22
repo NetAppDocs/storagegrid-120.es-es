@@ -36,7 +36,7 @@ Al configurar StorageGRID, puedes habilitar opcionalmente link:../admin/changing
 [[object-compression]]
 == Compresión de objetos
 
-Al configurar StorageGRID, no actives la link:../admin/configuring-stored-object-compression.html["${post_edited_translations.segment}"]. Los datos que se transfieren de FabricPool a StorageGRID ya están comprimidos. Usar la opción de StorageGRID no reducirá aún más el tamaño de un objeto.
+Al configurar StorageGRID, no actives la link:../admin/configuring-stored-object-compression.html["Opción global para comprimir objetos almacenados"]. Los datos que se transfieren de FabricPool a StorageGRID ya están comprimidos. Usar la opción de StorageGRID no reducirá aún más el tamaño de un objeto.
 
 
 

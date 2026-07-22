@@ -30,6 +30,6 @@ Algunos nodos de almacenamiento de los dispositivos StorageGRID, como el SG6060 
 
 
 [[add-storage-nodes]]
-== ${post_edited_translations.segment}
+== Agregar nodos de almacenamiento
 
 Puedes aumentar la capacidad de almacenamiento añadiendo Storage Nodes. Al añadir almacenamiento, debes tener muy en cuenta las reglas de ILM actualmente activas y los requisitos de capacidad. Consulta las instrucciones para link:../expand/index.html["Ampliar un sistema StorageGRID"].

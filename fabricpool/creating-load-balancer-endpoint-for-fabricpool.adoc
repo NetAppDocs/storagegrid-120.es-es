@@ -20,7 +20,7 @@ Para utilizar el asistente de configuración de FabricPool y completar esta tare
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes el link:../admin/admin-group-permissions.html["Permiso de acceso raíz"].
-* Has revisado la link:../admin/managing-load-balancing.html["${post_edited_translations.segment}"] general, así como la link:best-practices-for-load-balancing.html["buenas prácticas para el equilibrio de carga en FabricPool"].
+* Has revisado la link:../admin/managing-load-balancing.html["consideraciones para el equilibrio de carga"] general, así como la link:best-practices-for-load-balancing.html["buenas prácticas para el equilibrio de carga en FabricPool"].
 
 
 .Pasos
@@ -78,7 +78,7 @@ Global (predeterminado)
  a| 
 Los clientes pueden acceder al punto final usando la dirección IP de cualquier Gateway Node o Admin Node, la dirección IP virtual (VIP) de cualquier grupo HA en cualquier red, o el FQDN correspondiente.
 
-${post_edited_translations.segment}
+Utiliza la configuración *Global* (por defecto) a menos que necesites restringir la accesibilidad de este endpoint.
 
 
 
@@ -114,7 +114,7 @@ En función del tipo de nodo que selecciones, los clientes deben usar la direcci
  a| 
 Permitir a todos los inquilinos (por defecto)
  a| 
-${post_edited_translations.segment}
+Todas las cuentas de inquilinos pueden usar este endpoint para acceder a sus buckets.
 
 *Permitir a todos los inquilinos* suele ser casi siempre la opción adecuada para el endpoint del balanceador de carga usado para FabricPool.
 

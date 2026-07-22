@@ -23,7 +23,7 @@ VCCO
  a| 
 ID de VCS
  a| 
-${post_edited_translations.segment}
+El nombre del VCS que contiene el fragmento dañado.
 
 
 
@@ -32,14 +32,14 @@ VLID
  a| 
 ID de volumen
  a| 
-${post_edited_translations.segment}
+El volumen de RangeDB que contiene el fragmento con código de borrado dañado.
 
 
 
  a| 
-${post_edited_translations.segment}
+CCID
  a| 
-${post_edited_translations.segment}
+ID del fragmento
  a| 
 El identificador del fragmento con código de borrado dañado.
 

@@ -100,14 +100,14 @@ Si conoces mejor tu carga de trabajo, podrás realizar estimaciones más precisa
  a| 
 SACC
  a| 
-${post_edited_translations.segment}
+Nombre de la cuenta de inquilino de S3 (remitente de la solicitud)
  a| 
 El nombre de la cuenta de inquilino del usuario que envió la solicitud. Vacío para solicitudes anónimas.
 
 
 
  a| 
-${post_edited_translations.segment}
+SBAC
  a| 
 Nombre de la cuenta de tenant de S3 (propietario del bucket)
  a| 
@@ -201,14 +201,14 @@ Si conoces mejor tu carga de trabajo, podrás realizar estimaciones más precisa
  a| 
 SACC
  a| 
-${post_edited_translations.segment}
+Nombre de la cuenta de inquilino de S3 (remitente de la solicitud)
  a| 
 El nombre de la cuenta de inquilino del usuario que envió la solicitud. Vacío para solicitudes anónimas.
 
 
 
  a| 
-${post_edited_translations.segment}
+SBAC
  a| 
 Nombre de la cuenta de tenant de S3 (propietario del bucket)
  a| 

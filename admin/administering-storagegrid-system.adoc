@@ -19,5 +19,5 @@ Estas instrucciones son para el personal técnico que va a configurar, administr
 
 .Antes de empezar
 * Tienes un conocimiento general del sistema StorageGRID.
-* ${post_edited_translations.segment}
+* Tienes conocimientos bastante detallados sobre los shells de comandos de Linux, redes y la configuración e instalación del hardware de servidores.
 

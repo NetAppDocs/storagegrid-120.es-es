@@ -117,7 +117,7 @@ StorageGRID sigue la precedencia de operadores de Amazon S3 Select.
 * AVG()
 * COUNT(*)
 * MAX()
-* ${post_edited_translations.segment}
+* MIN()
 * SUM()
 
 
@@ -126,15 +126,15 @@ StorageGRID sigue la precedencia de operadores de Amazon S3 Select.
 [[conditional-functions]]
 == Funciones condicionales
 
-* ${post_edited_translations.segment}
+* CASO
 * COALESCE
-* ${post_edited_translations.segment}
+* NULLIF
 
 
 
 
 [[conversion-functions]]
-== ${post_edited_translations.segment}
+== Funciones de conversión
 
 * CONVERSIÓN (para el tipo de datos admitido)
 
@@ -145,7 +145,7 @@ StorageGRID sigue la precedencia de operadores de Amazon S3 Select.
 == Funciones de fecha
 
 * DATE_ADD
-* ${post_edited_translations.segment}
+* DATE_DIFF
 * EXTRACTO
 * TO_STRING
 * TO_TIMESTAMP
@@ -158,8 +158,8 @@ StorageGRID sigue la precedencia de operadores de Amazon S3 Select.
 == Funciones de cadenas
 
 * CHAR_LENGTH, CHARACTER_LENGTH
-* ${post_edited_translations.segment}
+* INFERIOR
 * SUBSTRING
 * TRIM
-* ${post_edited_translations.segment}
+* PARTE SUPERIOR
 

@@ -26,7 +26,7 @@ Gestiona tus grupos de inquilinos según sea necesario para ver, editar o duplic
 Puedes consultar y editar la información básica y los detalles de cada grupo.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Gestión de acceso* > *Grupos*.
 . Revisa la información que aparece en la página Grupos, donde se muestra la información básica de todos los grupos locales y federados de esta cuenta de tenant.
 +
 Si la cuenta del inquilino tiene el permiso *Utilizar conexión de federación de cuadrículas* y estás visualizando grupos en la cuadrícula de origen del inquilino:
@@ -40,29 +40,29 @@ Si la cuenta del inquilino tiene el permiso *Utilizar conexión de federación d
 +
 .. Selecciona la casilla para el grupo.
 .. Selecciona *Acciones* > *Editar nombre del grupo*.
-.. ${post_edited_translations.segment}
+.. Introduce el nuevo nombre.
 .. Selecciona *Guardar cambios.*
 
 
 . Si quieres ver más detalles o hacer modificaciones adicionales, haz una de las siguientes cosas:
 +
-** ${post_edited_translations.segment}
+** Selecciona el nombre del grupo.
 ** Marca la casilla de selección del grupo y selecciona *Acciones* > *Ver detalles del grupo*.
 
 
-. ${post_edited_translations.segment}
+. Consulta la sección «Resumen», que muestra la siguiente información para cada grupo:
 +
 ** Nombre para mostrar
-** ${post_edited_translations.segment}
+** Nombre único
 ** Tipo
 ** Modo de acceso
 ** Permisos
 ** Política de S3
-** ${post_edited_translations.segment}
+** Número de usuarios en este grupo
 ** Campos adicionales si la cuenta del inquilino tiene el permiso *Usar conexión de federación de cuadrículas* y estás viendo el grupo en la cuadrícula de origen del inquilino:
 +
-*** ${post_edited_translations.segment}
-*** ${post_edited_translations.segment}
+*** Estado de la clonación, ya sea *Éxito* o *Fracaso*
+*** Aparece un banner azul que indica que, si editas o eliminas este grupo, tus cambios no se sincronizarán con la otra grid.
 
 
 
@@ -73,7 +73,7 @@ Si la cuenta del inquilino tiene el permiso *Utilizar conexión de federación d
 .. En la pestaña *Permisos de grupo*, actualiza los permisos y selecciona *Guardar cambios*.
 .. En la pestaña *política de grupo*, haz cualquier cambio y selecciona *Guardar cambios*.
 +
-${post_edited_translations.segment}
+Si lo deseas, selecciona una política de grupo de S3 diferente o introduce la cadena JSON para una política personalizada, según sea necesario.
 
 
 
@@ -90,17 +90,17 @@ Aparece un mensaje de éxito en la esquina superior derecha.
 
 
 
-. ${post_edited_translations.segment}
+. Para eliminar usuarios locales del grupo:
 +
 .. Selecciona la pestaña Usuarios.
-.. ${post_edited_translations.segment}
+.. Selecciona *Eliminar usuarios*.
 .. Selecciona los usuarios que quieras eliminar y selecciona *Eliminar usuarios*.
 +
 Aparece un mensaje de éxito en la esquina superior derecha.
 
 
 
-. ${post_edited_translations.segment}
+. Confirma que seleccionaste *Guardar cambios* en cada sección que cambiaste.
 
 
 
@@ -111,10 +111,10 @@ Aparece un mensaje de éxito en la esquina superior derecha.
 Puedes duplicar un grupo ya existente para crear nuevos grupos más rápido.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federación de redes* y duplicas un grupo de la red de origen del inquilino, el grupo duplicado se clonará en la red de destino del inquilino.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Gestión de acceso* > *Grupos*.
 . Marca la casilla de verificación del grupo que quieras duplicar.
 . Selecciona *Acciones* > *Duplicar grupo*.
 . Consulta link:creating-groups-for-s3-tenant.html["Crear grupos para un inquilino de S3"] para obtener más información sobre qué datos debes introducir.
@@ -124,13 +124,13 @@ NOTE: ${post_edited_translations.segment}
 
 
 [[clone-groupsretry-group-clone]]
-== ${post_edited_translations.segment}
+== [[clone-groups]]Reintentar la clonación del grupo
 
-${post_edited_translations.segment}
+Para volver a intentar un clon que falló:
 
 . Selecciona cada grupo en el que aparezca _(Cloning failed)_ debajo del nombre del grupo.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Acciones* > *Clonar grupos*.
+. Consulta el estado de la operación de clonación en la página de detalles de cada grupo que estés clonando.
 
 
 Para obtener más información, consulta link:grid-federation-account-clone.html["Clonar grupos de inquilinos y usuarios"].
@@ -146,13 +146,13 @@ Puedes eliminar uno o más grupos. Los usuarios que pertenezcan únicamente a un
 NOTE: Si tu cuenta de inquilino tiene el permiso *Use grid federation connection* y eliminas un grupo, StorageGRID no eliminará el grupo correspondiente en el otro grid. Si necesitas mantener esta información sincronizada, debes eliminar el mismo grupo de ambos grids.
 
 .Pasos
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Gestión de acceso* > *Grupos*.
+. Marca la casilla de cada grupo que quieras eliminar.
 . Selecciona *Acciones* > *Eliminar grupo* o *Acciones* > *Eliminar grupos*.
 +
 Aparece un cuadro de diálogo de confirmación.
 
-. ${post_edited_translations.segment}
+. Selecciona *Eliminar grupo* o *Eliminar grupos*.
 
 
 
@@ -169,9 +169,9 @@ Para configurar AssumeRole, crea el grupo de destino que se va a asumir, si el g
 Las credenciales de seguridad temporales creadas al asumir este grupo son válidas durante un periodo de tiempo limitado. La sesión dura entre 15 minutos y 12 horas, y la sesión predeterminada es de 1 hora. Cuando eliminas al usuario de la política de confianza de S3 del grupo, el usuario ya no puede asumir este grupo.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Gestión de acceso* > *Grupos*.
 . Haz clic en el nombre del grupo.
-. ${post_edited_translations.segment}
+. Selecciona la pestaña *S3 trust policy*.
 . Agrega tu política de confianza de S3, incluyendo una lista de usuarios que pueden realizar AssumeRole.
 . Selecciona *Guardar cambios*.
 . Selecciona la pestaña *política de grupo de S3*.
@@ -201,4 +201,4 @@ Las credenciales de seguridad temporales creadas al asumir este grupo son válid
     ]
 }
 ----
-Una vez completada la configuración, los usuarios incluidos en la política de confianza de S3 pueden realizar AssumeRole y recibir credenciales. Los permisos finales se determinan mediante la política de grupo, la política de bucket y la política de sesión. Para obtener más información, consulta link:../s3/use-access-policies.html["${post_edited_translations.segment}"].
+Una vez completada la configuración, los usuarios incluidos en la política de confianza de S3 pueden realizar AssumeRole y recibir credenciales. Los permisos finales se determinan mediante la política de grupo, la política de bucket y la política de sesión. Para obtener más información, consulta link:../s3/use-access-policies.html["Usa políticas de acceso"].

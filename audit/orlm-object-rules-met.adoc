@@ -2,7 +2,7 @@
 permalink: audit/orlm-object-rules-met.html 
 sidebar: sidebar 
 keywords: audit message, ORLM, Object Rules Met, ilm rule 
-summary: ${post_edited_translations.segment} 
+summary: Este mensaje se genera cuando el objeto se almacena y se copia correctamente según lo especifican las reglas de ILM. 
 ---
 = Mensaje de auditoría ORLM para reglas ILM cumplidas en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Este mensaje se genera cuando el objeto se almacena y se copia correctamente según lo especifican las reglas de ILM.
 
 
 NOTE: El mensaje ORLM no se genera cuando un objeto se almacena correctamente mediante la regla predeterminada «Make 2 Copies» si otra regla de la política utiliza el filtro avanzado «Object Size».
@@ -24,7 +24,7 @@ NOTE: El mensaje ORLM no se genera cuando un objeto se almacena correctamente me
  a| 
 BUID
  a| 
-${post_edited_translations.segment}
+Encabezado de bucket
  a| 
 Campo «Bucket ID». Se usa para operaciones internas. Solo aparece si STAT es PRGD.
 
@@ -35,12 +35,12 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El CBID del objeto.
 
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del contenido
  a| 
@@ -55,9 +55,9 @@ Ubicaciones
  a| 
 La ubicación de almacenamiento de los datos del objeto dentro del sistema StorageGRID. El valor de LOCS es "" si el objeto no tiene ubicaciones (por ejemplo, si se ha eliminado).
 
-${post_edited_translations.segment}
+CLEC: en el caso de los objetos con código de borrado, el identificador del perfil de código de borrado y el identificador del grupo de código de borrado que se aplican a los datos del objeto.
 
-${post_edited_translations.segment}
+CLDI: para los objetos replicados, el ID del nodo LDR y el ID del volumen de la ubicación del objeto.
 
 CLNL: ID del nodo ARC de la ubicación del objeto si los datos del objeto están archivados.
 
@@ -68,7 +68,7 @@ RUTA
  a| 
 Depósito/clave de S3
  a| 
-${post_edited_translations.segment}
+El nombre del bucket de S3 y el nombre de la clave de S3.
 
 
 
@@ -77,16 +77,16 @@ RSLT
  a| 
 Resultado
  a| 
-${post_edited_translations.segment}
+El resultado de la operación ILM.
 
-${post_edited_translations.segment}
+SUCS: La operación de ILM se realizó correctamente.
 
 
 
  a| 
 NORMA
  a| 
-${post_edited_translations.segment}
+Etiqueta de reglas
  a| 
 La etiqueta legible por el usuario asignada a la regla ILM aplicada a este objeto.
 
@@ -104,7 +104,7 @@ UUID del contenedor para el objeto segmentado. Este valor solo está disponible 
  a| 
 SGCB
  a| 
-${post_edited_translations.segment}
+CBID del contenedor
  a| 
 CBID del contenedor para el objeto segmentado. Este valor solo está disponible para objetos segmentados y multiparte.
 
@@ -137,7 +137,7 @@ El identificador del objeto dentro del sistema StorageGRID.
 
 
  a| 
-${post_edited_translations.segment}
+VSID
  a| 
 ID de versión
  a| 
@@ -154,5 +154,5 @@ El mensaje de auditoría ORLM se puede emitir más de una vez para un solo objet
 
 .Información relacionada
 * link:object-ingest-transactions.html["Transacciones de incorporación de objetos"]
-* link:object-delete-transactions.html["${post_edited_translations.segment}"]
+* link:object-delete-transactions.html["Transacciones de eliminación de objetos"]
 

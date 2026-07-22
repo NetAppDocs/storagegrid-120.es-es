@@ -16,7 +16,7 @@ Las reglas de gestión del ciclo de vida de la información (ILM) en una políti
 
 
 [[about-these-instructions]]
-== ${post_edited_translations.segment}
+== Acerca de estas instrucciones
 
 El diseño y la implementación de reglas y políticas de ILM requieren una planificación minuciosa. Debes conocer tus requisitos operativos, la topología de tu sistema StorageGRID, tus necesidades de protección de objetos y los tipos de almacenamiento disponibles. Luego, debes determinar cómo quieres que se copien, distribuyan y almacenen los diferentes tipos de objetos.
 

@@ -31,7 +31,7 @@ TIP: Se han eliminado los detalles sobre Swift de esta versión del sitio de doc
 Debes obtener:
 
 * Direcciones IP
-* ${post_edited_translations.segment}
+* Nombres de dominio
 * Certificado SSL
 
 
@@ -40,7 +40,7 @@ Debes obtener:
 --
 Opcionalmente, configura:
 
-* ${post_edited_translations.segment}
+* Federación de identidades
 * SSO
 
 
@@ -53,13 +53,13 @@ Opcionalmente, configura:
 ====
 .Usa el asistente de configuración de S3
 --
-${post_edited_translations.segment}
+Sigue los pasos del asistente de configuración de S3.
 
 --
 .Configurar manualmente
 --
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Crear grupo de alta disponibilidad
+. Crear un punto de conexión del equilibrador de carga
 . Crear cuenta de inquilino
 . Crear bucket y claves de acceso
 . Configura la regla y la política de ILM
@@ -69,7 +69,7 @@ ${post_edited_translations.segment}
 ====
 . Usa la aplicación S3 para completar la conexión con StorageGRID. Crea entradas de DNS para asociar direcciones IP a cualquier nombre de dominio que tengas pensado usar.
 +
-${post_edited_translations.segment}
+Si es necesario, realiza la configuración adicional de la aplicación.
 
 . Realiza tareas periódicas en la aplicación y en StorageGRID para gestionar y supervisar el almacenamiento de objetos a lo largo del tiempo.
 
@@ -77,7 +77,7 @@ ${post_edited_translations.segment}
 
 
 [[information-needed-to-attach-storagegrid-to-a-client-application]]
-== ${post_edited_translations.segment}
+== Información necesaria para conectar StorageGRID a una aplicación cliente
 
 Antes de poder conectar StorageGRID a una aplicación cliente de S3, debes realizar pasos de configuración en StorageGRID y obtener ciertos valores.
 
@@ -86,11 +86,11 @@ Antes de poder conectar StorageGRID a una aplicación cliente de S3, debes reali
 [[what-values-do-i-need]]
 === ¿Qué valores necesito?
 
-${post_edited_translations.segment}
+La siguiente tabla muestra los valores que debes configurar en StorageGRID y dónde se utilizan esos valores en la aplicación S3 y en el servidor DNS.
 
 [cols="1a,1a,1a"]
 |===
-| Valor | ${post_edited_translations.segment} | Dónde se utiliza el valor 
+| Valor | Dónde se configura el valor | Dónde se utiliza el valor 
 
 
  a| 
@@ -98,7 +98,7 @@ Direcciones IP virtuales (VIP)
  a| 
 StorageGRID > Grupo de alta disponibilidad
  a| 
-${post_edited_translations.segment}
+Entrada DNS
 
 
 
@@ -126,7 +126,7 @@ Nombre del servidor (FQDN)
 StorageGRID > Punto de conexión del equilibrador de carga
  a| 
 * Aplicación de cliente
-* ${post_edited_translations.segment}
+* Entrada DNS
 
 
 
@@ -141,7 +141,7 @@ Aplicación de cliente
 
 
  a| 
-${post_edited_translations.segment}
+Nombre del bucket/contenedor
  a| 
 StorageGRID > Usuario y bucket
  a| 
@@ -151,14 +151,14 @@ Aplicación de cliente
 
 
 [[how-do-i-get-these-values]]
-=== ${post_edited_translations.segment}
+=== ¿Cómo obtengo estos valores?
 
-${post_edited_translations.segment}
+En función de tus necesidades, puedes hacer cualquiera de las siguientes cosas para obtener la información que necesitas:
 
-* *Usa el link:use-s3-setup-wizard.html["${post_edited_translations.segment}"]*. El asistente de configuración de S3 te ayuda a configurar rápidamente los valores necesarios en StorageGRID y genera uno o dos archivos que puedes usar al configurar la aplicación S3. El asistente te guía a través de los pasos necesarios y te ayuda a asegurarte de que tu configuración cumpla con las mejores prácticas de StorageGRID.
+* *Usa el link:use-s3-setup-wizard.html["Asistente de configuración de S3"]*. El asistente de configuración de S3 te ayuda a configurar rápidamente los valores necesarios en StorageGRID y genera uno o dos archivos que puedes usar al configurar la aplicación S3. El asistente te guía a través de los pasos necesarios y te ayuda a asegurarte de que tu configuración cumpla con las mejores prácticas de StorageGRID.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si estás configurando una aplicación S3, se recomienda utilizar el asistente de configuración de S3, a menos que sepas que tienes requisitos especiales o que tu implementación vaya a requerir una personalización significativa.
 
 * *Usa el link:../fabricpool/use-fabricpool-setup-wizard.html["Asistente de configuración de FabricPool"]*. De forma similar al asistente de configuración de S3, el asistente de configuración de FabricPool te ayuda a configurar rápidamente los valores necesarios y genera un archivo que puedes usar cuando configures un nivel de cloud de FabricPool en ONTAP.
 +

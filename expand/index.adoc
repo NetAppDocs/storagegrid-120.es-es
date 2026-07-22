@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: expand grid, StorageGRID 
 summary: Puedes ampliar la capacidad o las capacidades de tu sistema StorageGRID sin interrumpir las operaciones del sistema. 
 ---
-= ${post_edited_translations.segment}
+= Descubre cómo ampliar tu sistema StorageGRID
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -17,14 +17,14 @@ Antes de ampliar un nodo de la red, debes confirmar que no haya ningún trabajo 
 
 Una ampliación de StorageGRID te permite añadir:
 
-* ${post_edited_translations.segment}
+* Volúmenes de almacenamiento a nodos de almacenamiento
 * Nuevos nodos de grid en un sitio existente
 * Un sitio completamente nuevo
 
 
 El motivo por el que realizas la expansión determina cuántos nodos nuevos de cada tipo debes añadir y la ubicación de esos nuevos nodos. Por ejemplo, existen diferentes requisitos de nodos si realizas una expansión para aumentar la capacidad de almacenamiento, añadir capacidad de metadatos o añadir redundancia o nuevas funciones.
 
-${post_edited_translations.segment}
+Sigue los pasos correspondientes al tipo de expansión que vas a realizar:
 
 [role="tabbed-block"]
 ====
@@ -32,9 +32,9 @@ ${post_edited_translations.segment}
 --
 . Sigue los pasos para link:adding-grid-nodes-to-existing-site-or-adding-new-site.html["Agregar nodos de grid a un sitio existente"].
 . link:updating-subnets-for-grid-network.html["Actualizar las subredes"].
-. ${post_edited_translations.segment}
+. Implementar nodos de la red:
 +
-** link:deploying-new-grid-nodes.html#appliances-deploying-storage-gateway-or-non-primary-admin-nodes["${post_edited_translations.segment}"]
+** link:deploying-new-grid-nodes.html#appliances-deploying-storage-gateway-or-non-primary-admin-nodes["Dispositivos"]
 ** link:deploying-new-grid-nodes.html#vmware-deploy-grid-nodes["VMware"]
 ** link:deploying-new-grid-nodes.html#linux-deploy-grid-nodes["Linux"]
 
@@ -44,8 +44,8 @@ ${post_edited_translations.segment}
 
 NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
 
-. link:performing-expansion.html["${post_edited_translations.segment}"].
-. link:configuring-expanded-storagegrid-system.html["${post_edited_translations.segment}"].
+. link:performing-expansion.html["Realiza la expansión"].
+. link:configuring-expanded-storagegrid-system.html["Configura el sistema ampliado"].
 
 
 --
@@ -54,13 +54,13 @@ NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Par
 Sigue los pasos para link:adding-storage-volumes-to-storage-nodes.html["Agregar volúmenes de almacenamiento a los nodos de almacenamiento"].
 
 --
-.${post_edited_translations.segment}
+.Agregar nuevo sitio
 --
 . Sigue los pasos para link:adding-grid-nodes-to-existing-site-or-adding-new-site.html["Añadir un nuevo sitio"].
 . link:updating-subnets-for-grid-network.html["Actualizar las subredes"].
-. ${post_edited_translations.segment}
+. Implementar nodos de la red:
 +
-** link:deploying-new-grid-nodes.html#appliances-deploying-storage-gateway-or-non-primary-admin-nodes["${post_edited_translations.segment}"]
+** link:deploying-new-grid-nodes.html#appliances-deploying-storage-gateway-or-non-primary-admin-nodes["Dispositivos"]
 ** link:deploying-new-grid-nodes.html#vmware-deploy-grid-nodes["VMware"]
 ** link:deploying-new-grid-nodes.html#linux-deploy-grid-nodes["Linux"]
 
@@ -70,8 +70,8 @@ Sigue los pasos para link:adding-storage-volumes-to-storage-nodes.html["Agregar 
 
 NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
 
-. link:performing-expansion.html["${post_edited_translations.segment}"].
-. link:configuring-expanded-storagegrid-system.html["${post_edited_translations.segment}"].
+. link:performing-expansion.html["Realiza la expansión"].
+. link:configuring-expanded-storagegrid-system.html["Configura el sistema ampliado"].
 
 
 --

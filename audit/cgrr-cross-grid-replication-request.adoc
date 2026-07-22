@@ -2,7 +2,7 @@
 permalink: audit/cgrr-cross-grid-replication-request.html 
 sidebar: sidebar 
 keywords: cgrr, cross-grid replication request, audit message, 
-summary: ${post_edited_translations.segment} 
+summary: Este mensaje se genera cuando StorageGRID intenta realizar una operación de replicación entre grids para replicar objetos entre buckets en una conexión de federación de grids. 
 ---
 = Mensaje de auditoría CGRR para solicitudes de replicación entre grids en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Este mensaje se genera cuando StorageGRID intenta realizar una operación de replicación entre grids para replicar objetos entre buckets en una conexión de federación de grids.
 
 [cols="1a,1a,4a"]
 |===
@@ -19,7 +19,7 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del objeto
  a| 
@@ -43,7 +43,7 @@ GFID
  a| 
 ID de conexión de la federación de grid
  a| 
-${post_edited_translations.segment}
+El identificador de la conexión de la federación de grid que se utiliza para la replicación entre grids.
 
 
 
@@ -52,11 +52,11 @@ OPER
  a| 
 Operación de CGR
  a| 
-${post_edited_translations.segment}
+El tipo de operación de replicación entre grids que se intentó realizar:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* 0 = Replicar objeto
+* 1 = Replicar objeto multiparte
+* 2 = Replicar marcador de eliminación
 
 
 
@@ -75,12 +75,12 @@ S3KY
  a| 
 Clave de S3
  a| 
-${post_edited_translations.segment}
+El nombre de la clave S3, sin incluir el nombre del bucket.
 
 
 
  a| 
-${post_edited_translations.segment}
+VSID
  a| 
 ID de versión
  a| 

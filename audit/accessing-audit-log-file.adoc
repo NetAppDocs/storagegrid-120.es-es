@@ -13,12 +13,12 @@ summary: La carpeta «audit» contiene el archivo «audit.log» activo y cualqui
 [role="lead"]
 El recurso compartido de auditoría contiene el archivo `audit.log` activo y cualquier archivo de registro de auditoría comprimido. Puedes acceder a los archivos de registro de auditoría directamente desde la línea de comandos del Admin Node.
 
-El archivo  `audit.log` permanece vacío a menos que configures StorageGRID para *Admin Nodes/local nodes* o *Admin Node and external syslog server*. Para más información, consulta link:../monitor/configure-log-management.html#select-log-location["${post_edited_translations.segment}"].
+El archivo  `audit.log` permanece vacío a menos que configures StorageGRID para *Admin Nodes/local nodes* o *Admin Node and external syslog server*. Para más información, consulta link:../monitor/configure-log-management.html#select-log-location["Selecciona la ubicación del registro"].
 
 .Antes de empezar
 * Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
 * Debes tener el archivo  `Passwords.txt`.
-* ${post_edited_translations.segment}
+* Debes conocer la dirección IP de un nodo de administración.
 
 
 .Pasos
@@ -33,9 +33,9 @@ Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
 
 
 
-. ${post_edited_translations.segment}
+. Ve al directorio que contiene los archivos de auditoría:
 +
 `cd  /var/local/audit/export/`
 
-. ${post_edited_translations.segment}
+. Consulta el archivo de auditoría actual o uno guardado, según sea necesario.
 

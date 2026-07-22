@@ -19,7 +19,7 @@ Puedes utilizar el Grid Manager para supervisar la capacidad de metadatos de los
 
 Ten en cuenta que la capacidad de metadatos de objetos de una grid puede agotarse más rápido que su capacidad de almacenamiento de objetos, dependiendo de cómo utilices la grid. Por ejemplo, si normalmente incorporas grandes cantidades de objetos pequeños o añades grandes cantidades de metadatos de usuario o etiquetas a los objetos, puede que necesites añadir Storage Nodes para aumentar la capacidad de metadatos, aunque aún quede suficiente capacidad de almacenamiento de objetos.
 
-${post_edited_translations.segment}
+Para obtener más información, consulta lo siguiente:
 
 * link:../admin/managing-object-metadata-storage.html["Gestiona el almacenamiento de metadatos de objetos"]
 * link:../monitor/monitoring-storage-capacity.html#monitor-object-metadata-capacity-for-each-storage-node["Supervisa la capacidad de metadatos de objetos para cada Storage Node"]
@@ -43,7 +43,7 @@ Antes de añadir nodos de almacenamiento para aumentar la capacidad de metadatos
 
 Los nodos de almacenamiento exclusivos para metadatos tienen requisitos de hardware específicos:
 
-* ${post_edited_translations.segment}
+* Al utilizar dispositivos StorageGRID, los nodos dedicados exclusivamente a metadatos solo se pueden configurar en dispositivos SGF6112 con doce unidades de 1,9 TB o doce de 3,8 TB.
 * Cuando se utilizan nodos basados en software, los recursos de nodos solo metadatos deben coincidir con los recursos de Storage Nodes existentes. Por ejemplo:
 +
 ** Si el sitio de StorageGRID existente utiliza dispositivos SG6000 o SG6100, los nodos basados en software y dedicados exclusivamente a los metadatos deben cumplir los siguientes requisitos mínimos:
@@ -64,7 +64,7 @@ Consulta el link:../admin/managing-object-metadata-storage.html["Descripción de
 
 
 [[how-metadata-is-redistributed-when-you-add-storage-nodes]]
-== ${post_edited_translations.segment}
+== Cómo se redistribuyen los metadatos al añadir nodos de almacenamiento
 
 Al añadir nodos de almacenamiento en una ampliación, StorageGRID redistribuye los metadatos de los objetos existentes a los nuevos nodos de cada sitio, lo que aumenta la capacidad total de metadatos del grid. No se requiere ninguna acción por parte del usuario.
 

@@ -30,9 +30,9 @@ Para detectar y resolver problemas, puedes ejecutar manualmente las comprobacion
 
 
 [[provisioning-failures]]
-=== ${post_edited_translations.segment}
+=== Errores de aprovisionamiento
 
-${post_edited_translations.segment}
+Si falla el proceso de aprovisionamiento automático, ponte en contacto con el soporte técnico.
 
 
 
@@ -44,7 +44,7 @@ Si un nodo de la red se bloquea durante el proceso de actualización o no se ini
 
 
 [[ingest-or-data-retrieval-is-interrupted]]
-=== ${post_edited_translations.segment}
+=== Se interrumpe la ingesta o la recuperación de datos
 
 Si la importación o la recuperación de datos se interrumpe de forma inesperada cuando no estés actualizando un nodo de la grid, ponte en contacto con soporte técnico.
 
@@ -129,7 +129,7 @@ Vuelve a cargar el paquete de actualización e inténtalo de nuevo. Si el proble
  a| 
 No se puede determinar la versión instalada actualmente en `{node_name}`.
  a| 
-${post_edited_translations.segment}
+Un archivo esencial del nodo está dañado.
  a| 
 Ponte en contacto con el soporte técnico.
 
@@ -153,7 +153,7 @@ Los paquetes RPM o DEB para la actualización no se han instalado en el host don
  a| 
 Comprueba que los paquetes RPM o DEB se hayan instalado en todos los hosts Linux en los que se están ejecutando los nodos. Asegúrate de que la versión sea la correcta tanto para el servicio como para el archivo de imágenes. Espera unos minutos e inténtalo de nuevo.
 
-Consulta link:../upgrade/linux-installing-rpm-or-deb-package-on-all-hosts.html["${post_edited_translations.segment}"].
+Consulta link:../upgrade/linux-installing-rpm-or-deb-package-on-all-hosts.html["Linux: Instala un paquete RPM o DEB en todos los hosts"].
 
 
 

@@ -28,7 +28,7 @@ El identificador único del sistema para la conexión TCP/IP en la que falló la
 
 
  a| 
-${post_edited_translations.segment}
+RUID
  a| 
 Identidad del usuario
  a| 
@@ -41,7 +41,7 @@ RSLT
  a| 
 Código de motivo
  a| 
-${post_edited_translations.segment}
+La causa del fallo:
 
 SCNI: No se ha podido establecer una conexión segura.
 
@@ -55,9 +55,9 @@ CERR: Se revocó el certificado.
 
 CSGN: la firma del certificado no era válida.
 
-${post_edited_translations.segment}
+CSGU: el firmante del certificado era desconocido.
 
-${post_edited_translations.segment}
+UCRM: Faltaban las credenciales de usuario.
 
 UCRI: las credenciales de usuario no eran válidas.
 

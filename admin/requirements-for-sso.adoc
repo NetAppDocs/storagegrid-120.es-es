@@ -55,34 +55,34 @@ Entra ID
 
 Puedes utilizar cualquiera de las siguientes versiones de AD FS:
 
-* ${post_edited_translations.segment}
+* Windows Server 2022 AD FS
 * Windows Server 2019 AD FS
 * Windows Server 2016 AD FS
 
 
 
-NOTE: Windows Server 2016 debería estar usando el https://support.microsoft.com/en-us/help/3201845/cumulative-update-for-windows-10-version-1607-and-windows-server-2016["${post_edited_translations.segment}"^], o una versión superior.
+NOTE: Windows Server 2016 debería estar usando el https://support.microsoft.com/en-us/help/3201845/cumulative-update-for-windows-10-version-1607-and-windows-server-2016["Actualización KB3201845"^], o una versión superior.
 
 
 
 [[additional-requirements]]
 === Requisitos adicionales
 
-* ${post_edited_translations.segment}
+* Transport Layer Security (TLS) 1.2 o 1.3
 * Microsoft .NET Framework, versión 3.5.1 o superior
 
 
 
 
 [[considerations-for-entra-id]]
-=== ${post_edited_translations.segment}
+=== Aspectos a tener en cuenta sobre Entra ID
 
 Si utilizas Entra ID como tipo de SSO y los usuarios tienen nombres principales de usuario que no usan sAMAccountName como prefijo, pueden ocurrir problemas de inicio de sesión si StorageGRID pierde la conexión con el servidor LDAP. Para permitir que los usuarios inicien sesión, debes restablecer la conexión con el servidor LDAP.
 
 
 
 [[server-certificate-requirements]]
-== ${post_edited_translations.segment}
+== Requisitos del certificado del servidor
 
 De forma predeterminada, StorageGRID utiliza un certificado de interfaz de gestión en cada nodo de administración para proteger el acceso a Grid Manager, Tenant Manager, la Grid Management API y la Tenant Management API. Cuando configuras relaciones de confianza con partes de confianza (AD FS), aplicaciones empresariales (Entra ID) o conexiones de proveedor de servicios (PingFederate) para StorageGRID, utilizas el certificado de servidor como certificado de firma para las solicitudes de StorageGRID.
 

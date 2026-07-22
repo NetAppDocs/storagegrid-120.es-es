@@ -11,7 +11,7 @@ summary: 'Un servidor de gestión de claves (KMS) es un sistema externo de terce
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Un servidor de gestión de claves (KMS) es un sistema externo de terceros que proporciona claves de cifrado a los nodos de los dispositivos StorageGRID en el sitio de StorageGRID asociado mediante el Protocolo de Interoperabilidad de Gestión de Claves (KMIP).
 
 StorageGRID solo admite determinados servidores de gestión de claves. Para obtener una lista de los productos y versiones compatibles, usa la https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
 

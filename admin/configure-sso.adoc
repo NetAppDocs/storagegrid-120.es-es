@@ -17,7 +17,7 @@ Puedes seguir el asistente Configurar SSO y entrar en el modo sandbox para confi
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"].
 * Has configurado la federación de identidades para tu sistema StorageGRID.
-* ${post_edited_translations.segment}
+* Para la federación de identidades *tipo de servicio LDAP*, seleccionaste Active Directory o Entra ID, según el proveedor de identidades SSO que planeas usar.
 +
 [cols="1a,1a"]
 |===

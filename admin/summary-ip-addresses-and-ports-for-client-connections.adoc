@@ -38,18 +38,18 @@ Nodo de administración
  a| 
 Equilibrador de carga
  a| 
-${post_edited_translations.segment}
+Dirección IP del nodo de administración
  a| 
 Puerto asignado al punto final del equilibrador de carga
 
 
 
  a| 
-${post_edited_translations.segment}
+Nodo de puerta de enlace
  a| 
 Equilibrador de carga
  a| 
-${post_edited_translations.segment}
+Dirección IP del nodo de Gateway
  a| 
 Puerto asignado al punto final del equilibrador de carga
 
@@ -65,14 +65,14 @@ Dirección IP del nodo de almacenamiento
 Puertos predeterminados de S3:
 
 * HTTPS: 18082
-* ${post_edited_translations.segment}
+* HTTP: 18084
 
 
 |===
 
 
 [[example-urls]]
-== ${post_edited_translations.segment}
+== Ejemplos de URL
 
 Para conectar una aplicación cliente al punto final del equilibrador de carga de un grupo de alta disponibilidad (HA) de Gateway Nodes, utiliza una URL con la estructura que se muestra a continuación:
 
@@ -94,17 +94,17 @@ Por ejemplo, si la dirección IP virtual del grupo de alta disponibilidad es 192
 .. Selecciona el nodo de administración, el nodo de puerta de enlace o el nodo de almacenamiento al que quieras conectarte.
 .. Selecciona la pestaña *Vista general*.
 .. En la sección Información del nodo, anota las direcciones IP del nodo.
-.. ${post_edited_translations.segment}
+.. Selecciona *Mostrar más* para ver las direcciones IPv6 y las asignaciones de interfaces.
 +
 Puedes establecer conexiones desde aplicaciones cliente a cualquiera de las direcciones IP de la lista:
 
 +
-*** ${post_edited_translations.segment}
+*** *eth0:* Red de grid
 *** *eth1:* Red de administración (opcional)
-*** ${post_edited_translations.segment}
+*** *eth2:* Red de cliente (opcional)
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si estás viendo un nodo de administración o un nodo de puerta de enlace y este es el nodo activo de un grupo de alta disponibilidad, la dirección IP virtual del grupo de alta disponibilidad aparece en eth2.
 
 
 
@@ -112,19 +112,19 @@ NOTE: ${post_edited_translations.segment}
 
 . Para averiguar la dirección IP virtual de un grupo de alta disponibilidad:
 +
-.. ${post_edited_translations.segment}
+.. Selecciona *Configuración* > *Red* > *Grupos de alta disponibilidad*.
 .. En la tabla, toma nota de la dirección IP virtual del grupo de HA.
 
 
-. ${post_edited_translations.segment}
+. Para averiguar el número de puerto de un punto final del equilibrador de carga:
 +
 .. Selecciona *Configuración* > *Red* > *Puntos finales del equilibrador de carga*.
-.. ${post_edited_translations.segment}
+.. Anota el número de puerto del punto final que quieras utilizar.
 +
 
 NOTE: Si el número de puerto es 80 o 443, el endpoint solo se configura en los Gateway Nodes, ya que esos puertos están reservados en los Admin Nodes. Todos los demás puertos se configuran tanto en los Gateway Nodes como en los Admin Nodes.
 
-.. ${post_edited_translations.segment}
+.. Selecciona el nombre del punto final en la tabla.
 .. Comprueba que el *tipo de cliente* (S3) coincida con la aplicación cliente que va a utilizar el endpoint.
 
 

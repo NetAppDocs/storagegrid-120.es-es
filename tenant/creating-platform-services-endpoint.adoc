@@ -16,7 +16,7 @@ Debes crear al menos un punto final del tipo correcto antes de poder habilitar u
 .Antes de empezar
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Los servicios de la plataforma fueron habilitados para tu cuenta de inquilino por un administrador de StorageGRID.
-* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona endpoints o permisos de acceso de usuario raíz"].
 * Se ha creado el recurso al que hace referencia el endpoint de los servicios de la plataforma:
 +
 ** CloudMirror replication: depósito S3
@@ -26,16 +26,16 @@ Debes crear al menos un punto final del tipo correcto antes de poder habilitar u
 
 * Dispones de la información sobre el recurso de destino:
 +
-** ${post_edited_translations.segment}
+** Servidor y puerto del Identificador Unificado de Recursos (URI)
 +
 
 NOTE: Si planeas usar un bucket alojado en un sistema StorageGRID como endpoint para la replicación de CloudMirror, contacta al administrador del grid para saber qué valores necesitas ingresar.
 
 ** Nombre único de recurso (URN)
 +
-link:specifying-urn-for-platform-services-endpoint.html["${post_edited_translations.segment}"]
+link:specifying-urn-for-platform-services-endpoint.html["Especifica el URN para el endpoint de los servicios de plataforma"]
 
-** ${post_edited_translations.segment}
+** Credenciales de autenticación (si son necesarias):
 +
 [role="tabbed-block"]
 ====
@@ -71,7 +71,7 @@ Para los puntos finales de Kafka, puedes utilizar las siguientes credenciales:
 
 *** SASL/PLAIN: nombre de usuario y contraseña
 *** SASL/SCRAM-SHA-256: nombre de usuario y contraseña
-*** ${post_edited_translations.segment}
+*** SASL/SCRAM-SHA-512: nombre de usuario y contraseña
 
 
 --
@@ -87,7 +87,7 @@ Para los puntos finales de Kafka, puedes utilizar las siguientes credenciales:
 . Selecciona *Crear endpoint*.
 . Introduce un nombre de visualización que describa brevemente el endpoint y su finalidad.
 +
-${post_edited_translations.segment}
+El tipo de servicio de plataforma que admite el endpoint aparece junto al nombre de este cuando aparece en la página Endpoints, así que no necesitas incluir esa información en el nombre.
 
 . En el campo *URI*, especifica el identificador único de recurso (URI) del endpoint.
 +
@@ -99,7 +99,7 @@ Utiliza uno de los siguientes formatos:
 https://host:port
 http://host:port
 ----
-${post_edited_translations.segment}
+Si no especificas un puerto, se usan los siguientes puertos predeterminados:
 
 ** Puerto 443 para las URI HTTPS y puerto 80 para las URI HTTP (la mayoría de los endpoints)
 ** Puerto 9092 para URI de HTTPS y HTTP (solo endpoints de Kafka)
@@ -122,7 +122,7 @@ En este ejemplo, `s3.example.com` representa la entrada DNS de la IP virtual (VI
 NOTE: Siempre que sea posible, debes conectarte a un grupo de alta disponibilidad (HA) de nodos con equilibrio de carga para evitar un punto único de fallo.
 
 +
-${post_edited_translations.segment}
+Del mismo modo, el URI de un bucket alojado en AWS podría ser:
 
 +
 [listing]
@@ -149,7 +149,7 @@ NOTE: Si quieres autenticación para los endpoints de webhook, configura Mutual 
 ====
 .Puntos finales de integración de búsqueda
 --
-${post_edited_translations.segment}
+Introduce o sube las credenciales de un endpoint de integración de búsqueda.
 
 Las credenciales que facilites deben tener permisos de escritura para el recurso de destino.
 
@@ -170,7 +170,7 @@ Sin autenticación.
  a| 
 Clave de acceso
  a| 
-${post_edited_translations.segment}
+Utiliza credenciales al estilo de AWS para autenticar las conexiones con el destino.
  a| 
 ** ID de clave de acceso
 ** Clave de acceso secreta
@@ -212,7 +212,7 @@ Sin autenticación.
  a| 
 Clave de acceso
  a| 
-${post_edited_translations.segment}
+Utiliza credenciales al estilo de AWS para autenticar las conexiones con el destino.
  a| 
 ** ID de clave de acceso
 ** Clave de acceso secreta
@@ -226,10 +226,10 @@ CAP (Portal de acceso C2S)
 Utiliza certificados y claves para autenticar las conexiones con el destino.
  a| 
 ** URL de credenciales temporales
-** ${post_edited_translations.segment}
+** Certificado CA del servidor (carga de archivo PEM)
 ** Certificado de cliente (carga de archivo PEM)
 ** Clave privada del cliente (carga de archivo PEM, formato cifrado con OpenSSL o formato de clave privada sin cifrar)
-** ${post_edited_translations.segment}
+** Contraseña de la clave privada del cliente (opcional)
 
 
 |===
@@ -257,7 +257,7 @@ Sin autenticación.
  a| 
 Clave de acceso
  a| 
-${post_edited_translations.segment}
+Utiliza credenciales al estilo de AWS para autenticar las conexiones con el destino.
  a| 
 ** ID de clave de acceso
 ** Clave de acceso secreta
@@ -322,7 +322,7 @@ Selecciona *Usar autenticación mediante delegación* si el nombre de usuario y 
 --
 ====
 . Selecciona *Continuar*.
-. ${post_edited_translations.segment}
+. [[verify-certs]]Selecciona un botón de opción en *Verificar certificados* para elegir cómo se verifica la conexión TLS con el endpoint.
 +
 [role="tabbed-block"]
 ====
@@ -336,7 +336,7 @@ Comprueba la conexión TLS para la integración de Search, la replicación de Cl
 
 
  a| 
-${post_edited_translations.segment}
+TLS
  a| 
 Valida el certificado del servidor para las conexiones TLS al recurso de endpoint.
 
@@ -373,7 +373,7 @@ Comprueba la conexión TLS de los puntos finales de los webhooks.
 
 
  a| 
-${post_edited_translations.segment}
+TLS
  a| 
 Valida el certificado del servidor para las conexiones TLS al recurso de endpoint.
 
@@ -416,7 +416,7 @@ Desactiva la verificación del certificado del servidor, lo que significa que no
  a| 
 Certificado de cliente
  a| 
-${post_edited_translations.segment}
+El certificado de cliente se utiliza para verificar la identidad del cliente al conectarse al endpoint.
 
 
 
@@ -450,8 +450,8 @@ NOTE: La creación del endpoint falla si los servicios de plataforma no están h
 Una vez que hayas configurado un punto final, puedes utilizar su URN para configurar un servicio de la plataforma.
 
 .Información relacionada
-* link:specifying-urn-for-platform-services-endpoint.html["${post_edited_translations.segment}"]
+* link:specifying-urn-for-platform-services-endpoint.html["Especifica el URN para el endpoint de los servicios de plataforma"]
 * link:configuring-cloudmirror-replication.html["Configura la replicación de CloudMirror"]
-* link:configuring-event-notifications.html["${post_edited_translations.segment}"]
-* link:configuring-search-integration-service.html["${post_edited_translations.segment}"]
+* link:configuring-event-notifications.html["Configura las notificaciones de eventos"]
+* link:configuring-search-integration-service.html["Configura el servicio de integración de búsqueda"]
 

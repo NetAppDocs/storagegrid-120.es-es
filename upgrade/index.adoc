@@ -2,7 +2,7 @@
 permalink: upgrade/index.html 
 sidebar: sidebar 
 keywords: storagegrid software upgrade 
-summary: ${post_edited_translations.segment} 
+summary: Sigue estas instrucciones para actualizar un sistema StorageGRID a una nueva versión. 
 ---
 = Actualizar el software StorageGRID
 :allow-uri-read: 
@@ -11,9 +11,9 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Sigue estas instrucciones para actualizar un sistema StorageGRID a una nueva versión.
 
-${post_edited_translations.segment}
+Cuando realizas la actualización, todos los nodos de tu sistema StorageGRID se actualizan.
 
 
 CAUTION: No comiences la actualización si necesitas ampliar urgentemente tu almacenamiento para aumentar la capacidad (si tu almacenamiento está casi lleno). Completa el procedimiento de actualización a tiempo. Si se requiere una recuperación, contacta al soporte técnico.
@@ -21,12 +21,12 @@ CAUTION: No comiences la actualización si necesitas ampliar urgentemente tu alm
 
 
 [[before-you-upgrade]]
-== ${post_edited_translations.segment}
+== Antes de actualizar
 
-${post_edited_translations.segment}
+Revisa estos temas para conocer las nuevas funciones y mejoras de StorageGRID 12.0, determinar si alguna función ha quedado obsoleta o se ha eliminado, y enterarte de los cambios en las API de StorageGRID.
 
 * link:how-your-system-is-affected-during-upgrade.html["Cómo se ve afectado tu sistema durante la actualización"]
-* link:../release-notes/whats-new.html["${post_edited_translations.segment}"]
+* link:../release-notes/whats-new.html["Novedades de StorageGRID 12.0"]
 * link:../release-notes/removed-or-deprecated-features.html["Funcionalidades eliminadas u obsoletas"]
 * link:../release-notes/changes-to-grid-management-api.html["Cambios en la API de gestión de grid"]
 * link:../release-notes/changes-to-tenant-management-api.html["Cambios en la API de gestión de inquilinos"]

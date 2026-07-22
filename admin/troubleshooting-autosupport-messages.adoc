@@ -27,7 +27,7 @@ Si un paquete semanal de AutoSupport no se envía, el sistema StorageGRID realiz
 
 . Actualiza el atributo «Resultado más reciente» a «Reintentando».
 . Intenta reenviar el paquete de AutoSupport 15 veces cada cuatro minutos durante una hora.
-. ${post_edited_translations.segment}
+. Después de una hora de errores en el envío, actualiza el atributo «Resultado más reciente» a «Fallido».
 . Intenta enviar de nuevo un paquete de AutoSupport en la siguiente hora programada.
 . Mantiene la programación habitual de AutoSupport si el paquete falla porque el servicio NMS no está disponible, y si se envía un paquete antes de que pasen siete días.
 . Cuando el servicio NMS vuelva a estar disponible, envía inmediatamente un paquete AutoSupport si no se ha enviado ningún paquete durante siete días o más.
@@ -41,7 +41,7 @@ Si un paquete semanal de AutoSupport no se envía, el sistema StorageGRID realiz
 Si un paquete de AutoSupport activado por el usuario o por un evento no se envía correctamente, el sistema StorageGRID toma las siguientes acciones:
 
 . Muestra un mensaje de error si el error es conocido. Por ejemplo, si un usuario selecciona el protocolo SMTP sin introducir los parámetros de configuración de correo electrónico correctos, se muestra el siguiente error: `AutoSupport packages cannot be sent using SMTP protocol due to incorrect settings on the E-mail Server page.`
-. ${post_edited_translations.segment}
+. No intenta volver a enviar el paquete.
 . Registra el error en `nms.log`.
 
 

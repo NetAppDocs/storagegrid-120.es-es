@@ -25,6 +25,6 @@ NOTE: No puedes iniciar una expansión mientras haya otra expansión, actualizac
 
 .Pasos
 . link:updating-subnets-for-grid-network.html["Actualizar las subredes de la red Grid"].
-. link:deploying-new-grid-nodes.html["${post_edited_translations.segment}"].
-. link:performing-expansion.html["${post_edited_translations.segment}"].
+. link:deploying-new-grid-nodes.html["Implementa los nuevos nodos de la red"].
+. link:performing-expansion.html["Realiza la expansión"].
 

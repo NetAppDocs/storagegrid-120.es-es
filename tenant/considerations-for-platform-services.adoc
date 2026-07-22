@@ -22,7 +22,7 @@ Para obtener información sobre S3, consulta link:../s3/index.html["Usa la API d
 
 Los servicios de la plataforma StorageGRID pueden ayudarte a implementar una estrategia de nube híbrida, ya que te permiten enviar notificaciones de eventos y copias de objetos S3 y de los metadatos de dichos objetos a destinos externos.
 
-${post_edited_translations.segment}
+Dado que la ubicación de destino de los servicios de plataforma suele encontrarse fuera de tu implementación de StorageGRID, estos servicios te ofrecen la potencia y la flexibilidad que supone el uso de recursos de almacenamiento externos, servicios de notificación y servicios de búsqueda o análisis para tus datos.
 
 Se puede configurar cualquier combinación de servicios de la plataforma para un único bucket de S3. Por ejemplo, podrías configurar tanto link:../tenant/understanding-cloudmirror-replication-service.html["Servicio CloudMirror"] como link:../tenant/understanding-notifications-for-buckets.html["notificaciones"] en un bucket de S3 de StorageGRID, de modo que puedas replicar objetos específicos en Amazon Simple Storage Service (S3), mientras envías una notificación sobre cada uno de esos objetos a una aplicación de monitorización de terceros que te ayude a realizar un seguimiento de tus gastos en AWS.
 
@@ -41,7 +41,7 @@ Una vez que hayas creado un endpoint externo, puedes habilitar un servicio de pl
 Debes añadir configuraciones XML independientes para cada servicio de plataforma que quieras configurar. Por ejemplo:
 
 * Si quieres que todos los objetos cuyas claves empiecen por `/images` se repliquen en un bucket de Amazon S3, debes añadir una configuración de replicación al bucket de origen.
-* ${post_edited_translations.segment}
+* Si además quieres enviar notificaciones cuando estos objetos se almacenen en el bucket, debes añadir una configuración de notificaciones.
 * Si deseas indexar los metadatos de estos objetos, debes añadir la configuración de notificación de metadatos que se utiliza para implementar la integración de la búsqueda.
 
 
@@ -93,22 +93,22 @@ Integración de búsqueda
 
 
 [[considerations-for-using-platform-services]]
-== ${post_edited_translations.segment}
+== Aspectos a tener en cuenta al utilizar los servicios de la plataforma
 
 [cols="1a,3a"]
 |===
-| ${post_edited_translations.segment} | Detalles 
+| Consideración | Detalles 
 
 
  a| 
-${post_edited_translations.segment}
+Supervisión de los endpoints de destino
  a| 
 Debes supervisar la disponibilidad de cada punto final de destino. Si se pierde la conectividad con el punto final de destino durante un periodo prolongado y existe una gran acumulación de solicitudes pendientes, las solicitudes adicionales de los clientes (como las solicitudes PUT) a StorageGRID fallarán. Debes volver a intentar estas solicitudes fallidas cuando el punto final vuelva a estar disponible.
 
 
 
  a| 
-${post_edited_translations.segment}
+Limitación del punto final de destino
  a| 
 El software StorageGRID puede limitar las solicitudes S3 entrantes para un bucket si la velocidad a la que se envían las solicitudes supera la velocidad a la que el extremo de destino puede recibirlas. La limitación solo se produce cuando hay una acumulación de solicitudes en espera de enviarse al extremo de destino.
 
@@ -119,7 +119,7 @@ Las solicitudes de CloudMirror tienen más probabilidades de verse afectadas por
 
 
  a| 
-${post_edited_translations.segment}
+Garantías de orden
  a| 
 StorageGRID garantiza el orden de las operaciones realizadas sobre un objeto dentro de un sitio. Siempre que todas las operaciones realizadas sobre un objeto se lleven a cabo dentro del mismo sitio, el estado final del objeto (para replicación) siempre será igual al estado en StorageGRID.
 
@@ -137,7 +137,7 @@ Por el contrario, las solicitudes de integración de búsqueda se envían cuando
 
 
  a| 
-${post_edited_translations.segment}
+Uso de los endpoints de Kafka
  a| 
 En el caso de los puntos finales de Kafka, no se admite el TLS mutuo. Por lo tanto, si en la configuración de tu broker de Kafka tienes  `ssl.client.auth` configurado como  `required` en tu configuración, esto podría provocar problemas en la configuración de los puntos finales de Kafka.
 
@@ -148,7 +148,7 @@ La autenticación de los endpoints de Kafka utiliza los siguientes tipos de aute
 * SASL/SCRAM-SHA-512
 
 
-${post_edited_translations.segment}
+*Nota:* La configuración del proxy de almacenamiento no se aplica a los endpoints de los servicios de la plataforma Kafka.
 
 |===
 
@@ -158,7 +158,7 @@ ${post_edited_translations.segment}
 
 [cols="1a,3a"]
 |===
-| ${post_edited_translations.segment} | Detalles 
+| Consideración | Detalles 
 
 
  a| 
@@ -178,9 +178,9 @@ El tamaño máximo de los objetos que se pueden replicar en un bucket de destino
 
 
  a| 
-${post_edited_translations.segment}
+Control de versiones de los buckets e identificadores de versión
  a| 
-${post_edited_translations.segment}
+Si el bucket de S3 de origen en StorageGRID tiene activado el control de versiones, también debes activar el control de versiones en el bucket de destino.
 
 Al utilizar el control de versiones, ten en cuenta que el orden de las versiones de los objetos en el bucket de destino es un esfuerzo máximo y no está garantizado por el servicio CloudMirror, debido a las limitaciones del protocolo S3.
 
@@ -189,7 +189,7 @@ Al utilizar el control de versiones, ten en cuenta que el orden de las versiones
 
 
  a| 
-${post_edited_translations.segment}
+Etiquetado de versiones de objetos
  a| 
 El servicio CloudMirror no replica ninguna solicitud de PutObjectTagging o DeleteObjectTagging que incluya un identificador de versión, debido a las limitaciones del protocolo S3. Porque los identificadores de versión del origen y del destino no están relacionados, no hay forma de garantizar que se replique una actualización de etiqueta en un identificador de versión específico.
 

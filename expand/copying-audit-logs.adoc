@@ -25,7 +25,7 @@ Para que los mensajes de auditoría históricos estén disponibles en un nuevo n
 ====
 De forma predeterminada, la información de auditoría se envía al  `localaudit` log en cada nodo. Para usar este procedimiento, debes haber configurado los Admin Nodes como destino de la auditoría de la siguiente manera:
 
-* ${post_edited_translations.segment}
+* Has configurado *Nodos de administración/nodos locales* como destino de registro.
 * Configuraste *nodos de administración y servidor syslog externo* como destino de los registros.
 
 
@@ -73,7 +73,7 @@ mv audit.log _new_name_.txt
 +
 `exit`
 
-. ${post_edited_translations.segment}
+. Inicia sesión en el nodo de administración de la expansión:
 +
 .. Introduce el siguiente comando: `ssh admin@_expansion_Admin_Node_IP_`
 .. Introduce la contraseña que figura en el archivo  `Passwords.txt`.

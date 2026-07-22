@@ -15,7 +15,7 @@ Antes de iniciar la actualización, revisa el flujo de trabajo general. La pági
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1"] Prepara los hosts de Linux
 [role="quick-margin-para"]
-Si hay algún nodo de StorageGRID implementado en hosts Linux, link:linux-installing-rpm-or-deb-package-on-all-hosts.html["${post_edited_translations.segment}"] antes de iniciar la actualización.
+Si hay algún nodo de StorageGRID implementado en hosts Linux, link:linux-installing-rpm-or-deb-package-on-all-hosts.html["Instala el paquete RPM o DEB en cada host"] antes de iniciar la actualización.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Dos"] Subir archivos de actualización y corrección urgente
 [role="quick-margin-para"]
@@ -23,11 +23,11 @@ Desde el nodo de administración principal, accede a la página de actualizació
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Tres"] Descargar el paquete de recuperación
 [role="quick-margin-para"]
-${post_edited_translations.segment}
+Descarga el paquete de recuperación actual antes de iniciar la actualización.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Cuatro"] Ejecuta las comprobaciones previas de la actualización
 [role="quick-margin-para"]
-${post_edited_translations.segment}
+Las comprobaciones previas a la actualización te ayudan a detectar problemas, para que puedas resolverlos antes de iniciar la actualización propiamente dicha.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png["Cinco"] Iniciar actualización
 [role="quick-margin-para"]

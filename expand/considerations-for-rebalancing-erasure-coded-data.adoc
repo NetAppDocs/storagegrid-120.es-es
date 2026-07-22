@@ -4,32 +4,32 @@ sidebar: sidebar
 keywords: erasure coding, rebalance, ec rebalance, site rebalance, StorageGRID 
 summary: Si estás llevando a cabo una ampliación para añadir nodos de almacenamiento y utilizas reglas de ILM para aplicar código de borrado a los datos, es posible que tengas que realizar el procedimiento de reequilibrio de EC si no puedes añadir suficientes nodos de almacenamiento para el esquema de código de borrado que estás utilizando. 
 ---
-= ${post_edited_translations.segment}
+= Infórmate sobre el reequilibrio de EC tras la expansión en StorageGRID
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Si estás llevando a cabo una ampliación para añadir nodos de almacenamiento y utilizas reglas de ILM para codificar datos con código de borrado, es posible que tengas que realizar el procedimiento de reequilibrio de EC (erasure coding) si no puedes añadir suficientes nodos de almacenamiento para el esquema de erasure coding que estás utilizando.
 
 Después de revisar estas consideraciones, realiza la expansión y luego ve a link:rebalancing-erasure-coded-data-after-adding-storage-nodes.html["Reequilibra los datos con código de borrado después de añadir Storage Nodes"] para ejecutar el procedimiento.
 
 
 
 [[what-is-ec-rebalancing]]
-== ${post_edited_translations.segment}
+== ¿Qué es el reequilibrio de EC?
 
 El reequilibrio de EC es un procedimiento de StorageGRID que puede ser necesario tras una ampliación de los nodos de almacenamiento. El procedimiento se ejecuta como un script de línea de comandos desde el nodo de administración principal. Al ejecutar el procedimiento de reequilibrio de EC, StorageGRID redistribuye los fragmentos con código de borrado entre los nodos de almacenamiento existentes y los recién añadidos en un sitio.
 
-${post_edited_translations.segment}
+El procedimiento de reequilibrio de EC:
 
 * Solo mueve datos de objetos con código de borrado. No mueve datos de objetos replicados.
 * Redistribuye los datos dentro de un sitio. No mueve datos entre sitios.
 * Redistribuye los datos entre todos los nodos de almacenamiento de un sitio. No redistribuye los datos dentro de los volúmenes de almacenamiento.
 * Intenta distribuir el mismo número de bytes entre cada nodo. Los nodos que contengan más datos replicados almacenarán menos datos con código de borrado una vez finalizado el reequilibrio.
 * Redistribuye los datos con código de borrado de manera uniforme entre los nodos de almacenamiento sin tener en cuenta las capacidades relativas de cada nodo. Los datos replicados se incluyen en el cálculo.
-* ${post_edited_translations.segment}
+* No distribuirá datos con código de borrado a los nodos de almacenamiento que estén llenos en más de un 80%.
 * Podría disminuir el rendimiento de las operaciones de ILM y de las operaciones del cliente S3 cuando se ejecuta, ya que se requieren recursos adicionales para redistribuir los fragmentos de código de borrado.
 
 
@@ -37,15 +37,15 @@ Cuando se complete el procedimiento de reequilibrio de EC:
 
 * Los datos con código de borrado se habrán trasladado de los nodos de almacenamiento con menos espacio disponible a los nodos de almacenamiento con más espacio disponible.
 * La protección de datos de los objetos con código de borrado no sufrirá cambios.
-* ${post_edited_translations.segment}
+* Los valores de Usado (%) pueden ser diferentes entre los nodos de almacenamiento por dos razones:
 +
-** ${post_edited_translations.segment}
+** Las copias de los objetos replicados seguirán ocupando espacio en los nodos existentes—el procedimiento de reequilibrio del EC no traslada los datos replicados.
 ** Los nodos de mayor capacidad estarán relativamente menos llenos que los de menor capacidad, aunque todos los nodos acabarán teniendo aproximadamente la misma cantidad de datos.
 +
 Por ejemplo, supón que tres nodos de 200 TB están llenos al 80 % cada uno (200 &#215; 0,8 = 160 TB en cada nodo, o 480 TB para el sitio). Si añades un nodo de 400 TB y ejecutas el procedimiento de reequilibrio, todos los nodos tendrán ahora aproximadamente la misma cantidad de datos de código de borrado (480/4 = 120 TB). Sin embargo, el Usado (%) para el nodo más grande será menor que el Usado (%) para los nodos más pequeños.
 
 +
-image:used_space_with_larger_node.png["${post_edited_translations.segment}"]
+image:used_space_with_larger_node.png["Espacio utilizado antes de la ampliación"]
 
 
 
@@ -54,19 +54,19 @@ image:used_space_with_larger_node.png["${post_edited_translations.segment}"]
 
 
 [[when-to-rebalance-erasure-coded-data]]
-== ${post_edited_translations.segment}
+== Cuándo reequilibrar los datos con código de borrado
 
 El procedimiento de reequilibrado de EC redistribuye los datos con código de borrado existentes para garantizar que los nodos no se llenen ni permanezcan llenos. El procedimiento ayuda a garantizar que la codificación de EC pueda continuar en el sitio.
 
-${post_edited_translations.segment}
+Ejecuta el procedimiento de reequilibrio cuando hay un sesgo preocupante en la distribución de los datos en un sitio y el sitio almacena principalmente datos de EC (ya que los datos replicados no se pueden mover mediante el reequilibrio).
 
 Imagina el siguiente escenario:
 
 * StorageGRID se está ejecutando en un único sitio, que contiene tres nodos de almacenamiento.
-* ${post_edited_translations.segment}
+* La política de ILM utiliza una regla de código de borrado 2+1 para todos los objetos de más de 1,0 MB y una regla de replicación de 2 copias para los objetos más pequeños.
 * Todos los nodos de almacenamiento están completamente llenos. Se ha activado la alerta *Low Object Storage* con un nivel de gravedad mayor.
 +
-image:used_space_before_expansion.png["${post_edited_translations.segment}"]
+image:used_space_before_expansion.png["Espacio utilizado antes de la ampliación"]
 
 
 
@@ -102,10 +102,10 @@ image:used_space_after_ec_rebalance.png["Espacio utilizado aAfter EC reequilibra
 
 NetApp requiere un reequilibrio de EC si _todas_ las afirmaciones siguientes son ciertas:
 
-* ${post_edited_translations.segment}
+* Utilizas código de borrado para tus datos de objetos.
 * Se ha activado la alerta *Nivel bajo de almacenamiento de objetos* para uno o varios Storage Nodes en un sitio, lo que indica que los nodos están llenos en un 80 % o más.
 * No puedes añadir suficientes Storage Nodes nuevos para el esquema de código de borrado en uso. Consulta link:adding-storage-capacity-for-erasure-coded-objects.html["Agrega capacidad de almacenamiento para objetos con código de borrado"].
-* ${post_edited_translations.segment}
+* Tus clientes de S3 pueden soportar un rendimiento inferior en sus operaciones de escritura y lectura mientras se está ejecutando el procedimiento de reequilibrio de EC.
 
 
 Opcionalmente, puedes ejecutar el procedimiento de reequilibrio de EC si prefieres que los nodos de almacenamiento se llenen hasta niveles similares y tus clientes S3 pueden tolerar un rendimiento inferior en sus operaciones de escritura y lectura mientras se ejecuta el procedimiento de reequilibrio de EC.
@@ -113,7 +113,7 @@ Opcionalmente, puedes ejecutar el procedimiento de reequilibrio de EC si prefier
 
 
 [[how-ec-rebalance-procedure-interacts-with-other-maintenance-tasks]]
-== ${post_edited_translations.segment}
+== Cómo interactúa el procedimiento de reequilibrio de EC con otras tareas de mantenimiento
 
 No puedes realizar ciertos procedimientos de mantenimiento al mismo tiempo que estás ejecutando el procedimiento de reequilibrio de EC.
 
@@ -123,7 +123,7 @@ No puedes realizar ciertos procedimientos de mantenimiento al mismo tiempo que e
 
 
  a| 
-${post_edited_translations.segment}
+Procedimientos adicionales de reequilibrio de EC
  a| 
 No.
 
@@ -132,20 +132,20 @@ Solo puedes ejecutar un procedimiento de reequilibrio de EC a la vez.
 
 
  a| 
-${post_edited_translations.segment}
+Procedimiento para decomisionar
 
 Trabajo de reparación de datos EC
  a| 
 No.
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* No puedes iniciar un procedimiento para decomisionar ni una reparación de datos de EC mientras se está ejecutando el procedimiento de reequilibrio de EC.
+* No puedes iniciar el procedimiento de reequilibrio de EC mientras se esté ejecutando un procedimiento para decomisionar un nodo de almacenamiento o una reparación de datos de EC.
 
 
 
 
  a| 
-${post_edited_translations.segment}
+Procedimiento de ampliación
  a| 
 No.
 
@@ -191,6 +191,6 @@ Debes finalizar el procedimiento de reequilibrio de EC antes de ejecutar otros p
 
 
 [[how-ec-rebalance-procedure-interacts-with-ilm]]
-== ${post_edited_translations.segment}
+== Cómo interactúa el procedimiento de reequilibrio de EC con ILM
 
 Mientras se esté ejecutando el procedimiento de reequilibrio de EC, evita realizar cambios en ILM que puedan modificar la ubicación de los objetos con código de borrado existentes. Por ejemplo, no empieces a utilizar una regla de ILM que tenga un perfil de código de borrado diferente. Si necesitas realizar dichos cambios en ILM, debes interrumpir el procedimiento de reequilibrio de EC.

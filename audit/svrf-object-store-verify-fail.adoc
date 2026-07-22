@@ -23,7 +23,7 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El identificador único del bloque de contenido cuya verificación ha fallado.
 
 
 
@@ -32,19 +32,19 @@ RSLT
  a| 
 Código de resultado
  a| 
-${post_edited_translations.segment}
+Tipo de error de verificación:
 
 CRCF: Error en la comprobación de redundancia cíclica (CRC).
 
-${post_edited_translations.segment}
+HMAC: Falló la comprobación del código de autenticación de mensajes basado en hash (HMAC).
 
-${post_edited_translations.segment}
+EHSH: Hash de contenido cifrado inesperado.
 
 PHSH: Hash de contenido original inesperado.
 
 SEQC: Secuencia de datos incorrecta en el disco.
 
-${post_edited_translations.segment}
+PERR: Estructura no válida del archivo en disco.
 
 DERR: Error de disco.
 

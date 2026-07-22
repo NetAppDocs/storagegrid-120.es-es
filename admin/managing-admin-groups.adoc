@@ -16,7 +16,7 @@ Puedes crear grupos de administradores para gestionar los permisos de seguridad 
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
-* ${post_edited_translations.segment}
+* Si planeas importar un grupo federado, ya has configurado la federación de identidades y el grupo federado ya existe en la fuente de identidades configurada.
 
 
 
@@ -24,7 +24,7 @@ Puedes crear grupos de administradores para gestionar los permisos de seguridad 
 [[create-an-admin-group]]
 == Crear un grupo de administradores
 
-${post_edited_translations.segment}
+Los grupos de administradores te permiten determinar qué usuarios pueden acceder a qué funciones y operaciones en el Grid Manager y en la Grid Management API.
 
 
 
@@ -32,18 +32,18 @@ ${post_edited_translations.segment}
 === Accede al asistente
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Control de acceso* > *Grupos de administradores*.
 . Selecciona *Crear grupo*.
 
 
 
 
 [[choose-a-group-type]]
-=== ${post_edited_translations.segment}
+=== Elige un tipo de grupo
 
 Puedes crear un grupo local o importar un grupo federado.
 
-* ${post_edited_translations.segment}
+* Crea un grupo local si quieres asignar permisos a los usuarios locales.
 * Crea un grupo federado para importar usuarios desde la fuente de identidad.
 
 
@@ -52,20 +52,20 @@ Puedes crear un grupo local o importar un grupo federado.
 .Grupo local
 --
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Grupo local*.
 . Introduce un nombre para mostrar para el grupo, que podrás modificar más adelante si es necesario. Por ejemplo, «Usuarios de mantenimiento» o «Administradores de ILM».
 . Introduce un nombre único para el grupo, que no podrás actualizar más adelante.
 . Selecciona *Continuar*.
 
 
 --
-.${post_edited_translations.segment}
+.Grupo federado
 --
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Federated group*.
 . Introduce el nombre del grupo que deseas importar, exactamente como aparece en la fuente de identidad configurada.
 +
-** ${post_edited_translations.segment}
+** Para Active Directory y Microsoft Entra ID, utiliza el sAMAccountName.
 ** Para OpenLDAP, usa el CN (Common Name).
 ** Para otro LDAP, utiliza el nombre único correspondiente para el servidor LDAP.
 
@@ -78,7 +78,7 @@ Puedes crear un grupo local o importar un grupo federado.
 
 
 [[manage-group-permissions]]
-=== ${post_edited_translations.segment}
+=== Gestiona los permisos de los grupos
 
 .Pasos
 . Para *Modo de acceso*, selecciona si los usuarios del grupo pueden cambiar la configuración y realizar operaciones en el Grid Manager y la Grid Management API o si solo pueden ver la configuración y las funciones.
@@ -87,7 +87,7 @@ Puedes crear un grupo local o importar un grupo federado.
 ** *Solo lectura*: los usuarios solo pueden ver la configuración y las funciones. No pueden realizar ningún cambio ni llevar a cabo ninguna operación en el Grid Manager o la Grid Management API. Los usuarios locales de solo lectura pueden cambiar sus propias contraseñas.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si un usuario pertenece a varios grupos y alguno de ellos está configurado como *Solo lectura*, el usuario tendrá acceso de solo lectura a todos los ajustes y funciones seleccionados.
 
 
 
@@ -101,10 +101,10 @@ Debes asignar al menos un permiso a cada grupo; de lo contrario, los usuarios qu
 
 
 [[add-users-local-groups-only]]
-=== ${post_edited_translations.segment}
+=== Agregar usuarios (solo grupos locales)
 
 .Pasos
-. ${post_edited_translations.segment}
+. Si lo deseas, selecciona uno o más usuarios locales para este grupo.
 +
 Si aún no has creado usuarios locales, puedes guardar el grupo sin añadir usuarios. Puedes añadir este grupo al usuario en la página «Usuarios». Consulta link:managing-users.html["Gestiona usuarios"] para obtener más información.
 
@@ -114,41 +114,41 @@ Si aún no has creado usuarios locales, puedes guardar el grupo sin añadir usua
 
 
 [[view-and-edit-admin-groups]]
-== ${post_edited_translations.segment}
+== Ver y editar grupos de administradores
 
-${post_edited_translations.segment}
+Puedes consultar los detalles de los grupos existentes, modificar un grupo o duplicar un grupo.
 
 * Para consultar la información básica de todos los grupos, revisa la tabla de la página «Grupos».
-* ${post_edited_translations.segment}
+* Para ver todos los detalles de un grupo concreto o para editar un grupo, usa el menú *Actions* o la página de detalles.
 +
 [cols="1a, 2a,2a"]
 |===
-| Tarea | Menú de acciones | ${post_edited_translations.segment} 
+| Tarea | Menú de acciones | Página de detalles 
 
 
  a| 
-${post_edited_translations.segment}
+Ver detalles del grupo
  a| 
 .. Selecciona la casilla para el grupo.
 .. Selecciona *Acciones* > *Ver detalles del grupo*.
 
  a| 
-${post_edited_translations.segment}
+Selecciona el nombre del grupo en la tabla.
 
 
 
  a| 
-${post_edited_translations.segment}
+Editar nombre para mostrar (solo grupos locales)
  a| 
 .. Selecciona la casilla para el grupo.
 .. Selecciona *Acciones* > *Editar nombre del grupo*.
-.. ${post_edited_translations.segment}
+.. Introduce el nuevo nombre.
 .. Selecciona *Guardar cambios*.
 
  a| 
 .. Selecciona el nombre del grupo para ver los detalles.
 .. Selecciona el icono de edición image:icon_edit_tm.png["Icono de edición"].
-.. ${post_edited_translations.segment}
+.. Introduce el nuevo nombre.
 .. Selecciona *Guardar cambios*.
 
 

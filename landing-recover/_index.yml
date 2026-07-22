@@ -15,7 +15,7 @@ indexpage:
       url: "../maintain/warnings-and-considerations-for-grid-node-recovery.html"
     - title: Reúne los materiales necesarios
       url: "../maintain/gathering-required-materials-for-grid-node-recovery.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Recuperar nodos que han fallado
     links:
     - title: Advertencias y consideraciones
       url: "../maintain/warnings-and-considerations-for-grid-node-recovery.html"
@@ -25,7 +25,7 @@ indexpage:
       url: "../maintain/recovering-from-admin-node-failures.html"
     - title: Nodos de puerta de enlace
       url: "../maintain/replacing-gateway-node.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Nodos de archivo
       url: "../maintain/recovering-from-archive-node-failures.html"
   - title: Reemplazar nodo
     links:
@@ -37,7 +37,7 @@ indexpage:
       url: "../maintain/installing-services-appliance-platform-change-only.html"
     - title: Clonar nodo de appliance
       url: https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html
-  - title: "${post_edited_translations.segment}"
+  - title: Recuperar un sitio
     links:
     - title: Cómo el soporte técnico recupera un sitio
       url: "../maintain/how-site-recovery-is-performed-by-technical-support.html"

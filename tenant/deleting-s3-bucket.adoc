@@ -40,7 +40,7 @@ Aparece la página «Buckets» y muestra todos los buckets de S3 existentes.
 
 
 --
-.${post_edited_translations.segment}
+.Página de detalles
 --
 .. Selecciona el nombre de un bucket para ver sus detalles.
 .. Selecciona *Eliminar depósito*.

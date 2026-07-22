@@ -2,7 +2,7 @@
 permalink: audit/client-write-audit-messages.html 
 sidebar: sidebar 
 keywords: storagegrid, audit, message, messages, client write, OVWR, SDEL, SPOS, SPUT, SUPD, WDEL, WPUT, S3 
-summary: ${post_edited_translations.segment} 
+summary: Los mensajes de auditoría de escritura del cliente se registran cuando una aplicación cliente de S3 realiza una solicitud para crear o modificar un objeto. 
 ---
 = Mensajes de auditoría para operaciones de escritura de clientes en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Los mensajes de auditoría de escritura del cliente se registran cuando una aplicación cliente de S3 realiza una solicitud para crear o modificar un objeto.
 
 [cols="1a,3a,1a,1a"]
 |===
@@ -19,48 +19,48 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+OVWR
  a| 
 Sobrescritura de objeto: registra una transacción para sobrescribir un objeto con otro objeto.
  a| 
-${post_edited_translations.segment}
+Cliente S3
  a| 
-link:ovwr-object-overwrite.html["${post_edited_translations.segment}"]
+link:ovwr-object-overwrite.html["OVWR: Sobrescritura de objeto"]
 
 
 
  a| 
 SDEL
  a| 
-${post_edited_translations.segment}
+S3 DELETE: Registra una transacción realizada con éxito para eliminar un objeto o un bucket.
 
 *Nota:* Si la transacción se realiza sobre un subrecurso, el mensaje de auditoría incluirá el campo S3SR.
  a| 
-${post_edited_translations.segment}
+Cliente S3
  a| 
-link:sdel-s3-delete.html["${post_edited_translations.segment}"]
+link:sdel-s3-delete.html["SDEL: S3 DELETE"]
 
 
 
  a| 
 SPOS
  a| 
-${post_edited_translations.segment}
+S3 POST: Registra una transacción realizada con éxito para restaurar un objeto desde el almacenamiento de AWS Glacier a un Cloud Storage Pool.
  a| 
-${post_edited_translations.segment}
+Cliente S3
  a| 
-link:spos-s3-post.html["${post_edited_translations.segment}"]
+link:spos-s3-post.html["SPOS: S3 POST"]
 
 
 
  a| 
 SPUT
  a| 
-${post_edited_translations.segment}
+S3 PUT: Registra una transacción realizada con éxito para crear un nuevo objeto o bucket.
 
 *Nota:* Si la transacción se realiza sobre un subrecurso, el mensaje de auditoría incluirá el campo S3SR.
  a| 
-${post_edited_translations.segment}
+Cliente S3
  a| 
 link:sput-s3-put.html["SPUT: S3 PUT"]
 
@@ -71,7 +71,7 @@ SUPD
  a| 
 Metadatos de S3 actualizados: registra una transacción exitosa para actualizar los metadatos de un objeto o bucket existente.
  a| 
-${post_edited_translations.segment}
+Cliente S3
  a| 
 link:supd-s3-metadata-updated.html["SUPD: Metadatos de S3 actualizados"]
 

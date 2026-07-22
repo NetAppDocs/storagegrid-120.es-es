@@ -60,7 +60,7 @@ Un archivo de texto que describe todos los archivos que contiene el archivo de d
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./rpms/NLF000000.txt  a| 
 Una licencia gratuita que no da derecho a ningún tipo de asistencia técnica para el producto.
 
 
@@ -70,8 +70,8 @@ Paquete RPM para instalar las imágenes de los nodos de StorageGRID en tus hosts
 
 
 
-| ${post_edited_translations.segment}  a| 
-${post_edited_translations.segment}
+| ./rpms/StorageGRID-Webscale-Service-_version_-SHA.rpm  a| 
+Paquete RPM para instalar el servicio de host de StorageGRID en tus hosts RHEL.
 
 
 
@@ -83,7 +83,7 @@ Un script de Python que se utiliza para automatizar la configuración de un sist
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./rpms/configure-sga.py  a| 
 Un script en Python que se utiliza para automatizar la configuración de los appliances StorageGRID.
 
 
@@ -98,12 +98,12 @@ Un script de Python de ejemplo que puedes usar para iniciar sesión en la Grid M
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./rpms/configure-storagegrid.blank.json  a| 
 Un archivo de configuración en blanco para usar con el script  `configure-storagegrid.py`.
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./rpms/extras/ansible  a| 
 Ejemplo de rol y playbook de Ansible para configurar hosts de RHEL para el despliegue de contenedores de StorageGRID. Puedes personalizar el rol o el playbook según sea necesario.
 
 
@@ -113,7 +113,7 @@ Un script de ejemplo en Python que puedes utilizar para iniciar sesión en la AP
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./rpms/storagegrid-ssoauth-azure.js  a| 
 Un script auxiliar llamado por el script de Python compañero `storagegrid-ssoauth-azure.py` para realizar interacciones de inicio de sesión único con Azure.
 
 
@@ -132,7 +132,7 @@ Esquemas de API para StorageGRID.
 | Ruta y nombre del archivo | Descripción 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./debs/README  a| 
 Un archivo de texto que describe todos los archivos que contiene el archivo de descarga de StorageGRID.
 
 
@@ -153,7 +153,7 @@ Suma de comprobación MD5 del archivo `/debs/storagegrid-webscale-images-version
 
 
 | ./debs/storagegrid-webscale-service-version-SHA.deb  a| 
-${post_edited_translations.segment}
+Paquete DEB para instalar el servicio de host de StorageGRID en hosts con Ubuntu o Debian.
 
 
 
@@ -180,7 +180,7 @@ Un archivo de configuración de ejemplo para usar con el script  `configure-stor
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./debs/configure-storagegrid.blank.json  a| 
 Un archivo de configuración en blanco para usar con el script  `configure-storagegrid.py`.
 
 
@@ -239,12 +239,12 @@ El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para impleme
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/vsphere-gateway.ovf ./vsphere/vsphere-gateway.mf  a| 
 El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para implementar Gateway Nodes.
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/vsphere-storage.ovf ./vsphere/vsphere-storage.mf  a| 
 El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para desplegar nodos de almacenamiento basados en máquinas virtuales.
 
 
@@ -252,7 +252,7 @@ El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para despleg
 | Herramienta de creación de scripts de implementación | Descripción 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/deploy-vsphere-ovftool.sh  a| 
 Un script de Bash que se usa para automatizar el despliegue de nodos de grid virtuales.
 
 
@@ -262,7 +262,7 @@ Un archivo de configuración de ejemplo para usarlo con el script  `deploy-vsphe
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/configure-storagegrid.py  a| 
 Un script de Python que se utiliza para automatizar la configuración de un sistema StorageGRID.
 
 
@@ -282,7 +282,7 @@ Un archivo de configuración de ejemplo para usar con el script  `configure-stor
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/configure-storagegrid.blank.json  a| 
 Un archivo de configuración en blanco para usar con el script  `configure-storagegrid.py`.
 
 

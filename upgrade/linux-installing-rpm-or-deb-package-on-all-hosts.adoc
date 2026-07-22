@@ -28,7 +28,7 @@ Las versiones del software StorageGRID tienen este formato: 11._x.y_. Las correc
 
 . Inicia sesión con el nombre de usuario y la contraseña de tu cuenta de NetApp.
 . Si aparece un aviso de precaución/MustRead, toma nota del número de la corrección urgente y selecciona la casilla de verificación.
-. ${post_edited_translations.segment}
+. Lee el Acuerdo de licencia de usuario final (EULA), marca la casilla de verificación y luego selecciona *Aceptar & Continuar*.
 +
 Aparece la página de descargas de la versión que seleccionaste. La página contiene tres columnas.
 
@@ -50,8 +50,8 @@ Aparece la página de descargas de la versión que seleccionaste. La página con
 . Si has tenido que aceptar un aviso de Caution/MustRead debido a la necesidad de instalar una corrección urgente, descarga la corrección urgente:
 +
 .. Vuelve a https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["Descargas de NetApp: StorageGRID"^].
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona el número de corrección urgente en el menú desplegable.
+.. Acepta de nuevo el aviso de advertencia y el EULA.
 .. Descarga y guarda la corrección urgente y su README.
 +
 Cuando inicies la actualización, se te pedirá que subas el archivo de corrección urgente en la página de actualización de StorageGRID.
@@ -69,13 +69,13 @@ Cuando inicies la actualización, se te pedirá que subas el archivo de correcci
 
 
 [[install-archive-on-all-linux-hosts]]
-== ${post_edited_translations.segment}
+== Instala el archivo en todos los servidores Linux
 
 Sigue estos pasos antes de actualizar el software de StorageGRID.
 
 .Pasos
 . Extrae los paquetes RPM o DEB del archivo de instalación.
-. ${post_edited_translations.segment}
+. Instala los paquetes RPM o DEB en todos los hosts Linux.
 +
 Consulta los pasos para instalar los servicios de host de StorageGRID para Linux en link:../swnodes/installing-storagegrid-webscale-host-services.html["Instala los servicios de host de StorageGRID"].
 
@@ -89,10 +89,10 @@ Los nuevos paquetes se instalan como paquetes adicionales.
 [[remove-installation-archives-for-previous-versions]]
 == Eliminar los archivos de instalación de las versiones anteriores
 
-${post_edited_translations.segment}
+Para liberar espacio en los hosts Linux, puedes eliminar los archivos de instalación de las versiones anteriores de StorageGRID que ya no necesites.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Elimina los archivos de instalación antiguos de StorageGRID.
 
 
 [role="tabbed-block"]

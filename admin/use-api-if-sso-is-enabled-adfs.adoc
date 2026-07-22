@@ -123,7 +123,7 @@ Una opción es solicitar el formulario de inicio de sesión utilizando la URL de
 curl "https://$AD_FS_ADDRESS/adfs/ls/?SAMLRequest=$SAMLREQUEST&RelayState=$TENANTACCOUNTID" | grep 'form method="post" id="loginForm"'
 ----
 +
-${post_edited_translations.segment}
+La respuesta incluye el ID de la solicitud del cliente:
 
 +
 [listing]
@@ -281,7 +281,7 @@ Se devuelve una URL de cierre de sesión:
 ----
 export LOGOUT_REQUEST='https://adfs.example.com/adfs/ls/?SAMLRequest=fZDNboMwEIRfhZ...HcQ%3D%3D'
 ----
-. ${post_edited_translations.segment}
+. Envía una solicitud a la URL de cierre de sesión para activar el SLO y redirigir de nuevo a StorageGRID.
 +
 [source, bash]
 ----
@@ -297,7 +297,7 @@ HTTP/1.1 302 Found
 Location: https://$STORAGEGRID_ADDRESS:443/api/saml-logout?SAMLResponse=fVLLasMwEPwVo7ss%...%23rsa-sha256
 Set-Cookie: MSISSignoutProtocol=U2FtbA==; expires=Tue, 20 Nov 2018 22:35:03 GMT; path=/adfs; HttpOnly; Secure
 ----
-. ${post_edited_translations.segment}
+. Elimina el token bearer de StorageGRID.
 +
 Eliminar el token de portador de StorageGRID funciona igual que sin SSO. Si no se proporciona la `cookie "sso=true"`, el usuario se desconecta de StorageGRID sin afectar el estado de SSO.
 

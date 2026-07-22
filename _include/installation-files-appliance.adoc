@@ -11,7 +11,7 @@ NOTE: Para la instalación del dispositivo, estos archivos solo son necesarios s
 
 
 | ./debs/storagegrid-webscale-images-version-SHA.deb  a| 
-${post_edited_translations.segment}
+Paquete DEB para instalar las imágenes de los nodos de StorageGRID en tus dispositivos.
 
 
 

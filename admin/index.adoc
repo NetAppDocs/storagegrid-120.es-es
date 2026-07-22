@@ -16,13 +16,13 @@ Sigue estas instrucciones para configurar y administrar un sistema StorageGRID.
 
 
 [[about-these-instructions]]
-== ${post_edited_translations.segment}
+== Acerca de estas instrucciones
 
 Las tareas principales para configurar y administrar StorageGRID te permiten:
 
 * Utiliza el Grid Manager para configurar grupos y usuarios
 * Crea cuentas de inquilino para permitir que las aplicaciones cliente de S3 almacenen y recuperen objetos
-* ${post_edited_translations.segment}
+* Configura y gestiona redes StorageGRID
 * Configura AutoSupport
 * Gestiona la configuración del nodo
 
@@ -33,5 +33,5 @@ Las tareas principales para configurar y administrar StorageGRID te permiten:
 == Antes de empezar
 
 * Tienes un conocimiento general del sistema StorageGRID.
-* ${post_edited_translations.segment}
+* Tienes conocimientos bastante detallados sobre los shells de comandos de Linux, redes y la configuración e instalación del hardware de servidores.
 

@@ -63,7 +63,7 @@ link:selecting-start-recovery-to-configure-non-primary-admin-node.html["Seleccio
 
 
  a| 
-${post_edited_translations.segment}
+Nodo de puerta de enlace
  a| 
 link:selecting-start-recovery-to-configure-gateway-node.html["Selecciona Iniciar recuperación para configurar el nodo de puerta de enlace"]
 

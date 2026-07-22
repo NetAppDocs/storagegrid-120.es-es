@@ -110,7 +110,7 @@ No, el sitio _x_ requiere un mínimo de _n_ nodos de almacenamiento con servicio
  a| 
 *Solo nodos de almacenamiento* (nodos de almacenamiento combinados o de solo metadatos). No puedes decomisionar un nodo de almacenamiento si quedarían nodos insuficientes en el sitio para cumplir los requisitos de quórum del ADC. Sin embargo, puedes mover el servicio ADC a otro nodo de almacenamiento.
  a| 
-link:../maintain/move-adc-service.html["Mueve el servicio ADC a otro nodo de almacenamiento en el mismo sitio"], o bien realiza una ampliación añadiendo un nuevo nodo de almacenamiento al sitio y especificando que debe tener un servicio ADC. Consulta link:understanding-adc-service-quorum.html["${post_edited_translations.segment}"].
+link:../maintain/move-adc-service.html["Mueve el servicio ADC a otro nodo de almacenamiento en el mismo sitio"], o bien realiza una ampliación añadiendo un nuevo nodo de almacenamiento al sitio y especificando que debe tener un servicio ADC. Consulta link:understanding-adc-service-quorum.html["Quórum del ADC"].
 
 
 

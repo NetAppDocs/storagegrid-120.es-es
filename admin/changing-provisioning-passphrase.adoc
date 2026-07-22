@@ -15,7 +15,7 @@ Usa este procedimiento para cambiar la frase de contraseña de aprovisionamiento
 
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* ${post_edited_translations.segment}
+* Tienes permisos de mantenimiento o de root.
 * Tienes la contraseña de aprovisionamiento actual.
 
 
@@ -24,16 +24,16 @@ La frase de contraseña de aprovisionamiento es necesaria para muchos procedimie
 
 .Pasos
 . Selecciona *Configuración* > *Control de acceso* > *Contraseñas de grid*.
-. ${post_edited_translations.segment}
+. En *Cambiar la frase de acceso de aprovisionamiento*, selecciona *Realizar un cambio*
 . Introduce tu contraseña de aprovisionamiento actual.
 . Introduce la nueva frase de contraseña. La frase de contraseña debe contener al menos 8 y no más de 32 caracteres. Las frases de contraseña distinguen mayúsculas de minúsculas.
 +
 
 CAUTION: Guarda la frase de contraseña de aprovisionamiento en un lugar seguro. Es necesaria para los procedimientos de instalación, ampliación y mantenimiento.
 
-. ${post_edited_translations.segment}
+. Vuelve a introducir la nueva frase de contraseña y selecciona *Guardar*.
 +
-${post_edited_translations.segment}
+El sistema muestra un mensaje verde de éxito cuando se completa el cambio de la contraseña de aprovisionamiento.
 
 +
 image:change_provisioning_passphrase_success.png["Mensaje de éxito por cambio de la frase de acceso para el aprovisionamiento"]

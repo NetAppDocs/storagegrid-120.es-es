@@ -11,7 +11,7 @@ summary: Elige una etiqueta de política de ILM para asignarla a un bucket segú
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Elige una etiqueta de política de ILM para aplicarla a un bucket según tus requisitos de almacenamiento de objetos.
 
 La política de ILM controla dónde se almacenan los datos de los objetos y si se eliminan tras un periodo de tiempo determinado. El administrador de la grid crea las políticas de ILM y las asigna a etiquetas de políticas de ILM cuando se utilizan varias políticas activas.
 
@@ -28,16 +28,16 @@ NOTE: Evita reasignar con frecuencia la etiqueta de política de un bucket. De l
 +
 Aparece la página «Buckets». Si lo deseas, puedes ordenar la información por cualquier columna o puedes desplazarte hacia adelante y hacia atrás por la lista.
 
-. ${post_edited_translations.segment}
+. Selecciona el nombre del bucket al que quieras asignar una etiqueta de política de ILM.
 +
-${post_edited_translations.segment}
+También puedes cambiar la asignación de la etiqueta de la política de ILM para un bucket que ya tiene una etiqueta asignada.
 
 +
 
 NOTE: Los valores de Recuento de objetos y Espacio usado que se muestran son estimaciones. Estas estimaciones se ven afectadas por el momento de las ingestas, la conectividad de red y el estado de los nodos. Si los buckets tienen habilitado el control de versiones, las versiones de objetos eliminados se incluyen en el recuento de objetos.
 
 . En la pestaña Opciones del bucket, despliega el acordeón de etiquetas de política de ILM. Este acordeón solo aparece si el administrador de tu grid ha habilitado el uso de etiquetas de política personalizadas.
-. ${post_edited_translations.segment}
+. Lee la descripción de cada etiqueta de política para determinar qué etiqueta debe aplicarse al bucket.
 +
 
 CAUTION: Al modificar la etiqueta de política de ILM de un bucket, se activará una reevaluación de ILM de todos los objetos en el bucket. Si la nueva política retiene los objetos por un tiempo limitado, los objetos más antiguos se eliminarán.
@@ -54,6 +54,6 @@ CAUTION: Configura y modifica las etiquetas de política de ILM usando solo el T
 
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Cambiar la etiqueta de política asignada a un bucket tiene un impacto temporal en el rendimiento mientras se vuelven a evaluar los objetos según la nueva política de ILM.
 
 

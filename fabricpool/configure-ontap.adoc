@@ -15,27 +15,27 @@ Una vez que hayas obtenido la información necesaria sobre StorageGRID, puedes i
 
 .Antes de empezar
 * Si completaste el asistente de configuración de FabricPool, tienes el  `ONTAP_FabricPool_settings___bucketname__.txt` archivo que descargaste.
-* ${post_edited_translations.segment}
+* Si has configurado StorageGRID manualmente, dispones del nombre de dominio completo (FQDN) que estás utilizando para StorageGRID o de la dirección IP virtual (VIP) del grupo HA de StorageGRID, el número de puerto del endpoint del equilibrador de carga, el certificado del equilibrador de carga, el ID de clave de acceso y la clave secreta para el usuario raíz de la cuenta de tenant, y el nombre del bucket que ONTAP usará en ese tenant.
 
 
 
 
 [[access-ontap-system-manager]]
-== ${post_edited_translations.segment}
+== Accede a ONTAP System Manager
 
 Estas instrucciones describen cómo utilizar ONTAP System Manager para añadir StorageGRID como nivel de nube. Puedes completar la misma configuración usando la CLI de ONTAP. Para instrucciones, ve a https://docs.netapp.com/us-en/ontap/fabricpool/index.html["Documentación de ONTAP para FabricPool"^].
 
 .Pasos
 . Accede a System Manager para el clúster ONTAP al que quieres hacer tiering en StorageGRID.
-. ${post_edited_translations.segment}
+. Inicia sesión como administrador del clúster.
 . Ve a *ALMACENAMIENTO* > *Niveles* > *Add Cloud Tier*.
-. ${post_edited_translations.segment}
+. Selecciona *StorageGRID* de la lista de proveedores de almacén de objetos.
 
 
 
 
 [[enter-storagegrid-values]]
-== ${post_edited_translations.segment}
+== Introduce los valores de StorageGRID
 
 Consulta https://docs.netapp.com/us-en/ontap/fabricpool/index.html["Documentación de ONTAP para FabricPool"^] para más información.
 
@@ -71,7 +71,7 @@ Introduce el nombre de dominio completo (FQDN) que estás utilizando para Storag
 Ten en cuenta lo siguiente:
 
 ** La dirección IP o el nombre de dominio que especifiques aquí debe coincidir con el certificado que subiste o generaste para el endpoint del balanceador de carga de StorageGRID.
-** Si facilitas un nombre de dominio, el registro DNS debe estar asociado a cada dirección IP que vayas a utilizar para conectarte a StorageGRID. Consulta link:configure-dns-server.html["${post_edited_translations.segment}"].
+** Si facilitas un nombre de dominio, el registro DNS debe estar asociado a cada dirección IP que vayas a utilizar para conectarte a StorageGRID. Consulta link:configure-dns-server.html["Configura el servidor DNS"].
 
 
 
@@ -84,7 +84,7 @@ Activado (por defecto).
 
 
  a| 
-${post_edited_translations.segment}
+Certificado del almacén de objetos
  a| 
 Pega el certificado PEM que estás utilizando para el punto final del equilibrador de carga de StorageGRID, incluyendo:
 `-----BEGIN CERTIFICATE-----` y `-----END CERTIFICATE-----`.
@@ -112,12 +112,12 @@ Introduce el ID de la clave de acceso y la clave secreta de acceso del usuario r
  a| 
 Nombre del contenedor
  a| 
-${post_edited_translations.segment}
+Introduce el nombre del bucket de StorageGRID que has creado para utilizarlo con este nivel de ONTAP.
 
 |===
 . Completa la configuración final de FabricPool en ONTAP.
 +
-.. ${post_edited_translations.segment}
+.. Asigna uno o varios agregados al nivel de la nube.
 .. Opcionalmente, crea una política de organización por niveles de volúmenes.
 
 

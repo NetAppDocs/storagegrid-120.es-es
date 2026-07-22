@@ -2,7 +2,7 @@
 permalink: audit/idel-ilm-initiated-delete.html 
 sidebar: sidebar 
 keywords: storagegrid, audit, message, IDEL, ILM Initiated Delete 
-summary: ${post_edited_translations.segment} 
+summary: Este mensaje se genera cuando ILM inicia el proceso de eliminación de un objeto. 
 ---
 = Mensaje de auditoría IDEL para eliminaciones iniciadas por ILM en StorageGRID
 :allow-uri-read: 
@@ -11,11 +11,11 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Este mensaje se genera cuando ILM inicia el proceso de eliminación de un objeto.
 
 El mensaje IDEL se genera en cualquiera de estas situaciones:
 
-* ${post_edited_translations.segment}
+* *Para objetos en buckets S3 que cumplen los requisitos*: Este mensaje se genera cuando ILM inicia el proceso de eliminación automática de un objeto porque ha vencido su periodo de retención (suponiendo que la configuración de eliminación automática esté activada y la retención legal esté desactivada).
 * *Para objetos en buckets de S3 no conformes*. Este mensaje se genera cuando ILM inicia el proceso de eliminación de un objeto porque actualmente no se aplica ninguna instrucción de ubicación de las políticas de ILM activas al objeto.
 
 
@@ -29,7 +29,7 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El CBID del objeto.
 
 
 
@@ -45,7 +45,7 @@ Solo para objetos en buckets S3 conformes. 0 (falso) o 1 (verdadero), que indica
  a| 
 CMPL
  a| 
-${post_edited_translations.segment}
+Cumplimiento normativo: retención legal
  a| 
 Solo para objetos en buckets de S3 conformes. 0 (falso) o 1 (verdadero), que indica si el bucket está actualmente bajo una retención legal.
 
@@ -72,14 +72,14 @@ Solo para objetos en buckets S3 compatibles. La hora de incorporación del objet
  a| 
 DMRK
  a| 
-${post_edited_translations.segment}
+Eliminar identificador de versión del marcador de eliminación
  a| 
 El identificador de versión del marcador de eliminación creado al eliminar un objeto de un bucket con control de versiones. Las operaciones en los buckets no incluyen este campo.
 
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del contenido
  a| 
@@ -94,9 +94,9 @@ Ubicaciones
  a| 
 La ubicación de almacenamiento de los datos del objeto dentro del sistema StorageGRID. El valor de LOCS es "" si el objeto no tiene ubicaciones (por ejemplo, si se ha eliminado).
 
-${post_edited_translations.segment}
+CLEC: en el caso de los objetos con código de borrado, el identificador del perfil de código de borrado y el identificador del grupo de código de borrado que se aplican a los datos del objeto.
 
-${post_edited_translations.segment}
+CLDI: para los objetos replicados, el ID del nodo LDR y el ID del volumen de la ubicación del objeto.
 
 CLNL: ID del nodo ARC de la ubicación del objeto si los datos del objeto están archivados.
 
@@ -107,7 +107,7 @@ RUTA
  a| 
 Depósito/clave de S3
  a| 
-${post_edited_translations.segment}
+El nombre del bucket de S3 y el nombre de la clave de S3.
 
 
 
@@ -116,25 +116,25 @@ RSLT
  a| 
 Resultado
  a| 
-${post_edited_translations.segment}
+El resultado de la operación ILM.
 
-${post_edited_translations.segment}
+SUCS: La operación de ILM se realizó correctamente.
 
 
 
  a| 
 NORMA
  a| 
-${post_edited_translations.segment}
+Etiqueta de reglas
  a| 
 * Si un objeto de un depósito S3 conforme se está eliminando automáticamente porque ha vencido su periodo de retención, este campo está en blanco.
-* ${post_edited_translations.segment}
+* Si el objeto se está eliminando porque ya no hay instrucciones de ubicación que se apliquen actualmente al objeto, este campo muestra la etiqueta legible para el usuario de la última regla de ILM que se aplicó al objeto.
 
 
 
 
  a| 
-${post_edited_translations.segment}
+SGRP
  a| 
 Sitio (Grupo)
  a| 
@@ -152,7 +152,7 @@ El identificador del objeto dentro del sistema StorageGRID.
 
 
  a| 
-${post_edited_translations.segment}
+VSID
  a| 
 ID de versión
  a| 

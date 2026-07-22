@@ -7,7 +7,7 @@
 | Ruta y nombre del archivo | Descripción 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./debs/README  a| 
 Un archivo de texto que describe todos los archivos que contiene el archivo de descarga de StorageGRID.
 
 
@@ -28,7 +28,7 @@ Suma de comprobación MD5 del archivo `/debs/storagegrid-webscale-images-version
 
 
 | ./debs/storagegrid-webscale-service-version-SHA.deb  a| 
-${post_edited_translations.segment}
+Paquete DEB para instalar el servicio de host de StorageGRID en hosts con Ubuntu o Debian.
 
 
 
@@ -55,7 +55,7 @@ Un archivo de configuración de ejemplo para usar con el script  `configure-stor
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./debs/configure-storagegrid.blank.json  a| 
 Un archivo de configuración en blanco para usar con el script  `configure-storagegrid.py`.
 
 

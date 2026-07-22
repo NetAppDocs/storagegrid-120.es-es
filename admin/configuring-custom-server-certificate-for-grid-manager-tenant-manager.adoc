@@ -25,7 +25,7 @@ NOTE: Para garantizar que las operaciones no se vean interrumpidas por un certif
 
 [NOTE]
 ====
-${post_edited_translations.segment}
+Si accedes al Grid Manager o al Tenant Manager utilizando un nombre de dominio en lugar de una dirección IP, el navegador muestra un error de certificado sin opción de ignorarlo si se da alguna de las siguientes situaciones:
 
 * El certificado de tu interfaz de gestión personalizada caduca.
 * Tú <<Restaurar el certificado predeterminado de la interfaz de gestión,Volver de un certificado personalizado de la interfaz de gestión al certificado predeterminado del servidor>>.
@@ -52,9 +52,9 @@ Para añadir un certificado personalizado para la interfaz de gestión, puedes p
 Sube los archivos de certificados del servidor necesarios.
 
 .. Selecciona *Cargar certificado*.
-.. ${post_edited_translations.segment}
+.. Sube los archivos de certificados del servidor necesarios:
 +
-*** ${post_edited_translations.segment}
+*** *Certificado del servidor*: el archivo del certificado personalizado del servidor (codificado en formato PEM).
 *** *Clave privada del certificado*: El archivo de la clave privada del certificado del servidor personalizado (`.key`).
 +
 
@@ -65,7 +65,7 @@ NOTE: Las claves privadas EC deben ser de 224 bits o más. Las claves privadas R
 
 .. Despliega *Detalles del certificado* para ver los metadatos de cada certificado que subiste. Si subiste un paquete de CA opcional, cada certificado se muestra en su propia pestaña.
 +
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado o selecciona *Descargar paquete de CA* para guardar el paquete de certificados.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
@@ -81,13 +81,13 @@ Por ejemplo: `storagegrid_certificate.pem`
 --
 .Generar certificado
 --
-${post_edited_translations.segment}
+Genera los archivos del certificado del servidor.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: La mejor práctica para un entorno de producción es usar un certificado de interfaz de gestión personalizado firmado por una autoridad de certificación externa.
 
 .. Selecciona *Generar certificado*.
-.. ${post_edited_translations.segment}
+.. Indica la información del certificado:
 +
 [cols="1a,3a"]
 |===
@@ -102,16 +102,16 @@ Uno o más dominios completos para incluir en el certificado. Usa un * como como
 
 
  a| 
-${post_edited_translations.segment}
+IP
  a| 
 Una o varias direcciones IP para incluir en el certificado.
 
 
 
  a| 
-${post_edited_translations.segment}
+Asunto (opcional)
  a| 
-${post_edited_translations.segment}
+Nombre del sujeto X.509 o nombre distintivo (DN) del titular del certificado.
 
 Si no se introduce ningún valor en este campo, el certificado generado utiliza el primer nombre de dominio o la primera dirección IP como nombre común (CN) del sujeto.
 
@@ -125,11 +125,11 @@ Número de días después de la creación en los que caduca el certificado.
 
 
  a| 
-${post_edited_translations.segment}
+Agregar extensiones de uso de clave
  a| 
-${post_edited_translations.segment}
+Si seleccionas esta opción (predeterminada y recomendada), se añaden al certificado generado las extensiones de uso de clave y uso ampliado de clave.
 
-${post_edited_translations.segment}
+Estas extensiones definen la finalidad de la clave incluida en el certificado.
 
 *Nota*: Deja esta casilla marcada a menos que tengas problemas de conexión con clientes antiguos cuando los certificados incluyan estas extensiones.
 
@@ -137,7 +137,7 @@ ${post_edited_translations.segment}
 .. Selecciona *Generar*.
 .. Selecciona *Detalles del certificado* para ver los metadatos del certificado generado.
 +
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
@@ -220,18 +220,18 @@ NOTE: El periodo de validez de un certificado comienza cuando se ejecuta  `make-
 +
  $ sudo make-certificate --domains *.ui.storagegrid.example.com --type management --days 720
 +
-${post_edited_translations.segment}
+El resultado contiene el certificado público que necesita tu cliente de la API de gestión.
 
 
 
 . Selecciona y copia el certificado.
 +
-${post_edited_translations.segment}
+Incluye las etiquetas BEGIN y END en tu selección.
 
 . Cierra sesión en la línea de comandos. `$ exit`
 . Confirma que el certificado se configuró:
 +
-.. ${post_edited_translations.segment}
+.. Accede al Grid Manager.
 .. Selecciona *Configuración* > *Seguridad* > *Certificados*
 .. En la pestaña *Global*, selecciona *Certificado de la interfaz de gestión*.
 
@@ -253,7 +253,7 @@ Puedes guardar o copiar el contenido del certificado de la interfaz de administr
 +
 [role="tabbed-block"]
 ====
-.${post_edited_translations.segment}
+.Descargar el archivo de certificado o el paquete de CA
 --
 Descarga el certificado o el paquete de CA `.pem`. Si utilizas un paquete de CA opcional, cada certificado del paquete se muestra en su propia subpestaña.
 
@@ -272,11 +272,11 @@ Por ejemplo: `storagegrid_certificate.pem`
 --
 Copia el texto del certificado para pegarlo en otro lugar. Si utilizas un paquete de CA opcional, cada certificado del paquete se muestra en su propia subpestaña.
 
-.. ${post_edited_translations.segment}
+.. Selecciona *Copiar certificado PEM* o *Copiar CA bundle PEM*.
 +
 Si estás copiando un paquete de CA, todos los certificados de las pestañas secundarias del paquete de CA se copian juntos.
 
-.. ${post_edited_translations.segment}
+.. Pega el certificado copiado en un editor de texto.
 .. Guarda el archivo de texto con la extensión `.pem`.
 +
 Por ejemplo: `storagegrid_certificate.pem`

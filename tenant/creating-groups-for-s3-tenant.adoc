@@ -17,18 +17,18 @@ Puedes gestionar los permisos de los grupos de usuarios de S3 importando grupos 
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["Permiso de acceso raíz"].
 * Si tienes previsto importar un grupo federado, tienes link:using-identity-federation.html["federación de identidades configurada"], y el grupo federado ya existe en la fuente de identidad configurada.
-* Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federación de redes*, has revisado el flujo de trabajo y las consideraciones para link:grid-federation-account-clone.html["${post_edited_translations.segment}"] y has iniciado sesión en la red de origen del inquilino.
+* Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federación de redes*, has revisado el flujo de trabajo y las consideraciones para link:grid-federation-account-clone.html["clonación de grupos de inquilinos y usuarios"] y has iniciado sesión en la red de origen del inquilino.
 
 
 
 
 [[access-the-create-group-wizard]]
-== ${post_edited_translations.segment}
+== Accede al asistente para crear un grupo
 
 Como primer paso, accede al asistente para crear un grupo.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Gestión de acceso* > *Grupos*.
 . Si tu cuenta de inquilino tiene el permiso *Usar conexión de federación entre redes*, comprueba que aparezca un banner azul que indique que los nuevos grupos creados en esta grid se clonarán en el mismo inquilino de la otra grid de la conexión. Si este banner no aparece, es posible que hayas iniciado sesión en la grid de destino del inquilino.
 +
 image:grid-federation-tenant-group-banner.png["imagen de un banner azul en la página de Grupos de la cuadrícula de origen del tenant"]
@@ -39,21 +39,21 @@ image:grid-federation-tenant-group-banner.png["imagen de un banner azul en la p�
 
 
 [[choose-a-group-type]]
-== ${post_edited_translations.segment}
+== Elige un tipo de grupo
 
 Puedes crear un grupo local o importar un grupo federado.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona la pestaña *Grupo local* para crear un grupo local, o selecciona la pestaña *Grupo federado* para importar un grupo desde la fuente de identidades configurada previamente.
 +
-${post_edited_translations.segment}
+Si el inicio de sesión único (SSO) está habilitado para tu sistema StorageGRID, los usuarios que pertenezcan a grupos locales no podrán iniciar sesión en el Tenant Manager, aunque pueden usar aplicaciones cliente para gestionar los recursos del inquilino según los permisos del grupo.
 
-. ${post_edited_translations.segment}
+. Introduce el nombre del grupo.
 +
 ** *Grupo local*: introduce tanto un nombre para mostrar como un nombre único. Puedes editar el nombre para mostrar más adelante.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federación de grid*, se producirá un error de clonación si ya existe el mismo *Nombre único* para el inquilino en el grid de destino.
 
 ** *Grupo federado*: introduce el nombre único. Para Active Directory, el nombre único es el nombre asociado al atributo `sAMAccountName`. Para OpenLDAP, el nombre único es el nombre asociado al atributo `uid`.
 
@@ -64,7 +64,7 @@ NOTE: ${post_edited_translations.segment}
 
 
 [[manage-group-permissions]]
-== ${post_edited_translations.segment}
+== Gestiona los permisos de los grupos
 
 Los permisos de grupo controlan qué tareas pueden realizar los usuarios en el Tenant Manager y en la Tenant Management API.
 
@@ -75,7 +75,7 @@ Los permisos de grupo controlan qué tareas pueden realizar los usuarios en el T
 ** *Solo lectura*: los usuarios solo pueden ver la configuración y las funciones. No pueden realizar ningún cambio ni llevar a cabo ninguna operación en el Tenant Manager o la Tenant Management API. Los usuarios locales de solo lectura pueden cambiar sus propias contraseñas.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si un usuario pertenece a varios grupos y alguno de ellos está configurado como solo lectura, el usuario tendrá acceso de solo lectura a todos los ajustes y funciones seleccionados.
 
 
 
@@ -89,16 +89,16 @@ Consulta link:../tenant/tenant-management-permissions.html["Permisos de gestión
 
 
 [[set-s3-group-policy]]
-== ${post_edited_translations.segment}
+== Configura la política de grupo de S3
 
 La política de grupo determina qué permisos de acceso a S3 tendrán los usuarios.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona la política que quieras utilizar para este grupo.
 +
 [cols="1a,2a"]
 |===
-| ${post_edited_translations.segment} | Descripción 
+| Política de grupo | Descripción 
 
 
  a| 
@@ -139,7 +139,7 @@ A los usuarios del grupo se les conceden los permisos que especifiques en el cua
 |===
 . Si has seleccionado *Personalizado*, introduce la política de grupo. Cada política de grupo tiene un límite de tamaño de 5,120 bytes. Debes introducir una cadena válida con formato JSON.
 +
-Para obtener información detallada sobre las políticas de grupo, incluida la sintaxis del lenguaje y ejemplos, consulta link:../s3/example-group-policies.html["${post_edited_translations.segment}"].
+Para obtener información detallada sobre las políticas de grupo, incluida la sintaxis del lenguaje y ejemplos, consulta link:../s3/example-group-policies.html["Ejemplos de políticas de grupo"].
 
 . Si vas a crear un grupo local, selecciona *Continuar*. Si vas a crear un grupo federado, selecciona *Crear grupo* y *Finalizar*.
 
@@ -147,15 +147,15 @@ Para obtener información detallada sobre las políticas de grupo, incluida la s
 
 
 [[add-users-local-groups-only]]
-== ${post_edited_translations.segment}
+== Agregar usuarios (solo grupos locales)
 
-${post_edited_translations.segment}
+Puedes guardar el grupo sin añadir usuarios o puedes añadir opcionalmente cualquier usuario local que ya exista.
 
 
 NOTE: Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federación entre redes*, los usuarios que selecciones al crear un grupo local en la grid de origen no se incluyen cuando el grupo se clona en la grid de destino. Por esta razón, no selecciones usuarios al crear el grupo. En su lugar, selecciona el grupo al crear los usuarios.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Si lo deseas, selecciona uno o más usuarios locales para este grupo.
 . Selecciona *Crear grupo* y *Finalizar*.
 +
 El grupo que has creado aparece en la lista de grupos.

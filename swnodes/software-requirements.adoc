@@ -129,7 +129,7 @@ Debes instalar VMware vSphere Hypervisor en un servidor físico preparado. El ha
 
 * Configura la red en el hipervisor según sea necesario para dar soporte a la red del sistema StorageGRID que estás instalando.
 +
-link:../network/index.html["${post_edited_translations.segment}"]
+link:../network/index.html["Directrices de redes"]
 
 * Asegúrate de que el almacén de datos tenga capacidad suficiente para las máquinas virtuales y los discos virtuales necesarios para alojar los nodos de la grid.
 * Si creas más de un almacén de datos, asigna un nombre a cada almacén para que puedas identificar fácilmente qué almacén de datos debes usar para cada nodo de grid cuando crees máquinas virtuales.

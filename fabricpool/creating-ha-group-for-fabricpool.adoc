@@ -25,7 +25,7 @@ Para obtener más información sobre esta tarea, consulta link:../admin/managing
 
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Red* > *Grupos de alta disponibilidad*.
 . Selecciona *Crear*.
 . En el paso *Introducir datos*, rellena los siguientes campos.
 +
@@ -49,7 +49,7 @@ La descripción de este grupo de HA.
 |===
 . En el paso *Add interfaces*, selecciona las interfaces de nodo que quieres usar en este grupo de alta disponibilidad.
 +
-${post_edited_translations.segment}
+Utiliza los encabezados de las columnas para ordenar las filas o introduce un término de búsqueda para encontrar interfaces más rápido.
 
 +
 Puedes seleccionar uno o varios nodos, pero solo puedes seleccionar una interfaz por cada nodo.

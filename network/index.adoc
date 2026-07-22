@@ -16,7 +16,7 @@ Utiliza estas directrices para conocer la arquitectura y las topologías de red 
 
 
 [[about-these-instructions]]
-== ${post_edited_translations.segment}
+== Acerca de estas instrucciones
 
 Estas directrices proporcionan información que puedes usar para crear la infraestructura de red de StorageGRID antes de implementar y configurar los nodos de StorageGRID. Usa estas directrices para ayudar a asegurar que la comunicación pueda ocurrir entre todos los nodos de la grid y entre la grid y los clientes y servicios externos.
 

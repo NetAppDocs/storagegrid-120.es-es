@@ -17,7 +17,7 @@ Si tu cuenta de inquilino StorageGRID tiene el permiso *Usar conexión de federa
 * La cuenta de inquilino tiene el permiso *Usar conexión de federación de grid*.
 * La conexión a la federación de grid tiene un *Estado de conexión* de *Conectada*.
 * Has iniciado sesión en el Tenant Manager en la grid de origen del inquilino usando una link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["Gestiona tus propias credenciales de S3 o el permiso de acceso de usuario raíz"].
 * Si estás clonando claves de acceso para un usuario local, el usuario ya existe en ambas grids.
 +
 
@@ -42,7 +42,7 @@ Puedes clonar tus propias claves de acceso si necesitas acceder a los mismos buc
 +
 image:grid-federation-post-current-user-replicate.png["Punto final POST para replicar la propia clave de acceso"]
 
-. ${post_edited_translations.segment}
+. Selecciona *Pruébalo*.
 . En el cuadro de texto *cuerpo*, reemplaza las entradas de ejemplo para *accessKey* y *secretAccessKey* con los valores del archivo *.csv* que descargaste.
 +
 Asegúrate de mantener las comillas dobles alrededor de cada cadena.
@@ -71,7 +71,7 @@ Puedes clonar las claves de acceso de otro usuario si este necesita acceder a lo
 +
 `GET /org/users`
 
-.. ${post_edited_translations.segment}
+.. Selecciona *Pruébalo*.
 .. Especifica cualquier parámetro que quieras usar cuando busques usuarios.
 .. Selecciona *Ejecutar*.
 .. Busca el usuario cuyas claves quieras clonar y copia el número del campo *id*.
@@ -84,11 +84,11 @@ Puedes clonar las claves de acceso de otro usuario si este necesita acceder a lo
 +
 image:grid-federation-post-other-user.png["Punto final POST para replicar la clave de acceso de otro usuario"]
 
-. ${post_edited_translations.segment}
+. Selecciona *Pruébalo*.
 . En el cuadro de texto *userId*, pega el ID de usuario que copiaste.
 . En el cuadro de texto *cuerpo*, sustituye las entradas de ejemplo de *example access key* y *secret access key* por los valores del archivo *.csv* para ese usuario.
 +
-${post_edited_translations.segment}
+Asegúrate de mantener las comillas dobles alrededor de la cadena.
 
 . Si la clave va a caducar, sustituye la entrada de ejemplo de *expires* por la fecha y la hora de caducidad en forma de cadena con el formato de fecha y hora ISO 8601 (por ejemplo, `2023-02-28T22:46:33-08:00`). Si la clave no va a caducar, introduce *null* como valor para la entrada *expires* (o elimina la línea *Expires* y la coma que la precede).
 . Selecciona *Ejecutar*.

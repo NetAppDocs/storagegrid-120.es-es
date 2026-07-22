@@ -19,14 +19,14 @@ Usuario arrendatario::
 --
 * Revisa las consideraciones para los buckets y objetos con S3 Object Lock.
 * Si es necesario, ponte en contacto con el administrador de grid para activar la configuración global de S3 Object Lock y establecer los permisos.
-* ${post_edited_translations.segment}
+* Crea buckets con S3 Object Lock activado.
 * Opcionalmente, configura los ajustes de retención predeterminados para un bucket:
 +
 ** Modo de retención predeterminado: Governance o Compliance, si lo permite el administrador del grid.
 ** Período de retención predeterminado: debe ser menor o igual al período máximo de retención establecido por el administrador de grid.
 
 
-* ${post_edited_translations.segment}
+* Utiliza la aplicación cliente de S3 para añadir objetos y, si lo deseas, configurar la retención específica de cada objeto:
 +
 ** Modo de retención. Gobernanza o Cumplimiento, si lo permite el administrador de la grid.
 ** Fecha de retención: debe ser menor o igual a lo permitido por el periodo máximo de retención establecido por el administrador de grid.

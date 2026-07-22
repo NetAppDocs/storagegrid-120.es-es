@@ -1,26 +1,30 @@
 ---
 indexpage:
-  title: "${post_edited_translations.segment}"
-  summary: "${post_edited_translations.segment}"
+  title: Usa inquilinos y clientes de StorageGRID
+  summary: Una vez completada la configuración inicial, las cuentas de los usuarios
+    de StorageGRID pueden crear buckets y usar aplicaciones cliente S3 para cargar,
+    recuperar y eliminar objetos.
   keywords: use tenant, manage tenant group, manage tenant user, manage s3 access
     key, manage s3 bucket, use tenant features, use s3 rest api
-  lead: "${post_edited_translations.segment}"
+  lead: Una vez completada la configuración inicial, las cuentas de los usuarios de
+    StorageGRID pueden crear buckets y usar aplicaciones cliente S3 para cargar, recuperar
+    y eliminar objetos.
   tiles:
-  - title: "${post_edited_translations.segment}"
+  - title: Conoce a los inquilinos
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: "¿Qué es un tenant?"
       url: "../tenant/index.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Inicia sesión en el Tenant Manager
       url: "../tenant/signing-in-to-tenant-manager.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Supervisa las cuentas de los inquilinos
       url: "../tenant/understanding-tenant-manager-dashboard.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Usa la API de gestión de inquilinos
       url: "../tenant/understanding-tenant-management-api.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona grupos de inquilinos y usuarios
     links:
     - title: Usa la federación de identidades
       url: "../tenant/using-identity-federation.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Crear grupos de S3
       url: "../tenant/creating-groups-for-s3-tenant.html"
     - title: Permisos de gestión de inquilinos
       url: "../tenant/tenant-management-permissions.html"
@@ -38,7 +42,7 @@ indexpage:
       url: "../tenant/deleting-s3-bucket.html"
   - title: Usa las funciones de los inquilinos
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Clon de cuenta
       url: "../tenant/grid-federation-account-clone.html"
     - title: Replicación entre grids
       url: "../tenant/grid-federation-manage-cross-grid-replication.html"
@@ -56,7 +60,7 @@ indexpage:
       url: "../s3/operations-on-objects.html"
     - title: Políticas de acceso a buckets y grupos
       url: "../s3/use-access-policies.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Usa la API de REST de Swift (fin de vida útil)
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Utiliza Swift
       url: "../swift/index.html"

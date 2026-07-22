@@ -28,7 +28,7 @@ El identificador único del bloque de contenido solicitado. Si se desconoce el C
 
 
  a| 
-${post_edited_translations.segment}
+CMPS
  a| 
 Configuración de cumplimiento normativo
  a| 
@@ -50,12 +50,12 @@ CNID
  a| 
 Identificador de conexión
  a| 
-${post_edited_translations.segment}
+El identificador único del sistema para la conexión TCP/IP.
 
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del contenido
  a| 
@@ -66,7 +66,7 @@ El tamaño del objeto recuperado en bytes. Las operaciones con buckets no incluy
  a| 
 GFID
  a| 
-${post_edited_translations.segment}
+ID de conexión de Grid Federation
  a| 
 El ID de conexión de la conexión de federación de grid asociada a una solicitud PUT de replicación entre grids. Solo se incluye en los registros de auditoría del grid de destino.
 
@@ -82,9 +82,9 @@ El ID de cuenta del inquilino en la red de origen para una solicitud PUT de repl
 
 
  a| 
-${post_edited_translations.segment}
+HTRH
  a| 
-${post_edited_translations.segment}
+Encabezado de solicitud HTTP
  a| 
 Lista de los nombres y valores de los encabezados de las solicitudes HTTP registrados, según se seleccionaron durante la configuración.
 
@@ -97,14 +97,14 @@ Lista de los nombres y valores de los encabezados de las solicitudes HTTP regist
  a| 
 LKEN
  a| 
-${post_edited_translations.segment}
+Bloqueo de objetos activado
  a| 
 Valor de la cabecera de la solicitud `x-amz-bucket-object-lock-enabled`, si está presente en la solicitud.
 
 
 
  a| 
-${post_edited_translations.segment}
+LKLH
  a| 
 Bloqueo de objetos Legal Hold
  a| 
@@ -122,7 +122,7 @@ Valor de la cabecera de la solicitud `x-amz-object-lock-mode`, si está presente
 
 
  a| 
-${post_edited_translations.segment}
+LKRU
  a| 
 Retener bloqueo de objeto hasta la fecha
  a| 
@@ -131,11 +131,11 @@ Valor del encabezado de solicitud `x-amz-object-lock-retain-until-date`, si est�
 
 
  a| 
-${post_edited_translations.segment}
+MTME
  a| 
 Hora de la última modificación
  a| 
-${post_edited_translations.segment}
+La marca de tiempo Unix, en microsegundos, que indica cuándo se modificó por última vez el objeto.
 
 
 
@@ -146,7 +146,7 @@ Código de resultado
  a| 
 Resultado de la operación PUT. El resultado es siempre:
 
-${post_edited_translations.segment}
+SUCS: Exitoso
 
 
 
@@ -162,7 +162,7 @@ El ID de cuenta de inquilino del usuario que envió la solicitud. Un valor vací
  a| 
 S3AK
  a| 
-${post_edited_translations.segment}
+ID de la clave de acceso de S3 (remitente de la solicitud)
  a| 
 El ID de la clave de acceso a S3 con hash del usuario que envió la solicitud. Un valor vacío indica acceso anónimo.
 
@@ -171,7 +171,7 @@ El ID de la clave de acceso a S3 con hash del usuario que envió la solicitud. U
  a| 
 S3BK
  a| 
-${post_edited_translations.segment}
+Bucket de S3
  a| 
 El nombre del depósito de S3.
 
@@ -198,7 +198,7 @@ El subrecurso bucket u objeto sobre el que se está realizando la operación, si
  a| 
 SACC
  a| 
-${post_edited_translations.segment}
+Nombre de la cuenta de inquilino de S3 (remitente de la solicitud)
  a| 
 El nombre de la cuenta de inquilino del usuario que envió la solicitud. Vacío para solicitudes anónimas.
 
@@ -214,7 +214,7 @@ La dirección IP de la aplicación cliente que hizo la solicitud.
 
 
  a| 
-${post_edited_translations.segment}
+SBAC
  a| 
 Nombre de la cuenta de tenant de S3 (propietario del bucket)
  a| 
@@ -232,7 +232,7 @@ El ID de la cuenta de inquilino del propietario del bucket de destino. Se utiliz
 
 
  a| 
-${post_edited_translations.segment}
+SRCF
  a| 
 Configuración de subrecursos
  a| 
@@ -256,7 +256,7 @@ HORA
  a| 
 Tiempo
  a| 
-${post_edited_translations.segment}
+Tiempo total de procesamiento de la solicitud en microsegundos.
 
 
 
@@ -265,14 +265,14 @@ TLIP
  a| 
 Dirección IP de equilibrador de carga de confianza
  a| 
-${post_edited_translations.segment}
+Si la solicitud fue redirigida por un equilibrador de carga de capa 7 de confianza, la dirección IP del equilibrador de carga.
 
 
 
  a| 
 ULID
  a| 
-${post_edited_translations.segment}
+ID de subida
  a| 
 Incluido solo en los mensajes SPUT para operaciones de CompleteMultipartUpload. Indica que todas las partes se han cargado y ensamblado.
 
@@ -288,7 +288,7 @@ El identificador del objeto dentro del sistema StorageGRID.
 
 
  a| 
-${post_edited_translations.segment}
+VSID
  a| 
 ID de versión
  a| 

@@ -21,7 +21,7 @@ Si activaste S3 Object Lock al crear el bucket, puedes editar el bucket para cam
 
 .Pasos
 . Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
-. ${post_edited_translations.segment}
+. Selecciona el nombre del bucket de la tabla.
 +
 Aparece la página de detalles del bucket.
 
@@ -41,8 +41,8 @@ Los cambios en esta configuración no se aplican a los objetos que ya están en 
 Gobernanza
  a| 
 ** Los usuarios con el permiso  `s3:BypassGovernanceRetention` pueden usar el encabezado de solicitud  `x-amz-bypass-governance-retention: true` para omitir la configuración de retención.
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Estos usuarios pueden eliminar una versión de un objeto antes de que se alcance su retain-until-date.
+** Estos usuarios pueden aumentar, disminuir o eliminar la fecha de retención de un objeto.
 
 
 
@@ -51,14 +51,14 @@ Gobernanza
 Cumplimiento normativo
  a| 
 ** El objeto no se puede eliminar hasta que se alcance su fecha de retención.
-** ${post_edited_translations.segment}
+** La fecha límite de retención del objeto se puede ampliar, pero no se puede reducir.
 ** La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
 
 
 *Nota*: El administrador de tu grid debe autorizarte a utilizar el modo de cumplimiento.
 
 |===
-. ${post_edited_translations.segment}
+. Si la opción *Retención predeterminada* está activada, especifica el *período de retención predeterminado* para el bucket.
 +
 El *período de retención predeterminado* indica durante cuánto tiempo deben conservarse los nuevos objetos añadidos a este bucket, a partir del momento en que se ingieren. Especifica un valor que sea menor o igual al período máximo de retención para el tenant, según lo haya establecido el administrador del grid.
 

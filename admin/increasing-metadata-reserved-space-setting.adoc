@@ -35,7 +35,7 @@ NOTE: En general, es mejor utilizar un valor más alto que uno más bajo. Si el 
 Para obtener una explicación detallada de cómo la configuración «Espacio reservado para metadatos» afecta al espacio permitido para el almacenamiento de metadatos de objetos en un Storage Node concreto, consulta link:managing-object-metadata-storage.html["Gestiona el almacenamiento de metadatos de objetos"].
 
 .Pasos
-. ${post_edited_translations.segment}
+. Determina la configuración actual del Espacio reservado para metadatos.
 +
 .. Selecciona *Configuración* > *Sistema* > *Ajustes de almacenamiento*.
 .. Toma nota del valor de *Espacio reservado para metadatos*.
@@ -46,7 +46,7 @@ Para obtener una explicación detallada de cómo la configuración «Espacio res
 .. Selecciona *Nodos*.
 .. Selecciona el primer nodo de almacenamiento en la cuadrícula.
 .. Selecciona la pestaña Storage.
-.. ${post_edited_translations.segment}
+.. En la sección Volumes, busca la entrada */var/local/rangedb/0*.
 .. Comprueba que el valor Disponible sea igual o superior a la diferencia entre el nuevo valor que deseas utilizar y el valor actual de Espacio reservado para metadatos.
 +
 Por ejemplo, si el valor actual de la opción «Espacio reservado para metadatos» es de 4 TB y quieres aumentarlo a 6 TB, el valor de «Disponible» debe ser de 2 TB o más.
@@ -76,10 +76,10 @@ Por ejemplo, si el valor actual de la opción «Espacio reservado para metadatos
 . Actualiza la configuración del Espacio reservado para metadatos.
 +
 .. Selecciona *Configuración* > *Sistema* > *Ajustes de almacenamiento*.
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona *Espacio reservado para metadatos*.
+.. Introduce el nuevo valor.
 +
-${post_edited_translations.segment}
+Por ejemplo, para introducir 8 TB, que es el valor máximo admitido, escribe *8000000000000* (8 seguido de 12 ceros)
 
 .. Selecciona *Guardar*.
 

@@ -12,7 +12,7 @@ El siguiente ejemplo ilustra cómo se incrementa la versión de la API en funci�
 
 [cols="1a,1a,1a"]
 |===
-| Tipo de cambio en la API | ${post_edited_translations.segment} | Nueva versión 
+| Tipo de cambio en la API | Versión anterior | Nueva versión 
 
 
  a| 
@@ -46,7 +46,7 @@ NOTE: Puedes configurar las versiones compatibles. Consulta la sección *config*
 
 Las solicitudes obsoletas se marcan como en desuso de las siguientes maneras:
 
-* ${post_edited_translations.segment}
+* El encabezado de respuesta es "Deprecated: true"
 * El cuerpo de la respuesta JSON incluye "deprecated": true
 * Se añade una advertencia de obsolescencia a nms.log. Por ejemplo:
 +

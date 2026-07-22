@@ -21,18 +21,18 @@ Este mensaje se genera cuando se ha limpiado o eliminado un fragmento filtrado. 
  a| 
 CLOC
  a| 
-${post_edited_translations.segment}
+Ubicación del fragmento
  a| 
 La ruta del archivo del fragmento filtrado que se eliminó.
 
 
 
  a| 
-${post_edited_translations.segment}
+CTYP
  a| 
-${post_edited_translations.segment}
+Tipo de fragmento
  a| 
-${post_edited_translations.segment}
+Tipo de fragmento:
 
 `ec: Erasure-coded object chunk`
 
@@ -41,11 +41,11 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+LTYP
  a| 
 Tipo de fuga
  a| 
-${post_edited_translations.segment}
+Los cinco tipos de fugas que se pueden detectar:
 
 `object_leaked: Object doesn’t exist in the grid`
 
@@ -60,11 +60,11 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+CTIM
  a| 
-${post_edited_translations.segment}
+Hora de creación del fragmento
  a| 
-${post_edited_translations.segment}
+Hora en la que se creó el fragmento filtrado.
 
 
 
@@ -73,7 +73,7 @@ UUID
  a| 
 Identificador único universal
  a| 
-${post_edited_translations.segment}
+El identificador del objeto al que pertenece el fragmento.
 
 
 
@@ -82,12 +82,12 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+CBID del objeto al que pertenece el fragmento filtrado.
 
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del contenido
  a| 

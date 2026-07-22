@@ -24,7 +24,7 @@ NOTE: Los códigos de auditoría se eliminan del producto y de la documentación
  a| 
 BROR
  a| 
-${post_edited_translations.segment}
+Solicitud de solo lectura del bucket: un bucket entró o salió del modo de solo lectura.
  a| 
 link:bror-bucket-read-only-request.html["BROR: Solicitud de solo lectura de bucket"]
 
@@ -35,7 +35,7 @@ CBSE
  a| 
 Fin del envío del objeto: la entidad de origen completó una operación de transferencia de datos de un nodo de la red a otro.
  a| 
-link:cbse-object-send-end.html["${post_edited_translations.segment}"]
+link:cbse-object-send-end.html["CBSE: Fin del envío del objeto"]
 
 
 
@@ -51,7 +51,7 @@ link:cbre-object-receive-end.html["CBRE: Fin de recepción de objeto"]
  a| 
 CGRR
  a| 
-${post_edited_translations.segment}
+Solicitud de replicación entre grids: StorageGRID intentó realizar una operación de replicación entre grids para replicar objetos entre buckets en una conexión de federación de grids.
  a| 
 link:cgrr-cross-grid-replication-request.html["CGRR: Solicitud de replicación entre grids"]
 
@@ -60,7 +60,7 @@ link:cgrr-cross-grid-replication-request.html["CGRR: Solicitud de replicación e
  a| 
 EBDL
  a| 
-${post_edited_translations.segment}
+Eliminación de bucket vacío: El escáner de ILM eliminó un objeto en un bucket que está eliminando todos los objetos (realizando una operación de vaciado de bucket).
  a| 
 link:ebdl-empty-bucket-delete.html["EBDL: Eliminación de cubos vacíos"]
 
@@ -89,6 +89,6 @@ SREM
  a| 
 Eliminación del almacén de objetos: se eliminó un bloque de contenido de un nodo de la cuadrícula y ya no se puede solicitar directamente.
  a| 
-link:srem-object-store-remove.html["${post_edited_translations.segment}"]
+link:srem-object-store-remove.html["SREM: Eliminación del Object Store"]
 
 |===

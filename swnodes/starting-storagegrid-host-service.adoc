@@ -24,7 +24,7 @@ NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Par
 sudo systemctl enable storagegrid
 sudo systemctl start storagegrid
 ----
-. ${post_edited_translations.segment}
+. Ejecuta el siguiente comando para asegurarte de que la implementación se está llevando a cabo:
 +
 [listing]
 ----

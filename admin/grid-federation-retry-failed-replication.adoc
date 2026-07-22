@@ -13,21 +13,21 @@ summary: Tras resolver la alerta de fallo permanente de replicación entre grids
 [role="lead"]
 Después de resolver la alerta *Cross-grid replication permanent failure*, debes comprobar si hay algún objeto o marcador de eliminación que no se haya replicado en la otra grid. Luego puedes volver a ingresar estos objetos o usar la Grid Management API para volver a intentar la replicación.
 
-La alerta *«Fallo permanente en la replicación entre redes»* indica que los objetos del inquilino no se pueden replicar entre los buckets de dos redes por un motivo que requiere la intervención del usuario para resolverse. Esta alerta suele deberse a un cambio en el bucket de origen o en el de destino. Para obtener más información, consulta link:grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+La alerta *«Fallo permanente en la replicación entre redes»* indica que los objetos del inquilino no se pueden replicar entre los buckets de dos redes por un motivo que requiere la intervención del usuario para resolverse. Esta alerta suele deberse a un cambio en el bucket de origen o en el de destino. Para obtener más información, consulta link:grid-federation-troubleshoot.html["Solucionar errores de federación de grid"].
 
 
 
 [[determine-if-any-objects-failed-to-be-replicated]]
 == Determina si algún objeto no se replicó
 
-Para determinar si hay algún objeto o marcador de eliminación que no se haya replicado en la otra grid, puedes buscar en el registro de auditoría los mensajes link:../audit/cgrr-cross-grid-replication-request.html["${post_edited_translations.segment}"]. Este mensaje se añade al registro cuando StorageGRID no consigue replicar un objeto, un objeto multiparte o un marcador de eliminación al bucket de destino.
+Para determinar si hay algún objeto o marcador de eliminación que no se haya replicado en la otra grid, puedes buscar en el registro de auditoría los mensajes link:../audit/cgrr-cross-grid-replication-request.html["CGRR (Solicitud de replicación entre grids)"]. Este mensaje se añade al registro cuando StorageGRID no consigue replicar un objeto, un objeto multiparte o un marcador de eliminación al bucket de destino.
 
-Puedes usar la link:../audit/using-audit-explain-tool.html["${post_edited_translations.segment}"] para traducir los resultados a un formato más fácil de leer.
+Puedes usar la link:../audit/using-audit-explain-tool.html["herramienta audit-explain"] para traducir los resultados a un formato más fácil de leer.
 
 .Antes de empezar
 * Tienes permiso de acceso root.
 * Tienes el archivo  `Passwords.txt`.
-* ${post_edited_translations.segment}
+* Conoces la dirección IP del nodo de administración principal.
 
 
 .Pasos
@@ -42,7 +42,7 @@ Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
 
 
 
-. ${post_edited_translations.segment}
+. Busca mensajes CGRR en el archivo audit.log y usa la herramienta audit-explain para dar formato a los resultados.
 +
 Por ejemplo, este comando busca con «grep» todos los mensajes CGRR de los últimos 30 minutos y utiliza la herramienta «audit-explain».
 
@@ -79,7 +79,7 @@ El ID de cuenta del inquilino
 
 
 
-| ${post_edited_translations.segment}  a| 
+| conexión  a| 
 El identificador de la conexión de la federación de grid
 
 
@@ -120,10 +120,10 @@ El tipo de error. Si la replicación entre grids falló, el error es «Error gen
 [[retry-failed-replications]]
 == Reintentar las replicaciones fallidas
 
-${post_edited_translations.segment}
+Después de generar una lista de los objetos y marcadores de eliminación que no se replicaron en el bucket de destino y resolver los problemas subyacentes, puedes volver a intentar la replicación de dos maneras:
 
 * Vuelve a introducir cada objeto en el bucket de origen.
-* ${post_edited_translations.segment}
+* Utiliza la API privada de gestión de la grid, tal y como se describe.
 
 
 .Pasos
@@ -133,17 +133,17 @@ ${post_edited_translations.segment}
 
 NOTE: Los puntos finales de la API de StorageGRID marcados como «Privados» están sujetos a cambios sin previo aviso. Los puntos finales privados de StorageGRID también ignoran la versión de la API de la solicitud.
 
-. ${post_edited_translations.segment}
+. En la sección *cross-grid-replication-advanced*, selecciona el siguiente endpoint:
 +
 `POST /private/cross-grid-replication-retry-failed`
 
-. ${post_edited_translations.segment}
+. Selecciona *Pruébalo*.
 . En el cuadro de texto *body*, reemplaza la entrada de ejemplo de *versionID* por un identificador de versión del audit.log que corresponda a una solicitud de replicación entre grids que haya fallado.
 +
-${post_edited_translations.segment}
+Asegúrate de mantener las comillas dobles alrededor de la cadena.
 
 . Selecciona *Ejecutar*.
-. ${post_edited_translations.segment}
+. Comprueba que el código de respuesta del servidor sea *204*, lo que indica que el objeto o el marcador de eliminación se ha marcado como pendiente para la replicación entre grids hacia el otro grid.
 +
 
 NOTE: «Pendiente» significa que la solicitud de replicación entre grids se ha añadido a la cola interna para su procesamiento.
@@ -166,13 +166,13 @@ Puedes supervisar las operaciones de reintento de dos formas:
 +
 [cols="1a,2a"]
 |===
-| ${post_edited_translations.segment} | Estado de la replicación 
+| Grid | Estado de la replicación 
 
 
  a| 
 Fuente
  a| 
-** ${post_edited_translations.segment}
+** *FINALIZADO*: La replicación se realizó con éxito.
 ** *PENDIENTE*: El objeto aún no se ha replicado.
 ** *ERROR*: La replicación falló debido a un error permanente. Un usuario debe solucionar el error.
 
@@ -185,22 +185,22 @@ Destino
 *RÉPLICA*: El objeto fue replicado desde la cuadrícula de origen.
 
 |===
-* ${post_edited_translations.segment}
+* Utiliza la API privada de gestión de la grid, tal y como se describe.
 
 
 .Pasos
-. ${post_edited_translations.segment}
+. En la sección *cross-grid-replication-advanced* de la documentación de la API privada, selecciona el siguiente endpoint:
 +
 `GET /private/cross-grid-replication-object-status/{id}`
 
-. ${post_edited_translations.segment}
+. Selecciona *Pruébalo*.
 . En la sección de Parámetros, introduce el ID de versión que usaste en la solicitud  `cross-grid-replication-retry-failed`.
 . Selecciona *Ejecutar*.
 . Comprueba que el código de respuesta del servidor sea *200*.
 . Comprueba el estado de la replicación, que será uno de los siguientes:
 +
 ** *PENDIENTE*: El objeto aún no se ha replicado.
-** ${post_edited_translations.segment}
+** *FINALIZADO*: La replicación se realizó con éxito.
 ** *FALLO*: La replicación falló debido a un error permanente. Un usuario debe solucionar el error.
 
 

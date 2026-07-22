@@ -2,7 +2,7 @@
 permalink: swnodes/collecting-information-about-your-deployment-environment.html 
 sidebar: sidebar 
 keywords: how to collect information about your vmware deployment environment 
-summary: ${post_edited_translations.segment} 
+summary: Antes de implementar los nodos de grid, debes recopilar información sobre la configuración de tu red y tu entorno VMware. 
 ---
 = Recopila información sobre tu entorno VMware para StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Antes de implementar los nodos de grid, debes recopilar información sobre la configuración de tu red y tu entorno VMware.
 
 
 NOTE: Es más eficaz realizar una instalación única de todos los nodos, en lugar de instalar algunos nodos ahora y otros más adelante.
@@ -21,12 +21,12 @@ NOTE: Es más eficaz realizar una instalación única de todos los nodos, en lug
 [[vmware-information]]
 == Información sobre VMware
 
-${post_edited_translations.segment}
+Debes acceder al entorno de implementación y recopilar información sobre el entorno de VMware; las redes que se crearon para las redes Grid, Admin y Client; y los tipos de volúmenes de almacenamiento que planeas usar para los Storage Nodes.
 
-${post_edited_translations.segment}
+Debes recopilar información sobre tu entorno VMware, incluyendo lo siguiente:
 
 * El nombre de usuario y la contraseña de una cuenta de VMware vSphere que cuente con los permisos adecuados para completar la implementación.
-* ${post_edited_translations.segment}
+* Información sobre la configuración del host, el datastore y la red de cada máquina virtual de nodo de StorageGRID.
 
 
 
@@ -35,14 +35,14 @@ NOTE: VMware live vMotion hace que la hora del reloj de la máquina virtual salt
 
 
 [[grid-network-information]]
-== ${post_edited_translations.segment}
+== Información de la red Grid
 
-${post_edited_translations.segment}
+Debes recopilar información sobre la red de VMware creada para la red Grid de StorageGRID (obligatorio), incluyendo:
 
-* ${post_edited_translations.segment}
+* El nombre de la red.
 * El método utilizado para asignar direcciones IP, ya sea estáticas o mediante DHCP.
 +
-** ${post_edited_translations.segment}
+** Si utilizas direcciones IP estáticas, los datos de red necesarios para cada nodo de grid (dirección IP, puerta de enlace, máscara de red).
 ** Si utilizas DHCP, la dirección IP del nodo de administración principal de la red Grid. Consulta link:how-grid-nodes-discover-primary-admin-node.html["Cómo detectan los nodos de la grid el nodo de administración principal"] para obtener más información.
 
 
@@ -53,12 +53,12 @@ ${post_edited_translations.segment}
 [[admin-network-information]]
 == Información de la red de administración
 
-${post_edited_translations.segment}
+Para los nodos que se conectarán a la red de administración opcional de StorageGRID, debes recopilar información sobre la red de VMware creada para esta red, incluyendo:
 
-* ${post_edited_translations.segment}
+* El nombre de la red.
 * El método utilizado para asignar direcciones IP, ya sea estáticas o mediante DHCP.
 +
-** ${post_edited_translations.segment}
+** Si utilizas direcciones IP estáticas, los datos de red necesarios para cada nodo de grid (dirección IP, puerta de enlace, máscara de red).
 ** Si utilizas DHCP, la dirección IP del nodo de administración principal de la red Grid. Consulta link:how-grid-nodes-discover-primary-admin-node.html["Cómo detectan los nodos de la grid el nodo de administración principal"] para obtener más información.
 
 
@@ -72,9 +72,9 @@ ${post_edited_translations.segment}
 
 En el caso de los nodos que se conectarán a la red opcional StorageGRID Client Network, debes recopilar información sobre la red de VMware creada para esta red, incluyendo:
 
-* ${post_edited_translations.segment}
+* El nombre de la red.
 * El método utilizado para asignar direcciones IP, ya sea estáticas o mediante DHCP.
-* ${post_edited_translations.segment}
+* Si utilizas direcciones IP estáticas, los datos de red necesarios para cada nodo de grid (dirección IP, puerta de enlace, máscara de red).
 
 
 

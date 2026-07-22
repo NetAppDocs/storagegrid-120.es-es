@@ -14,7 +14,7 @@ summary: 'Si usas FabricPool para almacenar datos en niveles en StorageGRID, deb
 Si usas FabricPool para almacenar datos en niveles en StorageGRID, debes comprender los requisitos para utilizar la gestión del ciclo de vida de la información (ILM) de StorageGRID con los datos de FabricPool.
 
 
-CAUTION: FabricPool no tiene conocimiento de las reglas ni de las políticas de ILM de StorageGRID. Si la política de ILM de StorageGRID está mal configurada, se puede producir una pérdida de datos. Para obtener información detallada, consulta link:../ilm/what-ilm-rule-is.html["${post_edited_translations.segment}"] y link:../ilm/creating-ilm-policy.html["${post_edited_translations.segment}"].
+CAUTION: FabricPool no tiene conocimiento de las reglas ni de las políticas de ILM de StorageGRID. Si la política de ILM de StorageGRID está mal configurada, se puede producir una pérdida de datos. Para obtener información detallada, consulta link:../ilm/what-ilm-rule-is.html["Utiliza las reglas de ILM para gestionar objetos"] y link:../ilm/creating-ilm-policy.html["Crear políticas de ILM"].
 
 
 
@@ -25,7 +25,7 @@ Cuando usas el asistente de configuración de FabricPool, el asistente crea auto
 
 Si estás configurando StorageGRID de forma manual en lugar de usar el asistente de configuración de FabricPool, revisa estas directrices para asegurarte de que tus reglas de ILM y tu política de ILM sean adecuadas para los datos de FabricPool y tus requisitos de negocio. Es posible que necesites crear nuevas reglas y actualizar tus políticas de ILM activas para cumplir con estas directrices.
 
-* ${post_edited_translations.segment}
+* Puedes utilizar cualquier combinación de reglas de replicación y de código de borrado para proteger los datos del nivel de la nube.
 +
 La práctica recomendada es utilizar la codificación de borrado 2+1 dentro de un sitio para lograr una protección de datos rentable. La codificación de borrado utiliza más CPU, pero ofrece una capacidad de almacenamiento significativamente menor que la replicación. Los esquemas 4+1 y 6+1 utilizan menos capacidad que el esquema 2+1. Sin embargo, los esquemas 4+1 y 6+1 son menos flexibles si necesitas añadir Storage Nodes durante la expansión del grid. Para obtener más detalles, consulta link:../expand/adding-storage-capacity-for-erasure-coded-objects.html["Agrega capacidad de almacenamiento para objetos con código de borrado"].
 

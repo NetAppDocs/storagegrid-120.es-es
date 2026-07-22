@@ -187,7 +187,7 @@ Si quieres guardar los archivos de registro internamente, selecciona un tenant y
 Si lo deseas, puedes configurar un servidor syslog externo para guardar los registros de auditoría, los registros de aplicaciones y los registros de eventos de seguridad en una ubicación fuera de tu grid.
 
 
-NOTE: Si no quieres utilizar un servidor syslog externo, omite este paso y ve a <<select-log-location,${post_edited_translations.segment}>>.
+NOTE: Si no quieres utilizar un servidor syslog externo, omite este paso y ve a <<select-log-location,Selecciona la ubicación del registro>>.
 
 
 TIP: Si las opciones de configuración disponibles en este procedimiento no son lo suficientemente flexibles como para satisfacer tus necesidades, se pueden aplicar opciones de configuración adicionales usando los  `audit-destinations` endpoints, que están en la sección privada de la API de link:../admin/using-grid-management-api.html["API de gestión de grid"]. Por ejemplo, puedes usar la API si quieres usar diferentes servidores syslog para distintos grupos de nodos.
@@ -584,7 +584,7 @@ NOTE: La información de auditoría de StorageGRID no se envía al servidor sysl
 
 
 [[select-log-location]]
-=== ${post_edited_translations.segment}
+=== Selecciona la ubicación del registro
 
 Puedes especificar dónde se envían los registros de auditoría, los registros de eventos de seguridad, link:../monitor/storagegrid-software-logs.html["Registros de aplicaciones de StorageGRID"] y los registros de acceso.
 

@@ -23,7 +23,7 @@ Puedes editar una política de clasificación del tráfico para cambiar su nombr
 +
 Aparece la página «Políticas de clasificación del tráfico» y las políticas existentes se muestran en una tabla.
 
-. Edita la política mediante el menú «Acciones» o la página de detalles. Consulta link:../admin/creating-traffic-classification-policies.html["${post_edited_translations.segment}"] para saber qué datos debes introducir.
+. Edita la política mediante el menú «Acciones» o la página de detalles. Consulta link:../admin/creating-traffic-classification-policies.html["crear políticas de clasificación del tráfico"] para saber qué datos debes introducir.
 +
 [role="tabbed-block"]
 ====
@@ -34,18 +34,18 @@ Aparece la página «Políticas de clasificación del tráfico» y las política
 
 
 --
-.${post_edited_translations.segment}
+.Página de detalles
 --
 .. Selecciona el nombre de la política.
-.. ${post_edited_translations.segment}
+.. Selecciona el botón *Editar* situado junto al nombre de la política.
 
 
 --
 ====
 . En el paso «Introducir el nombre de la política», si lo deseas, edita el nombre o la descripción de la política y selecciona *Continuar*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. En el paso «Add matching rules», puedes añadir una regla o editar el *Tipo* y el *Valor de coincidencia* de la regla existente, y seleccionar *Continuar*.
+. En el paso «Establecer límites», puedes añadir, editar o eliminar un límite de forma opcional y seleccionar *Continuar*.
+. Revisa la política actualizada y selecciona *Guardar y continuar*.
 +
 Se han guardado los cambios que has realizado en la política y ahora el tráfico de red se gestiona de acuerdo con las políticas de clasificación de tráfico. Puedes ver los gráficos de tráfico y verificar que las políticas estén aplicando los límites de tráfico que esperas.
 

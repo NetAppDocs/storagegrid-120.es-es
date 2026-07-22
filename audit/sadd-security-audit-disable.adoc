@@ -21,7 +21,7 @@ Este mensaje indica que el servicio de origen (ID de nodo) ha desactivado el reg
  a| 
 AETM
  a| 
-${post_edited_translations.segment}
+Activar método
  a| 
 El método utilizado para desactivar la auditoría.
 
@@ -32,7 +32,7 @@ AEUN
  a| 
 Nombre de usuario
  a| 
-${post_edited_translations.segment}
+El nombre de usuario que ejecutó el comando para desactivar el registro de auditoría.
 
 
 

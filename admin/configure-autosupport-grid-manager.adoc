@@ -18,7 +18,7 @@ Si quieres cambiar la configuración de StorageGRID AutoSupport, realiza tus cam
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes el link:admin-group-permissions.html["Permiso de acceso raíz"].
-* Si vas a utilizar HTTPS para enviar paquetes de AutoSupport, has proporcionado acceso saliente a internet al nodo de administración primario, ya sea directamente o link:configuring-admin-proxy-settings.html["${post_edited_translations.segment}"] (no se requieren conexiones entrantes).
+* Si vas a utilizar HTTPS para enviar paquetes de AutoSupport, has proporcionado acceso saliente a internet al nodo de administración primario, ya sea directamente o link:configuring-admin-proxy-settings.html["utilizando un servidor proxy"] (no se requieren conexiones entrantes).
 * Si se selecciona HTTP en la página de StorageGRID AutoSupport, tienes link:configuring-admin-proxy-settings.html["configuraste un servidor proxy"] para reenviar los paquetes de AutoSupport como HTTPS. Los servidores de NetApp AutoSupport rechazarán los paquetes enviados mediante HTTP.
 * Si vas a utilizar SMTP como protocolo para los paquetes de AutoSupport, ya has configurado un servidor de correo SMTP.
 
@@ -53,7 +53,7 @@ El protocolo que configures se utiliza para enviar todo tipo de paquetes de Auto
 . Si has seleccionado *HTTPS*, indica si deseas utilizar un certificado de soporte de NetApp (certificado TLS) para proteger la conexión con el servidor de soporte técnico.
 +
 ** *Verificar certificado* (por defecto): garantiza que la transmisión de paquetes AutoSupport sea segura. El certificado de soporte de NetApp ya viene instalado con el software StorageGRID.
-** ${post_edited_translations.segment}
+** *No verificar el certificado*: Selecciona esta opción solo cuando tengas una buena razón para no usar la validación del certificado, como cuando haya un problema temporal con un certificado.
 
 
 . Selecciona *Guardar*. Todos los paquetes semanales, activados por el usuario y activados por eventos se envían mediante el protocolo seleccionado.

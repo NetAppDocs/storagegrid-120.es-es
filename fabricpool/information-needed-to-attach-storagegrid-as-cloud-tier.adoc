@@ -18,11 +18,11 @@ Antes de poder vincular StorageGRID como un nivel de nube para FabricPool, debes
 [[what-values-do-i-need]]
 == ¿Qué valores necesito?
 
-${post_edited_translations.segment}
+La siguiente tabla muestra los valores que debes configurar en StorageGRID y cómo los utilizan ONTAP y el servidor DNS.
 
 [cols="1a,1a,1a"]
 |===
-| Valor | ${post_edited_translations.segment} | Dónde se utiliza el valor 
+| Valor | Dónde se configura el valor | Dónde se utiliza el valor 
 
 
  a| 
@@ -30,7 +30,7 @@ Direcciones IP virtuales (VIP)
  a| 
 StorageGRID > Grupo de alta disponibilidad
  a| 
-${post_edited_translations.segment}
+Entrada DNS
 
 
 
@@ -57,7 +57,7 @@ Nombre del servidor (FQDN)
  a| 
 StorageGRID > Punto de conexión del equilibrador de carga
  a| 
-${post_edited_translations.segment}
+Entrada DNS
 
 
 
@@ -71,7 +71,7 @@ ONTAP System Manager > Añadir cloud tier
 
 
  a| 
-${post_edited_translations.segment}
+Nombre del bucket/contenedor
  a| 
 StorageGRID > Usuario y bucket
  a| 
@@ -81,9 +81,9 @@ ONTAP System Manager > Añadir cloud tier
 
 
 [[how-do-i-get-these-values]]
-== ${post_edited_translations.segment}
+== ¿Cómo obtengo estos valores?
 
-${post_edited_translations.segment}
+En función de tus necesidades, puedes hacer cualquiera de las siguientes cosas para obtener la información que necesitas:
 
 * Usa el link:use-fabricpool-setup-wizard.html["Asistente de configuración de FabricPool"]. El asistente de configuración de FabricPool te ayuda a configurar rápidamente los valores necesarios en StorageGRID y genera un archivo que puedes usar para configurar ONTAP System Manager. El asistente te guía por los pasos necesarios y te ayuda a asegurarte de que tu configuración cumple con las prácticas recomendadas de StorageGRID y FabricPool.
 * Configura cada elemento manualmente. A continuación, introduce los valores en ONTAP System Manager o en la CLI de ONTAP. Sigue estos pasos:

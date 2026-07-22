@@ -1,6 +1,6 @@
 ---
 section: swift
-title: "${post_edited_translations.segment}"
+title: Usa la API de REST de Swift (fin de vida útil)
 entries:
-- title: "${post_edited_translations.segment}"
+- title: API de REST de Swift
   url: "/swift/index.html"

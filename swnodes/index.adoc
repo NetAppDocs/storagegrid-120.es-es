@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: about ubuntu, ubuntu overview, vnware, red hat enterprise linux, rhel, quick start 
 summary: Sigue estos pasos a grandes rasgos para instalar un nodo de Linux o VMware StorageGRID. 
 ---
-= ${post_edited_translations.segment}
+= Guía de inicio rápido para instalar StorageGRID en un nodo basado en software
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -20,7 +20,7 @@ NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Par
 [role="quick-margin-list"]
 * Conoce más sobre link:../primer/storagegrid-architecture-and-network-topology.html["Arquitectura de StorageGRID y topología de red"].
 * Infórmate sobre los detalles de link:../network/index.html["Redes StorageGRID"].
-* Reúne y prepara el link:required-materials.html["${post_edited_translations.segment}"].
+* Reúne y prepara el link:required-materials.html["Información y materiales necesarios"].
 * (Solo VMware) Instala y configura link:software-requirements.html["VMware vSphere Hypervisor, vCenter y los hosts ESX"].
 * Prepara el link:cpu-and-ram-requirements.html["CPU y RAM"] necesario.
 * Proporciona link:storage-and-performance-requirements.html["requisitos de almacenamiento y rendimiento"].
@@ -57,16 +57,16 @@ Para ahorrar tiempo y garantizar la coherencia, puedes automatizar la instalaci�
 
 * Utiliza un marco de orquestación estándar, como Ansible, Puppet o Chef, para automatizar:
 +
-** ${post_edited_translations.segment}
+** Instalación de Linux
 ** Configuración de redes y almacenamiento
 ** Instalación del motor de contenedores y del servicio de host de StorageGRID
 ** Implementación de nodos de grid virtual
 
 
 +
-Consulta link:automating-installation-linux.html#automate-the-installation-and-configuration-of-the-storagegrid-host-service["${post_edited_translations.segment}"].
+Consulta link:automating-installation-linux.html#automate-the-installation-and-configuration-of-the-storagegrid-host-service["Automatiza la instalación y la configuración del servicio de host de StorageGRID"].
 
-* Después de implementar los nodos de la grid, link:automating-installation-linux.html#automate-the-configuration-of-storagegrid["${post_edited_translations.segment}"] usando el script de configuración de Python proporcionado en el archivo de instalación.
+* Después de implementar los nodos de la grid, link:automating-installation-linux.html#automate-the-configuration-of-storagegrid["automatizar la configuración del sistema StorageGRID"] usando el script de configuración de Python proporcionado en el archivo de instalación.
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/automating-appliance-installation-and-configuration.html["Automatiza la instalación y configuración de los nodos de grid de appliance"^]
 * Si eres un desarrollador avanzado de implementaciones de StorageGRID, automatiza la instalación de los nodos de grid usando la link:overview-of-installation-rest-api.html["API de REST de instalación"].
 
@@ -74,10 +74,10 @@ Consulta link:automating-installation-linux.html#automate-the-installation-and-c
 --
 .VMware
 --
-${post_edited_translations.segment}
+Para ahorrar tiempo y garantizar la coherencia, puedes automatizar la implementación y la configuración de los nodos de la red y la configuración del sistema StorageGRID.
 
 * link:automating-grid-node-deployment-in-vmware-vsphere.html#automate-grid-node-deployment["Automatiza la implementación de nodos de red usando VMware vSphere"].
-* Después de implementar los nodos de la grid, link:automating-grid-node-deployment-in-vmware-vsphere.html#automate-the-configuration-of-storagegrid["${post_edited_translations.segment}"] usando el script de configuración de Python proporcionado en el archivo de instalación.
+* Después de implementar los nodos de la grid, link:automating-grid-node-deployment-in-vmware-vsphere.html#automate-the-configuration-of-storagegrid["automatizar la configuración del sistema StorageGRID"] usando el script de configuración de Python proporcionado en el archivo de instalación.
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/automating-appliance-installation-and-configuration.html["Automatiza la instalación y configuración de los nodos de grid de appliance"^]
 * Si eres un desarrollador avanzado de implementaciones de StorageGRID, automatiza la instalación de los nodos de grid usando la link:overview-of-installation-rest-api.html["API de REST de instalación"].
 

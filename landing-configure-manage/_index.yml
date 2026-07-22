@@ -25,33 +25,33 @@ indexpage:
     links:
     - title: Usa la federación de identidades
       url: "../admin/using-identity-federation.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Gestiona grupos de administradores
       url: "../admin/managing-admin-groups.html"
     - title: Permisos del grupo de administradores
       url: "../admin/admin-group-permissions.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Configura el inicio de sesión único
       url: "../admin/how-sso-works.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Usa la federación de grid
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: "¿Qué es la federación de grid?"
       url: "../admin/grid-federation-overview.html"
     - title: Compara la replicación entre grids con CloudMirror
       url: "../admin/grid-federation-compare-cgr-to-cloudmirror.html"
     - title: Crear conexiones de federación de grid
       url: "../admin/grid-federation-create-connection.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Gestiona los inquilinos autorizados
       url: "../admin/grid-federation-manage-tenants.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona las conexiones de los clientes y los inquilinos
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Configura los nombres de dominio de los endpoints S3
       url: "../admin/configuring-s3-api-endpoint-domain-names.html"
     - title: Usa el asistente de configuración de S3
       url: "../admin/use-s3-setup-wizard.html"
     - title: Utiliza el asistente de configuración de FabricPool
       url: "../fabricpool/use-fabricpool-setup-wizard.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Crear inquilinos
       url: "../admin/creating-tenant-account.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Usa la gestión del ciclo de vida de la información (ILM)
     links:
     - title: Infórmate sobre el ciclo de vida de ILM
       url: "../ilm/how-ilm-operates-throughout-objects-life.html"
@@ -59,13 +59,13 @@ indexpage:
       url: "../ilm/what-ilm-rule-is.html"
     - title: Gestiona las políticas de ILM
       url: "../ilm/creating-ilm-policy.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Ejemplos de ILM
       url: "../ilm/example-1-ilm-rules-and-policy-for-object-storage.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Protege tu sistema
     links:
     - title: Por qué es fundamental el refuerzo de la seguridad del sistema
       url: "../harden/index.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Revisa los métodos de cifrado
       url: "../admin/reviewing-storagegrid-encryption-methods.html"
     - title: Gestiona certificados de seguridad
       url: "../admin/using-storagegrid-security-certificates.html"

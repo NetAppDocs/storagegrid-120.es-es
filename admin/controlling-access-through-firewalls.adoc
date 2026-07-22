@@ -19,13 +19,13 @@ Si quieres configurar el firewall interno de StorageGRID, consulta link:../admin
 
 [cols="1a,1a,2a"]
 |===
-| Puerto | Descripción | ${post_edited_translations.segment} 
+| Puerto | Descripción | Si el puerto está abierto... 
 
 
  a| 
 443
  a| 
-${post_edited_translations.segment}
+Puerto HTTPS predeterminado para los nodos de administración
  a| 
 Los navegadores web y los clientes de la API de gestión pueden acceder al Grid Manager, a la Grid Management API, al Tenant Manager y a la Tenant Management API.
 
@@ -39,7 +39,7 @@ Los navegadores web y los clientes de la API de gestión pueden acceder al Grid 
 Puerto restringido de Grid Manager en los nodos de administración
  a| 
 * Los navegadores web y los clientes de la API de gestión pueden acceder al Grid Manager y a la Grid Management API mediante HTTPS.
-* ${post_edited_translations.segment}
+* Los navegadores web y los clientes de la API de gestión no pueden acceder al Tenant Manager ni a la Tenant Management API.
 * Se rechazarán las solicitudes de contenido interno.
 
 

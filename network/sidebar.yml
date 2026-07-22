@@ -1,8 +1,8 @@
 ---
 section: network
-title: "${post_edited_translations.segment}"
+title: Directrices de redes
 entries:
-- title: "${post_edited_translations.segment}"
+- title: Directrices de redes
   pdf-filename: Directrices de red para StorageGRID
   url: "/network/index.html"
 - title: Tipos de redes StorageGRID

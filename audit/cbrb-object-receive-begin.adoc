@@ -32,7 +32,7 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El identificador único del bloque de contenido que se está transfiriendo.
 
 
 
@@ -88,11 +88,11 @@ Indica el último recuento de secuencia solicitado. Si la operación se realiza 
  a| 
 RSLT
  a| 
-${post_edited_translations.segment}
+Estado de inicio de la transferencia
  a| 
-${post_edited_translations.segment}
+Estado en el momento en que se inició la transferencia:
 
-${post_edited_translations.segment}
+SUCS: La transferencia se inició correctamente.
 
 |===
 Este mensaje de auditoría indica que se ha iniciado una operación de transferencia de datos de nodo a nodo sobre un único elemento de contenido, identificado mediante su Content Block Identifier. La operación solicita datos desde "Start Sequence Count" hasta "Expected End Sequence Count". Los nodos emisores y receptores se identifican mediante sus ID de nodo. Esta información puede utilizarse para realizar un seguimiento del flujo de datos del sistema y, cuando se combina con mensajes de auditoría de almacenamiento, para verificar el recuento de réplicas.

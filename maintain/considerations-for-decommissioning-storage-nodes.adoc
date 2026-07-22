@@ -40,7 +40,7 @@ Consulta https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how
 Revisa las consideraciones para decomisionar un nodo de almacenamiento conectado.
 
 * No debes decomisionar más de 10 Storage Nodes en un solo procedimiento de Decommission Node.
-* El sistema debe contar, en todo momento, con suficientes nodos de almacenamiento para satisfacer los requisitos operativos, incluidos el link:understanding-adc-service-quorum.html["${post_edited_translations.segment}"] y el link:reviewing-ilm-policy-and-storage-configuration.html["Política de ILM"] activo. Para cumplir esta restricción, es posible que tengas que añadir un nuevo nodo de almacenamiento en una operación de ampliación antes de poder decomisionar un nodo de almacenamiento existente.
+* El sistema debe contar, en todo momento, con suficientes nodos de almacenamiento para satisfacer los requisitos operativos, incluidos el link:understanding-adc-service-quorum.html["Quórum del ADC"] y el link:reviewing-ilm-policy-and-storage-configuration.html["Política de ILM"] activo. Para cumplir esta restricción, es posible que tengas que añadir un nuevo nodo de almacenamiento en una operación de ampliación antes de poder decomisionar un nodo de almacenamiento existente.
 +
 Actúa con precaución al decomisionar nodos de almacenamiento en una grid que contenga nodos basados en software destinados exclusivamente a metadatos. Si decomisionas todos los nodos configurados para almacenar _tanto_ objetos como metadatos, la capacidad de almacenar objetos se elimina de la grid. Consulta link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento destinados exclusivamente a metadatos.
 

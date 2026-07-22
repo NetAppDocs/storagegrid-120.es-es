@@ -19,7 +19,7 @@ El escáner de ILM eliminó un objeto de un bucket que está eliminando todos lo
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del objeto
  a| 
@@ -32,7 +32,7 @@ RUTA
  a| 
 Depósito/clave de S3
  a| 
-${post_edited_translations.segment}
+El nombre del bucket de S3 y el nombre de la clave de S3.
 
 
 

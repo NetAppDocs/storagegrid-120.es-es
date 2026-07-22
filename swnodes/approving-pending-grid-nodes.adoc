@@ -2,7 +2,7 @@
 permalink: swnodes/approving-pending-grid-nodes.html 
 sidebar: sidebar 
 keywords: how to approve pending grid nodes 
-summary: ${post_edited_translations.segment} 
+summary: Debes aprobar cada nodo de la red antes de que pueda incorporarse al sistema StorageGRID. 
 ---
 = Aprueba los nodos de grid pendientes para StorageGRID
 :allow-uri-read: 
@@ -11,10 +11,10 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Debes aprobar cada nodo de la red antes de que pueda incorporarse al sistema StorageGRID.
 
 .Antes de empezar
-${post_edited_translations.segment}
+Ya has implementado todos los nodos de grid virtuales y de appliance StorageGRID.
 
 
 NOTE: Es más eficaz realizar una instalación única de todos los nodos, en lugar de instalar algunos nodos ahora y otros más adelante.
@@ -23,16 +23,16 @@ NOTE: Es más eficaz realizar una instalación única de todos los nodos, en lug
 . Revisa la lista de nodos pendientes y comprueba que aparezcan todos los nodos de grid que has implementado.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si falta un nodo de la red, comprueba que se haya implementado correctamente y que tenga configurada en ADMIN_IP la dirección IP de la Grid Network del nodo de administración principal.
 
 . Selecciona el botón de opción situado junto al nodo pendiente que quieras aprobar.
 +
 image:5_gmi_installer_grid_nodes_pending.gif["Esta imagen se explica en el texto que la acompaña."]
 
-. ${post_edited_translations.segment}
+. Haz clic en *Aprobar*.
 . En «Configuración general», modifica los ajustes de las siguientes propiedades según sea necesario:
 +
-** ${post_edited_translations.segment}
+** *Sitio*: El nombre del sistema del sitio para este nodo de la grid.
 ** *Nombre*: El nombre de sistema para el nodo. El nombre predeterminado es el que especificaste al configurar el nodo.
 +
 Los nombres del sistema son necesarios para las operaciones internas de StorageGRID y no se pueden cambiar después de que completes la instalación. Sin embargo, durante este paso del proceso de instalación, puedes cambiar los nombres del sistema según sea necesario.
@@ -54,7 +54,7 @@ CAUTION: Consulta link:../primer/what-storage-node-is.html#types-of-storage-node
 ** *Servicio ADC* (solo nodos de almacenamiento): Selecciona *Automático* para que el sistema determine si el nodo necesita el servicio de controlador de dominio administrativo (ADC). El servicio ADC realiza un seguimiento de la ubicación y la disponibilidad de los servicios de grid. Al menos tres nodos de almacenamiento en cada sitio deben incluir el servicio ADC. No puedes añadir el servicio ADC a un nodo después de que se haya implementado.
 
 
-. ${post_edited_translations.segment}
+. En Grid Network, modifica la configuración de las siguientes propiedades según sea necesario:
 +
 ** *Dirección IPv4 (CIDR)*: la dirección de red CIDR de la interfaz de red Grid (eth0 dentro del contenedor). Por ejemplo: 192.168.1.234/21
 ** *Puerta de enlace*: la puerta de enlace de la red de grid. Por ejemplo: 192.168.0.1
@@ -67,7 +67,7 @@ NOTE: Si has seleccionado DHCP para la configuración de la red Grid y modificas
 
 
 
-. ${post_edited_translations.segment}
+. Si deseas configurar la red de administración para el nodo de grid, añade o actualiza los ajustes en la sección de red de administración según sea necesario.
 +
 Introduce las subredes de destino de las rutas de salida de esta interfaz en el cuadro de texto *Subnets (CIDR)*. Si hay varias subredes de administración, se requiere la puerta de enlace de administración.
 
@@ -83,10 +83,10 @@ NOTE: Si seleccionaste DHCP para la configuración de la red de administración 
 +
 El reinicio puede tardar varios minutos.
 
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona *Configurar red* > *Configuración de enlaces* y activa las redes correspondientes.
+.. Selecciona *Configurar red* > *Configuración de IP* y configura las redes habilitadas.
+.. Vuelve a la página de inicio y haz clic en *Iniciar instalación*.
+.. En el Grid Manager: si el nodo aparece en la tabla de Nodos aprobados, elimina el nodo.
 .. Elimina el nodo de la tabla Nodos pendientes.
 .. Espera a que el nodo vuelva a aparecer en la lista de Nodos pendientes.
 .. Confirma que puedes configurar las redes correspondientes. Ya deberían estar completadas con la información que proporcionaste en la página IP Configuration del Appliance Installer.
@@ -108,10 +108,10 @@ NOTE: Si seleccionaste DHCP para la configuración de Client Network y cambias e
 +
 El reinicio puede tardar varios minutos.
 
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona *Configurar red* > *Configuración de enlaces* y activa las redes correspondientes.
+.. Selecciona *Configurar red* > *Configuración de IP* y configura las redes habilitadas.
+.. Vuelve a la página de inicio y haz clic en *Iniciar instalación*.
+.. En el Grid Manager: si el nodo aparece en la tabla de Nodos aprobados, elimina el nodo.
 .. Elimina el nodo de la tabla Nodos pendientes.
 .. Espera a que el nodo vuelva a aparecer en la lista de Nodos pendientes.
 .. Confirma que puedes configurar las redes correspondientes. Ya deberían estar completadas con la información que proporcionaste en la página IP Configuration del Appliance Installer.
@@ -131,5 +131,5 @@ image:7_gmi_installer_grid_nodes_approved.gif["Esta imagen se explica en el text
 +
 Debes aprobar todos los nodos que quieras tener en el grid. Sin embargo, puedes volver a esta página en cualquier momento antes de hacer clic en *Instalar* en la página Resumen. Puedes modificar las propiedades de un nodo de grid aprobado seleccionando su botón de opción y haciendo clic en *Editar*.
 
-. ${post_edited_translations.segment}
+. Cuando hayas terminado de aprobar los nodos de la red, haz clic en *Siguiente*.
 

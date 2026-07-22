@@ -28,7 +28,7 @@ El CBID del nuevo objeto.
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del objeto anterior
  a| 
@@ -55,11 +55,11 @@ El identificador del nuevo objeto dentro del sistema StorageGRID.
 
 
  a| 
-${post_edited_translations.segment}
+OUID
  a| 
-${post_edited_translations.segment}
+Identificador único universal (anterior)
  a| 
-${post_edited_translations.segment}
+El identificador del objeto anterior dentro del sistema StorageGRID.
 
 
 
@@ -68,7 +68,7 @@ RUTA
  a| 
 Ruta del objeto en S3
  a| 
-${post_edited_translations.segment}
+La ruta del objeto S3 utilizada tanto para el objeto anterior como para el nuevo
 
 
 
@@ -79,15 +79,15 @@ Código de resultado
  a| 
 Resultado de la transacción «Sobrescribir objeto». El resultado es siempre:
 
-${post_edited_translations.segment}
+SUCS: Exitoso
 
 
 
  a| 
-${post_edited_translations.segment}
+SGRP
  a| 
 Sitio (Grupo)
  a| 
-${post_edited_translations.segment}
+Si existía, el objeto sobrescrito se eliminó en el sitio especificado, que no es el sitio donde se ingirió el objeto sobrescrito.
 
 |===

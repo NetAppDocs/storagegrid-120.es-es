@@ -29,7 +29,7 @@ Si has restaurado un nodo de administración principal y tu sistema StorageGRID 
 NOTE: Copiar la base de datos de Prometheus puede tardar una hora o más. Algunas funciones de Grid Manager no estarán disponibles mientras los servicios estén detenidos en el Admin Node de origen.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en el nodo Admin de origen:
 +
 .. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
 .. Introduce la contraseña que figura en el archivo  `Passwords.txt`.

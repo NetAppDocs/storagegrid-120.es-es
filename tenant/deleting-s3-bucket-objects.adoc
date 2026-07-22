@@ -13,15 +13,15 @@ summary: Puedes utilizar el Tenant Manager para eliminar los objetos de uno o va
 [role="lead"]
 Puedes utilizar el Tenant Manager para eliminar los objetos de uno o varios buckets.
 
-.${post_edited_translations.segment}
-${post_edited_translations.segment}
+.Consideraciones y requisitos
+Antes de seguir estos pasos, ten en cuenta lo siguiente:
 
 * Cuando eliminas los objetos de un bucket, StorageGRID elimina de forma permanente todos los objetos y todas las versiones de objetos de cada bucket seleccionado en todos los nodos y sitios de tu sistema StorageGRID. StorageGRID también elimina los metadatos de objetos relacionados. No podrás recuperar esta información.
-* ${post_edited_translations.segment}
+* Eliminar todos los objetos de un bucket puede llevar minutos, días o incluso semanas, dependiendo del número de objetos, de las copias de los mismos y de las operaciones simultáneas.
 * Si un bucket tiene link:using-s3-object-lock.html["S3 Object Lock activado"], podría permanecer en el estado *Eliminando objetos: solo lectura* durante _años_.
 +
 
-TIP: ${post_edited_translations.segment}
+TIP: Un bucket que utilice S3 Object Lock permanecerá en el estado *Eliminación de objetos: solo lectura* hasta que se alcance la fecha de retención de todos los objetos y se eliminen todas las retenciones legales.
 
 * Mientras se están eliminando objetos, el estado del depósito es *Eliminando objetos: solo lectura*. En este estado, no puedes añadir nuevos objetos al depósito.
 * Una vez eliminados todos los objetos, el bucket permanece en estado de solo lectura. Puedes realizar una de las siguientes acciones:
@@ -62,7 +62,7 @@ Aparece la página «Buckets» y muestra todos los buckets de S3 existentes.
 
 
 --
-.${post_edited_translations.segment}
+.Página de detalles
 --
 .. Selecciona el nombre de un bucket para ver sus detalles.
 .. Selecciona *Eliminar objetos en el bucket*.

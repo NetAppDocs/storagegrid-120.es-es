@@ -4,13 +4,13 @@
 
 [cols="1a,3a"]
 |===
-| Permiso | ${post_edited_translations.segment} 
+| Permiso | Si seleccionas... 
 
 
  a| 
 Permitir los servicios de la plataforma
  a| 
-El arrendatario puede utilizar los servicios de la plataforma S3, como CloudMirror. Consulta link:../admin/manage-platform-services-for-tenants.html["${post_edited_translations.segment}"].
+El arrendatario puede utilizar los servicios de la plataforma S3, como CloudMirror. Consulta link:../admin/manage-platform-services-for-tenants.html["Administra los servicios de plataforma para las cuentas de inquilino de S3"].
 
 
 
@@ -22,9 +22,9 @@ El inquilino puede configurar y gestionar su propia fuente de identidad para gru
 
 
  a| 
-${post_edited_translations.segment}
+Permitir S3 Select
  a| 
-El inquilino puede realizar solicitudes de la API SelectObjectContent de S3 para filtrar y recuperar datos de objetos. Consulta link:../admin/manage-s3-select-for-tenant-accounts.html["${post_edited_translations.segment}"].
+El inquilino puede realizar solicitudes de la API SelectObjectContent de S3 para filtrar y recuperar datos de objetos. Consulta link:../admin/manage-s3-select-for-tenant-accounts.html["Administra S3 Select para cuentas de inquilino"].
 
 *Importante*: Las solicitudes de SelectObjectContent pueden reducir el rendimiento del balanceador de carga para todos los clientes de S3 y todos los inquilinos. Activa esta función solo cuando sea necesario y solo para inquilinos de confianza.
 

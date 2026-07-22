@@ -32,7 +32,7 @@ image:grid-federation-workflow.png["Flujo de trabajo de conexión de federación
 
 
 [[considerations-and-requirements-for-grid-federation-connections]]
-== ${post_edited_translations.segment}
+== Consideraciones y requisitos para las conexiones de federación de grid
 
 * Las redes utilizadas para la federación de redes deben ejecutar versiones de StorageGRID que sean idénticas o que no tengan más de una diferencia de versión principal entre ellas.
 +
@@ -86,10 +86,10 @@ Debes asegurarte de que ningún nodo de ninguna de las dos grids utilice este pu
 [[certificate-requirements]]
 === Requisitos del certificado
 
-${post_edited_translations.segment}
+Al configurar una conexión de federación de grid, StorageGRID genera automáticamente cuatro certificados SSL:
 
 * Certificados de servidor y de cliente para autenticar y cifrar la información enviada desde la grid 1 a la grid 2
-* ${post_edited_translations.segment}
+* Certificados de servidor y de cliente para autenticar y cifrar la información enviada desde la grid 2 a la grid 1
 
 
 image:grid-federation-certificates.png["Certificados de federación de grid"]
@@ -102,5 +102,5 @@ CAUTION: Si los certificados de cualquiera de los extremos de la conexión caduc
 .Más información
 * link:grid-federation-create-connection.html["Crear conexiones de federación de grid"]
 * link:grid-federation-manage-connection.html["Gestiona las conexiones de la federación de grid"]
-* link:grid-federation-troubleshoot.html["${post_edited_translations.segment}"]
+* link:grid-federation-troubleshoot.html["Solucionar errores de federación de grid"]
 

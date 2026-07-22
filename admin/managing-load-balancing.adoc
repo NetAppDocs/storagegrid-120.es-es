@@ -69,10 +69,10 @@ Al crear puntos de conexión del equilibrador de carga:
 ==== Ejemplos de cargas de trabajo que podrían ser buenas candidatas para el almacenamiento en caché
 
 * Lagos de datos
-* ${post_edited_translations.segment}
+* Cálculo de alto rendimiento (HPC)
 * Entrenamiento de IA/ML
 * Redes de distribución de contenidos (CDN)
-* ${post_edited_translations.segment}
+* Gestión de activos multimedia
 * Producción de vídeos
 
 
@@ -176,7 +176,7 @@ Subject DN: /C=Country/ST=State/O=Company,Inc./CN=s3.storagegrid.example.com
 ----
 Según sea necesario, el certificado puede utilizar comodines para representar los nombres de dominio completos de todos los nodos de administración y nodos de puerta de enlace que ejecutan el servicio de Load Balancer. Por ejemplo, `*.storagegrid._example_.com` utiliza el comodín * para representar `adm1.storagegrid._example_.com` y `gn1.storagegrid._example_.com`.
 
-Si tienes pensado utilizar solicitudes de estilo virtual hosted de S3, el certificado también debe incluir una entrada de *nombre alternativo* para cada link:../admin/configuring-s3-api-endpoint-domain-names.html["${post_edited_translations.segment}"] que hayas configurado, incluidos los nombres de comodín. Por ejemplo:
+Si tienes pensado utilizar solicitudes de estilo virtual hosted de S3, el certificado también debe incluir una entrada de *nombre alternativo* para cada link:../admin/configuring-s3-api-endpoint-domain-names.html["Nombre de dominio del endpoint S3"] que hayas configurado, incluidos los nombres de comodín. Por ejemplo:
 
 [listing]
 ----
@@ -189,7 +189,7 @@ También debes definir una entrada DNS para cada nombre que figure en el certifi
 
 
 
-==== ${post_edited_translations.segment}
+==== ¿Cómo gestiono los certificados que están a punto de caducar?
 
 
 CAUTION: Si caduca el certificado utilizado para proteger la conexión entre la aplicación S3 y StorageGRID, es posible que la aplicación pierda temporalmente el acceso a StorageGRID.
@@ -205,11 +205,11 @@ Para evitar problemas relacionados con la caducidad de los certificados, sigue e
 
 
 [[considerations-for-the-binding-mode]]
-=== ${post_edited_translations.segment}
+=== Aspectos a tener en cuenta respecto al modo de binding
 
 El modo de vinculación te permite controlar qué direcciones IP se pueden usar para acceder a un endpoint del equilibrador de carga. Si un endpoint utiliza un modo de vinculación, las aplicaciones cliente solo pueden acceder al endpoint si usan una dirección IP permitida o su dominio completo (FQDN) correspondiente. Las aplicaciones cliente que usen cualquier otra dirección IP o FQDN no pueden acceder al endpoint.
 
-${post_edited_translations.segment}
+Puedes especificar cualquiera de los siguientes modos de enlace:
 
 * *Global* (predeterminado): Las aplicaciones cliente pueden acceder al endpoint utilizando la dirección IP de cualquier Gateway Node o Admin Node, la dirección IP virtual (VIP) de cualquier HA group en cualquier red, o el FQDN correspondiente. Usa esta configuración a menos que necesites restringir la accesibilidad de un endpoint.
 * *Direcciones IP virtuales de los grupos de alta disponibilidad*. Las aplicaciones cliente deben utilizar una dirección IP virtual (o el nombre de dominio completo correspondiente) de un grupo de alta disponibilidad.
@@ -231,9 +231,9 @@ NOTE: A efectos del control de acceso, el inquilino se determina a partir de las
 
 
 
-==== ${post_edited_translations.segment}
+==== Ejemplo de acceso de inquilinos
 
-${post_edited_translations.segment}
+Para comprender cómo funciona esta función de seguridad, fíjate en el siguiente ejemplo:
 
 . Has creado dos puntos de conexión del equilibrador de carga, como sigue:
 +
@@ -249,8 +249,8 @@ Para acceder a `top-secret.pdf`, un usuario del tenant *Top secret* puede enviar
 
 
 [[cpu-availability]]
-== ${post_edited_translations.segment}
+== Disponibilidad de la CPU
 
 El servicio Load Balancer en cada nodo de administración y nodo de puerta de enlace funciona de forma independiente al reenviar el tráfico S3 a los nodos de almacenamiento. A través de un proceso de ponderación, el servicio Load Balancer dirige más solicitudes a los nodos de almacenamiento con mayor disponibilidad de CPU. La información de carga de la CPU del nodo se actualiza cada pocos minutos, pero la ponderación podría actualizarse con más frecuencia. A todos los nodos de almacenamiento se les asigna un valor de peso base mínimo, incluso si un nodo informa de un 100 % de utilización o no informa de su utilización.
 
-${post_edited_translations.segment}
+En algunos casos, la información sobre la disponibilidad de la CPU se limita al sitio donde se encuentra el servicio de Load Balancer.

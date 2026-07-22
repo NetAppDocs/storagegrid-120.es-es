@@ -20,7 +20,7 @@ Puedes controlar quién puede acceder a StorageGRID y qué tareas pueden realiza
 
 Tú determinas quién puede acceder a Grid Manager y a la API de gestión de la red importando grupos y usuarios desde un servicio de federación de identidades o configurando grupos y usuarios locales.
 
-Usar link:using-identity-federation.html["federación de identidades"] hace que configurar link:managing-admin-groups.html["grupos"] y link:managing-users.html["${post_edited_translations.segment}"] sea más rápido, y permite que los usuarios inicien sesión en StorageGRID con sus credenciales habituales. Puedes configurar la federación de identidades si usas Active Directory, OpenLDAP u Oracle Directory Server.
+Usar link:using-identity-federation.html["federación de identidades"] hace que configurar link:managing-admin-groups.html["grupos"] y link:managing-users.html["usuarios"] sea más rápido, y permite que los usuarios inicien sesión en StorageGRID con sus credenciales habituales. Puedes configurar la federación de identidades si usas Active Directory, OpenLDAP u Oracle Directory Server.
 
 
 NOTE: Ponte en contacto con el soporte técnico si deseas utilizar otro servicio LDAP v3.
@@ -34,7 +34,7 @@ Opcionalmente, puedes configurar un grupo para que sea de solo lectura. Los usua
 [[enable-single-sign-on]]
 == Habilitar el inicio de sesión único
 
-El sistema StorageGRID admite el inicio de sesión único (SSO) mediante el estándar Security Assertion Markup Language 2.0 (SAML 2.0). Después de que link:how-sso-works.html["${post_edited_translations.segment}"], todos los usuarios deben autenticarse mediante un proveedor de identidad externo antes de poder acceder al Grid Manager, al Tenant Manager, a la API de Grid Management o a la API de Tenant Management. Los usuarios locales no pueden iniciar sesión en StorageGRID.
+El sistema StorageGRID admite el inicio de sesión único (SSO) mediante el estándar Security Assertion Markup Language 2.0 (SAML 2.0). Después de que link:how-sso-works.html["configura y activa el SSO"], todos los usuarios deben autenticarse mediante un proveedor de identidad externo antes de poder acceder al Grid Manager, al Tenant Manager, a la API de Grid Management o a la API de Tenant Management. Los usuarios locales no pueden iniciar sesión en StorageGRID.
 
 
 
@@ -46,6 +46,6 @@ La frase de contraseña de aprovisionamiento es necesaria para muchos procedimie
 
 
 [[change-node-console-passwords]]
-== ${post_edited_translations.segment}
+== Cambiar las contraseñas de la consola de los nodos
 
 Cada nodo de tu grid tiene una contraseña de consola de nodo, que necesitas para iniciar sesión en el nodo como "admin" usando SSH, o como usuario raíz en una conexión de consola de VM/física. Si lo necesitas, puedes link:change-node-console-password.html["cambiar la contraseña de la consola del nodo"] para cada nodo.

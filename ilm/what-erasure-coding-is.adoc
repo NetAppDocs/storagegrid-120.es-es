@@ -30,9 +30,9 @@ Si se pierden más de dos nodos de almacenamiento, el objeto no se puede recuper
 image:ec_unrecoverable_4_plus_2.png["Código de borrado irrecuperable 4 más 2"]
 
 .Información relacionada
-* link:what-replication-is.html["${post_edited_translations.segment}"]
+* link:what-replication-is.html["¿Qué es la replicación?"]
 * link:what-storage-pool-is.html["¿Qué es un storage pool?"]
-* link:what-erasure-coding-schemes-are.html["${post_edited_translations.segment}"]
+* link:what-erasure-coding-schemes-are.html["¿Qué son los esquemas de erasure coding?"]
 * link:manage-erasure-coding-profiles.html#rename-an-erasure-coding-profile["Cambiar el nombre de un perfil de código de borrado"]
 * link:manage-erasure-coding-profiles.html#deactivate-an-erasure-coding-profile["Desactivar un perfil de código de borrado"]
 

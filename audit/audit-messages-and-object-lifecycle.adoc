@@ -28,7 +28,7 @@ S3BK (bucket), S3KY (key) o ambos
 
 
  a| 
-${post_edited_translations.segment}
+Vinculando las operaciones internas
  a| 
 CBID (identificador interno del objeto)
 

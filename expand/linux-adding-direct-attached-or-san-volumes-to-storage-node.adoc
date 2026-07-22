@@ -31,12 +31,12 @@ Para obtener más información, consulta la documentación proporcionada por tu 
 
 . Crea nuevos volúmenes de almacenamiento en bloque con los tamaños deseados.
 +
-** ${post_edited_translations.segment}
+** Conecta las nuevas unidades y actualiza la configuración de la controladora RAID según sea necesario, o asigna los nuevos LUN de la SAN en las matrices de almacenamiento compartido y permite que el host Linux acceda a ellos.
 ** Utiliza el mismo esquema de nomenclatura persistente que utilizaste para los volúmenes de almacenamiento del nodo de almacenamiento existente.
 ** Si usas la función de migración de nodos de StorageGRID, haz que los nuevos volúmenes sean visibles para otros hosts de Linux que sean destinos de migración para este nodo de almacenamiento. Para obtener más información, consulta las instrucciones de instalación de StorageGRID para tu plataforma Linux.
 
 
-. ${post_edited_translations.segment}
+. Inicia sesión en el host Linux que soporta el nodo de almacenamiento como root o con una cuenta que tenga permisos sudo.
 . Comprueba que los nuevos volúmenes de almacenamiento sean visibles en el host Linux.
 +
 Es posible que tengas que volver a buscar dispositivos.
@@ -123,7 +123,7 @@ Comprueba que has introducido correctamente `<path-name>`.
 `sudo storagegrid node start <node-name>`
 
 . Inicia sesión en el nodo de almacenamiento como admin con la contraseña que aparece en el archivo  `Passwords.txt`.
-. ${post_edited_translations.segment}
+. Comprueba que los servicios se inicien correctamente:
 +
 .. Ver una lista del estado de todos los servicios del servidor: +
 `sudo storagegrid-status`
@@ -139,17 +139,17 @@ El estado se actualiza automáticamente.
 
 . Configura el nuevo almacenamiento para que lo utilice el nodo de almacenamiento:
 +
-.. ${post_edited_translations.segment}
+.. Configura los nuevos volúmenes de almacenamiento:
 +
 `sudo add_rangedbs.rb`
 
 +
-${post_edited_translations.segment}
+Este script detecta cualquier volumen de almacenamiento nuevo y te pide que los formatees.
 
 .. Introduce *y* para formatear los volúmenes de almacenamiento.
 .. Si alguno de los volúmenes se ha formateado anteriormente, decide si quieres volver a formatearlos.
 +
-*** ${post_edited_translations.segment}
+*** Introduce *y* para volver a dar formato.
 *** Introduce *n* para omitir el reformateo.
 
 
@@ -162,12 +162,12 @@ El `setup_rangedbs.sh` script se ejecuta automáticamente.
 +
 .. Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
 .. Selecciona *Nodos* > *_Storage Node_* > *Tareas*.
-.. ${post_edited_translations.segment}
+.. Si la lista desplegable *Estado de almacenamiento* está configurada en *Solo lectura* o *Sin conexión*, selecciona *En línea*.
 .. Selecciona *Guardar*.
 
 
 . Para ver los nuevos almacenes de objetos, selecciona *Storage*.
-. ${post_edited_translations.segment}
+. Consulta los detalles en la tabla *Volúmenes*.
 
 
 .Resultado

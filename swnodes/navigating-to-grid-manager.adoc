@@ -44,7 +44,7 @@ Puedes utilizar la dirección IP del nodo de administración principal en la red
 
 . Selecciona *Instalar un sistema StorageGRID*.
 +
-${post_edited_translations.segment}
+Aparece la página que se usa para configurar una grid de StorageGRID.
 
 +
 image:gmi_installer_first_screen.gif["Primera pantalla del instalador de StorageGRID"]

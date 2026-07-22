@@ -202,7 +202,7 @@ Después de que aplicas o preparas cambios, se genera un nuevo paquete de recupe
 .. Introduce la contraseña de aprovisionamiento.
 
 
-. Si has habilitado el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado de modificar la configuración de red del nodo.
+. Si has habilitado el acceso SSH externo, link:../admin/manage-external-ssh-access.html["bloquear el acceso"] cuando hayas terminado de modificar la configuración de red del nodo.
 
 
 

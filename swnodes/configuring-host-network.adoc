@@ -40,7 +40,7 @@ NOTE: No utilices dispositivos «bond» o «bridge» directamente como interfaz 
 
 
 [[considerations-and-recommendations-for-mac-address-cloning]]
-== ${post_edited_translations.segment}
+== Consideraciones y recomendaciones para la clonación de direcciones MAC
 
 .[[clonación_de_direcciones_MAC]]
 La clonación de direcciones MAC hace que el contenedor utilice la dirección MAC del host y que el host utilice la dirección MAC que tú especifiques o una generada aleatoriamente. Deberías usar la clonación de direcciones MAC para evitar el uso de configuraciones de red en modo promiscuo.
@@ -143,11 +143,11 @@ Usa el mismo nombre para el bond en cada host, por ejemplo, `bond0`.
 Ten en cuenta que los pasos 1 y 2 requieren una configuración adecuada en los switches periféricos que terminan los otros extremos de los enlaces de red. Los puertos del switch periférico también se deben agregar en un canal de puertos LACP, configurar como trunk y permitir el paso de todas las VLAN requeridas.
 
 +
-${post_edited_translations.segment}
+Se proporcionan archivos de configuración de interfaz de ejemplo para este esquema de configuración de red por host.
 
 
 
 .Información relacionada
-* link:example-etc-network-interfaces.html["${post_edited_translations.segment}"]
-* link:example-etc-sysconfig-network-scripts.html["${post_edited_translations.segment}"]
+* link:example-etc-network-interfaces.html["Ejemplo de /etc/network/interfaces para Ubuntu y Debian"]
+* link:example-etc-sysconfig-network-scripts.html["Ejemplo de /etc/sysconfig/network-scripts para RHEL"]
 

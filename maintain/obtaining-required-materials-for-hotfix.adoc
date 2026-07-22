@@ -27,8 +27,8 @@ Debes descargar el archivo de corrección urgente de StorageGRID.
 
  a| 
 * Puerto de red
-* link:../admin/web-browser-requirements.html["${post_edited_translations.segment}"]
-* ${post_edited_translations.segment}
+* link:../admin/web-browser-requirements.html["Navegador web compatible"]
+* Cliente SSH (por ejemplo, PuTTY)
 
  a| 
 

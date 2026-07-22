@@ -42,13 +42,13 @@ NOTE: Al recuperar un nodo de almacenamiento de un dispositivo Storage Node, rei
 `https://_Controller_IP_:8443`
 
 +
-${post_edited_translations.segment}
+Aparece la página de inicio del instalador de StorageGRID Appliance.
 
 . En la sección «Conexión al nodo de administración principal», determina si necesitas especificar la dirección IP del nodo de administración principal.
 +
 El instalador de StorageGRID Appliance puede detectar esta dirección IP automáticamente, siempre que el nodo de administración principal, o al menos otro nodo de grid con ADMIN_IP configurado, esté presente en la misma subred.
 
-. ${post_edited_translations.segment}
+. Si esta dirección IP no aparece o necesitas cambiarla, indica la dirección:
 +
 [cols="1a,2a"]
 |===
@@ -56,7 +56,7 @@ El instalador de StorageGRID Appliance puede detectar esta dirección IP automá
 
 
  a| 
-${post_edited_translations.segment}
+Introducción manual de la dirección IP
  a| 
 .. Desmarca la casilla *Habilitar detección de nodos de administración*.
 .. Introduce manualmente la dirección IP.
@@ -93,7 +93,7 @@ Si el botón *Iniciar instalación* no está habilitado, es posible que debas ca
 
 . En la página de inicio del instalador de StorageGRID Appliance, haz clic en *Iniciar instalación*.
 +
-${post_edited_translations.segment}
+El estado actual cambia a «Instalación en curso» y se muestra la página «Supervisar la instalación».
 
 +
 

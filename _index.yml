@@ -1,6 +1,6 @@
 ---
 indexpage:
-  title: "${post_edited_translations.segment}"
+  title: Documentación del software StorageGRID 12.0
   summary: NetApp StorageGRID es una suite de almacenamiento de objetos definido por
     software que admite una amplia gama de casos de uso en entornos multicloud públicos,
     privados e híbridos. StorageGRID ofrece compatibilidad nativa con la API de Amazon
@@ -21,21 +21,21 @@ indexpage:
       url: "/release-notes/whats-new.html"
     - title: Conoce StorageGRID
       url: "/primer/index.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Directrices de redes
       url: "/network/index.html"
     - title: Guía de inicio rápido de StorageGRID
       url: "/primer/quick-start.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Instala, actualiza y aplica correcciones urgentes
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Instalar dispositivos StorageGRID
       url: https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html
     - title: Instalar StorageGRID en nodos basados en software
       url: "/swnodes/index.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Actualizar a la nueva versión de StorageGRID
       url: "/upgrade/index.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Aplicar corrección urgente
       url: "/maintain/storagegrid-hotfix-procedure.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Configura la cuadrícula
     links:
     - title: Administrar StorageGRID
       url: "/admin/index.html"
@@ -45,15 +45,15 @@ indexpage:
       url: "/harden/index.html"
     - title: Configura StorageGRID para FabricPool
       url: "/fabricpool/index.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona objetos
     links:
     - title: Utiliza una cuenta de inquilino
       url: "/tenant/index.html"
     - title: Usa la API de REST de S3
       url: "/s3/index.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Usa la API de REST de Swift (fin de vida útil)
       url: "/swift/index.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Supervisar y solucionar problemas
     links:
     - title: Supervisa tu grid
       url: "/monitor/index.html"
@@ -63,13 +63,13 @@ indexpage:
       url: "/audit/index.html"
   - title: Amplía y mantén tu grid
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Agrega volúmenes, nodos y sitios
       url: "/expand/index.html"
     - title: Mantén tu grid
       url: "/maintain/index.html"
     - title: Recuperar o sustituir nodos
       url: "/maintain/warnings-and-considerations-for-grid-node-recovery.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Mantén los dispositivos StorageGRID
       url: https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/index.html
   - title: Instrucciones adicionales
     links:

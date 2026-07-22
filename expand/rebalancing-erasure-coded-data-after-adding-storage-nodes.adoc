@@ -15,13 +15,13 @@ Después de añadir los nodos de almacenamiento, puedes usar el procedimiento de
 
 .Antes de empezar
 * Ya has completado los pasos de ampliación para añadir los nuevos nodos de almacenamiento.
-* Has revisado la link:considerations-for-rebalancing-erasure-coded-data.html["${post_edited_translations.segment}"].
+* Has revisado la link:considerations-for-rebalancing-erasure-coded-data.html["consideraciones para el reequilibrio de datos con código de borrado"].
 * Entiendes que este procedimiento no moverá los datos de objetos replicados y que el procedimiento de reequilibrio de EC no mueve los datos replicados. Sin embargo, los datos replicados se tienen en cuenta al determinar a dónde mover los datos de EC.
 * Tienes el archivo  `Passwords.txt`.
 
 
 .Qué ocurre cuando se ejecuta este procedimiento
-${post_edited_translations.segment}
+Antes de iniciar el procedimiento, ten en cuenta lo siguiente:
 
 * El procedimiento de reequilibrio de EC no se iniciará si uno o más volúmenes están fuera de línea (desmontados) o si están en línea (montados) pero en estado de error.
 * El procedimiento de reequilibrio de EC reserva temporalmente una gran cantidad de almacenamiento. Es posible que se activen alertas de almacenamiento, pero se resolverán cuando se complete el reequilibrio. Si no hay suficiente almacenamiento para la reserva, el procedimiento de reequilibrio de EC fallará. Las reservas de almacenamiento se liberan cuando se completa el procedimiento de reequilibrio de EC, tanto si el procedimiento falla como si tiene éxito.
@@ -64,15 +64,15 @@ Cuando inicias sesión como root, el indicador cambia de  `$` a  `#`.
 
 
 
-. ${post_edited_translations.segment}
+. Inicia el procedimiento:
 +
-${post_edited_translations.segment}
+`rebalance-data start --site "_site-name_"
 
 +
 Para "_site-name_", especifica el primer sitio en el que añadiste el nuevo Storage Node o nodos. Enciérralo `site-name` entre comillas.
 
 +
-${post_edited_translations.segment}
+Se inicia el procedimiento de reequilibrio de EC y se devuelve un job ID.
 
 . Copia el ID del trabajo.
 . [[view-status]]Supervisa el estado del procedimiento de reequilibrio del EC.
@@ -102,7 +102,7 @@ Para obtener ayuda sobre el comando «rebalance-data»:
 +
 ** Si `State` es `In progress`, la operación de reequilibrio de EC aún se está ejecutando. Debes supervisar periódicamente el procedimiento hasta que se complete.
 +
-${post_edited_translations.segment}
+Ve a la página Nodos para evaluar la distribución de los datos entre los Storage Nodes del sitio.
 
 +
 La tarea de reequilibrio de EC se considerará completada y se detendrá cuando los datos de todos los nodos se encuentren dentro de una desviación del 5 % respecto a la partición de datos objetivo.
@@ -128,7 +128,7 @@ Los datos codificados con código de borrado deberían estar ahora más equilibr
 +
 `rebalance-data pause --job-id _job-id_`
 
-. ${post_edited_translations.segment}
+. Si necesitas interrumpir el procedimiento de reequilibrio del EC (por ejemplo, para poder realizar una actualización del software de StorageGRID), introduce lo siguiente:
 +
 `rebalance-data terminate --job-id _job-id_`
 

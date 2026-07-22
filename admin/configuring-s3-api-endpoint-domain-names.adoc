@@ -27,7 +27,7 @@ CAUTION: No realices ningún cambio en la configuración del nombre de dominio m
 
 
 .Acerca de esta tarea
-${post_edited_translations.segment}
+Para que los clientes puedan utilizar nombres de dominio de endpoint S3, debes hacer todo lo siguiente:
 
 * Utiliza el Grid Manager para añadir los nombres de dominio de los endpoints S3 al sistema StorageGRID.
 * Asegúrate de que el link:../admin/configuring-administrator-client-certificates.html["certificado que utiliza el cliente para las conexiones HTTPS con StorageGRID"] esté firmado para todos los nombres de dominio que necesite el cliente.
@@ -41,7 +41,7 @@ NOTE: Los clientes pueden conectarse a StorageGRID utilizando la dirección IP d
 
 
 
-${post_edited_translations.segment}
+Los clientes que utilicen conexiones HTTPS (recomendado) con la grid pueden utilizar cualquiera de estos certificados:
 
 * Los clientes que se conectan a un endpoint de equilibrador de carga pueden usar un certificado personalizado para ese endpoint. Cada endpoint de equilibrador de carga se puede configurar para reconocer diferentes nombres de dominio de endpoint de S3.
 * Los clientes que se conectan a un punto de conexión del balanceador de carga o directamente a un Storage Node pueden personalizar el certificado global de la API de S3 para incluir todos los nombres de dominio de los puntos de conexión de S3 necesarios.
@@ -53,7 +53,7 @@ NOTE: Si no añades nombres de dominio de endpoint S3 y la lista está vacía, e
 
 
 [[add-an-s3-endpoint-domain-name]]
-== ${post_edited_translations.segment}
+== Agrega un nombre de dominio de endpoint S3
 
 .Pasos
 . Selecciona *Configuración* > *Red* > *Nombres de dominio de endpoint S3*.
@@ -62,7 +62,7 @@ NOTE: Si no añades nombres de dominio de endpoint S3 y la lista está vacía, e
 . Asegúrate de que los certificados del servidor que utilizan los clientes coincidan con los nombres de dominio de los endpoints de S3 requeridos.
 +
 ** Si los clientes se conectan a un punto de conexión del equilibrador de carga que utiliza su propio certificado, link:../admin/configuring-load-balancer-endpoints.html["Actualiza el certificado asociado al endpoint"].
-** Si los clientes se conectan a un endpoint del equilibrador de carga que utiliza el certificado global de la API de S3 o directamente a los nodos de almacenamiento, link:../admin/use-s3-setup-wizard-steps.html["${post_edited_translations.segment}"].
+** Si los clientes se conectan a un endpoint del equilibrador de carga que utiliza el certificado global de la API de S3 o directamente a los nodos de almacenamiento, link:../admin/use-s3-setup-wizard-steps.html["Actualiza el certificado global de la API de S3"].
 
 
 . Agrega los registros DNS necesarios para garantizar que se puedan resolver las solicitudes de nombres de dominio de los endpoints.
@@ -88,18 +88,18 @@ Si cambias un nombre utilizado por las aplicaciones S3, las solicitudes de tipo 
 
 
 [[delete-an-s3-endpoint-domain-name]]
-== ${post_edited_translations.segment}
+== Eliminar un nombre de dominio de un endpoint S3
 
 Si eliminas un nombre utilizado por las aplicaciones S3, las solicitudes de tipo virtual-hosted-style fallarán.
 
 .Pasos
 . Selecciona *Configuración* > *Red* > *Nombres de dominio de endpoint S3*.
 . Selecciona el icono de eliminación image:icon-x-to-remove.png["icono de eliminar"] junto al nombre de dominio.
-. ${post_edited_translations.segment}
+. Selecciona *Sí* para confirmar la eliminación.
 
 
 .Información relacionada
 * link:../s3/index.html["Usa la API de REST de S3"]
-* link:viewing-ip-addresses.html["${post_edited_translations.segment}"]
+* link:viewing-ip-addresses.html["Ver direcciones IP"]
 * link:configure-high-availability-group.html["Configurar grupos de alta disponibilidad"]
 

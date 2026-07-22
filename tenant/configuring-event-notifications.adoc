@@ -2,7 +2,7 @@
 permalink: tenant/configuring-event-notifications.html 
 sidebar: sidebar 
 keywords: how to configure event notifications, bucket notification 
-summary: ${post_edited_translations.segment} 
+summary: Habilitas las notificaciones para un bucket creando un XML de configuración de notificaciones y usando el Tenant Manager para aplicar el XML a un bucket. 
 ---
 = Configura las notificaciones de eventos en StorageGRID
 :allow-uri-read: 
@@ -11,11 +11,11 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Habilitas las notificaciones para un bucket creando un XML de configuración de notificaciones y usando el Tenant Manager para aplicar el XML a un bucket.
 
 .Antes de empezar
 * Los servicios de la plataforma fueron habilitados para tu cuenta de inquilino por un administrador de StorageGRID.
-* ${post_edited_translations.segment}
+* Ya has creado un bucket que servirá como fuente de notificaciones.
 * El punto final que pretendes utilizar como destino para las notificaciones de eventos ya existe y tienes su URN.
 * Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona todos los buckets o permiso de acceso a raíz"]. Estos permisos anulan la configuración de permisos de las políticas de grupo o de bucket al configurar el bucket mediante Tenant Manager.
 
@@ -25,10 +25,10 @@ Configuras las notificaciones de eventos asociando un archivo XML de configuraci
 
 Para obtener información general sobre las notificaciones de eventos y cómo configurarlas, consulta https://docs.aws.amazon.com/s3/["Documentación de Amazon"^]. Para obtener información sobre cómo StorageGRID implementa la API de configuración de notificaciones de buckets de S3, consulta link:../s3/index.html["Instrucciones para implementar aplicaciones cliente de S3"].
 
-${post_edited_translations.segment}
+Ten en cuenta los siguientes requisitos y características a la hora de configurar las notificaciones de eventos para un bucket:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Al crear y aplicar un archivo XML de configuración de notificaciones válido, este debe utilizar el URN de un endpoint de notificaciones de eventos para cada destino.
+* Aunque es posible configurar las notificaciones de eventos en un bucket con S3 Object Lock activado, los metadatos de S3 Object Lock (incluidos Retain Until Date y el estado de Legal Hold) de los objetos no se incluirán en los mensajes de notificación.
 * Después de que configures las notificaciones de eventos, cada vez que ocurra un evento especificado para un objeto en el bucket de origen, se genera una notificación y se envía al tema de Amazon SNS, al tema de Kafka o al endpoint de webhook que uses como destino.
 * Si activas las notificaciones de eventos para un bucket que contiene objetos, solo se enviarán notificaciones sobre las acciones que se realicen después de guardar la configuración de notificaciones.
 
@@ -36,7 +36,7 @@ ${post_edited_translations.segment}
 .Pasos
 . Activa las notificaciones para tu depósito de origen:
 +
-** ${post_edited_translations.segment}
+** Utiliza un editor de texto para crear el archivo XML de configuración de notificaciones necesario para habilitar las notificaciones de eventos, como se especifica en la API de notificaciones de S3.
 ** Al configurar el XML, usa el URN de un endpoint de notificaciones de eventos como tema de destino.
 +
 [listing]
@@ -59,27 +59,27 @@ ${post_edited_translations.segment}
 ----
 
 
-. ${post_edited_translations.segment}
+. En el Tenant Manager, selecciona *STORAGE (S3)* > *Buckets*.
 . Selecciona el nombre del depósito de origen.
 +
 Aparece la página de detalles del bucket.
 
-. ${post_edited_translations.segment}
+. Selecciona *Platform services* > *Event notifications*.
 . Marca la casilla *Activar notificaciones de eventos*.
-. ${post_edited_translations.segment}
+. Pega el XML de configuración de notificaciones en el cuadro de texto y selecciona *Guardar cambios*.
 +
 
 NOTE: Un administrador de StorageGRID debe habilitar los servicios de la plataforma para cada cuenta de inquilino mediante Grid Manager o Grid Management API. Ponte en contacto con tu administrador de StorageGRID si se produce un error al guardar el archivo de configuración XML.
 
-. ${post_edited_translations.segment}
+. Comprueba que las notificaciones de eventos estén configuradas correctamente:
 +
 .. Realiza una acción sobre un objeto en el bucket de origen que cumpla los requisitos para activar una notificación según lo configurado en el XML de configuración.
 +
 En el ejemplo, se envía una notificación de evento cada vez que se crea un objeto con el prefijo  `images/`.
 
-.. ${post_edited_translations.segment}
+.. Comprueba que se haya entregado una notificación al tema de Amazon SNS, al tema de Kafka o al endpoint del webhook de destino.
 +
-${post_edited_translations.segment}
+Por ejemplo, si el tema de destino está alojado en Amazon SNS, podrías configurar el servicio para que te envíe un correo electrónico cuando se entregue la notificación.
 
 +
 [listing]
@@ -122,7 +122,7 @@ ${post_edited_translations.segment}
 }
 ----
 +
-${post_edited_translations.segment}
+Si se recibe la notificación en el tema de destino, has configurado correctamente tu bucket de origen para las notificaciones de StorageGRID.
 
 
 

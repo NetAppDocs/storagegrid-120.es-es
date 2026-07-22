@@ -18,11 +18,11 @@ El acceso a los servicios de la plataforma lo habilita un administrador de Stora
 
 
 [[what-is-a-platform-services-endpoint]]
-== ${post_edited_translations.segment}
+== ¿Qué es un endpoint de servicios de plataforma?
 
-${post_edited_translations.segment}
+Un punto final de servicios de la plataforma especifica la información que StorageGRID necesita para acceder al destino externo.
 
-${post_edited_translations.segment}
+Por ejemplo, si quieres replicar objetos de un bucket de StorageGRID a un bucket de Amazon S3, creas un punto de conexión de servicios de la plataforma que incluye la información y las credenciales que StorageGRID necesita para acceder al bucket de destino en Amazon.
 
 Cada tipo de servicio de plataforma requiere su propio endpoint, por lo que debes configurar al menos un endpoint para cada servicio de plataforma que tengas pensado utilizar. Después de definir un endpoint de servicios de plataforma, utilizas el URN del endpoint como destino en el XML de configuración que se usa para habilitar el servicio.
 
@@ -38,7 +38,7 @@ StorageGRID admite endpoints de replicación que representan buckets de S3. Esto
 
 
 [[endpoints-for-notifications]]
-== ${post_edited_translations.segment}
+== Puntos finales para notificaciones
 
 StorageGRID es compatible con Amazon SNS, Kafka y endpoints de webhook. Simple Queue Service (SQS) y los endpoints de AWS Lambda no son compatibles.
 
@@ -47,7 +47,7 @@ Para los endpoints de Kafka, no se admite el TLS mutuo. Como resultado, si tiene
 
 
 [[endpoints-for-the-search-integration-service]]
-== ${post_edited_translations.segment}
+== Puntos finales del servicio de integración de búsqueda
 
 StorageGRID admite puntos finales de integración de búsqueda que representan clústeres de Elasticsearch. Estos clústeres de Elasticsearch pueden estar ubicados en un centro de datos local o alojados en una nube de AWS o en cualquier otro lugar.
 

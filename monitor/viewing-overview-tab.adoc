@@ -38,7 +38,7 @@ La información general de un nodo incluye lo siguiente:
 NOTE: Un nodo puede aparecer como «Desconocido» durante las operaciones de apagado controlado. En estos casos, puedes ignorar el estado «Desconocido».
 
 ** *Fuera de servicio por motivos administrativos* image:icon_alarm_gray_administratively_down.png["icono de signo de interrogación gris"]: el nodo no está conectado a la grid por un motivo previsto. Por ejemplo, el nodo, o los servicios en el nodo, se ha apagado de forma controlada, el nodo se está reiniciando o el software se está actualizando. También puede haber una o más alertas activas.
-** *Conectado* image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"]: el nodo está conectado a la red.
+** *Conectado* image:icon_alert_green_checkmark.png["icono de alerta con marca de verificación verde"]: el nodo está conectado a la red.
 
 
 * *Espacio de almacenamiento utilizado*: solo para nodos de almacenamiento.

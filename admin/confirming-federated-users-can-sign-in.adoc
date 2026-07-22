@@ -29,33 +29,33 @@ TIP: Cuando habilitas el SSO, el origen de identidad configurado en el Tenant Ma
 .. Inicia sesión en Tenant Manager con cada cuenta de inquilino.
 .. Selecciona *Gestión de acceso* > *Federación de identidades*.
 .. Comprueba que la casilla *Habilitar federación de identidades* no esté marcada.
-.. ${post_edited_translations.segment}
+.. Si es así, comprueba que ya no se necesiten los grupos federados que puedan estar en uso para esta cuenta de inquilino, desmarca la casilla de selección y selecciona *Guardar*.
 
 
-. ${post_edited_translations.segment}
+. Comprueba que un usuario federado pueda acceder al Grid Manager:
 +
 .. En Grid Manager, selecciona *Configuración* > *Control de acceso* > *Grupos de administradores*.
 .. Asegúrate de que se haya importado al menos un grupo federado desde la fuente de identidades de Active Directory y de que se le haya asignado el permiso de acceso Root.
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Cerrar sesión.
+.. Confirma que puedes volver a iniciar sesión en Grid Manager como usuario del grupo federado.
 
 
 . Si ya existen cuentas de inquilinos, confirma que un usuario federado con permiso de acceso de usuario raíz pueda iniciar sesión:
 +
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Desde el Grid Manager, selecciona *Tenants*.
+.. Selecciona la cuenta del inquilino y selecciona *Acciones* > *Editar*.
 .. En la pestaña «Introducir datos», selecciona *Continuar*.
 .. Si la casilla *Usar fuente de identidad propia* está marcada, desmárcala y selecciona *Guardar*.
 
 
 +
-${post_edited_translations.segment}
+Aparece la página Tenant.
 
 +
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona la cuenta de inquilino, selecciona *Sign in* e inicia sesión en la cuenta de inquilino como usuario raíz local.
+.. En Tenant Manager, selecciona *Gestión de accesos* > *Grupos*.
+.. Asegúrate de que al menos un grupo federado del Grid Manager tenga asignado el permiso de acceso raíz para este inquilino.
+.. Cerrar sesión.
 .. Confirma que puedes volver a iniciar sesión en el inquilino como usuario del grupo federado.
 
 
@@ -63,6 +63,6 @@ ${post_edited_translations.segment}
 
 .Información relacionada
 * link:requirements-for-sso.html["Requisitos y aspectos a tener en cuenta para el inicio de sesión único"]
-* link:managing-admin-groups.html["${post_edited_translations.segment}"]
+* link:managing-admin-groups.html["Gestiona grupos de administradores"]
 * link:../tenant/index.html["Utiliza una cuenta de inquilino"]
 

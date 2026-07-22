@@ -15,7 +15,7 @@ Si estás usando un inquilino de S3 y tienes el permiso adecuado, puedes crear t
 
 .Antes de empezar
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+* Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["Gestiona tus propias credenciales de S3 o el permiso de acceso de usuario raíz"].
 
 
 .Acerca de esta tarea

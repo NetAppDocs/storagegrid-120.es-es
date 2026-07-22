@@ -16,9 +16,9 @@ Antes de configurar un servidor externo de gestión de claves (KMS), debes conoc
 
 
 [[which-version-of-kmip-is-supported]]
-== ${post_edited_translations.segment}
+== ¿Qué versión de KMIP es compatible?
 
-${post_edited_translations.segment}
+StorageGRID es compatible con la versión 1.4 de KMIP.
 
 http://docs.oasis-open.org/kmip/spec/v1.4/os/kmip-spec-v1.4-os.html["Especificación del Protocolo de Interoperabilidad para la Gestión de Claves versión 1.4"^]
 
@@ -48,14 +48,14 @@ StorageGRID negocia el protocolo y el cifrado (TLS 1.2) o el conjunto de cifrado
 Puedes utilizar un servidor de gestión de claves (KMS) para gestionar las claves de cifrado de cualquier dispositivo StorageGRID de tu grid que tenga activada la opción *Node Encryption*. Esta opción solo se puede activar durante la etapa de configuración del hardware de la instalación del dispositivo usando el StorageGRID Appliance Installer.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: No puedes activar el cifrado de nodos después de añadir un dispositivo a la grid, y no puedes usar la gestión externa de claves para los dispositivos que no tienen activado el cifrado de nodos.
 
 Puedes utilizar el KMS configurado para los dispositivos StorageGRID y los nodos de los dispositivos.
 
-${post_edited_translations.segment}
+No puedes utilizar el KMS configurado para nodos basados en software (que no sean dispositivos), entre los que se incluyen los siguientes:
 
 * Nodos implementados como máquinas virtuales (VM)
-* ${post_edited_translations.segment}
+* Nodos implementados en motores de contenedores en hosts Linux
 
 
 Los nodos implementados en estas otras plataformas pueden usar el cifrado fuera de StorageGRID a nivel de almacén de datos o de disco.
@@ -72,7 +72,7 @@ Puedes configurar los servidores de gestión de claves en Grid Manager antes o d
 
 
 [[how-many-key-management-servers-do-i-need]]
-== ${post_edited_translations.segment}
+== ¿Cuántos servidores de gestión de claves necesito?
 
 Puedes configurar uno o varios servidores de gestión de claves externos para proporcionar claves de cifrado a los nodos de appliance en tu sistema StorageGRID. Cada KMS proporciona una única clave de cifrado a los nodos de appliance de StorageGRID en un solo sitio o en un grupo de sitios.
 
@@ -87,14 +87,14 @@ image:kms_per_site.png["KMS por sitio"]
 
 
 [[what-happens-when-a-key-is-rotated]]
-== ${post_edited_translations.segment}
+== ¿Qué ocurre cuando se rota una clave?
 
 Como práctica recomendada de seguridad, deberías link:kms-managing.html#rotate-key["rotar la clave de cifrado"] periódicamente que usa cada KMS configurado.
 
-${post_edited_translations.segment}
+Cuando la nueva versión de la clave esté disponible:
 
 * Se distribuye automáticamente a los nodos de los dispositivos cifrados en el sitio o sitios asociados con el KMS. La distribución debería ocurrir dentro de una hora desde que se rota la clave.
-* ${post_edited_translations.segment}
+* Si el nodo del dispositivo cifrado está desconectado cuando se distribuye la nueva versión de la clave, el nodo recibirá la nueva clave en cuanto se reinicie.
 * Si por cualquier motivo la nueva versión de la clave no se puede usar para cifrar los volúmenes del dispositivo, se activará la alerta *Error en la rotación de la clave de cifrado de KMS* para el nodo del dispositivo. Es posible que necesites ponerte en contacto con el soporte técnico para obtener ayuda para resolver esta alerta.
 
 
@@ -106,4 +106,4 @@ ${post_edited_translations.segment}
 Si necesitas instalar un dispositivo cifrado en otro sistema StorageGRID, primero debes decomisionar el nodo de grid para mover los datos de objetos a otro nodo. Después, puedes usar el StorageGRID Appliance Installer para https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/monitoring-node-encryption-in-maintenance-mode.html["borrar la configuración de KMS"^]. Al borrar la configuración de KMS, se desactiva el ajuste *Node Encryption* y se elimina la asociación entre el nodo del dispositivo y la configuración de KMS para el sitio de StorageGRID.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Sin acceso a la clave de cifrado KMS, cualquier dato que permanezca en el dispositivo ya no se podrá acceder y quedará bloqueado de forma permanente.

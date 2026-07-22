@@ -18,7 +18,7 @@ StorageGRID valida los endpoints de servicios de plataforma a medida que los cre
 
 
 [[urn-elements]]
-== ${post_edited_translations.segment}
+== Elementos URN
 
 El URN para un endpoint de servicios de plataforma debe comenzar con `arn:aws` o con `urn:mysite`, de la siguiente manera:
 
@@ -29,7 +29,7 @@ El URN para un endpoint de servicios de plataforma debe comenzar con `arn:aws` o
 
 Por ejemplo, si estás especificando el URN para un endpoint de CloudMirror alojado en StorageGRID, el URN podría comenzar con `urn:sgws`.
 
-${post_edited_translations.segment}
+El siguiente elemento del URN especifica el tipo de servicio de plataforma, como se indica a continuación:
 
 [cols="2a,1a"]
 |===
@@ -60,11 +60,11 @@ Por ejemplo, para continuar especificando la URN de un endpoint de CloudMirror a
 
 Para la mayoría de los endpoints, el elemento final del URN identifica el recurso de destino específico en la URI de destino, por ejemplo, `sns-topic-name`.
 
-${post_edited_translations.segment}
+En el caso de los endpoints de webhook, el recurso de destino es la propia URI de destino.
 
 [cols="1a,2a"]
 |===
-| Servicio | ${post_edited_translations.segment} 
+| Servicio | Recurso específico 
 
 
  a| 
@@ -79,7 +79,7 @@ Notificaciones
  a| 
 `sns-topic-name` o  `kafka-topic-name`
 
-${post_edited_translations.segment}
+*Nota:* En el caso de los puntos finales de webhook, el último elemento del URN puede ser cualquier cadena, siempre y cuando el URN del punto final sea único.
 
 
 
@@ -88,7 +88,7 @@ Integración de búsqueda
  a| 
 `domain-name/index-name/type-name`
 
-${post_edited_translations.segment}
+*Nota:* Si el clúster de Elasticsearch *no* está configurado para crear índices automáticamente, deberás crear el índice manualmente antes de crear el endpoint.
 
 |===
 
@@ -104,13 +104,13 @@ Para las entidades de AWS y GCP, el URN completo es un ARN de AWS válido. Por e
 ----
 arn:aws:s3:::bucket-name
 ----
-* ${post_edited_translations.segment}
+* Notificaciones:
 +
 [listing]
 ----
 arn:aws:sns:region:account-id:topic-name
 ----
-* ${post_edited_translations.segment}
+* Integración de búsqueda:
 +
 [listing]
 ----
@@ -125,7 +125,7 @@ NOTE: Para un endpoint de integración de búsqueda de AWS, el `domain-name` deb
 
 
 [[urns-for-locally-hosted-services]]
-== ${post_edited_translations.segment}
+== URNs para servicios alojados localmente
 
 Cuando utilices servicios alojados localmente en lugar de servicios en la nube, puedes especificar el URN de cualquier forma que cree un URN válido y único, siempre que el URN incluya los elementos requeridos en la tercera y última posición. Puedes dejar en blanco los elementos indicados como opcionales, o puedes especificarlos de cualquier forma que te ayude a identificar el recurso y hacer que el URN sea único. Por ejemplo:
 
@@ -143,9 +143,9 @@ Para un endpoint de CloudMirror alojado en StorageGRID, puedes especificar un UR
 ----
 urn:sgws:s3:optional:optional:bucket-name
 ----
-* ${post_edited_translations.segment}
+* Notificaciones:
 +
-${post_edited_translations.segment}
+Especifica un endpoint de Amazon Simple Notification Service:
 
 +
 [listing]
@@ -153,7 +153,7 @@ ${post_edited_translations.segment}
 urn:mysite:sns:optional:optional:sns-topic-name
 ----
 +
-${post_edited_translations.segment}
+Especifica un endpoint de Kafka:
 
 +
 [listing]
@@ -161,14 +161,14 @@ ${post_edited_translations.segment}
 urn:mysite:kafka:optional:optional:kafka-topic-name
 ----
 +
-${post_edited_translations.segment}
+Especifica un endpoint de webhook:
 
 +
 [listing]
 ----
 urn:mysite:webhook:optional:optional:webhook-name
 ----
-* ${post_edited_translations.segment}
+* Integración de búsqueda:
 +
 [listing]
 ----

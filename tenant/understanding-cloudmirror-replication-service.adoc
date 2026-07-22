@@ -47,16 +47,16 @@ NOTE: Si usas la replicación de CloudMirror para copiar objetos a un destino de
 
 --
 Varios depósitos de destino:: Para replicar objetos de un solo bucket en varios buckets de destino, especifica el destino de cada regla en el XML de configuración de replicación. No puedes replicar un objeto en más de un bucket al mismo tiempo.
-${post_edited_translations.segment}:: Puedes configurar la replicación de CloudMirror en buckets con o sin versiones. Los buckets de destino pueden tener o no versiones. Puedes utilizar cualquier combinación de buckets con y sin versiones. Por ejemplo, podrías especificar un bucket con versiones como destino para un bucket de origen sin versiones, o viceversa. También puedes replicar entre buckets sin versiones.
+Depósitos con o sin control de versiones:: Puedes configurar la replicación de CloudMirror en buckets con o sin versiones. Los buckets de destino pueden tener o no versiones. Puedes utilizar cualquier combinación de buckets con y sin versiones. Por ejemplo, podrías especificar un bucket con versiones como destino para un bucket de origen sin versiones, o viceversa. También puedes replicar entre buckets sin versiones.
 
 
 
 
 [[deletion-replication-loops-and-events]]
-== ${post_edited_translations.segment}
+== Eliminación, bucles de replicación y eventos
 
 Comportamiento de borrado:: Es igual que el comportamiento de eliminación del servicio Amazon S3, Cross-Region Replication (CRR). Eliminar un objeto en un bucket de origen nunca elimina un objeto replicado en el de destino. Si tanto el bucket de origen como el de destino tienen control de versiones, se replica el delete marker. Si el bucket de destino no tiene control de versiones, al eliminar un objeto en el bucket de origen no se replica el delete marker en el bucket de destino ni se elimina el objeto de destino.
-${post_edited_translations.segment}:: A medida que los objetos se replican en el bucket de destino, StorageGRID los marca como "réplicas". Un bucket de StorageGRID de destino no volverá a replicar los objetos marcados como réplicas, lo que te protege de bucles de replicación accidentales. Este marcado de réplicas es interno de StorageGRID y no te impide aprovechar AWS CRR cuando utilizas un bucket de Amazon S3 como destino.
+Protección contra los bucles de replicación:: A medida que los objetos se replican en el bucket de destino, StorageGRID los marca como "réplicas". Un bucket de StorageGRID de destino no volverá a replicar los objetos marcados como réplicas, lo que te protege de bucles de replicación accidentales. Este marcado de réplicas es interno de StorageGRID y no te impide aprovechar AWS CRR cuando utilizas un bucket de Amazon S3 como destino.
 +
 --
 

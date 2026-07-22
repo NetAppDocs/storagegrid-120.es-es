@@ -15,7 +15,7 @@ Puedes editar la configuración de un punto final de servicios de la plataforma 
 
 .Antes de empezar
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona endpoints o permisos de acceso de usuario raíz"].
 
 
 .Pasos

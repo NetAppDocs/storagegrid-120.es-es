@@ -49,7 +49,7 @@ Utilizar un nodo de almacenamiento exclusivamente para metadatos puede resultar 
 
 Los nodos de almacenamiento exclusivos para metadatos tienen requisitos de hardware específicos:
 
-* ${post_edited_translations.segment}
+* Al utilizar dispositivos StorageGRID, los nodos dedicados exclusivamente a metadatos solo se pueden configurar en dispositivos SGF6112 con doce unidades de 1,9 TB o doce de 3,8 TB.
 * Cuando se utilizan nodos basados en software, los recursos de nodos solo metadatos deben coincidir con los recursos de Storage Nodes existentes. Por ejemplo:
 +
 ** Si el sitio de StorageGRID existente utiliza dispositivos SG6000 o SG6100, los nodos basados en software y dedicados exclusivamente a los metadatos deben cumplir los siguientes requisitos mínimos:

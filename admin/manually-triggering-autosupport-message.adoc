@@ -28,4 +28,4 @@ StorageGRID intenta enviar un paquete de AutoSupport al sitio de soporte de NetA
 
 
 
-TIP: Además, puedes link:../monitor/collecting-log-files-and-system-data.html["${post_edited_translations.segment}"] y enviarlos al sitio de soporte de NetApp.
+TIP: Además, puedes link:../monitor/collecting-log-files-and-system-data.html["recopilar archivos de registro y datos del sistema más exhaustivos"] y enviarlos al sitio de soporte de NetApp.

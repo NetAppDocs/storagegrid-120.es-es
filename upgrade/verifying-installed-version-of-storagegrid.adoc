@@ -24,17 +24,17 @@ CAUTION: NetApp te recomienda encarecidamente que apliques la última correcció
 
 
 [[verify-installed-version]]
-== ${post_edited_translations.segment}
+== Comprobar la versión instalada
 
 .Pasos
 . Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
 . En la parte superior del Grid Manager, selecciona *Ayuda* > *Acerca de*.
-. ${post_edited_translations.segment}
+. Comprueba que la *versión* sea 11.9.0.8 o posterior.
 . Si *Versión* no es 11.9.0.8 o posterior, entra en https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["Descargas de NetApp: StorageGRID"^] para descargar los archivos de actualización y corrección urgente que necesites.
-. link:../upgrade/index.html["Sigue las instrucciones de actualización"] para cada versión que descargaste. link:../maintain/storagegrid-hotfix-procedure.html["${post_edited_translations.segment}"] para cada versión (altamente recomendado).
+. link:../upgrade/index.html["Sigue las instrucciones de actualización"] para cada versión que descargaste. link:../maintain/storagegrid-hotfix-procedure.html["Aplica la última corrección urgente"] para cada versión (altamente recomendado).
 
 
-${post_edited_translations.segment}
+Consulta el siguiente ejemplo de actualización.
 
 
 
@@ -47,6 +47,6 @@ Descarga e instala el software en el siguiente orden para preparar tu sistema pa
 
 . Actualiza a la versión principal StorageGRID 11.8.0.
 . Aplica la última corrección urgente de StorageGRID 11.8.0._y_.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Actualiza a la versión principal StorageGRID 11.9.0.
+. Aplica la corrección urgente de StorageGRID 11.9.0.8 o posterior.
 

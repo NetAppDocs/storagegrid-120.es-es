@@ -2,7 +2,7 @@
 permalink: s3/put-bucket-consistency-request.html 
 sidebar: sidebar 
 keywords: S3 REST API, S3 operations, PUT bucket consistency request 
-summary: ${post_edited_translations.segment} 
+summary: La solicitud de consistencia de PUT Bucket te permite especificar la consistencia que se aplicará a las operaciones realizadas en un bucket. 
 ---
 = Especifica los niveles de consistencia en StorageGRID con la solicitud de consistencia PUT Bucket
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+La solicitud de consistencia de PUT Bucket te permite especificar la consistencia que se aplicará a las operaciones realizadas en un bucket.
 
 La consistencia predeterminada está configurada para garantizar la lectura posterior a la escritura para los objetos recién creados.
 

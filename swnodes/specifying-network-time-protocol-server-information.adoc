@@ -44,4 +44,4 @@ image:8_gmi_installer_ntp_page.gif["Esta imagen se explica en el texto que la ac
 
 
 .Información relacionada
-link:../network/index.html["${post_edited_translations.segment}"]
+link:../network/index.html["Directrices de redes"]

@@ -40,15 +40,15 @@ La función Object Lock de StorageGRID S3 admite dos modos de retención para ap
 * En modo de cumplimiento:
 +
 ** El objeto no se puede eliminar hasta que se alcance su fecha de retención.
-** ${post_edited_translations.segment}
+** La fecha límite de retención del objeto se puede ampliar, pero no se puede reducir.
 ** La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
 
 
 * En modo de gobernanza:
 +
 ** Los usuarios con permisos especiales pueden utilizar un encabezado de omisión en las solicitudes para modificar determinados ajustes de retención.
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Estos usuarios pueden eliminar una versión de un objeto antes de que se alcance su retain-until-date.
+** Estos usuarios pueden aumentar, disminuir o eliminar la fecha de retención de un objeto.
 
 
 
@@ -65,7 +65,7 @@ Si se crea un depósito con S3 Object Lock activado, los usuarios pueden usar la
 * *Retención legal*: Al aplicar una retención legal a la versión de un objeto, dicho objeto queda bloqueado de inmediato. Por ejemplo, podrías necesitar aplicar una retención legal a un objeto relacionado con una investigación o una disputa legal. Una retención legal no tiene fecha de caducidad, sino que permanece vigente hasta que se elimine de forma explícita. Las retenciones legales son independientes de la retain-until-date.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si un objeto está sujeto a una retención legal, nadie puede eliminar el objeto, independientemente de su modo de retención.
 
 +
 Para obtener detalles sobre la configuración de los objetos, consulta link:../s3/use-s3-api-for-s3-object-lock.html["Utiliza la API de REST de S3 para configurar S3 Object Lock"].
@@ -75,12 +75,12 @@ Para obtener detalles sobre la configuración de los objetos, consulta link:../s
 
 
 [[default-retention-setting-for-buckets]]
-=== ${post_edited_translations.segment}
+=== Configuración predeterminada de retención para los buckets
 
 Si se crea un bucket con S3 Object Lock activado, los usuarios pueden, si lo desean, especificar los siguientes ajustes predeterminados para el bucket:
 
 * *Modo de retención predeterminado*: cumplimiento o gobernanza.
-* ${post_edited_translations.segment}
+* *Período de retención predeterminado*: cuánto tiempo deben conservarse las nuevas versiones de objetos añadidas a este bucket, a partir del día en que se añaden.
 
 
 La configuración predeterminada del depósito solo se aplica a los objetos nuevos que no tienen su propia configuración de retención. Los objetos existentes en el depósito no se ven afectados cuando añades o cambias esta configuración predeterminada.

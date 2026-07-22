@@ -23,7 +23,7 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El identificador único del bloque de contenido eliminado del almacenamiento permanente.
 
 
 

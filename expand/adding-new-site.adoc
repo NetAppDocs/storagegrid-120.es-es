@@ -2,16 +2,16 @@
 permalink: expand/adding-new-site.html 
 sidebar: sidebar 
 keywords: expand, expansion, new site, add site, guidelines, StorageGRID 
-summary: ${post_edited_translations.segment} 
+summary: Puedes ampliar tu sistema StorageGRID añadiendo un nuevo sitio. 
 ---
-= ${post_edited_translations.segment}
+= Guía para añadir un nuevo sitio en StorageGRID
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Puedes ampliar tu sistema StorageGRID añadiendo un nuevo sitio.
 
 
 
@@ -21,15 +21,15 @@ ${post_edited_translations.segment}
 Antes de añadir un sitio, revisa los siguientes requisitos y limitaciones:
 
 * Solo puedes añadir un sitio por operación de ampliación.
-* ${post_edited_translations.segment}
+* No puedes añadir nodos de grid a un sitio ya existente como parte de la misma ampliación.
 * Todas las ubicaciones deben incluir al menos tres Storage Nodes.
 * Añadir un nuevo sitio no aumenta automáticamente el número de objetos que puedes almacenar. La capacidad total de objetos de una grid depende de la cantidad de almacenamiento disponible, la política de ILM y la capacidad de metadatos en cada sitio.
-* ${post_edited_translations.segment}
+* A la hora de dimensionar un nuevo sitio, debes asegurarte de que cuente con suficiente capacidad para metadatos.
 +
 StorageGRID guarda una copia de todos los metadatos de objetos en cada sitio. Cuando agregues un nuevo sitio, debes asegurarte de que incluya suficiente capacidad de metadatos para los metadatos de objetos existentes y suficiente capacidad de metadatos para el crecimiento.
 
 +
-${post_edited_translations.segment}
+Para obtener más información, consulta lo siguiente:
 
 +
 ** link:../admin/managing-object-metadata-storage.html["Gestiona el almacenamiento de metadatos de objetos"]
@@ -42,6 +42,6 @@ ${post_edited_translations.segment}
 Por ejemplo, antes de comenzar la expansión, determina si alguna regla utiliza el pool de almacenamiento predeterminado (All Storage Nodes). Si es así, debes crear un nuevo pool de almacenamiento que contenga los nodos de almacenamiento existentes y actualizar tus reglas de ILM para usar el nuevo pool de almacenamiento. De lo contrario, los objetos se copiarán en el nuevo sitio tan pronto como el primer nodo de ese sitio se active.
 
 +
-Para obtener más información sobre cómo cambiar el ILM al añadir un nuevo sitio, consulta la link:../ilm/example-6-changing-ilm-policy.html["${post_edited_translations.segment}"].
+Para obtener más información sobre cómo cambiar el ILM al añadir un nuevo sitio, consulta la link:../ilm/example-6-changing-ilm-policy.html["Ejemplo de cómo modificar una política de ILM"].
 
 

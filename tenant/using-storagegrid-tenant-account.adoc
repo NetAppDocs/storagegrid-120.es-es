@@ -23,7 +23,7 @@ De forma opcional, se pueden utilizar cuentas de inquilino para separar los obje
 * *Caso de uso empresarial:* Si el sistema StorageGRID se utiliza en el ámbito empresarial, el almacenamiento de objetos de la grid podría estar segmentado por los distintos departamentos de la organización. Por ejemplo, podría haber cuentas de inquilino para el departamento de Marketing, el departamento de Customer Support, el departamento de Human Resources, y así sucesivamente.
 +
 
-NOTE: Si usas el protocolo de cliente S3, también puedes usar buckets de S3 y políticas de bucket para segregar objetos entre los departamentos de una empresa. No necesitas crear cuentas de inquilino separadas. Consulta las instrucciones para implementar link:../s3/use-access-policies.html["${post_edited_translations.segment}"] para obtener más información.
+NOTE: Si usas el protocolo de cliente S3, también puedes usar buckets de S3 y políticas de bucket para segregar objetos entre los departamentos de una empresa. No necesitas crear cuentas de inquilino separadas. Consulta las instrucciones para implementar link:../s3/use-access-policies.html["Buckets de S3 y políticas de bucket"] para obtener más información.
 
 * *Caso de uso de proveedor de servicios:* si un proveedor de servicios utiliza el sistema StorageGRID, el almacenamiento de objetos del grid podría estar segregado por las diferentes entidades que alquilan el almacenamiento. Por ejemplo, podría haber cuentas de inquilino para Company A, Company B, Company C, y así sucesivamente.
 
@@ -36,11 +36,11 @@ NOTE: Si usas el protocolo de cliente S3, también puedes usar buckets de S3 y p
 Un administrador de grid de StorageGRID crea las cuentas de inquilino mediante el Grid Manager. Al crear una cuenta de inquilino, el administrador de grid especifica la siguiente información:
 
 * Nombre que se muestra para el inquilino (el ID de cuenta del inquilino se asigna automáticamente y no se puede cambiar).
-* ${post_edited_translations.segment}
+* Si la cuenta del inquilino usará el protocolo S3 o Swift.
 * Para cuentas de inquilino de S3: si se permite que la cuenta de inquilino utilice servicios de plataforma. Si se permite el uso de servicios de plataforma, el grid debe estar configurado para admitir su uso.
 * Opcionalmente, una cuota de almacenamiento para la cuenta de inquilino -- el número máximo de gigabytes, terabytes o petabytes disponibles para los objetos del inquilino. La cuota de almacenamiento de un inquilino representa una cantidad lógica (tamaño del objeto), no una cantidad física (tamaño en disco).
 * Si la federación de identidades está habilitada para el sistema StorageGRID, ¿qué grupo federado tiene permiso de acceso de usuario raíz para configurar la cuenta de inquilino?
-* ${post_edited_translations.segment}
+* Si no se utiliza el inicio de sesión único (SSO) para el sistema StorageGRID, si la cuenta del inquilino usará su propia fuente de identidad o compartirá la fuente de identidad de la grid, y la contraseña inicial del usuario raíz local del inquilino.
 
 
 Además, los administradores de la grid pueden activar la configuración de S3 Object Lock para el sistema StorageGRID si las cuentas de inquilinos de S3 deben cumplir con requisitos normativos. Cuando S3 Object Lock está activado, todas las cuentas de inquilinos de S3 pueden crear y gestionar buckets compatibles.
@@ -50,17 +50,17 @@ Además, los administradores de la grid pueden activar la configuración de S3 O
 [[configure-s3-tenants]]
 == Configura clientes de S3
 
-${post_edited_translations.segment}
+Una vez creada una cuenta de inquilino de S3, puedes acceder al Tenant Manager para realizar tareas como las siguientes:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Configurar la federación de identidades (a menos que la fuente de identidades se comparta con el grid) o crear grupos y usuarios locales
+* Gestión de las claves de acceso de S3
+* Creación y gestión de buckets de S3, incluidos los buckets conformes
 * Uso de los servicios de la plataforma (si están habilitados)
 * Supervisión del uso del almacenamiento
 
 
 
-TIP: ${post_edited_translations.segment}
+TIP: Aunque puedes crear y gestionar buckets de S3 con el Tenant Manager, debes disponer de claves de acceso a S3 y utilizar la API de REST de S3 para cargar y gestionar objetos.
 
 .Información relacionada
 * link:../admin/index.html["Administrar StorageGRID"]

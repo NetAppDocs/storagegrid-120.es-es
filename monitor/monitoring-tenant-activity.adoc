@@ -15,7 +15,7 @@ Toda la actividad de los clientes S3 está asociada a las cuentas de los inquili
 
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Tienes el link:../admin/admin-group-permissions.html["${post_edited_translations.segment}"].
+* Tienes el link:../admin/admin-group-permissions.html["Acceso raíz o permisos de cuentas de inquilino"].
 
 
 
@@ -124,7 +124,7 @@ Puedes abrir el archivo  `.csv` en una aplicación de hojas de cálculo o usarlo
 . Si lo deseas, selecciona la pestaña *Funciones permitidas* para ver una lista de los permisos y las funciones que están habilitados para el inquilino. Consulta link:../admin/editing-tenant-account.html["Editar cuenta de inquilino"] si necesitas modificar alguna de estas configuraciones.
 . Si el usuario tiene el permiso *Utilizar conexión de federación de Grid*, opcionalmente selecciona la pestaña *Federación de Grid* para saber más sobre la conexión.
 +
-Consulta link:../admin/grid-federation-overview.html["${post_edited_translations.segment}"] y link:../admin/grid-federation-manage-tenants.html["Gestiona los inquilinos permitidos para la federación de grid"].
+Consulta link:../admin/grid-federation-overview.html["¿Qué es la federación de grid?"] y link:../admin/grid-federation-manage-tenants.html["Gestiona los inquilinos permitidos para la federación de grid"].
 
 
 
@@ -142,7 +142,7 @@ Aparece la página «Políticas de clasificación del tráfico» y las política
 
 . Revisa la lista de políticas para identificar aquellas que se aplican a un tenant específico.
 . Para ver las métricas asociadas a una política, selecciona el botón de opción situado a la izquierda de la política y selecciona *Métricas*.
-. ${post_edited_translations.segment}
+. Analiza los gráficos para determinar con qué frecuencia la política está limitando el tráfico y si necesitas ajustar la política.
 
 
 Consulta link:../admin/managing-traffic-classification-policies.html["Gestiona las políticas de clasificación del tráfico"] para más información.

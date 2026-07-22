@@ -46,7 +46,7 @@ Obtén el link:information-needed-to-attach-storagegrid-as-cloud-tier.html["Info
 
 [role="quick-margin-list"]
 * Direcciones IP
-* ${post_edited_translations.segment}
+* Nombres de dominio
 * Certificado SSL
 
 
@@ -62,7 +62,7 @@ Usar la link:use-fabricpool-setup-wizard.html["Asistente de configuración de Fa
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Cuatro"] Configura ONTAP y DNS
 [role="quick-margin-para"]
-Usa ONTAP para link:configure-ontap.html["añadir un nivel de nube"] que use los valores de StorageGRID. Después, link:configure-dns-server.html["${post_edited_translations.segment}"] para asociar direcciones IP a cualquier nombre de dominio que planees usar.
+Usa ONTAP para link:configure-ontap.html["añadir un nivel de nube"] que use los valores de StorageGRID. Después, link:configure-dns-server.html["configurar las entradas DNS"] para asociar direcciones IP a cualquier nombre de dominio que planees usar.
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png["Cinco"] Supervisar y gestionar
 [role="quick-margin-para"]

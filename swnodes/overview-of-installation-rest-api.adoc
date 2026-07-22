@@ -2,7 +2,7 @@
 permalink: swnodes/overview-of-installation-rest-api.html 
 sidebar: sidebar 
 keywords: installation REST API 
-summary: ${post_edited_translations.segment} 
+summary: StorageGRID ofrece la API de instalación de StorageGRID para realizar tareas de instalación. 
 ---
 = Conoce la API de REST de instalación de StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+StorageGRID ofrece la API de instalación de StorageGRID para realizar tareas de instalación.
 
 La API utiliza la plataforma de código abierto Swagger para proporcionar la documentación de la API. Swagger permite tanto a desarrolladores como a usuarios sin conocimientos de programación interactuar con la API a través de una interfaz de usuario que ilustra cómo responde la API a los parámetros y opciones. Esta documentación da por hecho que estás familiarizado con las tecnologías web estándar y con el formato de datos JSON.
 

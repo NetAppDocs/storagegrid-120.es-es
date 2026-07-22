@@ -14,7 +14,7 @@ summary: Si estás utilizando servicios de plataforma o Cloud Storage Pools, pue
 Si estás utilizando servicios de plataforma o Cloud Storage Pools, puedes configurar un proxy no transparente entre los nodos de almacenamiento y los endpoints de S3 externos. Por ejemplo, es posible que necesites un proxy no transparente para permitir que los mensajes de los servicios de plataforma se envíen a endpoints externos, como un endpoint en internet.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: La configuración del proxy de almacenamiento no se aplica a los endpoints de los servicios de la plataforma Kafka.
 
 .Antes de empezar
 * Tienes link:admin-group-permissions.html["permisos de acceso específicos"].
@@ -22,14 +22,14 @@ NOTE: ${post_edited_translations.segment}
 
 
 .Acerca de esta tarea
-${post_edited_translations.segment}
+Puedes configurar los parámetros de un único proxy de almacenamiento.
 
 .Pasos
 . Selecciona *Configuración* > *Seguridad* > *Proxy settings*.
-. ${post_edited_translations.segment}
+. En la pestaña *Almacenamiento*, marca la casilla *Habilitar proxy de almacenamiento*.
 . Selecciona el protocolo para el proxy de almacenamiento.
 . Introduce el nombre de host o la dirección IP del servidor proxy.
-. ${post_edited_translations.segment}
+. Opcionalmente, introduce el puerto que se usa para conectarte al servidor proxy.
 +
 Deja este campo en blanco para utilizar el puerto predeterminado del protocolo: 80 para HTTP o 1080 para SOCKS5.
 
@@ -41,6 +41,6 @@ Después de guardar el proxy de almacenamiento, puedes configurar y probar nuevo
 
 NOTE: Los cambios en el proxy pueden tardar hasta 10 minutos en surtir efecto.
 
-. ${post_edited_translations.segment}
+. Comprueba la configuración de tu servidor proxy para asegurarte de que los mensajes relacionados con los servicios de la plataforma de StorageGRID no se bloqueen.
 . Si necesitas desactivar un proxy de almacenamiento, desmarca la casilla de selección y selecciona *Guardar*.
 

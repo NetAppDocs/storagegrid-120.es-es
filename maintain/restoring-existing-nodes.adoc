@@ -170,7 +170,7 @@ Para iniciar los nodos de StorageGRID y asegurarte de que se reinicien después 
 sudo systemctl enable storagegrid
 sudo systemctl start storagegrid
 ----
-. ${post_edited_translations.segment}
+. Ejecuta el siguiente comando para asegurarte de que la implementación se está llevando a cabo:
 +
 [listing]
 ----

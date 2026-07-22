@@ -32,9 +32,9 @@ CAUTION: Puedes acceder a los buckets y objetos de S3 que pertenecen a un usuari
 
 .Pasos
 . Selecciona *Gestión de acceso* > *Usuarios*.
-. ${post_edited_translations.segment}
+. Selecciona el usuario cuyas claves de acceso a S3 deseas gestionar.
 +
-${post_edited_translations.segment}
+Aparece la página de detalles del usuario.
 
 . Selecciona *Teclas de acceso* y luego selecciona *Crear clave*.
 . Debe realizar una de las siguientes acciones:
@@ -49,7 +49,7 @@ NOTE: La fecha de caducidad puede ser como máximo de cinco años a partir de la
 
 . Selecciona *Crear clave de acceso*.
 +
-${post_edited_translations.segment}
+Aparece el cuadro de diálogo «Download access key», en el que se muestran el access key ID y el secret access key.
 
 . Copia el ID de la clave de acceso y la clave de acceso secreta en un lugar seguro, o selecciona *Descargar .csv* para guardar un archivo de hoja de cálculo que contenga el ID de la clave de acceso y la clave de acceso secreta.
 +
@@ -58,7 +58,7 @@ CAUTION: No cierres este cuadro de diálogo hasta que hayas copiado o descargado
 
 . Selecciona *Finalizar*.
 +
-${post_edited_translations.segment}
+La nueva clave aparece en la pestaña Claves de acceso de la página de detalles del usuario.
 
 . Si tu cuenta de inquilino tiene el permiso *Usar conexión de federación de grid*, de manera opcional puedes usar la API de gestión de inquilinos para clonar manualmente las claves de acceso de S3 desde el inquilino en el grid de origen al inquilino en el grid de destino. Consulta link:grid-federation-clone-keys-with-api.html["Clonar claves de acceso a S3 mediante la API"].
 

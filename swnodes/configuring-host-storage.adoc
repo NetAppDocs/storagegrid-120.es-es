@@ -26,18 +26,18 @@ NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Par
 .Acerca de esta tarea
 Al asignar volúmenes de almacenamiento en bloque (LUN) a los hosts, usa las tablas de la sección "Requisitos de almacenamiento" para determinar lo siguiente:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Número de volúmenes necesarios para cada host (en función del número y los tipos de nodos que se vayan a implementar en ese host)
+* Categoría de almacenamiento de cada volumen (es decir, System Data o Object Data)
+* Tamaño de cada volumen
 
 
-${post_edited_translations.segment}
+Utilizarás esta información, así como el nombre permanente asignado por Linux a cada volumen físico cuando implementes nodos de StorageGRID en el host.
 
 
 NOTE: No necesitas particionar, formatear ni montar ninguno de estos volúmenes; solo tienes que asegurarte de que sean visibles para los hosts.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Solo se requiere un LUN de datos de objetos para los nodos de almacenamiento solo de metadatos.
 
 Evita usar archivos de dispositivo especiales "raw" (`/dev/sdb`, por ejemplo) a medida que creas tu lista de nombres de volúmenes. Estos archivos pueden cambiar entre reinicios del host, lo que afectará al correcto funcionamiento del sistema. Si estás utilizando LUN iSCSI y Device Mapper Multipathing, considera usar alias de multivía en el directorio  `/dev/mapper`, especialmente si tu topología de SAN incluye rutas de red redundantes al almacenamiento compartido. Como alternativa, puedes usar los enlaces simbólicos creados por el sistema bajo  `/dev/disk/by-path/` para tus nombres de dispositivos persistentes.
 
@@ -56,7 +56,7 @@ lrwxrwxrwx 1 root root  9 Sep 19 18:53 pci-0000:03:00.0-scsi-0:0:1:0 -> ../../sd
 lrwxrwxrwx 1 root root  9 Sep 19 18:53 pci-0000:03:00.0-scsi-0:0:2:0 -> ../../sdc
 lrwxrwxrwx 1 root root  9 Sep 19 18:53 pci-0000:03:00.0-scsi-0:0:3:0 -> ../../sdd
 ----
-${post_edited_translations.segment}
+Los resultados variarán en función de cada instalación.
 
 Asigna nombres descriptivos a cada uno de estos volúmenes de almacenamiento de bloques para simplificar la instalación inicial de StorageGRID y los procedimientos de mantenimiento futuros. Si estás utilizando el controlador multivía de device mapper para el acceso redundante a los volúmenes de almacenamiento compartido, puedes usar el campo `alias` en tu archivo `/etc/multipath.conf`.
 

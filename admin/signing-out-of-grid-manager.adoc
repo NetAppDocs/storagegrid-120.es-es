@@ -26,13 +26,13 @@ image:sign_out.png["Enlace para cerrar sesión"]
 
 
  a| 
-${post_edited_translations.segment}
+SSO no está en uso
  a| 
 Has cerrado sesión en el nodo de administración.
 
 Se muestra la página de inicio de sesión de Grid Manager.
 
-${post_edited_translations.segment}
+*Nota:* Si has iniciado sesión en más de un nodo de administración, debes cerrar la sesión en cada uno.
 
 
 
@@ -41,7 +41,7 @@ SSO activado
  a| 
 Se ha cerrado la sesión en todos los nodos de administración a los que tenías acceso. Se muestra la página de inicio de sesión de StorageGRID. *Grid Manager* aparece como opción predeterminada en el menú desplegable *Cuentas recientes*, y el campo *ID de cuenta* muestra 0.
 
-*Nota:* Si el inicio de sesión único (SSO) está activado y además has iniciado sesión en Tenant Manager, también debes link:../tenant/signing-out-of-tenant-manager.html["${post_edited_translations.segment}"] a link:how-sso-works.html["cerrar sesión de SSO"].
+*Nota:* Si el inicio de sesión único (SSO) está activado y además has iniciado sesión en Tenant Manager, también debes link:../tenant/signing-out-of-tenant-manager.html["cerrar sesión en la cuenta de inquilino"] a link:how-sso-works.html["cerrar sesión de SSO"].
 
 |===
 

@@ -3,31 +3,31 @@ section: audit
 title: Revisar los registros de auditoría
 entries:
 - title: Mensajes y registros de auditoría
-  pdf-filename: "${post_edited_translations.segment}"
+  pdf-filename: Revisar los registros de auditoría de StorageGRID
   url: "/audit/index.html"
-- title: "${post_edited_translations.segment}"
+- title: Flujo y retención de mensajes de auditoría
   url: "/audit/audit-message-flow-and-retention.html"
 - title: Acceder al archivo de registro de auditoría
   url: "/audit/accessing-audit-log-file.html"
-- title: "${post_edited_translations.segment}"
+- title: Rotación del archivo de auditoría
   url: "/audit/audit-log-file-rotation.html"
-- title: "${post_edited_translations.segment}"
+- title: Formato del archivo de registro de auditoría
   entries:
   - title: Ejemplo de formato de registro de auditoría
-    pdf-filename: "${post_edited_translations.segment}"
+    pdf-filename: Formato del archivo de registro de auditoría
     url: "/audit/audit-log-file-format.html"
   - title: Usa la herramienta audit-explain
     url: "/audit/using-audit-explain-tool.html"
   - title: Usa la herramienta audit-sum
     url: "/audit/using-audit-sum-tool.html"
-- title: "${post_edited_translations.segment}"
+- title: Formato de mensaje de auditoría
   entries:
   - title: Ejemplo de mensaje de auditoría
-    pdf-filename: "${post_edited_translations.segment}"
+    pdf-filename: Formato de mensaje de auditoría
     url: "/audit/audit-message-format.html"
   - title: Tipos de datos
     url: "/audit/data-types.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Datos específicos del evento
     url: "/audit/event-specific-data.html"
   - title: Elementos comunes en los mensajes de auditoría
     url: "/audit/common-elements-in-audit-messages.html"
@@ -39,7 +39,7 @@ entries:
     url: "/audit/audit-messages-and-object-lifecycle.html"
   - title: Transacciones de incorporación de objetos
     url: "/audit/object-ingest-transactions.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Transacciones de eliminación de objetos
     url: "/audit/object-delete-transactions.html"
   - title: Transacciones de recuperación de objetos
     url: "/audit/object-retrieve-transactions.html"
@@ -50,7 +50,7 @@ entries:
   - title: Descripciones de los mensajes
     pdf-filename: Mensajes de auditoría
     url: "/audit/audit-messages-main.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Categorías de mensajes de auditoría
     entries:
     - title: Mensajes de auditoría del sistema
       url: "/audit/system-audit-messages.html"
@@ -64,7 +64,7 @@ entries:
       url: "/audit/management-audit-message.html"
     - title: Mensajes de auditoría de ILM
       url: "/audit/ilm-audit-messages.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Referencia del mensaje de auditoría
     entries:
     - title: 'BROR: Solicitud de solo lectura de bucket'
       url: "/audit/bror-bucket-read-only-request.html"
@@ -72,9 +72,9 @@ entries:
       url: "/audit/cbrb-object-receive-begin.html"
     - title: 'CBRE: Fin de recepción de objeto'
       url: "/audit/cbre-object-receive-end.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'CBSB: inicio del envío de un objeto'
       url: "/audit/cbsb-object-send-begin.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'CBSE: Fin del envío del objeto'
       url: "/audit/cbse-object-send-end.html"
     - title: 'CGRR: Solicitud de replicación entre grids'
       url: "/audit/cgrr-cross-grid-replication-request.html"
@@ -92,7 +92,7 @@ entries:
       url: "/audit/gnrg-gnds-registration.html"
     - title: 'GNUR: Baja del GNDS'
       url: "/audit/gnur-gnds-unregistration.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'GTED: tarea de la red finalizada'
       url: "/audit/gted-grid-task-ended.html"
     - title: 'GTST: tarea de grid iniciada'
       url: "/audit/gtst-grid-task-started.html"
@@ -100,19 +100,19 @@ entries:
       url: "/audit/gtsu-grid-task-submitted.html"
     - title: 'IDEL: eliminación iniciada por ILM'
       url: "/audit/idel-ilm-initiated-delete.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'LKCU: Limpieza de objetos sobrescritos'
       url: "/audit/lkcu-overwritten-object-cleanup.html"
     - title: 'LKDM: Limpieza de objetos con fugas'
       url: "/audit/lkdm-leaked-object-cleanup.html"
     - title: 'LLST: ubicación perdida'
       url: "/audit/llst-location-lost.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'MGAU: Mensaje de auditoría de gestión'
       url: "/audit/mgau-management-audit-message.html"
     - title: 'OLST: el sistema detectó un objeto perdido'
       url: "/audit/olst-system-detected-lost-object.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'ORLM: reglas del objeto cumplidas'
       url: "/audit/orlm-object-rules-met.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'OVWR: Sobrescritura de objeto'
       url: "/audit/ovwr-object-overwrite.html"
     - title: 'S3SL: solicitud S3 Select'
       url: "/audit/s3-select-request.html"
@@ -122,17 +122,17 @@ entries:
       url: "/audit/sade-security-audit-enable.html"
     - title: 'SCMT: Confirmación del almacén de objetos'
       url: "/audit/scmt-object-store-commit.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'SDEL: S3 DELETE'
       url: "/audit/sdel-s3-delete.html"
     - title: 'SGET: S3 GET'
       url: "/audit/sget-s3-get.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'SHEA: S3 HEAD'
       url: "/audit/shea-s3-head.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'SPOS: S3 POST'
       url: "/audit/spos-s3-post.html"
     - title: 'SPUT: S3 PUT'
       url: "/audit/sput-s3-put.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'SREM: Eliminación del Object Store'
       url: "/audit/srem-object-store-remove.html"
     - title: 'SUPD: Metadatos de S3 actualizados'
       url: "/audit/supd-s3-metadata-updated.html"
@@ -142,7 +142,7 @@ entries:
       url: "/audit/svru-object-store-verify-unknown.html"
     - title: 'SYSD: Parada de nodo'
       url: "/audit/sysd-node-stop.html"
-    - title: "${post_edited_translations.segment}"
+    - title: 'SYST: parada del nodo'
       url: "/audit/syst-node-stopping.html"
     - title: 'SYSU: Inicio del nodo'
       url: "/audit/sysu-node-start.html"

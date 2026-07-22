@@ -12,7 +12,7 @@ Global (predeterminado)
  a| 
 Los clientes pueden acceder al punto final usando la dirección IP de cualquier Gateway Node o Admin Node, la dirección IP virtual (VIP) de cualquier grupo HA en cualquier red, o el FQDN correspondiente.
 
-${post_edited_translations.segment}
+Utiliza la configuración *Global* (por defecto) a menos que necesites restringir la accesibilidad de este endpoint.
 
 
 

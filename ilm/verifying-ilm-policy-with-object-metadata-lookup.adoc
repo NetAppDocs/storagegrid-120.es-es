@@ -35,7 +35,7 @@ Aparecen los resultados de la búsqueda de metadatos del objeto. Esta página mu
 ** Cualquier par clave-valor de metadatos de usuario personalizados asociados al objeto.
 ** Para los objetos de S3, cualquier par clave-valor de etiquetas asociado con el objeto.
 ** En el caso de las copias replicadas de objetos, la ubicación de almacenamiento actual de cada copia.
-** ${post_edited_translations.segment}
+** En el caso de las copias de objetos con código de borrado, la ubicación actual de almacenamiento de cada fragmento.
 ** Para las copias de objetos en un Cloud Storage Pool, la ubicación del objeto, incluyendo el nombre del bucket externo y el identificador único del objeto.
 ** En el caso de los objetos segmentados y los objetos compuestos, una lista de los segmentos del objeto que incluye los identificadores de los segmentos y los tamaños de los datos. Para los objetos con más de 100 segmentos, solo se muestran los primeros 100 segmentos.
 ** Todos los metadatos de los objetos en el formato de almacenamiento interno sin procesar. Estos metadatos sin procesar incluyen metadatos internos del sistema cuya persistencia no está garantizada de una versión a otra.

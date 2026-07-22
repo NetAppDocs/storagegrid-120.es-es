@@ -42,7 +42,7 @@ Ajusta el ancho de la ventana del navegador al recomendado.
 
 [cols="3a,1a"]
 |===
-| Ancho del navegador | ${post_edited_translations.segment} 
+| Ancho del navegador | Píxeles 
 
 
  a| 

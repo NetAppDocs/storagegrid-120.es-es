@@ -25,7 +25,7 @@ Las solicitudes conflictivas de los clientes, como por ejemplo cuando dos client
 [[object-size]]
 == Tamaño del objeto
 
-El tamaño máximo _recomendado_ para una sola operación de PutObject es de 5 GiB (5,368,709,120 bytes). Si tienes objetos que superan los 5 GiB, utiliza link:operations-for-multipart-uploads.html["${post_edited_translations.segment}"] en su lugar.
+El tamaño máximo _recomendado_ para una sola operación de PutObject es de 5 GiB (5,368,709,120 bytes). Si tienes objetos que superan los 5 GiB, utiliza link:operations-for-multipart-uploads.html["carga en varias partes"] en su lugar.
 
 El tamaño máximo _admitido_ para una sola operación de PutObject es de 5 TiB (5,497,558,138,880 bytes).
 
@@ -35,7 +35,7 @@ NOTE: Si has actualizado desde StorageGRID 11.6 o una versión anterior, se acti
 
 
 [[user-metadata-size]]
-== ${post_edited_translations.segment}
+== Tamaño de los metadatos de usuario
 
 Amazon S3 limita el tamaño de los metadatos definidos por el usuario dentro de cada cabecera de solicitud PUT a 2 KB. StorageGRID limita los metadatos del usuario a 24 KiB. El tamaño de los metadatos definidos por el usuario se mide sumando el número de bytes en la codificación UTF-8 de cada clave y valor.
 
@@ -119,7 +119,7 @@ El valor de  `creation-time` se calcula en segundos desde el 1 de enero de 1970.
 NOTE: Una regla de ILM no puede usar una *hora de creación definida por el usuario* para la hora de referencia y la opción de ingesta Balanced o Strict al mismo tiempo. Se devuelve un error al crear la regla de ILM.
 
 * `x-amz-tagging`
-* ${post_edited_translations.segment}
+* Encabezados de solicitud de S3 Object Lock
 +
 ** `x-amz-object-lock-mode`
 ** `x-amz-object-lock-retain-until-date`
@@ -188,7 +188,7 @@ Si StorageGRID puede crear inmediatamente todas las copias de objetos especifica
 
 * `REDUCED_REDUNDANCY`
 +
-** ${post_edited_translations.segment}
+** *Doble confirmación*: Si la regla de ILM especifica la opción Doble confirmación para el comportamiento de ingesta, StorageGRID crea una única copia provisional al incorporar el objeto (confirmación única).
 ** *Equilibrado*: Si la regla ILM especifica la opción Equilibrado, StorageGRID crea una única copia provisional solo si el sistema no puede crear inmediatamente todas las copias especificadas en la regla. Si StorageGRID puede realizar una colocación sincrónica, este encabezado no tiene efecto. La  `REDUCED_REDUNDANCY` opción se usa mejor cuando la regla de ILM que coincide con el objeto crea una sola copia replicada. En este caso, usar  `REDUCED_REDUNDANCY` elimina la creación y eliminación innecesarias de una copia adicional del objeto en cada operación de ingesta.
 
 
@@ -259,7 +259,7 @@ Al usar la cabecera `Authorization` para autenticar solicitudes, StorageGRID se 
 
 NOTE: Como buena práctica general, incluye siempre estos encabezados dentro de  `CanonicalHeaders` para garantizar que se verifiquen; sin embargo, si los excluyes, StorageGRID no devuelve un error.
 
-Para más detalles, consulta https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html["${post_edited_translations.segment}"^].
+Para más detalles, consulta https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html["Cálculos de firma para el encabezado de autorización: transferir la carga útil en un único fragmento (AWS Signature Version 4)"^].
 
 .Información relacionada
 * link:../ilm/index.html["Gestiona objetos con ILM"]

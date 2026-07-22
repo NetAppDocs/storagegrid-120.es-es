@@ -20,7 +20,7 @@ Puedes restaurar los datos de objetos de un volumen de almacenamiento o un Stora
 ** link:../maintain/remounting-and-reformatting-storage-volumes-manual-steps.html["Volver a montar y reformatear los volúmenes de almacenamiento (pasos manuales)"]
 
 
-* Has comprobado que el nodo de almacenamiento en el que estás restaurando los objetos presenta un estado de conexión *Conectado* image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"] en la pestaña *Nodos* > *Resumen* del Grid Manager.
+* Has comprobado que el nodo de almacenamiento en el que estás restaurando los objetos presenta un estado de conexión *Conectado* image:icon_alert_green_checkmark.png["icono de alerta con marca de verificación verde"] en la pestaña *Nodos* > *Resumen* del Grid Manager.
 * Has confirmado lo siguiente:
 +
 ** No se está llevando a cabo una ampliación de grid para añadir un nodo de almacenamiento.
@@ -67,7 +67,7 @@ Puedes restaurar dos tipos de datos de objetos:
 
 * Los objetos de datos replicados se restauran desde otras ubicaciones, siempre que las reglas de ILM de la grid se hayan configurado para que las copias de los objetos estén disponibles.
 +
-** ${post_edited_translations.segment}
+** Si se ha configurado una regla de ILM para almacenar únicamente una copia replicada y dicha copia se encontraba en un volumen de almacenamiento que ha fallado, no podrás recuperar el objeto.
 ** Si la única copia restante de un objeto se encuentra en un Cloud Storage Pool, StorageGRID debe enviar varias solicitudes al endpoint del Cloud Storage Pool para restaurar los datos del objeto.
 
 

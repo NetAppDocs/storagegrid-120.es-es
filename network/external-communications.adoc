@@ -54,7 +54,7 @@ TCP
  a| 
 SSH
  a| 
-${post_edited_translations.segment}
+Portátil de servicio
  a| 
 Todos los nodos
  a| 
@@ -148,7 +148,7 @@ HTTP
  a| 
 Explorador
  a| 
-${post_edited_translations.segment}
+Dispositivos
  a| 
 El puerto 80 redirige al puerto 8443 para el instalador de StorageGRID Appliance.
 
@@ -372,7 +372,7 @@ HTTPS
  a| 
 Explorador
  a| 
-${post_edited_translations.segment}
+Dispositivos
  a| 
 Lo utilizan los navegadores web y los clientes de la API de gestión para acceder al instalador de StorageGRID Appliance.
 
@@ -387,9 +387,9 @@ TCP
  a| 
 SSH
  a| 
-${post_edited_translations.segment}
+Portátil de servicio
  a| 
-${post_edited_translations.segment}
+Dispositivos
  a| 
 Permite el acceso a los dispositivos StorageGRID en modo de preconfiguración para soporte y solución de problemas. No es necesario que este puerto esté accesible entre los nodos de la cuadrícula ni durante las operaciones normales.
 

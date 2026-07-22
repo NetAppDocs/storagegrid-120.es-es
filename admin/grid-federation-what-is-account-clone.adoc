@@ -22,26 +22,26 @@ Es necesario clonar la cuenta para link:grid-federation-what-is-cross-grid-repli
 
 El diagrama de flujo muestra los pasos que los administradores de grid y los inquilinos permitidos realizarán para configurar la clonación de cuentas. Estos pasos se realizan después del link:grid-federation-create-connection.html["La conexión de federación de grid está configurada"].
 
-image:grid-federation-account-clone-workflow.png["${post_edited_translations.segment}"]
+image:grid-federation-account-clone-workflow.png["flujo de trabajo para la clonación de cuentas"]
 
 
 
 [[grid-admin-workflow]]
-== ${post_edited_translations.segment}
+== Flujo de trabajo de administración del grid
 
 Los pasos que realizan los administradores de grid dependen de si los sistemas StorageGRID en el link:grid-federation-overview.html["conexión de federación de grid"] utilizan el inicio de sesión único (SSO) o la federación de identidades.
 
 
 
 [[account-clone-ssoconfigure-sso-for-account-clone-optional]]
-=== ${post_edited_translations.segment}
+=== [[account-clone-sso]]Configura el inicio de sesión único para la clonación de cuentas (opcional)
 
 Si alguno de los sistemas StorageGRID de la conexión de federación de redes utiliza SSO, ambas redes deben utilizar SSO. Antes de crear las cuentas de inquilino para la federación de redes, los administradores de las redes de origen y destino del inquilino deben seguir estos pasos.
 
 .Pasos
 . Configura el mismo origen de identidad para ambos grids. Consulta link:using-identity-federation.html["Usa la federación de identidades"].
-. Configura el mismo proveedor de identidad de inicio de sesión único (SSO) para ambos grids. Consulta link:how-sso-works.html["${post_edited_translations.segment}"].
-. link:managing-admin-groups.html["${post_edited_translations.segment}"] en ambos grids al importar el mismo grupo federado.
+. Configura el mismo proveedor de identidad de inicio de sesión único (SSO) para ambos grids. Consulta link:how-sso-works.html["Configura el inicio de sesión único"].
+. link:managing-admin-groups.html["Crea el mismo grupo de administradores"] en ambos grids al importar el mismo grupo federado.
 +
 Al crear el inquilino, deberás seleccionar este grupo para que tenga el permiso de acceso a raíz inicial tanto para la cuenta de inquilino de origen como para la de destino.
 
@@ -54,13 +54,13 @@ NOTE: Si este grupo de administradores no existe en ambas grids antes de crear e
 
 
 [[account-clone-identity-federationconfigure-grid-level-identity-federation-for-account-clone-optional]]
-=== ${post_edited_translations.segment}
+=== [[account-clone-identity-federation]]Configura la federación de identidades a nivel de grid para la clonación de cuentas (opcional)
 
 Si alguno de los sistemas StorageGRID utiliza la federación de identidades sin SSO, ambas grids deben utilizar la federación de identidades. Antes de crear las cuentas de tenant para la federación de grids, los administradores de las grids de origen y destino del tenant deben realizar estos pasos.
 
 .Pasos
 . Configura el mismo origen de identidad para ambos grids. Consulta link:using-identity-federation.html["Usa la federación de identidades"].
-. Opcionalmente, si un grupo federado va a tener permiso de acceso de usuario raíz inicial tanto para las cuentas de inquilino de origen como de destino, link:managing-admin-groups.html["${post_edited_translations.segment}"] en ambas grids importando el mismo grupo federado.
+. Opcionalmente, si un grupo federado va a tener permiso de acceso de usuario raíz inicial tanto para las cuentas de inquilino de origen como de destino, link:managing-admin-groups.html["crear el mismo grupo de administradores"] en ambas grids importando el mismo grupo federado.
 +
 
 NOTE: Si asignas el permiso de acceso de usuario raíz a un grupo federado que no existe en ambas grids, el tenant no se replica en la grid de destino.
@@ -82,18 +82,18 @@ La red en la que se crea inicialmente el inquilino se conoce como la _red de ori
 
 . En esa cuadrícula, crea una nueva cuenta de inquilino de S3 o edita una cuenta existente.
 . Asigna el permiso *Usar conexión de federación de grid*.
-. ${post_edited_translations.segment}
+. Si la cuenta de inquilino va a gestionar sus propios usuarios federados, asígnale el permiso *Usar fuente de identidad propia*.
 +
 Si se asigna este permiso, tanto la cuenta del inquilino de origen como la de destino deben configurar la misma fuente de identidad antes de crear grupos federados. Los grupos federados añadidos al inquilino de origen no se pueden clonar en el inquilino de destino a menos que ambas grids utilicen la misma fuente de identidad.
 
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona una conexión específica de la federación de grid.
+. Guarda el inquilino nuevo o modificado.
 +
-${post_edited_translations.segment}
+Cuando se guarda un nuevo inquilino con el permiso *Utilizar conexión de federación de redes*, StorageGRID crea automáticamente una réplica de ese inquilino en la otra grid, de la siguiente manera:
 
 +
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Ambas cuentas de inquilino tienen el mismo ID de cuenta, nombre, cuota de almacenamiento y permisos asignados.
+** Si seleccionaste un grupo federado para que tenga permiso de acceso Root para el inquilino, ese grupo se clona en el inquilino de destino.
 ** Si has seleccionado un usuario local para que tenga permiso de acceso de usuario raíz en el inquilino, ese usuario se clona en el inquilino de destino. Sin embargo, la contraseña de ese usuario no se clona.
 
 
@@ -115,7 +115,7 @@ Después de que un inquilino con el permiso *Use grid federation connection* se 
 +
 Cuando se crean nuevos grupos o usuarios en el inquilino de origen, StorageGRID los clona automáticamente en el inquilino de destino, pero no se realiza ninguna clonación desde el inquilino de destino hacia el de origen.
 
-. ${post_edited_translations.segment}
+. Crea claves de acceso a S3.
 . Opcionalmente, clona las claves de acceso S3 del inquilino de origen al inquilino de destino.
 
 

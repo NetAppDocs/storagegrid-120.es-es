@@ -43,9 +43,9 @@ Aparece la página del servidor de gestión de claves y muestra la siguiente inf
 
 
  a| 
-${post_edited_translations.segment}
+Gestiona las claves de
  a| 
-${post_edited_translations.segment}
+El sitio de StorageGRID asociado al KMS.
 
 Este campo muestra el nombre de un sitio específico de StorageGRID o *sitios no gestionados por otro KMS (KMS predeterminado)*.
 
@@ -71,18 +71,18 @@ Para ver todos los nombres de host de un clúster, selecciona un KMS y seleccion
 
 
  a| 
-${post_edited_translations.segment}
+Datos clave
  a| 
-${post_edited_translations.segment}
+Nombre de la clave
  a| 
-${post_edited_translations.segment}
+El alias de clave para el cliente de StorageGRID en el KMS.
 
 
 
  a| 
 UID clave
  a| 
-${post_edited_translations.segment}
+El identificador único de la última versión de la clave.
 
 
 
@@ -103,9 +103,9 @@ Los metadatos del certificado, como el número de serie, la fecha y la hora de c
 
 
  a| 
-${post_edited_translations.segment}
+Certificado PEM
  a| 
-${post_edited_translations.segment}
+El contenido del archivo PEM (privacy enhanced mail) para el certificado.
 
 
 
@@ -119,12 +119,12 @@ Los metadatos del certificado, como el número de serie, la fecha y la hora de c
 
 
  a| 
-${post_edited_translations.segment}
+Certificado PEM
  a| 
-${post_edited_translations.segment}
+El contenido del archivo PEM (privacy enhanced mail) para el certificado.
 
 |===
-. ${post_edited_translations.segment}
+. [[rotate-key]]Con la frecuencia que exijan las políticas de seguridad de tu organización, selecciona *Rotar clave* o utiliza el software KMS para crear una nueva versión de la clave.
 +
 Cuando la rotación de claves se realiza correctamente, se actualizan los campos Key UID y Last modified.
 
@@ -152,7 +152,7 @@ CAUTION: Debes resolver cualquier problema relacionado con los certificados lo a
 . Selecciona *Configuración* > *Seguridad* > *Servidor de gestión de claves*.
 . En la tabla, fíjate en el valor de caducidad del certificado de cada KMS.
 . Si la fecha de caducidad del certificado de cualquier KMS es Unknown, espera hasta 30 minutos y luego actualiza tu navegador web.
-. ${post_edited_translations.segment}
+. Si en la columna «Caducidad del certificado» se indica que un certificado ha caducado o está a punto de caducar, selecciona el KMS para ir a la página de detalles del KMS.
 +
 .. Selecciona *Server certificate* y comprueba el valor del campo "Expires on".
 .. Para sustituir el certificado, selecciona *Editar certificado* para subir un certificado nuevo.
@@ -171,9 +171,9 @@ NOTE: Si aparece el mensaje «*El estado del certificado del servidor es descono
 
 
 [[view-encrypted-nodes]]
-== ${post_edited_translations.segment}
+== Ver nodos cifrados
 
-${post_edited_translations.segment}
+Puedes consultar la información sobre los nodos de los dispositivos de tu sistema StorageGRID que tienen activada la opción *Cifrado de nodos*.
 
 .Pasos
 . Selecciona *Configuración* > *Seguridad* > *Servidor de gestión de claves*.
@@ -182,9 +182,9 @@ Aparece la página «Servidor de gestión de claves». La pestaña «Detalles de
 
 . En la parte superior de la página, selecciona la pestaña *Nodos cifrados*.
 +
-${post_edited_translations.segment}
+La pestaña «Nodos cifrados» muestra los nodos del dispositivo en tu sistema StorageGRID que tienen activada la opción *Cifrado de nodos*.
 
-. ${post_edited_translations.segment}
+. Revisa la información en la tabla para cada nodo de dispositivo.
 +
 [cols="1a,3a"]
 |===
@@ -201,12 +201,12 @@ El nombre del nodo del dispositivo.
  a| 
 Tipo de nodo
  a| 
-${post_edited_translations.segment}
+El tipo de nodo: Storage, Admin o Gateway.
 
 
 
  a| 
-${post_edited_translations.segment}
+Sitio
  a| 
 El nombre del sitio de StorageGRID en el que está instalado el nodo.
 
@@ -245,15 +245,15 @@ El estado de la conexión entre el KMS y el nodo del dispositivo. Si el nodo est
 Durante el funcionamiento normal de KMS, el estado será *Conectado a KMS*. Si un nodo se desconecta de la grid, se muestra el estado de conexión del nodo (Administratively Down o Unknown).
 
 +
-${post_edited_translations.segment}
+Otros mensajes de estado corresponden a alertas de StorageGRID con los mismos nombres:
 
 +
 ** No se ha podido cargar la configuración de KMS
 ** Error de conectividad con KMS
 ** No se ha encontrado el nombre de la clave de cifrado de KMS
 ** Error en la rotación de la clave de cifrado de KMS
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** La clave KMS no pudo descifrar el volumen de un dispositivo
+** KMS no está configurado
 
 
 +
@@ -262,12 +262,12 @@ Lleva a cabo las acciones recomendadas para estas alertas.
 
 
 
-CAUTION: ${post_edited_translations.segment}
+CAUTION: Debes resolver cualquier problema de inmediato para garantizar que tus datos estén totalmente protegidos.
 
 
 
 [[edit-a-kms]]
-== ${post_edited_translations.segment}
+== Editar un KMS
 
 Es posible que tengas que modificar la configuración de un servidor de gestión de claves, por ejemplo, si un certificado está a punto de caducar.
 
@@ -301,7 +301,7 @@ Un nombre descriptivo que te ayude a identificar este KMS. Debe tener entre 1 y 
 
 
  a| 
-${post_edited_translations.segment}
+Nombre de la clave
  a| 
 El alias exacto de la clave para el cliente StorageGRID en el KMS. Debe tener entre 1 y 255 caracteres.
 
@@ -310,7 +310,7 @@ Solo necesitas modificar el nombre de la clave en casos excepcionales. Por ejemp
 
 
  a| 
-${post_edited_translations.segment}
+Gestiona las claves de
  a| 
 Si estás editando un KMS específico de un sitio y aún no tienes un KMS predeterminado, puedes seleccionar opcionalmente *Sitios no gestionados por otro KMS (KMS predeterminado)*. Esta selección convierte un KMS específico de un sitio en el KMS predeterminado, que se aplicará a todos los sitios que no tengan un KMS dedicado y a cualquier sitio añadido en una expansión.
 
@@ -336,12 +336,12 @@ El nombre de dominio completo o la dirección IP del KMS.
 . Si estás configurando un clúster KMS, selecciona *Add another hostname* para añadir un nombre de host para cada servidor del clúster.
 . Selecciona *Continuar*.
 +
-${post_edited_translations.segment}
+Aparece el paso 2 (Cargar el certificado del servidor) del asistente Edit a Key Management Server.
 
-. ${post_edited_translations.segment}
+. Si necesitas sustituir el certificado del servidor, selecciona *Examinar* y sube el nuevo archivo.
 . Selecciona *Continuar*.
 +
-${post_edited_translations.segment}
+Aparece el paso 3 (Cargar certificados de cliente) del asistente Edit a Key Management Server.
 
 . Si necesitas sustituir el certificado de cliente y la clave privada del certificado de cliente, selecciona *Examinar* y sube los nuevos archivos.
 . Selecciona *Probar y guardar*.
@@ -358,7 +358,7 @@ Por ejemplo, es posible que recibas un error 422: entidad no procesable si el si
 CAUTION: Al seleccionar *Force save*, se guarda la configuración del KMS, pero no se comprueba la conexión externa desde cada appliance a ese KMS. Si hay algún problema con la configuración, podrías no poder reiniciar los nodos de appliance que tengan habilitado el cifrado de nodos en el sitio afectado. Podrías perder el acceso a tus datos hasta que se resuelvan los problemas.
 
 +
-${post_edited_translations.segment}
+La configuración de KMS se ha guardado.
 
 . Revisa el mensaje de confirmación y selecciona *OK* si estás seguro de que quieres guardar la configuración de forma forzada.
 +
@@ -383,7 +383,7 @@ Es posible que, en algunos casos, desees eliminar un servidor de gestión de cla
 Puedes eliminar un KMS en estos casos:
 
 * Puedes eliminar un KMS específico de un sitio si dicho sitio ha sido decomisionado o si el sitio no incluye ningún nodo de dispositivo con el cifrado de nodos activado.
-* ${post_edited_translations.segment}
+* Puedes eliminar el KMS predeterminado si ya existe un KMS específico para cada sitio que tenga nodos de appliance con el cifrado de nodos habilitado.
 
 
 .Pasos
@@ -397,12 +397,12 @@ También puedes eliminar un KMS seleccionando el nombre del KMS en la tabla y se
 
 . Confirma que lo siguiente es cierto:
 +
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Estás eliminando un KMS específico de un sitio que no tiene ningún nodo de dispositivo con el cifrado de nodos activado.
+** Estás eliminando el KMS predeterminado, pero ya existe un KMS específico para cada sitio con cifrado de nodos.
 
 
 . Selecciona *Sí*.
 +
-${post_edited_translations.segment}
+Se ha eliminado la configuración de KMS.
 
 

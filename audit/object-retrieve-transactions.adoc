@@ -18,11 +18,11 @@ No todos los mensajes de auditoría generados durante una transacción de recupe
 
 
 [[s3-retrieval-audit-messages]]
-== ${post_edited_translations.segment}
+== Mensajes de auditoría de recuperación de S3
 
 [cols="1a,1a,2a,1a,1a"]
 |===
-| Código | Nombre | Descripción | ${post_edited_translations.segment} | Ver 
+| Código | Nombre | Descripción | Traza | Ver 
 
 
  a| 
@@ -30,9 +30,9 @@ SGET
  a| 
 S3 GET
  a| 
-${post_edited_translations.segment}
+Solicitud realizada para recuperar un objeto de un bucket.
  a| 
-${post_edited_translations.segment}
+CBID, S3BK, S3KY
  a| 
 link:sget-s3-get.html["SGET: S3 GET"]
 
@@ -40,7 +40,7 @@ link:sget-s3-get.html["SGET: S3 GET"]
 
 
 [[example-s3-object-retrieval]]
-== ${post_edited_translations.segment}
+== Ejemplo: recuperación de objeto S3
 
 Cuando un cliente S3 recupera un objeto de un nodo de almacenamiento (servicio LDR), se genera un mensaje de auditoría que se guarda en el registro de auditoría.
 

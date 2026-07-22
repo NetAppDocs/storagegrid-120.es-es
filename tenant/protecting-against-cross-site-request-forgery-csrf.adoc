@@ -13,7 +13,7 @@ summary: 'Puedes ayudar a proteger StorageGRID frente a los ataques de falsifica
 [role="lead"]
 Puedes ayudar a proteger StorageGRID contra los ataques de falsificación de solicitudes entre sitios (CSRF) utilizando tokens CSRF para reforzar la autenticación que usa cookies. Grid Manager y Tenant Manager activan automáticamente esta función de seguridad; otros clientes de la API pueden elegir si desean activarla al iniciar sesión.
 
-${post_edited_translations.segment}
+Un atacante que pueda provocar el envío de una solicitud a otro sitio (por ejemplo, mediante un formulario HTTP POST) puede hacer que se realicen ciertas solicitudes utilizando las cookies del usuario que ha iniciado sesión.
 
 StorageGRID ayuda a proteger contra los ataques CSRF mediante el uso de tokens CSRF. Cuando está habilitado, el contenido de una cookie específica debe coincidir con el contenido de un encabezado específico o de un parámetro específico del cuerpo de POST.
 

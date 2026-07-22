@@ -14,18 +14,18 @@ summary: Puedes crear usuarios locales y asignarlos a grupos locales para determ
 Puedes crear usuarios locales y asignarlos a grupos locales para determinar a qué funciones pueden acceder estos usuarios. También puedes importar usuarios federados. El Tenant Manager incluye un usuario local predefinido, llamado "root". Aunque puedes añadir y eliminar usuarios locales, no puedes eliminar al usuario raíz.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Si el inicio de sesión único (SSO) está habilitado en tu sistema StorageGRID, los usuarios locales no podrán iniciar sesión en el Tenant Manager ni en la API de gestión de inquilinos, aunque sí podrán utilizar aplicaciones cliente para acceder a los recursos del inquilino, en función de los permisos de grupo.
 
 .Antes de empezar
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Perteneces a un grupo de usuarios que tiene link:tenant-management-permissions.html["Permiso de acceso raíz"].
-* Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federación de redes*, has revisado el flujo de trabajo y las consideraciones para link:grid-federation-account-clone.html["${post_edited_translations.segment}"] y has iniciado sesión en la red de origen del inquilino.
+* Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federación de redes*, has revisado el flujo de trabajo y las consideraciones para link:grid-federation-account-clone.html["clonación de grupos de inquilinos y usuarios"] y has iniciado sesión en la red de origen del inquilino.
 
 
 
 
 [[create-usercreate-a-local-user]]
-== ${post_edited_translations.segment}
+== [[create-user]]Crear un usuario local
 
 Puedes crear un usuario local y asignarlo a uno o varios grupos locales para controlar sus permisos de acceso.
 
@@ -34,7 +34,7 @@ Los usuarios de S3 que no pertenecen a ningún grupo no tienen permisos de gesti
 
 
 [[access-the-create-user-wizard]]
-=== ${post_edited_translations.segment}
+=== Accede al asistente para crear un usuario
 
 .Pasos
 . Selecciona *Gestión de acceso* > *Usuarios*.
@@ -63,7 +63,7 @@ image:grid-federation-tenant-user-banner.png["Imagen de un banner azul en la pá
  a| 
 Nombre completo
  a| 
-${post_edited_translations.segment}
+El nombre completo de este usuario, por ejemplo, el nombre y el apellido de una persona o el nombre de una aplicación.
 
 
 
@@ -84,7 +84,7 @@ La contraseña que el usuario usará inicialmente al iniciar sesión.
 
 
  a| 
-${post_edited_translations.segment}
+Denegar el acceso
  a| 
 Selecciona *Sí* para impedir que este usuario inicie sesión en la cuenta del inquilino, aunque siga perteneciendo a uno o varios grupos.
 
@@ -97,7 +97,7 @@ Por ejemplo, selecciona *Sí* para suspender temporalmente la capacidad de un us
 
 
 [[assign-to-groups]]
-=== ${post_edited_translations.segment}
+=== Asignar a grupos
 
 .Pasos
 . Asigna al usuario a uno o más grupos locales para determinar qué tareas puede realizar.
@@ -111,19 +111,19 @@ Los usuarios que no pertenezcan a ningún grupo no tendrán permisos de gestión
 +
 Si tu cuenta de inquilino tiene el permiso *Usar conexión de federación de grid* y estás en el grid de origen del inquilino, el nuevo usuario local se clona en el grid de destino del inquilino. *Éxito* aparece como el *Estado de clonación* en la sección de información general de la página de detalles del usuario.
 
-. ${post_edited_translations.segment}
+. Selecciona *Finalizar* para volver a la página de Usuarios.
 
 
 
 
 [[view-or-edit-local-user]]
-== ${post_edited_translations.segment}
+== Ver o editar usuario local
 
 .Pasos
 . Selecciona *Gestión de acceso* > *Usuarios*.
-. ${post_edited_translations.segment}
+. Revisa la información que aparece en la página Usuarios, donde se muestra la información básica de todos los usuarios locales y federados de esta cuenta de inquilino.
 +
-${post_edited_translations.segment}
+Si la cuenta del inquilino tiene el permiso *Utilizar conexión de federación de redes* y estás viendo al usuario en la red de origen del inquilino:
 
 +
 ** Un mensaje en la barra superior indica que si editas o eliminas un usuario, tus cambios no se sincronizarán con la otra cuadrícula.
@@ -132,16 +132,16 @@ ${post_edited_translations.segment}
 
 . Si quieres cambiar el nombre completo del usuario:
 +
-.. ${post_edited_translations.segment}
+.. Marca la casilla de selección para el usuario.
 .. Selecciona *Acciones* > *Editar nombre completo*.
-.. ${post_edited_translations.segment}
+.. Introduce el nuevo nombre.
 .. Selecciona *Guardar cambios.*
 
 
 . Si quieres ver más detalles o hacer modificaciones adicionales, haz una de las siguientes cosas:
 +
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Selecciona el nombre de usuario.
+** Marca la casilla de selección correspondiente al usuario y selecciona *Acciones* > *Ver detalles del usuario*.
 
 
 . Consulta la sección «Resumen», que muestra la siguiente información para cada usuario:
@@ -151,28 +151,28 @@ ${post_edited_translations.segment}
 ** Tipo de usuario
 ** Acceso denegado
 ** Modo de acceso
-** ${post_edited_translations.segment}
+** Pertenencia al grupo
 ** Campos adicionales si la cuenta del cliente tiene el permiso *Usar conexión de federación de cuadrículas* y estás viendo al usuario en la cuadrícula de origen del cliente:
 +
-*** ${post_edited_translations.segment}
+*** Estado de la clonación, ya sea *Éxito* o *Fracaso*
 *** Un banner azul que indica que, si editas este usuario, tus cambios no se sincronizarán con la otra grid.
 
 
 
 
-. Modifica la configuración de usuario según sea necesario. Consulta <<create-user,${post_edited_translations.segment}>> para ver detalles sobre qué debes ingresar.
+. Modifica la configuración de usuario según sea necesario. Consulta <<create-user,Crear usuario local>> para ver detalles sobre qué debes ingresar.
 +
 .. En la sección «Descripción general», cambia el nombre completo seleccionando el nombre o el icono de edición image:icon_edit_tm.png["Icono de edición"].
 +
 No puedes cambiar el nombre de usuario.
 
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. En la pestaña *Contraseña*, cambia la contraseña del usuario y selecciona *Guardar cambios*.
+.. En la pestaña *Acceso*, selecciona *No* para permitir que el usuario inicie sesión o selecciona *Sí* para impedir que inicie sesión. Luego, selecciona *Guardar cambios*.
 .. En la pestaña *Claves de acceso*, selecciona *Crear clave* y sigue las instrucciones para link:creating-another-users-s3-access-keys.html["crear las claves de acceso a S3 de otro usuario"].
 .. En la pestaña *Grupos*, selecciona *Editar grupos* para agregar al usuario a grupos o quitarlo de ellos. A continuación, selecciona *Guardar cambios*.
 
 
-. ${post_edited_translations.segment}
+. Confirma que seleccionaste *Guardar cambios* en cada sección que cambiaste.
 
 
 
@@ -187,15 +187,15 @@ Puedes importar uno o varios usuarios federados, hasta un máximo de 100 usuario
 . Selecciona *Importar usuarios federados*.
 . Introduce el UUID o el nombre de usuario de uno o varios usuarios federados.
 +
-${post_edited_translations.segment}
+Si hay varias entradas, añade cada UUID o nombre de usuario en una nueva línea.
 
-. ${post_edited_translations.segment}
+. Selecciona *Importar*.
 +
 Si la importación al campo «Usuarios» falla para uno o varios usuarios, realiza los siguientes pasos:
 
 +
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Despliega *Usuarios no importados* y selecciona *Copiar usuarios*.
+.. Vuelve a intentar la importación seleccionando *Anterior* y pegando los usuarios copiados en el cuadro de diálogo *Import federated users*.
 
 
 +
@@ -215,9 +215,9 @@ NOTE: Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federaci
 
 .Pasos
 . Selecciona *Gestión de acceso* > *Usuarios*.
-. ${post_edited_translations.segment}
+. Marca la casilla correspondiente al usuario que quieras duplicar.
 . Selecciona *Acciones* > *Duplicar usuario*.
-. Consulta <<create-user,${post_edited_translations.segment}>> para obtener más información sobre qué datos debes introducir.
+. Consulta <<create-user,Crear usuario local>> para obtener más información sobre qué datos debes introducir.
 . Selecciona *Crear usuario*.
 
 
@@ -226,11 +226,11 @@ NOTE: Si tu cuenta de inquilino tiene el permiso *Utilizar conexión de federaci
 [[clone-usersretry-user-clone]]
 == [[clone-users]]Volver a intentar clonar el usuario
 
-${post_edited_translations.segment}
+Para volver a intentar un clon que falló:
 
 . Selecciona cada usuario que indique _(Error al clonar)_ debajo del nombre de usuario.
 . Selecciona *Acciones* > *Clonar usuarios*.
-. ${post_edited_translations.segment}
+. Consulta el estado de la operación de clonación en la página de detalles de cada usuario que estés clonando.
 
 
 Para obtener más información, consulta link:grid-federation-account-clone.html["Clonar grupos de inquilinos y usuarios"].
@@ -240,7 +240,7 @@ Para obtener más información, consulta link:grid-federation-account-clone.html
 [[delete-one-or-more-local-users]]
 == Eliminar uno o varios usuarios locales
 
-${post_edited_translations.segment}
+Puedes eliminar definitivamente a uno o varios usuarios locales que ya no necesiten acceder a la cuenta de inquilino de StorageGRID.
 
 
 NOTE: Si tu cuenta de inquilino tiene el permiso *Usar conexión de federación de grid* y eliminas a un usuario local, StorageGRID no eliminará al usuario correspondiente en el otro grid. Si necesitas mantener esta información sincronizada, debes eliminar al mismo usuario de ambos grids.

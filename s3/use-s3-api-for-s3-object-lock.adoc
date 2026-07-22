@@ -16,9 +16,9 @@ Si la configuración global de S3 Object Lock está habilitada para tu sistema S
 
 
 [[how-to-enable-s3-object-lock-for-a-bucket]]
-== ${post_edited_translations.segment}
+== Cómo activar S3 Object Lock en un bucket
 
-${post_edited_translations.segment}
+Si la configuración global de S3 Object Lock está activada para tu sistema StorageGRID, puedes activar S3 Object Lock opcionalmente al crear cada bucket.
 
 S3 Object Lock es una configuración permanente que solo puedes habilitar cuando creas un bucket. No puedes añadir ni deshabilitar S3 Object Lock después de crear un bucket.
 
@@ -28,7 +28,7 @@ Para habilitar S3 Object Lock en un bucket, utiliza cualquiera de estos métodos
 * Crea el bucket mediante una solicitud CreateBucket con la cabecera de solicitud  `x-amz-bucket-object-lock-enabled`. Consulta link:operations-on-buckets.html["Operaciones en cubos"].
 
 
-S3 Object Lock requiere el control de versiones del bucket, que se activa automáticamente al crear el bucket. No puedes suspender el control de versiones del bucket. Consulta link:object-versioning.html["${post_edited_translations.segment}"].
+S3 Object Lock requiere el control de versiones del bucket, que se activa automáticamente al crear el bucket. No puedes suspender el control de versiones del bucket. Consulta link:object-versioning.html["Control de versiones de objetos"].
 
 
 
@@ -45,15 +45,15 @@ Cuando se habilita S3 Object Lock para un bucket, puedes habilitar opcionalmente
 * En modo COMPLIANCE:
 +
 ** El objeto no se puede eliminar hasta que se alcance su fecha de retención.
-** ${post_edited_translations.segment}
+** La fecha límite de retención del objeto se puede ampliar, pero no se puede reducir.
 ** La fecha de retención del objeto no se puede eliminar hasta que se alcance dicha fecha.
 
 
-* ${post_edited_translations.segment}
+* En el modo GOVERNANCE:
 +
 ** Los usuarios con el permiso  `s3:BypassGovernanceRetention` pueden usar el encabezado de solicitud  `x-amz-bypass-governance-retention: true` para omitir la configuración de retención.
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Estos usuarios pueden eliminar una versión de un objeto antes de que se alcance su retain-until-date.
+** Estos usuarios pueden aumentar, disminuir o eliminar la fecha de retención de un objeto.
 
 
 
@@ -61,16 +61,16 @@ Cuando se habilita S3 Object Lock para un bucket, puedes habilitar opcionalmente
 
 
 [[default-retention-period]]
-=== ${post_edited_translations.segment}
+=== Periodo de retención predeterminado
 
-${post_edited_translations.segment}
+Cada bucket puede tener un periodo de retención predeterminado especificado en años o días.
 
 
 
 [[how-to-set-default-retention-for-a-bucket]]
-== ${post_edited_translations.segment}
+== Cómo configurar el periodo de retención predeterminado de un bucket
 
-${post_edited_translations.segment}
+Para configurar el periodo de retención predeterminado de un bucket, utiliza cualquiera de estos métodos:
 
 * Administra la configuración de los buckets desde el Tenant Manager. Consulta link:../tenant/creating-s3-bucket.html["Crear un depósito de S3"] y link:../tenant/update-default-retention-settings.html["Actualizar la retención predeterminada de S3 Object Lock"].
 * Envía una solicitud PutObjectLockConfiguration para el bucket para especificar el modo predeterminado y el número predeterminado de días o años.
@@ -188,7 +188,7 @@ Un bucket con S3 Object Lock habilitado puede contener una combinación de objet
 
 La configuración de retención a nivel de objeto se especifica mediante la API de REST de S3. La configuración de retención de un objeto prevalece sobre cualquier configuración de retención predeterminada del bucket.
 
-${post_edited_translations.segment}
+Puedes especificar los siguientes ajustes para cada objeto:
 
 * *Modo de retención*: COMPLIANCE o GOVERNANCE.
 * *Fecha límite de conservación*: Fecha que especifica durante cuánto tiempo StorageGRID debe conservar la versión del objeto.

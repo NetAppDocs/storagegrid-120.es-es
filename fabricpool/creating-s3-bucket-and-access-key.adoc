@@ -23,7 +23,7 @@ Para obtener más información sobre esta tarea, consulta link:../tenant/creatin
 .Pasos
 . Inicia sesión en Tenant Manager.
 +
-${post_edited_translations.segment}
+Puedes hacer cualquiera de las siguientes cosas:
 
 +
 ** En la página «Cuentas de inquilinos» del Grid Manager, selecciona el enlace *Sign in* correspondiente al inquilino e introduce tus credenciales.

@@ -11,17 +11,17 @@ entries:
   entries:
   - title: Descripción general del asistente de configuración
     url: "/fabricpool/use-fabricpool-setup-wizard.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Accede y completa el asistente
     url: "/fabricpool/use-fabricpool-setup-wizard-steps.html"
 - title: Configura StorageGRID manualmente
   entries:
   - title: Crear grupo de alta disponibilidad
     url: "/fabricpool/creating-ha-group-for-fabricpool.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Crear un punto de conexión del equilibrador de carga
     url: "/fabricpool/creating-load-balancer-endpoint-for-fabricpool.html"
   - title: Crear cuenta de inquilino
     url: "/fabricpool/creating-tenant-account-for-fabricpool.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Crear un depósito de S3 y obtener las claves de acceso
     url: "/fabricpool/creating-s3-bucket-and-access-key.html"
   - title: Configura ILM para los datos de FabricPool
     url: "/fabricpool/using-storagegrid-ilm-with-fabricpool-data.html"
@@ -33,7 +33,7 @@ entries:
   url: "/fabricpool/configure-dns-server.html"
 - title: Mejores prácticas de StorageGRID para FabricPool
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Buenas prácticas para los grupos de alta disponibilidad
     url: "/fabricpool/best-practices-for-high-availability-groups.html"
   - title: Mejores prácticas para el balanceo de carga
     url: "/fabricpool/best-practices-for-load-balancing.html"

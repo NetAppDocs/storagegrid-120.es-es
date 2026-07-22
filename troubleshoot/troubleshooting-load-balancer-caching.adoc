@@ -16,7 +16,7 @@ Infórmate sobre los posibles problemas con el almacenamiento en caché del equi
 
 
 [[determine-if-a-request-was-a-cache-hit]]
-== ${post_edited_translations.segment}
+== Determina si una solicitud fue un acierto en la caché
 
 * El encabezado X-Cache se establece en la respuesta a las solicitudes gestionadas por el servicio de caché. Códigos posibles:
 +
@@ -44,9 +44,9 @@ Infórmate sobre los posibles problemas con el almacenamiento en caché del equi
 
 
 [[low-performance]]
-== ${post_edited_translations.segment}
+== Bajo rendimiento
 
 * Evalúa la tasa de aciertos de la caché. Una tasa de aciertos de la caché baja puede provocar un rendimiento general bajo.
 * Evalúa la tasa de desalojo de la caché. Durante el desalojo, se utilizan algunos recursos de almacenamiento para eliminar objetos existentes del disco. Si el proceso de desalojo no sigue el ritmo del acceso de nuevos objetos, el sistema podría alcanzar los umbrales de marca de agua estricta y empezar a omitir la caché.
-* ${post_edited_translations.segment}
+* Comprueba los límites de red usando los diagnósticos “Network interfaces receive usage” y “Network interfaces transmit usage”.
 

@@ -19,20 +19,20 @@ El servicio LDR genera este mensaje de auditoría cuando un bucket entra o sale 
 
 
  a| 
-${post_edited_translations.segment}
+BKHD
  a| 
-${post_edited_translations.segment}
+UUID del depósito
  a| 
-${post_edited_translations.segment}
+El identificador del bucket.
 
 
 
  a| 
-${post_edited_translations.segment}
+BROV
  a| 
 Valor de la solicitud de solo lectura del bucket
  a| 
-${post_edited_translations.segment}
+Si el bucket se está configurando como de solo lectura o si está dejando de estar en ese estado (1 = solo lectura, 0 = no solo lectura).
 
 
 

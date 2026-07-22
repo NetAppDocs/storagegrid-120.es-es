@@ -2,7 +2,7 @@
 permalink: tenant/viewing-and-editing-group-details.html 
 sidebar: sidebar 
 keywords: how to view and edit group 
-summary: ${post_edited_translations.segment} 
+summary: Al consultar los detalles de un grupo, puedes modificar el nombre que se muestra, los permisos, las políticas y los usuarios que pertenecen al grupo. 
 ---
 = Ver y editar los detalles del grupo de inquilinos en StorageGRID
 :allow-uri-read: 
@@ -19,16 +19,16 @@ Cuando ves los detalles de un grupo, puedes cambiar el nombre para mostrar del g
 
 
 .Pasos
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Gestión de acceso* > *Grupos*.
+. Selecciona el nombre del grupo cuyos detalles quieras ver o editar.
 +
-${post_edited_translations.segment}
+También puedes seleccionar *Acciones* > *Ver detalles del grupo*.
 
 +
 Aparece la página de detalles del grupo. El siguiente ejemplo muestra la página de detalles del grupo de S3.
 
 +
-image:tenant_group_details.png["${post_edited_translations.segment}"]
+image:tenant_group_details.png["Ver detalles del grupo"]
 
 . Realiza los cambios necesarios en la configuración del grupo.
 +
@@ -40,8 +40,8 @@ TIP: Para asegurarte de que se guarden los cambios, selecciona *Guardar cambios*
 +
 No puedes cambiar el nombre único de un grupo. No puedes editar el nombre que se muestra de un grupo federado.
 
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Si lo deseas, actualiza los permisos.
+.. Para la política de grupo, haz los cambios apropiados para tu inquilino de S3.
 +
 *** Si estás editando un grupo para un inquilino de S3, de forma opcional selecciona una política de grupo de S3 diferente. Si seleccionas una política de S3 personalizada, actualiza la cadena JSON según sea necesario.
 
@@ -49,7 +49,7 @@ No puedes cambiar el nombre único de un grupo. No puedes editar el nombre que s
 .. Si lo deseas, puedes añadir o eliminar usuarios.
 
 
-. ${post_edited_translations.segment}
+. Asegúrate de haber seleccionado *Guardar cambios* en cada sección que hayas modificado.
 
 
 .Información relacionada

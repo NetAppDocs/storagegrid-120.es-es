@@ -2,7 +2,7 @@
 :allow-uri-read: 
 
 
-${post_edited_translations.segment}
+Se han realizado los siguientes cambios:
 
 [listing]
 ----

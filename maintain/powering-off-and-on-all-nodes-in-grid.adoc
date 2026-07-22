@@ -143,7 +143,7 @@ Este LED se enciende cuando es necesario escribir datos almacenados en la caché
 +
 La grid StorageGRID ya se ha apagado.
 
-. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado de apagar los nodos.
+. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["bloquear el acceso"] cuando hayas terminado de apagar los nodos.
 
 
 

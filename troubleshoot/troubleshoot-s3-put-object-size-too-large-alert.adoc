@@ -42,7 +42,7 @@ El directorio del registro de auditoría y los nodos correspondientes dependen d
 
 
  a| 
-${post_edited_translations.segment}
+Nodos locales (predeterminado)
  a| 
 `/var/local/log/localaudit.log`
 
@@ -65,7 +65,7 @@ Servidor syslog externo
 |===
 Según tu configuración de destino de auditoría, introduce: `cd /var/local/log` o `/var/local/audit/export/`
 
-Para saber más, consulta link:../monitor/configure-log-management.html#select-log-location["${post_edited_translations.segment}"].
+Para saber más, consulta link:../monitor/configure-log-management.html#select-log-location["Selecciona la ubicación del registro"].
 
 --
 .. Identifica qué tenants están utilizando objetos de más de 5 GiB.
@@ -98,7 +98,7 @@ Objeto
 
 
 
-| ${post_edited_translations.segment}  a| 
+| CSIZ  a| 
 Tamaño (bytes)
 
 |===

@@ -62,7 +62,7 @@ NOTE: La gestión de las claves de acceso de otros usuarios se realiza desde el 
 
 
 [[buckets]]
-=== ${post_edited_translations.segment}
+=== Buckets
 
 Los usuarios de un tenant de S3 que cuenten con los permisos adecuados pueden realizar las siguientes tareas en sus buckets:
 

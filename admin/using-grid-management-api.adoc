@@ -61,7 +61,7 @@ image:swagger_example.png["Ejemplo de Swagger UI"]
 
 . Comprueba si la solicitud requiere parámetros adicionales, como un ID de grupo o de usuario. Luego, obtén estos valores. Puede que primero tengas que enviar otra solicitud a la API para obtener la información que necesitas.
 . Comprueba si es necesario modificar el cuerpo de la solicitud de ejemplo. Si es así, puedes seleccionar *Modelo* para conocer los requisitos de cada campo.
-. ${post_edited_translations.segment}
+. Selecciona *Pruébalo*.
 . Introduce los parámetros necesarios o modifica el cuerpo de la solicitud según sea necesario.
 . Selecciona *Ejecutar*.
 . Revisa el código de respuesta para determinar si la solicitud fue exitosa.

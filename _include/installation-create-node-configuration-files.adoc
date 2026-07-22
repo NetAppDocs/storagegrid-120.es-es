@@ -14,7 +14,7 @@ Puedes crear los archivos de configuración directamente en cada host utilizando
 
 
 [[naming-of-node-configuration-files]]
-== ${post_edited_translations.segment}
+== Nomenclatura de los archivos de configuración de nodo
 
 Los nombres de los archivos de configuración son importantes. El formato es `node-name.conf`, donde `node-name` es un nombre que tú le asignas al nodo. Este nombre aparece en el StorageGRID Installer y se usa para operaciones de mantenimiento del nodo, como la migración del nodo.
 
@@ -24,7 +24,7 @@ Los nombres de los nodos deben cumplir las siguientes normas:
 * Debe empezar por una letra
 * Puede contener los caracteres de la A a la Z y de la a a la z
 * Puede contener los números del 0 al 9
-* ${post_edited_translations.segment}
+* Puede contener uno o más guiones (-)
 * No debe tener más de 32 caracteres, sin contar la  `.conf` extensión
 
 
@@ -170,7 +170,7 @@ La dirección MAC de la interfaz de red Admin en el contenedor.
 
 Este campo es opcional. Si no se indica, se generará automáticamente una dirección MAC.
 
-${post_edited_translations.segment}
+Deben ser 6 pares de dígitos hexadecimales separados por dos puntos.
 
 Ejemplo: `b2:9c:02:c2:27:10`
  a| 
@@ -277,18 +277,18 @@ Opcional
  a| 
 Verdadero o falso
 
-${post_edited_translations.segment}
+Establece la clave en «true» para que el contenedor de StorageGRID use la dirección MAC de la interfaz de red del host de destino en la Admin Network.
 
-${post_edited_translations.segment}
+*Práctica recomendada:* En redes donde se requiera el modo promiscuo, usa en su lugar la clave ADMIN_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC.
 
-Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["${post_edited_translations.segment}"]
+Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["Consideraciones y recomendaciones para la clonación de direcciones MAC"]
  a| 
 Mejor práctica
 
 |===
 
 
-==== ${post_edited_translations.segment}
+==== ADMIN_ROLE
 
 [cols="4a,2a"]
 |===
@@ -296,11 +296,11 @@ Mejor práctica
 
 
  a| 
-${post_edited_translations.segment}
+Primario o no primario
 
-${post_edited_translations.segment}
+Esta clave solo es necesaria cuando NODE_TYPE = VM_Admin_Node; no la especifiques para otros tipos de nodo.
  a| 
-${post_edited_translations.segment}
+Obligatorio cuando NODE_TYPE = VM_Admin_Node
 
 Opcional de lo contrario.
 
@@ -460,7 +460,7 @@ Solo se requiere BLOCK_DEVICE_RANGEDB_000; los demás son opcionales. El disposi
 
 No dejes huecos. Si especificas BLOCK_DEVICE_RANGEDB_005, también debes especificar BLOCK_DEVICE_RANGEDB_004.
 
-${post_edited_translations.segment}
+*Nota*: Para compatibilidad con las implementaciones existentes, se admiten claves de dos dígitos para los nodos actualizados.
 
 Ejemplos:
 
@@ -585,7 +585,7 @@ Requerido:
 
 BLOCK_DEVICE_RANGEDB_000
 
-${post_edited_translations.segment}
+Opcional:
 
 BLOCK_DEVICE_RANGEDB_001
 
@@ -620,7 +620,7 @@ BLOCK_DEVICE_RANGEDB_015
 |===
 
 
-==== ${post_edited_translations.segment}
+==== BLOCK_DEVICE_TABLES
 
 [cols="4a,2a"]
 |===
@@ -968,11 +968,11 @@ Opcional de lo contrario.
 
 
  a| 
-${post_edited_translations.segment}
+La dirección MAC de la interfaz de red del cliente en el contenedor.
 
 Este campo es opcional. Si no se indica, se generará automáticamente una dirección MAC.
 
-${post_edited_translations.segment}
+Deben ser 6 pares de dígitos hexadecimales separados por dos puntos.
 
 Ejemplo: `b2:9c:02:c2:27:20`
  a| 
@@ -981,7 +981,7 @@ Opcional
 |===
 
 
-==== ${post_edited_translations.segment}
+==== CLIENT_NETWORK_MASK
 
 [cols="4a,2a"]
 |===
@@ -1006,7 +1006,7 @@ Opcional de lo contrario.
 |===
 
 
-==== ${post_edited_translations.segment}
+==== CLIENT_NETWORK_MTU
 
 [cols="4a,2a"]
 |===
@@ -1064,7 +1064,7 @@ Mejor práctica
 
 
  a| 
-${post_edited_translations.segment}
+Interfaz (Este es el único valor admitido.)
  a| 
 Opcional
 
@@ -1081,11 +1081,11 @@ Opcional
  a| 
 Verdadero o falso
 
-${post_edited_translations.segment}
+Establece la clave en «true» para que el contenedor de StorageGRID utilice la dirección MAC de la interfaz de destino del host en la red del cliente.
 
 *Práctica recomendada:* En redes donde se requiera el modo promiscuo, usa la clave CLIENT_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC en su lugar.
 
-Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["${post_edited_translations.segment}"]
+Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["Consideraciones y recomendaciones para la clonación de direcciones MAC"]
  a| 
 Mejor práctica
 
@@ -1097,7 +1097,7 @@ Mejor práctica
 
 
 
-==== ${post_edited_translations.segment}
+==== GRID_NETWORK_CONFIG
 
 [cols="4a,2a"]
 |===
@@ -1114,7 +1114,7 @@ Mejor práctica
 |===
 
 
-==== ${post_edited_translations.segment}
+==== GRID_NETWORK_GATEWAY
 
 [cols="4a,2a"]
 |===
@@ -1124,7 +1124,7 @@ Mejor práctica
  a| 
 Dirección IPv4 de la puerta de enlace de la red Grid local para este nodo, que debe estar en la subred definida por GRID_NETWORK_IP y GRID_NETWORK_MASK. Este valor se ignora para las redes configuradas por DHCP.
 
-${post_edited_translations.segment}
+Si la Grid Network es una única subred sin puerta de enlace, utiliza la dirección de puerta de enlace estándar de la subred (X.Y.Z.1) o el valor GRID_NETWORK_IP de este nodo; cualquiera de estos valores simplificará posibles futuras ampliaciones de la Grid Network.
  a| 
 Requerido
 
@@ -1147,7 +1147,7 @@ Ejemplos:
 
 `10.224.4.81`
  a| 
-${post_edited_translations.segment}
+Obligatorio cuando GRID_NETWORK_CONFIG = STATIC
 
 Opcional de lo contrario.
 
@@ -1164,13 +1164,13 @@ Opcional de lo contrario.
  a| 
 La dirección MAC de la interfaz de red Grid en el contenedor.
 
-${post_edited_translations.segment}
+Deben ser 6 pares de dígitos hexadecimales separados por dos puntos.
 
 Ejemplo: `b2:9c:02:c2:27:30`
  a| 
 Opcional
 
-${post_edited_translations.segment}
+Si no se indica, se generará automáticamente una dirección MAC.
 
 |===
 
@@ -1198,7 +1198,7 @@ Opcional de lo contrario.
 |===
 
 
-==== ${post_edited_translations.segment}
+==== GRID_NETWORK_MTU
 
 [cols="4a,2a"]
 |===
@@ -1273,11 +1273,11 @@ Opcional
  a| 
 Verdadero o falso
 
-${post_edited_translations.segment}
+Establece el valor de la clave en "true" para que el contenedor de StorageGRID utilice la dirección MAC de la interfaz de destino del host en la red Grid.
 
 *Práctica recomendada:* En redes en las que sea necesario utilizar el modo promiscuo, usa en su lugar la clave GRID_NETWORK_TARGET_TYPE_INTERFACE_CLONE_MAC.
 
-Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["${post_edited_translations.segment}"]
+Para obtener más detalles sobre la clonación de MAC para Linux, consulta link:../swnodes/configuring-host-network.html#considerations-and-recommendations-for-mac-address-cloning["Consideraciones y recomendaciones para la clonación de direcciones MAC"]
  a| 
 Mejor práctica
 
@@ -1285,11 +1285,11 @@ Mejor práctica
 
 
 [[installation-password-key-temporary]]
-=== ${post_edited_translations.segment}
+=== Clave de contraseña de instalación (temporal)
 
 
 
-==== ${post_edited_translations.segment}
+==== CUSTOM_TEMPORARY_PASSWORD_HASH
 
 [cols="4a,2a"]
 |===
@@ -1319,7 +1319,7 @@ Mejor práctica
 
 
 
-==== ${post_edited_translations.segment}
+==== INTERFACE_TARGET_nnnn
 
 [cols="4a,2a"]
 |===
@@ -1329,7 +1329,7 @@ Mejor práctica
  a| 
 Nombre y descripción opcional de una interfaz adicional que desees añadir a este nodo. Puedes añadir varias interfaces adicionales a cada nodo.
 
-${post_edited_translations.segment}
+Para _nnnn_, especifica un número único para cada entrada INTERFACE_TARGET que añadas.
 
 Como valor, especifica el nombre de la interfaz física en el host bare-metal. Luego, si quieres, añade una coma y proporciona una descripción de la interfaz, que se muestra en la página de interfaces VLAN y en la página de grupos HA.
 
@@ -1343,7 +1343,7 @@ Opcional
 
 
 [[maximum-ram-key]]
-=== ${post_edited_translations.segment}
+=== Clave de RAM máxima
 
 
 
@@ -1379,7 +1379,7 @@ Opcional
 
 
 
-==== ${post_edited_translations.segment}
+==== TIPO_DE_NODO
 
 [cols="4a,2a"]
 |===
@@ -1391,8 +1391,8 @@ Tipo de nodo:
 
 * VM_Admin_Node
 * VM_Storage_Node
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* VM_Archive_Node
+* VM_API_Gateway
 
  a| 
 Requerido
@@ -1400,7 +1400,7 @@ Requerido
 |===
 
 
-==== ${post_edited_translations.segment}
+==== TIPO_DE_ALMACENAMIENTO
 
 [cols="4a,2a"]
 |===
@@ -1415,7 +1415,7 @@ Define el tipo de objetos que contiene un nodo de almacenamiento. Para obtener m
 * metadatos
 
 
-${post_edited_translations.segment}
+*Nota*: Si no se especifica el STORAGE_TYPE, el tipo de nodo de almacenamiento se establece por defecto en combinado (datos y metadatos).
  a| 
 Opcional
 
@@ -1457,7 +1457,7 @@ Opcional
 |===
 
 
-==== ${post_edited_translations.segment}
+==== PORT_REMAP_INBOUND
 
 [cols="4a,2a"]
 |===
@@ -1473,7 +1473,7 @@ El formato utilizado es: `_network type_/_protocol_/_remapped port_/_default por
 
 Ejemplo: `PORT_REMAP_INBOUND = grid/tcp/3022/22`
 
-${post_edited_translations.segment}
+También puedes reasignar varios puertos de entrada usando una lista separada por comas.
 
 Ejemplo: `PORT_REMAP_INBOUND = grid/tcp/3022/22, admin/tcp/3022/22`
  a| 

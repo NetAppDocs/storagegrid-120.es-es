@@ -30,7 +30,7 @@ Aparece la página de políticas de clasificación del tráfico con las polític
 .Menú de acciones
 --
 .. Marca la casilla para la política.
-.. ${post_edited_translations.segment}
+.. Selecciona *Acciones* > *Eliminar*.
 
 
 --
@@ -42,7 +42,7 @@ Aparece la página de políticas de clasificación del tráfico con las polític
 
 --
 ====
-. ${post_edited_translations.segment}
+. Selecciona *Sí* para confirmar que quieres eliminar la política.
 +
 La política se eliminó.
 

@@ -16,7 +16,7 @@ Los puntos finales utilizados en los servicios de la plataforma son creados y ge
 
 
 [[issues-with-new-endpoints]]
-== ${post_edited_translations.segment}
+== Problemas con los nuevos puntos finales
 
 Antes de que un inquilino pueda usar los servicios de plataforma, debe crear uno o varios endpoints mediante el Tenant Manager. Cada endpoint representa un destino externo para un servicio de plataforma, como un bucket S3 de StorageGRID, un bucket de Amazon Web Services, un tema de Amazon Simple Notification Service, un tema de Kafka o un clúster de Elasticsearch alojado localmente o en AWS. Cada endpoint incluye tanto la ubicación del recurso externo como las credenciales necesarias para acceder a él.
 
@@ -25,7 +25,7 @@ Cuando un inquilino crea un endpoint, el sistema StorageGRID valida que el endpo
 Si falla la validación del endpoint, aparecerá un mensaje de error explicando por qué falló la validación del endpoint. El usuario del tenant debe resolver el problema y luego intentar crear el endpoint de nuevo.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: La creación del endpoint fallará si los servicios de la plataforma no están habilitados para la cuenta del tenant.
 
 
 
@@ -36,7 +36,7 @@ Si se produce un error cuando StorageGRID intenta acceder a un punto final exist
 
 image:tenant_dashboard_endpoint_error.png["Mensaje de error del endpoint en el panel de control"]
 
-Los usuarios de Tenant pueden acceder a la página Endpoints para consultar el mensaje de error más reciente de cada endpoint y determinar cuánto tiempo hace que ocurrió el error. La columna *Last error* muestra el mensaje de error más reciente de cada endpoint e indica cuánto tiempo hace que ocurrió el error. Los errores que incluyen el icono image:icon_alert_red_critical.png["${post_edited_translations.segment}"] ocurrieron en los últimos 7 días.
+Los usuarios de Tenant pueden acceder a la página Endpoints para consultar el mensaje de error más reciente de cada endpoint y determinar cuánto tiempo hace que ocurrió el error. La columna *Last error* muestra el mensaje de error más reciente de cada endpoint e indica cuánto tiempo hace que ocurrió el error. Los errores que incluyen el icono image:icon_alert_red_critical.png["Icono de X roja"] ocurrieron en los últimos 7 días.
 
 image:endpoints_last_error.png["Captura de pantalla de la página Endpoints en la que se muestra la columna Last Error"]
 
@@ -46,9 +46,9 @@ NOTE: Algunos mensajes de error en la columna *Último error* pueden incluir un 
 
 
 [[issues-related-to-proxy-servers]]
-== ${post_edited_translations.segment}
+== Problemas relacionados con los servidores proxy
 
-Si has configurado un link:configuring-storage-proxy-settings.html["${post_edited_translations.segment}"] entre los nodos de almacenamiento y los puntos finales del servicio de la plataforma, pueden producirse errores si tu servicio proxy no permite mensajes de StorageGRID. Para resolver estos problemas, revisa la configuración de tu servidor proxy para asegurarte de que los mensajes relacionados con el servicio de la plataforma no estén bloqueados.
+Si has configurado un link:configuring-storage-proxy-settings.html["proxy de almacenamiento"] entre los nodos de almacenamiento y los puntos finales del servicio de la plataforma, pueden producirse errores si tu servicio proxy no permite mensajes de StorageGRID. Para resolver estos problemas, revisa la configuración de tu servidor proxy para asegurarte de que los mensajes relacionados con el servicio de la plataforma no estén bloqueados.
 
 
 
@@ -64,10 +64,10 @@ Si se ha producido algún error en los endpoints en los últimos 7 días, el pan
 
 Algunos problemas con los servicios de plataforma pueden hacer que las operaciones del cliente en el bucket S3 fallen. Por ejemplo, las operaciones del cliente de S3 fallarán si el servicio interno Replicated State Machine (RSM) se detiene o si hay demasiados mensajes de servicios de plataforma en cola para su entrega.
 
-${post_edited_translations.segment}
+Para comprobar el estado de los servicios:
 
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Nodos* > *_site_* > *_Nodo de almacenamiento_* > *Resumen*.
+. Comprueba si hay alertas activas en la tabla Alertas.
 . Resuelve cualquier alerta activa. Si es necesario, ponte en contacto con soporte técnico.
 
 
@@ -79,7 +79,7 @@ ${post_edited_translations.segment}
 Una vez creados los puntos finales, pueden producirse errores en las solicitudes de servicios de la plataforma por diversos motivos. Algunos errores se pueden solucionar con la intervención del usuario. Por ejemplo, los errores solucionables pueden deberse a las siguientes causas:
 
 * Las credenciales del usuario se han eliminado o han caducado.
-* ${post_edited_translations.segment}
+* El contenedor de destino no existe.
 * No se puede entregar la notificación.
 
 
@@ -93,7 +93,7 @@ Otros errores son irrecuperables. Por ejemplo, los errores irrecuperables pueden
 
 Si StorageGRID detecta un error irrecuperable en un endpoint:
 
-* ${post_edited_translations.segment}
+* En el Grid Manager, ve a *Soporte* > *Herramientas* > *Métricas* > *Grafana* > *Platform Services Overview* para ver los detalles del error.
 * En Tenant Manager, ve a *ALMACENAMIENTO (S3)* > *Puntos de conexión de servicios de la plataforma* para ver los detalles del error.
 * Consulta el  `/var/local/log/bycast-err.log` para ver los errores relacionados. Los nodos de almacenamiento que cuentan con el servicio ADC contienen este archivo de registro.
 
@@ -126,10 +126,10 @@ Las solicitudes de CloudMirror tienen más probabilidades de verse afectadas por
 Para consultar la tasa de fallos de las solicitudes de los servicios de plataforma:
 
 . Selecciona *Nodos*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *_site_* > *Servicios de plataforma*.
+. Consulta el gráfico de la tasa de errores en las solicitudes.
 +
-image:nodes_page_site_level_platform_services.gif["${post_edited_translations.segment}"]
+image:nodes_page_site_level_platform_services.gif["Página de nodos servicios de plataforma a nivel de sitio"]
 
 
 

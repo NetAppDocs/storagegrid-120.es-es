@@ -23,9 +23,9 @@ RSLT
  a| 
 Resultado
  a| 
-${post_edited_translations.segment}
+El resultado de la solicitud de actualización:
 
-* ${post_edited_translations.segment}
+* SUCS: Exitoso
 * SUNV: Servicio no disponible
 * GERR: Otro fallo
 

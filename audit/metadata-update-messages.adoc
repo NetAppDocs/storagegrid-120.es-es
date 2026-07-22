@@ -16,21 +16,21 @@ Los mensajes de auditoría se generan cuando un cliente de S3 actualiza los meta
 
 
 [[s3-metadata-update-audit-messages]]
-== ${post_edited_translations.segment}
+== Mensajes de auditoría de actualización de metadatos de S3
 
 [cols="1a,1a,2a,1a,2a"]
 |===
-| Código | Nombre | Descripción | ${post_edited_translations.segment} | Ver 
+| Código | Nombre | Descripción | Traza | Ver 
 
 
  a| 
 SUPD
  a| 
-${post_edited_translations.segment}
+Metadatos de S3 actualizados
  a| 
-${post_edited_translations.segment}
+Se genera cuando un cliente de S3 actualiza los metadatos de un objeto ingerido.
  a| 
-${post_edited_translations.segment}
+CBID, S3KY, HTRH
  a| 
 link:supd-s3-metadata-updated.html["SUPD: Metadatos de S3 actualizados"]
 
@@ -40,12 +40,12 @@ link:supd-s3-metadata-updated.html["SUPD: Metadatos de S3 actualizados"]
 [[example-s3-metadata-update]]
 == Ejemplo: actualización de metadatos de S3
 
-${post_edited_translations.segment}
+El ejemplo muestra una transacción exitosa para actualizar los metadatos de un objeto S3 existente.
 
 
 
 [[supd-s3-metadata-update]]
-=== ${post_edited_translations.segment}
+=== SUPD: Actualización de metadatos de S3
 
 El cliente S3 realiza una solicitud (SUPD) para actualizar los metadatos especificados (`x-amz-meta-\*`) del objeto S3 (S3KY). En este ejemplo, los encabezados de la solicitud se incluyen en el campo HTRH porque se ha configurado como encabezado del protocolo de auditoría (*Configuration* > *Monitoring* > *Audit and syslog server*). Consulta link:../monitor/configure-log-management.html["Configura la gestión de registros y el servidor syslog externo"].
 

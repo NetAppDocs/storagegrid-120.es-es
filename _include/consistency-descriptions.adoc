@@ -2,7 +2,7 @@
 :allow-uri-read: 
 
 
-* ${post_edited_translations.segment}
+* *Todos*: Todos los nodos reciben los metadatos del objeto de forma inmediata o la solicitud fallará.
 * *Strong-global*: garantiza la consistencia de lectura después de escritura para todas las solicitudes de los clientes en todos los sitios. Cuando configuras la semántica de Quorum, se aplican los siguientes comportamientos:
 +
 ** Permite la tolerancia a fallos del sitio para las solicitudes de los clientes cuando los grids tienen tres o más sitios. Los grids de dos sitios no tendrán tolerancia a fallos del sitio.

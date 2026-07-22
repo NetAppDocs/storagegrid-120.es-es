@@ -11,7 +11,7 @@ summary: Este mensaje se genera cuando el servicio DDS no puede localizar ningun
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Este mensaje se genera cuando el servicio DDS no puede localizar ninguna copia de un objeto dentro del sistema StorageGRID.
 
 [cols="1a,1a,4a"]
 |===
@@ -23,12 +23,12 @@ CBID
  a| 
 Identificador del bloque de contenido
  a| 
-${post_edited_translations.segment}
+El CBID del objeto perdido.
 
 
 
  a| 
-${post_edited_translations.segment}
+NOID
  a| 
 Nodo ID
  a| 
@@ -57,7 +57,7 @@ Este campo tiene el valor NONE. RSLT es un campo de mensaje obligatorio, pero no
  a| 
 UUID
  a| 
-${post_edited_translations.segment}
+Identificador único universal
  a| 
 El identificador del objeto perdido dentro del sistema StorageGRID.
 

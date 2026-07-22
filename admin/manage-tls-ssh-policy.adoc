@@ -2,7 +2,7 @@
 permalink: admin/manage-tls-ssh-policy.html 
 sidebar: sidebar 
 keywords: TLS and SSH policy, secure connection, FIPS, Common Criteria 
-summary: ${post_edited_translations.segment} 
+summary: La política de TLS y SSH determina qué protocolos y algoritmos de cifrado se utilizan para establecer conexiones TLS seguras con las aplicaciones cliente y conexiones SSH seguras con los servicios internos de StorageGRID. 
 ---
 = Administra la política TLS y SSH en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+La política de TLS y SSH determina qué protocolos y algoritmos de cifrado se utilizan para establecer conexiones TLS seguras con las aplicaciones cliente y conexiones SSH seguras con los servicios internos de StorageGRID.
 
 La política de seguridad controla cómo TLS y SSH cifran los datos en tránsito. En general, utiliza la política «Compatibilidad moderna» (predeterminada), a menos que tu sistema deba cumplir con Common Criteria o que necesites usar otros cifrados.
 
@@ -36,7 +36,7 @@ La pestaña *Políticas de TLS y SSH* muestra las políticas disponibles. La pol
 +
 image:securitysettings_tls_ssh_policies_current.png["Políticas de TLS y SSH"]
 
-. ${post_edited_translations.segment}
+. Consulta las pestañas para conocer las políticas disponibles.
 +
 [role="tabbed-block"]
 ====
@@ -63,7 +63,7 @@ El módulo NCSM 3.0.8 y el módulo NetApp StorageGRID Kernel Crypto API 6.1.129-
 
 ** NCSM
 +
-*** ${post_edited_translations.segment}
+*** Conexiones TLS entre los siguientes servicios: ADC, AMS, CMN, DDS, LDR, SSM, NMS, mgmt-api, nginx, nginx-gw y cache-svc
 *** Conexiones TLS entre los clientes y el servicio nginx-gw (puntos finales del equilibrador de carga)
 *** Conexiones TLS entre los clientes y el servicio LDR
 *** Cifrado del contenido de objetos para SSE-S3, SSE-C y la configuración de cifrado de objetos almacenados
@@ -79,11 +79,11 @@ El módulo NetApp StorageGRID Kernel Crypto API solo está presente en plataform
 
 +
 *** Recolección de entropía
-*** ${post_edited_translations.segment}
+*** Cifrado de nodos
 
 
 +
-Para obtener más información, consulta el Programa de Validación de Algoritmos Criptográficos de NIST link:https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/validation-search?searchMode=implementation&product=NetApp+StorageGRID+Kernel+Crypto+API&productType=-1&ipp=50["${post_edited_translations.segment}"^] y link:https://csrc.nist.gov/projects/cryptographic-module-validation-program/entropy-validations/certificate/223["${post_edited_translations.segment}"^].
+Para obtener más información, consulta el Programa de Validación de Algoritmos Criptográficos de NIST link:https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/validation-search?searchMode=implementation&product=NetApp+StorageGRID+Kernel+Crypto+API&productType=-1&ipp=50["Certificados del n.º A6242 al n.º A6257"^] y link:https://csrc.nist.gov/projects/cryptographic-module-validation-program/entropy-validations/certificate/223["Certificado de Entropy n.º E223"^].
 
 
 
@@ -103,8 +103,8 @@ Opcionalmente, si tu StorageGRID tiene requisitos de criptografía FIPS 140, act
 
 --
 ====
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Para ver los detalles sobre los cifrados, protocolos y algoritmos de cada política, selecciona *Ver detalles*.
+. Para cambiar la política actual, selecciona *Usar política*.
 +
 Aparece una marca de verificación verde junto a *Current policy* en el mosaico de la política.
 
@@ -119,15 +119,15 @@ Puedes crear una política personalizada si necesitas aplicar tus propios cifrad
 
 .Pasos
 . En la ficha de la política que más se parezca a la política personalizada que quieres crear, selecciona *Ver detalles*.
-. ${post_edited_translations.segment}
+. Selecciona *Copiar al portapapeles* y luego selecciona *Cancelar*.
 +
 image:securitysettings-custom-security-policy-copy.png["copiar una política existente para crear una política personalizada"]
 
-. ${post_edited_translations.segment}
+. En el mosaico *Política personalizada*, selecciona *Configurar y usar*.
 . Pega el JSON que copiaste y haz los cambios que sean necesarios.
 . Selecciona *Usar política*.
 +
-${post_edited_translations.segment}
+Aparece una marca de verificación verde junto a *Política actual* en el mosaico *Política personalizada*.
 
 . Si lo deseas, selecciona *Editar configuración* para realizar más cambios en la nueva política personalizada.
 

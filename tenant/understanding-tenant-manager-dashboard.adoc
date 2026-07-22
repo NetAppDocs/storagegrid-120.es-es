@@ -67,7 +67,7 @@ NOTE: Para cambiar las unidades de los valores de almacenamiento que se muestran
 
 
 [[quota-usage-alerts]]
-== ${post_edited_translations.segment}
+== Alertas de uso de cuotas
 
 Si se han activado las alertas de uso de cuotas en el Grid Manager, estas alertas aparecerán en el Tenant Manager cuando la cuota sea baja o se haya superado, como sigue:
 
@@ -83,7 +83,7 @@ Plantéate pedirle al administrador de la grid que aumente la cuota.
 [[bucket-capacity-usagecapacity-limit-usage]]
 == [[bucket-capacity-usage]]Uso del límite de capacidad
 
-${post_edited_translations.segment}
+Si has establecido un límite de capacidad para tus buckets, el panel de control de Tenant Manager muestra una lista de los buckets con mayor uso del límite de capacidad.
 
 Si no se establece ningún límite para un bucket, su capacidad es ilimitada. Sin embargo, si tu cuenta de inquilino tiene una cuota de almacenamiento total y se alcanza dicha cuota, no podrás añadir más objetos independientemente del límite de capacidad restante en un bucket.
 

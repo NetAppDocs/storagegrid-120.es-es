@@ -29,12 +29,12 @@ CAUTION: Si se notifican más de 10 objetos perdidos, ponte en contacto con el s
 
 .Pasos
 . Selecciona *Nodos*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *_Storage Node_* > *Objetos*.
+. Revisa el número de objetos perdidos que aparece en la tabla de recuento de objetos.
 +
 Este número indica el número total de objetos que este nodo de la grid detecta como perdidos en todo el sistema StorageGRID. El valor es la suma de los contadores de objetos perdidos del componente Data store dentro de los servicios LDR y DDS.
 
-. Desde un nodo de administración, link:../audit/accessing-audit-log-file.html["${post_edited_translations.segment}"] para determinar el identificador único (UUID) del objeto que activó la alerta *Objetos potencialmente perdidos*:
+. Desde un nodo de administración, link:../audit/accessing-audit-log-file.html["acceder al registro de auditoría"] para determinar el identificador único (UUID) del objeto que activó la alerta *Objetos potencialmente perdidos*:
 +
 .. Inicia sesión en el nodo de la grid:
 +
@@ -55,7 +55,7 @@ El directorio del registro de auditoría y los nodos correspondientes dependen d
 
 
  a| 
-${post_edited_translations.segment}
+Nodos locales (predeterminado)
  a| 
 `/var/local/log/localaudit.log`
 
@@ -78,11 +78,11 @@ Servidor syslog externo
 |===
 Según tu configuración de destino de auditoría, introduce: `cd /var/local/log` o `/var/local/audit/export/`
 
-Para saber más, consulta link:../monitor/configure-log-management.html#select-log-location["${post_edited_translations.segment}"].
+Para saber más, consulta link:../monitor/configure-log-management.html#select-log-location["Selecciona la ubicación del registro"].
 
 --
 .. Utiliza grep para extraer los mensajes de auditoría de Object Lost (OLST). Escribe: `grep OLST audit_file_name`
-.. ${post_edited_translations.segment}
+.. Toma nota del valor UUID que figura en el mensaje.
 +
 [listing]
 ----
@@ -93,7 +93,7 @@ Admin: # grep OLST audit.log
 ----
 
 
-. ${post_edited_translations.segment}
+. Busca los metadatos del objeto perdido utilizando el UUID:
 +
 .. Selecciona *ILM* > *Búsqueda de metadatos de objetos*.
 .. Introduce el UUID y selecciona *Buscar*.
@@ -101,26 +101,26 @@ Admin: # grep OLST audit.log
 +
 [cols="2a,4a"]
 |===
-| Metadatos | ${post_edited_translations.segment} 
+| Metadatos | Conclusión 
 
 
  a| 
 Objeto <object_identifier> no encontrado
  a| 
-${post_edited_translations.segment}
+Si no se encuentra el objeto, se devuelve el mensaje "ERROR":"
 
-Si no se encuentra el objeto, <<reset-lost-obj-count,${post_edited_translations.segment}>> para borrar la alerta. La falta de un objeto indica que el objeto se eliminó intencionadamente.
+Si no se encuentra el objeto, <<reset-lost-obj-count,reiniciar el contador de objetos que podrían haberse perdido>> para borrar la alerta. La falta de un objeto indica que el objeto se eliminó intencionadamente.
 
 
 
  a| 
-${post_edited_translations.segment}
+Ubicaciones > 0
  a| 
 Si en el resultado aparecen ubicaciones, es posible que la alerta *Objetos que podrían haberse perdido* sea un falso positivo.
 
 Confirma que los objetos existen. Usa el Node ID y la ruta de archivo que aparecen en la salida para confirmar que el archivo de objeto está en la ubicación indicada.
 
-Si los objetos existen, <<reset-lost-obj-count,${post_edited_translations.segment}>> para eliminar la alerta.
+Si los objetos existen, <<reset-lost-obj-count,reiniciar el contador de objetos que podrían haberse perdido>> para eliminar la alerta.
 
 
 
@@ -129,16 +129,16 @@ Ubicaciones = 0
  a| 
 Si en el resultado no aparece ninguna ubicación, es posible que falte el objeto. Ponte en contacto con el soporte técnico.
 
-El soporte técnico podría pedirte que determines si hay un procedimiento de recuperación de almacenamiento en curso. Consulta la información sobre link:../maintain/restoring-volume.html["${post_edited_translations.segment}"] y link:../maintain/restoring-object-data-to-storage-volume.html["restaurar datos de objetos en un volumen de almacenamiento"].
+El soporte técnico podría pedirte que determines si hay un procedimiento de recuperación de almacenamiento en curso. Consulta la información sobre link:../maintain/restoring-volume.html["restaurar datos de objetos usando Grid Manager"] y link:../maintain/restoring-object-data-to-storage-volume.html["restaurar datos de objetos en un volumen de almacenamiento"].
 
 |===
 
 
-. ${post_edited_translations.segment}
+. [[reset-lost-obj-count]]Después de solucionar los problemas de objetos perdidos, restablece el contador de Objetos potencialmente perdidos para asegurarte de que las alertas no sean falsos positivos:
 +
 .. Selecciona *Nodos*.
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona *_Nodo de almacenamiento_* > *Tareas*.
+.. En la sección «Restablecer el contador de objetos potencialmente perdidos», selecciona *Reset*.
 
 
 

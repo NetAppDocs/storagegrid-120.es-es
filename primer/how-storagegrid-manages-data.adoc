@@ -35,7 +35,7 @@ Los metadatos de objetos son cualquier información que describe un objeto. Stor
 
 Los metadatos de un objeto incluyen información como la siguiente:
 
-* ${post_edited_translations.segment}
+* Metadatos del sistema, incluidos un identificador único para cada objeto (UUID), el nombre del objeto, el nombre del bucket de S3, el nombre o el identificador de la cuenta del tenant, el tamaño lógico del objeto, la fecha y hora en que se creó el objeto por primera vez y la fecha y hora en que se modificó por última vez.
 * La ubicación actual de almacenamiento de cada copia del objeto o fragmento con código de borrado.
 * Cualquier metadato de usuario asociado al objeto.
 

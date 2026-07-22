@@ -61,7 +61,7 @@ Si planeas usar una LAN virtual para segregar el tráfico de FabricPool, ya conf
 [[configure-identity-federation-and-sso]]
 === Configura la federación de identidades y el inicio de sesión único (SSO)
 
-Si tienes previsto usar la federación de identidades o el inicio de sesión único (SSO) para tu sistema StorageGRID, ya habrás habilitado estas funciones. También sabes qué grupo federado debe tener acceso a raíz para la cuenta de inquilino que ONTAP va a usar. Consulta link:../admin/using-identity-federation.html["Usa la federación de identidades"] y link:../admin/how-sso-works.html["${post_edited_translations.segment}"].
+Si tienes previsto usar la federación de identidades o el inicio de sesión único (SSO) para tu sistema StorageGRID, ya habrás habilitado estas funciones. También sabes qué grupo federado debe tener acceso a raíz para la cuenta de inquilino que ONTAP va a usar. Consulta link:../admin/using-identity-federation.html["Usa la federación de identidades"] y link:../admin/how-sso-works.html["Configura el inicio de sesión único"].
 
 
 
@@ -77,7 +77,7 @@ Si tienes previsto usar la federación de identidades o el inicio de sesión ún
 [[review-load-balancer-and-security-certificate-requirements]]
 === Revisa los requisitos del equilibrador de carga y del certificado de seguridad
 
-Si tienes previsto usar el equilibrador de carga de StorageGRID, ya revisaste la información general link:../admin/managing-load-balancing.html["${post_edited_translations.segment}"]. Tienes los certificados que vas a subir o los valores que necesitas para generar un certificado.
+Si tienes previsto usar el equilibrador de carga de StorageGRID, ya revisaste la información general link:../admin/managing-load-balancing.html["consideraciones para el equilibrio de carga"]. Tienes los certificados que vas a subir o los valores que necesitas para generar un certificado.
 
 Si tienes previsto usar un endpoint de un equilibrador de carga externo (de terceros), tienes el nombre de dominio completo (FQDN), el puerto y el certificado para ese equilibrador de carga.
 

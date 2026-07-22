@@ -83,12 +83,12 @@ FabricPool los inquilinos no suelen necesitar usar S3 Select.
  a| 
 Si la federación de identidades no está habilitada
  a| 
-${post_edited_translations.segment}
+Indica la contraseña que se usará al iniciar sesión en el tenant como usuario raíz local.
 
 
 
  a| 
-${post_edited_translations.segment}
+Si la federación de identidades está activada
  a| 
 .. Selecciona un grupo federado ya existente para disponer de permiso de acceso a raíz para el inquilino.
 .. Si lo deseas, indica la contraseña que se usará al iniciar sesión en el tenant como usuario raíz local.
@@ -97,7 +97,7 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+Si están habilitados tanto la federación de identidades como el inicio de sesión único (SSO)
  a| 
 Selecciona un grupo federado existente para tener permiso de acceso a raíz para el inquilino. Ningún usuario local puede iniciar sesión.
 

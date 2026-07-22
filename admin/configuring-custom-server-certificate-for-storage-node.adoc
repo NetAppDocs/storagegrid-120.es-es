@@ -21,7 +21,7 @@ De forma predeterminada, a cada nodo de almacenamiento se le asigna un certifica
 
 Se utiliza un único certificado de servidor personalizado para todos los nodos de almacenamiento, por lo que debes especificar el certificado como certificado comodín o multidominio si los clientes necesitan verificar el nombre de host al conectarse al endpoint de almacenamiento. Define el certificado personalizado de manera que coincida con todos los nodos de almacenamiento en el grid.
 
-${post_edited_translations.segment}
+Después de completar la configuración en el servidor, es posible que también tengas que instalar el certificado de la CA de Grid en el cliente de la API de S3 que vayas a usar para acceder al sistema, dependiendo de la autoridad de certificación (CA) raíz que estés usando.
 
 
 NOTE: Para asegurarte de que las operaciones no se interrumpan por un fallo en el certificado del servidor, la alerta *Vencimiento del certificado de servidor global para la API de S3* se activa cuando el certificado de servidor raíz está a punto de caducar. Si lo necesitas, puedes ver cuándo caduca el certificado actual seleccionando *Configuración* > *Seguridad* > *Certificados* y consultando la fecha de caducidad del certificado de la API de S3 en la pestaña Global.
@@ -46,9 +46,9 @@ Puedes subir o generar un certificado de API de S3 personalizado.
 Sube los archivos de certificados del servidor necesarios.
 
 .. Selecciona *Cargar certificado*.
-.. ${post_edited_translations.segment}
+.. Sube los archivos de certificados del servidor necesarios:
 +
-*** ${post_edited_translations.segment}
+*** *Certificado del servidor*: el archivo del certificado personalizado del servidor (codificado en formato PEM).
 *** *Clave privada del certificado*: El archivo de la clave privada del certificado del servidor personalizado (`.key`).
 +
 
@@ -59,7 +59,7 @@ NOTE: Las claves privadas EC deben ser de 224 bits o más. Las claves privadas R
 
 .. Selecciona los detalles del certificado para ver los metadatos y el PEM de cada certificado personalizado de la API de S3 que hayas subido. Si subiste un paquete de CA opcional, cada certificado se muestra en su propia pestaña.
 +
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado o selecciona *Descargar paquete de CA* para guardar el paquete de certificados.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
@@ -78,10 +78,10 @@ El certificado de servidor personalizado se usa para las siguientes nuevas conex
 --
 .Generar certificado
 --
-${post_edited_translations.segment}
+Genera los archivos del certificado del servidor.
 
 .. Selecciona *Generar certificado*.
-.. ${post_edited_translations.segment}
+.. Indica la información del certificado:
 +
 [cols="1a,3a"]
 |===
@@ -96,16 +96,16 @@ Uno o más dominios completos para incluir en el certificado. Usa un * como como
 
 
  a| 
-${post_edited_translations.segment}
+IP
  a| 
 Una o varias direcciones IP para incluir en el certificado.
 
 
 
  a| 
-${post_edited_translations.segment}
+Asunto (opcional)
  a| 
-${post_edited_translations.segment}
+Nombre del sujeto X.509 o nombre distintivo (DN) del titular del certificado.
 
 Si no se introduce ningún valor en este campo, el certificado generado utiliza el primer nombre de dominio o la primera dirección IP como nombre común (CN) del sujeto.
 
@@ -119,11 +119,11 @@ Número de días después de la creación en los que caduca el certificado.
 
 
  a| 
-${post_edited_translations.segment}
+Agregar extensiones de uso de clave
  a| 
-${post_edited_translations.segment}
+Si seleccionas esta opción (predeterminada y recomendada), se añaden al certificado generado las extensiones de uso de clave y uso ampliado de clave.
 
-${post_edited_translations.segment}
+Estas extensiones definen la finalidad de la clave incluida en el certificado.
 
 *Nota*: Deja esta casilla marcada a menos que tengas problemas de conexión con clientes antiguos cuando los certificados incluyan estas extensiones.
 
@@ -131,7 +131,7 @@ ${post_edited_translations.segment}
 .. Selecciona *Generar*.
 .. Selecciona *Detalles del certificado* para mostrar los metadatos y el PEM del certificado personalizado de la API de S3 que se generó.
 +
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
@@ -184,7 +184,7 @@ Si tienes permiso de acceso Root y se ha utilizado un certificado personalizado 
 [[download-or-copy-the-s3-api-certificate]]
 == Descarga o copia el certificado de la API de S3
 
-${post_edited_translations.segment}
+Puedes guardar o copiar el contenido del certificado de la API de S3 para utilizarlo en otro lugar.
 
 .Pasos
 . Selecciona *Configuración* > *Seguridad* > *Certificados*.
@@ -193,7 +193,7 @@ ${post_edited_translations.segment}
 +
 [role="tabbed-block"]
 ====
-.${post_edited_translations.segment}
+.Descargar el archivo de certificado o el paquete de CA
 --
 Descarga el certificado o el paquete de CA `.pem`. Si utilizas un paquete de CA opcional, cada certificado del paquete se muestra en su propia subpestaña.
 
@@ -212,11 +212,11 @@ Por ejemplo: `storagegrid_certificate.pem`
 --
 Copia el texto del certificado para pegarlo en otro lugar. Si utilizas un paquete de CA opcional, cada certificado del paquete se muestra en su propia subpestaña.
 
-.. ${post_edited_translations.segment}
+.. Selecciona *Copiar certificado PEM* o *Copiar CA bundle PEM*.
 +
 Si estás copiando un paquete de CA, todos los certificados de las pestañas secundarias del paquete de CA se copian juntos.
 
-.. ${post_edited_translations.segment}
+.. Pega el certificado copiado en un editor de texto.
 .. Guarda el archivo de texto con la extensión `.pem`.
 +
 Por ejemplo: `storagegrid_certificate.pem`
@@ -229,5 +229,5 @@ Por ejemplo: `storagegrid_certificate.pem`
 
 .Información relacionada
 * link:../s3/index.html["Usa la API de REST de S3"]
-* link:configuring-s3-api-endpoint-domain-names.html["${post_edited_translations.segment}"]
+* link:configuring-s3-api-endpoint-domain-names.html["Configura los nombres de dominio de los endpoints S3"]
 

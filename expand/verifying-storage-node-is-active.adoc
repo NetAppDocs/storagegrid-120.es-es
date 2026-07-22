@@ -16,6 +16,6 @@ Una vez completada la operación de expansión que añade nuevos nodos de almace
 .Pasos
 . Inicia sesión en Grid Manager usando una link:../admin/web-browser-requirements.html["navegador web compatible"] cuenta.
 . Selecciona *Nodos* > *_Nodo de almacenamiento de expansión_* > *Almacenamiento*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Coloca el cursor sobre el gráfico *Espacio utilizado - Datos de objetos* para ver el valor de *Utilizado*, que es la cantidad de espacio total utilizable que se ha usado para los datos de objetos.
+. Comprueba que el valor de *Usado* vaya aumentando a medida que desplazas el cursor hacia la derecha en el gráfico.
 

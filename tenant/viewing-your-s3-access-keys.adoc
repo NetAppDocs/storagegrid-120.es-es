@@ -18,17 +18,17 @@ CAUTION: Se puede acceder a los buckets y objetos de S3 de tu cuenta utilizando 
 
 .Antes de empezar
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Perteneces a un grupo de usuarios que tiene el permiso «Gestionar tus propias credenciales de S3» link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+* Perteneces a un grupo de usuarios que tiene el permiso «Gestionar tus propias credenciales de S3» link:tenant-management-permissions.html["permiso"].
 
 
 .Pasos
 . Selecciona *STORAGE (S3)* > *Mis claves de acceso*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. En la página «Mis claves de acceso», ordena las claves de acceso existentes por *tiempo de expiración* o *ID de la clave de acceso*.
+. Según sea necesario, crea nuevas claves o elimina aquellas que ya no utilices.
 +
 Si creas nuevas claves antes de que caduquen las existentes, puedes empezar a usar las nuevas claves sin perder temporalmente el acceso a los objetos de la cuenta.
 
 +
-${post_edited_translations.segment}
+Las claves caducadas se eliminan automáticamente.
 
 

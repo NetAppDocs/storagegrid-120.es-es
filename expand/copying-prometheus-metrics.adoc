@@ -4,7 +4,7 @@ sidebar: sidebar
 keywords: prometheus, copy metrics, Admin Node expansion, StorageGRID 
 summary: Después de añadir un nuevo nodo de administración, puedes copiar opcionalmente las métricas históricas que mantiene Prometheus desde el nodo de administración primario al nuevo nodo de administración. Copiar las métricas garantiza que las métricas históricas sean coherentes entre los nodos de administración. 
 ---
-= ${post_edited_translations.segment}
+= Copia las métricas de Prometheus a los nuevos nodos de administración en StorageGRID
 :allow-uri-read: 
 :icons: font
 :imagesdir: ../media/
@@ -14,7 +14,7 @@ summary: Después de añadir un nuevo nodo de administración, puedes copiar opc
 Después de añadir un nuevo nodo de administración, puedes copiar opcionalmente las métricas históricas que mantiene Prometheus desde el nodo de administración primario al nuevo nodo de administración. Copiar las métricas garantiza que las métricas históricas sean coherentes entre los nodos de administración.
 
 .Antes de empezar
-* ${post_edited_translations.segment}
+* El nuevo nodo de administración ya está instalado y en funcionamiento.
 * Tienes el archivo  `Passwords.txt`.
 * Tienes la frase de contraseña de aprovisionamiento.
 
@@ -26,7 +26,7 @@ Al añadir un nodo de administración, el proceso de instalación del software c
 NOTE: Copiar la base de datos de Prometheus puede tardar una hora o más. Algunas funciones de Grid Manager no estarán disponibles mientras los servicios estén detenidos en el Admin Node de origen.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Inicia sesión en el nodo Admin de origen:
 +
 .. Introduce el siguiente comando: `ssh admin@_grid_node_IP_`
 .. Introduce la contraseña que figura en el archivo  `Passwords.txt`.

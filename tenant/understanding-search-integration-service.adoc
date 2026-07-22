@@ -39,16 +39,16 @@ NOTE: Para las etiquetas y los metadatos de usuario, StorageGRID pasa las fechas
 [[search-notifications]]
 == Notificaciones de búsqueda
 
-${post_edited_translations.segment}
+Las notificaciones de metadatos se generan y se ponen en cola para su envío cada vez que:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Se crea un objeto.
+* Un objeto se elimina, incluso cuando los objetos se eliminan como resultado de la operación de la política de ILM de la grid.
 * Se añaden, actualizan o eliminan metadatos o etiquetas de los objetos. En cada actualización se envía siempre el conjunto completo de metadatos y etiquetas, no solo los valores modificados.
 
 
 Una vez que añadas el archivo XML de configuración de notificaciones de metadatos a un bucket, se enviarán notificaciones por cualquier objeto nuevo que crees y por cualquier objeto que modifiques al actualizar sus datos, metadatos de usuario o etiquetas. Sin embargo, no se envían notificaciones para los objetos que ya estaban en el bucket. Para asegurarte de que los metadatos de todos los objetos del bucket se envíen al destino, deberías hacer una de las siguientes cosas:
 
-* ${post_edited_translations.segment}
+* Configura el servicio de integración de búsqueda inmediatamente después de crear el bucket y antes de añadir cualquier objeto.
 * Realiza una acción sobre todos los objetos que ya están en el bucket para que se envíe un mensaje de notificación de metadatos al destino.
 
 

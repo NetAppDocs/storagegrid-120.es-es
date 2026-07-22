@@ -50,6 +50,6 @@ A diferencia de las soluciones de almacenamiento por niveles manuales, FabricPoo
 
 .Información relacionada
 * link:../ilm/what-cloud-storage-pool-is.html["¿Qué es un grupo de almacenamiento en la nube?"]
-* link:../tenant/what-platform-services-are.html["${post_edited_translations.segment}"]
+* link:../tenant/what-platform-services-are.html["Gestiona los servicios de la plataforma"]
 * link:../fabricpool/index.html["Configura StorageGRID para FabricPool"]
 

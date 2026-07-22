@@ -18,8 +18,8 @@ Los costes de enlace te permiten priorizar qué centro de datos proporciona un s
 [[what-are-link-costs]]
 == ¿Qué son los costes de enlace?
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Los costes de enlace se utilizan para priorizar qué copia del objeto se usa para cumplir con las recuperaciones de objetos.
+* Los costes de enlace son utilizados por la Grid Management API y la Tenant Management API para determinar qué servicios internos de StorageGRID se deben usar.
 * El servicio Load Balancer en los nodos de administración y los nodos de puerta de enlace utiliza los costes de enlace para dirigir las conexiones de clientes. Consulta link:../admin/managing-load-balancing.html["Aspectos a tener en cuenta para el equilibrio de carga"].
 
 
@@ -41,15 +41,15 @@ Los costes de enlace son valores numéricos relativos arbitrarios que carecen de
 
 [cols="1a,1a,2a"]
 |===
-| ${post_edited_translations.segment} | ${post_edited_translations.segment} | Notas 
+| Enlace | Coste del enlace | Notas 
 
 
  a| 
 Entre los sitios físicos del centro de datos
  a| 
-${post_edited_translations.segment}
+25 (por defecto)
  a| 
-${post_edited_translations.segment}
+Centros de datos conectados mediante un enlace WAN.
 
 
 
@@ -66,15 +66,15 @@ Centros de datos lógicos en el mismo edificio físico o campus conectados por u
 [[update-link-costs]]
 == Actualizar los costes de los enlaces
 
-${post_edited_translations.segment}
+Puedes actualizar los costes de los enlaces entre los centros de datos para reflejar la latencia entre los sitios.
 
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Tienes el link:admin-group-permissions.html["${post_edited_translations.segment}"].
+* Tienes el link:admin-group-permissions.html["Otros permisos de configuración de grid"].
 
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Soporte* > *Otros* > *Coste del enlace*.
 +
 image:configuring_link_costs.png["Coste del enlace"]
 

@@ -24,7 +24,7 @@ Cuando hay incidencias, aparecen enlaces que te permiten consultar más detalles
 
 [cols="1a,2a"]
 |===
-| ${post_edited_translations.segment} | Aparece cuando... 
+| Enlace | Aparece cuando... 
 
 
  a| 
@@ -101,7 +101,7 @@ Si hay una o varias alertas activas, <<Ver alertas actuales y resueltas,seleccio
 
 
  a| 
-image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"]
+image:icon_alert_green_checkmark.png["icono de alerta con marca de verificación verde"]
  a| 
 *Conectado*
 

@@ -29,7 +29,7 @@ El sistema StorageGRID solo admite formatos de fecha HTTP válidos para cualquie
 [[common-request-headers]]
 == Encabezados de solicitud habituales
 
-El sistema StorageGRID admite los encabezados de solicitud habituales definidos por https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html["${post_edited_translations.segment}"^], con una excepción.
+El sistema StorageGRID admite los encabezados de solicitud habituales definidos por https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html["Referencia de la API de Amazon Simple Storage Service: encabezados comunes de las solicitudes"^], con una excepción.
 
 [cols="1a,2a"]
 |===

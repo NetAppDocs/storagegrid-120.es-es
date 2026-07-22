@@ -23,34 +23,34 @@ CBIL
  a| 
 CBID
  a| 
-${post_edited_translations.segment}
+El CBID afectado.
 
 
 
  a| 
-${post_edited_translations.segment}
+ECPR
  a| 
-${post_edited_translations.segment}
+Perfil de código de borrado
  a| 
 Para datos de objetos con codificación de borrado. El ID del perfil de codificación de borrado utilizado.
 
 
 
  a| 
-${post_edited_translations.segment}
+LTYP
  a| 
-${post_edited_translations.segment}
+Tipo de ubicación
  a| 
-${post_edited_translations.segment}
+CLDI (en línea): para datos de objetos replicados
 
-${post_edited_translations.segment}
+CLEC (en línea): para datos de objetos con código de borrado
 
-${post_edited_translations.segment}
+CLNL (Nearline): para datos de objetos replicados archivados
 
 
 
  a| 
-${post_edited_translations.segment}
+NOID
  a| 
 ID del nodo de origen
  a| 
@@ -59,9 +59,9 @@ El ID del nodo en el que se perdieron las ubicaciones.
 
 
  a| 
-${post_edited_translations.segment}
+PCLD
  a| 
-${post_edited_translations.segment}
+Ruta al objeto replicado
  a| 
 La ruta completa a la ubicación en el disco de los datos del objeto perdido. Solo se devuelve cuando LTYP tiene el valor CLDI (es decir, para objetos replicados).
 
@@ -83,16 +83,16 @@ TSRC
  a| 
 Fuente desencadenante
  a| 
-${post_edited_translations.segment}
+USUARIO: Activado por el usuario
 
-${post_edited_translations.segment}
+SYST: activado por el sistema
 
 
 
  a| 
 UUID
  a| 
-${post_edited_translations.segment}
+Identificador único universal
  a| 
 El identificador del objeto afectado en el sistema StorageGRID.
 

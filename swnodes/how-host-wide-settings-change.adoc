@@ -16,7 +16,7 @@ En los sistemas bare metal, StorageGRID realiza algunos cambios en la configurac
 
 NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Para consultar la lista de versiones compatibles, visita https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad (IMT) de NetApp"^].
 
-${post_edited_translations.segment}
+Se han realizado los siguientes cambios:
 
 [listing]
 ----

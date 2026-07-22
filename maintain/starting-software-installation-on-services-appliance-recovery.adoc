@@ -46,7 +46,7 @@ Para instalar el software StorageGRID en un dispositivo de servicios:
 `https://_Controller_IP_:8443`
 
 +
-${post_edited_translations.segment}
+Aparece la página de inicio del instalador de StorageGRID Appliance.
 
 . Para instalar un nodo de administración principal:
 +
@@ -85,7 +85,7 @@ El instalador de StorageGRID Appliance puede detectar esta dirección IP automá
 
 
  a| 
-${post_edited_translations.segment}
+Introducción manual de la dirección IP
  a| 
 .. Desmarca la casilla *Habilitar detección de nodos de administración*.
 .. Introduce la dirección IP manualmente.
@@ -111,7 +111,7 @@ Si el botón *Iniciar instalación* no está activo, es posible que tengas que m
 
 . En la página de inicio del instalador de StorageGRID Appliance, haz clic en *Iniciar instalación*.
 +
-${post_edited_translations.segment}
+El estado actual cambia a «Instalación en curso» y se muestra la página «Supervisar la instalación».
 
 +
 

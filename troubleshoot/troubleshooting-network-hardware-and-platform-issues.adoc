@@ -2,7 +2,7 @@
 permalink: troubleshoot/troubleshooting-network-hardware-and-platform-issues.html 
 sidebar: sidebar 
 keywords: how to troubleshoot network, how to troubleshoot hardware, how to troubleshoot platform 
-summary: ${post_edited_translations.segment} 
+summary: Hay varias tareas que puedes realizar para ayudar a determinar el origen de los problemas relacionados con la red, el hardware y la plataforma de StorageGRID. 
 ---
 = Soluciona problemas de red, hardware y plataforma en StorageGRID
 :allow-uri-read: 
@@ -11,12 +11,12 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Hay varias tareas que puedes realizar para ayudar a determinar el origen de los problemas relacionados con la red, el hardware y la plataforma de StorageGRID.
 
 
 
 [[422-unprocessable-entity-errors]]
-== ${post_edited_translations.segment}
+== Errores "422: Entidad no procesable"
 
 El error 422: «Entidad no procesable» puede producirse por diferentes motivos. Consulta el mensaje de error para determinar cuál es la causa de tu problema.
 
@@ -48,7 +48,7 @@ checking if SSL\TLS are not
 already active on the
 connection, data 0, v3839
 ---- a| 
-${post_edited_translations.segment}
+Este mensaje puede aparecer si seleccionas la opción *No utilizar TLS* para Transport Layer Security (TLS) al configurar la federación de identidades mediante Windows Active Directory (AD).
 
 El uso de la opción *Do not use TLS* no es compatible con los servidores de AD que exigen la firma de LDAP. Debes seleccionar la opción *Use STARTTLS* o la opción *Use LDAPS* para TLS.
 
@@ -71,15 +71,15 @@ Code 200 "Network Error":
 TLS handshake failed
     (EOF)
 ---- a| 
-${post_edited_translations.segment}
+Este mensaje aparece si intentas utilizar un cifrado no compatible para establecer una conexión TLS (Transport Layer Security) desde StorageGRID a un sistema externo utilizado para la federación de identidades o Cloud Storage Pools.
 
-Comprueba los algoritmos de cifrado que ofrece el sistema externo. El sistema debe usar uno de los link:../admin/supported-ciphers-for-outgoing-tls-connections.html["${post_edited_translations.segment}"] para las conexiones TLS salientes, como se muestra en las instrucciones para administrar StorageGRID.
+Comprueba los algoritmos de cifrado que ofrece el sistema externo. El sistema debe usar uno de los link:../admin/supported-ciphers-for-outgoing-tls-connections.html["algoritmos de cifrado compatibles con StorageGRID"] para las conexiones TLS salientes, como se muestra en las instrucciones para administrar StorageGRID.
 
 |===
 
 
 [[troubleshootmtualertgrid-network-mtu-mismatch-alert]]
-== ${post_edited_translations.segment}
+== [[troubleshoot_MTU_alert]]Alerta de discrepancia de MTU en la Grid Network
 
 La alerta *Discrepancia en la MTU de la red Grid* se activa cuando la configuración de la unidad máxima de transmisión (MTU) de la interfaz de red Grid (eth0) varía de forma significativa entre los nodos de la grid.
 
@@ -88,9 +88,9 @@ Las diferencias en la configuración de la MTU podrían indicar que algunas, per
 
 .Pasos
 . El acceso externo por SSH está bloqueado de forma predeterminada. Si es necesario, link:../admin/manage-external-ssh-access.html["permitir el acceso de forma temporal"].
-. ${post_edited_translations.segment}
+. Indica los parámetros de MTU de eth0 en todos los nodos.
 +
-** ${post_edited_translations.segment}
+** Utiliza la consulta proporcionada en el Grid Manager.
 ** Accede a `_primary Admin Node IP address_/metrics/graph` e introduce la siguiente consulta: `node_network_mtu_bytes{device="eth0"}`
 
 
@@ -104,12 +104,12 @@ Las diferencias en la configuración de la MTU podrían indicar que algunas, per
 *Nota*: en los nodos basados en Linux, si el valor de MTU deseado para la red en el contenedor supera el valor ya configurado en la interfaz del host, primero debes configurar la interfaz del host para que tenga el valor de MTU deseado y luego usar el script `change-ip.py` para cambiar el valor de MTU de la red en el contenedor.
 
 +
-${post_edited_translations.segment}
+Utiliza los siguientes argumentos para modificar el MTU en nodos basados en Linux o VMware.
 
 +
 [cols="1a,2a"]
 |===
-| ${post_edited_translations.segment} | Descripción 
+| Argumentos posicionales | Descripción 
 
 
  a| 
@@ -125,8 +125,8 @@ La MTU que vas a configurar. Debe estar en el rango de 1280 a 9216.
 Las redes a las que se aplicará el MTU. Incluye uno o más de los siguientes tipos de red:
 
 *** grid
-*** ${post_edited_translations.segment}
-*** ${post_edited_translations.segment}
+*** administrador
+*** cliente
 
 
 |===
@@ -151,27 +151,27 @@ El nodo. El valor predeterminado es el nodo local.
 |===
 
 
-. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado la tarea.
+. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["bloquear el acceso"] cuando hayas terminado la tarea.
 
 
 
 
 [[node-network-reception-frame-error-alert]]
-== ${post_edited_translations.segment}
+== Alerta de error en la trama de recepción de la red de nodos
 
 Las alertas de *Node network reception frame error* pueden deberse a problemas de conectividad entre StorageGRID y tu hardware de red. Esta alerta se borra sola después de que se resuelve el problema subyacente.
 
 .Acerca de esta tarea
-${post_edited_translations.segment}
+Las alertas de «*Error en la trama de recepción de la red del nodo*» pueden deberse a los siguientes problemas relacionados con el hardware de red que se conecta a StorageGRID:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Se requiere la corrección de errores hacia adelante (FEC) y no está en uso
+* Incompatibilidad entre el puerto del switch y la MTU de la NIC
+* Altas tasas de error en los enlaces
 * Desbordamiento del búfer circular de la NIC
 
 
 .Pasos
-. ${post_edited_translations.segment}
+. Sigue los pasos de resolución de problemas para todas las posibles causas de esta alerta según la configuración de tu red.
 . Sigue los siguientes pasos en función de la causa del error:
 +
 [role="tabbed-block"]
@@ -181,8 +181,8 @@ ${post_edited_translations.segment}
 
 NOTE: Estos pasos solo son aplicables a las alertas de *Error de trama de recepción de red del nodo* provocadas por una discrepancia de FEC en los dispositivos StorageGRID.
 
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Comprueba el estado FEC del puerto en el switch conectado a tu dispositivo StorageGRID.
+.. Comprueba la integridad física de los cables que van desde el dispositivo hasta el conmutador.
 .. Si quieres cambiar los parámetros de FEC para intentar resolver la alerta, primero asegúrate de que el dispositivo esté configurado en modo *Auto* en la página de Configuración de enlace del StorageGRID Appliance Installer (consulta las instrucciones para tu dispositivo:
 +
 *** https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/changing-link-configuration-of-sgf6112-appliance.html["SG6160"^]
@@ -205,24 +205,24 @@ NOTE: Los dispositivos StorageGRID admiten Firecode (FC) y Reed Solomon (RS) FEC
 
 
 --
-.${post_edited_translations.segment}
+.Incompatibilidad entre el puerto del switch y la MTU de la NIC
 --
 Si la alerta se debe a una discrepancia entre el puerto del switch y el tamaño de MTU de la NIC, comprueba que el tamaño de MTU configurado en el nodo sea el mismo que la configuración de MTU del puerto del switch.
 
 El tamaño de MTU configurado en el nodo podría ser menor que el ajuste en el puerto del switch al que está conectado el nodo. Si un nodo de StorageGRID recibe una trama de Ethernet mayor que su MTU, lo cual es posible con esta configuración, podría informarse de la alerta *Error de trama de recepción de red de nodo*. Si crees que esto es lo que está pasando, cambia la MTU del puerto del switch para que coincida con la MTU de la interfaz de red de StorageGRID, o bien cambia la MTU de la interfaz de red de StorageGRID para que coincida con la del puerto del switch, según tus objetivos o requisitos de MTU de extremo a extremo.
 
 
-NOTE: Para obtener el mejor rendimiento de la red, todos los nodos deben configurarse con valores de MTU similares en sus interfaces de red Grid. La alerta *Desajuste de MTU de la red Grid* se activa si existe una diferencia significativa en la configuración de MTU de la red Grid en los distintos nodos. No es necesario que los valores de MTU sean iguales para todos los tipos de red. Consulta <<troubleshoot_MTU_alert,${post_edited_translations.segment}>> para más información.
+NOTE: Para obtener el mejor rendimiento de la red, todos los nodos deben configurarse con valores de MTU similares en sus interfaces de red Grid. La alerta *Desajuste de MTU de la red Grid* se activa si existe una diferencia significativa en la configuración de MTU de la red Grid en los distintos nodos. No es necesario que los valores de MTU sean iguales para todos los tipos de red. Consulta <<troubleshoot_MTU_alert,Soluciona la alerta de discrepancia de MTU en la red Grid>> para más información.
 
 
-NOTE: Véase también https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/changing-mtu-setting.html["${post_edited_translations.segment}"^].
+NOTE: Véase también https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/changing-mtu-setting.html["Cambiar la configuración de MTU"^].
 
 --
-.${post_edited_translations.segment}
+.Altas tasas de error en los enlaces
 --
 .. Activa FEC, si aún no está activada.
 .. Comprueba que el cableado de red sea de buena calidad y que no esté dañado ni mal conectado.
-.. ${post_edited_translations.segment}
+.. Si los cables no parecen ser el problema, ponte en contacto con soporte técnico.
 +
 
 NOTE: Es posible que observes unas tasas de error elevadas en un entorno con mucho ruido eléctrico.
@@ -232,13 +232,13 @@ NOTE: Es posible que observes unas tasas de error elevadas en un entorno con muc
 --
 .Desbordamiento del búfer circular de la NIC
 --
-${post_edited_translations.segment}
+Si el error se debe a un desbordamiento del búfer circular de la tarjeta de red, ponte en contacto con soporte técnico.
 
-${post_edited_translations.segment}
+El búfer circular puede saturarse cuando el sistema StorageGRID está sobrecargado y no puede procesar los eventos de red a tiempo.
 
 --
 ====
-. ${post_edited_translations.segment}
+. Supervisa el problema y ponte en contacto con el soporte técnico si la alerta no se resuelve.
 
 
 
@@ -248,24 +248,24 @@ ${post_edited_translations.segment}
 
 Es posible que detectes problemas de sincronización horaria en tu grid.
 
-${post_edited_translations.segment}
+Si tienes problemas de sincronización horaria, verifica que hayas especificado al menos cuatro fuentes NTP externas, que cada una proporcione una referencia Stratum 3 o mejor, y que todas las fuentes NTP externas estén funcionando normalmente y sean accesibles por tus nodos de StorageGRID.
 
 
-NOTE: Cuando link:../maintain/configuring-ntp-servers.html["${post_edited_translations.segment}"] para una instalación de StorageGRID a nivel de producción, no uses el servicio Windows Time (W32Time) en una versión de Windows anterior a Windows Server 2016. El servicio de hora en versiones anteriores de Windows no es lo suficientemente preciso y Microsoft no lo admite para su uso en entornos de alta precisión, como StorageGRID.
+NOTE: Cuando link:../maintain/configuring-ntp-servers.html["especificar la fuente NTP externa"] para una instalación de StorageGRID a nivel de producción, no uses el servicio Windows Time (W32Time) en una versión de Windows anterior a Windows Server 2016. El servicio de hora en versiones anteriores de Windows no es lo suficientemente preciso y Microsoft no lo admite para su uso en entornos de alta precisión, como StorageGRID.
 
 
 
 [[linux-network-connectivity-issues]]
-== ${post_edited_translations.segment}
+== Linux: Problemas de conectividad de red
 
 Es posible que veas problemas de conectividad de red en los nodos de StorageGRID alojados en hosts Linux.
 
 
 
 [[mac-address-cloning]]
-=== ${post_edited_translations.segment}
+=== Clonación de direcciones MAC
 
-En algunos casos, puedes resolver los problemas de red usando la clonación de direcciones MAC. Si usas hosts virtuales, establece el valor de la clave de clonación de direcciones MAC para cada una de tus redes en "true" en tu archivo de configuración del nodo. Esta configuración hace que la dirección MAC del contenedor de StorageGRID use la dirección MAC del host. Consulta las instrucciones para link:../swnodes/creating-node-configuration-files.html["${post_edited_translations.segment}"].
+En algunos casos, puedes resolver los problemas de red usando la clonación de direcciones MAC. Si usas hosts virtuales, establece el valor de la clave de clonación de direcciones MAC para cada una de tus redes en "true" en tu archivo de configuración del nodo. Esta configuración hace que la dirección MAC del contenedor de StorageGRID use la dirección MAC del host. Consulta las instrucciones para link:../swnodes/creating-node-configuration-files.html["crear archivos de configuración de nodos"].
 
 
 NOTE: Crea interfaces de red virtuales independientes para que las use el sistema operativo host de Linux. Si usas las mismas interfaces de red para el sistema operativo host de Linux y el contenedor de StorageGRID, el sistema operativo host podría quedar inaccesible si no has habilitado el modo promiscuo en el hipervisor.
@@ -292,13 +292,13 @@ Un nodo de Linux en estado «huérfano» suele indicar que, o bien el servicio s
 Si un nodo de Linux indica que se encuentra en estado huérfano, debes:
 
 * Comprueba los registros en busca de errores y mensajes.
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Intenta volver a iniciar el nodo.
+* Si es necesario, utiliza los comandos del motor de contenedores para detener el contenedor del nodo existente.
+* Reinicia el nodo.
 
 
 .Pasos
-. ${post_edited_translations.segment}
+. Comprueba los registros tanto del demonio del servicio como del nodo huérfano para detectar errores evidentes o mensajes sobre salidas inesperadas.
 . Inicia sesión en el host como root o usando una cuenta con permisos sudo.
 . Intenta volver a iniciar el nodo ejecutando el siguiente comando: `$ sudo storagegrid node start node-name`
 +
@@ -333,12 +333,12 @@ storagegrid node start DC1-S1-172-16-1-172
 [[linux-troubleshoot-ipv6-support]]
 == Linux: Soluciona problemas de compatibilidad con IPv6
 
-${post_edited_translations.segment}
+Es posible que tengas que habilitar la compatibilidad con IPv6 en el kernel si has instalado nodos de StorageGRID en hosts Linux y notas que no se han asignado direcciones IPv6 a los contenedores de los nodos como esperabas.
 
 .Acerca de esta tarea
 Para ver la dirección IPv6 que se ha asignado a un nodo de la red:
 
-. ${post_edited_translations.segment}
+. Selecciona *Nodos* y elige el nodo.
 . Selecciona *Mostrar direcciones IP adicionales* junto a *Direcciones IP* en la pestaña *Resumen*.
 
 
@@ -372,7 +372,7 @@ NOTE: Si el resultado no es 0, consulta la documentación de tu sistema operativ
 root@DC1-S1:~ # sysctl net.ipv6.conf.all.disable_ipv6
 ----
 +
-${post_edited_translations.segment}
+El resultado debería ser 1.
 
 +
 [listing]
@@ -406,7 +406,7 @@ net.ipv6.conf.all.disable_ipv6 = 0
 ----
 net.ipv6.conf.default.disable_ipv6 = 0
 ----
-. ${post_edited_translations.segment}
+. Ejecuta estos comandos para reiniciar el contenedor de StorageGRID:
 +
 [listing]
 ----

@@ -18,7 +18,7 @@ Para obtener más información sobre los problemas solucionados y los problemas 
 
 
 [[appliances]]
-== ${post_edited_translations.segment}
+== Dispositivos
 
 * La capacidad de almacenamiento y la rentabilidad han aumentado considerablemente.
 * Las actualizaciones automáticas del firmware de las unidades mejoran la fiabilidad del sistema y reducen la carga de mantenimiento.

@@ -25,7 +25,7 @@ Las solicitudes conflictivas de los clientes, como por ejemplo cuando dos client
 [[object-size]]
 == Tamaño del objeto
 
-El tamaño máximo _recomendado_ para una sola operación de PutObject es de 5 GiB (5,368,709,120 bytes). Si tienes objetos que superan los 5 GiB, utiliza link:operations-for-multipart-uploads.html["${post_edited_translations.segment}"] en su lugar.
+El tamaño máximo _recomendado_ para una sola operación de PutObject es de 5 GiB (5,368,709,120 bytes). Si tienes objetos que superan los 5 GiB, utiliza link:operations-for-multipart-uploads.html["carga en varias partes"] en su lugar.
 
 El tamaño máximo _admitido_ para una sola operación de PutObject es de 5 TiB (5,497,558,138,880 bytes).
 
@@ -172,7 +172,7 @@ Si utilizas link:using-server-side-encryption.html["usar el cifrado del lado del
 ** `x-amz-copy-source​-server-side-encryption-customer-key-MD5`: Indica el resumen MD5 que proporcionaste cuando creaste el objeto de origen.
 
 
-* ${post_edited_translations.segment}
+* Si deseas cifrar el objeto de destino (la copia) con una clave única que tú mismo proporciones y gestiones, incluye los siguientes tres encabezados:
 +
 ** `x-amz-server-side-encryption-customer-algorithm`: Indica `AES256`.
 ** `x-amz-server-side-encryption-customer-key`: Especifica una nueva clave de cifrado para el objeto de destino.

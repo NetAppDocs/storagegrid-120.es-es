@@ -2,7 +2,7 @@
 permalink: tenant/deleting-platform-services-endpoint.html 
 sidebar: sidebar 
 keywords: how to delete tenant platform services endpoint 
-summary: ${post_edited_translations.segment} 
+summary: Puedes eliminar un endpoint si ya no quieres usar el servicio de plataforma asociado. 
 ---
 = Eliminar un endpoint de servicios de plataforma de StorageGRID
 :allow-uri-read: 
@@ -11,11 +11,11 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Puedes eliminar un endpoint si ya no quieres usar el servicio de plataforma asociado.
 
 .Antes de empezar
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona endpoints o permisos de acceso de usuario raíz"].
 
 
 .Pasos
@@ -23,14 +23,14 @@ ${post_edited_translations.segment}
 +
 Aparece la página «Puntos finales de los servicios de la plataforma» y muestra la lista de puntos finales de los servicios de la plataforma que ya se han configurado.
 
-. ${post_edited_translations.segment}
+. Marca la casilla de selección correspondiente a cada endpoint que quieras eliminar.
 +
 
 NOTE: Si eliminas un endpoint de servicios de plataforma que está en uso, el servicio de plataforma asociado se deshabilitará para cualquier bucket que use dicho endpoint. Cualquier solicitud que aún no se haya completado se descartará. Se seguirán generando nuevas solicitudes hasta que cambies la configuración de tu bucket para que ya no haga referencia al URN eliminado. StorageGRID notificará estas solicitudes como errores irrecuperables.
 
-. ${post_edited_translations.segment}
+. Selecciona *Acciones* > *Eliminar endpoint*.
 +
-${post_edited_translations.segment}
+Aparece un mensaje de confirmación.
 
-. ${post_edited_translations.segment}
+. Selecciona *Eliminar punto final*.
 

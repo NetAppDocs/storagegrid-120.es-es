@@ -32,12 +32,12 @@ El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para impleme
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/vsphere-gateway.ovf ./vsphere/vsphere-gateway.mf  a| 
 El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para implementar Gateway Nodes.
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/vsphere-storage.ovf ./vsphere/vsphere-storage.mf  a| 
 El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para desplegar nodos de almacenamiento basados en máquinas virtuales.
 
 
@@ -45,7 +45,7 @@ El archivo de plantilla (`.ovf`) y el archivo de manifiesto (`.mf`) para despleg
 | Herramienta de creación de scripts de implementación | Descripción 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/deploy-vsphere-ovftool.sh  a| 
 Un script de Bash que se usa para automatizar el despliegue de nodos de grid virtuales.
 
 
@@ -55,7 +55,7 @@ Un archivo de configuración de ejemplo para usarlo con el script  `deploy-vsphe
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/configure-storagegrid.py  a| 
 Un script de Python que se utiliza para automatizar la configuración de un sistema StorageGRID.
 
 
@@ -75,7 +75,7 @@ Un archivo de configuración de ejemplo para usar con el script  `configure-stor
 
 
 
-| ${post_edited_translations.segment}  a| 
+| ./vsphere/configure-storagegrid.blank.json  a| 
 Un archivo de configuración en blanco para usar con el script  `configure-storagegrid.py`.
 
 

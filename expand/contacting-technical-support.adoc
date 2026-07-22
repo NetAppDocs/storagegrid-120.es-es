@@ -2,7 +2,7 @@
 permalink: expand/contacting-technical-support.html 
 sidebar: sidebar 
 keywords: troubleshoot expansion, contact technical support, StorageGRID 
-summary: ${post_edited_translations.segment} 
+summary: Si durante el proceso de ampliación de la red se producen errores que no puedes resolver, o si falla alguna tarea de la red, recopila los archivos de registro y ponte en contacto con el soporte técnico. 
 ---
 = Solucionar errores de expansión en StorageGRID
 :allow-uri-read: 
@@ -11,9 +11,9 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Si durante el proceso de ampliación de la red se producen errores que no puedes resolver, o si falla alguna tarea de la red, recopila los archivos de registro y ponte en contacto con el soporte técnico.
 
-${post_edited_translations.segment}
+Antes de ponerte en contacto con el soporte técnico, recopila los archivos de registro necesarios para facilitar la resolución del problema.
 
 .Pasos
 . El acceso externo por SSH está bloqueado de forma predeterminada. Si es necesario, link:../admin/manage-external-ssh-access.html["permitir el acceso de forma temporal"].
@@ -21,7 +21,7 @@ ${post_edited_translations.segment}
 +
 .. Introduce el siguiente comando:``ssh -p 8022 admin@_grid_node_IP_``
 +
-${post_edited_translations.segment}
+El puerto 8022 es el puerto SSH del sistema operativo base, mientras que el puerto 22 es el puerto SSH del motor de contenedores en el que se ejecuta StorageGRID.
 
 .. Introduce la contraseña que figura en el archivo  `Passwords.txt`.
 .. Introduce el siguiente comando para pasar a ser usuario root: `su -`
@@ -31,7 +31,7 @@ ${post_edited_translations.segment}
 +
 Después de que inicies sesión como root, el indicador cambia de  `$` a  `#`.
 
-. ${post_edited_translations.segment}
+. En función de la fase en la que se encuentre la instalación, recupera cualquiera de los siguientes registros que estén disponibles en el nodo de la grid:
 +
 [cols="1a,2a"]
 |===
@@ -57,5 +57,5 @@ Linux
 
 
 |===
-. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["${post_edited_translations.segment}"] cuando hayas terminado la tarea.
+. Si has permitido el acceso SSH externo, link:../admin/manage-external-ssh-access.html["bloquear el acceso"] cuando hayas terminado la tarea.
 

@@ -29,7 +29,7 @@ Los siguientes pasos ofrecen directrices generales para los clientes de S3 que u
 +
 Al crear un punto final de equilibrador de carga HTTPS, se te pedirá que subas tu certificado de servidor, la clave privada del certificado y, opcionalmente, el paquete de la autoridad de certificación (CA bundle).
 
-. ${post_edited_translations.segment}
+. Adjunta StorageGRID como un nivel de cloud en ONTAP.
 +
 Especifica el puerto del extremo del balanceador de carga y el nombre de dominio completo utilizado en el certificado de CA que cargaste. A continuación, proporciona el certificado de CA.
 

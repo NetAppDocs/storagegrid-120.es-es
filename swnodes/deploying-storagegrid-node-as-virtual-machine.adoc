@@ -13,21 +13,21 @@ summary: Tú usas el cliente web de VMware vSphere para implementar cada nodo de
 [role="lead"]
 Tú usas el cliente web de VMware vSphere para implementar cada nodo de grid como una máquina virtual. Durante la implementación, se crea cada nodo de grid y se conecta a una o varias redes StorageGRID.
 
-Si necesitas implementar cualquier nodo de almacenamiento de dispositivo StorageGRID, consulta https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/deploying-appliance-storage-node.html["${post_edited_translations.segment}"^].
+Si necesitas implementar cualquier nodo de almacenamiento de dispositivo StorageGRID, consulta https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/deploying-appliance-storage-node.html["Implementar el nodo de almacenamiento de appliance"^].
 
 Si lo deseas, puedes reasignar los puertos del nodo o aumentar la configuración de CPU o memoria del nodo antes de encenderlo.
 
 .Antes de empezar
-* Has revisado cómo link:index.html["${post_edited_translations.segment}"] y entiendes los requisitos de software, CPU y RAM, y almacenamiento y rendimiento.
+* Has revisado cómo link:index.html["planificar y preparar la instalación"] y entiendes los requisitos de software, CPU y RAM, y almacenamiento y rendimiento.
 * Conoces VMware vSphere Hypervisor y tienes experiencia en la implementación de máquinas virtuales en este entorno.
 +
 
 NOTE: El paquete  `open-vm-tools`, una implementación de código abierto similar a VMware Tools, se incluye con la máquina virtual de StorageGRID. No necesitas instalar VMware Tools manualmente.
 
-* ${post_edited_translations.segment}
+* Has descargado y descomprimido la versión correcta del archivo de instalación de StorageGRID para VMware.
 +
 
-CAUTION: ${post_edited_translations.segment}
+CAUTION: Si vas a implementar el nuevo nodo como parte de una operación de ampliación o recuperación, debes utilizar la versión de StorageGRID que se está ejecutando actualmente en la grid.
 
 * Tienes el archivo StorageGRID Virtual Machine Disk (`.vmdk`):
 
@@ -40,7 +40,7 @@ NetApp-_SG-version_-SHA.vmdk
 +
 [cols="1a,1a"]
 |===
-| ${post_edited_translations.segment} | Descripción 
+| Nombre del archivo | Descripción 
 
 
 | vsphere-primary-admin.ovf vsphere-primary-admin.mf  a| 
@@ -48,18 +48,18 @@ El archivo de plantilla y el archivo de manifiesto para el nodo de administraci�
 
 
 
-| ${post_edited_translations.segment}  a| 
-${post_edited_translations.segment}
+| vsphere-non-primary-admin.ovf vsphere-non-primary-admin.mf  a| 
+El archivo de plantilla y el archivo de manifiesto para un nodo de administración no principal.
 
 
 
-| ${post_edited_translations.segment}  a| 
-${post_edited_translations.segment}
+| vsphere-storage.ovf vsphere-storage.mf  a| 
+El archivo de plantilla y el archivo de manifiesto de un nodo de almacenamiento.
 
 
 
-| ${post_edited_translations.segment}  a| 
-${post_edited_translations.segment}
+| vsphere-gateway.ovf vsphere-gateway.mf  a| 
+El archivo de plantilla y el archivo de manifiesto de un Gateway Node.
 
 |===
 * Los archivos  `.vdmk`,  `.ovf` y  `.mf` están todos en el mismo directorio.
@@ -79,11 +79,11 @@ NOTE: Nunca uses FabricPool para transferir ningún dato relacionado con Storage
 .Acerca de esta tarea
 Sigue estas instrucciones para implementar inicialmente nodos de VMware, añadir un nuevo nodo de VMware en una ampliación o sustituir un nodo de VMware como parte de una operación de recuperación. Excepto por lo que se indica en los pasos, el procedimiento de implementación de nodos es el mismo para todos los tipos de nodos, incluidos los Admin Nodes, Storage Nodes y Gateway Nodes.
 
-${post_edited_translations.segment}
+Si vas a instalar un nuevo sistema StorageGRID:
 
 * Puedes implementar los nodos en cualquier orden.
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Debes asegurarte de que cada máquina virtual pueda conectarse al nodo de administración principal a través de la red de grid.
+* Debes implementar todos los nodos de la red antes de configurar la red.
 
 
 Si estás llevando a cabo una operación de ampliación o recuperación:
@@ -91,13 +91,13 @@ Si estás llevando a cabo una operación de ampliación o recuperación:
 * Debes asegurarte de que la nueva máquina virtual pueda conectarse a todos los demás nodos a través de la Grid Network.
 
 
-${post_edited_translations.segment}
+Si necesitas reasignar alguno de los puertos del nodo, no enciendas el nuevo nodo hasta que hayas completado la configuración de la reasignación de puertos.
 
 
 NOTE: La compatibilidad con la reasignación de puertos está en desuso y se eliminará en una futura versión. Para eliminar los puertos reasignados, consulta link:../maintain/removing-port-remaps-on-bare-metal-hosts.html["Eliminar las reasignaciones de puertos en los hosts bare metal"].
 
 .Pasos
-. ${post_edited_translations.segment}
+. Utilizando VCenter, implementa una plantilla OVF.
 +
 Si especificas una URL, apunta a una carpeta que contenga los siguientes archivos. De lo contrario, selecciona cada uno de estos archivos desde un directorio local.
 
@@ -109,7 +109,7 @@ vsphere-_node_.ovf
 vsphere-_node_.mf
 ----
 +
-${post_edited_translations.segment}
+Por ejemplo, si este es el primer nodo que vas a implementar, utiliza estos archivos para implementar el nodo de administración principal de tu sistema StorageGRID:
 
 +
 [listing, subs="specialcharacters,quotes"]
@@ -118,18 +118,18 @@ NetApp-_SG-version_-SHA.vmdk
 vsphere-primary-admin.ovf
 vsphere-primary-admin.mf
 ----
-. ${post_edited_translations.segment}
+. Introduce un nombre para la máquina virtual.
 +
-${post_edited_translations.segment}
+Lo habitual es utilizar el mismo nombre tanto para la máquina virtual como para el nodo de grid.
 
 . Coloca la máquina virtual en la vApp o pool de recursos adecuado.
 . Si vas a implementar el nodo de administración principal, lee y acepta el Acuerdo de licencia de usuario final.
 +
 Dependiendo de tu versión de vCenter, el orden de los pasos variará para aceptar el Acuerdo de licencia de usuario final, especificar el nombre de la máquina virtual y seleccionar un datastore.
 
-. ${post_edited_translations.segment}
+. Selecciona el almacenamiento para la máquina virtual.
 +
-Si estás desplegando un nodo como parte de una operación de recuperación, sigue las instrucciones de <<step_recovery_storage,${post_edited_translations.segment}>> para añadir nuevos discos virtuales, volver a conectar los discos duros virtuales del nodo de grid con fallos, o ambos.
+Si estás desplegando un nodo como parte de una operación de recuperación, sigue las instrucciones de <<step_recovery_storage,paso de recuperación del almacenamiento>> para añadir nuevos discos virtuales, volver a conectar los discos duros virtuales del nodo de grid con fallos, o ambos.
 
 +
 Al implementar un nodo de almacenamiento, utiliza tres o más volúmenes de almacenamiento, y cada volumen debe ser de 4 TB o más. Debes asignar al menos 4 TB al volumen 0.
@@ -168,7 +168,7 @@ NOTE: La contraseña de instalación temporal solo se utiliza durante la instala
 +
 *** *Usar nombre de nodo*: El valor que has introducido en el campo *Nombre de nodo* se utiliza como contraseña temporal de instalación.
 *** *Utilizar contraseña personalizada*: Se utiliza una contraseña personalizada como contraseña temporal de instalación.
-*** *Desactivar contraseña*: no se utilizará ninguna contraseña de instalación temporal. Si necesitas acceder a la VM para depurar problemas de instalación, consulta link:troubleshooting-installation-issues.html["${post_edited_translations.segment}"].
+*** *Desactivar contraseña*: no se utilizará ninguna contraseña de instalación temporal. Si necesitas acceder a la VM para depurar problemas de instalación, consulta link:troubleshooting-installation-issues.html["Soluciona problemas de instalación"].
 
 
 .. Si has seleccionado *Usar contraseña personalizada*, especifica la contraseña temporal de instalación que quieras usar en el campo *Contraseña personalizada*.

@@ -2,7 +2,7 @@
 permalink: tenant/index.html 
 sidebar: sidebar 
 keywords: use tenant account 
-summary: ${post_edited_translations.segment} 
+summary: 'Una cuenta de inquilino te permite utilizar la API de REST del Servicio de Almacenamiento Sencillo (S3) para almacenar y recuperar objetos en un sistema StorageGRID.' 
 ---
 = Utiliza una cuenta de StorageGRID
 :allow-uri-read: 
@@ -25,7 +25,7 @@ Puedes usar las cuentas de inquilino para segregar los objetos almacenados por d
 * *Caso de uso empresarial:* Si el sistema StorageGRID se utiliza en el ámbito empresarial, el almacenamiento de objetos de la grid podría estar segmentado por los distintos departamentos de la organización. Por ejemplo, podría haber cuentas de inquilino para el departamento de Marketing, el departamento de Customer Support, el departamento de Human Resources, y así sucesivamente.
 +
 
-NOTE: Si usas el protocolo de cliente S3, también puedes usar buckets de S3 y políticas de bucket para segregar objetos entre los departamentos de una empresa. No necesitas crear cuentas de inquilino separadas. Consulta las instrucciones para implementar link:../s3/use-access-policies.html["${post_edited_translations.segment}"] para obtener más información.
+NOTE: Si usas el protocolo de cliente S3, también puedes usar buckets de S3 y políticas de bucket para segregar objetos entre los departamentos de una empresa. No necesitas crear cuentas de inquilino separadas. Consulta las instrucciones para implementar link:../s3/use-access-policies.html["Buckets de S3 y políticas de bucket"] para obtener más información.
 
 * *Caso de uso de proveedor de servicios:* si un proveedor de servicios utiliza el sistema StorageGRID, el almacenamiento de objetos del grid podría estar segregado por las diferentes entidades que alquilan el almacenamiento. Por ejemplo, podría haber cuentas de inquilino para Company A, Company B, Company C, y así sucesivamente.
 
@@ -33,11 +33,11 @@ NOTE: Si usas el protocolo de cliente S3, también puedes usar buckets de S3 y p
 
 
 [[how-to-create-a-tenant-account]]
-== ${post_edited_translations.segment}
+== Cómo crear una cuenta de inquilino
 
 Las cuentas de inquilino las crea un link:../admin/managing-tenants.html["Administrador de la grid StorageGRID usando Grid Manager"]. Al crear una cuenta de inquilino, el administrador de grid especifica lo siguiente:
 
-* ${post_edited_translations.segment}
+* Información básica, incluido el nombre del inquilino, el tipo de cliente (S3) y la cuota de almacenamiento opcional.
 * Permisos de la cuenta de inquilino, como si la cuenta de inquilino puede usar los servicios de la plataforma S3, configurar su propia fuente de identidad, usar S3 Select o usar una conexión de federación de grid.
 * El acceso a raíz inicial para el inquilino, en función de si el sistema StorageGRID utiliza grupos y usuarios locales, federación de identidades o inicio de sesión único (SSO).
 
@@ -49,7 +49,7 @@ Además, los administradores de la grid pueden activar la configuración de S3 O
 [[configure-s3-tenants]]
 === Configura clientes de S3
 
-Después de un link:../admin/creating-tenant-account.html["${post_edited_translations.segment}"], puedes acceder al Tenant Manager para realizar tareas como las siguientes:
+Después de un link:../admin/creating-tenant-account.html["Se ha creado la cuenta de inquilino de S3"], puedes acceder al Tenant Manager para realizar tareas como las siguientes:
 
 * Configura la federación de identidades (a menos que la fuente de identidades se comparta con la grid)
 * Gestiona grupos y usuarios
@@ -57,9 +57,9 @@ Después de un link:../admin/creating-tenant-account.html["${post_edited_transla
 * Gestiona claves de acceso de S3
 * Crear y gestionar buckets de S3
 * Usa los servicios de la plataforma S3
-* ${post_edited_translations.segment}
+* Usa S3 Select
 * Supervisa el uso del almacenamiento
 
 
 
-TIP: Aunque puedes crear y gestionar buckets de S3 con el Tenant Manager, debes usar un link:../s3/index.html["${post_edited_translations.segment}"] o link:use-s3-console.html["Consola de S3"] para ingestar y gestionar objetos.
+TIP: Aunque puedes crear y gestionar buckets de S3 con el Tenant Manager, debes usar un link:../s3/index.html["Cliente S3"] o link:use-s3-console.html["Consola de S3"] para ingestar y gestionar objetos.

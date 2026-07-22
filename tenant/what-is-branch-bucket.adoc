@@ -2,7 +2,7 @@
 permalink: tenant/what-is-branch-bucket.html 
 sidebar: sidebar 
 keywords: how to create branch bucket 
-summary: ${post_edited_translations.segment} 
+summary: Un «branch bucket» permite acceder a los objetos de un bucket tal y como estaban en un momento determinado. 
 ---
 = Conoce StorageGRID branch buckets
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Un «branch bucket» permite acceder a los objetos de un bucket tal y como estaban en un momento determinado.
 
 Creas un bucket de ramificación a partir de un bucket existente. Una vez que creas un bucket de ramificación, el bucket original a partir del cual se creó se denomina _bucket base_. Además, puedes crear un bucket de ramificación a partir de otro bucket de ramificación.
 
@@ -19,15 +19,15 @@ Un bucket de ramificación proporciona acceso a los datos protegidos, pero no si
 
 * link:../tenant/using-s3-object-lock.html["Bloqueo de objetos de S3"]
 * link:../admin/grid-federation-what-is-cross-grid-replication.html["Replicación entre grids"] para buckets base
-* link:../tenant/manage-bucket-policy.html["${post_edited_translations.segment}"] para buckets con control de versiones para limpiar las versiones antiguas de los objetos
+* link:../tenant/manage-bucket-policy.html["Políticas de buckets"] para buckets con control de versiones para limpiar las versiones antiguas de los objetos
 
 
 Ten en cuenta las siguientes características de los cubos de ramificación:
 
-* Puedes acceder a los objetos de los buckets de las ramas utilizando link:../tenant/use-s3-console.html["${post_edited_translations.segment}"].
+* Puedes acceder a los objetos de los buckets de las ramas utilizando link:../tenant/use-s3-console.html["Consola de S3 para descargar objetos"].
 * Cuando los clientes acceden a objetos en un bucket rama, link:../s3/use-access-policies.html["políticas de acceso"] del bucket rama, en lugar de las políticas del bucket base, determinan si se concede o se deniega el acceso.
 * Los objetos creados en un bucket base se evalúan en función de cómo se aplican link:../ilm/access-create-ilm-rule-wizard.html["Reglas de ILM"] al bucket base. Los objetos creados en un bucket de rama se evalúan en función de cómo se aplican las reglas de ILM al bucket de rama.
-* ${post_edited_translations.segment}
+* La replicación entre grids no es compatible con los buckets de sucursales.
 * Los servicios de plataforma no son compatibles con los buckets de sucursales.
 
 
@@ -45,7 +45,7 @@ Ten en cuenta las siguientes características de los cubos de ramificación:
 [[operations-on-objects-in-branch-buckets]]
 == Operaciones con objetos en los buckets de rama
 
-* ${post_edited_translations.segment}
+* Una operación PUT de objeto en un bucket de rama crea un objeto en la rama.
 * Una operación GET sobre un objeto en un bucket de rama recupera un objeto de la rama. Si el objeto no existe en el bucket de rama, el objeto se recupera del bucket base.
 * La eliminación de objetos de los buckets de las ramas ocurre de la siguiente manera:
 +
@@ -57,11 +57,11 @@ Ten en cuenta las siguientes características de los cubos de ramificación:
  a| 
 Eliminar sin ID de versión
  a| 
-${post_edited_translations.segment}
+Bucket base
  a| 
-${post_edited_translations.segment}
+El marcador de eliminación se crea únicamente para el depósito base
  a| 
-${post_edited_translations.segment}
+HEAD/GET devuelve «El objeto no existe», pero aún se puede acceder a versiones concretas
  a| 
 HEAD/GET devuelve que el objeto existe, y aún se puede acceder a versiones específicas
 
@@ -70,11 +70,11 @@ El marcador de borrado se habría creado después del del bucket de la sucursal 
 
 
  a| 
-${post_edited_translations.segment}
+Eliminar con el ID de versión
  a| 
-${post_edited_translations.segment}
+Bucket base
  a| 
-${post_edited_translations.segment}
+Se elimina la versión específica del objeto tanto en el bucket base como en el bucket de la rama
  a| 
 HEAD/GET devuelve que la versión del objeto no existe
  a| 
@@ -85,24 +85,24 @@ HEAD/GET devuelve que la versión del objeto no existe
  a| 
 Eliminar sin ID de versión
  a| 
-${post_edited_translations.segment}
+Bucket de rama
  a| 
-${post_edited_translations.segment}
+El marcador de eliminación se crea únicamente para el bucket de la rama
  a| 
 HEAD/GET devuelve un objeto (el objeto base del bucket no se ve afectado)
  a| 
-${post_edited_translations.segment}
+HEAD/GET devuelve que el objeto no existe
 
 
 
  a| 
-${post_edited_translations.segment}
+Eliminar con el ID de versión
  a| 
-${post_edited_translations.segment}
+Bucket de rama
  a| 
 La versión específica del objeto solo se elimina para el bucket de la rama
  a| 
-${post_edited_translations.segment}
+HEAD/GET devuelve una versión específica del objeto (el objeto base del bucket no se ve afectado)
  a| 
 HEAD/GET devuelve que la versión del objeto no existe
 

@@ -40,10 +40,10 @@ La URL siempre incluye un nombre de dominio completo (FQDN), la dirección IP de
 .Pasos
 . Inicia un link:../admin/web-browser-requirements.html["navegador web compatible"].
 . En la barra de direcciones del navegador, introduce la URL para acceder a Tenant Manager.
-. ${post_edited_translations.segment}
+. Si te aparece una alerta de seguridad, instala el certificado utilizando el asistente de instalación del navegador.
 . Inicia sesión en Tenant Manager.
 +
-${post_edited_translations.segment}
+La pantalla de inicio de sesión que aparece depende de la URL que hayas introducido y de si se ha configurado el inicio de sesión único (SSO) para StorageGRID.
 
 +
 [role="tabbed-block"]
@@ -67,15 +67,15 @@ Aparece el panel de control de Tenant Manager.
 
 
 --
-.${post_edited_translations.segment}
+.Uso de SSO
 --
-${post_edited_translations.segment}
+Si StorageGRID está usando el inicio de sesión único (SSO), aparece una de las siguientes pantallas:
 
 ** La página de inicio de sesión único (SSO) de tu organización.
 +
 Introduce tus credenciales estándar de SSO y selecciona *Sign in*.
 
-** ${post_edited_translations.segment}
+** La página de inicio de sesión único (SSO) de Tenant Manager.
 +
 ... Si no aparece el ID de cuenta de 20 dígitos del arrendatario, selecciona el nombre de la cuenta del arrendatario si figura en la lista de cuentas recientes o introduce el ID de cuenta.
 ... Selecciona *Sign in*.

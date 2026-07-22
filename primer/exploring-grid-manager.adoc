@@ -96,7 +96,7 @@ El link:using-information-lifecycle-management.html["Menú de ILM"] te permite l
 
 Desde el menú de ILM puedes consultar y gestionar ILM:
 
-* ${post_edited_translations.segment}
+* Reglas
 * Políticas
 * Etiquetas de políticas
 * Grupos de almacenamiento
@@ -121,10 +121,10 @@ Las tareas de red incluyen:
 
 * link:../admin/managing-high-availability-groups.html["Gestiona grupos de alta disponibilidad"]
 * link:../admin/managing-load-balancing.html["Gestiona los puntos de conexión del equilibrador de carga"]
-* link:../admin/configuring-s3-api-endpoint-domain-names.html["${post_edited_translations.segment}"]
+* link:../admin/configuring-s3-api-endpoint-domain-names.html["Configura los nombres de dominio de los endpoints S3"]
 * link:../admin/managing-traffic-classification-policies.html["Gestiona las políticas de clasificación del tráfico"]
 * link:../admin/configure-vlan-interfaces.html["Configurar interfaces VLAN"]
-* link:../admin/enable-cross-origin-resource-sharing-for-management-interface.html["${post_edited_translations.segment}"]
+* link:../admin/enable-cross-origin-resource-sharing-for-management-interface.html["Habilita StorageGRID CORS para una interfaz de gestión"]
 
 
 
@@ -138,7 +138,7 @@ Las tareas de seguridad incluyen:
 * link:../admin/manage-firewall-controls.html["Gestiona los controles del firewall interno"]
 * link:../admin/kms-configuring.html["Configura servidores de gestión de claves"]
 * Configura los ajustes de seguridad, incluidos link:../admin/manage-tls-ssh-policy.html["Política de TLS y SSH"], link:../admin/changing-network-options-object-encryption.html["Opciones de seguridad de red y de objetos"], link:../admin/changing-browser-session-timeout-interface.html["Configuración de seguridad de la interfaz"] y link:../admin/manage-external-ssh-access.html["Opciones de acceso SSH"]
-* Configura los ajustes de un link:../admin/configuring-storage-proxy-settings.html["${post_edited_translations.segment}"] o un link:../admin/configuring-admin-proxy-settings.html["proxy de administración"]
+* Configura los ajustes de un link:../admin/configuring-storage-proxy-settings.html["proxy de almacenamiento"] o un link:../admin/configuring-admin-proxy-settings.html["proxy de administración"]
 
 
 
@@ -174,7 +174,7 @@ Las tareas de seguimiento incluyen:
 
 Las tareas de control de acceso incluyen:
 
-* link:../admin/managing-admin-groups.html["${post_edited_translations.segment}"]
+* link:../admin/managing-admin-groups.html["Gestiona grupos de administradores"]
 * link:../admin/managing-users.html["Gestionar usuarios administradores"]
 * Cambia el link:../admin/changing-provisioning-passphrase.html["frase de contraseña de aprovisionamiento"] o link:../admin/change-node-console-password.html["contraseñas de la consola del nodo"]
 * link:../admin/using-identity-federation.html["Usa la federación de identidades"]

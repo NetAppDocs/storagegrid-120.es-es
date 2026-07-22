@@ -2,7 +2,7 @@
 section: upgrade
 title: Actualizar el software StorageGRID
 entries:
-- title: "${post_edited_translations.segment}"
+- title: Antes de actualizar
   pdf-filename: Actualizar el software StorageGRID
   url: "/upgrade/index.html"
 - title: Planifica y prepárate para la actualización

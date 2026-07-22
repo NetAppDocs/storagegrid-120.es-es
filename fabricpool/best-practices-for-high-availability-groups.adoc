@@ -22,7 +22,7 @@ Un grupo de alta disponibilidad (HA) es un conjunto de interfaces procedentes de
 
 Cada grupo de HA proporciona acceso de alta disponibilidad a los servicios compartidos en los nodos asociados. Por ejemplo, un grupo de HA que consta de interfaces solo en Gateway Nodes o tanto en Admin Nodes como en Gateway Nodes proporciona acceso de alta disponibilidad al servicio Load Balancer compartido.
 
-Para obtener más información sobre los grupos de alta disponibilidad, consulta link:../admin/managing-high-availability-groups.html["${post_edited_translations.segment}"].
+Para obtener más información sobre los grupos de alta disponibilidad, consulta link:../admin/managing-high-availability-groups.html["Administra grupos de alta disponibilidad (HA)"].
 
 
 

@@ -7,7 +7,7 @@
 [[which-procedure-should-i-use]]
 == ¿Qué procedimiento debo seguir?
 
-${post_edited_translations.segment}
+Siempre que sea posible, restaura los datos de los objetos mediante la página *Restauración de volúmenes* en el Grid Manager.
 
 * Si los volúmenes aparecen en *Mantenimiento* > *Restauración de volúmenes* > *Nodos para restaurar*, restaura los datos de objetos mediante link:../maintain/restoring-volume.html["Página de restauración de volumen en el Grid Manager"].
 * Si los volúmenes no aparecen en *Mantenimiento* > *Restauración de volúmenes* > *Nodos para restaurar*, sigue los pasos que se indican a continuación para usar el script `repair-data` para restaurar datos de objetos.
@@ -17,7 +17,7 @@ Si el nodo de almacenamiento recuperado contiene menos volúmenes que el nodo al
 
 
 
-NOTE: El script repair-data está obsoleto y se eliminará en una futura versión. Cuando sea posible, utiliza el link:../maintain/restoring-volume.html["${post_edited_translations.segment}"].
+NOTE: El script repair-data está obsoleto y se eliminará en una futura versión. Cuando sea posible, utiliza el link:../maintain/restoring-volume.html["Procedimiento de restauración del volumen en el Grid Manager"].
 
 
 
@@ -25,7 +25,7 @@ NOTE: El script repair-data está obsoleto y se eliminará en una futura versió
 == Utiliza el script  `repair-data` para restaurar los datos de los objetos
 
 .Antes de empezar
-* Has comprobado que el nodo de almacenamiento recuperado presenta un estado de conexión *Conectado* image:icon_alert_green_checkmark.png["${post_edited_translations.segment}"] en la pestaña *Nodos* > *Resumen* del Grid Manager.
+* Has comprobado que el nodo de almacenamiento recuperado presenta un estado de conexión *Conectado* image:icon_alert_green_checkmark.png["icono de alerta con marca de verificación verde"] en la pestaña *Nodos* > *Resumen* del Grid Manager.
 
 
 .Acerca de esta tarea
@@ -33,7 +33,7 @@ Los datos de los objetos se pueden restaurar desde otros Storage Nodes o desde u
 
 Ten en cuenta lo siguiente:
 
-* ${post_edited_translations.segment}
+* Si se ha configurado una regla de ILM para almacenar únicamente una copia replicada y dicha copia se encontraba en un volumen de almacenamiento que ha fallado, no podrás recuperar el objeto.
 * Si la única copia restante de un objeto se encuentra en un Cloud Storage Pool, StorageGRID debe enviar varias solicitudes al endpoint del Cloud Storage Pool para restaurar los datos del objeto. Antes de realizar este procedimiento, ponte en contacto con soporte técnico para que te ayuden a estimar el plazo de recuperación y los costes asociados.
 
 
@@ -50,32 +50,32 @@ Selecciona *Datos replicados* o *Datos con código de borrado (EC)* a continuaci
 NOTE: Para obtener más información sobre el script  `repair-data`, introduce  `repair-data --help` desde la línea de comandos del nodo de administración primario.
 
 
-NOTE: El script repair-data está obsoleto y se eliminará en una futura versión. Cuando sea posible, utiliza el link:../maintain/restoring-volume.html["${post_edited_translations.segment}"].
+NOTE: El script repair-data está obsoleto y se eliminará en una futura versión. Cuando sea posible, utiliza el link:../maintain/restoring-volume.html["Procedimiento de restauración del volumen en el Grid Manager"].
 
 [role="tabbed-block"]
 ====
 .Datos replicados
 --
-${post_edited_translations.segment}
+Hay dos comandos disponibles para restaurar datos replicados, dependiendo de si necesitas reparar todo el nodo o solo ciertos volúmenes en el nodo:
 
 `repair-data start-replicated-node-repair`
 
 `repair-data start-replicated-volume-repair`
 
-${post_edited_translations.segment}
+Puedes realizar un seguimiento de las reparaciones de los datos replicados con este comando:
 
 `repair-data show-replicated-repair-status`
 
 --
-.${post_edited_translations.segment}
+.Datos con código de borrado (EC)
 --
-${post_edited_translations.segment}
+Hay dos comandos disponibles para la restauración de datos con código de borrado, dependiendo de si necesitas reparar todo el nodo o solo determinados volúmenes del mismo:
 
 `repair-data start-ec-node-repair`
 
 `repair-data start-ec-volume-repair`
 
-${post_edited_translations.segment}
+Puedes realizar un seguimiento de las reparaciones de los datos con código de borrado con este comando:
 
 `repair-data show-ec-repair-status`
 

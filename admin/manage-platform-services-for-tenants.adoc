@@ -62,7 +62,7 @@ Los servicios de plataforma les dan a los inquilinos la posibilidad de usar recu
 [[recommendations-for-using-platform-services]]
 == Recomendaciones para usar los servicios de la plataforma
 
-${post_edited_translations.segment}
+Antes de utilizar los servicios de la plataforma, ten en cuenta las siguientes recomendaciones:
 
 * Si un bucket S3 en el sistema StorageGRID tiene habilitadas tanto la gestión de versiones como la replicación CloudMirror, también deberías habilitar la gestión de versiones del bucket S3 para el endpoint de destino. Esto permite que la replicación CloudMirror genere versiones de objetos similares en el endpoint.
 * No debes usar más de 100 inquilinos activos con solicitudes de S3 que requieran replicación de CloudMirror, notificaciones e integración de búsqueda. Tener más de 100 inquilinos activos puede resultar en un rendimiento más lento del cliente S3.
@@ -70,7 +70,7 @@ ${post_edited_translations.segment}
 
 
 .Información relacionada
-* link:../tenant/what-platform-services-are.html["${post_edited_translations.segment}"]
+* link:../tenant/what-platform-services-are.html["Gestiona los servicios de la plataforma"]
 * link:configuring-storage-proxy-settings.html["Configura los ajustes del proxy de almacenamiento"]
 * link:../monitor/index.html["Supervisar StorageGRID"]
 

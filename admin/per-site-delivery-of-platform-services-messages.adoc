@@ -13,12 +13,12 @@ summary: Todas las operaciones de los servicios de la plataforma se realizan por
 [role="lead"]
 Todas las operaciones de los servicios de la plataforma se realizan por sitio.
 
-${post_edited_translations.segment}
+Es decir, si un inquilino utiliza un cliente para realizar una operación Create de la API S3 sobre un objeto conectándose a un Gateway Node en Data Center Site 1, la notificación sobre esa acción se activa y se envía desde Data Center Site 1.
 
 image:notification_multiple_sites.gif["Diagrama que muestra que una acción sobre un objeto en el sitio 1 activa una notificación desde el sitio 1"]
 
-${post_edited_translations.segment}
+Si posteriormente el cliente realiza una operación Delete de la API de S3 sobre ese mismo objeto desde Data Center Site 2, la notificación sobre la acción de eliminación se activa y se envía desde Data Center Site 2.
 
-image:notifications_site_2.gif["${post_edited_translations.segment}"]
+image:notifications_site_2.gif["Diagrama que muestra que una acción sobre un objeto desde el sitio 2 activa notificaciones desde el sitio 2"]
 
 Asegúrate de que la red de cada sitio esté configurada de tal forma que los mensajes de los servicios de la plataforma puedan entregarse a sus destinos.

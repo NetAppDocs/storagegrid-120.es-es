@@ -2,7 +2,7 @@
 permalink: audit/sysu-node-start.html 
 sidebar: sidebar 
 keywords: storagegrid, audit, message, SYSU, Node Start 
-summary: ${post_edited_translations.segment} 
+summary: 'Cuando se reinicia un servicio, se genera este mensaje para indicar si el apagado anterior fue correcto (programado) o anómalo (inesperado).' 
 ---
 = Mensaje de auditoría SYSU para el inicio de nodo en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Cuando se reinicia un servicio, se genera este mensaje para indicar si el apagado anterior fue correcto (programado) o anómalo (inesperado).
 
 [cols="1a,1a,4a"]
 |===

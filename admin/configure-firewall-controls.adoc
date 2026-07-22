@@ -16,11 +16,11 @@ Puedes configurar el firewall de StorageGRID para controlar el acceso de red a p
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
-* Has revisado la información en link:../admin/manage-firewall-controls.html["Gestiona los controles del cortafuegos"] y link:../network/index.html["${post_edited_translations.segment}"].
-* ${post_edited_translations.segment}
+* Has revisado la información en link:../admin/manage-firewall-controls.html["Gestiona los controles del cortafuegos"] y link:../network/index.html["Directrices de redes"].
+* Si deseas que un nodo de administración o un nodo de puerta de enlace acepte tráfico entrante únicamente en los puntos de conexión configurados explícitamente, has definido los puntos de conexión del equilibrador de carga.
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Al modificar la configuración de la red de clientes, es posible que las conexiones de los clientes existentes fallen si no se han configurado los endpoints del equilibrador de carga.
 
 
 
@@ -91,9 +91,9 @@ NOTE: La configuración de la pestaña Manage external access no puede anular la
 . Selecciona *Gestionar acceso externo*. La pestaña muestra una tabla con todos los puertos externos (puertos a los que pueden acceder por defecto los nodos que no forman parte del grid) de los nodos de tu grid.
 . Configura los puertos que quieras abrir y cerrar utilizando las siguientes opciones:
 +
-** ${post_edited_translations.segment}
+** Utiliza el botón de activación junto a cada puerto para abrir o cerrar el puerto seleccionado.
 ** Selecciona *Abrir todos los puertos mostrados* para abrir todos los puertos que aparecen en la tabla.
-** ${post_edited_translations.segment}
+** Selecciona *Cerrar todos los puertos mostrados* para cerrar todos los puertos que aparecen en la tabla.
 +
 
 CAUTION: Si cierras los puertos 443 u 8443 de Grid Manager, cualquier usuario que esté conectado en ese momento a un puerto bloqueado, incluido tú, perderá el acceso a Grid Manager a menos que su dirección IP se haya añadido a la lista de direcciones privilegiadas.
@@ -110,14 +110,14 @@ NOTE: Utiliza la barra de desplazamiento situada a la derecha de la tabla para a
 
 
 [[untrusted-client-network]]
-== ${post_edited_translations.segment}
+== Red de clientes no fiables
 
 Si la red de cliente de un nodo no es de confianza, el nodo solo acepta tráfico entrante en los puertos configurados como puntos finales del equilibrador de carga y, opcionalmente, en los puertos adicionales que selecciones en esta pestaña. También puedes utilizar esta pestaña para especificar la configuración predeterminada para los nuevos nodos añadidos en una ampliación.
 
 
 CAUTION: Las conexiones de los clientes existentes podrían fallar si no se han configurado los endpoints del equilibrador de carga.
 
-${post_edited_translations.segment}
+Los cambios de configuración que realices en la pestaña *Red de clientes no fiables* anulan los ajustes de la pestaña *Manage external access*.
 
 .Pasos
 . Selecciona *Red de cliente no fiable*.
@@ -130,7 +130,7 @@ Si lo necesitas, puedes volver a esta pestaña para cambiar la configuración de
 
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Esta configuración no afecta a los nodos existentes en tu sistema StorageGRID.
 
 
 
@@ -140,7 +140,7 @@ NOTE: ${post_edited_translations.segment}
 ** Selecciona *Confiar en los nodos mostrados* para eliminar todos los nodos que aparecen en la tabla de la lista de Untrusted Client Network.
 ** Utiliza el botón de alternancia situado junto a cada nodo para configurar la red del cliente como de confianza o no de confianza para el nodo seleccionado.
 +
-${post_edited_translations.segment}
+Por ejemplo, puedes seleccionar *No confiar en los nodos mostrados* para añadir todos los nodos a la lista de Untrusted Client Network y luego usar el botón de alternancia junto a un nodo individual para añadir ese nodo a la lista de Trusted Client Network.
 
 +
 

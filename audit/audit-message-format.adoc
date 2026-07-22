@@ -13,7 +13,7 @@ summary: Los mensajes de auditoría intercambiados dentro del sistema StorageGRI
 [role="lead"]
 Los mensajes de auditoría intercambiados dentro del sistema StorageGRID incluyen información estándar común a todos los mensajes y contenido específico que describe el evento o la actividad que se está reportando.
 
-Si la información resumida que proporcionan las herramientas link:using-audit-explain-tool.html["${post_edited_translations.segment}"] y link:using-audit-sum-tool.html["suma de auditoría"] no es suficiente, consulta esta sección para conocer el formato general de todos los mensajes de auditoría.
+Si la información resumida que proporcionan las herramientas link:using-audit-explain-tool.html["audit-explain"] y link:using-audit-sum-tool.html["suma de auditoría"] no es suficiente, consulta esta sección para conocer el formato general de todos los mensajes de auditoría.
 
 A continuación se muestra un ejemplo de mensaje de auditoría tal y como podría aparecer en el archivo de auditoría:
 
@@ -26,7 +26,7 @@ Cada mensaje de auditoría contiene una cadena de elementos de atributo. La cade
 
 * Entre corchetes `[ ]`
 * Introducido por la cadena  `AUDT`, que indica un mensaje de auditoría
-* ${post_edited_translations.segment}
+* Sin delimitadores (sin comas ni espacios) ni antes ni después
 * Terminado por un carácter de salto de línea `\n`
 
 
@@ -39,7 +39,7 @@ Cada elemento incluye un código de atributo, un tipo de datos y un valor que se
 ----
 El número de elementos de atributo en el mensaje depende del tipo de evento del mensaje. Los elementos de atributo no se enumeran en ningún orden en particular.
 
-${post_edited_translations.segment}
+La siguiente lista describe los elementos de atributos:
 
 * `ATTR` es un código de cuatro caracteres para el atributo que se está notificando. Hay algunos atributos que son comunes a todos los mensajes de auditoría y otros que son específicos de cada evento.
 * `type` es un identificador de cuatro caracteres que indica el tipo de datos de programación del valor, como UI64, FC32, y así sucesivamente. El tipo va entre paréntesis `( )`.

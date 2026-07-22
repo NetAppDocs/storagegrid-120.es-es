@@ -16,7 +16,7 @@ Puedes usar la herramienta `audit-sum` para contar los mensajes de auditoría de
 .Antes de empezar
 * Tienes link:../admin/admin-group-permissions.html["permisos de acceso específicos"].
 * Tienes el archivo  `Passwords.txt`.
-* ${post_edited_translations.segment}
+* Conoces la dirección IP del nodo de administración principal.
 
 
 .Acerca de esta tarea
@@ -40,26 +40,26 @@ Este ejemplo muestra la salida típica de la herramienta  `audit-sum`. Este ejem
 La herramienta  `audit-sum` proporciona recuentos y tiempos para los siguientes mensajes de auditoría de S3 e ILM en un registro de auditoría.
 
 
-NOTE: Los códigos de auditoría se eliminan del producto y de la documentación a medida que las funciones quedan obsoletas. Si encuentras un código de auditoría que no aparece en esta lista, consulta las versiones anteriores de este tema para versiones anteriores de StorageGRID. Por ejemplo, https://docs.netapp.com/us-en/storagegrid-118/audit/using-audit-sum-tool.html["${post_edited_translations.segment}"^].
+NOTE: Los códigos de auditoría se eliminan del producto y de la documentación a medida que las funciones quedan obsoletas. Si encuentras un código de auditoría que no aparece en esta lista, consulta las versiones anteriores de este tema para versiones anteriores de StorageGRID. Por ejemplo, https://docs.netapp.com/us-en/storagegrid-118/audit/using-audit-sum-tool.html["StorageGRID 11.8 Uso de la herramienta de suma de auditoría"^].
 
 [cols="14,43,43"]
 |===
 | Código | Descripción | Consulta 
 
 
-| IDEL | ${post_edited_translations.segment} | link:idel-ilm-initiated-delete.html["IDEL: eliminación iniciada por ILM"] 
+| IDEL | Eliminación iniciada por ILM: registra cuando ILM inicia el proceso de eliminar un objeto. | link:idel-ilm-initiated-delete.html["IDEL: eliminación iniciada por ILM"] 
 
 
-| SDEL | ${post_edited_translations.segment} | link:sdel-s3-delete.html["${post_edited_translations.segment}"] 
+| SDEL | S3 DELETE: Registra una transacción realizada con éxito para eliminar un objeto o un bucket. | link:sdel-s3-delete.html["SDEL: S3 DELETE"] 
 
 
-| SGET | ${post_edited_translations.segment} | link:sget-s3-get.html["SGET: S3 GET"] 
+| SGET | S3 GET: Registra una transacción realizada con éxito para recuperar un objeto o mostrar la lista de objetos en un bucket. | link:sget-s3-get.html["SGET: S3 GET"] 
 
 
-| SHEA | S3 HEAD: Registra una transacción exitosa para comprobar la existencia de un objeto o bucket. | link:shea-s3-head.html["${post_edited_translations.segment}"] 
+| SHEA | S3 HEAD: Registra una transacción exitosa para comprobar la existencia de un objeto o bucket. | link:shea-s3-head.html["SHEA: S3 HEAD"] 
 
 
-| SPUT | ${post_edited_translations.segment} | link:sput-s3-put.html["SPUT: S3 PUT"] 
+| SPUT | S3 PUT: Registra una transacción realizada con éxito para crear un nuevo objeto o bucket. | link:sput-s3-put.html["SPUT: S3 PUT"] 
 |===
 La herramienta  `audit-sum` puede hacer lo siguiente:
 
@@ -190,7 +190,7 @@ En este ejemplo de resultados, puedes ver que las tres solicitudes GET de S3 má
 +
 En este ejemplo, el tamaño medio de objeto para SPUT es inferior a 2,5 MB, pero el tamaño medio para SGET es mucho mayor. El número de mensajes SPUT es mucho mayor que el número de mensajes SGET, lo que indica que la mayoría de los objetos nunca se recuperan.
 
-. ${post_edited_translations.segment}
+. Si quieres saber si ayer las recuperaciones fueron lentas:
 +
 .. Ejecuta el comando en el registro de auditoría correspondiente y utiliza la opción group-by-time (`-gt`), seguida del intervalo de tiempo (por ejemplo, 15M, 1H, 10S):
 +
@@ -236,9 +236,9 @@ Estos resultados muestran que el tráfico GET de S3 alcanzó un pico entre las 0
   2019-09-05T09           27591        0.689        1481.867           1.354
 ----
 +
-${post_edited_translations.segment}
+Estos resultados indican que se produjeron algunas recuperaciones muy grandes cuando el tráfico global de recuperaciones estaba en su punto máximo.
 
-.. Para ver más detalles, usa el link:using-audit-explain-tool.html["${post_edited_translations.segment}"] para revisar todas las operaciones SGET durante esa hora:
+.. Para ver más detalles, usa el link:using-audit-explain-tool.html["herramienta audit-explain"] para revisar todas las operaciones SGET durante esa hora:
 +
 `grep 2019-09-05T06 audit.log | grep SGET | audit-explain | less`
 

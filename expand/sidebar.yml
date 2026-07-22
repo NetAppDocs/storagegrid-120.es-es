@@ -22,31 +22,31 @@ entries:
     url: "/expand/adding-metadata-capacity.html"
   - title: Directrices para añadir nodos a la grid
     url: "/expand/adding-grid-nodes-to-add-capabilities.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Instrucciones para añadir un nuevo sitio
     url: "/expand/adding-new-site.html"
-- title: "${post_edited_translations.segment}"
+- title: Prepárate para la expansión
   url: "/expand/gather-required-materials.html"
 - title: Agregar nodos de grid o sitio
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Resumen del flujo de trabajo
     url: "/expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Agregar o actualizar subredes en la red Grid
     url: "/expand/updating-subnets-for-grid-network.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Implementar nuevos nodos de la red
     url: "/expand/deploying-new-grid-nodes.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Realizar la expansión
     url: "/expand/performing-expansion.html"
 - title: Agregar volúmenes de almacenamiento
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Agrega volúmenes de almacenamiento a los nodos de almacenamiento
     url: "/expand/adding-storage-volumes-to-storage-nodes.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Agrega volúmenes de almacenamiento para VMware
     url: "/expand/vmware-adding-storage-volumes-to-storage-node.html"
   - title: Agrega volúmenes directos o SAN para Linux
     url: "/expand/linux-adding-direct-attached-or-san-volumes-to-storage-node.html"
-- title: "${post_edited_translations.segment}"
+- title: Configura el sistema ampliado
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Configura los nodos y sitios recién añadidos
     url: "/expand/configuring-expanded-storagegrid-system.html"
   - title: Comprueba que los nodos de almacenamiento estén activos
     url: "/expand/verifying-storage-node-is-active.html"
@@ -58,5 +58,5 @@ entries:
     url: "/expand/copying-audit-logs.html"
   - title: Reequilibrar los datos con código de borrado
     url: "/expand/rebalancing-erasure-coded-data-after-adding-storage-nodes.html"
-- title: "${post_edited_translations.segment}"
+- title: Solucionar errores de expansión
   url: "/expand/contacting-technical-support.html"

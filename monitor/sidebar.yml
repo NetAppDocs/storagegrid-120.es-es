@@ -110,7 +110,7 @@ entries:
     url: "/monitor/access-snmp-mib.html"
 - title: Recopila datos adicionales de StorageGRID
   entries:
-  - title: "${post_edited_translations.segment}"
+  - title: Supervisa el rendimiento de las operaciones PUT y GET
     url: "/monitor/monitoring-put-and-get-performance.html"
   - title: Supervisar las operaciones de verificación de objetos
     url: "/monitor/monitoring-object-verification-operations.html"

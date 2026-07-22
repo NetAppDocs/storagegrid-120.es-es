@@ -2,7 +2,7 @@
 permalink: tenant/testing-connection-for-platform-services-endpoint.html 
 sidebar: sidebar 
 keywords: how to test platform services endpoint connection 
-summary: ${post_edited_translations.segment} 
+summary: Si la conexión a un servicio de la plataforma ha cambiado, puedes probar la conexión del endpoint para validar que el recurso de destino existe y que se puede acceder a él usando las credenciales que especificaste. 
 ---
 = Prueba la conexión para un endpoint de servicios de plataforma StorageGRID
 :allow-uri-read: 
@@ -11,11 +11,11 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Si la conexión a un servicio de la plataforma ha cambiado, puedes probar la conexión del endpoint para validar que el recurso de destino existe y que se puede acceder a él usando las credenciales que especificaste.
 
 .Antes de empezar
 * Has iniciado sesión en el Tenant Manager con un link:../admin/web-browser-requirements.html["navegador web compatible"].
-* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["${post_edited_translations.segment}"].
+* Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona endpoints o permisos de acceso de usuario raíz"].
 
 
 .Acerca de esta tarea

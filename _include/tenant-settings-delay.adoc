@@ -3,4 +3,4 @@
 
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Aplicar la configuración de los inquilinos en toda la grid podría tardar 15 minutos o más, según la conectividad de red, el estado de los nodos y las operaciones de Cassandra.

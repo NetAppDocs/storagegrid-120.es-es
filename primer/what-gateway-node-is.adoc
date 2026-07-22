@@ -17,7 +17,7 @@ El servicio StorageGRID Load Balancer se ofrece en todos los nodos de administra
 
 Configuras uno o varios puntos finales del equilibrador de carga para definir el puerto y el protocolo de red (HTTPS o HTTP) que las solicitudes entrantes y salientes de los clientes usarán para acceder a los servicios del equilibrador de carga en los nodos Gateway y Admin. El punto final del equilibrador de carga también define el tipo de cliente (S3), el modo de enlace y, opcionalmente, una lista de tenants permitidos o bloqueados. Consulta link:../admin/managing-load-balancing.html["Aspectos a tener en cuenta para el equilibrio de carga"].
 
-Si lo necesitas, puedes agrupar las interfaces de red de varios Gateway Nodes y Admin Nodes en un grupo de alta disponibilidad (HA). Si la interfaz activa del grupo HA falla, una interfaz de respaldo puede gestionar la carga de trabajo de la aplicación cliente. Consulta link:../admin/managing-high-availability-groups.html["${post_edited_translations.segment}"].
+Si lo necesitas, puedes agrupar las interfaces de red de varios Gateway Nodes y Admin Nodes en un grupo de alta disponibilidad (HA). Si la interfaz activa del grupo HA falla, una interfaz de respaldo puede gestionar la carga de trabajo de la aplicación cliente. Consulta link:../admin/managing-high-availability-groups.html["Administra grupos de alta disponibilidad (HA)"].
 
 
 

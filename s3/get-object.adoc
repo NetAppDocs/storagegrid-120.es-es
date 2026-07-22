@@ -155,13 +155,13 @@ Si usas link:../admin/grid-federation-overview.html["federación de grid"] y lin
 
 [cols="1a,2a"]
 |===
-| ${post_edited_translations.segment} | Estado de la replicación 
+| Grid | Estado de la replicación 
 
 
  a| 
 Fuente
  a| 
-* ${post_edited_translations.segment}
+* *FINALIZADO*: La replicación se realizó con éxito.
 * *PENDIENTE*: El objeto aún no se ha replicado.
 * *ERROR*: La replicación falló debido a un error permanente. Un usuario debe solucionar el error.
 

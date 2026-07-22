@@ -18,7 +18,7 @@ Hay dos procesos de verificación: la verificación en segundo plano y la compro
 
 
 [[what-is-background-verification]]
-== ${post_edited_translations.segment}
+== ¿Qué es la verificación de antecedentes?
 
 El proceso de verificación de fondo comprueba de forma automática y continua los nodos de almacenamiento en busca de copias dañadas de los datos de los objetos e intenta reparar automáticamente cualquier problema que detecte.
 
@@ -43,7 +43,7 @@ La verificación en segundo plano se ejecuta a un ritmo continuo diseñado para 
 [[alerts-related-to-background-verification]]
 == Alertas relacionadas con la verificación en segundo plano
 
-${post_edited_translations.segment}
+Si el sistema detecta un objeto dañado que no puede corregir automáticamente (porque el daño impide identificar el objeto), se activa la alerta *Unidentified corrupt object detected*.
 
 Si la verificación en segundo plano no puede sustituir un objeto dañado porque no encuentra otra copia, se activa la alerta *Objetos potencialmente perdidos*.
 
@@ -54,7 +54,7 @@ Si la verificación en segundo plano no puede sustituir un objeto dañado porque
 
 La comprobación de existencia de objetos verifica si todas las copias replicadas esperadas de los objetos y los fragmentos con codificación de borrado existen en un nodo de almacenamiento. La comprobación de existencia de objetos no verifica los datos del objeto en sí (de eso se encarga la verificación en segundo plano); en su lugar, proporciona una forma de verificar la integridad de los dispositivos de almacenamiento, especialmente si un problema de hardware reciente pudiera haber afectado a la integridad de los datos.
 
-${post_edited_translations.segment}
+A diferencia de la verificación en segundo plano, que ocurre automáticamente, debes iniciar manualmente una tarea de comprobación de la existencia de un objeto.
 
 La comprobación de la existencia de objetos lee los metadatos de cada objeto almacenado en StorageGRID y verifica la existencia tanto de las copias replicadas de los objetos como de los fragmentos de objetos con código de borrado. Los datos que falten se gestionan de la siguiente manera:
 
@@ -65,7 +65,7 @@ La comprobación de la existencia de objetos lee los metadatos de cada objeto al
 
 
 [[run-object-existence-check]]
-== ${post_edited_translations.segment}
+== Ejecuta la comprobación de existencia del objeto
 
 Creas y ejecutas un solo trabajo de comprobación de existencia de objetos a la vez. Cuando creas un trabajo, seleccionas los nodos de almacenamiento y los volúmenes que quieres verificar. También seleccionas la consistencia para el trabajo.
 
@@ -73,19 +73,19 @@ Creas y ejecutas un solo trabajo de comprobación de existencia de objetos a la 
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
 * Tienes el link:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso de usuario raíz"].
 * Te has asegurado de que los Storage Nodes que quieres comprobar estén en línea. Selecciona *Nodes* para ver la tabla de nodos. Asegúrate de que no aparezca ningún icono de alerta junto al nombre de nodo de los nodos que quieres comprobar.
-* ${post_edited_translations.segment}
+* Te has asegurado de que los siguientes procedimientos *no* se estén ejecutando en los nodos que deseas comprobar:
 +
 ** Ampliación de la red para añadir un nodo de almacenamiento
 ** Decomisionar Storage Node
-** ${post_edited_translations.segment}
+** Recuperación de un volumen de almacenamiento con error
 ** Recuperación de un nodo de almacenamiento con una unidad del sistema con error
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Reequilibrio de EC
+** Clon de nodo de appliance
 
 
 
 
-${post_edited_translations.segment}
+La comprobación de la existencia de un objeto no proporciona información útil mientras estos procedimientos están en curso.
 
 .Acerca de esta tarea
 Un trabajo de comprobación de existencia de objetos puede tardar días o semanas en completarse, según el número de objetos del grid, los nodos de almacenamiento y volúmenes seleccionados, y la consistencia seleccionada. Solo puedes ejecutar un trabajo a la vez, pero puedes seleccionar varios nodos de almacenamiento y volúmenes al mismo tiempo.
@@ -95,10 +95,10 @@ Un trabajo de comprobación de existencia de objetos puede tardar días o semana
 . Selecciona *Crear trabajo*. Aparece el asistente Crear un trabajo de comprobación de existencia de objeto.
 . Selecciona los nodos que contienen los volúmenes que quieres verificar. Para seleccionar todos los nodos en línea, selecciona la casilla de verificación *Nombre de nodo* en el encabezado de la columna.
 +
-${post_edited_translations.segment}
+Puedes buscar por nombre de nodo o sitio.
 
 +
-${post_edited_translations.segment}
+No puedes seleccionar nodos que no estén conectados a la grid.
 
 . Selecciona *Continuar*.
 . Selecciona uno o más volúmenes para cada nodo de la lista. Puedes buscar volúmenes usando el número de volumen de almacenamiento o el nombre de nodo.
@@ -106,14 +106,14 @@ ${post_edited_translations.segment}
 Para seleccionar todos los volúmenes de cada nodo que seleccionaste, marca la casilla *Storage volume* en el encabezado de la columna.
 
 . Selecciona *Continuar*.
-. ${post_edited_translations.segment}
+. Selecciona la consistencia para el trabajo.
 +
-${post_edited_translations.segment}
+La consistencia determina cuántas copias de los metadatos del objeto se utilizan para la comprobación de la existencia del objeto.
 
 +
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** *Sitio principal*: Dos copias de metadatos en un único sitio.
+** *Strong-global*: Dos copias de metadatos en cada sitio.
+** *Todas* (por defecto): las tres copias de los metadatos en cada sitio.
 +
 Para obtener más información sobre la coherencia, consulta las descripciones que aparecen en el asistente.
 

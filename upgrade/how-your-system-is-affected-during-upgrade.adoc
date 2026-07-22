@@ -100,7 +100,7 @@ NOTE: Esta lista se aplica específicamente a las actualizaciones de StorageGRID
 
 Hasta que finalice la tarea *Habilitar nueva función*:
 
-* ${post_edited_translations.segment}
+* No realices ningún cambio en la configuración de grid.
 * No actives ni desactives ninguna función nueva.
 * No actualices la configuración de ILM. De lo contrario, podrías encontrarte con un comportamiento inconsistente e inesperado de ILM.
 * No apliques una corrección urgente ni recuperes un nodo de grid.
@@ -108,7 +108,7 @@ Hasta que finalice la tarea *Habilitar nueva función*:
 
 NOTE: Ponte en contacto con el soporte técnico si necesitas recuperar un nodo durante la actualización.
 
-* ${post_edited_translations.segment}
+* No debes gestionar grupos de alta disponibilidad, interfaces VLAN ni puntos finales del equilibrador de carga mientras actualizas a StorageGRID 12.0.
 * No elimines ningún grupo de HA hasta que se complete la actualización a StorageGRID 12.0. Las direcciones IP virtuales de otros grupos de HA podrían quedar inaccesibles.
 
 

@@ -68,6 +68,6 @@ NOTE: Al crear un grupo de almacenamiento en la nube, StorageGRID escribe un arc
 .Pasos
 . Selecciona *ILM* > *Storage pools* > *Cloud Storage Pools*.
 . Si la columna «Uso de ILM» indica que no se está utilizando Cloud Storage Pool, marca la casilla.
-. ${post_edited_translations.segment}
+. Selecciona *Acciones* > *Eliminar*.
 . Selecciona *Aceptar*.
 

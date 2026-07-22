@@ -19,7 +19,7 @@ Este mensaje se genera cuando StorageGRID elimina un objeto sobrescrito que ante
 
 
  a| 
-${post_edited_translations.segment}
+CSIZ
  a| 
 Tamaño del contenido
  a| 
@@ -28,7 +28,7 @@ El tamaño del objeto en bytes.
 
 
  a| 
-${post_edited_translations.segment}
+LTYP
  a| 
 Tipo de limpieza
  a| 
@@ -37,11 +37,11 @@ _Solo para uso interno._
 
 
  a| 
-${post_edited_translations.segment}
+LUID
  a| 
-${post_edited_translations.segment}
+UUID del objeto eliminado
  a| 
-${post_edited_translations.segment}
+El identificador del objeto que se eliminó.
 
 
 
@@ -50,7 +50,7 @@ RUTA
  a| 
 Depósito/clave de S3
  a| 
-${post_edited_translations.segment}
+El nombre del bucket de S3 y el nombre de la clave de S3.
 
 
 

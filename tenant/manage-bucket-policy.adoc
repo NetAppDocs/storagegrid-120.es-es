@@ -34,4 +34,4 @@ Cada política de bucket tiene un límite de tamaño de 20,480 bytes.
 
 
 
-Para obtener información detallada sobre las políticas de buckets, incluida la sintaxis del lenguaje y ejemplos, consulta link:../s3/example-bucket-policies.html["${post_edited_translations.segment}"].
+Para obtener información detallada sobre las políticas de buckets, incluida la sintaxis del lenguaje y ejemplos, consulta link:../s3/example-bucket-policies.html["Ejemplos de políticas de bucket"].

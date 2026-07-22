@@ -20,7 +20,7 @@ NOTE: «Linux» hace referencia a una instalación de RHEL, Ubuntu o Debian. Par
 ====
 .Linux
 --
-${post_edited_translations.segment}
+Los siguientes archivos de registro de instalación están disponibles en el contenedor que está ejecutando cada nodo:
 
 * `/var/local/log/install.log` (se encuentra en todos los nodos del grid)
 * `/var/local/log/gdu-server.log` (se encuentra en el Admin Node primario)
@@ -43,34 +43,34 @@ A continuación se indican los principales archivos de registro de la instalaci�
 * `/var/local/log/gdu-server.log` (se encuentra en el Admin Node primario)
 
 
-${post_edited_translations.segment}
+*Es necesario ajustar la reserva de recursos de la máquina virtual*
 
 Los archivos OVF incluyen una reserva de recursos diseñada para garantizar que cada nodo de grid tenga suficiente RAM y CPU para funcionar de manera eficiente. Si creas máquinas virtuales al implementar estos archivos OVF en VMware y no está disponible la cantidad predefinida de recursos, las máquinas virtuales no se iniciarán.
 
 .Acerca de esta tarea
-${post_edited_translations.segment}
+Si estás seguro de que el host de la máquina virtual tiene recursos suficientes para cada nodo de grid, ajusta manualmente los recursos asignados a cada máquina virtual y luego intenta iniciar las máquinas virtuales.
 
 .Pasos
 . En el árbol de clientes del hipervisor de VMware vSphere, selecciona la máquina virtual que no está iniciada.
 . Haz clic con el botón derecho del ratón en la máquina virtual y selecciona *Editar configuración*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. En la ventana Propiedades de la máquina virtual, selecciona la pestaña *Recursos*.
+. Ajusta los recursos asignados a la máquina virtual:
 +
 .. Selecciona *CPU* y luego usa el control deslizante de Reserva para ajustar los MHz reservados para esta máquina virtual.
-.. ${post_edited_translations.segment}
+.. Selecciona *Memoria* y luego usa el control deslizante de Reserva para ajustar los MB reservados para esta máquina virtual.
 
 
 . Haz clic en *OK*.
-. ${post_edited_translations.segment}
+. Repite este proceso tantas veces como sea necesario para las demás máquinas virtuales alojadas en el mismo host de VM.
 
 
-${post_edited_translations.segment}
+*Se ha desactivado la contraseña de instalación temporal*
 
 Al implementar un nodo de VMware, puedes especificar, si lo deseas, una contraseña de instalación temporal. Necesitas esta contraseña para acceder a la consola de la VM o usar SSH antes de que el nuevo nodo se una al grid.
 
-${post_edited_translations.segment}
+Si has optado por desactivar la contraseña temporal de instalación, debes realizar pasos adicionales para depurar problemas de instalación.
 
-${post_edited_translations.segment}
+Puedes hacer cualquiera de las siguientes cosas:
 
 * Vuelve a implementar la máquina virtual, pero especifica una contraseña de instalación temporal para que puedas acceder a la consola o usar SSH para depurar problemas de instalación.
 * Usa vCenter para establecer la contraseña:
@@ -87,10 +87,10 @@ ${post_edited_translations.segment}
 .. Establece la contraseña temporal:
 +
 *** Cambia *CUSTOM_TEMPORARY_PASSWORD* por un valor de contraseña personalizado.
-*** ${post_edited_translations.segment}
+*** Actualiza *TEMPORARY_PASSWORD_TYPE* con el valor *Use node name*.
 
 
-.. ${post_edited_translations.segment}
+.. Reinicia la máquina virtual para aplicar la nueva contraseña.
 
 
 
@@ -99,6 +99,6 @@ ${post_edited_translations.segment}
 ====
 .Información relacionada
 * Para saber cómo acceder a los archivos de registro, consulta link:../monitor/logs-files-reference.html["Referencia de los archivos de registro"].
-* link:../troubleshoot/index.html["${post_edited_translations.segment}"]
+* link:../troubleshoot/index.html["Soluciona problemas en un sistema StorageGRID"]
 * Si necesitas más ayuda, ponte en contacto con https://mysupport.netapp.com/site/global/dashboard["Soporte de NetApp"^].
 

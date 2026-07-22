@@ -13,19 +13,19 @@ indexpage:
     links:
     - title: Gestionar el panel de control
       url: "../monitor/viewing-dashboard.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Ver la página Nodos
       url: "../monitor/viewing-nodes-page.html"
     - title: Supervisa el estado del sistema
       url: "../monitor/monitoring-system-health.html"
     - title: Supervisa la capacidad de almacenamiento
       url: "../monitor/monitoring-storage-capacity.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Gestiona alertas y notificaciones
     links:
     - title: Gestiona alertas
       url: "../monitor/managing-alerts.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Crear alertas personalizadas
       url: "../monitor/creating-custom-alert-rules.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Gestiona los correos electrónicos de alerta
       url: "../monitor/email-alert-notifications.html"
     - title: Usa la supervisión SNMP
       url: "../monitor/using-snmp-monitoring.html"
@@ -39,7 +39,7 @@ indexpage:
       url: "../audit/index.html"
     - title: Referencia de los archivos de registro
       url: "../monitor/logs-files-reference.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Diagnosticar y solucionar problemas
     links:
     - title: Revisar las métricas de soporte
       url: "../monitor/reviewing-support-metrics.html"

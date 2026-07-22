@@ -2,7 +2,7 @@
 permalink: admin/changing-browser-session-timeout-interface.html 
 sidebar: sidebar 
 keywords: security, browser inactivity timeout, management API stack track 
-summary: ${post_edited_translations.segment} 
+summary: La configuración de seguridad de la interfaz te permite controlar si se cierra la sesión de los usuarios cuando permanecen inactivos durante más del tiempo especificado y si se incluye un seguimiento de la pila en las respuestas de error de la API. 
 ---
 = Cambiar la configuración de seguridad de la interfaz StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+La configuración de seguridad de la interfaz te permite controlar si se cierra la sesión de los usuarios cuando permanecen inactivos durante más del tiempo especificado y si se incluye un seguimiento de la pila en las respuestas de error de la API.
 
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].

@@ -22,7 +22,7 @@ Las restricciones relativas a los nombres de los buckets se ajustan a las de la 
 Para obtener más información, consulta lo siguiente:
 
 * https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html["Guía del usuario de Amazon Simple Storage Service: cuotas, restricciones y limitaciones de los buckets"^]
-* link:../admin/configuring-s3-api-endpoint-domain-names.html["${post_edited_translations.segment}"]
+* link:../admin/configuring-s3-api-endpoint-domain-names.html["Configura los nombres de dominio de los endpoints S3"]
 
 
 Las operaciones ListObjects (GET Bucket) y ListObjectVersions (GET Bucket object versions) son compatibles con StorageGRID link:consistency.html["valores de consistencia"].

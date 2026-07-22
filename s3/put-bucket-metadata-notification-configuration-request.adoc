@@ -148,7 +148,7 @@ Sí
 
 
 [[request-examples]]
-== ${post_edited_translations.segment}
+== Ejemplos de solicitudes
 
 Este ejemplo muestra cómo habilitar la integración de búsqueda para un bucket. En este ejemplo, los metadatos de objeto de todos los objetos se envían al mismo destino.
 
@@ -230,7 +230,7 @@ Este ejemplo muestra un ejemplo del JSON que se podría generar cuando se crea u
 [[object-metadata-included-in-metadata-notifications]]
 == Metadatos de objetos incluidos en notificaciones de metadatos
 
-${post_edited_translations.segment}
+La tabla recoge todos los campos que se incluyen en el documento JSON que se envía al endpoint de destino cuando se habilita la integración de búsqueda.
 
 El nombre del documento incluye el nombre del bucket, el nombre del objeto y el ID de versión, si lo hay.
 
@@ -289,7 +289,7 @@ Metadatos del sistema
  a| 
 md5
  a| 
-${post_edited_translations.segment}
+Hash del objeto
 
 
 
@@ -304,7 +304,7 @@ Todos los metadatos de usuario del objeto, en forma de pares clave-valor
 
 
  a| 
-${post_edited_translations.segment}
+Etiquetas
  a| 
 etiquetas
 `_key:value_`

@@ -21,7 +21,7 @@ Antes de instalar StorageGRID, recopila y prepara la información y los material
 Plan de red:: A qué redes piensas conectar cada nodo de StorageGRID. StorageGRID admite varias redes para la separación del tráfico, la seguridad y la comodidad administrativa.
 +
 --
-Consulta la guía de referencia de StorageGRID link:../network/index.html["${post_edited_translations.segment}"].
+Consulta la guía de referencia de StorageGRID link:../network/index.html["Directrices de redes"].
 
 --
 Información de red:: Direcciones IP que se deben asignar a cada nodo de grid y las direcciones IP de los servidores DNS y NTP.
@@ -48,14 +48,14 @@ NetApp licencia de StorageGRID:: Debes tener una licencia válida y firmada digi
 NOTE: Se incluye una licencia no destinada a producción, que puedes usar para grids de pruebas y de prueba de concepto, en el archivo de instalación de StorageGRID.
 
 Archivo de instalación de StorageGRID:: link:downloading-and-extracting-storagegrid-installation-files.html["Descarga el archivo de instalación de StorageGRID y extrae los archivos"].
-${post_edited_translations.segment}:: El sistema StorageGRID se instala mediante un ordenador portátil de servicio.
+Portátil de servicio:: El sistema StorageGRID se instala mediante un ordenador portátil de servicio.
 +
 --
 El portátil de servicio debe tener:
 
 * Puerto de red
-* ${post_edited_translations.segment}
-* link:../admin/web-browser-requirements.html["${post_edited_translations.segment}"]
+* Cliente SSH (por ejemplo, PuTTY)
+* link:../admin/web-browser-requirements.html["Navegador web compatible"]
 
 
 --

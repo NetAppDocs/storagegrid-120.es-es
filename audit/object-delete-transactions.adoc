@@ -2,7 +2,7 @@
 permalink: audit/object-delete-transactions.html 
 sidebar: sidebar 
 keywords: object delete transaction, S3 delete, SDEL, WDEL 
-summary: ${post_edited_translations.segment} 
+summary: Puedes identificar las transacciones de eliminación de objetos en el registro de auditoría buscando los mensajes de auditoría específicos de la API de S3. 
 ---
 = Mensajes de auditoría para transacciones de eliminación de objetos en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Puedes identificar las transacciones de eliminación de objetos en el registro de auditoría buscando los mensajes de auditoría específicos de la API de S3.
 
 No todos los mensajes de auditoría generados durante una transacción de eliminación aparecen en las tablas siguientes. Solo se incluyen los mensajes necesarios para realizar el seguimiento de la transacción de eliminación.
 
@@ -22,7 +22,7 @@ No todos los mensajes de auditoría generados durante una transacción de elimin
 
 [cols="1a,1a,2a,1a,2a"]
 |===
-| Código | Nombre | Descripción | ${post_edited_translations.segment} | Ver 
+| Código | Nombre | Descripción | Traza | Ver 
 
 
  a| 
@@ -34,7 +34,7 @@ Solicitud para eliminar el objeto de un bucket.
  a| 
 CBID, S3KY
  a| 
-link:sdel-s3-delete.html["${post_edited_translations.segment}"]
+link:sdel-s3-delete.html["SDEL: S3 DELETE"]
 
 |===
 

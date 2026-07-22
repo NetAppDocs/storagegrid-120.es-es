@@ -2,14 +2,14 @@
 section: troubleshoot
 title: Soluciona problemas del sistema StorageGRID
 entries:
-- title: "${post_edited_translations.segment}"
+- title: Pautas para la resolución de problemas
   pdf-filename: Soluciona problemas del sistema StorageGRID
   url: "/troubleshoot/index.html"
 - title: Soluciona problemas de objetos y almacenamiento
   entries:
   - title: Confirma las ubicaciones de los datos de los objetos
     url: "/troubleshoot/confirming-object-data-locations.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Fallos en el almacén de objetos
     url: "/troubleshoot/object-store-storage-volume-failures.html"
   - title: Verifica la integridad del objeto
     url: "/troubleshoot/verifying-object-integrity.html"
@@ -23,19 +23,20 @@ entries:
       url: "/troubleshoot/troubleshooting-lost-and-missing-object-data.html"
     - title: Investiga los objetos que puedan haberse perdido
       url: "/troubleshoot/investigating-potentially-lost-objects.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Soluciona la alerta de «Almacenamiento de datos de objetos insuficiente»
     url: "/troubleshoot/troubleshooting-low-object-data-storage-alert.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Soluciona problemas con las alertas de anulación de la marca de agua baja
+      de solo lectura
     url: "/troubleshoot/troubleshoot-low-watermark-alert.html"
-- title: "${post_edited_translations.segment}"
+- title: Soluciona problemas de metadatos
   url: "/troubleshoot/troubleshooting-metadata-issues.html"
-- title: "${post_edited_translations.segment}"
+- title: Solucionar errores de certificados
   url: "/troubleshoot/troubleshooting-certificate-errors.html"
 - title: Soluciona problemas del nodo de administración y la interfaz de usuario
   url: "/troubleshoot/troubleshooting-admin-node-and-user-interface-issues.html"
 - title: Soluciona problemas de red, hardware y plataforma
   url: "/troubleshoot/troubleshooting-network-hardware-and-platform-issues.html"
-- title: "${post_edited_translations.segment}"
+- title: Soluciona problemas del servidor syslog externo
   url: "/troubleshoot/troubleshooting-syslog-server.html"
 - title: Soluciona problemas relacionados con el almacenamiento en caché del equilibrador
     de carga

@@ -41,7 +41,7 @@ Para obtener más información sobre el certificado del servidor de un endpoint 
 
 
 [[add-certificate-to-ontap]]
-=== ${post_edited_translations.segment}
+=== Agregar certificado a ONTAP
 
 Cuando añades StorageGRID como nivel de nube de FabricPool, debes instalar el mismo certificado en el clúster ONTAP, incluidos el certificado raíz y cualquier certificado de autoridad de certificación (CA) subordinada.
 

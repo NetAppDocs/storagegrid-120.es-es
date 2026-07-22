@@ -78,7 +78,7 @@ Para los procedimientos de mantenimiento, el nodo de administración principal d
  a| 
 TCP
  a| 
-${post_edited_translations.segment}
+Dispositivos
  a| 
 Nodo de administración principal
  a| 

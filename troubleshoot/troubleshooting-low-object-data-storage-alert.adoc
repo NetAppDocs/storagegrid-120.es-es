@@ -2,7 +2,7 @@
 permalink: troubleshoot/troubleshooting-low-object-data-storage-alert.html 
 sidebar: sidebar 
 keywords: how to troubleshoot the Low object data storage alert 
-summary: ${post_edited_translations.segment} 
+summary: La alerta de «Espacio de almacenamiento de datos de objetos insuficiente» supervisa el espacio disponible para almacenar datos de objetos en cada Storage Node. 
 ---
 = Resuelve la alerta de bajo almacenamiento de datos de objetos en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+La alerta *Espacio de almacenamiento de datos de objetos insuficiente* supervisa cuánto espacio hay disponible para almacenar datos de objetos en cada Storage Node.
 
 .Antes de empezar
 * Has iniciado sesión en Grid Manager mediante un link:../admin/web-browser-requirements.html["navegador web compatible"].
@@ -19,27 +19,27 @@ ${post_edited_translations.segment}
 
 
 .Acerca de esta tarea
-${post_edited_translations.segment}
+La alerta *Bajo nivel de almacenamiento de datos de objetos* se activa cuando la cantidad total de datos de objetos replicados y con código de borrado en un nodo de almacenamiento cumple una de las condiciones configuradas en la regla de alerta.
 
-${post_edited_translations.segment}
+Por defecto, se activa una alerta grave cuando esta condición se cumple:
 
 [listing]
 ----
 (storagegrid_storage_utilization_data_bytes/
 (storagegrid_storage_utilization_data_bytes + storagegrid_storage_utilization_usable_space_bytes)) >=0.90
 ----
-${post_edited_translations.segment}
+En esta situación:
 
 * `storagegrid_storage_utilization_data_bytes` es una estimación del tamaño total de los datos de objetos replicados y codificados con código de borrado para un Storage Node.
 * `storagegrid_storage_utilization_usable_space_bytes` es la cantidad total de espacio de almacenamiento de objetos que le queda a un nodo de almacenamiento.
 
 
-${post_edited_translations.segment}
+Si se activa una alerta grave o leve de *Low object data storage*, debes llevar a cabo un procedimiento de ampliación lo antes posible.
 
 .Pasos
 . Selecciona *Alertas* > *Actuales*.
 +
-${post_edited_translations.segment}
+Aparece la página Alerts.
 
 . En la tabla de alertas, despliega el grupo de alertas *Low object data storage*, si es necesario, y selecciona la alerta que quieras ver.
 +
@@ -53,7 +53,7 @@ NOTE: Selecciona la alerta, no el encabezado de un grupo de alertas.
 ** Los valores actuales de las métricas para esta alerta
 
 
-. ${post_edited_translations.segment}
+. Selecciona *Nodos* > *_Storage Node or Site_* > *Almacenamiento*.
 . Coloca el cursor sobre el gráfico Almacenamiento utilizado - datos de objetos.
 +
 Se muestran los siguientes valores:
@@ -73,7 +73,7 @@ image:nodes_page_storage_used_object_data.png["Página de nodos almacenamiento u
 +
 Analizar el uso del almacenamiento a lo largo del tiempo puede ayudarte a comprender cuánto almacenamiento se utilizó antes y después de que se activara la alerta y puede ayudarte a estimar cuánto tiempo podría tardar en llenarse el espacio restante del nodo.
 
-. En cuanto sea posible, link:../expand/guidelines-for-adding-object-capacity.html["${post_edited_translations.segment}"] a tu grid.
+. En cuanto sea posible, link:../expand/guidelines-for-adding-object-capacity.html["aumentar la capacidad de almacenamiento"] a tu grid.
 +
 Puedes añadir volúmenes de almacenamiento (LUN) a los nodos de almacenamiento existentes o puedes añadir nuevos nodos de almacenamiento.
 

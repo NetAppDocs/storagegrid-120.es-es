@@ -23,19 +23,19 @@ CAUTION: Puedes acceder a los buckets y objetos de S3 que pertenecen a un usuari
 
 .Pasos
 . Selecciona *Gestión de acceso* > *Usuarios*.
-. ${post_edited_translations.segment}
+. En la página «Usuarios», selecciona el usuario cuyas claves de acceso a S3 quieras consultar.
 . En la página «Detalles del usuario», selecciona *Access keys*.
-. ${post_edited_translations.segment}
+. Ordena las claves por *tiempo de expiración* o *ID de la clave de acceso*.
 . Según sea necesario, crea nuevas claves y elimina manualmente las claves que ya no estén en uso.
 +
-${post_edited_translations.segment}
+Si creas nuevas claves antes de que caduquen las existentes, el usuario puede empezar a usar las nuevas claves sin perder temporalmente el acceso a los objetos de la cuenta.
 
 +
-${post_edited_translations.segment}
+Las claves caducadas se eliminan automáticamente.
 
 
 
 .Información relacionada
 * link:creating-another-users-s3-access-keys.html["Crear las claves de acceso a S3 de otro usuario"]
-* link:deleting-another-users-s3-access-keys.html["${post_edited_translations.segment}"]
+* link:deleting-another-users-s3-access-keys.html["Eliminar las claves de acceso a S3 de otro usuario"]
 

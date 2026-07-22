@@ -2,7 +2,7 @@
 permalink: audit/event-specific-data.html 
 sidebar: sidebar 
 keywords: audit message, event, shea, s3 head 
-summary: ${post_edited_translations.segment} 
+summary: Cada mensaje de auditoría en el registro de auditoría recoge datos específicos de un evento del sistema. 
 ---
 = Datos específicos del evento en los mensajes de auditoría de StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Cada mensaje de auditoría en el registro de auditoría recoge datos específicos de un evento del sistema.
 
 Después del contenedor de apertura `[AUDT:` que identifica al propio mensaje, el siguiente conjunto de atributos proporciona información sobre el evento o la acción que describe el mensaje de auditoría. Estos atributos se destacan en el siguiente ejemplo:
 

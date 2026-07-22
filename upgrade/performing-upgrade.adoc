@@ -35,7 +35,7 @@ Como primer paso, accede a la página de actualización de StorageGRID en Grid M
 
 
 [[select-files]]
-== ${post_edited_translations.segment}
+== Selecciona archivos
 
 La ruta de actualización que aparece en la página «Actualización de StorageGRID» indica qué versiones principales (por ejemplo, 12.0.0) y correcciones urgentes (por ejemplo, 12.0.0.1) debes instalar para llegar a la última versión de StorageGRID. Debes instalar las versiones y correcciones urgentes recomendadas en el orden indicado.
 
@@ -63,12 +63,12 @@ Cuando se completa la subida y la verificación de la firma del código, aparece
 
 
 [[run-prechecks]]
-== ${post_edited_translations.segment}
+== Ejecuta comprobaciones previas
 
 La ejecución de comprobaciones previas te permite detectar y resolver cualquier problema de actualización antes de empezar a actualizar tu grid.
 
 .Pasos
-. ${post_edited_translations.segment}
+. En el paso *Ejecutar comprobaciones previas*, empieza introduciendo la frase de contraseña de aprovisionamiento de tu grid.
 . Selecciona *Descargar paquete de recuperación*.
 +
 Debes descargar la versión actual del archivo del paquete de recuperación antes de actualizar el nodo de administración principal. El archivo del paquete de recuperación te permite restaurar el sistema en caso de que se produzca un fallo.
@@ -206,7 +206,7 @@ Selecciona *Desaprobar todos los nodos*
  a| 
 Aplaza la actualización en todos los nodos seleccionados del mismo tipo
  a| 
-${post_edited_translations.segment}
+Selecciona el botón *Desaprobar todo* para el tipo de nodo
 
 
 
@@ -218,23 +218,23 @@ Selecciona el botón *Rechazar* para el nodo
 |===
 . Espera a que los nodos aprobados pasen por estas fases de actualización:
 +
-** ${post_edited_translations.segment}
+** Aprobado y a la espera de ser actualizado
 ** Detener servicios
 +
 
 NOTE: No puedes eliminar un nodo cuando su etapa llega a *Parada de servicios*. El botón *Rechazar* está desactivado.
 
 ** Deteniendo contenedor
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Limpieza de imágenes de Docker
+** Actualización de los paquetes base del sistema operativo
 +
 
 NOTE: Cuando un nodo del dispositivo llega a esta etapa, el software StorageGRID Appliance Installer del dispositivo se actualiza. Este proceso automatizado garantiza que la versión de StorageGRID Appliance Installer se mantenga sincronizada con la versión del software StorageGRID.
 
-** ${post_edited_translations.segment}
+** Reinicio
 +
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Es posible que algunos modelos de appliance se reinicien varias veces para actualizar el firmware y la BIOS.
 
 ** Pasos a seguir tras el reinicio
 ** Iniciando servicios

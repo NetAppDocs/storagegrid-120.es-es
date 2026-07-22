@@ -18,7 +18,7 @@ Si deseas utilizar el cifrado del lado del servidor, puedes elegir una de las do
 * *SSE (cifrado del lado del servidor con claves gestionadas por StorageGRID)*: Cuando envías una solicitud S3 para almacenar un objeto, StorageGRID cifra el objeto con una clave única. Cuando envías una solicitud S3 para recuperar el objeto, StorageGRID usa la clave almacenada para descifrar el objeto.
 * *SSE-C (cifrado del lado del servidor con claves proporcionadas por el cliente)*: al realizar una solicitud de S3 para almacenar un objeto, proporcionas tu propia clave de cifrado. Al recuperar un objeto, proporcionas la misma clave de cifrado como parte de tu solicitud. Si las dos claves de cifrado coinciden, el objeto se descifra y se devuelven los datos de tu objeto.
 +
-${post_edited_translations.segment}
+Aunque StorageGRID gestiona todas las operaciones de cifrado y descifrado de objetos, tú debes gestionar las claves de cifrado que proporciones.
 
 +
 
@@ -35,11 +35,11 @@ NOTE: Si un objeto está cifrado con SSE o SSE-C, se ignoran todas las configura
 [[use-sse]]
 == Utiliza SSE
 
-${post_edited_translations.segment}
+Para cifrar un objeto con una clave única gestionada por StorageGRID, usa el siguiente encabezado de solicitud:
 
 `x-amz-server-side-encryption`
 
-${post_edited_translations.segment}
+El encabezado de solicitud SSE es compatible con las siguientes operaciones sobre objetos:
 
 * link:put-object.html["PutObject"]
 * link:put-object-copy.html["CopyObject"]
@@ -49,7 +49,7 @@ ${post_edited_translations.segment}
 
 
 [[use-sse-c]]
-== ${post_edited_translations.segment}
+== Utiliza SSE-C
 
 Para cifrar un objeto con una clave única que gestionas tú mismo, debes utilizar tres encabezados de solicitud:
 
@@ -78,7 +78,7 @@ Especifica la clave de cifrado que se utilizará para cifrar o descifrar el obje
 Especifica el resumen MD5 de la clave de cifrado según RFC 1321, que se utiliza para garantizar que la clave de cifrado se transmitió sin errores. El valor del resumen MD5 debe ser de 128 bits codificado en base64.
 
 |===
-${post_edited_translations.segment}
+Las operaciones de objeto siguientes admiten los encabezados de solicitud SSE-C:
 
 * link:get-object.html["GetObject"]
 * link:head-object.html["HeadObject"]
@@ -96,7 +96,7 @@ ${post_edited_translations.segment}
 
 Antes de utilizar SSE-C, ten en cuenta las siguientes consideraciones:
 
-* ${post_edited_translations.segment}
+* Debes utilizar https.
 +
 
 CAUTION: StorageGRID rechaza cualquier solicitud realizada a través de http cuando se utiliza SSE-C. Por motivos de seguridad, debes considerar que cualquier clave que envíes accidentalmente mediante http está comprometida. Descarta la clave y rótala según corresponda.
@@ -104,7 +104,7 @@ CAUTION: StorageGRID rechaza cualquier solicitud realizada a través de http cua
 * El ETag de la respuesta no es el MD5 de los datos del objeto.
 * Debes gestionar la asociación de las claves de cifrado con los objetos. StorageGRID no almacena las claves de cifrado. Eres responsable de realizar el seguimiento de la clave de cifrado que proporciones para cada objeto.
 * Si tu bucket tiene habilitado el control de versiones, cada versión de objeto debería tener su propia clave de cifrado. Eres responsable de realizar el seguimiento de la clave de cifrado utilizada para cada versión de objeto.
-* ${post_edited_translations.segment}
+* Dado que gestionas las claves de cifrado en el lado del cliente, también debes gestionar cualquier medida de seguridad adicional, como la rotación de claves, en el lado del cliente.
 +
 
 CAUTION: Las claves de cifrado que facilites nunca se almacenan. Si pierdes una clave de cifrado, pierdes el objeto correspondiente.

@@ -32,7 +32,7 @@ Es probable que BYSC y BYPR sean diferentes si el objeto está comprimido. Si el
  a| 
 BYPR
  a| 
-${post_edited_translations.segment}
+Bytes procesados
  a| 
 Número de bytes procesados. Indica cuántos bytes de "Bytes Scanned" se procesaron realmente o sobre los que actuó un trabajo de S3 Select.
 
@@ -41,14 +41,14 @@ Número de bytes procesados. Indica cuántos bytes de "Bytes Scanned" se procesa
  a| 
 BYRT
  a| 
-${post_edited_translations.segment}
+Bytes devueltos
  a| 
-${post_edited_translations.segment}
+Número de bytes que un trabajo S3 Select devolvió al cliente.
 
 
 
  a| 
-${post_edited_translations.segment}
+REPR
  a| 
 Registros procesados
  a| 
@@ -57,7 +57,7 @@ Número de registros o filas que un trabajo de S3 Select ha recibido de los Stor
 
 
  a| 
-${post_edited_translations.segment}
+RERT
  a| 
 Registros devueltos
  a| 
@@ -68,7 +68,7 @@ Número de registros o filas que un trabajo de S3 Select devolvió al cliente.
  a| 
 JOFI
  a| 
-${post_edited_translations.segment}
+Trabajo finalizado
  a| 
 Indica si el trabajo de S3 Select terminó de procesarse o no. Si esto es falso, significa que el trabajo no pudo finalizar y es probable que los campos de error tengan datos. Es posible que el cliente haya recibido resultados parciales o que no haya recibido ningún resultado.
 
@@ -84,7 +84,7 @@ Identificador de la solicitud S3 Select.
 
 
  a| 
-${post_edited_translations.segment}
+EXTM
  a| 
 Tiempo de ejecución
  a| 
@@ -93,7 +93,7 @@ El tiempo, en segundos, que tardó en completarse el trabajo S3 Select.
 
 
  a| 
-${post_edited_translations.segment}
+ERMG
  a| 
 Mensaje de error
  a| 
@@ -104,18 +104,18 @@ Mensaje de error que generó el trabajo S3 Select.
  a| 
 ERTY
  a| 
-${post_edited_translations.segment}
+Tipo de error
  a| 
 Tipo de error que generó el trabajo S3 Select.
 
 
 
  a| 
-${post_edited_translations.segment}
+ERST
  a| 
 Traza de error
  a| 
-${post_edited_translations.segment}
+Traza de pila de error que generó el trabajo S3 Select.
 
 
 
@@ -131,9 +131,9 @@ El nombre del depósito de S3.
  a| 
 S3AK
  a| 
-${post_edited_translations.segment}
+ID de la clave de acceso de S3 (remitente de la solicitud)
  a| 
-${post_edited_translations.segment}
+El ID de la clave de acceso S3 del usuario que envió la solicitud.
 
 
 
@@ -151,6 +151,6 @@ S3KY
  a| 
 Clave de S3
  a| 
-${post_edited_translations.segment}
+El nombre de la clave S3, sin incluir el nombre del bucket.
 
 |===

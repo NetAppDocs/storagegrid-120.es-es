@@ -2,7 +2,7 @@
 permalink: audit/ebkr-empty-bucket-request.html 
 sidebar: sidebar 
 keywords: storagegrid, audit, message, EBKR, Empty Bucket Request 
-summary: ${post_edited_translations.segment} 
+summary: 'Este mensaje indica que un usuario envió una solicitud para activar o desactivar el bucket vacío (es decir, para eliminar los objetos del bucket o para dejar de eliminarlos).' 
 ---
 = Mensaje de auditoría EBKR para solicitudes de bucket vacíos en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Este mensaje indica que un usuario envió una solicitud para activar o desactivar el bucket vacío (es decir, para eliminar los objetos del bucket o para dejar de eliminarlos).
 
 [cols="1a,1a,4a"]
 |===
@@ -21,9 +21,9 @@ ${post_edited_translations.segment}
  a| 
 BUID
  a| 
-${post_edited_translations.segment}
+UUID del depósito
  a| 
-${post_edited_translations.segment}
+El identificador del bucket.
 
 
 
@@ -48,7 +48,7 @@ El ID de cuenta de inquilino del usuario que envió la solicitud. Un valor vací
  a| 
 S3BK
  a| 
-${post_edited_translations.segment}
+Bucket de S3
  a| 
 El nombre del depósito de S3.
 

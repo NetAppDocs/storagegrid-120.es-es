@@ -15,7 +15,7 @@ Para habilitar la replicación de CloudMirror para un bucket, creas y aplicas un
 
 .Antes de empezar
 * Los servicios de la plataforma fueron habilitados para tu cuenta de inquilino por un administrador de StorageGRID.
-* ${post_edited_translations.segment}
+* Ya has creado un bucket que servirá como origen de replicación.
 * El punto final que pretendes utilizar como destino para la replicación de CloudMirror ya existe y tienes su URN.
 * Perteneces a un grupo de usuarios que tiene el link:tenant-management-permissions.html["Gestiona todos los buckets o permiso de acceso a raíz"]. Estos permisos anulan la configuración de permisos de las políticas de grupo o de bucket al configurar el bucket mediante Tenant Manager.
 
@@ -37,9 +37,9 @@ Ten en cuenta los siguientes requisitos y características cuando configures la 
 
 
 .Pasos
-. ${post_edited_translations.segment}
+. Activa la replicación para tu depósito de origen:
 +
-** ${post_edited_translations.segment}
+** Utiliza un editor de texto para crear el archivo XML de configuración de replicación necesario para habilitar la replicación, como se especifica en la API de replicación de S3.
 ** Al configurar el XML:
 +
 *** Ten en cuenta que StorageGRID solo admite la V1 de la configuración de replicación. Esto significa que StorageGRID no admite el uso del elemento  `Filter` para las reglas y sigue las convenciones de la V1 para la eliminación de versiones de objetos. Consulta la documentación de Amazon sobre la configuración de replicación para obtener más detalles.
@@ -83,15 +83,15 @@ Aparece la página de detalles del bucket.
 
 NOTE: Un administrador de StorageGRID debe habilitar los servicios de la plataforma para cada cuenta de inquilino mediante Grid Manager o Grid Management API. Ponte en contacto con tu administrador de StorageGRID si se produce un error al guardar el archivo de configuración XML.
 
-. ${post_edited_translations.segment}
+. Comprueba que la replicación esté configurada correctamente:
 +
 .. Añade un objeto al depósito de origen que cumpla los requisitos de replicación especificados en la configuración de replicación.
 +
-${post_edited_translations.segment}
+En el ejemplo mostrado anteriormente, se replican los objetos que coinciden con el prefijo "2020".
 
 .. Comprueba que el objeto se haya replicado en el depósito de destino.
 +
-${post_edited_translations.segment}
+Para los objetos pequeños, la replicación ocurre rápidamente.
 
 
 

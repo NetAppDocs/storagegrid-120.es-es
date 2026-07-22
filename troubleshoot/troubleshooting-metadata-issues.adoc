@@ -23,17 +23,17 @@ StorageGRID reserva una cierta cantidad de espacio en el volumen 0 de cada nodo 
 
 image:metadata_allowed_space_volume_0.png["Espacio permitido para metadatos volumen 0"]
 
-${post_edited_translations.segment}
+Si los metadatos de los objetos ocupan más del 100% del espacio asignado a los metadatos, las operaciones de la base de datos no pueden ejecutarse de forma eficiente y se producirán errores.
 
 Puedes link:../monitor/monitoring-storage-capacity.html#monitor-object-metadata-capacity-for-each-storage-node["supervisar la capacidad de metadatos de los objetos para cada Storage Node"] para ayudarte a anticipar errores y corregirlos antes de que ocurran.
 
-${post_edited_translations.segment}
+StorageGRID utiliza la siguiente métrica de Prometheus para medir el nivel de ocupación del espacio de metadatos permitido:
 
 [listing]
 ----
 storagegrid_storage_utilization_metadata_bytes/storagegrid_storage_utilization_metadata_allowed_bytes
 ----
-${post_edited_translations.segment}
+Cuando esta expresión de Prometheus alcanza determinados umbrales, se activa la alerta *Low metadata storage*.
 
 * *Menor*: los metadatos de objetos están utilizando el 70 % o más del espacio de metadatos permitido. Deberías añadir nuevos Storage Nodes lo antes posible.
 * *Grave*: Los metadatos de los objetos ocupan el 90 % o más del espacio permitido para metadatos. Debes añadir nuevos Storage Nodes inmediatamente.
@@ -45,13 +45,13 @@ CAUTION: Cuando los metadatos de los objetos ocupan el 90 % o más del espacio p
 
 
 
-CAUTION: ${post_edited_translations.segment}
+CAUTION: Si el tamaño del volumen 0 es menor que la opción de almacenamiento Metadata Reserved Space (por ejemplo, en un entorno que no sea de producción), el cálculo de la alerta *Low metadata storage* podría ser inexacto.
 
 .Pasos
 . Selecciona *Alertas* > *Actuales*.
 . En la tabla de alertas, despliega el grupo de alertas *Bajo almacenamiento de metadatos*, si es necesario, y selecciona la alerta concreta que quieras ver.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Revisa los detalles en el cuadro de diálogo de alerta.
+. Si se ha activado una alerta importante o crítica de *Low metadata storage*, realiza una ampliación para añadir Storage Nodes de inmediato.
 +
 
 NOTE: Dado que StorageGRID conserva copias completas de todos los metadatos de los objetos en cada sitio, la capacidad de metadatos de toda la red viene limitada por la capacidad de metadatos del sitio más pequeño. Si necesitas aumentar la capacidad de metadatos de un sitio, también debes link:../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html["ampliar cualquier otro sitio"] en el mismo número de nodos de almacenamiento.

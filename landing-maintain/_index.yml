@@ -21,17 +21,17 @@ indexpage:
       url: "../maintain/grid-node-decommissioning.html"
     - title: Eliminar un sitio
       url: "../maintain/considerations-for-removing-site.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Procedimientos de mantenimiento adicionales
     links:
-    - title: "${post_edited_translations.segment}"
+    - title: Cambiar el nombre de una grid, un sitio o un nodo
       url: "../maintain/rename-grid-site-node-overview.html"
     - title: Procedimientos de nodo
       url: "../maintain/grid-node-procedures.html"
-    - title: "${post_edited_translations.segment}"
+    - title: Procedimientos de red
       url: "../maintain/updating-subnets-for-grid-network.html"
     - title: Procedimientos de host y middleware
       url: "../maintain/linux-migrating-grid-node-to-new-host.html"
-  - title: "${post_edited_translations.segment}"
+  - title: Mantén los dispositivos StorageGRID
     links:
     - title: Documentación de los dispositivos StorageGRID
       url: https://docs.netapp.com/us-en/storagegrid-appliances/

@@ -27,16 +27,16 @@ Puedes activar o suspender el control de versiones de objetos para un bucket. Un
 * Suspendido: la gestión de versiones estaba activada anteriormente y ahora está suspendida
 
 
-${post_edited_translations.segment}
+Para obtener más información, consulta lo siguiente:
 
-* link:../s3/object-versioning.html["${post_edited_translations.segment}"]
+* link:../s3/object-versioning.html["Control de versiones de objetos"]
 * link:../ilm/example-4-ilm-rules-and-policy-for-s3-versioned-objects.html["Normas y políticas de ILM para objetos versionados en S3 (Ejemplo 4)"]
 * link:../ilm/how-objects-are-deleted.html["Cómo se eliminan los objetos"]
 
 
 .Pasos
 . Selecciona *View buckets* desde el panel, o selecciona *STORAGE (S3)* > *Buckets*.
-. ${post_edited_translations.segment}
+. Selecciona el nombre del bucket de la tabla.
 +
 Aparece la página de detalles del bucket.
 
@@ -56,12 +56,12 @@ Habilitar el control de versiones
  a| 
 Activa el versionado de objetos si quieres almacenar cada versión de cada objeto en este bucket. Después podrás recuperar las versiones anteriores de un objeto según lo necesites.
 
-${post_edited_translations.segment}
+Los objetos que ya se encontraban en el bucket tendrán una versión cuando un usuario los modifique.
 
 
 
  a| 
-${post_edited_translations.segment}
+Suspender el control de versiones
  a| 
 Suspende el control de versiones de objetos si ya no quieres que se creen nuevas versiones de objetos. Aún puedes recuperar las versiones de objetos existentes.
 

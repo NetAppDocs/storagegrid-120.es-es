@@ -99,7 +99,7 @@ Sigue este procedimiento para añadir un certificado de cliente de administrador
 . Introduce un nombre para el certificado.
 . Para acceder a las métricas de Prometheus mediante tu herramienta de monitorización externa, selecciona *Allow prometheus*.
 . Selecciona *Continuar*.
-. ${post_edited_translations.segment}
+. En el paso *Adjuntar certificados*, sube los archivos del certificado de cliente, la clave privada y el paquete de la CA:
 +
 .. Selecciona *Cargar certificado*.
 .. Selecciona *Examinar* y elige los archivos del certificado de cliente, la clave privada y el paquete de CA (`.pem`).
@@ -110,7 +110,7 @@ Sigue este procedimiento para añadir un certificado de cliente de administrador
 
 .. Selecciona *Crear* para guardar el certificado en Grid Manager.
 +
-${post_edited_translations.segment}
+Los nuevos certificados aparecen en la pestaña Cliente.
 
 
 
@@ -130,14 +130,14 @@ Sigue este procedimiento para añadir un certificado de cliente de administrador
 . Introduce un nombre para el certificado.
 . Para acceder a las métricas de Prometheus mediante tu herramienta de monitorización externa, selecciona *Allow prometheus*.
 . Selecciona *Continuar*.
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. En el paso *Adjuntar certificados*, selecciona *Generar certificado*.
+. Indica la información del certificado:
 +
 ** *Sujeto* (opcional): sujeto X.509 o nombre distintivo (DN) del titular del certificado.
 ** *Días de validez*: el número de días durante los que el certificado generado es válido, a partir del momento en que se genera.
-** ${post_edited_translations.segment}
+** *Agregar extensiones de uso de clave*: Si seleccionas esta opción (predeterminada y recomendada), se añaden al certificado generado las extensiones de uso de clave y de uso de clave ampliado.
 +
-${post_edited_translations.segment}
+Estas extensiones definen la finalidad de la clave incluida en el certificado.
 
 +
 
@@ -153,15 +153,15 @@ TIP: No podrás ver la clave privada del certificado después de cerrar el cuadr
 
 +
 ** Selecciona *Copiar certificado PEM* para copiar el contenido del certificado y pegarlo en otro lugar.
-** ${post_edited_translations.segment}
+** Selecciona *Descargar certificado* para guardar el archivo del certificado.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
 +
 Por ejemplo: `storagegrid_certificate.pem`
 
-** ${post_edited_translations.segment}
-** ${post_edited_translations.segment}
+** Selecciona *Copiar clave privada* para copiar la clave privada del certificado y pegarla en otro lugar.
+** Selecciona *Descargar clave privada* para guardar la clave privada en un archivo.
 +
 Indica el nombre del archivo de la clave privada y la ubicación de descarga.
 
@@ -171,14 +171,14 @@ Indica el nombre del archivo de la clave privada y la ubicación de descarga.
 +
 El nuevo certificado aparece en la pestaña Cliente.
 
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. En el Grid Manager, selecciona *Configuración* > *Seguridad* > *Certificados* y luego selecciona la pestaña *Global*.
+. Selecciona *Management Interface certificate*.
 . Selecciona *Usar certificado personalizado*.
-. Sube los archivos certificate.pem y private_key.pem del paso <<client_cert_details,${post_edited_translations.segment}>>. No es necesario subir el paquete de CA.
+. Sube los archivos certificate.pem y private_key.pem del paso <<client_cert_details,Datos del certificado de cliente>>. No es necesario subir el paquete de CA.
 +
 .. Selecciona *Cargar certificado* y luego selecciona *Continuar*.
 .. Sube cada archivo de certificado (`.pem`).
-.. ${post_edited_translations.segment}
+.. Selecciona *Guardar* para guardar el certificado en Grid Manager.
 +
 El nuevo certificado aparece en la página de certificados de la interfaz de administración.
 
@@ -190,7 +190,7 @@ El nuevo certificado aparece en la página de certificados de la interfaz de adm
 
 
 [[configure-external-monitoring-toolconfigure-an-external-monitoring-tool]]
-=== ${post_edited_translations.segment}
+=== [[configure-external-monitoring-tool]]Configura una herramienta de supervisión externa
 
 .Pasos
 . Configura los siguientes ajustes en tu herramienta de monitorización externa, como Grafana.
@@ -206,7 +206,7 @@ Por ejemplo: `+https://admin-node.example.com:9091+`
 .. Activa *Autenticación de cliente TLS* y *Con certificado de CA*.
 .. En «Detalles de autenticación TLS/SSL», copia y pega: +
 +
-*** ${post_edited_translations.segment}
+*** El certificado CA de la interfaz de gestión a **CA Cert**
 *** El certificado de cliente en **Client Cert**
 *** La clave privada de **Client Key**
 
@@ -217,7 +217,7 @@ ServerName debe coincidir con el nombre de dominio tal como aparece en el certif
 
 
 
-. ${post_edited_translations.segment}
+. Guarda y prueba el certificado y la clave privada que copiaste de StorageGRID o de un archivo local.
 +
 Ahora puedes acceder a las métricas de Prometheus desde StorageGRID con tu herramienta de monitorización externa.
 
@@ -234,7 +234,7 @@ Para obtener información sobre las métricas, consulta link:../monitor/index.ht
 Puedes editar el certificado de cliente de un administrador para cambiar su nombre, habilitar o deshabilitar el acceso a Prometheus, o subir un nuevo certificado cuando el actual haya caducado.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Seguridad* > *Certificados* y luego selecciona la pestaña *Cliente*.
 +
 En la tabla se indican las fechas de caducidad de los certificados y los permisos de acceso a Prometheus. Si un certificado está a punto de caducar o ya ha caducado, aparece un mensaje en la tabla y se activa una alerta.
 
@@ -253,15 +253,15 @@ El certificado actualizado aparece en la pestaña Cliente.
 [[attach-new-client-certificate]]
 == Adjuntar nuevo certificado de cliente
 
-${post_edited_translations.segment}
+Puedes subir un nuevo certificado cuando el actual haya caducado.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Seguridad* > *Certificados* y luego selecciona la pestaña *Cliente*.
 +
 En la tabla se indican las fechas de caducidad de los certificados y los permisos de acceso a Prometheus. Si un certificado está a punto de caducar o ya ha caducado, aparece un mensaje en la tabla y se activa una alerta.
 
 . Selecciona el certificado que deseas editar.
-. ${post_edited_translations.segment}
+. Selecciona *Editar* y luego selecciona una opción de edición.
 +
 [role="tabbed-block"]
 ====
@@ -275,7 +275,7 @@ Copia el texto del certificado para pegarlo en otro sitio.
 Selecciona *Detalles del certificado de cliente* para mostrar los metadatos del certificado y el certificado PEM.
 
 +
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
@@ -297,13 +297,13 @@ El certificado actualizado aparece en la pestaña Cliente.
 Genera el texto del certificado para pegarlo en otro sitio.
 
 .. Selecciona *Generar certificado*.
-.. ${post_edited_translations.segment}
+.. Indica la información del certificado:
 +
 *** *Sujeto* (opcional): sujeto X.509 o nombre distintivo (DN) del titular del certificado.
 *** *Días de validez*: el número de días durante los que el certificado generado es válido, a partir del momento en que se genera.
-*** ${post_edited_translations.segment}
+*** *Agregar extensiones de uso de clave*: Si seleccionas esta opción (predeterminada y recomendada), se añaden al certificado generado las extensiones de uso de clave y de uso de clave ampliado.
 +
-${post_edited_translations.segment}
+Estas extensiones definen la finalidad de la clave incluida en el certificado.
 
 +
 
@@ -319,15 +319,15 @@ TIP: No podrás ver la clave privada del certificado después de cerrar el cuadr
 
 +
 *** Selecciona *Copiar certificado PEM* para copiar el contenido del certificado y pegarlo en otro lugar.
-*** ${post_edited_translations.segment}
+*** Selecciona *Descargar certificado* para guardar el archivo del certificado.
 +
 Especifica el nombre del archivo del certificado y la ubicación de descarga. Guarda el archivo con la extensión `.pem`.
 
 +
 Por ejemplo: `storagegrid_certificate.pem`
 
-*** ${post_edited_translations.segment}
-*** ${post_edited_translations.segment}
+*** Selecciona *Copiar clave privada* para copiar la clave privada del certificado y pegarla en otro lugar.
+*** Selecciona *Descargar clave privada* para guardar la clave privada en un archivo.
 +
 Indica el nombre del archivo de la clave privada y la ubicación de descarga.
 
@@ -346,18 +346,18 @@ El nuevo certificado aparece en la pestaña Cliente.
 
 
 [[download-or-copy-client-certificates]]
-== ${post_edited_translations.segment}
+== Descargar o copiar certificados de cliente
 
-${post_edited_translations.segment}
+Puedes descargar o copiar un certificado de cliente para utilizarlo en otro lugar.
 
 .Pasos
-. ${post_edited_translations.segment}
-. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Seguridad* > *Certificados* y luego selecciona la pestaña *Cliente*.
+. Selecciona el certificado que quieras copiar o descargar.
 . Descarga o copia el certificado.
 +
 [role="tabbed-block"]
 ====
-.${post_edited_translations.segment}
+.Descargar el archivo del certificado
 --
 Descarga el archivo de certificado `.pem`.
 
@@ -369,12 +369,12 @@ Por ejemplo: `storagegrid_certificate.pem`
 
 
 --
-.${post_edited_translations.segment}
+.Copiar certificado
 --
 Copia el texto del certificado para pegarlo en otro sitio.
 
-.. ${post_edited_translations.segment}
-.. ${post_edited_translations.segment}
+.. Selecciona *Copiar certificado PEM*.
+.. Pega el certificado copiado en un editor de texto.
 .. Guarda el archivo de texto con la extensión `.pem`.
 +
 Por ejemplo: `storagegrid_certificate.pem`
@@ -390,15 +390,15 @@ Por ejemplo: `storagegrid_certificate.pem`
 [[remove-client-certificates]]
 == Eliminar certificados de cliente
 
-${post_edited_translations.segment}
+Si ya no necesitas un certificado de cliente de administrador, puedes eliminarlo.
 
 .Pasos
-. ${post_edited_translations.segment}
+. Selecciona *Configuración* > *Seguridad* > *Certificados* y luego selecciona la pestaña *Cliente*.
 . Selecciona el certificado que deseas eliminar.
 . Selecciona *Eliminar* y luego confirma.
 
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Para eliminar hasta 10 certificados, selecciona cada certificado que quieras eliminar en la pestaña Cliente y luego selecciona *Acciones* > *Eliminar*.
 
 Después de que se elimina un certificado, los clientes que usaban ese certificado deben especificar un nuevo certificado de cliente para acceder a la base de datos de StorageGRID Prometheus.

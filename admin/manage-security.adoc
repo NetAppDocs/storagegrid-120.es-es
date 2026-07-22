@@ -2,7 +2,7 @@
 permalink: admin/manage-security.html 
 sidebar: sidebar 
 keywords: how to manage security 
-summary: ${post_edited_translations.segment} 
+summary: Puedes configurar diversos parámetros de seguridad desde Grid Manager para ayudar a proteger tu sistema StorageGRID. 
 ---
 = Administra la seguridad en StorageGRID
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Puedes configurar diversos parámetros de seguridad desde Grid Manager para ayudar a proteger tu sistema StorageGRID.
 
 
 
@@ -35,7 +35,7 @@ Puedes link:using-storagegrid-security-certificates.html["configurar y gestionar
 El uso de un link:kms-configuring.html["servidor de gestión de claves"] te permite proteger los datos de StorageGRID incluso si se retira un dispositivo del centro de datos. Una vez cifrados los volúmenes del dispositivo, no podrás acceder a ningún dato del mismo a menos que el nodo pueda comunicarse con el KMS.
 
 
-NOTE: ${post_edited_translations.segment}
+NOTE: Para utilizar la gestión de claves de cifrado, debes activar la opción *Cifrado de nodos* para cada appliance durante la instalación, antes de que el appliance se añada a la grid.
 
 
 

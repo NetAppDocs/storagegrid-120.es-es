@@ -2,7 +2,7 @@
 permalink: admin/networking-and-ports-for-platform-services.html 
 sidebar: sidebar 
 keywords: platform services, ports for platform services, 443, 80 
-summary: ${post_edited_translations.segment} 
+summary: Si permites que un inquilino de S3 utilice los servicios de la plataforma, debes configurar la red para garantizar que los mensajes de los servicios de la plataforma puedan entregarse a sus destinos. 
 ---
 = Red y puertos para los servicios de plataforma StorageGRID
 :allow-uri-read: 
@@ -11,14 +11,14 @@ summary: ${post_edited_translations.segment}
 
 
 [role="lead"]
-${post_edited_translations.segment}
+Si permites que un inquilino de S3 utilice los servicios de la plataforma, debes configurar la red para garantizar que los mensajes de los servicios de la plataforma puedan entregarse a sus destinos.
 
 Puedes habilitar los servicios de plataforma para una cuenta de inquilino de S3 cuando crees o actualices la cuenta de inquilino. Si los servicios de plataforma están habilitados, el inquilino puede crear puntos de conexión que sirvan como destino para la replicación de CloudMirror, las notificaciones de eventos o los mensajes de integración de búsqueda de sus buckets de S3. Estos mensajes de servicios de plataforma se envían desde los nodos de almacenamiento que ejecutan el servicio ADC a los puntos de conexión de destino.
 
 Por ejemplo, los inquilinos podrían configurar los siguientes tipos de puntos finales de destino:
 
-* ${post_edited_translations.segment}
-* ${post_edited_translations.segment}
+* Un clúster de Elasticsearch alojado localmente
+* Una aplicación local que permite recibir mensajes de Amazon Simple Notification Service
 * Un clúster de Kafka alojado localmente
 * Un endpoint de webhook externo o alojado localmente que admite solicitudes de notificación HTTP POST.
 +
@@ -34,10 +34,10 @@ De forma predeterminada, los mensajes de los servicios de la plataforma se enví
 
 * *80*: Para los URI de puntos finales que comienzan por http (la mayoría de los puntos finales)
 * *443*: Para los URI de puntos finales que comienzan con https (la mayoría de los puntos finales)
-* ${post_edited_translations.segment}
+* *9092*: Para los URI de endpoint que comienzan con http o https (solo endpoints de Kafka)
 
 
-${post_edited_translations.segment}
+Los usuarios pueden especificar un puerto diferente cuando crean o editan un endpoint.
 
 
 NOTE: Si se utiliza una implementación de StorageGRID como destino para la replicación de CloudMirror, es posible que los mensajes de replicación se reciban en un puerto que no sea el 80 o el 443. Asegúrate de que el puerto que utiliza la implementación de StorageGRID de destino para S3 esté especificado en el endpoint.

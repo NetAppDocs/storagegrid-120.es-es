@@ -15,7 +15,7 @@ Puedes añadir redundancia o capacidades adicionales a un sistema StorageGRID ag
 
 Por ejemplo, puedes optar por añadir nodos de puerta de enlace para utilizarlos en un grupo de alta disponibilidad (HA), o bien añadir un nodo de administración en una sede remota para permitir la supervisión mediante un nodo local.
 
-${post_edited_translations.segment}
+Puedes añadir uno o varios de los siguientes tipos de nodos a uno o varios sitios existentes en una única operación de ampliación:
 
 * Nodos de administración no primarios
 * Nodos de almacenamiento

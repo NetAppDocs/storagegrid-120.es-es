@@ -11,7 +11,7 @@ summary: Puedes supervisar la información básica de todas las conexiones de la
 
 
 [role="lead"]
-Puedes supervisar información básica sobre todas link:../admin/grid-federation-overview.html["${post_edited_translations.segment}"], información detallada sobre una conexión concreta o métricas de Prometheus sobre las operaciones de replicación entre grids. Puedes supervisar una conexión desde cualquiera de los dos grids.
+Puedes supervisar información básica sobre todas link:../admin/grid-federation-overview.html["conexiones de federación de grid"], información detallada sobre una conexión concreta o métricas de Prometheus sobre las operaciones de replicación entre grids. Puedes supervisar una conexión desde cualquiera de los dos grids.
 
 .Antes de empezar
 * Has iniciado sesión en el Grid Manager de cualquiera de las dos grids usando un link:../admin/web-browser-requirements.html["navegador web compatible"].
@@ -50,7 +50,7 @@ Desde esta pestaña, puedes:
 ** link:../monitor/monitoring-tenant-activity.html["Consulta la página de detalles de cada inquilino permitido"].
 ** Consulta la página de detalles de cada conexión. Consulta <<view-specific-connection,Ver una conexión concreta>>.
 ** Selecciona un inquilino autorizado y link:../admin/grid-federation-manage-tenants.html["eliminar el permiso"].
-** Comprueba si hay errores de replicación entre redes y elimina el último error, si lo hay. Consulta link:../admin/grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+** Comprueba si hay errores de replicación entre redes y elimina el último error, si lo hay. Consulta link:../admin/grid-federation-troubleshoot.html["Solucionar errores de federación de grid"].
 +
 image:grid-federation-permitted-tenants-tab.png["Pestaña de inquilinos permitidos de grid federation"]
 
@@ -82,7 +82,7 @@ Desde esta pestaña, puedes:
 +
 ** link:../monitor/monitoring-tenant-activity.html["Consulta la página de detalles de cada inquilino permitido"].
 ** link:../admin/grid-federation-manage-tenants.html["Quitar el permiso a un inquilino"] para usar la conexión.
-** Comprueba si hay errores de replicación entre grids y elimina el último error. Consulta link:../admin/grid-federation-troubleshoot.html["${post_edited_translations.segment}"].
+** Comprueba si hay errores de replicación entre grids y elimina el último error. Consulta link:../admin/grid-federation-troubleshoot.html["Solucionar errores de federación de grid"].
 +
 image:grid-federation-permitted-tenants-tab-for-connection.png["pestaña de arrendatarios permitidos por la federación de grid para la conexión"]
 

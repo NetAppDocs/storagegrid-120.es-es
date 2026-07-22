@@ -22,11 +22,11 @@ NOTE: No puedes usar CloudMirror en un bucket replicado por replicación entre g
 
 
  a| 
-${post_edited_translations.segment}
+¿Cuál es el objetivo principal?
  a| 
 Un sistema StorageGRID actúa como sistema de recuperación ante desastres. Los objetos de un bucket pueden replicarse entre las grids en una o en ambas direcciones.
  a| 
-${post_edited_translations.segment}
+Permite a un inquilino replicar automáticamente objetos desde un bucket en StorageGRID (origen) a un bucket externo de S3 (destino).
 
 La replicación CloudMirror crea una copia independiente de un objeto en una infraestructura S3 independiente. Esta copia independiente no se utiliza como copia de backup, sino que a menudo se procesa posteriormente en la nube.
 
@@ -51,7 +51,7 @@ La replicación CloudMirror crea una copia independiente de un objeto en una inf
 ¿Quién se encarga de configurarlo?
  a| 
 * Un administrador de grid configura la conexión y los tenants.
-* ${post_edited_translations.segment}
+* Los usuarios del tenant configuran los grupos, los usuarios, las claves y los buckets.
 
  a| 
 Normalmente, un usuario arrendatario.
@@ -59,12 +59,12 @@ Normalmente, un usuario arrendatario.
 
 
  a| 
-${post_edited_translations.segment}
+¿Cuál es el destino?
  a| 
 Un bucket S3 correspondiente e idéntico en el otro sistema StorageGRID en la conexión de la federación de la grid.
  a| 
 * Cualquier infraestructura S3 compatible (incluido Amazon S3).
-* ${post_edited_translations.segment}
+* Google Cloud Platform (GCP)
 
 
 
@@ -72,7 +72,7 @@ Un bucket S3 correspondiente e idéntico en el otro sistema StorageGRID en la co
  a| 
 ¿Es necesario el control de versiones de los objetos?
  a| 
-${post_edited_translations.segment}
+Sí, tanto el bucket de origen como el de destino deben tener activado el versionado de objetos.
  a| 
 No, la replicación de CloudMirror admite cualquier combinación de depósitos sin versionar y versionados, tanto en el origen como en el destino.
 
@@ -99,14 +99,14 @@ CloudMirror replication no requiere buckets con control de versiones habilitado,
  a| 
 ¿Y si un objeto no se puede replicar?
  a| 
-${post_edited_translations.segment}
+El objeto está en cola para replicación, sujeto a los límites de almacenamiento de metadatos.
  a| 
 El objeto se ha puesto en cola para su replicación, dentro de los límites de los servicios de la plataforma (véase link:manage-platform-services-for-tenants.html["Recomendaciones para usar los servicios de la plataforma"]).
 
 
 
  a| 
-${post_edited_translations.segment}
+¿Se replican los metadatos del sistema del objeto?
  a| 
 Sí, cuando un objeto se replica en el otro grid, sus metadatos del sistema también se replican. Los metadatos serán idénticos en ambos grids.
  a| 
@@ -117,7 +117,7 @@ No, cuando un objeto se replica en el depósito externo, se actualizan sus metad
  a| 
 ¿Cómo se recuperan los objetos?
  a| 
-${post_edited_translations.segment}
+Las aplicaciones pueden recuperar o leer objetos haciendo una solicitud al bucket en cualquiera de los dos grids.
  a| 
 Las aplicaciones pueden recuperar o leer objetos enviando una solicitud a StorageGRID o al destino S3. Por ejemplo, supón que usas la replicación de CloudMirror para duplicar objetos en una organización asociada. La organización asociada puede usar sus propias aplicaciones para leer o actualizar objetos directamente desde el destino S3. No es necesario usar StorageGRID.
 
@@ -128,7 +128,7 @@ Las aplicaciones pueden recuperar o leer objetos enviando una solicitud a Storag
  a| 
 * Las solicitudes de eliminación que incluyen un identificador de versión nunca se replican en el grid de destino.
 * Las solicitudes de eliminación que no incluyan un identificador de versión añaden un marcador de eliminación al bucket de origen, que opcionalmente puede replicarse en el grid de destino.
-* ${post_edited_translations.segment}
+* Si la replicación entre grids está configurada solo en una dirección, los objetos en el bucket de destino pueden eliminarse sin afectar al origen.
 
  a| 
 Los resultados variarán en función del estado de las versiones de los buckets de origen y destino (que no tienen por qué ser iguales):

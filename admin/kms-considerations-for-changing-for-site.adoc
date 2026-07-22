@@ -35,9 +35,9 @@ image:kms_copied_key.png["Clave copiada de KMS"]
 
 
 [[use-cases-for-changing-which-kms-is-used-for-a-site]]
-== ${post_edited_translations.segment}
+== Casos de uso para cambiar el KMS que se utiliza en un sitio
 
-${post_edited_translations.segment}
+La tabla resume los pasos necesarios para los casos más comunes al cambiar el KMS de un sitio.
 
 [cols="1a,2a"]
 |===
@@ -45,7 +45,7 @@ ${post_edited_translations.segment}
 
 
  a| 
-${post_edited_translations.segment}
+Tienes una o varias entradas de KMS específicas de cada sitio y quieres usar una de ellas como KMS predeterminado.
  a| 
 Edita el KMS específico del sitio. En el campo *Gestiona claves para*, selecciona *Sitios no gestionados por otro KMS (KMS predeterminado)*. El KMS específico del sitio se usará ahora como el KMS predeterminado. Se aplicará a cualquier sitio que no tenga un KMS dedicado.
 

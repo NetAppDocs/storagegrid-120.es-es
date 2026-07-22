@@ -16,7 +16,7 @@ Puedes realizar tareas de administración de sistemas utilizando la API de REST 
 La API de gestión de inquilinos:
 
 * Utiliza la plataforma de API de código abierto Swagger. Swagger ofrece una interfaz de usuario intuitiva que permite tanto a desarrolladores como a usuarios sin conocimientos de programación interactuar con la API. La interfaz de usuario de Swagger proporciona información detallada y documentación completa sobre cada operación de la API.
-* Utiliza link:tenant-management-api-versioning.html["${post_edited_translations.segment}"].
+* Utiliza link:tenant-management-api-versioning.html["control de versiones para permitir actualizaciones sin interrupciones"].
 
 
 Para acceder a la documentación de Swagger de la API de gestión de inquilinos:
@@ -28,7 +28,7 @@ Para acceder a la documentación de Swagger de la API de gestión de inquilinos:
 
 
 [[api-operations]]
-== ${post_edited_translations.segment}
+== Operaciones de la API
 
 La API de gestión de inquilinos organiza las operaciones de la API disponibles en las siguientes secciones:
 
@@ -46,7 +46,7 @@ NOTE: Si el inicio de sesión único (SSO) está habilitado para el sistema Stor
 
 * *config*: Operaciones relacionadas con el lanzamiento del producto y las versiones de la Tenant Management API. Puedes consultar la versión de lanzamiento del producto y las versiones principales de la API compatibles con dicho lanzamiento.
 * *contenedores*: Operaciones en buckets de S3.
-* ${post_edited_translations.segment}
+* *funciones-desactivadas*: Operaciones para ver funciones que podrían haberse desactivado.
 * *puntos finales*: Operaciones para gestionar un punto final. Los puntos finales permiten que un bucket de S3 utilice un servicio externo para la replicación de StorageGRID CloudMirror, notificaciones o integración de búsqueda.
 * *grid-federation-connections*: Operaciones en conexiones de federación de grid y replicación entre grids.
 * *grupos*: Operaciones para gestionar grupos de inquilinos locales y para recuperar grupos de inquilinos federados desde una fuente de identidad externa.
@@ -79,7 +79,7 @@ CAUTION: Cualquier operación de la API que realices a través de la página web
 . Selecciona la acción HTTP para ver los detalles de la solicitud.
 . Comprueba si la solicitud requiere parámetros adicionales, como un ID de grupo o de usuario. Luego, obtén estos valores. Puede que primero tengas que enviar otra solicitud a la API para obtener la información que necesitas.
 . Comprueba si es necesario modificar el cuerpo de la solicitud de ejemplo. Si es así, puedes seleccionar *Modelo* para conocer los requisitos de cada campo.
-. ${post_edited_translations.segment}
+. Selecciona *Pruébalo*.
 . Introduce los parámetros necesarios o modifica el cuerpo de la solicitud según sea necesario.
 . Selecciona *Ejecutar*.
 . Revisa el código de respuesta para determinar si la solicitud fue exitosa.
