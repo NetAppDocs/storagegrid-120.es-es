@@ -15,7 +15,7 @@ El sistema StorageGRID admite un máximo de 5,000 buckets por cada cuenta de inq
 
 Cada grid puede tener un máximo de 100,000 buckets.
 
-Para poder alojar 5,000 buckets, cada Storage Node en la grid debe contar con un mínimo de 64 GB de RAM.
+Si varios tenants tienen hasta 5,000 buckets cada uno, cada Storage Node en el grid debe tener un mínimo de 64 GB de RAM.
 
 Las restricciones relativas a los nombres de los buckets se ajustan a las de la región estándar de EE. UU. de AWS, pero deberías restringirlos aún más para que se ajusten a las convenciones de nomenclatura de DNS y así admitir solicitudes de S3 de tipo virtual hosted-style.
 
@@ -285,7 +285,7 @@ StorageGRID no admite estas acciones:
 * Transición
 
 
-Consulta link:create-s3-lifecycle-configuration.html["Crear configuración del ciclo de vida de S3"]. Para entender cómo la acción de Caducidad en el ciclo de vida de un bucket interactúa con las instrucciones de ubicación de ILM, consulta link:../ilm/how-ilm-operates-throughout-objects-life.html["Cómo funciona ILM a lo largo de la vida de un objeto"].
+Consulta link:create-s3-lifecycle-configuration.html["Crear configuración del ciclo de vida de S3"]. Para entender cómo la acción de caducidad en el ciclo de vida de un bucket interactúa con las instrucciones de ubicación de ILM, consulta link:../ilm/how-ilm-operates-throughout-objects-life.html["Cómo funciona ILM a lo largo de la vida de un objeto"].
 
 *Nota*: La configuración del ciclo de vida de los buckets se puede utilizar con buckets que tengan habilitado S3 Object Lock, pero la configuración del ciclo de vida de los buckets no es compatible con los buckets Compliant heredados.
 
@@ -336,7 +336,7 @@ no incluido
  a| 
 PutBucketPolicy
  a| 
-Establece la política asociada al depósito. Véase link:use-access-policies.html["Usa políticas de acceso a buckets y de grupo"].
+Establece la política asociada al depósito. Consulta link:use-access-policies.html["Usa políticas de acceso a buckets y de grupo"].
 
 
 

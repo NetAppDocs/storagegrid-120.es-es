@@ -315,6 +315,21 @@ Las solicitudes de Cloud Storage Pools se envían a destinos de AWS que usan HTT
 
 
  a| 
+636
+ a| 
+TCP/ UDP
+ a| 
+LDAP
+ a| 
+Nodos de almacenamiento con ADC
+ a| 
+Active Directory/LDAP
+ a| 
+Se utiliza para conectarse a un servidor de Active Directory o LDAP para la federación de identidades.
+
+
+
+ a| 
 5353
  a| 
 UDP

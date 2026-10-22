@@ -151,9 +151,6 @@ La grid StorageGRID ya se ha apagado.
 [[start-up-grid-nodes]]
 == Iniciar los nodos de la red
 
-
-CAUTION: Si toda la grid ha estado inactiva durante más de 15 días, debes ponerte en contacto con soporte técnico antes de poner en marcha cualquier nodo de la grid. No intentes los procedimientos de recuperación que reconstruyen los datos de Cassandra. Hacerlo podría provocar la pérdida de datos.
-
 Si es posible, enciende los nodos de la red en este orden:
 
 * Enciende primero los nodos de administración.

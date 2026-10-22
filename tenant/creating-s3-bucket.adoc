@@ -21,10 +21,10 @@ Puedes utilizar el Tenant Manager para crear buckets de S3 para datos de objetos
 NOTE: Los permisos para establecer o modificar las propiedades de S3 Object Lock de buckets u objetos se pueden conceder mediante link:../s3/use-access-policies.html["política de bucket o política de grupo"].
 
 * Si tienes previsto habilitar S3 Object Lock para un bucket, un administrador de la grid ha habilitado la configuración global de S3 Object Lock para el sistema StorageGRID y has revisado los requisitos para los buckets y objetos de S3 Object Lock.
-* Si cada inquilino va a tener 5,000 buckets, cada Storage Node en la grid tiene un mínimo de 64 GB de RAM.
+* Si hay varios inquilinos y cada uno de ellos tiene hasta 5,000 buckets, cada nodo de almacenamiento en el grid tiene un mínimo de 64 GB de RAM.
 +
 
-NOTE: Cada grid puede tener un máximo de 100,000 buckets, incluyendo link:../tenant/what-is-branch-bucket.html["cubos de rama"].
+NOTE: El sistema StorageGRID admite un máximo de 5,000 buckets por cada cuenta de inquilino de S3. Cada grid puede tener un máximo de 100,000 buckets, incluyendo link:../tenant/what-is-branch-bucket.html["cubos de rama"]. También hay un límite para link:../tenant/manage-branch-buckets.html["profundidad del bucket de la rama"].
 
 
 
@@ -63,7 +63,7 @@ Un nombre para el bucket que cumpla estas reglas:
 ** No debe contener puntos en las solicitudes de tipo virtual hosted style. Los puntos provocarán problemas con la verificación del certificado comodín del servidor.
 
 
-Para más información, consulta el https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["Documentación de Amazon Web Services (AWS) sobre las reglas de nomenclatura de los buckets"^].
+Para obtener más información, consulta la https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["Documentación de Amazon Web Services (AWS) sobre las reglas de nomenclatura de los buckets"^].
 
 *Nota*: No puedes cambiar el nombre del bucket después de crearlo.
 
